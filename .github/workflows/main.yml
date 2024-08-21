@@ -85,15 +85,15 @@ jobs:
       - name: Deploy to Development
         if: github.ref == 'refs/heads/development'
         env:
-          PRIVATE_KEY: ${{ secrets.ATL2_PRIVATE_KEY }}
-          HOSTNAME: ${{ secrets.ATL2_HOSTNAME }}
+          PRIVATE_KEY: ${{ secrets.IMG_PRIVATE_KEY }}
+          HOSTNAME: ${{ secrets.IMG_HOSTNAME }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
-          scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.ATL2_HOSTNAME }}:/tmp/aim_fe_build
-          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.ATL2_HOSTNAME }} '
-            sudo rm -rf /var/www/html/aim_fe/build &&
-            sudo mv /tmp/aim_fe_build /var/www/html/aim_fe/build &&
-            cd /var/www/html/aim_fe &&
+          scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.IMG_HOSTNAME }}:/tmp/img_fe_build
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.IMG_HOSTNAME }} '
+            sudo rm -rf /var/www/html/img_fe/build &&
+            sudo mv /tmp/img_fe_build /var/www/html/img_fe/build &&
+            cd /var/www/html/img_fe &&
             sudo git fetch origin &&
             sudo git checkout development &&
             sudo git pull origin development '
