@@ -31,6 +31,7 @@ import FirstPage from "../RegPage/FirstPage";
 import LoginPage from "../RegPage/LoginPage";
 import LogInTeacher from "../Teacher/LogInTeacher";
 import AtlPage from "../RegPage/AtlPage";
+import Studentpage from "../RegPage/student";
 import AdminLogin from "../Admin/AdminLogin";
 import StateLogin from "../Coordinators/LogInNew";
 import "../i18n";
@@ -126,7 +127,7 @@ const AllRoutes = () => {
 
         <Route path="/" exact={true} element={<MyComponent />} />
         <Route path="/">
-          <Route path="/registration" element={<AtlPage />} />
+          <Route path="/registration" element={<Studentpage />} />
           <Route path="/login" element={<LoginPage />} />
           {/* <Route path="/atl-register" element={<AtlPage />} /> */}
           <Route path="/atl-success" element={<AtlSucess />} />

@@ -68,6 +68,12 @@ const EmployeesGrid = () => {
   }, [teamsMembersStatus]);
 
   useEffect(() => {
+   if(studentCount.length > 0){
+    handleStudent(studentCount[0]);
+   }
+}, [studentCount]);
+  
+  useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));
       //dispatch(getStudentChallengeSubmittedResponse(teamId));
