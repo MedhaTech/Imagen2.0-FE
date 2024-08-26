@@ -11,12 +11,12 @@ $font-weight-bold: 700;
 $font-weight-bolder: bolder;
 
 // Font Family
-$font-family-primary: 'Nunito', sans-serif;
+$font-family-primary: 'Lato', sans-serif;
 $font-family-secondary: "Poppins", sans-serif;
 $font-awesome: "Fontawesome";
 	
 // Theme Colors Variables
-$primary: #FF9F43;
+$primary: #0e4b99;
 $primary-hover: darken($primary, 10%);
 $secondary: #092C4C;
 $secondary-hover: darken($secondary, 10%);
@@ -24,7 +24,7 @@ $success: #28C76F;
 $success-hover: darken($success, 10%);
 $info: #17a2b8;
 $info-hover: darken($info, 10%);
-$warning: #FF9900;
+$warning: #0e4b99;
 $warning-hover: darken($warning, 10%);
 $danger: #FF0000;
 $danger-hover: darken($danger, 10%);

@@ -24,7 +24,7 @@ const Appearance = () => {
     { value: "large", label: "Large - 250px" },
   ];
   const fonts = [
-    { value: "Nunito", label: "Nunito" },
+    { value: "Lato", label: "Lato" },
     { value: "Poppins", label: "Poppins" },
   ];
 

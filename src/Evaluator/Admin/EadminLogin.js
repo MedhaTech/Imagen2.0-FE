@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/img/new-logo.png";
+import logo from "../../assets/img/logo.png";
 import email from "../../assets/img/icons/mail.svg";
 // import { openNotificationWithIcon } from "../../helpers/Utils";
 import { evaluatorAdminLoginUser } from "../../redux/actions";
@@ -98,7 +98,7 @@ const StateLogin = (props) => {
                 <div className="login-userheading">
                   <h3>Evaluator Eadmin Login</h3>
                   {/* <h4>
-                    Access the Dreamspos panel using your email and passcode.
+                    Access the EAdmin panel using your email and passcode.
                   </h4> */}
                 </div>
                 <div className="form-login mb-3">

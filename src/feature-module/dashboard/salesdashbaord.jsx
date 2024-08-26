@@ -48,7 +48,7 @@ const SalesDashbaord = () => {
         enabled: false,
       },
     },
-    colors: ["#FF9F43"],
+    colors: ["#0e4b99"],
     dataLabels: {
       enabled: false,
     },

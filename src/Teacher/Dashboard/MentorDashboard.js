@@ -426,7 +426,7 @@ const MentorDashboard = () => {
                 &nbsp;Hi {currentUser?.data[0]?.full_name},
               </h3>
               &nbsp;
-              <h6>here&apos;s what&apos;s happening with your School Innovation Marathon 2024 journey.</h6>
+              <h6>here&apos;s what&apos;s happening with your Youth for Social Impact 2024 journey.</h6>
             </div>
             <div className="d-flex align-items-center">
               <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>

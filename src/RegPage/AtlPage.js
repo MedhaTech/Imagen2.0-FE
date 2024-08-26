@@ -14,7 +14,7 @@ import { decryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/new-logo.png";
+import logo from "../assets/img/logo.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import user from "../assets/img/icons/user-icon.svg";
 import play from "../assets/img/playicon.png";

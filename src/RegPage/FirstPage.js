@@ -4,7 +4,7 @@ import React from "react";
 import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/new-logo.png";
+import logo from "../assets/img/logo.png";
 import { Row } from "reactstrap";
 import { ArrowRight } from "feather-icons-react";
 const FirstPage = () => {

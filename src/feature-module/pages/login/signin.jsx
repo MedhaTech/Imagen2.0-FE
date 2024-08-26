@@ -25,9 +25,9 @@ const Signin = () => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link>
                 <div className="login-userheading">
-                  <h3> Unisolve Sign In</h3>
+                  <h3> Sign In</h3>
                   <h4>
-                    Access the Dreamspos panel using your email and passcode.
+                    Access the panel using your email and passcode.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
@@ -118,7 +118,7 @@ const Signin = () => {
                     </li>
                   </ul>
                   <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
+                    <p>Copyright © 2024 <b>ImaGen Ventures.</b> All rights reserved</p>
                   </div>
                 </div>
               </div>

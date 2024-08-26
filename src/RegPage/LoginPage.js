@@ -4,7 +4,7 @@ import React from "react";
 import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/new-logo.png";
+import logo from "../assets/img/logo.png";
 import { Row } from "reactstrap";
 import { ArrowRight } from "feather-icons-react";
 const LoginPage = () => {
@@ -28,7 +28,7 @@ const LoginPage = () => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading text-center">
-                  <h3> School Innovation Marathon</h3>
+                  <h3> Youth for Social Impact 2024</h3>
                   <h4>Login As ?</h4>
                 </div>
                 <div className="form-login mb-3">

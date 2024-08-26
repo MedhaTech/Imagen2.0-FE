@@ -2,7 +2,7 @@
   border: 0;
   border-radius: 4px;
   cursor: pointer;
-  font-family: Nunito, sans-serif;
+  font-family: Lato, sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 22px;
@@ -20,8 +20,8 @@
 }
 .storybook-button--primary {
   color: #ffffff;
-  background-color: #ff9f43;
-  border: 1px solid #ff9f43;
+  background-color: #0e4b99;
+  border: 1px solid #0e4b99;
 }
 .storybook-button--primary-outline {
   color: #ffffff;

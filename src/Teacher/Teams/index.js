@@ -219,7 +219,7 @@ const Dashboard = (props) => {
 
       {
         name: <b style={{color:"crimson"}}>#Stu</b>,
-        selector: (row) => <span style={{width:"15px",height:"15px",alignItems:"center",background:"#FF9F43",borderRadius:"50%",color:"white",display:"flex",justifyContent:"center"}}>{row.StudentCount}</span>,
+        selector: (row) => <span style={{width:"15px",height:"15px",alignItems:"center",background:"#0e4b99",borderRadius:"50%",color:"white",display:"flex",justifyContent:"center"}}>{row.StudentCount}</span>,
         width: "18%"
       },
       {

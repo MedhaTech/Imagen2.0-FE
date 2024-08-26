@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/new-logo.png";
+import logo from "../assets/img/logo.png";
 // import email from "../assets/img/icons/mail.svg";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { coordinatorLoginUser } from "../Coordinators/store/Coordinator/actions";
@@ -104,9 +104,6 @@ const StateLogin = (props) => {
                 </Link> */}
                 <div className="login-userheading">
                   <h3>State Coordinator Login</h3>
-                  {/* <h4>
-                    Access the Dreamspos panel using your email and passcode.
-                  </h4> */}
                 </div>
                 <div className="form-login mb-3">
                   <label className="form-label">State Name</label>

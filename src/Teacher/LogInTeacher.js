@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
-import logo from "../assets/img/new-logo.png";
+import logo from "../assets/img/logo.png";
 import email from "../assets/img/icons/mail.svg";
 import { teacherLoginUser } from "../redux/actions";
 import { connect } from "react-redux";
@@ -216,7 +216,7 @@ const LogInTeacher = (props) => {
                     </li>
                   </ul>
                   <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
+                    <p>Copyright © 2024 <b>ImaGen Ventures.</b> All rights reserved</p>
                   </div>
                 </div> */}
               </div>

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
-import logo from "../assets/img/new-logo.png";
+import logo from "../assets/img/logo.png";
 import user from "../assets/img/icons/user-icon.svg";
 import { teamloginUser } from "../redux/actions";
 import { connect } from "react-redux";
@@ -90,12 +90,12 @@ const LogInTeam = (props) => {
                 </div>
                
                 <div className="login-userheading">
-                  <h3> Team Login</h3>
+                  <h3> Student Login</h3>
                   {/* <h3>
                    Student Team Journey coming soon ...
                   </h3> */}
                   <h4>
-                    Access the Team panel using your Team ID and password.
+                    Access the Student panel using your credentails.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
@@ -176,7 +176,7 @@ const LogInTeam = (props) => {
                 
                 
                   <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
+                    <p>Copyright © 2024 <b>ImaGen Ventures.</b> All rights reserved</p>
                   </div>
                  
               </div>

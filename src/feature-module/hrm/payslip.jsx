@@ -141,7 +141,7 @@ const Payslip = () => {
                                                             </div>
                                                         </div>
                                                         <div className="product-name-slip text-center">
-                                                            <h4>DreamsPOS</h4>
+                                                            <h4>IMG</h4>
                                                             <p>
                                                                 81, Randall Drive,Hornchurch <br />
                                                                 RM126TA.

@@ -86,7 +86,7 @@ const ForgotpasswordThree = () => {
               </form>
             </div>
             <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-              <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
+              <p>Copyright © 2024 <b>ImaGen Ventures.</b> All rights reserved</p>
             </div>
           </div>
         </div>

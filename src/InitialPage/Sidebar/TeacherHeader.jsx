@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
-import logo from "../../assets/img/new-logo.png";
+import logo from "../../assets/img/logo.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
