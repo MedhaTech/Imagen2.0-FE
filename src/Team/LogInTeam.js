@@ -20,7 +20,7 @@ const LogInTeam = (props) => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const inputUserId = {
     type: "text",
-    placeholder: "Please Enter Team ID",
+    placeholder: "Please Enter Email ID",
   };
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
@@ -99,7 +99,7 @@ const LogInTeam = (props) => {
                   </h4>
                 </div>
                 <div className="form-login mb-3">
-                  <label className="form-label">Team ID</label>
+                  <label className="form-label">Enter Email ID</label>
                   <div className="form-addons">
                     <input
                       {...inputUserId}
