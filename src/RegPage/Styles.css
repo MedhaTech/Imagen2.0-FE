@@ -1,0 +1,44 @@
+.circle_base {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: solid;
+    border-color: #7987a1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7987a1;
+    /* Text color inside the circle */
+    font-size: 1rem;
+    /* Adjust the size of the letter 'r' */
+    font-weight: bold;
+    /* Optional: make the letter bold */
+    text-align: center;
+
+}
+.complete_color{
+    color :#10b759
+}
+.current_color{
+    color :#0168fa
+}
+.complete {
+    background-color: #10b759;
+    border-color: #10b759;
+    color: #fff
+}
+.current {
+    background-color: #0168fa;
+    border-color: #0168fa;
+    color: #fff
+}
+.second_text{
+    color: #8392a5;
+    font-size:0.8rem
+}
+.headertitle{
+    margin: 0.5rem;
+    font-size: 1.3rem;
+    color: #000000;
+    font-weight: 900;
+}

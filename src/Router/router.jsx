@@ -48,6 +48,13 @@ import EadminSidebar from "../InitialPage/Sidebar/eadminSidebar";
 import LogInTeam from "../Team/LogInTeam";
 import TeacherPSW from "../Teacher/forgotPass";
 import CollapsedSidebar from "../InitialPage/Sidebar/collapsedSidebar";
+import RegInstruction from "../RegPage/RegInstruction";
+import PilotReg from "../RegPage/PilotReg";
+import RegSuccess from "../RegPage/RegSuccess";
+import Crew1Reg from "../RegPage/Crew1Reg";
+import Crew2Reg from "../RegPage/Crew2Reg";
+import Crew3Reg from "../RegPage/Crew3Reg";
+
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
   const HeaderLayout = () => (
@@ -127,12 +134,11 @@ const AllRoutes = () => {
 
         <Route path="/" exact={true} element={<MyComponent />} />
         <Route path="/">
-          <Route path="/registration" element={<Studentpage />} />
+          <Route path="/registration" element={<RegInstruction />} />
           <Route path="/login" element={<LoginPage />} />
           {/* <Route path="/atl-register" element={<AtlPage />} /> */}
           <Route path="/atl-success" element={<AtlSucess />} />
           <Route path="/non-atl-success" element={<NonAtlSuccess />} />
-
           <Route path="/non-atl-register" element={<NonAtlPage />} />
           <Route path="/teacher-forgot-psw" element={<TeacherPSW />} />
           <Route path="/admin" element={<AdminLogin />} />
@@ -140,6 +146,12 @@ const AllRoutes = () => {
           <Route path="/eadmin" element={<EadminLogin />} />
           <Route path="/team" element={<LogInTeam />} />
           <Route path="/teacher" element={<LogInTeacher />} />
+          {/* student register */}
+          <Route path="/pilotReg" element={<PilotReg />} />
+          <Route path="/crew1Reg" element={<Crew1Reg />} />
+          <Route path="/crew2Reg" element={<Crew2Reg />} />
+          <Route path="/crew3Reg" element={<Crew3Reg />} />
+          <Route path="/regSuccess" element={<RegSuccess />} />
         </Route>
         <Route path="/" element={<HeaderLayout />}>
           {publicRoutes.map((route, id) => (
