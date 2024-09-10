@@ -28,8 +28,8 @@ const ProtectedRoute = ({ children, user }) => {
       return <Navigate to="/eadmin" />;
     } else if (user.includes("INSTITUTION")) {
       return <Navigate to="/institution" />;
-    // } else if (user.includes("STUDENT")) {
-    //   return <Navigate to="/login" />;
+    } else if (user.includes("STUDENT")) {
+      return <Navigate to="/student" />;
     } else if (user.includes("TEAM")) {
       return <Navigate to="/team" />;
     } else if (user.includes("EVALUATOR")) {

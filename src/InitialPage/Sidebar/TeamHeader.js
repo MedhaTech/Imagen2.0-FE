@@ -57,11 +57,11 @@ const Header = () => {
 
   const navigate = useNavigate();
   const handleLogout = (e) => {
-    logout(navigate, t, "TEAM");
+    logout(navigate, t, "STUDENT");
     e.preventDefault();
   };
   const handleLogout1 = (e) => {
-    logout(navigate, t, "TEAM");
+    logout(navigate, t, "STUDENT");
     e.preventDefault();
   };
   useEffect(() => {

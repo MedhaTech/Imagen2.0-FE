@@ -144,7 +144,7 @@ const AllRoutes = () => {
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/state" element={<StateLogin />} />
           <Route path="/eadmin" element={<EadminLogin />} />
-          <Route path="/team" element={<LogInTeam />} />
+          <Route path="/student" element={<LogInTeam />} />
           <Route path="/teacher" element={<LogInTeacher />} />
           {/* student register */}
           <Route path="/pilotReg" element={<PilotReg />} />

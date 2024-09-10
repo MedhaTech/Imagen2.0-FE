@@ -51,7 +51,7 @@ const LoginPage = () => {
                         <button
                           type="button"
                           className="btn btn-warning m-2"
-                          onClick={() => navigate("/team")}
+                          onClick={() => navigate("/student")}
                         >
                           Student Team Login
                           <span>
