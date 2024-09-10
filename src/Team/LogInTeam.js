@@ -9,7 +9,7 @@ import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import logo from "../assets/img/logo.png";
 import user from "../assets/img/icons/user-icon.svg";
-import { teamloginUser } from "../redux/actions";
+import { loginUser } from "../redux/actions";
 import { connect } from "react-redux";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { useNavigate } from "react-router-dom";
@@ -67,7 +67,7 @@ const LogInTeam = (props) => {
         password: encrypted,
         // role: "TEAM",
       };
-      props.teamLoginUserAction(body, navigate, "TEAM");
+      props.LoginUserAction(body, navigate, "STUDENT");
     },
   });
   const handleLogoClick = () => {
@@ -166,8 +166,8 @@ const LogInTeam = (props) => {
                 </div>
                 <div className="signinform">
                   <h4>
-                    Not a Team ?
-                    <Link className="hover-a" to={"/login"}>
+                  Not Yet Registered ? 
+                    <Link className="hover-a" to={"/registration"}>
                       {" "}
                       Click Here
                     </Link>
@@ -221,5 +221,5 @@ const mapStateToProps = ({ teamUser }) => {
 };
 
 export default connect(mapStateToProps, {
-  teamLoginUserAction: teamloginUser,
+  LoginUserAction: loginUser,
 })(LogInTeam);
