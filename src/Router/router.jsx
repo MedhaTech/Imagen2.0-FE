@@ -54,6 +54,7 @@ import RegSuccess from "../RegPage/RegSuccess";
 import Crew1Reg from "../RegPage/Crew1Reg";
 import Crew2Reg from "../RegPage/Crew2Reg";
 import Crew3Reg from "../RegPage/Crew3Reg";
+import InstitutionReg from "../RegPage/InstReg";
 
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
@@ -134,9 +135,9 @@ const AllRoutes = () => {
 
         <Route path="/" exact={true} element={<MyComponent />} />
         <Route path="/">
-          <Route path="/registration" element={<RegInstruction />} />
+          
           <Route path="/login" element={<LoginPage />} />
-          {/* <Route path="/atl-register" element={<AtlPage />} /> */}
+          <Route path="/institution" element={<InstitutionReg />} />
           <Route path="/atl-success" element={<AtlSucess />} />
           <Route path="/non-atl-success" element={<NonAtlSuccess />} />
           <Route path="/non-atl-register" element={<NonAtlPage />} />
@@ -147,6 +148,7 @@ const AllRoutes = () => {
           <Route path="/student" element={<LogInTeam />} />
           <Route path="/teacher" element={<LogInTeacher />} />
           {/* student register */}
+          <Route path="/registration" element={<RegInstruction />} />
           <Route path="/pilotReg" element={<PilotReg />} />
           <Route path="/crew1Reg" element={<Crew1Reg />} />
           <Route path="/crew2Reg" element={<Crew2Reg />} />

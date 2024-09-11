@@ -4,13 +4,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect } from "react";
-import ImageWithBasePath from "../core/img/imagewithbasebath";
+import ImageWithBasePath from "../core/img/imagewithbasebath.jsx";
 import { Link } from "react-router-dom";
 // import { all_routes } from "../../../Router/all_routes";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { decryptGlobal } from "../constants/encryptDecrypt";
+import { decryptGlobal } from "../constants/encryptDecrypt.js";
 import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +20,8 @@ import user from "../assets/img/icons/user-icon.svg";
 import play from "../assets/img/playicon.png";
 import copy from "../assets/img/copyrights.png";
 import { ArrowRight } from "feather-icons-react";
-import { stateList, districtList } from "./ORGData.js";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
+import { districtList, collegeType, collegeNameList } from './ORGData.js';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -62,7 +62,16 @@ const Register = () => {
   const [mentData, setMentData] = useState({});
   const [multiData, setMultiData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // console.log(isSubmitting,"click");
+  const [collegeNamesList, setCollegeNamesList] = useState([]);
+
+  const handleCollegeTypeChange = (event) => {
+    const collegeType = event.target.value;
+    formik.setFieldValue("college_type", collegeType);
+    formik.setFieldValue('college', '');
+    formik.setFieldValue('ocn', '');
+    setCollegeNamesList(collegeNameList[collegeType] || []);
+  };
+
 
   const normalizeStateName = (stateName) => {
     return stateName
@@ -126,11 +135,12 @@ const Register = () => {
       mobile: "",
       district: "",
       college: "",
-      rollnumber: "",
+      college_type: "",
       branch: "",
       yearofstudy: "",
       password: "",
-      confirmPassword : "",
+      confirmPassword: "",
+      ocn: ""
     },
 
     validationSchema: Yup.object({
@@ -144,7 +154,7 @@ const Register = () => {
           </span>
         )
         .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
-        email: Yup.string()
+      email: Yup.string()
         .email(
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
@@ -183,19 +193,13 @@ const Register = () => {
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select college</span>
       ),
-      rollnumber: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Roll Number</span>
-      ),
-      branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Branch</span>
-      ),
-      yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select yearofstudy</span>
+      college_type: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select college type</span>
       ),
       password: Yup.string().required(
         <span style={{ color: "red" }}>Please Select password</span>
       ),
-      confirmPassword : Yup.string().required(
+      confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Select confirmPassword</span>
       ),
     }),
@@ -205,31 +209,21 @@ const Register = () => {
       if (values.otp.length < 5) {
         setErrorMsg(true);
       } else {
-        var pass = values.email.trim();
-        var myArray = pass.split("@");
-        let newPassword = myArray[0];
-        if (values.password !== newPassword) {
-          setFieldValue("password", newPassword);
-        }
+
         const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
         const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
-        const encrypted = CryptoJS.AES.encrypt(newPassword, key, {
+        const encrypted = CryptoJS.AES.encrypt(values.confirmPassword, key, {
           iv: iv,
           padding: CryptoJS.pad.NoPadding,
         }).toString();
         const body = JSON.stringify({
           full_name: values.full_name.trim(),
-          organization_code: values.organization_code.trim(),
-          mobile: values.mobile.trim(),
-          whatapp_mobile: values.whatapp_mobile.trim(),
           username: values.email.trim(),
-          qualification: values.qualification.trim(),
-          role: values.role.trim(),
-          gender: values.gender,
-          title: values.title,
-          reg_status: values.reg_status,
+          mobile: values.mobile.trim(),
           district: values.district,
-          password: encrypted,
+          confirmPassword: encrypted,
+          college_type: values.college_type,
+          college_name: values.college === 'Other' ? values.ocn : values.college,
         });
         setMentorData(body);
 
@@ -248,9 +242,11 @@ const Register = () => {
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
               setMentData(mentorRegRes.data && mentorRegRes.data.data[0]);
-              setTimeout(() => {
-                apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
-              }, 3000);
+              navigate("/atl-success");
+              openNotificationWithIcon("success", "Email sent successfully");
+              // setTimeout(() => {
+              //   apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
+              // }, 3000);
             }
           })
           .catch((err) => {
@@ -276,41 +272,41 @@ const Register = () => {
     formik.setFieldValue("otp", "");
 
   }, [formik.values.email]);
-  async function apiCall(mentData) {
-    // Dice code list API //
-    // where list = diescode  //
-    const body = {
-      school_name: orgData.organization_name,
-      udise_code: orgData.organization_code,
-      district: formik.values.district,
-      state: orgData.state,
-      pin_code: orgData.pin_code,
-      email: mentData.username,
-      mobile: mentData.mobile,
-    };
+  // async function apiCall(mentData) {
+  //   // Dice code list API //
+  //   // where list = diescode  //
+  //   const body = {
+  //     school_name: orgData.organization_name,
+  //     udise_code: orgData.organization_code,
+  //     district: formik.values.district,
+  //     state: orgData.state,
+  //     pin_code: orgData.pin_code,
+  //     email: mentData.username,
+  //     mobile: mentData.mobile,
+  //   };
 
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-      },
-      data: JSON.stringify(body),
-    };
+  //   var config = {
+  //     method: "post",
+  //     url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+  //     },
+  //     data: JSON.stringify(body),
+  //   };
 
-    await axios(config)
-      .then(async function (response) {
-        if (response.status == 200) {
-          setButtonData(response?.data?.data[0]?.data);
-          navigate("/atl-success");
-          openNotificationWithIcon("success", "Email sent successfully");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  //   await axios(config)
+  //     .then(async function (response) {
+  //       if (response.status == 200) {
+  //         setButtonData(response?.data?.data[0]?.data);
+  //         navigate("/atl-success");
+  //         openNotificationWithIcon("success", "Email sent successfully");
+  //       }
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
   const handleCheckbox = (e, click) => {
     if (click) {
       setCheckBox(click);
@@ -422,12 +418,10 @@ const Register = () => {
       formik.values.mobile.length > 0 &&
       formik.values.district.length > 0 &&
       formik.values.college.length > 0 &&
-      formik.values.rollnumber.length > 0 &&
-      formik.values.branch.length > 0 &&
-      formik.values.yearofstudy.length > 0 &&
+      formik.values.college_type.length > 0 &&
       formik.values.password.length > 0 &&
-      formik.values.confirmPassword.length > 0 
-      
+      formik.values.confirmPassword.length > 0
+
     ) {
       setDisable(true);
     } else {
@@ -439,9 +433,7 @@ const Register = () => {
     formik.values.mobile,
     formik.values.district,
     formik.values.college,
-    formik.values.rollnumber,
-    formik.values.branch,
-    formik.values.yearofstudy,
+    formik.values.college_type,
     formik.values.password,
     formik.values.confirmPassword,
   ]);
@@ -601,29 +593,63 @@ const Register = () => {
                             ) : null}
                           </div>
 
-                          <div className="col-md-6">
-                            <label className="form-label" htmlFor="college">College Name</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="College"
+
+                          <div className={`col-md-6`}
+                          >
+                            <label
+                              htmlFor="college_type"
+                              className="form-label"
+                            >
+                              College Type
+                            </label>
+                            <select
+                              id="college_type"
+                              className="form-select"
+                              disabled={areInputsDisabled}
+                              name="college_type"
+                              value={formik.values.college_type}
+                              onBlur={formik.handleBlur}
+                              onChange={handleCollegeTypeChange}
+                            >
+                              <option value={""}>College Type</option>
+                              {collegeType.map((item) => (
+                                <option key={item} value={item}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                            {formik.touched.college_type &&
+                              formik.errors.college_type ? (
+                              <small className="error-cls">
+                                {formik.errors.college_type}
+                              </small>
+                            ) : null}
+                          </div>
+
+                          <div className={`col-md-6`}
+                          >
+                            <label
+                              htmlFor="college"
+                              className="form-label"
+                            >
+                              College Name
+                            </label>
+                            <select
                               id="college"
+                              className="form-select"
                               disabled={areInputsDisabled}
                               name="college"
-                              onChange={(e) => {
-                                const inputValue = e.target.value;
-                                const lettersOnly = inputValue.replace(
-                                  /[^a-zA-Z0-9 \s]/g,
-                                  ""
-                                );
-                                formik.setFieldValue(
-                                  "college",
-                                  lettersOnly
-                                );
-                              }}
-                              onBlur={formik.handleBlur}
                               value={formik.values.college}
-                            />
+                              onBlur={formik.handleBlur}
+                              onChange={formik.handleChange}
+                            >
+                              <option value={""}>College Name</option>
+                              {collegeNamesList.map((item) => (
+                                <option key={item} value={item}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
                             {formik.touched.college &&
                               formik.errors.college ? (
                               <small className="error-cls">
@@ -631,114 +657,48 @@ const Register = () => {
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="rollnumber"
-                              className="form-label"
-                            >
-                              Roll number provided by the college
-                            </label>
-                            <input
-                              type="email"
-                              className="form-control"
-                              id="rollnumber"
-                              placeholder="Roll Number"
-                              disabled={areInputsDisabled}
-                              name="rollnumber"
-                              onChange={(e) => {
-                                const inputValue = e.target.value;
-                                const lettersOnly = inputValue.replace(
-                                  /[^a-zA-Z0-9 \s]/g,
-                                  ""
-                                );
-                                formik.setFieldValue(
-                                  "rollnumber",
-                                  lettersOnly
-                                );
-                              }}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.rollnumber}
-                            />
-                            {formik.touched.rollnumber && formik.errors.rollnumber ? (
-                              <small
-                                className="error-cls"
-                                style={{ color: "red" }}
-                              >
-                                {formik.errors.rollnumber}
-                              </small>
-                            ) : null}
-                          </div>
 
-                          <div className="col-md-6">
-                            <label className="form-label" htmlFor="branch">Branch</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Branch"
-                              id="branch"
-                              disabled={areInputsDisabled}
-                              name="branch"
-                              // onChange={formik.handleChange}
-                              onChange={(e) => {
-                                const inputValue = e.target.value;
-                                const lettersOnly = inputValue.replace(
-                                  /[^a-zA-Z0-9 \s]/g,
-                                  ""
-                                );
-                                formik.setFieldValue(
-                                  "branch",
-                                  lettersOnly
-                                );
-                              }}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.branch}
-                            />
-                            {formik.touched.branch &&
-                              formik.errors.branch ? (
-                              <small className="error-cls">
-                                {formik.errors.branch}
-                              </small>
-                            ) : null}
-                          </div>
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="yearofstudy"
-                              className="form-label"
+                          {formik.values.college === 'Other' &&
+                            <div className={`col-md-12`}
                             >
-                              Year of Study 
-                            </label>
-                            <input
-                              type="email"
-                              className="form-control"
-                              id="yearofstudy"
-                              placeholder="Year of Study"
-                              disabled={areInputsDisabled}
-                              name="yearofstudy"
-                              onChange={(e) => {
-                                const inputValue = e.target.value;
-                                const lettersOnly = inputValue.replace(
-                                  /[^a-zA-Z0-9 \s]/g,
-                                  ""
-                                );
-                                formik.setFieldValue(
-                                  "yearofstudy",
-                                  lettersOnly
-                                );
-                              }}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.yearofstudy}
-                            />
-                            {formik.touched.yearofstudy && formik.errors.yearofstudy ? (
-                              <small
-                                className="error-cls"
-                                style={{ color: "red" }}
+                              <label
+                                htmlFor="ocn"
+                                className="form-label"
                               >
-                                {formik.errors.yearofstudy}
-                              </small>
-                            ) : null}
-                          </div>
+                                Other College Name
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="ocn"
+                                placeholder="Other College Name"
+                                disabled={areInputsDisabled}
+                                name="ocn"
+                                onChange={(e) => {
+                                  const inputValue = e.target.value;
+                                  const lettersOnly = inputValue.replace(
+                                    /[^a-zA-Z0-9 \s]/g,
+                                    ""
+                                  );
+                                  formik.setFieldValue(
+                                    "ocn",
+                                    lettersOnly
+                                  );
+                                }}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.ocn}
+                              />
+                              {formik.touched.ocn && formik.errors.ocn ? (
+                                <small
+                                  className="error-cls"
+                                  style={{ color: "red" }}
+                                >
+                                  {formik.errors.ocn}
+                                </small>
+                              ) : null}
+                            </div>
+                          }
+
 
                           <div className={`col-md-6`}
                           >
@@ -791,6 +751,12 @@ const Register = () => {
                                 {formik.errors.confirmPassword}
                               </small>
                             ) : null}
+                            {
+                              (formik.values.confirmPassword !== '' && !(formik.values.password === formik.values.confirmPassword)) &&
+                              <small className="text-danger">
+                                Confirm Password is not same as Password
+                              </small>
+                            }
                           </div>
                         </>
                         <div className="col-md-12">
@@ -799,7 +765,7 @@ const Register = () => {
                             className="btn btn-warning m-2"
                             onClick={(e) => handleSendOtp(e)}
                             disabled={
-                              !formik.isValid || !formik.dirty || otpSent
+                              !formik.isValid || !formik.dirty || otpSent || !(formik.values.password === formik.values.confirmPassword)
                             }
                           >
                             {otpSent ? `Resend OTP (${timer})` : change}

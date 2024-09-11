@@ -12,11 +12,11 @@ import logo from "../assets/img/logo.png";
 
 const AtlSucess = () => {
   const navigate = useNavigate();
-  const mentorDaTa = JSON.parse(localStorage.getItem("mentorData"));
-  const orgDaTa = JSON.parse(localStorage.getItem("orgData"));
-  const user = mentorDaTa.username;
-  const myArray = user.split("@");
-  const word = myArray[0];
+  // const mentorDaTa = JSON.parse(localStorage.getItem("mentorData"));
+  // const orgDaTa = JSON.parse(localStorage.getItem("orgData"));
+  // const user = mentorDaTa.username;
+  // const myArray = user.split("@");
+  // const word = myArray[0];
   const handleLogoClick = () => {
     navigate('/');
   };
@@ -40,15 +40,15 @@ const AtlSucess = () => {
 
                 <h4 className="mb-3">
                   {" "}
-                  You have successfully registered for SIM 2024-25
+                  Congratulations, Your account has been successfully created.
                 </h4>
-                <h4 style={{ color: "black" }}>
+                {/* <h4 style={{ color: "black" }}>
                   <b>Teacher Login ID : </b>{" "}
                   <b style={{ color: "blue" }}>{mentorDaTa.username}</b>{" "}
                   <b>Password :</b> <b style={{ color: "blue" }}>{word}</b>
-                </h4>
+                </h4> */}
               </div>
-              <Container
+              {/* <Container
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -119,10 +119,10 @@ const AtlSucess = () => {
                     </p>
                   </Col>
                 </Row>
-              </Container>
+              </Container> */}
             </div>
             <div className="text-center">
-              <h4 className="mb-3">Take a screenshot for future reference.</h4>
+              {/* <h4 className="mb-3">Take a screenshot for future reference.</h4> */}
               <div className="signinform">
                 <h4>
                   Want to Login ?
