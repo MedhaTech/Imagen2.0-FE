@@ -492,8 +492,8 @@ const Dashboard = (props) => {
           <div className="page-header">
             <div className="add-item d-flex">
               <div className="page-title">
-                <h4>Enrolled Teams and Students</h4>
-                <h6>You can &quot;Create Teams&quot; & then &quot;View&quot; , &quot;Edit&quot; , &quot;Delete&quot; & &quot;Swap&quot; students in teams</h6>
+                <h4>Enrolled Students</h4>
+                {/* <h6>You can &quot;Create Teams&quot; & then &quot;View&quot; , &quot;Edit&quot; , &quot;Delete&quot; & &quot;Swap&quot; students in teams</h6> */}
               </div>
             </div>
             <ul className="table-top-head">
@@ -501,7 +501,7 @@ const Dashboard = (props) => {
               <div className="page-btn mb-2">
                 <Link to="/createteam" className="btn btn-added btn-primary">
                   <PlusCircle className="me-2" style={{color:"white"}} />
-                  Add Team & Students
+                  Add Students
                 </Link>
               </div>
               </li>

@@ -1,903 +1,597 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Form, Label, Card } from "reactstrap";
-import axios from "axios";
-import * as Yup from "yup";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
+import './Styles.css';
+import logo from "../../assets/img/logo.png";
 import { useFormik } from "formik";
-import { openNotificationWithIcon, getCurrentUser } from "../../helpers/Utils";
-import { useDispatch } from "react-redux";
-import { teacherCreateMultipleStudent } from "../store/teacher/actions";
-import { useLocation } from "react-router-dom";
-import { encryptGlobal } from "../../constants/encryptDecrypt";
-import CreateMultipleMembers from "./CreateMultipleMembers";
-import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import CryptoJS from "crypto-js";
+import axios from "axios";
+import { districtList, collegeType, yearofstudyList, collegeNameList } from '../../RegPage/ORGData.js';
+import { openNotificationWithIcon } from "../../helpers/Utils.js";
+import { ArrowRight } from 'react-feather';
+import { useNavigate } from 'react-router-dom';
 
-// import { all_routes } from "../../Router/all_routes";
-const studentBody = {
-  full_name: "",
-  Age: "",
-  Grade: "",
-  Gender: "",
-  disability: "",
-  // username: "",
-};
-const grades = [6, 7, 8, 9, 10, 11, 12];
-const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
-
-// const CreateMultipleMembers = ({ id }) => {
-//   const tempStudentData = {
-//     team_id: id,
-//     role: "STUDENT",
-//     full_name: "",
-//     Age: "",
-//     Grade: "",
-//     Gender: "",
-//     disability: "",
-//     // username: "",
-//   };
-//   const dispatch = useDispatch();
-//   const [itemDataErrors, setItemDataErrors] = useState([studentBody]);
-//   //   const history = useHistory();
-//   const [isClicked, setIsClicked] = useState(false);
-//   const [teamname, setTeamname] = useState("");
-//   const [teamemail, setTeamemail] = useState("");
-//   const handleteamname = (e) => {
-//     const numericValue = e.target.value.replace(/\D/g, "");
-//     const trimmedValue = numericValue.trim();
-
-//     setTeamname(trimmedValue);
-//   };
-//   const handleteamemail = (e) => {
-//     const numericValue = e.target.value;
-//     const trimmedValue = numericValue.trim();
-
-//     setTeamemail(trimmedValue);
-//   };
-//   const [studentData, setStudentData] = useState([
-//     {
-//       team_id: id,
-//       role: "STUDENT",
-//       full_name: "",
-//       Age: "",
-//       Grade: "",
-//       Gender: "",
-//       // username: "",
-//       disability: "",
-//     },
-//     {
-//       team_id: id,
-//       role: "STUDENT",
-//       full_name: "",
-//       Age: "",
-//       Grade: "",
-//       Gender: "",
-//       username: "",
-//       disability: "",
-//     },
-//     {
-//       team_id: id,
-//       role: "STUDENT",
-//       full_name: "",
-//       Age: "",
-//       Grade: "",
-//       Gender: "",
-//       // username: "",
-//       disability: "",
-//     },
-//   ]);
-//   let pattern = /[A-Za-z0-9\s]*$/;
-//   // const emailRegex = /[A-Za-z-@+.-]*$/;
-//   const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
-//   const handleChange = (e, i) => {
-//     let newItem = [...studentData];
-//     const dataKeys = Object.keys(studentBody);
-//     if (e.target) {
-//       dataKeys.some((item) => {
-//         if (e.target.name === item) {
-//           newItem[i][e.target.name] = e.target.value;
-//           let errCopy = [...itemDataErrors];
-//           if (item === "full_name") {
-//             let check = e.target.value;
-//             if (check && check.match(pattern)) {
-//               const { index } = check.match(pattern);
-//               if (index) {
-//                 const foo = { ...errCopy[i] };
-//                 foo[e.target.name] = "Only alphanumeric are allowed";
-//                 errCopy[i] = { ...foo };
-//                 setItemDataErrors(errCopy);
-//                 return;
-//               }
-//             }
-//           }
-//           // if (item === "username") {
-//           //   let check = e.target.value;
-//           //   if (check && check.match(emailRegex)) {
-//           //     const { index } = check.match(emailRegex);
-//           //     if (index) {
-//           //       const foo = { ...errCopy[i] };
-//           //       foo[e.target.name] = "Enter Valid Mail Id";
-//           //       errCopy[i] = { ...foo };
-//           //       setItemDataErrors(errCopy);
-//           //       return;
-//           //     }
-//           //   }
-//           // }
-//           const foo = { ...errCopy[i] };
-//           foo[e.target.name] = "";
-//           errCopy[i] = { ...foo };
-//           setItemDataErrors(errCopy);
-//         }
-//         return;
-//       });
-//     }
-
-//     setStudentData(newItem);
-//   };
-//   const validateItemData = () => {
-//     const errors = studentData.map((item, i) => {
-//       let err = {};
-//       if (!item.full_name.trim()) err["full_name"] = "Full name is Required";
-//       if (item.full_name && item.full_name.match(pattern)) {
-//         const { index } = item.full_name.match(pattern);
-//         if (index) {
-//           err["full_name"] = "Only alphanumeric are allowed";
-//         }
-//       }
-
-//       // if (!item.username.trim()) err["username"] = "Email is Required";
-//       // if (item.username) {
-//       //     const start = item.username.indexOf('@');
-//       //     const main = item.username.substring(start);
-//       //     const checkarry = ['@gmail.com', '@outlook.com', '@yahoo.com'];
-//       //     const text = checkarry.includes(main);
-//       //     if (!text) {
-//       //         err['username'] = 'Enter Valid Mail Id';
-//       //     }
-//       // }
-
-//       if (!item.Age) err["Age"] = "Age is Required";
-
-//       if (!item.disability) err["disability"] = " Status is Required";
-//       if (!item.Grade) err["Grade"] = "Class is Required";
-//       if (!item.Gender) err["Gender"] = "Gender is Required";
-//       if (Object.values(err).length === 0) {
-//         return { ...studentBody, i };
-//       }
-//       return { ...err, i };
-//     });
-//     setItemDataErrors(errors.filter((item) => Object.values(item).length > 0));
-//     const filterEmpty = errors.filter((item) => {
-//       const ce = { ...item };
-//       delete ce.i;
-//       return Object.values(ce).filter(Boolean).length > 0;
-//     });
-//     if (filterEmpty.length > 0) {
-//       return false;
-//     } else {
-//       return true;
-//     }
-//   };
-//   const addItem = () => {
-//     if (!validateItemData()) {
-//       return;
-//     } else {
-//       setStudentData([...studentData, tempStudentData]);
-//     }
-//   };
-//   const containsDuplicates = (array) => {
-//     if (array.length !== new Set(array).size) {
-//       return true;
-//     }
-//     return false;
-//   };
-//   const removeItem = (i) => {
-//     let newItems = [...studentData];
-//     newItems.splice(i, 1);
-//     setStudentData(newItems);
-//   };
-//   const handleSumbit = () => {
-//     if (!validateItemData()) return;
-//     setIsClicked(true);
-//     const checkDuplicateName = containsDuplicates(
-//       studentData.map((item) => item.full_name)
-//     );
-//     if (checkDuplicateName) {
-//       openNotificationWithIcon("error", "Student already exists");
-//       setIsClicked(false);
-//       return;
-//     }
-//     dispatch(teacherCreateMultipleStudent(studentData, history, setIsClicked));
-//   };
-//   return (
-//     <div className="page-wrapper">
-//       <div className="content">
-//         {/* <div className="page-header"> */}
-//         <div className="page-title">
-//           <h3 style={{ marginBottom: "1rem" }}>Team And Student Creation</h3>
-//           <div />
-//           <Row>
-//             <Col md={6}>
-//               <Label className="form-label">
-//                 Team Name
-//                 <span required className="p-1">
-//                   *
-//                 </span>
-//               </Label>
-//               <input
-//                 className="form-control"
-//                 placeholder="Please Enter Your Team Name"
-//                 id="teamname"
-//                 name="teamname"
-//                 onChange={(e) => handleteamname(e)}
-//                 value={teamname}
-//               />
-//             </Col>
-//             <Col md={6} className="mb-xl-0">
-//               <Label className="form-label">
-//                 Team Email Address
-//                 <span required className="p-1">
-//                   *
-//                 </span>
-//               </Label>
-//               <input
-//                 className="form-control"
-//                 placeholder="Please Enter Your Email Address"
-//                 id="teamemail"
-//                 name="teamemail"
-//                 type="email"
-//                 onChange={(e) => handleteamemail(e)}
-//                 value={teamemail}
-//               />
-//               {/* {foundErrObject?.username ? (
-//                           <small className="error-cls">
-//                             {foundErrObject.username}
-//                           </small>
-//                         ) : null} */}
-//             </Col>
-//           </Row>
-//           {studentData.map((item, i) => {
-//             const foundErrObject = { ...itemDataErrors[i] };
-//             return (
-//               <div key={i + item} className="mb-5">
-//                 <div className="d-flex justify-content-between align-items-center">
-//                   <h6 className="mt-2">Student {i + 1} Details</h6>
-//                   {/* {i > 1 && (
-//                       <button
-//                         //   label={"Remove"}
-//                         onClick={() => removeItem(i)}
-//                         //   btnClass={"secondary float-end"}
-//                         className="btn btn-primary "
-//                       >
-//                         Remove
-//                       </button>
-//                     )} */}
-//                 </div>
-//                 <hr />
-//                 <Row className="mb-3">
-//                   {/* <Row> */}
-//                   <Col md={3}>
-//                     <Label className="form-label">
-//                       Full Name
-//                       <span required className="p-1">
-//                         *
-//                       </span>
-//                     </Label>
-//                     <input
-//                       className="form-control"
-//                       placeholder="Please Enter Your Full Name"
-//                       id="full_name"
-//                       name="full_name"
-//                       onChange={(e) => {
-//                         handleChange(e, i);
-//                       }}
-//                       value={item.full_name}
-//                     />
-//                     {foundErrObject?.full_name ? (
-//                       <small className="error-cls">
-//                         {foundErrObject.full_name}
-//                       </small>
-//                     ) : null}
-//                   </Col>
-//                   {/* <Col md={6} className="mb-xl-0">
-//                         <Label className="form-label">
-//                           Email Address
-//                           <span required className="p-1">
-//                             *
-//                           </span>
-//                         </Label>
-//                         <input
-//                           className="form-control"
-//                           placeholder="Enter Email Id"
-//                           id="username"
-//                           name="username"
-//                           onChange={(e) => {
-//                             handleChange(e, i);
-//                           }}
-//                           value={item.username}
-//                         />
-//                         {foundErrObject?.username ? (
-//                           <small className="error-cls">
-//                             {foundErrObject.username}
-//                           </small>
-//                         ) : null}
-//                       </Col> */}
-//                   {/* </Row> */}
-//                   <Col md={2} className="mb-xl-0">
-//                     <Label htmlFor="inputState" className="form-label">
-//                       Age
-//                       <span required className="p-1">
-//                         *
-//                       </span>
-//                     </Label>
-//                     <select
-//                       id="inputState"
-//                       className="form-select"
-//                       name="Age"
-//                       value={item.Age}
-//                       onChange={(e) => handleChange(e, i)}
-//                     >
-//                       <option value={""}>Select Age</option>
-//                       {allowedAge.map((item) => (
-//                         <option key={item} value={item}>
-//                           {item}
-//                         </option>
-//                       ))}
-//                     </select>
-//                     {foundErrObject?.Age ? (
-//                       <small className="error-cls">{foundErrObject.Age}</small>
-//                     ) : null}
-//                   </Col>
-//                   <Col md={3} className="mb-xl-0">
-//                     <Label htmlFor="inputState" className="form-label">
-//                       Disability
-//                       <span required className="p-1">
-//                         *
-//                       </span>
-//                     </Label>
-//                     <select
-//                       id="inputState"
-//                       className="form-select"
-//                       name="disability"
-//                       value={item.disability}
-//                       onChange={(e) => handleChange(e, i)}
-//                     >
-//                       <option value="">Select Status</option>
-//                       <option value="No">No</option>
-//                       <option value="Physically Challenged">
-//                         Physically Challenged
-//                       </option>
-//                       <option value="Visually Challenged">
-//                         Visually Challenged
-//                       </option>
-//                       <option value="Locomotor Disability">
-//                         Locomotor Disability
-//                       </option>
-//                       <option value="Intellectual Disability">
-//                         Intellectual Disability
-//                       </option>
-//                       <option value="Learning Disability">
-//                         Learning Disability
-//                       </option>
-//                       <option value="Hearing Impaired">Hearing Impaired</option>
-//                       <option value="Autism/Cerebral Palsy/Other">
-//                         Autism/Cerebral Palsy/Other
-//                       </option>
-//                       <option value="Others">Others</option>
-//                     </select>
-//                     {foundErrObject?.disability ? (
-//                       <small className="error-cls">
-//                         {foundErrObject.disability}
-//                       </small>
-//                     ) : null}
-//                   </Col>
-
-//                   <Col md={2}>
-//                     <Label htmlFor="inputState" className="form-label">
-//                       Class
-//                       <span required className="p-1">
-//                         *
-//                       </span>
-//                     </Label>
-//                     <select
-//                       id="inputState"
-//                       className="form-select"
-//                       name="Grade"
-//                       value={item.Grade}
-//                       onChange={(e) => handleChange(e, i)}
-//                     >
-//                       <option value="">Select Class</option>
-//                       {grades.map((item) => (
-//                         <option key={item} value={item}>
-//                           Class {item}
-//                         </option>
-//                       ))}
-//                     </select>
-//                     {foundErrObject?.Grade ? (
-//                       <small className="error-cls">
-//                         {foundErrObject?.Grade}
-//                       </small>
-//                     ) : null}
-//                   </Col>
-//                   <Col md={2} className="mb-5 mb-xl-0">
-//                     <Label htmlFor="inputState" className="form-label">
-//                       Gender
-//                       <span required className="p-1">
-//                         *
-//                       </span>
-//                     </Label>
-
-//                     <select
-//                       id="inputState"
-//                       className="form-select"
-//                       name="Gender"
-//                       value={item.Gender}
-//                       onChange={(e) => handleChange(e, i)}
-//                     >
-//                       <option value="">Select Gender</option>
-//                       <option value="Male">Male</option>
-//                       <option value="Female">Female</option>
-//                       <option value="OTHERS">Prefer not to mention</option>
-//                     </select>
-//                     {foundErrObject?.Gender ? (
-//                       <small className="error-cls">
-//                         {foundErrObject?.Gender}
-//                       </small>
-//                     ) : null}
-//                   </Col>
-//                 </Row>
-//               </div>
-//             );
-//           })}
-//           <Row>
-//             <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
-//               <button
-//                 type="Submit"
-//                 className="btn btn-primary m-2"
-//                 // label="Discard"
-//                 // btnClass="secondary "
-//                 // size="small"
-//                 // onClick={() => history.push("/teacher/teamlist")}
-//               >
-//                 Submit
-//               </button>
-//               <button
-//                 type="button"
-//                 className="btn btn-secondary m-2"
-//                 // label="Discard"
-//                 // btnClass="secondary "
-//                 // size="small"
-//                 // onClick={() => history.push("/teacher/teamlist")}
-//               >
-//                 Discard
-//               </button>
-//             </Col>
-//             <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
-//               {/* {!isClicked ? (
-//             <button
-//             //   label={t("teacher_teams.submit")}
-//               type="submit"
-//               onClick={handleSumbit}
-//             //   btnClass={"primary float-end"}
-//               // btnClass={'btn btn-warning text-right'}
-//             >
-//                 Submit
-//             </button>
-//           ) : (
-//             <button
-//               label={t("teacher_teams.submit")}
-//               type="button"
-//               btnClass={"default float-end"}
-//               // btnClass={'btn btn-default'}
-//               size="small"
-//               disabled={true}
-//             />
-//           )} */}
-//               {/* {studentData.length < 4 && (
-//                   <div className="">
-//                     <button
-//                       // label={"Add More"}
-//                       onClick={addItem}
-//                       // btnClass={
-//                       //   studentData.length != 3 ? "primary" : "default"
-//                       // }
-//                       // size="small"
-//                       disabled={studentData.length === 3}
-//                     >
-//                       Add More
-//                     </button>
-//                   </div>
-//                 )} */}
-//             </Col>
-//           </Row>
-//           {/* </div> */}
-//         </div>
-//         {/* </div> */}
-//       </div>
-//     </div>
-//   );
-// };
-// export default CreateMultipleMembers;
-
-export const CreateTeamMember = (props) => {
-  const loc = useLocation();
-  const params = loc.pathname.split("/");
-  const pl = params.length;
-  // const { t } = useTranslation();
-  const id = params[pl - 2];
-  const studentCount = params[pl - 1];
-  const currentUser = getCurrentUser("current_user");
-  const [teamMemberData, setTeamMemberData] = useState({});
-  const [isClicked, setIsClicked] = useState(false);
+const Crew1Reg = () => {
   const navigate = useNavigate();
+  const [collegeNamesList, setCollegeNamesList] = useState([]);
+  var pilotStudentId = sessionStorage.getItem("pilotKey");
 
-  // const headingDetails = {
-  //   title: t("teacher_teams.create_team_members"),
-
-  //   options: [
-  //     {
-  //       title: t("teacher_teams.teamslist"),
-  //       path: "/teacher/teamlist",
-  //     },
-  //     {
-  //       title: t("teacher_teams.create_team_members"),
-  //     },
-  //   ],
+  // window.onbeforeunload = function () {
+  //   sessionStorage.clear();
   // };
-  // useEffect(async () => {
-  //   await handleCreateMemberAPI(id);
-  // }, [id]);
 
-  async function handleCreateMemberAPI(teamId) {
-    const creaParam = encryptGlobal(JSON.stringify(teamId));
-    const param = encryptGlobal(
-      JSON.stringify({
-        status: "ACTIVE",
-      })
-    );
+  // useEffect(() => {
+  //   if (pilotStudentId === null) {
+  //     navigate("/registration");
+  //   }
+  // }, [pilotStudentId]);
 
-    var config = {
-      method: "get",
-      url: `${process.env.REACT_APP_API_BASE_URL}/teams/${creaParam}?Data=${param}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-      },
-    };
-    await axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          setTeamMemberData(response.data && response.data.data[0]);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  const handleCollegeTypeChange = (event) => {
+    const collegeType = event.target.value;
+    formik.setFieldValue("collegeType", collegeType);
+    formik.setFieldValue('college', '');
+    formik.setFieldValue('ocn', '');
+    setCollegeNamesList(collegeNameList[collegeType] || []);
+  };
   const formik = useFormik({
     initialValues: {
-      fullName: "",
-      age: "",
-      grade: "",
-      gender: "",
-      disability: "",
-      // username: "",
+      full_name: "",
+      email: "",
+      mobile: "",
+      district: "",
+      college: "",
+      rollnumber: "",
+      branch: "",
+      yearofstudy: "",
+      password: "",
+      confirmPassword: "",
+      collegeType: "",
+      ocn: ""
     },
 
     validationSchema: Yup.object({
-      fullName: Yup.string()
-        .required("Please Enter valid Full Name")
-        .max(40)
-        .required()
+      full_name: Yup.string()
+        .trim()
+        .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
         .matches(
-          /^[A-Za-z0-9\s]*$/,
-          "Please enter only alphanumeric characters"
+          /^[aA-zZ\s]+$/,
+          <span style={{ color: "red" }}>
+            Special Characters are not allowed
+          </span>
         )
-        .trim(),
-      age: Yup.number()
-        .integer()
-        .min(10, "Min age is 10")
-        .max(18, "Max age is 18")
-        .required("required"),
-      gender: Yup.string().required("Please select valid gender"),
-      // username: Yup.string().email("Must be a valid email").max(255),
-      disability: Yup.string().required("Please select disability"),
-      grade: Yup.string()
-        .matches("", "Please enter valid class")
-        .max(40)
-        .required("Please enter valid class"),
+        .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
+      email: Yup.string()
+        .email(
+          <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+        )
+        .required(
+          <span style={{ color: "red" }}>Please Enter Email Address</span>
+        )
+        .matches(
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          "Email Must be VALID"
+        )
+        .max(255),
+      mobile: Yup.string()
+        .required(
+          <span style={{ color: "red" }}>Please Enter Mobile Number</span>
+        )
+        .trim()
+        .matches(
+          /^\d+$/,
+          <span style={{ color: "red" }}>
+            Mobile number is not valid (Enter only digits)
+          </span>
+        )
+        .max(
+          10,
+          <span style={{ color: "red" }}>
+            Please enter only 10 digit valid number
+          </span>
+        )
+        .min(
+          10,
+          <span style={{ color: "red" }}>Number is less than 10 digits</span>
+        ),
+      collegeType: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select collegeType</span>
+      ),
+      district: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select District</span>
+      ),
+      college: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select college</span>
+      ),
+      rollnumber: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Roll Number</span>
+      ),
+      branch: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Branch</span>
+      ),
+      yearofstudy: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select yearofstudy</span>
+      ),
+      password: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select password</span>
+      ),
+      confirmPassword: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select confirmPassword</span>
+      )
     }),
 
-    onSubmit: (values) => {
-      if (process.env.REACT_APP_TEAM_LENGTH == teamMemberData.student_count) {
-        openNotificationWithIcon(
-          "warning",
-          "Team Members Maximum Count All Ready Exist"
-        );
-      } else {
-        setIsClicked(true);
-        const body = {
-          team_id: id,
-          role: "STUDENT",
-          full_name: values.fullName,
-          qualification: "",
-          Age: values.age,
-          Grade: values.grade,
-          Gender: values.gender,
-          disability: values.disability,
-          // username: values.username,
-          // country: values.country,
-        };
-        var config = {
-          method: "post",
-          url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-          },
-          data: body,
-        };
-        axios(config)
-          .then(function (response) {
-            if (response.status === 201) {
-              openNotificationWithIcon(
-                "success",
-                "Team Member Created Successfully"
-              );
-              navigate("/mentorteams");
-            } else {
-              openNotificationWithIcon("error", "Opps! Something Wrong");
-              setIsClicked(false);
-            }
-          })
-          .catch(function (error) {
-            if (error.response.status === 406) {
-              openNotificationWithIcon("error", error?.response?.data?.message);
-            } else {
-              openNotificationWithIcon("error", "Opps! Something Wrong");
-            }
-            setIsClicked(false);
+    onSubmit: async (values) => {
+      const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
+      const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
+      const encrypted = CryptoJS.AES.encrypt(values.confirmPassword, key, {
+        iv: iv,
+        padding: CryptoJS.pad.NoPadding,
+      }).toString();
+      const body = JSON.stringify({
+        full_name: values.full_name,
+        username: values.email,
+        mobile: values.mobile,
+        district: values.district,
+        college_type: values.collegeType,
+        college_name: values.college === 'Other' ? values.ocn : values.college,
+        roll_number: values.rollnumber,
+        branch: values.branch,
+        year_of_study: values.yearofstudy,
+        confirmPassword: encrypted
+      });
+
+      var config = {
+        method: "post",
+        url: process.env.REACT_APP_API_BASE_URL + "/students/register",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+        },
+
+        data: body,
+      };
+      await axios(config)
+        .then((mentorRegRes) => {
+          if (mentorRegRes?.data?.status == 201) {
+            navigate("/mentorteams");
+            openNotificationWithIcon("success", "Pilot Registration successfully");
+          }
+        })
+        .catch((err) => {
+          openNotificationWithIcon("error", err.response.data?.message);
+          // setBtn(false);
+          formik.setErrors({
+            check: err.response && err?.response?.data?.message,
           });
-      }
+          return err.response;
+        });
     },
   });
   return (
-    <div>
-      <div className="page-wrapper">
-        <div className="content">
-          {/* <div className="EditPersonalDetails new-member-page">
-            <Row>
-              <Col className="col-xl-10 offset-xl-1 offset-md-0"> */}
-                {/* <BreadcrumbTwo {...headingDetails} /> */}
-                {studentCount && studentCount !== "new" && (
-                  <CreateMultipleMembers id={id} />
-                  // ) : (
-                  //   <>
-                  //     <h3 className="m-4">Team and Student Creation</h3>
-                  //     <div>
-                  //       <Form onSubmit={formik.handleSubmit} isSubmitting>
-                  //         <div className="create-ticket register-blockt">
-                  //           <Row>
-                  //             <Col md={3}>
-                  //               <Label className="form-label">
-                  //                 Full Name
-                  //                 <span required className="p-1">
-                  //                   *
-                  //                 </span>
-                  //               </Label>
-                  //               <input
-                  //                 className="form-control"
-                  //                 placeholder="Please Enter Your Full Name"
-                  //                 id="fullName"
-                  //                 name="fullName"
-                  //                 onChange={formik.handleChange}
-                  //                 onBlur={formik.handleBlur}
-                  //                 value={formik.values.fullName}
-                  //               />
-                  //               {formik.touched.fullName &&
-                  //               formik.errors.fullName ? (
-                  //                 <small className="error-cls">
-                  //                   {formik.errors.fullName}
-                  //                 </small>
-                  //               ) : null}
-                  //             </Col>
-                  //             <Col md={2}>
-                  //               <Label
-                  //                 htmlFor="inputState"
-                  //                 className="form-label"
-                  //               >
-                  //                 Age
-                  //                 <span required className="p-1">
-                  //                   *
-                  //                 </span>
-                  //               </Label>
-                  //               <div className="dropdown CalendarDropdownComp ">
-                  //                 <select
-                  //                   id="inputState"
-                  //                   className="form-select"
-                  //                   name="age"
-                  //                   onChange={formik.handleChange}
-                  //                   onBlur={formik.handleBlur}
-                  //                   value={formik.values.age}
-                  //                 >
-                  //                   <option value={""}>Select Age</option>
-                  //                   {allowedAge.map((item) => (
-                  //                     <option key={item} value={item}>
-                  //                       {item}
-                  //                     </option>
-                  //                   ))}
-                  //                 </select>
-                  //               </div>
-                  //               {formik.touched.age && formik.errors.age ? (
-                  //                 <small className="error-cls">
-                  //                   {formik.errors.age}
-                  //                 </small>
-                  //               ) : null}
-                  //             </Col>
+    <div className="page-wrapper">
+      <div className="content">
+        <div className="login-userheading">
+          <h4>Create Pilot Student</h4>
+        </div>
+        <div className='d-flex justify-content-center align-items-center'>
+          <div className="card container m-4">
+            <div className="row">
+              <div className="col-md-12 p-4" style={{ backgroundColor: '#EEEEEE' }}>
+                <form action="signin" onSubmit={formik.handleSubmit}>
+                  <div className="login-userset">
+                    <div className="col-xl-12">
+                      <div className="row g-3 mt-0">
+                        <>
+                          <div className="col-md-6">
+                            <label className="form-label" htmlFor="full_name">Full Name</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Full Name"
+                              id="full_name"
+                              name="full_name"
+                              onChange={(e) => {
+                                const inputValue = e.target.value;
+                                const lettersOnly = inputValue.replace(
+                                  /[^a-zA-Z\s]/g,
+                                  ""
+                                );
+                                formik.setFieldValue(
+                                  "full_name",
+                                  lettersOnly
+                                );
+                              }}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.full_name}
+                            />
+                            {formik.touched.full_name &&
+                              formik.errors.full_name ? (
+                              <small className="error-cls">
+                                {formik.errors.full_name}
+                              </small>
+                            ) : null}
+                          </div>
+                          <div className={`col-md-6`}
+                          >
+                            <label
+                              htmlFor="email"
+                              className="form-label"
+                            >
+                              Email
+                            </label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              id="email"
+                              placeholder="Email"
+                              name="email"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.email}
+                            />
+                            {formik.touched.email && formik.errors.email ? (
+                              <small
+                                className="error-cls"
+                                style={{ color: "red" }}
+                              >
+                                {formik.errors.email}
+                              </small>
+                            ) : null}
+                          </div>
 
-                  //             <Col md={2} className="mb-5 mb-xl-0">
-                  //               <Label
-                  //                 className="name-req-create-member"
-                  //                 htmlFor="gender"
-                  //               >
-                  //                 Gender
-                  //                 <span required className="p-1">
-                  //                   *
-                  //                 </span>
-                  //               </Label>
+                          <div className="col-md-4"
+                          >
+                            <label className="form-label" htmlFor="mobile">
+                              Mobile Number
+                            </label>
 
-                  //               <select
-                  //                 name="gender"
-                  //                 className="form-control custom-dropdown"
-                  //                 value={formik.values.gender}
-                  //                 onChange={formik.handleChange}
-                  //               >
-                  //                 <option value="">Select Gender</option>
-                  //                 <option value="Male">Male</option>
-                  //                 <option value="Female">Female</option>
-                  //                 <option value="OTHERS">
-                  //                   Prefer not to mention
-                  //                 </option>
-                  //               </select>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="mobile"
+                              placeholder="Mobile"
+                              name="mobile"
+                              onChange={(e) => {
+                                const inputValue = e.target.value;
+                                const numericValue = inputValue.replace(
+                                  /\D/g,
+                                  ""
+                                );
+                                formik.setFieldValue("mobile", numericValue);
+                              }}
+                              maxLength={10}
+                              minLength={10}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.mobile}
+                            />
 
-                  //               {formik.touched.gender && formik.errors.gender ? (
-                  //                 <small className="error-cls">
-                  //                   {formik.errors.gender}
-                  //                 </small>
-                  //               ) : null}
-                  //             </Col>
+                            {formik.touched.mobile && formik.errors.mobile ? (
+                              <small className="error-cls">
+                                {formik.errors.mobile}
+                              </small>
+                            ) : null}
+                          </div>
+                          <div className={`col-md-4`}
+                          >
+                            <label
+                              htmlFor="district"
+                              className="form-label"
+                            >
+                              District
+                            </label>
+                            <select
+                              id="district"
+                              className="form-select"
+                              name="district"
+                              value={formik.values.district}
+                              onBlur={formik.handleBlur}
+                              onChange={formik.handleChange}
+                            >
+                              <option value={""}>District</option>
+                              {districtList["Tamil Nadu"].map((item) => (
+                                <option key={item} value={item}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                            {formik.touched.district &&
+                              formik.errors.district ? (
+                              <small className="error-cls">
+                                {formik.errors.district}
+                              </small>
+                            ) : null}
+                          </div>
 
-                  //             <Col md={3}>
-                  //               <Label
-                  //                 htmlFor="inputState"
-                  //                 className="form-label"
-                  //               >
-                  //                 Disability
-                  //                 <span required className="p-1">
-                  //                   *
-                  //                 </span>
-                  //               </Label>
-                  //               <select
-                  //                 id="inputState"
-                  //                 className="form-select"
-                  //                 name="disability"
-                  //                 value={formik.values.disability}
-                  //                 onChange={formik.handleChange}
-                  //               >
-                  //                 <option value="">Select Status</option>
-                  //                 <option value="No">No</option>
-                  //                 <option value="Physically Challenged">
-                  //                   Physically Challenged
-                  //                 </option>
-                  //                 <option value="Visually Challenged">
-                  //                   Visually Challenged
-                  //                 </option>
-                  //                 <option value="Locomotor Disability">
-                  //                   Locomotor Disability
-                  //                 </option>
-                  //                 <option value="Intellectual Disability">
-                  //                   Intellectual Disability
-                  //                 </option>
-                  //                 <option value="Learning Disability">
-                  //                   Learning Disability
-                  //                 </option>
-                  //                 <option value="Hearing Impaired">
-                  //                   Hearing Impaired
-                  //                 </option>
-                  //                 <option value="Autism/Cerebral Palsy/Other">
-                  //                   Autism/Cerebral Palsy/Other
-                  //                 </option>
-                  //                 <option value="Others">Others</option>
-                  //               </select>
-                  //               {formik.touched.disability &&
-                  //               formik.errors.disability ? (
-                  //                 <small className="error-cls">
-                  //                   {formik.errors.disability}
-                  //                 </small>
-                  //               ) : null}
-                  //             </Col>
-                  //             <Col md={2}>
-                  //               <Label
-                  //                 htmlFor="inputState"
-                  //                 className="form-label"
-                  //               >
-                  //                 Class
-                  //                 <span required className="p-1">
-                  //                   *
-                  //                 </span>
-                  //               </Label>
-                  //               <select
-                  //                 id="inputState"
-                  //                 className="form-select"
-                  //                 name="grade"
-                  //                 value={formik.values.grade}
-                  //                 onChange={formik.handleChange}
-                  //               >
-                  //                 <option value="">Select Class..</option>
-                  //                 <option value="6">Class 6</option>
-                  //                 <option value="7">Class 7</option>
-                  //                 <option value="8">Class 8</option>
-                  //                 <option value="9">Class 9</option>
-                  //                 <option value="10">Class 10</option>
-                  //                 <option value="11">Class 11</option>
-                  //                 <option value="12">Class 12</option>
-                  //               </select>
-                  //               {formik.touched.grade && formik.errors.grade ? (
-                  //                 <small className="error-cls">
-                  //                   {formik.errors.grade}
-                  //                 </small>
-                  //               ) : null}
-                  //             </Col>
-                  //           </Row>
-                  //         </div>
+                          <div className={`col-md-4`}
+                          >
+                            <label
+                              htmlFor="collegeType"
+                              className="form-label"
+                            >
+                              College Type
+                            </label>
+                            <select
+                              id="collegeType"
+                              className="form-select"
+                              name="collegeType"
+                              value={formik.values.collegeType}
+                              onBlur={formik.handleBlur}
+                              onChange={handleCollegeTypeChange}
+                            >
+                              <option value={""}>College Type</option>
+                              {collegeType.map((item) => (
+                                <option key={item} value={item}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                            {formik.touched.collegeType &&
+                              formik.errors.collegeType ? (
+                              <small className="error-cls">
+                                {formik.errors.collegeType}
+                              </small>
+                            ) : null}
+                          </div>
 
-                  //         <hr className="mt-4 mb-4"></hr>
-                  //         <Row>
-                  //           <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
-                  //             {!isClicked && (
-                  //               <button
-                  //                 // label={t("teacher_teams.submit")}
-                  //                 type="submit"
-                  //                 className="btn btn-warning"
-                  //               >
-                  //                 Submit
-                  //               </button>
-                  //               // ) : (
-                  //               //   <button
-                  //               //     // label={t("teacher_teams.submit")}
-                  //               //     type="button"
-                  //               //     className="btn btn-secondary"
-                  //               //   >
-                  //               //     Discard
-                  //               //   </button>
-                  //             )}
-                  //           </Col>
-                  //           <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
-                  //             <button
-                  //               // label={t("teacher_teams.discard")}
-                  //               // btnClass="secondary"
-                  //               // size="small"
-                  //               onClick={() => navigate("/mentorteams")}
-                  //               type="button"
-                  //               className="btn btn-secondary"
-                  //             >
-                  //               Discard
-                  //             </button>
-                  //           </Col>
-                  //         </Row>
-                  //       </Form>
-                  //     </div>
-                  //   </>
-                )}
-              {/* </Col>
-            </Row>
-          </div> */}
+                          <div className={`col-md-6`}
+                          >
+                            <label
+                              htmlFor="college"
+                              className="form-label"
+                            >
+                              College Name
+                            </label>
+                            <select
+                              id="college"
+                              className="form-select"
+                              name="college"
+                              value={formik.values.college}
+                              onBlur={formik.handleBlur}
+                              onChange={formik.handleChange}
+                            >
+                              <option value={""}>College Name</option>
+                              {collegeNamesList.map((item) => (
+                                <option key={item} value={item}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                            {formik.touched.college &&
+                              formik.errors.college ? (
+                              <small className="error-cls">
+                                {formik.errors.college}
+                              </small>
+                            ) : null}
+                          </div>
+                          <div className={`col-md-6`}
+                          >
+                            <label
+                              htmlFor="rollnumber"
+                              className="form-label"
+                            >
+                              Roll number provided by the college
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="rollnumber"
+                              placeholder="Roll Number"
+                              name="rollnumber"
+                              onChange={(e) => {
+                                const inputValue = e.target.value;
+                                const lettersOnly = inputValue.replace(
+                                  /[^a-zA-Z0-9 \s]/g,
+                                  ""
+                                );
+                                formik.setFieldValue(
+                                  "rollnumber",
+                                  lettersOnly
+                                );
+                              }}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.rollnumber}
+                            />
+                            {formik.touched.rollnumber && formik.errors.rollnumber ? (
+                              <small
+                                className="error-cls"
+                                style={{ color: "red" }}
+                              >
+                                {formik.errors.rollnumber}
+                              </small>
+                            ) : null}
+                          </div>
+                          {formik.values.college === 'Other' &&
+                            <div className={`col-md-12`}
+                            >
+                              <label
+                                htmlFor="ocn"
+                                className="form-label"
+                              >
+                                Other College Name
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="ocn"
+                                placeholder="Other College Name"
+                                name="ocn"
+                                onChange={(e) => {
+                                  const inputValue = e.target.value;
+                                  const lettersOnly = inputValue.replace(
+                                    /[^a-zA-Z0-9 \s]/g,
+                                    ""
+                                  );
+                                  formik.setFieldValue(
+                                    "ocn",
+                                    lettersOnly
+                                  );
+                                }}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.ocn}
+                              />
+                              {formik.touched.ocn && formik.errors.ocn ? (
+                                <small
+                                  className="error-cls"
+                                  style={{ color: "red" }}
+                                >
+                                  {formik.errors.ocn}
+                                </small>
+                              ) : null}
+                            </div>
+                          }
+
+
+                          <div className="col-md-6">
+                            <label className="form-label" htmlFor="branch">Branch</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Branch"
+                              id="branch"
+                              name="branch"
+                              // onChange={formik.handleChange}
+                              onChange={(e) => {
+                                const inputValue = e.target.value;
+                                const lettersOnly = inputValue.replace(
+                                  /[^a-zA-Z0-9 \s]/g,
+                                  ""
+                                );
+                                formik.setFieldValue(
+                                  "branch",
+                                  lettersOnly
+                                );
+                              }}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.branch}
+                            />
+                            {formik.touched.branch &&
+                              formik.errors.branch ? (
+                              <small className="error-cls">
+                                {formik.errors.branch}
+                              </small>
+                            ) : null}
+                          </div>
+
+                          <div className={`col-md-6`}
+                          >
+                            <label
+                              htmlFor="yearofstudy"
+                              className="form-label"
+                            >
+                              Year of Study
+                            </label>
+                            <select
+                              id="yearofstudy"
+                              className="form-select"
+                              name="yearofstudy"
+                              value={formik.values.yearofstudy}
+                              onBlur={formik.handleBlur}
+                              onChange={formik.handleChange}
+                            >
+                              <option value={""}>Year of Study</option>
+                              {yearofstudyList.map((item) => (
+                                <option key={item} value={item}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                            {formik.touched.yearofstudy &&
+                              formik.errors.yearofstudy ? (
+                              <small className="error-cls">
+                                {formik.errors.yearofstudy}
+                              </small>
+                            ) : null}
+                          </div>
+
+                          <div className={`col-md-6`}
+                          >
+                            <label
+                              htmlFor="password"
+                              className="form-label"
+                            >
+                              Password
+                            </label>
+                            <input
+                              type="text"
+                              name="password"
+                              placeholder="Password"
+                              id="password"
+                              className="form-control"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.password}
+                            />
+                            {formik.touched.password &&
+                              formik.errors.password ? (
+                              <small className="error-cls">
+                                {formik.errors.password}
+                              </small>
+                            ) : null}
+                          </div>
+                          <div className={`col-md-6`}
+                          >
+                            <label
+                              htmlFor="confirmPassword"
+                              className="form-label"
+                            >
+                              Confirm Password
+                            </label>
+                            <input
+                              type="text"
+                              name="confirmPassword"
+                              placeholder="Confirm Password"
+                              id="confirmPassword"
+                              className="form-control"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.confirmPassword}
+                            />
+                            {formik.touched.confirmPassword &&
+                              formik.errors.confirmPassword ? (
+                              <small className="error-cls">
+                                {formik.errors.confirmPassword}
+                              </small>
+                            ) : null}
+                            {
+                              (formik.values.confirmPassword !== '' && !(formik.values.password === formik.values.confirmPassword)) &&
+                              <small className="text-danger">
+                                Confirm Password is not same as Password
+                              </small>
+                            }
+                          </div>
+                        </>
+
+                        <div className="form-login d-flex justify-content-between">
+                          <button
+                            className="btn btn-warning m-2"
+                            type="submit"
+                            disabled={
+                              !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
+                            }
+                          >
+                            PROCEED<ArrowRight />
+                          </button>
+                          <button
+                            className="btn btn-warning m-2"
+                            type="submit"
+                            onClick={() => navigate("/mentorteams")}
+
+                          >
+                            Back<ArrowRight />
+                          </button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
-export default CreateTeamMember;
 
-// export default CreateTeamMember;
+export default Crew1Reg;
