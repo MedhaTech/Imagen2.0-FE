@@ -85,7 +85,7 @@ const ChangePwd = (props) => {
             SetResponce("Password updated successfully");
             setTimeout(() => {
               SetResponce("");
-              navigate("/teacher-dashboard");
+              navigate("/institution-dashboard");
             }, 2000);
           })
           .catch(function (error) {
@@ -251,7 +251,7 @@ const ChangePwd = (props) => {
                 </div>
                 <div className="signinform text-center">
                   <h4>
-                    <Link to={"/teacher-dashboard"} className="hover-a">
+                    <Link to={"/institution-dashboard"} className="hover-a">
                       {" "}
                       Cancel{" "}
                     </Link>

@@ -259,7 +259,7 @@ const Dashboard = () => {
         // where we can see all details //
         // where orgData = orgnization details , Mentor details //
         // history.push({
-        //     pathname: '/admin/teacher/View-More-details',
+        //     pathname: '/admin/institution/View-More-details',
         //     data: orgData
         // });
         navigate("/mentor-details");

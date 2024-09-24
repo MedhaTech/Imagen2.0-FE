@@ -370,7 +370,7 @@ export const createSupportTicketResponse = (data) => async () => {
       });
 
     if (result && result.status === 201) {
-      // history.push('/teacher/support-journey');
+      // history.push('/institution/support-journey');
       openNotificationWithIcon("success", "Reply submitted successfully!", "");
     } else {
       openNotificationWithIcon("error", "Something went wrong!else", "");

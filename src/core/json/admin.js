@@ -22,7 +22,7 @@ const AdminSidebarData = () => {
         },
         {
           label:"Institution",
-          link: "/institution",
+          link: "/institution-registration",
           icon: <Icon.Codesandbox />,
           showSubRoute: false,
           submenu: false,

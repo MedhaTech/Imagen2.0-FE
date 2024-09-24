@@ -91,9 +91,9 @@ const LogInTeacher = (props) => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading">
-                  <h3> Teacher Login</h3>
+                  <h3> Institution Login</h3>
                   <h4>
-                    Access the teacher panel using your registered email and
+                    Access the Institution panel using your registered email and
                     password.
                   </h4>
                 </div>
@@ -157,7 +157,7 @@ const LogInTeacher = (props) => {
                         </label>
                       </div>
                       <div className="text-end">
-                        <Link className="forgot-link" to="/teacher-forgot-psw">
+                        <Link className="forgot-link" to="/institution-forgot-psw">
                           Forgot Password?
                         </Link>
                       </div>
@@ -178,7 +178,7 @@ const LogInTeacher = (props) => {
                 </div>
                 <div className="signinform">
                   <h4>
-                    Not a Teacher ?
+                    Not a Institution ?
                     <Link className="hover-a" to={"/login"}>
                       {" "}
                       Click Here

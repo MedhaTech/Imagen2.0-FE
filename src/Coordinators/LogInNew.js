@@ -32,7 +32,7 @@ const StateLogin = (props) => {
       localStorage.getItem("module")
     ) {
       moduleName === "MENTOR"
-        ? navigate("/teacher-dashboard")
+        ? navigate("/institution-dashboard")
         : moduleName === "ADMIN"
         ? navigate("/admin-dashboard")
         : moduleName === "EVALUATOR"

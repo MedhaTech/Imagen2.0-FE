@@ -33,14 +33,14 @@ const LoginPage = () => {
                 </div>
                 <div className="form-login mb-3">
                   <div className="form-addons text-center">
-                  <Row>
+                    <Row>
                       <Row>
                         <button
                           type="button"
                           className="btn btn-warning m-2"
-                          onClick={() => navigate("/teacher")}
+                          onClick={() => navigate("/student")}
                         >
-                          Teacher Login
+                          Student Login
                           <span>
                             {" "}
                             <ArrowRight />
@@ -51,9 +51,9 @@ const LoginPage = () => {
                         <button
                           type="button"
                           className="btn btn-warning m-2"
-                          onClick={() => navigate("/student")}
+                          onClick={() => navigate("/institution")}
                         >
-                          Student Team Login
+                          Institution Login
                           <span>
                             {" "}
                             <ArrowRight />

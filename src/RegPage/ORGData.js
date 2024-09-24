@@ -871,7 +871,7 @@ export const userList = [
 ];
 export const navList = {
   Mentor: [
-    "/teacher-dashboard",
+    "/institution-dashboard",
     "/mentorcourse/1",
     "/mentorteams",
     "/tecresource",

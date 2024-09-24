@@ -137,7 +137,7 @@ const AddNewSchool = (props) => {
                                             'success',
                                             'School Create Successfully'
                                         );
-                                        navigate('/institution');
+                                        navigate('/institution-registration');
                     }
                 })
                 .catch( (err) =>{
@@ -512,7 +512,7 @@ const AddNewSchool = (props) => {
                           </button>
                         
                           <button
-                            onClick={() => navigate("/institution")}
+                            onClick={() => navigate("/institution-registration")}
                             type="button"
                             className="btn btn-secondary"
                             style={{ marginLeft: 'auto' }} 

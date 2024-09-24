@@ -162,7 +162,7 @@ const PreSurvey = () => {
 
             setCount(count + 1);
             localStorage.setItem("presurveystatus", "COMPLETED");
-            navigate("/teacher-dashboard");
+            navigate("/institution-dashboard");
             window.location.reload();
             // formik.resetForm();
           }

@@ -23,11 +23,11 @@ const ProtectedRoute = ({ children, user }) => {
     if (user.includes("ADMIN")) {
       return <Navigate to="/admin" />;
     } else if (user.includes("MENTOR")) {
-      return <Navigate to="/teacher" />;
+      return <Navigate to="/institution" />;
     } else if (user.includes("EADMIN")) {
       return <Navigate to="/eadmin" />;
     } else if (user.includes("INSTITUTION")) {
-      return <Navigate to="/institution" />;
+      return <Navigate to="/institution-registration" />;
     } else if (user.includes("STUDENT")) {
       return <Navigate to="/student" />;
     } else if (user.includes("TEAM")) {

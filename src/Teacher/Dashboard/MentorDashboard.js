@@ -16,6 +16,7 @@ import { FaUserGraduate } from 'react-icons/fa';
 import { FaPaperPlane } from 'react-icons/fa';
 import { FaChalkboardTeacher } from 'react-icons/fa'; 
 import { FaRoute } from 'react-icons/fa';
+import { CheckCircle } from "react-feather";
 import { FaPlay } from 'react-icons/fa';
 import LatestNews from './LatestNews';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -32,13 +33,11 @@ import { useReactToPrint } from 'react-to-print';
 import TCertificate from '../Certificate/TCertificate';
 import SchoolTeamPDF from './SchoolTeamPDF';
 import { Modal } from 'react-bootstrap';
+import Swal from 'sweetalert2/dist/sweetalert2';
+import logout from '../../assets/img/support.png';
 
 const GreetingModal = (props) => {
-  // console.log(props.state,"sss");
- const  navigate=useNavigate();
-  const handleNavigate =()=>{
-    // navigate("");
-  };
+  
   return (
       <Modal
           show={props.show}
@@ -52,11 +51,29 @@ const GreetingModal = (props) => {
 
           <Modal.Body>
               <figure>
-                  <img
+              {props.poptype === "link" ? (
+                  <div className="modal-body custom-modal-body">
+                                    <div style={{ width: '100%', height: '400px' }}>
+                      <iframe
+                         
+                          src={props.popLink}
+                          title="Video popup"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                      ></iframe>
+                      </div></div>
+                  ) : (
+                      <img
+                          src={props.imgUrl}
+                          alt="popup image"
+                          className="img-fluid"
+                      />
+                  )}
+                  {/* <img
                       src={props.imgUrl}
                       alt="popup image"
                       className="img-fluid"
-                  />
+                  /> */}
               </figure>
           </Modal.Body>
           <Modal.Footer>
@@ -81,6 +98,10 @@ const GreetingModal = (props) => {
 const MentorDashboard = () => {
   const [showsPopup, setShowsPopup] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
+  const [popLink, setPopLink] = useState('');
+  const [poptype, setPopType] = useState('');
+
+
   const[state,setState]=useState("");
   // console.log(state,"sss");
 
@@ -107,6 +128,8 @@ const MentorDashboard = () => {
   const [teacCourseLoading, setTeacCourseLoading] = useState(true);
   const [teacPostSLoading, setTeacPostSLoading] = useState(true);
   const [whatsappLink, setWhatsappLink] = useState('');
+
+  const [message, setMessage] = useState('');
   
   useEffect(() => {
     
@@ -130,9 +153,18 @@ const MentorDashboard = () => {
             if (res.status === 200 && res.data.data[0]?.on_off === '1') {
               // console.log(res,"res");
               setShowsPopup(true);
-                setImgUrl(res?.data?.data[0]?.url);
+              setPopType(res?.data?.data[0]?.type);
+
+                setPopLink(res?.data?.data[0]?.url);
+              setImgUrl(res?.data?.data[0]?.url);
                 setState(res?.data?.data[0]?.navigate);
-             
+
+              // if(res?.data?.data[0]?.type == "link"){
+
+              // }else{
+              //   setImgUrl(res?.data?.data[0]?.url);
+              //   setState(res?.data?.data[0]?.navigate);
+              // }
             }
         })
         .catch(function (error) {
@@ -227,6 +259,8 @@ const MentorDashboard = () => {
       axios(config)
           .then(function (response) {
               if (response.status === 200) {
+                // console.log(response, 'idea count');
+
                   setIdeaCount(response.data.data[0].idea_count);
                   setIdeaCountLoading(false);
               }
@@ -349,7 +383,9 @@ const MentorDashboard = () => {
         .then(function (response) {
             if (response.status === 200) {
                 // console.log(response);
-                setWhatsappLink(response.data.data);
+                setWhatsappLink(response.data.data[0].whatapp_link);
+                setMessage(response.data.data[0].mentor_note);
+                // console.log(response.data.data[0].mentor_note,"message");
             }
         })
         .catch(function (error) {
@@ -372,11 +408,12 @@ const MentorDashboard = () => {
       setVideo(vimeoId[i]);
       setShow(true);
     };
-    const vimeoId = ["https://www.youtube.com/embed/CiYa_iLdpXo?si=8t7wj1idLOrW4se0",
-        "https://www.youtube.com/embed/q40BSRm_cJM?si=ALZHPloc04lqH25O",
-        "https://www.youtube.com/embed/eCYCvTu03X4?si=3zA5lyM9UOUoW5Yb",
-        "https://www.youtube.com/embed/s-LUZN38Fik?si=rz10HpY0ZqDaYqD6",
-        "https://www.youtube.com/embed/1WvwMypdVaY?si=8GPHpUqV7Jdewh__",
+    const vimeoId = ["https://www.youtube.com/embed/sT3I44RzZAI?si=W92OEckd0iS7rHvZ",
+        "https://www.youtube.com/embed/dWpG-TMyMrQ?si=J2NcbBCjxeelG2Us",
+        "https://www.youtube.com/embed/siaE-HPVvk0?si=GnJZoZgwLjGMmco7",
+        "https://www.youtube.com/embed/fse1a6IaeB0?si=DHOB_c2ngQV3C6SX",
+        "https://www.youtube.com/embed/LYS2A3ozZRU?si=Ds2b_17nrPiYH1aF",
+        "https://www.youtube.com/embed/OIsCwczsT0o?si=I6tpZPCZAMqvwIK-",
         ];
 
 
@@ -385,12 +422,16 @@ const MentorDashboard = () => {
     handlePrintCertificate();
   };
 
+  const handleNavigation = () => {
+    navigate("/instructions", { state: { instruction: message } });
+  };
+
   const scroll = () => {
         const section = document.querySelector('#start');
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   
-
+// console.log(message,"m");
     
   const componentRef = useRef();
   const handlePrintCertificate = useReactToPrint({
@@ -399,12 +440,34 @@ const MentorDashboard = () => {
   const handleClose = () => {
     setShowsPopup(false);
 };
+
+const handleWhatsapp = () => {
+  const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+          confirmButton: 'btn btn-submit',
+      },
+      buttonsStyling: false
+  });
+
+  swalWithBootstrapButtons
+      .fire({
+          title: "<h4>Looking for Support?</h4>",
+          text: "Pls contact your State Program Officer.",
+          imageUrl: `${logout}`,
+          confirmButtonText: 'Ok',
+      });
+  };
+
+
+
   return (
     <>
      <GreetingModal
                 handleClose={handleClose}
                 show={showsPopup}
                 imgUrl={imgUrl}
+                popLink={popLink}
+poptype={poptype}
                 state={state}
             ></GreetingModal>
     <div style={{ display: 'none' }}>
@@ -426,14 +489,29 @@ const MentorDashboard = () => {
                 &nbsp;Hi {currentUser?.data[0]?.full_name},
               </h3>
               &nbsp;
-              <h6>here&apos;s what&apos;s happening with your Youth for Social Impact 2024 journey.</h6>
+              <h6>here&apos;s what&apos;s happening with your School Innovation Marathon 2024 journey.</h6>
             </div>
             <div className="d-flex align-items-center">
-              <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
+              <div className="action-table-data">
+                <div className="edit-delete-action">
+                  <OverlayTrigger placement="top" overlay={renderTooltip}>
+                    <Link
+                        to="#"
+                        className="me-2 p-2"
+                        onClick={() => handleShow(5)}
+                        {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                        
+                    >
+                      <FaPlay  style={{color:"red"}} />
+                    </Link>
+                  </OverlayTrigger>
+                </div>
+              </div>
+              {/* <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
                 <Link data-bs-toggle="tooltip" data-bs-placement="top" onClick={handleRefresh} >
                   <RotateCcw className="feather feather-rotate-ccw feather-16" />
                 </Link>
-              </OverlayTrigger>
+              </OverlayTrigger> */}
             </div>
           </div>
           {/* Teacher dashboard stats */}
@@ -542,7 +620,7 @@ const MentorDashboard = () => {
                         <h5>
                           <CountUp start={0} end={ideaCount} duration={2} />
                         </h5>
-                        <h6>Ideas Submissions</h6>
+                        <h6>Idea Submissions</h6>
                       </>
                     )}
                 </div>
@@ -554,18 +632,20 @@ const MentorDashboard = () => {
                   <div className="dash-widgetcontent">
                     {teacPostSLoading ? ( 
                         <Loader />
-                      ) : ideaCount === 0 ? (
+                      ) : ideaCount != teamsCount ? (
                         <>
-                          <h5>Teams yet to submit ideas for your Post-Survey to enable</h5>
+                          <h5>All teams yet to submit ideas for Post-Survey to enable</h5>
                         </>
                       ) : (teacPostSurvey === "COMPLETED"? (
                         <>
-                          <FaCheckCircle style={{ color: 'green' }} />
-                          <h6>Post Survey</h6>
+                          
+                          <h4>Post Survey</h4>
+                          <h5>Submitted <CheckCircle size={15} color="white" /></h5>
                         </>
                       ):(
                         <>
-                          <h5>Yet to take survey?</h5>
+                          <h4>Post Survey</h4>
+                          <h5>Click here to complete</h5>
                         </>
                       ))}
                   </div>
@@ -590,9 +670,12 @@ const MentorDashboard = () => {
                           <>
                             <div className="dash-counts">
                               <h4>Congrats</h4>
-                              <h5>Download Certificate</h5>
+                              {/* <h5>Download Certificate</h5> */}
+                              <h5>Certificate enables soon</h5>
                             </div>
-                            <div className="dash-imgs" onClick={handleCertificateDownload}>
+                            <div className="dash-imgs" 
+                            // onClick={handleCertificateDownload}
+                            >
                                 <GiAchievement size={30} />
                             </div>
                           </>
@@ -619,9 +702,16 @@ const MentorDashboard = () => {
                   <h5>Support here</h5>
                 </div>
                 <div className="dash-imgs" >
+                {whatsappLink === null ? (
                   <a href={whatsappLink} target="_blank" rel="noopener noreferrer" >
-                    <FaWhatsapp style={{color:"white"}}/>
+                    <FaWhatsapp onClick={handleWhatsapp} style={{color:"white"}}/>
                   </a>
+                ):
+                (
+                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer" >
+                      <FaWhatsapp style={{color:"white"}}/>
+                    </a>
+                )}
                 </div>
               </div>
             </div>
@@ -633,8 +723,8 @@ const MentorDashboard = () => {
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
                   <h4 className="card-title mb-0">SIM Road Map </h4>
-                  <div className="dropdown">
-                    <Link to="#" className="view-all d-flex align-items-center">
+                  <div className="dropdown" onClick={handleNavigation} >
+                    <Link to="/instructions"  className="view-all d-flex align-items-center">
                       <span className="ps-2 d-flex align-items-center">
                         <FaRoute size={30} />
                       </span>
@@ -662,7 +752,7 @@ const MentorDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -678,7 +768,7 @@ const MentorDashboard = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             {teamCountLoading ? ( 
                                 <Loader />
@@ -731,7 +821,7 @@ const MentorDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -747,7 +837,7 @@ const MentorDashboard = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             {teacCourseLoading ? ( 
                                 <Loader />
@@ -808,7 +898,7 @@ const MentorDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -824,7 +914,7 @@ const MentorDashboard = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             {teacPostSLoading ? ( 
                                 <Loader />
@@ -877,7 +967,7 @@ const MentorDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -893,7 +983,7 @@ const MentorDashboard = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
@@ -930,7 +1020,7 @@ const MentorDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -946,7 +1036,7 @@ const MentorDashboard = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
@@ -980,7 +1070,7 @@ const MentorDashboard = () => {
           </div>
           {/* Teams Progress */}
           <div>
-            <TeamsProgDD  user={currentUser?.data}/>
+            <TeamsProgDD  user={currentUser?.data}  setIdeaCount={setIdeaCount}/>
           </div>
         </div>
       </div>

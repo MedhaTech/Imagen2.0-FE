@@ -55,7 +55,7 @@
 //   return (
 //     // <Router>
 //     <Routes>
-//       <Route path="/" element={<Navigate to="/teacher" />} />
+//       <Route path="/" element={<Navigate to="/institution" />} />
 //       <Route path="/">
 //         <Route path="/registration" element={<FirstPage />} />
 //         <Route path="/atl-register" element={<AtlPage />} />
@@ -65,7 +65,7 @@
 //         <Route path="/non-atl-register" element={<NonAtlPage />} />
 
 //         <Route path="/admin" element={<AdminLogin />} />
-//         <Route path="/teacher" element={<LogInTeacher />} />
+//         <Route path="/institution" element={<LogInTeacher />} />
 
 //         {/* <Route
 //           path="/admin/dashboard"

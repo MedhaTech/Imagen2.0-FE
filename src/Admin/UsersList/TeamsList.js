@@ -190,7 +190,7 @@ const updateStatesList=["All States",...stateList];
     };
     const viewDetail = (item) => {
         props.history.push({
-            pathname: '/admin/teacher/dashboard',
+            pathname: '/admin/institution/dashboard',
             data: item
         });
         // localStorage.setItem(

@@ -302,7 +302,7 @@ const Dashboard = (props) => {
               // dispatch(getAdminTeamMembersList(selectedTeam));
               openNotificationWithIcon("success", "Team Deleted Successfully");
 
-              navigate("/teacher-dashboard");
+              navigate("/institution-dashboard");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
@@ -347,7 +347,7 @@ const Dashboard = (props) => {
                 "Student Deleted Successfully"
               );
               window.location.reload();
-              // navigate("/teacher-dashboard");
+              // navigate("/institution-dashboard");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
