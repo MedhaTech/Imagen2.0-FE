@@ -107,7 +107,7 @@ export const teacherLoginUser =
                       navigate("/mentorpresurvey");
                     } else{
                       localStorage.setItem("presurveystatus", "COMPLETED");
-                      navigate("/teacher-dashboard");
+                      navigate("/institution-dashboard");
                     }
                 }
             })
@@ -117,7 +117,7 @@ export const teacherLoginUser =
         //const PreSurvey = mentorpresurvey(); 
         
         //return true;
-        //navigate("/teacher-dashboard");
+        //navigate("/institution-dashboard");
         // setTimeout(() => {
         //     localStorage.clear();
         // }, 60000);
@@ -181,7 +181,7 @@ export const teacherLoginUserLogOut = (navigate) => async () => {
     if (result && result.status === 200) {
       setCurrentUser();
       // localStorage.removeItem('headerOption');
-      navigate("/teacher");
+      navigate("/institution");
     }
   } catch (error) {
     console.log("Something went wrong in teachers actions");

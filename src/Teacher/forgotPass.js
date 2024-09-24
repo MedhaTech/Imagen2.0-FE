@@ -49,7 +49,7 @@ const Forgotpassword = () => {
             );
             seterrorMsg("");
             setTimeout(() => {
-              navigate("/teacher");
+              navigate("/institution");
             }, 2000);
             
           }
@@ -131,7 +131,7 @@ const Forgotpassword = () => {
                 <div className="signinform text-center">
                   <h4>
                     Return to
-                    <Link to="/teacher" className="hover-a">
+                    <Link to="/institution" className="hover-a">
                       {" "}
                       Login{" "}
                     </Link>

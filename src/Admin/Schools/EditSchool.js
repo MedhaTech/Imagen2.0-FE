@@ -164,7 +164,7 @@ const EditSchool = (props) => {
                             'success',
                             'School Update Successfully'
                         );
-                        navigate('/institution');
+                        navigate('/institution-registration');
                     }
                 })
                 .catch((err) => {
@@ -575,7 +575,7 @@ const EditSchool = (props) => {
                           </button>
                         
                           <button
-                            onClick={() => navigate("/institution")}
+                            onClick={() => navigate("/institution-registration")}
                             type="button"
                             className="btn btn-secondary"
                             style={{ marginLeft: 'auto' }} 

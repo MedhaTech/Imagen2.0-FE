@@ -108,10 +108,10 @@ const AdminProfile = () => {
                 </div>
               </div> */}
               {/* <div className="col-12">
-                <Link to={"/teacher-dashboard"} className="btn btn-submit me-2">
+                <Link to={"/institution-dashboard"} className="btn btn-submit me-2">
                   Submit
                 </Link>
-                <Link className="btn btn-cancel" to={"/teacher-dashboard"}>
+                <Link className="btn btn-cancel" to={"/institution-dashboard"}>
                   Cancel
                 </Link>
               </div> */}

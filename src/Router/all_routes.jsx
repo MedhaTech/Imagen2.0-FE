@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 export const all_routes = {
   dashboard: "/admin-dashboard",
-  institution:'/institution',
+  institution:'/institution-registration',
   addinstitution:'/addinstitution',
   reports : "/reports",
   latestnews:"/latest-news",
@@ -25,7 +25,7 @@ export const all_routes = {
   createResource : "/createResource",
   editResource : "/editResource",
   editinstitution:"/edit-institution",
-  mentordashboard: "/teacher-dashboard",
+  mentordashboard: "/institution-dashboard",
   teamdashboard: "/team-dashboard",
   teamProfile: "/team-profile",
   studentProfile: "/student-profile",

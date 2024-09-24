@@ -208,7 +208,7 @@ const HorizontalSidebar = () => {
         <ul className="nav">
           <li className="submenu">
             <Link
-              to="/teacher-dashboard"
+              to="/institution-dashboard"
               onClick={handleSelectClick}
               className={isActive ? "subdrop" : ""}
             >
@@ -227,7 +227,7 @@ const HorizontalSidebar = () => {
                 </Link>
                 <ul style={{ display: subActive ? "block" : "none" }}>
                   <li>
-                    <Link to="/teacher-dashboard">Admin Dashboard</Link>
+                    <Link to="/institution-dashboard">Admin Dashboard</Link>
                   </li>
                   <li>
                     <Link to="sales-dashboard" className="active">

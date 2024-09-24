@@ -34,7 +34,7 @@ const ViewMore = () => {
 
     const handleBack = () => {
         // history.push({
-        //     pathname: '/admin/teacher/dashboard'
+        //     pathname: '/admin/institution/dashboard'
         // });
         navigate("/mentor-view");
         localStorage.setItem(

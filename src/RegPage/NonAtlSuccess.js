@@ -120,7 +120,7 @@ const NonAtlSuccess = () => {
               <div className="signinform">
                 <h4>
                   Click here to ?
-                  <Link className="hover-a" to={"/teacher"}>
+                  <Link className="hover-a" to={"/institution"}>
                     {" "}
                     Login
                   </Link>
