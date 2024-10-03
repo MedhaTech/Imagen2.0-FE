@@ -6,8 +6,10 @@ import { URL, KEY } from "../../constants/defaultValues";
 import {
   setCurrentUser,
   getNormalHeaders,
+  getCurrentUser,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
+import { encryptGlobal } from "../../constants/encryptDecrypt.js";
 
 export const loginUserSuccess = (user) => async (dispatch) => {
   dispatch({
@@ -44,7 +46,42 @@ export const loginUser = (data, navigate, module) => async (dispatch) => {
       localStorage.setItem("module", module);
       localStorage.setItem("layoutStyling", "default");
       localStorage.setItem("time", new Date().toString());
-      dispatch(loginUserSuccess(result));
+      dispatch(loginUserSuccess(result)); 
+      const currentUser = getCurrentUser('current_user');
+
+       const surveyApi = encryptGlobal(
+        JSON.stringify({
+          user_id: currentUser?.data[0]?.user_id
+        })
+      );
+      var config = {
+        method: 'get',
+        url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/dashboard/stuPrePostStats?Data=${surveyApi}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+      };
+      axios(config)
+        .then(function (response) {
+          if (response.status === 200) {
+            // console.log(response,"pre");
+            const pre = (response.data.data[0].pre_survey_completed_date);
+            if (pre === null) {
+              localStorage.setItem("stupresurveystatus", "INCOMPLETED");
+              navigate("/studentpresurvey");
+            } else{
+              localStorage.setItem("stupresurveystatus", "COMPLETED");
+              navigate("/student-dashboard");
+            }
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       navigate("/student-dashboard");
     } else {
       dispatch(loginUserError(result.statusText));

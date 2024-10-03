@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
@@ -12,8 +13,7 @@ const Sidebar = () => {
   const currentUser = getCurrentUser("current_user");
   const role = currentUser?.data[0]?.role;
   const presurvey = localStorage.getItem("stupresurveystatus") ;
-  console.log(presurvey,"status");
-  // console.log(role);
+  // console.log(presurvey,"status");
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
   const filterByRole = (items, role) => {

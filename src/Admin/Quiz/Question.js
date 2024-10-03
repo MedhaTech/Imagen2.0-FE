@@ -89,7 +89,7 @@ const Question = (props) => {
       ></div>
       {quiz[0] && quiz[0].type == "TEXT" && (
         <div className="answers">
-          <label className="my-auto mx-3 ">
+          <label className="my-auto mx-1">
             <Input
               {...ans}
               id="Ans"
@@ -157,13 +157,13 @@ const Question = (props) => {
                   {quiz[0] && quiz[0].type == "MCQ" ? (
                     <label
                       htmlFor={answer}
-                      className="my-auto mx-3 common-flex"
+                      className="my-auto mx-1 common-flex"
                     >
                       <Input
                         id={answer}
                         name={answer}
                         type="checkbox"
-                        className="mx-2"
+                        className="mx-1"
                         onChange={handleClick}
                         isChecked={isCheck.includes(answer)}
                       />
@@ -182,7 +182,7 @@ const Question = (props) => {
                         // <figure className="text-center my-auto mx-3">
                         <label
                           htmlFor={answer}
-                          className="text-center my-auto mx-3"
+                          className="text-center my-auto mx-1"
                         >
                           <img
                             src={config + answer}

@@ -101,7 +101,8 @@ const Question = (props) => {
                                     src={x}
                                     alt={x}
                                     className="img-fluid"
-                                    style={{ height: '43rem' }}
+                                    style={{ height: 'auto' }}
+                                    // style={{ height: '43rem' }}
                                 />
                             );
                         })}
@@ -120,11 +121,11 @@ const Question = (props) => {
                         }}
                     />
                 )}
-                <span
+                <h5
                     dangerouslySetInnerHTML={{
                         __html: quiz[0] && quiz[0].question
                     }}
-                ></span>
+                ></h5>
             </div>
 
             <div>
@@ -133,7 +134,7 @@ const Question = (props) => {
                     <div>
                         {quiz[0] && quiz[0].type === 'TEXT' && (
                             <div className="answers">
-                                <label className="my-auto mx-3">
+                                <label className="my-auto mx-1">
                                     <Input
                                         {...ans}
                                         id="Ans"
@@ -333,7 +334,7 @@ const Question = (props) => {
                                         ) : (
                                             <FormGroup
                                                 check
-                                                className="answer-text d-flex mx-2"
+                                                className="answer-text d-flex py-3"
                                                 style={{
                                                     backgroundColor:
                                                         isCorrectAnswer
@@ -348,8 +349,8 @@ const Question = (props) => {
                                                           isSubmitted
                                                         ? '2px solid red'
                                                         : '',
-                                                    paddingTop: '1.5rem',
-                                                    paddingBottom: '1.5rem',
+                                                    // paddingTop: '1.5rem',
+                                                    // paddingBottom: '1.5rem',
                                                     fontWeight: 'bold',
                                                     borderRadius: '1rem'
                                                 }}

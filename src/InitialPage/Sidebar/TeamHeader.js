@@ -27,7 +27,7 @@ const Header = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const currentUser = getCurrentUser("current_user");
   const presurvey = localStorage.getItem("stupresurveystatus") ;
-  console.log(presurvey,"status");
+  // console.log(presurvey,"status");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };

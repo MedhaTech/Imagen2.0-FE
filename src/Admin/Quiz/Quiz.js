@@ -71,7 +71,7 @@ const Quiz = (props) => {
         props.adminRefQuizQst &&
         props.adminRefQuizQst.count === null && <Confetti className="w-100" />}
 
-      <Card className="quiz">
+      <Card className="quiz p-4">
         {video == true &&
         props.adminRefQstResponce &&
         props.adminRefQstResponce.status === 200 ? (
@@ -199,7 +199,7 @@ const Quiz = (props) => {
                   onSelectType={handleSelectType}
                 />
 
-                <Row className="justify-content-between mt-5">
+                <Row className="justify-content-between mt-3">
                   <Col md={12} className="text-right">
                     <button
                       //   size="small"

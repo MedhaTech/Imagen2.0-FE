@@ -9,7 +9,7 @@ const QuizResponse = ({ response }) => {
   const config = process.env.REACT_APP_API_IMAGE_BASE_URL;
   return (
     <div className="w-100">
-      <div className="row" style={{ fontSize: "1.4rem" }}>
+      <div className="row" style={{ fontSize: "1rem" }}>
         {accimg && (
           <div className="col-3">
             <img src={config + accimg} alt="star" className="img-fluid w-75" />
