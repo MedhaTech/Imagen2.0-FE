@@ -39,7 +39,10 @@ import EadminDashboard from "../Evaluator/Admin/Dashboard/EadminDashboard";
 import MentorPresurvey from "../Teacher/PreSurvey/PreSurvey";
 import MentorPostsurvey from "../Teacher/PostSurvey/PostSurvey";
 import MentorTeams from "../Teacher/Teams/index";
-import CreateTeam from "../Teacher/Teams/MentorTeam";
+import CreatepilotStudent from "../Teacher/Teams/CreatepilotStudent";
+import AddCrew1Stu from "../Teacher/Teams/Crew1student";
+import AddCrew2Stu from "../Teacher/Teams/Crew2student";
+import AddCrew3Stu from "../Teacher/Teams/Crew3student";
 import AddStudent from "../Teacher/Teams/AddStudent";
 import TecResource from "../Teacher/Resource/TecResource";
 import StudentEdit from "../Teacher/Teams/StuEdit";
@@ -461,9 +464,9 @@ export const mentorRoutes = [
   },
   {
     id: 7,
-    path: routes.createteam,
-    name: "createteam",
-    element: <CreateTeam />,
+    path: routes.CreatepilotStudent,
+    name: "CreatepilotStudent",
+    element: <CreatepilotStudent />,
     protected: true,
     route: Route,
   },
@@ -523,6 +526,31 @@ export const mentorRoutes = [
     protected: true,
     route: Route,
   },
+  { 
+   id: 14,
+    path: routes.AddCrew1Stu,
+    name: "AddCrew1Stu",
+    element: <AddCrew1Stu />,
+    protected: true,
+    route: Route,
+  },
+  { 
+    id: 15,
+     path: routes.AddCrew2Stu,
+     name: "AddCrew2Stu",
+     element: <AddCrew2Stu />,
+     protected: true,
+     route: Route,
+   },
+   { 
+    id: 16,
+     path: routes.AddCrew3Stu,
+     name: "AddCrew3Stu",
+     element: <AddCrew3Stu />,
+     protected: true,
+     route: Route,
+   }
+  
 ];
 export const stateRoutes = [
   {
