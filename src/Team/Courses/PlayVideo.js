@@ -51,6 +51,7 @@ import DetaledQuiz from "../../Admin/DetailedQuiz/DetaledQuiz";
 import Csv from "../../assets/img/csv1.png";
 
 import Pdf from "../../assets/img/csv1.png";
+import Congo from "../../assets/img/chek.png";
 import FullScreenButton from "../../components/FullScreenButtonComp";
 import { getLanguage } from "../../constants/languageOptions";
 // import { updateStudentBadges } from "../../../redux/studentRegistration/actions";
@@ -243,7 +244,7 @@ const PlayVideoCourses = (props) => {
     (state) => state?.studentRegistration
   );
   // console.log(dashboardStatus ,"ccc");
-const[dashboard,setDashboard]=useState("");
+  const [dashboard, setDashboard] = useState("");
   React.useEffect(() => {
     // if (dashboardStatus) {
     //   dispatch(
@@ -254,51 +255,51 @@ const[dashboard,setDashboard]=useState("");
   }, []);
   const stuCoursePercent = () => {
     const corseApi = encryptGlobal(
-        JSON.stringify({
-            user_id: currentUser?.data[0]?.user_id
-        })
+      JSON.stringify({
+        user_id: currentUser?.data[0]?.user_id
+      })
     );
     var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/stuCourseStats?Data=${corseApi}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/stuCourseStats?Data=${corseApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
     };
     axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-              // console.log(response,"course");
-              setDashboard(response.data.data[0]);
-                // const per = Math.round(
-                //     (response.data.data[0].topics_completed_count /
-                //         response.data.data[0].all_topics_count) *
-                //         100
-                // );
-                // console.log(per);
-                // setCoursepercentage(per);
-                // setStuCourseLoading(false);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response,"course");
+          setDashboard(response.data.data[0]);
+          // const per = Math.round(
+          //     (response.data.data[0].topics_completed_count /
+          //         response.data.data[0].all_topics_count) *
+          //         100
+          // );
+          // console.log(per);
+          // setCoursepercentage(per);
+          // setStuCourseLoading(false);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   React.useEffect(() => {
     if (
       dashboard?.all_topics_count === dashboard?.topics_completed_count
-     
+
     ) {
       setShowCompleteMessage(true);
     } else {
       setShowCompleteMessage(false);
     }
   }, [dashboard]);
-// console.log(showCompleteMessage,"ss");
+  // console.log(showCompleteMessage,"ss");
   const toggle = (id) => {
     if (id === 1) {
       setOpen("1");
@@ -344,7 +345,7 @@ const[dashboard,setDashboard]=useState("");
     // setAdminCourseDetails(props.adminCoursesDetails[0].description);
     setAdminCourseDetails(
       props.adminCoursesDetails[0] &&
-        props.adminCoursesDetails[0].course_modules
+      props.adminCoursesDetails[0].course_modules
     );
     props.adminCoursesDetails[0] &&
       props.adminCoursesDetails[0].course_modules.map((course, index) => {
@@ -569,9 +570,9 @@ const[dashboard,setDashboard]=useState("");
     if (event.reflective_quiz_status !== "INCOMPLETE") {
       if (
         topicObj.topic_type_id !==
-          setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id ||
+        setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id ||
         topicObj.topic_type !=
-          setTopicArrays[setTopicArrays?.length - 1]?.topic_type
+        setTopicArrays[setTopicArrays?.length - 1]?.topic_type
       ) {
         setTopic(setTopicArrays[topixIndex]);
         modulesListUpdateApi(topicObj.course_topic_id);
@@ -676,7 +677,7 @@ const[dashboard,setDashboard]=useState("");
                   response?.data?.data[0].data.length - 1
                 ]?.score /
                   response?.data?.data[0]?.all[0]?.allquestions) *
-                  100
+                100
               ) < 60;
             if (!cuttOff) {
               setQuizStart(false);
@@ -746,7 +747,7 @@ const[dashboard,setDashboard]=useState("");
     const notDone = (
       <FeatherIcon
         icon="play-circle"
-        style={{ width: "16px", height: "16px" }}
+        style={{ color: "#adb5bd", width: "16px", height: "16px" }}
       />
     );
     if (type === "VIDEO" && status === "COMPLETED") {
@@ -920,8 +921,7 @@ const[dashboard,setDashboard]=useState("");
     );
   };
   const comingSoonText = t("dummytext.student_course");
-  const pdfFileURL =
-    "https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf";
+  // const pdfFileURL = "https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf";
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -929,22 +929,22 @@ const[dashboard,setDashboard]=useState("");
       <div className="content settings-content">
         <div className="page-header settings-pg-header">
           <div className="add-item d-flex">
-              <div className="page-title">
-                  <h4>Course</h4>
-                  <h6>Join us on this problem solving journey.</h6>
-              </div>
+            <div className="page-title">
+              <h4>{t("home.courses")}</h4>
+              <h6>  {t("home.textdata")}</h6>
+            </div>
           </div>
           <ul className="table-top-head">
-              <li>
-                  <div>
-                  <FullScreenButton
-                    fullScreen={fullScreen}
-                    setFullScreen={setFullScreen}
-                  />
-                </div>
-              </li>
+            <li>
+              <div>
+                <FullScreenButton
+                  fullScreen={fullScreen}
+                  setFullScreen={setFullScreen}
+                />
+              </div>
+            </li>
           </ul>
-      </div>
+        </div>
         {!showPage ? (
           <CommonPage text={comingSoonText} />
         ) : (
@@ -954,7 +954,7 @@ const[dashboard,setDashboard]=useState("");
             >
               <Row
                 className="m-0 courser-video-section "
-                // style={{ border: "1px solid red" }}
+              // style={{ border: "1px solid red" }}
               >
                 <Col
                   xl={4}
@@ -965,7 +965,7 @@ const[dashboard,setDashboard]=useState("");
                     // borderRadius: "0",
                   }}
                 >
-                  <div className="assement-info">
+                  <div className="assement-info1">
                     {/* <p
                       className="content-title"
                       style={{ "font-weight": "600" }}
@@ -1033,17 +1033,16 @@ const[dashboard,setDashboard]=useState("");
                                               style={{
                                                 background:
                                                   currentTopicId ===
-                                                    lecture.course_topic_id &&
+                                                  lecture.course_topic_id &&
                                                   "#FE9F4314",
                                                 position: "relative",
                                                 // color: "#FE9F4314",
                                                 left: "0.75rem",
                                               }}
-                                              className={`justify-content-between w-100 py-2 ${
-                                                lecture.progress === "COMPLETED"
-                                                  ? "hHover"
-                                                  : "noCurser"
-                                              }`}
+                                              className={`justify-content-between w-100 py-2 ${lecture.progress === "COMPLETED"
+                                                ? "hHover"
+                                                : "noCurser"
+                                                }`}
                                             >
                                               <Col
                                                 md={12}
@@ -1120,7 +1119,7 @@ const[dashboard,setDashboard]=useState("");
                   </div>
                   {/* <div className='module-assement'>
                 <div className='assement-info'>
-                  <p className='content-title text-white'>essement</p>
+                  <p className='content-title text-white'>Module Assessement</p>
                   <p className='module-text m-0'>
                     Test your knowledge of all skills in this module.
                   </p>
@@ -1149,7 +1148,6 @@ const[dashboard,setDashboard]=useState("");
                 >
                   {showCompleteMessage ? (
                     <div className="bg-white rounded">
-
                       <CourseSuccessMessage />
                     </div>
                   ) : (
@@ -1161,86 +1159,169 @@ const[dashboard,setDashboard]=useState("");
                         >
                           <div className="modal-content card p-4">
                             {quizStart ? (
-                              <Modal.Header>
-                                <Modal.Title className="w-100 d-block mb-2">
-                                  <div
-                                  className="text-left text-primary"
-                                    dangerouslySetInnerHTML={{
-                                      __html: t(
-                                        "student_course.quiz_start_title"
-                                      ),
-                                    }}
-                                  ></div>
-                                </Modal.Title>
-                                {/* <div
+                              <>
+                                <Modal.Header>
+                                  <Modal.Title className="w-100 d-block mb-2">
+                                    <div className="text-left text-primary"
+                                      dangerouslySetInnerHTML={{
+                                        __html: t(
+                                          "student_course.quiz_start_title"
+                                        ),
+                                      }}
+                                    ></div>
+                                  </Modal.Title>
+                                  {/* <div
                                   className="w-100 d-block text-left"
                                   dangerouslySetInnerHTML={{
                                     __html: t("student_course.quiz_inst_msg"),
                                   }}
                                 ></div> */}
-                              </Modal.Header>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <Row>
+                                    <Col md={12}>
+                                      <div
+                                        className="w-100 d-block text-left mb-3"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_inst_msg1"),
+                                        }}
+                                      ></div>
+                                      <div
+                                        className="w-100 d-block text-left"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_inst_msg2"),
+                                        }}
+                                      ></div>
+                                      <Button
+                                        label={
+                                          quizStart
+                                            ? t("student.lets_start")
+                                            : quizCompleted
+                                              ? t("student.see_result")
+                                              : t("student.resume_quiz")
+                                        }
+                                        btnClass="primary mt-4"
+                                        size="small"
+                                        onClick={() => {
+                                          setHideQuiz(true);
+                                          setQuizAttempted(true);
+                                        }}
+                                      />
+                                    </Col>
+                                  </Row>
+                                </Modal.Body>
+                              </>
                             ) : quizCompleted ? (
-                              <Modal.Header>
-                                <Modal.Title className="w-100 d-block mb-2">
-                                  <div
-                                    dangerouslySetInnerHTML={{
-                                      __html: t(
-                                        "student_course.quiz_com_title"
-                                      ),
-                                    }}
-                                  ></div>
-                                </Modal.Title>
-                                <p
-                                  className="w-100 d-block"
-                                  dangerouslySetInnerHTML={{
-                                    __html: t("student_course.quiz_com_note"),
-                                  }}
-                                ></p>
-                              </Modal.Header>
+                              <>
+                                <Modal.Header>
+                                  <Modal.Title className="w-100 d-block mb-2">
+                                    <div className="text-primary"
+                                      dangerouslySetInnerHTML={{
+                                        __html: t(
+                                          "student_course.quiz_com_title"
+                                        ),
+                                      }}
+                                    ></div>
+                                  </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <Row>
+                                    <Col md={12} className="text-center">
+                                      <div>
+                                        <img
+                                          className="img-fluid imgWidthSize"
+                                          src={Congo}
+                                        ></img>
+                                      </div>
+                                      <h5
+                                        className="w-100 d-block"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_com_note"),
+                                        }}
+                                      ></h5>
+                                      {/* <div
+                                        className="w-100 d-block text-left mb-3"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_inst_msg1"),
+                                        }}
+                                      ></div> */}
+
+                                      <Button
+                                        label={
+                                          quizStart
+                                            ? t("student.lets_start")
+                                            : quizCompleted
+                                              ? t("student.see_result")
+                                              : t("student.resume_quiz")
+                                        }
+                                        btnClass="primary mt-4"
+                                        size="small"
+                                        onClick={() => {
+                                          setHideQuiz(true);
+                                          setQuizAttempted(true);
+                                        }}
+                                      />
+                                    </Col>
+                                  </Row>
+                                </Modal.Body>
+                              </>
                             ) : (
-                              <Modal.Header>
-                                <Modal.Title className="w-100 d-block mb-2">
-                                  <div
-                                    dangerouslySetInnerHTML={{
-                                      __html: t(
-                                        "student_course.quiz_con_title"
-                                      ),
-                                    }}
-                                  ></div>
-                                </Modal.Title>
-                                <div
+                              <>
+                                <Modal.Header>
+                                  <Modal.Title className="w-100 d-block mb-2">
+                                    <div className="text-primary"
+                                      dangerouslySetInnerHTML={{
+                                        __html: t(
+                                          "student_course.quiz_con_title"
+                                        ),
+                                      }}
+                                    ></div>
+                                  </Modal.Title>
+                                  {/* <div
                                   className="w-100 d-block text-left"
                                   dangerouslySetInnerHTML={{
                                     __html: t("student_course.quiz_inst_msg"),
                                   }}
-                                ></div>
-                              </Modal.Header>
+                                ></div> */}
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <Row>
+                                    <Col md={12}>
+                                      <div
+                                        className="w-100 d-block text-left mb-3"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_inst_msg1"),
+                                        }}
+                                      ></div>
+                                      <div
+                                        className="w-100 d-block text-left"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_inst_msg2"),
+                                        }}
+                                      ></div>
+                                      <Button
+                                        label={
+                                          quizStart
+                                            ? t("student.lets_start")
+                                            : quizCompleted
+                                              ? t("student.see_result")
+                                              : t("student.resume_quiz")
+                                        }
+                                        btnClass="primary mt-4"
+                                        size="small"
+                                        onClick={() => {
+                                          setHideQuiz(true);
+                                          setQuizAttempted(true);
+                                        }}
+                                      />
+                                    </Col>
+                                  </Row>
+                                </Modal.Body>
+                              </>
+
                             )}
 
-                            <Modal.Body>
-                              <figure>
-                                <img
-                                  src={ModuleAssesmentImg}
-                                  alt="test"
-                                  className="img-fluid w-50"
-                                />
-                              </figure>
-                              <Button
-                                label={
-                                  quizStart
-                                    ? t("student.lets_start")
-                                    : quizCompleted
-                                    ? t("student.see_result")
-                                    : t("student.resume_quiz")
-                                }
-                                btnClass="primary mt-4"
-                                size="small"
-                                onClick={() => {
-                                  setHideQuiz(true);
-                                  setQuizAttempted(true);
-                                }}
-                              />
-                            </Modal.Body>
+
                           </div>
                         </div>
                       ) : item === "WORKSHEET" ? (
@@ -1250,7 +1331,7 @@ const[dashboard,setDashboard]=useState("");
                               <Card className="course-sec-basic p-3">
                                 <div className="container new-result">
                                   <div className="row justify-content-md-center ">
-                                    <div className="col col-lg-9">
+                                    <div className="col col-lg-10">
                                       <div className="congratulations text-center">
                                         <div
                                           dangerouslySetInnerHTML={{
@@ -1264,13 +1345,9 @@ const[dashboard,setDashboard]=useState("");
                                       <div className="text-center">
                                         <Button
                                           label={t("student.continue")}
-                                          btnClass=" mx-4"
+                                          btnClass="primary mt-4"
                                           size="small"
                                           type="submit"
-                                          style={{
-                                            background: "#00ced1",
-                                            color: "#fff",
-                                          }}
                                           onClick={() => {
                                             handleNextCourse();
                                           }}
@@ -1299,89 +1376,60 @@ const[dashboard,setDashboard]=useState("");
                                         }}
                                       ></div>
                                     </text>
-                                    <div className="text-right">
-                                      {worksheetResponce.response === null ? (
-                                        <>
-                                          <a
-                                            href={pdfFileURL}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="primary"
-                                          >
-                                            <Button
-                                              // button="submit"
-                                              // label=" Download Themes"
-                                              label={t(
+                                    <Row className="mt-4">
+                                      <Col md={8}>
+                                        {worksheetResponce.response === null ? (
+                                          <>
+                                            {/* <a
+                                              href={pdfFileURL}
+                                              target="_blank"
+                                              rel="noreferrer"
+                                              className="btn btn-secondary mx-2"
+                                            >
+                                              {t(
                                                 "student.download_theme"
                                               )}
-                                              btnClass="primary mt-4 mx-4 "
-                                              size="small"
-                                            />
-                                          </a>
-                                          <a
-                                            // href={
-                                            //     process
-                                            //         .env
-                                            //         .REACT_APP_API_IMAGE_BASE_URL +
-                                            //     worksheetResponce?.attachments
-                                            // }
-                                            href={
-                                              worksheetResponce?.attachments
-                                            }
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="primary"
-                                          >
-                                            <Button
-                                              button="submit"
-                                              label={t(
+                                            </a> */}
+
+                                            <a
+                                              href={
+                                                worksheetResponce?.attachments
+                                              }
+                                              target="_blank"
+                                              rel="noreferrer"
+                                              className="btn btn-secondary mx-2"
+                                            >
+                                              {t(
                                                 "student.download_worksheet"
                                               )}
-                                              btnClass="primary mt-4 mb-2"
-                                              size="small"
-                                              style={{
-                                                marginRight: "2rem",
-                                              }}
-                                            />
-                                          </a>
-                                        </>
-                                      ) : (
-                                        <a
-                                          // href={
-                                          //     process
-                                          //         .env
-                                          //         .REACT_APP_API_IMAGE_BASE_URL +
-                                          //     worksheet
-                                          // }
-                                          href={worksheet}
-                                          target="_blank"
-                                          rel="noreferrer"
-                                          className="primary"
-                                        >
-                                          <Button
-                                            button="submit"
-                                            label={t(
+                                            </a>
+                                          </>
+                                        ) : (
+                                          <a
+                                            href={worksheet}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="btn btn-secondary mx-2"
+                                          >
+                                            {t(
                                               "student.download_worksheet"
                                             )}
-                                            btnClass="primary mt-4 mb-2"
-                                            size="small"
-                                          />
-                                        </a>
-                                      )}
-                                      <Button
-                                        label={t("student.continue")}
-                                        btnClass=" mx-4"
-                                        size="small"
-                                        type="submit"
-                                        style={{
-                                          background: "#00ced1",
-                                          color: "#fff",
-                                        }}
-                                        onClick={() => {
-                                          handleNextCourse();
-                                        }}
-                                      />
-                                    </div>
+                                          </a>
+                                        )}
+                                      </Col>
+                                      <Col md={4} className="text-right">
+                                        <Button
+                                          label={t("student.continue")}
+                                          btnClass="primary mt-4"
+                                          size="small"
+                                          type="submit"
+                                          className="btn btn-primary"
+                                          onClick={() => {
+                                            handleNextCourse();
+                                          }}
+                                        />
+                                      </Col>
+                                    </Row>
                                   </div>
                                 </CardBody>
                               </Card>
@@ -1411,8 +1459,8 @@ const[dashboard,setDashboard]=useState("");
                       ) : item === "VIDEO" && condition === "Video1" ? (
                         <>
                           <Card className="embed-container">
-                            <CardTitle className=" text-left p-4 d-flex justify-content-between align-items-center">
-                              <h3>{topic?.title + " " + quizTopic}</h3>
+                            <CardTitle className=" text-left p-4 pt-2 pb-0 d-flex justify-content-between align-items-center">
+                              <h4>{topic?.title + " " + quizTopic}</h4>
                               {backToQuiz && (
                                 <Button
                                   label={t("student.backto_quiz")}
@@ -1480,7 +1528,7 @@ const[dashboard,setDashboard]=useState("");
                                   ></div>
                                 </text>
                                 {firstObj[0] &&
-                                firstObj[0].progress == "INCOMPLETE" ? (
+                                  firstObj[0].progress == "INCOMPLETE" ? (
                                   <div>
                                     <Button
                                       label={t("student_course.start course")}

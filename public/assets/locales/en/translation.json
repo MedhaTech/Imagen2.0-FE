@@ -12,6 +12,14 @@
     "signupwelcome": "Together let’s learn and build something amazing.",
     "login": {
         "logIn": "Log in",
+        "logOut": "Logout",
+        "cancel": "Cancel",
+"popinst":"Oops..! Idea submission not enabled?",
+"popdi":"Oops..! you can not access form",
+"popcheckD":"As Idea Submission is disabled by the Admin",
+
+"popcheck":"You can access idea submission as long as at least one of your teammates has completed the course.",
+"ok":"Ok",
         "Title": "Together let’s learn and build something amazing.",
         "subtitle": "Creating change makers of tomorrow",
         "join_us": "Join Unisolve as a",
@@ -143,6 +151,19 @@
         "Change_password": "Change password"
     },
     "home": {
+        "preinst":"We're happy to have you join us in this exciting learning adventure!</br></br> <b class='text-success'>Here's what you'll do during the program:</b></br></br><ol><li>1. Log in to the portal to get started.</li><li>2. Complete the pre-survey to share your thoughts before we begin.</li><li>3. Dive into the course and explore all the amazing videos.</li><li>4. Work with your teammates to identify a problem and work together to find a solution.</li><li>5. Submit your innovative idea to the Innovation Marathon and showcase your creativity.</li><li>6. Complete the post-survey to share your feedback and experience.</li><li>7. Download your certificates to celebrate your achievements!</li></br>We can't wait to see the incredible ideas you'll come up with. Have fun, learn a lot, and let's make this an unforgettable journey!",
+        "startnow":"Start Now",
+        "dolater":"Do Later",
+"textdata":"Join us on this problem solving journey.",
+"ideafocus": "Focus Area",
+"select":"Select a theme",
+"selectv":"to know more",
+
+"share":"Share your Amazing Ideas with us ",
+"section1":"Section-1",
+"section2":"Section-2",
+"section3":"Section-3",
+"wel":" Welcome Students!",
         "pre_survey": "Pre Survey",
         "dashboard": "Dashboard",
         "courses": "Courses",
@@ -153,7 +174,37 @@
         "idea_submission": "Idea Submission",
         "my_profile": "My Profile",
         "change_pass": "Change password",
-        "resources": "Resources"
+        "resources": "Resources",
+        "ideatit":"Enter Idea Title",
+        "ideaprob":"Enter Problem Statement",
+        "ideaFoc":"Enter the Focus Area",
+
+"ideaList":"Enter List of Causes",
+"ideaEff":"Enter List of Effects of the problem",
+"ideaSol":"Enter the solution to the problem",
+"ideaFee":"Enter your Feedback",
+"ideaUp":"Upload your Link",
+"ideaFi":"Upload File",
+"ideaSubPop":"Idea submission successful",
+"ideaInitPop":"Idea Initiated Successfully",
+"ideaFullPop": "Please attempt all questions to submit",
+
+
+"ideaDraPop":"Save as Draft success",
+"formfill":"Please attempt all questions to submit",
+"condition":"Only alphanumeric and '_' are allowed ",
+"firstfour":"Please fill Focus Area, Title, ProblemStatement for Idea Initiation.",
+
+
+         "student":"Student",
+         "reshead":"List of program related resources",
+         "presucess":"Thanks for taking part.",
+         "text":"We value your response the most.",
+         "certi":"Certificate will be generated once you complete the post survey.",
+"sub":"Please ensure your team submited the idea to fill the post survey..",
+         
+         "precong":" Your Survey responses have been submitted Successfully..!"
+
     },
     "get_started": {
         "heading": "Welcome Students!",
@@ -193,7 +244,7 @@
     },
     "student": {
         "profile": "My Profile",
-        "worksheet": "<p><b>Dear Student,</b></p><p>The workbook is a set of activity sheets that will help you do the course, understand and practice your problem solving journey better. They are based on the concepts you learnt in the videos and are expected to do it as a team. Every team will have a workbook.</p><p><b>Step-1:</b> While it is good to have a printed workbook, it is not compulsory to take a print out. In case you do not have a printed workbook, you can refer to the workbook on a digital device and write down the page number and question number and then answer the questions in notebooks / papers.</p><p><b>Step-2:</b>After watching the videos, discuss the concepts you learnt and the related module workbook pages with your team before you start to do the workbook. (Remember that Workbook is a Team Activity, not individual task)</p><p>Hope you and your team learn new things and enjoy completing this workbook.</p><h2 style='color:blue' >Themes & Problem Statements</h2><p> Go through themes and problems statements document and choose one problem among  all. Keep working on the chosen problem using the problem solving the techniques you learn as part of this course to submit your idea for it during idea submission process. </p>",
+        "worksheet": "<p><b>Dear Student,</b></p><p>The workbook is a set of activity sheets that will help you do the course, understand and practice your problem solving journey better. They are based on the concepts you learnt in the videos and are expected to do it as a team. Every team will have a workbook.</p><p><b>Step-1:</b> While it is good to have a printed workbook, it is not compulsory to take a print out. In case you do not have a printed workbook, you can refer to the workbook on a digital device and write down the page number and question number and then answer the questions in notebooks / papers.</p><p><b>Step-2:</b>After watching the videos, discuss the concepts you learnt and the related module workbook pages with your team before you start to do the workbook. (Remember that Workbook is a Team Activity, not individual task)</p><p>Hope you and your team learn new things and enjoy completing this workbook.</p><h4 class='text-primary'>Themes & Focus Areas</h4> <br/> <p> Go through themes and problems statements document and choose one problem among  all. Keep working on the chosen problem using the problem solving the techniques you learn as part of this course to submit your idea for it during idea submission process. </p>",
         "download_worksheet": "Download WorkBook",
         "download_theme": "Download Themes",
         "continue": "Continue",
@@ -226,12 +277,12 @@
         "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
         "post_survey_desc": "Congratulations! your journey in this program is complete.",
         "click_button_post_survey": "Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
-        "max_length_msg1": "Maximum length of characters is ",
+        "max_length_msg1": "Maximum length of words are",
         "max_length_msg2": " only...",
         "cutoff": "You scored less than the cutoff (60%)",
-        "retest": "Retest",
+        "retest": "Retake Quiz",
         "resume_quiz": "Resume Quiz",
-        "see_result": "See Result"
+        "see_result": "View Result"
     },
     "teacher_presurvey": {
         "completed_text": "Thank you for completing the Survey. Your responses are important for us to get to know you and your students better."
@@ -384,17 +435,19 @@
         "continue course": "Continue Course",
         "exitfullscreen": "Exit Full Screen",
         "quiz_completed": "Successfully Completed!",
-        "go_idea_submission": "Continue",
+        "go_idea_submission": "Start Idea Submission",
+        "submission": "Idea Submission ",
+
         "go_certificate": "Go to My Certificate",
         "course_completed_succ": "Congratulations for successful completion of all the lessons!",
-        "continue_to_idea": "Click on continue to proceed to Idea Submission.",
+        "continue_to_idea": "Click to proceed to Idea Submission.",
         "sdg": "Which theme are you targeting with your solution ?",
         "subCategory": "Which problem statement are you targeting with your solution ?",
         "sdg_desc": "",
         "others": "If you picked the option ‘others’ in the above question, Describe your theme",
-        "chars": "Characters Remaining",
+        "chars": "Characters remaining",
         "idea_submission": "Idea Submission",
-        "idea_submission_msg1": "Idea submission is",
+        "idea_submission_msg1": "Idea was",
         "idea_status1": " initiated by ",
         "idea_status2": " submitted by ",
         "idea_submission_msg2": "your teammate ",
@@ -403,13 +456,15 @@
         "go_to_course_button": "Go to course",
         "go_to_post_survey_button": "Go to Post Survey",
         "cong_msg_menu": "<p class='text-success'><b>🎉 Congratulations on completing the course! 🎉</b></p><p>You did it! Your dedication and hard work have brought you to this exciting milestone. We are incredibly proud of your achievement and the effort you've put into the program.</p><p>This accomplishment marks just the beginning of your journey. The knowledge you've gained will be a valuable asset as you move forward in the program. Remember, learning is a lifelong adventure, and you've proven your ability to thrive in it.</p><p><b>We can't wait to see all the amazing Ideas you & your team are going to submit.</b></p>",
-        "quiz_inst_msg": "<p class='text-center' style='font-size:1rem'>Now that you have watched some videos, learnt new concepts, discussed them with your team and teacher and practiced them using the workbook,  it's time to check how much you have understood.</p><b style='color:blue'>Instructions:</b><ol><li>Read and understand the question carefully before answering.</li><li>Quiz will consist of 10-15 questions and will take  5-10  minutes to complete.</li><li>Score will be displayed at the end of the quiz for your reference.</li><li>You need to get at least 60% i.e., at least answer 6-8 questions correctly to move to the next module and unlock the videos.</li><li>You can retake the quiz again if you score less than 60%.</li></ol>",
+        "quiz_inst_msg":"",
+        "quiz_inst_msg1": "<p class='text-left' style='font-size:1rem'>Now that you have watched some videos, learnt new concepts, discussed them with your team and teacher and practiced them using the workbook,  it's time to check how much you have understood.</p>",
+        "quiz_inst_msg2": "<b>INSTRUCTIONS:</b><ol style='list-style-type: decimal; margin-left:25px; line-height:25px'><li>Read and understand the question carefully before answering.</li><li>Quiz will consist of 10-15 questions and will take  5-10  minutes to complete.</li><li>Score will be displayed at the end of the quiz for your reference.</li><li>You need to get at least 60% i.e., at least answer 6-8 questions correctly to move to the next module and unlock the videos.</li><li>You can retake the quiz again if you score less than 60%.</li></ol>",
         "quiz_start_title": "Ready for a quick test?",
         "quiz_con_title": " Continue your quick test",
-        "idea_ins_note": "<p>As you are getting ready to submit your idea, remember these important things to make sure you do it well:</p><p><b>Step-1:</b>Go through Idea submission Process video in Resources section. Discuss with all your team members and the guide teacher to select the final idea for submission.</p><p><b>Step-2:</b> Write down your idea on a paper or notebook before you start submitting it on the website.</p><p><b>Step-3:</b> Fill the form carefully and ensure you double-check everything before you save or submit your idea. Do not forget to ask your guide teacher to go through the details entered by you to make sure they are correct.</p><p><b>Note:</b>  You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.</p><p style='color:blue'><b>Details  to keep ready before you proceed to submit your idea:</b></p><ul><li>Go through Themes and Problem statements document.</li><li>Select your theme and Problem Statement.</li><li>Write down Innovation Title and working in detail. Idea name should convey the uniqueness of your solution.</li><li>List out the ATL tools / technologies you used to develop your project and how.</li><li>Get ready with Project Research Document , Images & Video (Youtube link) of your project’s prototype/design if you have done the Make & test process to upload during Idea submission.</li></ul><p><b>Go ahead and submit your idea! Wish you All the best 👍</b></p>",
+        "idea_ins_note": "<p>As you prepare to submit your idea, follow these important steps to ensure a successful submission:</p><p><b>Step-1:</b> 📹 Watch the Idea Submission Process video in the Resources section. Discuss with your team members and guide the teacher to finalize your idea.</p><p><b>Step-2:</b>✍️ Write down your idea on paper or in a notebook before entering it on the website.</p><p><b>Step-3:</b> 📝 Only the student who initiates the idea can edit and submit it. Coordinate with your team and teacher before starting the submission process.</p><p><b>Step-4:</b> 💾 Use the <b>'Save as Draft'</b> option regularly to prevent data loss in case of disconnections.</p><p><b>Step-5:</b> 🕵️‍♂️ Fill out the form carefully. Double-check all entries before saving or submitting. Ask your guide teacher to review the details to ensure accuracy.</p><p><b><b style='color:red'>Note:</b> 🚫 Once submitted, you cannot make changes.</b> Invalid or incorrect entries will not be considered.</p><h4 style='color:orange'><b>Details to Prepare Before Submitting Your Idea:</b></h4><br/><ul><li><b>1. Review Themes & Focus Areas:</b> 📚 Carefully examine the Themes document to identify the one that best aligns with your concept.</li><li><b>2. Select Your Theme and Focus Area:</b> 🎯 Choose the theme and focus area that are most pertinent to your project.</li><li><b>3. Craft Your Idea Title and Description:</b> ✍️ Formulate a precise and compelling title along with detailed description that highlights uniqueness of your Idea.</li><li><b>4. Document Technologies and Concepts Utilized:</b> 🛠️ List the technologies or concepts used in your project and explain how they were applied.</li><li><b>5. Assemble Supporting Materials:</b> 📄 Ensure your Project Research Document is complete, and gather any relevant images, videos of your prototype or design, and presentations, especially if you've completed the Make & Test phase.</li></ul><br/><p><b>If you've completed all the steps above, go ahead and submit your ideas to make an impact!</b></p>" ,
         "my_cer_note": "<p class='text-success'><b>👏🏻 Congratulations on successfully completing the course and submitting the idea 🥳</b></p><p>We wish you All the best 👍& hope you and your team will continue this journey of exploring the world around, learning new things, working together & spreading joy😃</p>",
-        "quiz_com_title": "Quick test Completed successfully",
-        "quiz_com_note": "Check your score.",
+        "quiz_com_title": "Quick Test Completed.!",
+        "quiz_com_note": "Your quick test has been completed successfully! <br/> Click below button to see detailed results.",
         "quiz_score_attempts": "Attempts",
         "quiz_score_correctanswers": "Correct Answers",
         "quiz_score_wronganswers": "Wrong Answers",
@@ -425,7 +480,14 @@
         "title3": "Let's take User Feedback",
         "title4": "Prototype - Make & Test",
         "next": "Next",
-        "back": "Back"
+        "back": "Back",
+        "proceed":"proceed",
+        "review":"Teacher Review Status",
+        "reject":"Reason for rejection",
+        "modified":"Last Modified by",
+        "date":"Last Submission was rejected by your teacher on",
+"otheruser":"Idea submission was done by your teammate ---- on ----"
+
     },
     "translation": {
         "tamil": "English Content :-",
@@ -459,7 +521,7 @@
         "probsoljourneyop3" : "We got feedback on our idea and modified it" ,
         "probsoljourneyop4" : "We got feedback on our prototype and modified it" ,
         "feedbackq" : " Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.",
-        "uploadq" : "Upload images/documents & video links of your prototype.  (total size limit : 20mb)",
+        "uploadq" : "Upload images/documents & video links of your prototype.  (total size limit : 10mb)",
         "workbookq" : "Did your team complete and submit the workbook to your school Guide teacher?",
         "workbookyes" : "YES" ,
         "workbookno" : "NO",
@@ -473,7 +535,7 @@
         "educationtheme" : "Quality Education",
         "economictheme" : "Economic Empowerment",
         "smarttheme" : "Smart and Resilient Communities",
-        "agritheme" : "Agriculture & Rural Development",
+        "agritheme" : "Agriculture and Rural Development",
         "othertheme" : "Others"
     },
     "themedetails" : {
@@ -485,6 +547,7 @@
         "smarttheme" : "Smart and Resilient Communities use technology and sustainable practices to adapt to challenges, ensuring safety, efficiency, and long-term well-being for all members.",
         "agritheme" : "Focuses on improving farming practices and infrastructure in rural areas to boost productivity, sustainability, and quality of life for rural communities.",
         "othertheme" : "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
+        
     },
     "sustainablefocusareas" : {
         "focusarea1" : "Renewable Energy (e.g., solar, wind, hydro)",
