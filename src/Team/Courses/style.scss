@@ -1,5 +1,5 @@
 .courses-page {
-  font-family: "Lato", sans-serif;
+  font-family: "Nunito", sans-serif;
   .courses-head {
     // display: flex;
     // justify-content: space-between;
@@ -225,9 +225,9 @@
       text-align: left;
       padding: 0;
       height: fit-content;
-      .assement-info {
-        padding: 1.5rem;
-      }
+      // .assement-info {
+      //   // padding: 1.5rem;
+      // }
       .content-title {
         font-weight: 600;
         font-size: 1rem;
@@ -304,6 +304,8 @@
           }
           .course-title {
             font-size: 0.85rem;
+            font-weight: 600;
+            color: #000;
           }
         }
       }

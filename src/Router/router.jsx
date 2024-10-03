@@ -55,6 +55,8 @@ import Crew1Reg from "../RegPage/Crew1Reg";
 import Crew2Reg from "../RegPage/Crew2Reg";
 import Crew3Reg from "../RegPage/Crew3Reg";
 import InstitutionReg from "../RegPage/InstReg";
+import StudentSidebar from "../InitialPage/Sidebar/StudedentSidebar";
+// import "../i18n";
 
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
@@ -80,8 +82,8 @@ const AllRoutes = () => {
       <TeamHeader />
       {/* <TeamSidebar /> */}
       {/* <OneSidebar /> */}
-      <Condition/>
-
+      {/* <Condition/> */}
+<StudentSidebar/>
       <Outlet />
       <ThemeSettings />
     </div>

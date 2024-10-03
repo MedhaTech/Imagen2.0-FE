@@ -181,6 +181,7 @@ useEffect(() => {
         stuQuizCount();
         stuVideosCount();
         stuSurveyStatus();
+        stuIdeaSubStatus();
         scroll();
     }
   }, [currentUser?.data[0]?.user_id]);
@@ -208,7 +209,7 @@ useEffect(() => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 const po = (response.data.data[0].post_survey_completed_date);
                 const pre = (response.data.data[0].pre_survey_completed_date);
                 setStuPostSurvey(po);
@@ -221,7 +222,42 @@ useEffect(() => {
             console.log(error);
         });
     };
-    
+    const stuIdeaSubStatus = () => {
+      const ideaSubApi = encryptGlobal(
+        JSON.stringify({
+          // team_id: currentUser?.data[0]?.team_id
+          user_id: currentUser?.data[0]?.user_id
+        })
+      );
+      var config = {
+        method: 'get',
+        url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/challenge_response/submittedDetails?Data=${ideaSubApi}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+      };
+      axios(config)
+        .then(function (response) {
+          // console.log(response, "res");
+          if (response.status === 200) {
+            // console.log(response, "ideaSubApi");
+            setStuIdeaSub(response.data.data[0].status);
+            setStuIdeaLoading(false);
+          }
+        })
+        .catch(function (error) {
+          // console.log(error,"error");
+          if (error.response.data.status === 404) {
+            setStuIdeaSub("Not Started");
+            setStuIdeaLoading(false);
+          }
+  
+        });
+    };
   const stuCoursePercent = () => {
     const corseApi = encryptGlobal(
         JSON.stringify({

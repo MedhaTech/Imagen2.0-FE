@@ -12,7 +12,8 @@ import DoubleBounce from "../../components/Loaders/DoubleBounce";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { getCurrentUser } from "../../helpers/Utils";
-
+import { CheckCircle } from 'react-feather';
+import { FaTimesCircle } from 'react-icons/fa';
 import {
   getAdminQuizQuestions,
   getAdminQuizResponce,
@@ -20,6 +21,7 @@ import {
 } from "../../redux/actions";
 import QuizResponse from "./QuizResponse";
 import succesImg from "../../assets/img/success1.jpeg";
+import failedImg from "../../assets/img/failedQ.png";
 import { updateStudentBadges } from "../../redux/studentRegistration/actions";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 const DetaledQuiz = (props) => {
@@ -99,7 +101,7 @@ const DetaledQuiz = (props) => {
             );
             setCurrentScore(
               response?.data?.data[0].data[
-                response?.data?.data[0].data.length - 1
+              response?.data?.data[0].data.length - 1
               ]
             );
             setCurrentPercentage(
@@ -108,12 +110,12 @@ const DetaledQuiz = (props) => {
                   response?.data?.data[0].data.length - 1
                 ]?.score /
                   response?.data?.data[0]?.all[0]?.allquestions) *
-                  100
+                100
               )
             );
           }
           setTotalQstCount(response?.data?.data[0]?.all[0]?.allquestions);
-          setQuizData(response.data && response.data.data[0] );
+          setQuizData(response.data && response.data.data[0]);
         }
       })
       .catch(function (error) {
@@ -175,8 +177,8 @@ const DetaledQuiz = (props) => {
       setSubmitted(true);
     }
   };
- 
-  
+
+
   // const goToTop = () => {
   //   window.scrollTo(0, 0);
 
@@ -187,7 +189,7 @@ const DetaledQuiz = (props) => {
   //   });
 
   // };
- 
+
   const goToTop = () => {
     console.log("Scrolling to top...");
 
@@ -202,20 +204,20 @@ const DetaledQuiz = (props) => {
 
     // Check if the section exists
     if (section) {
-        console.log("Element found:", section);
+      console.log("Element found:", section);
 
-        section.scrollIntoView({
-            behavior: 'smooth', // Smooth scroll effect
-            block: 'start'      // Aligns the top of the element with the top of the viewport
-        });
+      section.scrollIntoView({
+        behavior: 'smooth', // Smooth scroll effect
+        block: 'start'      // Aligns the top of the element with the top of the viewport
+      });
 
-        console.log("Scroll initiated to #start with smooth behavior.");
+      console.log("Scroll initiated to #start with smooth behavior.");
     } else {
-        console.warn("Element with id 'start' not found.");
+      console.warn("Element with id 'start' not found.");
     }
-};
+  };
 
- 
+
 
   const handleNxtQst = () => {
     // console.log("/resu");
@@ -234,10 +236,10 @@ const DetaledQuiz = (props) => {
       SetType("");
       goToTop();
       setSubmitted(false);
-      resultdata();            
+      resultdata();
     }, 500);
   };
-  
+
   const handlevideo = (id) => {
     SetVideo(false);
     props.handleNxtVideo(id);
@@ -268,7 +270,7 @@ const DetaledQuiz = (props) => {
           {video === true &&
             props.adminCourseQst &&
             props.adminCourseQst.data ===
-              "Quiz has been completed no more questions to display" && (
+            "Quiz has been completed no more questions to display" && (
               <div>
                 {currentRole === "MENTOR" ? (
                   <Confetti className="w-100" />
@@ -279,8 +281,8 @@ const DetaledQuiz = (props) => {
             )}
 
           {condition === true &&
-          props.adminCourseQst &&
-          props.adminCourseQst.status === 200 ? (
+            props.adminCourseQst &&
+            props.adminCourseQst.status === 200 ? (
             <Fragment>
               {/* <ProgressComp
                         level={
@@ -293,33 +295,37 @@ const DetaledQuiz = (props) => {
             </Fragment>
           ) : null}
 
-          <Card className="quiz">
+          <Card className="quiz p-4">
             {video === true &&
-            props.adminCourseQst &&
-            props.adminCourseQst.data ===
+              props.adminCourseQst &&
+              props.adminCourseQst.data ===
               "Quiz has been completed no more questions to display" ? (
               <div className="container new-result">
                 <div className="row justify-content-md-center ">
                   <div className="col col-lg-9">
                     <div className="mt-4 text-center">
-                      <div className="success_img text-center w-100">
+                      {/* <div className="success_img text-center w-100">
                         <img src={succesImg} alt=".." />
                         <br />
-                      </div>
+                      </div> */}
                       {currentRole === "MENTOR" && (
                         <>
+                          <div className="success_img text-center w-100">
+                            <img src={succesImg} alt=".." />
+                            <br />
+                          </div>
                           <h2>
                             Score:
                             {currentScore?.score ? currentScore?.score : "0"}/
                             {totalQstCount}
                           </h2>
-                          <h2
+                          <h4
                             style={{
                               color: "green",
                             }}
                           >
                             {t("student.quiz_completed")}
-                          </h2>
+                          </h4>
                           <Button
                             label="continue"
                             btnClass="primary w-auto"
@@ -336,69 +342,125 @@ const DetaledQuiz = (props) => {
                     </div>
                     {currentRole === "STUDENT" && (
                       <>
-                        <Table>
-                          <thead>
-                            <tr>
-                              <th>{t("student_course.quiz_score_attempts")}</th>
-                              <th>
-                                {t("student_course.quiz_score_correctanswers")}
-                              </th>
-                              <th>
-                                {t("student_course.quiz_score_wronganswers")}
-                              </th>
-                              <th>{t("student_course.quiz_score_result")}</th>
-                            </tr>
-                          </thead>
-                          {quizdata.data.map((item, index) => {
-                            return (
-                              <tbody key={index}>
-                                <tr>
-                                  <td>{item.attempts}</td>
-                                  <td>{item.score ? item.score : "0"}</td>
-                                  <td>{totalQstCount - item.score}</td>
-                                  <td>
-                                    {Math.round(
-                                      (item.score / totalQstCount) * 100
-                                    )}
-                                    %
-                                  </td>
-                                </tr>
-                              </tbody>
-                            );
-                          })}
-                        </Table>
-                        <div
-                          style={{
-                            textAlign: "center",
-                            marginTop: "2rem",
-                          }}
-                        >
-                          {currentPercentage >= 60 ? (
-                            <h2
+                        {currentPercentage >= 60 ? (
+                          <>
+                            <div className="success_img text-center w-100">
+                              <img src={succesImg} alt=".." />
+                              <br />
+                            </div>
+                            <div className="table-responsive">
+                              <Table>
+                                <thead>
+                                  <tr>
+                                    <th width="10%" className="text-secondary">{t("student_course.quiz_score_attempts")}</th>
+                                    <th width="30%" className="text-success">
+                                      {t("student_course.quiz_score_correctanswers")}
+                                    </th>
+                                    <th width="30%" className="text-danger">
+                                      {t("student_course.quiz_score_wronganswers")}
+                                    </th>
+                                    <th width="30%" className="text-secondary">{t("student_course.quiz_score_result")}</th>
+                                  </tr>
+                                </thead>
+                                {quizdata.data.map((item, index) => {
+                                  return (
+                                    <tbody key={index}>
+                                      <tr className="text-center">
+                                        <td>{item.attempts}</td>
+                                        <td>{item.score ? item.score : "0"} <CheckCircle size={20} color="#28C76F" /></td>
+                                        <td>{totalQstCount - item.score} <FaTimesCircle size={20} color="#FF0000" /></td>
+                                        <td>
+                                          {Math.round(
+                                            (item.score / totalQstCount) * 100
+                                          )}
+                                          %
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  );
+                                })}
+                              </Table>
+                            </div>
+                            <div
                               style={{
-                                color: "green",
+                                textAlign: "center",
+                                marginTop: "1rem",
                               }}
                             >
-                              {t("student.quiz_completed")}
-                            </h2>
-                          ) : (
-                            <h2
+                              <h4
+                                style={{
+                                  color: "green",
+                                }}
+                              >
+                                {t("student.quiz_completed")}
+                              </h4>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="success_img text-center w-100">
+                              <img src={failedImg} alt=".." />
+                              <br />
+                            </div>
+                            <div className="table-responsive">
+                              <Table>
+                                <thead>
+                                  <tr>
+                                    <th className="text-secondary">{t("student_course.quiz_score_attempts")}</th>
+                                    <th className="text-success">
+                                      {t("student_course.quiz_score_correctanswers")}
+                                    </th>
+                                    <th className="text-danger">
+                                      {t("student_course.quiz_score_wronganswers")}
+                                    </th>
+                                    <th className="text-secondary">{t("student_course.quiz_score_result")}</th>
+                                  </tr>
+                                </thead>
+                                {quizdata.data.map((item, index) => {
+                                  return (
+                                    <tbody key={index}>
+                                      <tr className="text-center">
+                                        <td>{item.attempts}</td>
+                                        <td>{item.score ? item.score : "0"} <CheckCircle size={20} color="#28C76F" /></td>
+                                        <td>{totalQstCount - item.score} <FaTimesCircle size={20} color="#FF0000" /></td>
+                                        <td>
+                                          {Math.round(
+                                            (item.score / totalQstCount) * 100
+                                          )}
+                                          %
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  );
+                                })}
+                              </Table>
+                            </div>
+                            <div
                               style={{
-                                color: "red",
+                                textAlign: "center",
+                                marginTop: "1rem",
                               }}
                             >
-                              {t("student.cutoff")}
-                            </h2>
-                          )}
-                        </div>
+                              <h4
+                                style={{
+                                  color: "red",
+                                }}
+                              >
+                                {t("student.cutoff")}
+                              </h4>
+                            </div>
+                          </>
+                        )}
+
                       </>
                     )}
 
-                    <div className="results-heading mt-4">
+
+                    <div className="results-heading">
                       <img src={ResultStar} alt="star" />
                     </div>
                     {currentRole === "STUDENT" && (
-                      <div className="row py-3 mb-3 d-flex justify-content-end">
+                      <div className="row d-flex justify-content-end">
                         {currentPercentage < 60 ? (
                           <div className="text-right">
                             <Button
@@ -445,13 +507,13 @@ const DetaledQuiz = (props) => {
                 <div className="question-section" id="start">
                   <div className="score"></div>
                   <Row>
-                    <Col xs={10}>
-                      <p>
-                        {t("teacher.question")}{" "}
+                    <Col xs={12}>
+                      <h6 className="text-primary">
+                        {t("teacher.question")}{" # "}
                         {props?.adminCourseQst?.data &&
                           props?.adminCourseQst?.data[0] &&
                           props?.adminCourseQst?.data[0]?.question_no}
-                      </p>
+                      </h6>
                     </Col>
                   </Row>
 
@@ -466,40 +528,38 @@ const DetaledQuiz = (props) => {
                   />
 
                   {video === true &&
-                  props.adminQstResponce &&
-                  props.adminQstResponce.status === 200 ? (
+                    props.adminQstResponce &&
+                    props.adminQstResponce.status === 200 ? (
                     <div>
                       <div className="score">
                         {props.adminQstResponce &&
                           props.adminQstResponce.data[0] &&
                           props.adminQstResponce.data[0].is_correct ===
-                            true && (
+                          true && (
                             <div className="w-100">
                               <QuizResponse
                                 response={props.adminQstResponce.data[0]}
                               />
                             </div>
                           )}
-                        <br />
                         {props.adminQstResponce &&
                           props.adminQstResponce.data[0] &&
                           props.adminQstResponce.data[0].is_correct ===
-                            false && (
+                          false && (
                             <QuizResponse
                               response={props.adminQstResponce.data[0]}
                             />
                           )}
-                        <br />
                       </div>
 
-                      <Row className="justify-content-between mt-5">
+                      <Row className="justify-content-between mt-3">
                         {props.adminQstResponce &&
                           props.adminQstResponce.data[0] &&
                           props.adminQstResponce.data[0].is_correct ===
-                            true && (
+                          true && (
                             <Col md={12} className="text-right">
                               <Button
-                                btnClass="primary"
+                                btnClass="primary w-auto"
                                 size="small"
                                 label={t("student.continue")}
                                 onClick={handleNxtQst}
@@ -509,12 +569,12 @@ const DetaledQuiz = (props) => {
                         {props.adminQstResponce &&
                           props.adminQstResponce.data[0] &&
                           props.adminQstResponce.data[0].is_correct ===
-                            false && (
+                          false && (
                             <Col md={12} className="text-right">
                               {props.adminQstResponce &&
                                 props.adminQstResponce.data[0] &&
                                 props.adminQstResponce.data[0].redirect_to !=
-                                  null && (
+                                null && (
                                   <Button
                                     btnClass="primary px-5 mx-sm-3 mx-1 mb-3"
                                     size="small"
@@ -522,15 +582,15 @@ const DetaledQuiz = (props) => {
                                     onClick={() =>
                                       handlevideo(
                                         props.adminQstResponce &&
-                                          props.adminQstResponce.data[0] &&
-                                          props.adminQstResponce.data[0]
-                                            .redirect_to
+                                        props.adminQstResponce.data[0] &&
+                                        props.adminQstResponce.data[0]
+                                          .redirect_to
                                       )
                                     }
                                   />
                                 )}
                               <Button
-                                btnClass="primary px-5"
+                                btnClass="primary w-auto"
                                 size="small"
                                 label={t("teacher.continue")}
                                 onClick={handleNxtQst}
@@ -542,8 +602,8 @@ const DetaledQuiz = (props) => {
                   ) : null}
 
                   {props.adminQstResponce &&
-                  props.adminQstResponce.status === 200 ? null : (
-                    <Row className="justify-content-between mt-5">
+                    props.adminQstResponce.status === 200 ? null : (
+                    <Row className="justify-content-between mt-3">
                       <Col md={12} className="text-right">
                         <Button
                           size="small"
