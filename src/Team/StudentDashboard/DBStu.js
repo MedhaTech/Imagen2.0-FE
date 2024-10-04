@@ -226,7 +226,7 @@ useEffect(() => {
       const ideaSubApi = encryptGlobal(
         JSON.stringify({
           // team_id: currentUser?.data[0]?.team_id
-          user_id: currentUser?.data[0]?.user_id
+          team_id: currentUser?.data[0]?.user_id
         })
       );
       var config = {
@@ -403,9 +403,9 @@ useEffect(() => {
               <h6> here&apos;s what&apos;s happening with your Youth for Social Impact 2024 today.</h6>
             </div>
             <div className="d-flex align-items-center">
-              <div className="dropdown">
+              {/* <div className="dropdown">
                   <LanguageSelectorComp module="student" />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="row sales-cards">

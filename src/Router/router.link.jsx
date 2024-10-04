@@ -50,7 +50,7 @@ import TeacherCourse from "../Teacher/Courses/TeacherPlayVideo";
 import TeacherSupport from "../Teacher/Support/TeacherSupport";
 import TCertificate from "../Teacher/Certificate/TCertificate";
 import ChangePwd from "../Teacher/ChangePwd";
-
+import InstructionsPage from "../Team/IdeaSubmission/InstuctionPage";
 import Idea from "../Team/IdeaSubmission/Idea";
 
 import TeamDashboard from "../Team/TeamDashboard/DboardTeam";
@@ -400,6 +400,14 @@ export const teamRoutes = [
     path: routes.idea,
     name: "idea",
     element: <Idea />,
+    //protected: true,
+    route: Route,
+  },
+  {
+    id: 10,
+    path: routes.instruction,
+    name: "instruction",
+    element: <InstructionsPage />,
     //protected: true,
     route: Route,
   },

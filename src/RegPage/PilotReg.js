@@ -208,6 +208,7 @@ const PilotReg = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
+          console.log(UNhashedPassword,"otp");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "Otp send to Email Id");
           setBtnOtp(true);

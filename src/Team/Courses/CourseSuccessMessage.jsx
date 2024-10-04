@@ -26,7 +26,7 @@ const CourseSuccessMessage = () => {
       getStudentDashboardStatus(currentUser?.data[0]?.user_id, language)
     );
     setTimeout(() => {
-      type ? navigate("/instructions") : navigate("/idea");
+      type ? navigate("/instruction") : navigate("/idea");
     }, 300);
   };
   return (
@@ -40,7 +40,7 @@ const CourseSuccessMessage = () => {
           {/* </div> */}
           <div className="congratulations text-center">
             <div className="success_img text-center w-100">
-            <Confetti className="w-100" />;
+            <Confetti className="w-100" />
 
               <img src={succesImg} alt=".." />
 
@@ -59,7 +59,7 @@ const CourseSuccessMessage = () => {
               btnClass="primary mt-4 mx-4"
               className="btn btn-warning"
               size="small"
-              // onClick={() => handleClick(true)}
+              onClick={() => handleClick(true)}
             />
             {/* {t("student_course.go_idea_submission")}
             </button> */}
