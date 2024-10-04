@@ -18,6 +18,8 @@ export const all_routes = {
   mentorEdit:"/admin-mentor-edit",
   studenttableview:"/student-view",
   stuedit:"student-edit",
+  instruction:"/instruction",
+
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",
   reportsteacher : "/reportsteacher",

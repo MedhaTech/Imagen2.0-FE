@@ -29,6 +29,7 @@ import { useTranslation } from "react-i18next";
 import StuPostSurveyStatic from "./StuPostSurveyStatic";
 // import { useHistory } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { getLanguage } from '../../constants/languageOptions';
 
 const StuPostSurvey = () => {
     const { t } = useTranslation();
@@ -40,7 +41,11 @@ const StuPostSurvey = () => {
     const [postSurveyStatus, setPostSurveyStatus] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const [answerResponses, setAnswerResponses] = useState([]);
+    const ideastatus = localStorage.getItem("ideaSubStatus");
     const userID = currentUser?.data[0]?.user_id;
+    const language = useSelector(
+      (state) => state?.studentRegistration?.studentLanguage
+  );
     const filterAnswer = (questionId) => {
       const data =
         answerResponses &&
@@ -142,16 +147,23 @@ const StuPostSurvey = () => {
             });
         }
       };
-
       useEffect(() => {
+        console.log("pre page id");
+      apiData(language);
+      }, [count]);
+    
+      // useEffect(() => {
+        const apiData=(language)=>{
+        const locale = getLanguage(language);
+
         let enDataone = encryptGlobal("4");
         let axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const lang = "locale=en";
-        const final = lang.split("=");
+        // const lang = "locale=en";
+        // const final = lang.split("=");
         let enParamData = encryptGlobal(
           JSON.stringify({
             role: "STUDENT",
-            locale: final[1],
+            locale,
             user_id : userID,
           })
         );
@@ -172,7 +184,8 @@ const StuPostSurvey = () => {
           .catch((err) => {
             return err.response;
           });
-      }, [count]);
+        };
+      // }, [count]);
 
 
 
@@ -184,8 +197,8 @@ return (
       <div className="page-header">
         <div className="add-item d-flex">
           <div className="page-title">
-              <h4>Post Survey</h4>
-              <h6>We value your response the most.</h6>
+              <h4>{t('home.post_survey')}</h4>
+              <h6>{t('home.text')}</h6>
           </div>
         </div>
        </div>
@@ -196,11 +209,12 @@ return (
                 <CardBody>
                   {
                     // teamsCount !== 0 &&
-                    postSurveyStatus != "COMPLETED" ? (
+                    ideastatus == 1 && postSurveyStatus != "COMPLETED" ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
-                          Please complete the following post survey to get your
-                          certificate.
+                        {t('student.please_com_postsurvey_for_certificate')}
+                          {/* Please complete the following post survey to get your
+                          certificate. */}
                         </UncontrolledAlert>
                         <Form
                           className="form-row"
@@ -637,12 +651,13 @@ return (
                               className="btn btn-warning m-2"
                               onClick={(e) => handleSubmit(e)}
                             >
-                              SUBMIT
+                              {t('teacher.submit')}
+                              {/* SUBMIT */}
                             </button>
                           </div>
                         </Form>
                       </>
-                    ) : postSurveyStatus == "COMPLETED" ? (
+                    ) : ideastatus == 1 && postSurveyStatus == "COMPLETED" ? (
                       <div style={{ textAlign: "center" }}>
                         <div>
                           <img
@@ -652,7 +667,7 @@ return (
                         </div>
                         <div>
                           <h4>
-                            Thanks for taking part.<br/> Your Survey responses have been submitted Successfully..!
+                          {t('home.presucess')}<br/> {t('home.precong')}
                           </h4>
                         </div>
                       </div>

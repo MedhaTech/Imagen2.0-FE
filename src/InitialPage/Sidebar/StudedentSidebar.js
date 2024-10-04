@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState,useMemo } from "react";
+import React, { useState} from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link, useLocation, } from "react-router-dom";
 import  getStudentSidebarData  from "../../core/json/siderbar_data";
@@ -30,7 +30,8 @@ const StudentSidebar = () => {
       setSubsidebar(subitem);
     }
   };
-  const SidebarData = useMemo(() => getStudentSidebarData(), []);
+  // const SidebarData = useMemo(() => getStudentSidebarData(), []);
+  const SidebarData = getStudentSidebarData();
 
   return (
     <div>
