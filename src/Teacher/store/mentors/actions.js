@@ -273,9 +273,19 @@ export const getSupportTicketByIdSuccess = (tickets) => async (dispatch) => {
 export const getSupportTicketById = (id) => async (dispatch) => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    const supId = encryptGlobal(
+    // const supId = encryptGlobal(
+    //   JSON.stringify(id)
+    // );
+    let supId;
+    if(typeof(id) !== "string"){
+  supId = encryptGlobal(
       JSON.stringify(id)
     );
+    }else{
+     supId = encryptGlobal(id);
+
+    }
+    // console.log(typeof(id),"id");
     const lang = "locale=en";
     const final = lang.split("=");
     let enParamData = encryptGlobal(

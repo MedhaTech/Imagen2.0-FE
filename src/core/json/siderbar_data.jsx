@@ -91,6 +91,7 @@ useEffect(() => {
           showSubRoute: false,
           submenu: false,
         },
+
         {
           label: "Idea Submission",
           // link: "/idea",
@@ -106,6 +107,13 @@ useEffect(() => {
           link: "/studentpostsurvey",
           icon:<Icon.Edit3 />,
           role: "STUDENT",
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label: "Support",
+          link: "/student-support",
+          icon: <Icon.Inbox />,
           showSubRoute: false,
           submenu: false,
         },

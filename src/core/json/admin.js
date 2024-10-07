@@ -55,13 +55,13 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        {
-          label:"Mentors",
-          link: "/mentors",
-          icon: <Icon.Users />,
-          showSubRoute: false,
-          submenu: false,
-        },
+        // {
+        //   label:"Mentors",
+        //   link: "/mentors",
+        //   icon: <Icon.Users />,
+        //   showSubRoute: false,
+        //   submenu: false,
+        // },
         {
           label:"Students",
           link: "/students",
@@ -70,13 +70,13 @@ const AdminSidebarData = () => {
           submenu: false,
         },
        
-        {
-          label:"Teams",
-          link: "/teams",
-          icon: <Icon.UserPlus />,
-          showSubRoute: false,
-          submenu: false,
-        },
+        // {
+        //   label:"Teams",
+        //   link: "/teams",
+        //   icon: <Icon.UserPlus />,
+        //   showSubRoute: false,
+        //   submenu: false,
+        // },
         {
           label:"Admins",
           link: "/admins",
