@@ -91,6 +91,7 @@ import MentorEdit from "../Admin/UsersList/MentorEdit";
 import StudentTableView from "../Admin/UsersList/StudentTableView";
 import StuEdit from "../Admin/UsersList/StudentEdit";
 
+import AdminSupport from "../Admin/AdminTickets/Tickets";
 
 
 
@@ -318,7 +319,14 @@ export const publicRoutes = [
     protected: true,
     route: Route,
   },
- 
+  {
+    id: 26,
+    path: routes.adminsupport,
+    name: "adminsupport",
+    element: <AdminSupport/>,
+    protected: true,
+    route: Route,
+  },
 ];
 // export const studentRoutes = [
 //   {
@@ -411,6 +419,7 @@ export const teamRoutes = [
     //protected: true,
     route: Route,
   },
+ 
   {
     id: 5,
     path: routes.studentresource,

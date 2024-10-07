@@ -144,10 +144,10 @@ const AdminResources = () => {
                             <a
                                 href={record.attachments}
                                 target="_blank"
-                                className="badge badge-md bg-secondary"
+                                  className="badge badge-md bg-light"
                                 rel="noopener noreferrer"
                                 >
-                                <i className="fas fa-file-lines"></i> Check File
+                                <i className="fas fa-file-lines" style={{color:"blue"}}></i>
                             </a>
                         );
                     } else if (record.type === 'link') {
@@ -155,10 +155,10 @@ const AdminResources = () => {
                             <a
                                 href={record.attachments}
                                 target="_blank"
-                                className="badge badge-md bg-secondary"
+                                 className="badge badge-md bg-light"
                                 rel="noopener noreferrer"
                                 >
-                                <i className="fa-brands fa-youtube"></i> Navigate
+                                 <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
                             </a>
                         );
                     }
@@ -189,6 +189,23 @@ const AdminResources = () => {
             }
         ]
     };
+    const customStyles = {
+        rows: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "16px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+      };
     return (
         <div className="page-wrapper">
             <div className="content">
@@ -196,7 +213,7 @@ const AdminResources = () => {
                     <div className="add-item d-flex">
                         <div className="page-title">
                             <h4>Resources</h4>
-                            <h6>Student &amp; Teachers Resourses</h6>
+                            <h6>Create , Edit , Del State & User specific Resources here</h6>
                         </div>
                     </div>
                     <div className="page-btn">
@@ -222,6 +239,7 @@ const AdminResources = () => {
                                     data={setResList}
                                     // noHeader
                                     defaultSortField="id"
+                                    customStyles={customStyles}
                                     defaultSortAsc={false}
                                     pagination
                                     highlightOnHover

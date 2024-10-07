@@ -13,6 +13,8 @@ import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
 import logo from "../../assets/img/logo.png";
+import Icon from "../../assets/img/favicon.png";
+
 
 const Header = () => {
   const route = all_routes;
@@ -605,6 +607,8 @@ const Header = () => {
                     className="img-fluid"
                   /> */}
                   {/* <img src={avtar} alt="Avtar" className="img-fluid" /> */}
+                  <img src={Icon} alt="Team" id="blah" />
+
                 </span>
                 <span className="user-detail">
                   {/* {currentUser?.data[0]?.role} */}
@@ -625,6 +629,7 @@ const Header = () => {
                       alt="img"
                     /> */}
                     {/* <img src={avtar} alt="Avtar" /> */}
+
                     <span className="status online" />
                   </span>
                   <div className="profilesets">
