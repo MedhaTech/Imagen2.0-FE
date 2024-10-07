@@ -50,7 +50,7 @@ const AdminLatestNews = () => {
 
     async function handleNewStatus(data, value) {
         const body = {
-            status: data.status,
+            status: "ACTIVE",
             category: data.category,
             details: data.details,
             new_status: value
@@ -188,11 +188,18 @@ const AdminLatestNews = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '10rem'
+                width: '6rem'
             },
             {
                 name: 'Role',
                 selector: (row) => row.category,
+                sortable: true,
+                width: '12rem'
+            },
+            {
+                name: 'State',
+                selector: (row) => row.state,
+                sortable: true,
                 width: '12rem'
             },
             {

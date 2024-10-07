@@ -20,6 +20,9 @@ import { useNavigate } from "react-router-dom";
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import 'sweetalert2/src/sweetalert2.scss';
+import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
+import ToggleButton from './Toggles'; 
+
 const AdminLatestNews = () => {
     // const history = useHistory();
     const navigate = useNavigate();
@@ -65,7 +68,7 @@ const AdminLatestNews = () => {
     };
     async function handleNewStatus(data, value) {
         const body = {
-            status: data.status,
+            status: "ACTIVE",
             category: data.category,
             details: data.details,
             new_status: value
@@ -233,7 +236,7 @@ const AdminLatestNews = () => {
     };
     async function handleNewStuStatus(item, number) {
         const body = {
-            status: item.status,
+            status: "ACTIVE",
             category: item.category,
             details: item.details,
             new_status: number
@@ -305,113 +308,126 @@ const AdminLatestNews = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '6rem'
+                width: '4rem'
             },
             {
                 name: 'Role',
                 selector: (row) => row.category,
-                width: 'r8em'
+                sortable: true,
+                width: '6rem'
             },
             {
-                name: 'New Icon',
-                width: '8rem',
-                cell: (record) => {
-                    if (record.new_status === '1') {
-                        return (
-                            <button
-                                className="btn btn-danger mx-2"
-                                onClick={() => {
-                                    handleNewStuStatus(record, '0');
-                                }}
-                            >
-                                Disable
-                            </button>
-                        );
-                    } else if (record.new_status === '0') {
-                        return (
-                            <button
-                                className="btn btn-success mx-2"
-                                onClick={() => {
-                                    handleNewStuStatus(record, '1');
-                                }}
-                            >
-                                Enable
-                            </button>
-                        );
-                    }
-                }
+                name: 'State',
+                selector: (row) => row.state,
+                sortable: true,
+                width: '10rem'
             },
+            // {
+            //     name: 'Enable/Disable',
+            //     width: '12rem',
+            //     cell: (record) => (
+            //       <ToggleButton
+            //         isEnabled={record.new_status === "1"}
+            //         onToggle={(newStatus) => handleNewStuStatus(record,"0" ,newStatus.toString())}
+            //       />
+            //     )
+            //   },
+            
             {
                 name: 'Details',
                 selector: (row) => row.details,
-                width: '15rem'
+                width: '16rem'
             },
             {
                 name: 'File',
-                width: '10rem',
+                width: '5rem',
                 cell: (record) => {
                     if (record.file_name === null) {
                         return <p>No file</p>;
                     } else {
                         return (
-                            <button className="btn btn-warning mx-2">
-                                <a
+                            <a
                                     href={record.file_name}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{ color: 'black' }}
+                                    className="badge badge-md bg-light"
                                 >
-                                    Download
+                                    <i className="fas fa-file-lines" style={{color:"blue"}}></i>
                                 </a>
-                            </button>
                         );
                     }
                 }
             },
             {
                 name: 'Link',
-                width: '10rem',
+                width: '5rem',
                 cell: (record) => {
                     if (record.url === null) {
                         return <p>No link</p>;
                     } else {
                         return (
                             <a
-                                href={record.url}
-                                target="_blank"
-                                rel="noreferrer"
+                            href={record.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="badge badge-md bg-light"
+                        >
+                            <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
+                        </a>
+                        );
+                    }
+                }
+            },
+            {
+                name: 'New Icon',
+                width: '7rem',
+                cell: (record) => {
+                    if (record.new_status === '1') {
+                        return ( 
+                            <button
+                                className="badge badge-md bg-success"
+                                onClick={() => {
+                                    handleNewStuStatus(record, '0');
+                                }}
                             >
-                                Navigate
-                            </a>
+                                Turned ON<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
+                            </button>
+                        );
+                    } else if (record.new_status === '0') {
+                        return ( 
+                            <button
+                                className="badge badge-md bg-light text-dark"
+                                onClick={() => {
+                                    handleNewStuStatus(record, '1');
+                                }}
+                            >
+                                Turned Off<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
+                            </button>
                         );
                     }
                 }
             },
             {
                 name: 'Actions',
-                width: '15rem',
+                width: '14rem',
                 center: true,
                 cell: (record) => [
-                    <>
-                        <div
-                            key={record}
-                            onClick={() => handleEdit(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-primary">
-                                Edit
-                            </div>
-                        </div>
-
-                        <div
-                            key={record}
-                            onClick={() => handleStuDelete(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-primary  mx-2">
-                                Delete
-                            </div>
-                        </div>
+                    <> 
+                        <button
+                              className="btn btn-info btn-sm"
+                              key={record}
+                              onClick={() => handleEdit(record)}
+                            >
+                              <i data-feather="edit" className="feather-edit" /> Edit
+                        </button>
+                        <button
+                              className="btn btn-danger btn-sm mx-3"
+                              key={record}
+                              onClick={() => handleStuDelete(record)}
+                            >
+                              <i data-feather="trash-2" className="feather-trash-2" />{" "}
+                              Delete
+                        </button>
                     </>
                 ]
             }
@@ -425,72 +441,51 @@ const AdminLatestNews = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '6rem'
+                width: '4rem'
             },
             {
                 name: 'Role',
                 selector: (row) => row.category,
-                width: '8rem'
+                sortable: true,
+                width: '6rem'
             },
             {
-                name: 'New Icon',
-                width: '8rem',
-                cell: (record) => {
-                    if (record.new_status === '1') {
-                        return (
-                            <button
-                                className="btn btn-danger mx-2"
-                                onClick={() => {
-                                    handleNewStatus(record, '0');
-                                }}
-                            >
-                                Disable
-                            </button>
-                        );
-                    } else if (record.new_status === '0') {
-                        return (
-                            <button
-                                className="btn btn-success mx-2"
-                                onClick={() => {
-                                    handleNewStatus(record, '1');
-                                }}
-                            >
-                                Enable
-                            </button>
-                        );
-                    }
-                }
+                name: 'State',
+                selector: (row) => row.state,
+                sortable: true,
+                width: '10rem'
             },
+            
             {
                 name: 'Details',
                 selector: (row) => row.details,
-                width: '15rem'
+                width: '16rem'
             },
             {
                 name: 'File',
-                width: '10rem',
+                width: '5rem',
                 cell: (record) => {
                     if (record.file_name === null) {
                         return <p>No file</p>;
                     } else {
                         return (
-                            <button className="btn btn-warning mx-2">
+                            
                                 <a
                                     href={record.file_name}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{ color: 'black' }}
+                                    className="badge badge-md bg-light"
                                 >
-                                    Download
+                                    <i className="fas fa-file-lines" style={{color:"blue"}}></i>
                                 </a>
-                            </button>
+                           
                         );
                     }
                 }
             },
             {
                 name: 'Link',
-                width: '8rem',
+                width: '5rem',
                 cell: (record) => {
                     if (record.url === null) {
                         return <p>No link</p>;
@@ -500,20 +495,66 @@ const AdminLatestNews = () => {
                                 href={record.url}
                                 target="_blank"
                                 rel="noreferrer"
+                                className="badge badge-md bg-light"
                             >
-                                Navigate
+                                <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
                             </a>
                         );
                     }
                 }
             },
             {
+                name: 'New Icon',
+                width: '7rem',
+                cell: (record) => {
+                    if (record.new_status === '1') {
+                        return (
+                            <button
+                                className="badge badge-md bg-success"
+                                onClick={() => {
+                                    handleNewStatus(record, '0');
+                                }}
+                            >
+                                Turned ON<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
+                            </button>
+                        );
+                    } else if (record.new_status === '0') {
+                        return (
+                            <button
+                                className="badge badge-md bg-light text-dark"
+                                onClick={() => {
+                                    handleNewStatus(record, '1');
+                                }}
+                            >
+                                Turned Off<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
+                            </button>
+                        );
+                    }
+                }
+            },
+            {
                 name: 'Actions',
-                width: '15rem',
+                width: '14rem',
                 center: true,
                 cell: (record) => [
                     <>
-                        <div
+                        <button
+                              className="btn btn-info btn-sm"
+                              key={record}
+                              onClick={() => handleEdit(record)}
+                            >
+                              <i data-feather="edit" className="feather-edit" /> Edit
+                        </button>
+                        <button
+                              className="btn btn-danger btn-sm mx-3"
+                              key={record}
+                              onClick={() => handleDelete(record)}
+                            >
+                              <i data-feather="trash-2" className="feather-trash-2" />{" "}
+                              Delete
+                        </button>
+
+                        {/* <div
                             key={record}
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '12px' }}
@@ -521,9 +562,9 @@ const AdminLatestNews = () => {
                             <div className="btn btn-primary mx-2">
                                 Edit
                             </div>
-                        </div>
+                        </div> */}
 
-                        <div
+                        {/* <div
                             key={record}
                             onClick={() => handleDelete(record)}
                             style={{ marginRight: '12px' }}
@@ -531,33 +572,50 @@ const AdminLatestNews = () => {
                             <div className="btn btn-primary mx-2">
                                 Delete
                             </div>
-                        </div>
+                        </div> */}
                     </>
                 ]
             }
         ]
     };
     const customStyles = {
-        head: {
+        rows: {
           style: {
-            fontSize: "1em", // Adjust as needed
+            fontSize: "14px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "16px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "14px",
           },
         },
       };
     return (
         <div className="page-wrapper">
         <div className="content">
-            <Container className="ticket-page mb-50">
-                <Row className="pt-3">
-                    <Col className="col-auto">
-                        {reqList ? (
-                            <h2>Student Latest News</h2>
-                        ) : (
-                            <h2>Teacher Latest News</h2>
-                        )}
-                    </Col>
-
-                    <Col className="ticket-btn col ml-auto ">
+            <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            {reqList ? (
+                                <>
+                                    <h4>Student Latest News</h4>
+                                    <h6>Create , Edit , Del State & User specific Latest News here</h6>
+                                </>
+                            ) : (
+                                <>
+                                    <h4>Teacher Latest News</h4>
+                                    <h6>Create , Edit , Del State & User specific Latest News here</h6>
+                                </>
+                            )}
+                            
+                        </div>
+                    </div>
+                    <div className="page-btn">
                         {reqList ? (
                             <div className="d-flex justify-content-end">
                                  <button
@@ -582,60 +640,100 @@ const AdminLatestNews = () => {
                                             '/create-news'
                                         )
                                     }
-                                >
-Create LatestNews
+                                ><PlusCircle className="me-2" style={{color:"white"}} /><b>Create Latest News</b>
                             </button>
                             </div>
                         )}
-                    </Col>
-                    {reqList ? (
-                        <div className="my-2">
-                            <DataTableExtensions
-                                print={false}
-                                export={true}
-                                {...stuNewsData}
-                                exportHeaders
-                            >
-                                <DataTable
-                                    // data={SRows}
-                                    defaultSortField="id"
-                                    defaultSortAsc={false}
-                                    customStyles={customStyles}
+                    </div>
+                </div>
+                <Container className="ticket-page mb-50">
+                    <Row className="pt-3">
+                        {/* <Col className="col-auto">
+                            {reqList ? (
+                                <h2>Student Latest News</h2>
+                            ) : (
+                                <h2>Teacher Latest News</h2>
+                            )}
+                        </Col> */}
 
-                                    pagination
-                                    highlightOnHover
-                                    fixedHeader
-                                    subHeaderAlign={Alignment.Center}
-                                />
-                            </DataTableExtensions>
-                        </div>
-                    ) : (
-                        <div className="my-2">
-                            <DataTableExtensions
-                                print={false}
-                                export={false}
-                                {...resData}
-                                exportHeaders
-                            >
-                                <DataTable
-                                    // data={setResList}
-                                    // noHeader
-                                    defaultSortField="id"
-                                    customStyles={customStyles}
+                        {/* <Col className="ticket-btn col ml-auto ">
+                            {reqList ? (
+                                <div className="d-flex justify-content-end">
+                                    <button
+                                        className='btn btn-secondary'
+                                            onClick={(e) => handleBack(e)}
+                                        >
+                                        Back
+                                        </button>
+                                </div>
+                            ) : (
+                                <div className="d-flex justify-content-end">
+                                    <button
+                                    className='btn btn-warning me-2'
+                                        onClick={(e) => handleStudentList(e)}
+                                    >
+                                        Student Latest News
+                                    </button>
+                                    <button
+                                    className='btn btn-info'
+                                        onClick={() =>
+                                            navigate(
+                                                '/create-news'
+                                            )
+                                        }
+                                    >
+    Create LatestNews
+                                </button>
+                                </div>
+                            )}
+                        </Col> */}
+                        {reqList ? (
+                            <div>
+                                <DataTableExtensions
+                                    print={false}
+                                    export={true}
+                                    {...stuNewsData}
+                                    exportHeaders
+                                >
+                                    <DataTable
+                                        // data={SRows}
+                                        defaultSortField="id"
+                                        defaultSortAsc={false}
+                                        customStyles={customStyles}
 
-                                    defaultSortAsc={false}
-                                    pagination
-                                    highlightOnHover
-                                    fixedHeader
-                                    subHeaderAlign={Alignment.Center}
-                                />
-                            </DataTableExtensions>
-                        </div>
-                    )}
-                </Row>
-            </Container>
-            {/* <h1>hi</h1> */}
-        </div>
+                                        pagination
+                                        highlightOnHover
+                                        fixedHeader
+                                        subHeaderAlign={Alignment.Center}
+                                    />
+                                </DataTableExtensions>
+                            </div>
+                        ) : (
+                            <div>
+                                <DataTableExtensions
+                                    print={false}
+                                    export={false}
+                                    {...resData}
+                                    exportHeaders
+                                >
+                                    <DataTable
+                                        // data={setResList}
+                                        // noHeader
+                                        defaultSortField="id"
+                                        customStyles={customStyles}
+
+                                        defaultSortAsc={false}
+                                        pagination
+                                        highlightOnHover
+                                        fixedHeader
+                                        subHeaderAlign={Alignment.Center}
+                                    />
+                                </DataTableExtensions>
+                            </div>
+                        )}
+                    </Row>
+                </Container>
+            </div>
         </div>
     );
 };

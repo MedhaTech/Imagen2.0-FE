@@ -17,8 +17,9 @@ import {
 } from '../../redux/actions';
 import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
-
+import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
 import { getNormalHeaders } from '../../helpers/Utils';
+
 // import { useHistory } from 'react-router-dom';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -191,7 +192,7 @@ const updateStatesList=["All States",...stateList];
     };
     const viewDetail = (item) => {
         props.history.push({
-            pathname: '/admin/institution/dashboard',
+            pathname: '/admin/teacher/dashboard',
             data: item
         });
         // localStorage.setItem(
@@ -398,39 +399,41 @@ const updateStatesList=["All States",...stateList];
                 name: 'No',
                 // selector: (row) => row.id,
                 selector: (row, key) => key + 1,
+                sortable: true,
                 cellExport: (row) => row.index,
-                width: '4rem'
+                width: '5rem'
             },
             {
                 name: 'Admin Name',
                 selector: (row) => row?.user?.full_name,
                 cellExport: (row) => row?.user?.full_name,
-
-                width: '15rem'
+                sortable: true,
+                width: '13rem'
             },
             {
-                name: 'Email',
+                name: 'Email & Password',
                 selector: (row) => row?.user?.username,
                 cellExport: (row) => row?.user?.username,
-
-                width: '16rem'
+                sortable: true,
+                width: '14rem'
             },
             {
                 name: 'Role',
                 selector: (row) => row?.user?.role,
-                width: '10rem',
+                sortable: true,
+                width: '6rem',
                 cell: (params) => [
                     params.user.role === 'ADMIN' ? (
-                        <span className="py-2 px-4 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
-                            ADMIN
+                        <span className="badge rounded-pill bg-outline-primary">
+                            Admin
                         </span>
                     ) : params.user.role === 'EADMIN' ? (
-                        <span className="py-2 px-4 rounded-pill bg-success bg-opacity-25 text-info fw-bold">
-                            EADMIN
+                        <span className="badge rounded-pill bg-outline-secondary">
+                            E-Admin
                         </span>
                     ) : params.user.role === 'STUDENT' ? (
-                        <span className="bg-success bg-opacity-25 px-4 py-2 rounded-pill text-success fw-bold">
-                            STUDENT
+                        <span className="badge rounded-pill bg-outline-primary">
+                            Student
                         </span>
                     ) : (
                         ''
@@ -439,31 +442,32 @@ const updateStatesList=["All States",...stateList];
             },
             {
                 name: 'Status',
+                sortable: true,
                 cell: (row) => [
-                    <Badge
-                        key={row.mentor_id}
-                        bg={`${
-                            row.status === 'ACTIVE' ? 'btn btn-soft-success' : 'btn btn-soft-danger'
-                        }`}
-                    >
-                        {row.status}
-                    </Badge>
+                    <span key={row.mentor_id} className={`${
+                        row.status === 'ACTIVE' ? "badge bg-success" : "badge bg-danger"
+                    }`}>{row.status}</span>
+                    // <Badge
+                    //     key={row.mentor_id}
+                    //     bg={`${
+                    //         row.status === 'ACTIVE' ? 'btn btn-soft-success' : 'btn btn-soft-danger'
+                    //     }`}
+                    // >
+                    //     {row.status}
+                    // </Badge>
                 ],
                 width: '6rem'
             },
             {
                 name: 'Actions',
                 sortable: false,
-                width: '20rem',
+                width: '13rem',
                 cell: (record) => [
                     <div
                         className="mr-5"
                         key={record?.id}
-                        // onClick={() => handleEdit(record)}
                         style={{ marginRight: '10px' }}
-                    >
-                        {/* <div className="btn btn-primary ">Edit</div> */}
-                    </div>,
+                    ></div>,
                     <><div
                         key={record.id}
                         style={{ marginRight: '10px' }}
@@ -480,20 +484,19 @@ const updateStatesList=["All States",...stateList];
                         } }
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger">Inactive</div>
+                            <button
+                            className="btn btn-light"
+                        > Inactivate<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>    
+                        </button>
                         ) : (
-                            <div className="btn btn-success">Active</div>
+                            <button
+                                className="btn btn-success"
+                            >
+                                Activate<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
+                            </button>
                         )}
                     </div>
-                    {/* <div
-                        key={record?.id}
-
-                        onClick={() => handleSelect(record)}
-                        style={{ marginRight: '10px' }}
-                    >
-                            <div className="btn btn-primary mr-5">View</div>
-                        </div> */}
-                        </>,
+                        </>
                 ]
             }
         ]
@@ -509,55 +512,29 @@ const updateStatesList=["All States",...stateList];
     return (
         <div className="page-wrapper">
         <div className="content">
+                <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            <h4>Admins List</h4>
+                            <h6>Create an Admin User here</h6>
+                        </div>
+                    </div>
+                    <div className="page-btn">
+                        <button
+                            type="button"
+                            className="btn btn-info"
+                            onClick={() =>
+                                setRegisterModalShow(true)
+                            }
+                        >
+                            <PlusCircle className="me-2" style={{color:"white"}} /><b>Add New Admin</b>
+                        </button>
+                    </div>
+                </div>
             <Container className="ticket-page mb-50 userlist">
-                <Row className="mt-0">
-                <Col className="col-auto">
-                    <h2>Admins List</h2>
-                    </Col>
-                    <Col className="ml-auto text-right">
-                                <button
-                                   className='btn btn-info'
-                                   onClick={() =>
-                                    setRegisterModalShow(true)
-                                }
-                                >Add New Admin
-                            </button>
-                            </Col>
-                    <Container fluid className="px-0">
-                                        {/* <Row className="align-items-center">
-                                            <Col md={2}>
-                                                    <Select
-                                                        list={updateStatesList}
-                                                        setValue={setState}
-                                                        placeHolder={
-                                                            'State'
-                                                        }
-                                                        value={state}
-                                                         className="form-select"
-                                                    />
-                                            </Col>
-                                           
-                                           
-                                           
-                                            <Col md={2}>
-                                                <div className="text-center">
-                                                    <Button
-                                                        btnClass={
-                                                            showbutton
-                                                                ? 'primary'
-                                                                : 'default'
-                                                        }
-                                                        size="small"
-                                                        label="Search"
-                                                        disabled={!showbutton}
-                                                        onClick={() =>
-                                                            handleclickcall()
-                                                        }
-                                                    />
-                                                </div>
-                                            </Col>
-                                        </Row> */}
-                                        <div className="bg-white border card pt-3 mt-5">
+                <Row >
+                    <Container fluid >
+                                        <div className="card pt-3 mt-2">
                                         <DataTableExtensions
                                             print={false}
                                             export={false}
