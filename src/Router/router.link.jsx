@@ -47,7 +47,7 @@ import AddStudent from "../Teacher/Teams/AddStudent";
 import TecResource from "../Teacher/Resource/TecResource";
 import StudentEdit from "../Teacher/Teams/StuEdit";
 import TeacherCourse from "../Teacher/Courses/TeacherPlayVideo";
-import TeacherSupport from "../Teacher/Support/TeacherSupport";
+// import TeacherSupport from "../Teacher/Support/TeacherSupport";
 import TCertificate from "../Teacher/Certificate/TCertificate";
 import ChangePwd from "../Teacher/ChangePwd";
 import InstructionsPage from "../Team/IdeaSubmission/InstuctionPage";
@@ -90,8 +90,10 @@ import MentorView from "../Admin/UsersList/MentorView";
 import MentorEdit from "../Admin/UsersList/MentorEdit";
 import StudentTableView from "../Admin/UsersList/StudentTableView";
 import StuEdit from "../Admin/UsersList/StudentEdit";
+import AdminRes from "../Admin/AdminTickets/TicketResponse";
 
 import AdminSupport from "../Admin/AdminTickets/Tickets";
+import TeacherSupport from "../Team/Support/TeacherSupport";
 
 
 
@@ -327,6 +329,14 @@ export const publicRoutes = [
     protected: true,
     route: Route,
   },
+  {
+    id: 27,
+    path: routes.adminresponse,
+    name: "adminresponse",
+    element: <AdminRes />,
+    protected: true,
+    route: Route,
+  },
 ];
 // export const studentRoutes = [
 //   {
@@ -345,38 +355,6 @@ export const teamRoutes = [
     name: "teamhome",
     element: <TeamDashboard />,
     protected: true,
-    route: Route,
-  },
-  {
-    id: 6,
-    path: routes.teamProfile,
-    name: "teamProfile",
-    element: <TeamProfile />,
-    // protected: true,
-    route: Route,
-  },
-  {
-    id: 7,
-    path: routes.studentProfile,
-    name: "studentProfile",
-    element: <StudentProfile />,
-    // protected: true,
-    route: Route,
-  },
-  {
-    id: 8,
-    path: routes.studentCertificate,
-    name: "studentCertificate",
-    element: <StudentCertificate />,
-    // protected: true,
-    route: Route,
-  },
-  {
-    id: 9,
-    path: routes.studentcourse,
-    name: "studentcourse",
-    element: <StudentCourse />,
-    // protected: true,
     route: Route,
   },
   {
@@ -412,6 +390,39 @@ export const teamRoutes = [
     route: Route,
   },
   {
+    id: 6,
+    path: routes.teamProfile,
+    name: "teamProfile",
+    element: <TeamProfile />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 7,
+    path: routes.studentProfile,
+    name: "studentProfile",
+    element: <StudentProfile />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 8,
+    path: routes.studentCertificate,
+    name: "studentCertificate",
+    element: <StudentCertificate />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 9,
+    path: routes.studentcourse,
+    name: "studentcourse",
+    element: <StudentCourse />,
+    // protected: true,
+    route: Route,
+  },
+  
+  {
     id: 10,
     path: routes.instruction,
     name: "instruction",
@@ -419,9 +430,16 @@ export const teamRoutes = [
     //protected: true,
     route: Route,
   },
- 
   {
-    id: 5,
+    id: 11,
+    path: routes.studentsupport,
+    name: "sutentsupport",
+    element: <TeacherSupport />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 12,
     path: routes.studentresource,
     name: "studentresource",
     element: <StuResource />,

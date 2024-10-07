@@ -20,7 +20,9 @@ export const all_routes = {
   stuedit:"student-edit",
   instruction:"/instruction",
   adminsupport:"/admin-support",
+  studentsupport: "/student-support",
 
+  adminresponse:"/admin/support-journey/ans-ticket",
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",
   reportsteacher : "/reportsteacher",
