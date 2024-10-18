@@ -528,7 +528,7 @@ poptype={poptype}
                             <Loader />
                         ) : coursepercentage === 0 ? (
                       <>
-                        <h5>To know about SIM</h5>
+                        <h5>To know about YFSI</h5>
                         <a onClick={redirectToCourse} href='#' >
                           Click here & Start Course
                         </a>
@@ -722,7 +722,7 @@ poptype={poptype}
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                  <h4 className="card-title mb-0">SIM Road Map </h4>
+                  <h4 className="card-title mb-0">YFSI Road Map </h4>
                   <div className="dropdown" onClick={handleNavigation} >
                     <Link to="/instructions"  className="view-all d-flex align-items-center">
                       <span className="ps-2 d-flex align-items-center">

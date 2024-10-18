@@ -47,6 +47,7 @@ import EadminHeader from "../InitialPage/Sidebar/eadminHeader";
 import EadminSidebar from "../InitialPage/Sidebar/eadminSidebar";
 import LogInTeam from "../Team/LogInTeam";
 import TeacherPSW from "../Teacher/forgotPass";
+import StudentPSW from "../Team/forgotPass";
 import CollapsedSidebar from "../InitialPage/Sidebar/collapsedSidebar";
 import RegInstruction from "../RegPage/RegInstruction";
 import PilotReg from "../RegPage/PilotReg";
@@ -148,6 +149,7 @@ const AllRoutes = () => {
           <Route path="/state" element={<StateLogin />} />
           <Route path="/eadmin" element={<EadminLogin />} />
           <Route path="/student" element={<LogInTeam />} />
+          <Route path="/student-forgot-psw" element={<StudentPSW />} />
           <Route path="/institution" element={<LogInTeacher />} />
           {/* student register */}
           <Route path="/registration" element={<RegInstruction />} />

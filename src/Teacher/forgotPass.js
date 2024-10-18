@@ -85,7 +85,7 @@ const Forgotpassword = () => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading">
-                  <h3>Forgot your SIM password?</h3>
+                  <h3>Forgot your YFSI password?</h3>
                   {/* <h4>
                     If you forgot your password, well, then we’ll email you
                     instructions to reset your password.

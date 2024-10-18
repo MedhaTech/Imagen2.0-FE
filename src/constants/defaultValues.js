@@ -55,19 +55,21 @@ export const URL = {
   adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins',
   deleteTempMentor: process.env.REACT_APP_API_BASE_URL + '/mentors/',
   studentResetPwd:
-  process.env.REACT_APP_API_BASE_URL + '/students/resetPassword',
+    process.env.REACT_APP_API_BASE_URL + '/students/resetPassword',
   getTeamMemberStatusEndpoint:
     process.env.REACT_APP_API_BASE_URL + "/dashboard/teamStats/",
   getTeacherCousesDetails:
     process.env.REACT_APP_API_BASE_URL + "/mentorCourses/",
   getMentorAttachments:
     process.env.REACT_APP_API_BASE_URL + "/mentorAttachments",
-    getSchoolRegistrationBulkupload:
-        process.env.REACT_APP_API_BASE_URL + '/organizations?',
-        createOrganization:
-        process.env.REACT_APP_API_BASE_URL + '/organizations/createOrg',
+  getSchoolRegistrationBulkupload:
+    process.env.REACT_APP_API_BASE_URL + '/organizations?',
+  createOrganization:
+    process.env.REACT_APP_API_BASE_URL + '/organizations/createOrg',
   putResetPassword:
     process.env.REACT_APP_API_BASE_URL + "/mentors/resetPassword",
+  putstudentforgotPassword:
+    process.env.REACT_APP_API_BASE_URL + "/students/forgotPassword",
   getMentorSupportTickets:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
   createMentorSupportTickets:

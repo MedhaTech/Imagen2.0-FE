@@ -282,7 +282,7 @@ const TeamsProgDD = ({user}) => {
                 <div className="table-responsive">
                     {showDefault && (
                         <div className="d-flex justify-content-center align-items-center">
-                            <h4 className="text-primary">Select a Team to check SIM Progress</h4>
+                            <h4 className="text-primary">Select a Team to check YFSI Progress</h4>
                         </div>
                     )}
                     {teamsMembersStatus.length > 0 && !showDefault ? (

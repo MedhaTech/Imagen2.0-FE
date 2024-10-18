@@ -893,7 +893,7 @@ const NonAtlPage = () => {
                         alt="copy"
                         style={{ verticalAlign: "middle", width: "5%" }}
                       />{" "}
-                      SIM 2024. All rights reserved
+                      YFSI 2024. All rights reserved
                     </p> */}
                 {/* </div> */}
                 {/* )} */}

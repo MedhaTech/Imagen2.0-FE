@@ -149,6 +149,11 @@ const LogInTeam = (props) => {
                           Remember me
                         </label>
                       </div>
+                      <div className="text-end">
+                        <Link className="forgot-link" to="/student-forgot-psw">
+                          Forgot Password?
+                        </Link>
+                      </div>
                      
                     </div>
                   </div>
