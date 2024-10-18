@@ -90,9 +90,10 @@
 .sales-cards {
     .card {
         @include margin-padding(null, 20px);
-        @include rounded(8px);
-        flex-direction:  initial;
-        h6{
+       
+        border-radius: 0; 
+        flex-direction: initial;
+        h6 {
             color: $primary;
             font-size: $font-size-16;
             font-weight: $font-weight-semibold;
@@ -104,22 +105,22 @@
             margin-bottom: 8px;
         }
         p {
-            color:  $text-color;
+            color: $text-color;
         }
         &.color-info {
             display: block;
             position: relative;
-            color:  $white;
+            color: $white;
             border: none;
             svg {
-                @include position(absolute,15px,15px,null,null);
+                @include position(absolute, 15px, 15px, null, null);
                 cursor: pointer;
             }
             h3 {
-                margin-bottom: 0; 
+                margin-bottom: 0;
             }
             h3, p {
-                color:  $white;
+                color: $white;
             }
             p {
                 font-size: $font-size-15;
@@ -128,6 +129,7 @@
         }
     }
 }
+
 .table {
     tbody{
         tr{

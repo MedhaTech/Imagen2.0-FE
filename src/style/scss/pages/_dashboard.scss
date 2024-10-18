@@ -7,7 +7,7 @@
     -ms-flex-align: center;
     background: $white;
     margin-bottom: 25px;
-    @include rounded(6px);
+    // @include rounded(6px);
     @include margin-padding(null, 20px);
     border: 1px solid $gray-400;
     &.dash1{
@@ -68,9 +68,9 @@
 .dash-count {
     background: $primary;
     color: $white;
-    min-height:98px;
+    min-height: 98px;
     width: 100%;
-    @include rounded(6px);
+    border-radius: 0px;  
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -81,16 +81,17 @@
     -webkit-justify-content: space-between;
     -ms-flex-pack: space-between;
     @include margin-padding(0 0 25px, 20px);
-    &.das1{
+
+    &.das1 {
         background: #00CFE8;
     }
-    &.das2{
+    &.das2 {
         background: $title-color;
-        
     }
-    &.das3{
+    &.das3 {
         background: $success;
     }
+
     h4 {
         color: $white;
         font-size: $font-size-24;
@@ -101,30 +102,37 @@
         color: $white;
         font-size: $font-size-14;
     }
-    .dash-imgs{
-		display: -webkit-box;
+
+    .dash-imgs {
+        display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
         @include transition(all 0.5s ease);
-        img{
+
+        img {
             width: 50px;
             height: 50px;
         }
-        i{
+
+        i {
             font-size: $font-size-36;
             color: $white;
         }
-        svg{
+
+        svg {
             width: 50px;
             height: 50px;
         }
     }
-    &:hover{
-        .dash-imgs{
+
+    &:hover {
+        .dash-imgs {
             @include transform(scale(1.25));
         }
     }
 }
+
+
 .btn-white{
     &.dropdown-toggle{
         &:after{
