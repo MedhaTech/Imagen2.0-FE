@@ -17,16 +17,16 @@ import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
 import team from "../../assets/img/icons/team2.png";
-import  "./styles.css";
+import "./styles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const currentUser = getCurrentUser("current_user");
-  const presurvey = localStorage.getItem("stupresurveystatus") ;
+  const presurvey = localStorage.getItem("stupresurveystatus");
   // console.log(presurvey,"status");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
@@ -68,9 +68,9 @@ const Header = () => {
     const handleFullscreenChange = () => {
       setIsFullscreen(
         document.fullscreenElement ||
-          document.mozFullScreenElement ||
-          document.webkitFullscreenElement ||
-          document.msFullscreenElement
+        document.mozFullScreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement
       );
     };
 
@@ -160,11 +160,11 @@ const Header = () => {
       case "Female":
         return female;
       case "Male":
-        return  male;
+        return male;
       case "OTHERS":
-        return  user;
+        return user;
       case "Prefer Not to Mention":
-        return  user;
+        return user;
       default:
         return team;
     }
@@ -213,7 +213,7 @@ const Header = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img src={logo} alt="Logo" className="responsive-image"  />
+          <img src={logo} alt="Logo" className="responsive-image" />
           {/*<Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>
@@ -231,8 +231,8 @@ const Header = () => {
                 pathname.includes("tasks") || pathname.includes("pos")
                   ? "none"
                   : pathname.includes("compose")
-                  ? "none"
-                  : "",
+                    ? "none"
+                    : "",
             }}
             onClick={handlesidebar}
           >
@@ -445,8 +445,8 @@ const Header = () => {
             >
               {/* <i data-feather="maximize" /> */}
               {
-                    isFullscreen ? <FeatherIcon icon="minimize" /> : <FeatherIcon icon="maximize" />
-                }
+                isFullscreen ? <FeatherIcon icon="minimize" /> : <FeatherIcon icon="maximize" />
+              }
               {/* <FeatherIcon icon="maximize" /> */}
             </Link>
           </li>
@@ -728,11 +728,16 @@ const Header = () => {
                     <Link className="dropdown-item" to="/team-profile">
                       <FontAwesomeIcon icon={faUser} /><h6>My Profile</h6>
                     </Link>
-                  ) :  presurvey == "COMPLETED" ?(
-                    <Link className="dropdown-item" to="/student-profile">
-                      <FontAwesomeIcon icon={faUser} /><h6>My Profile</h6>
-                    </Link>
-                  ): null}
+                  ) : presurvey == "COMPLETED" ? (
+                    <>
+                      <Link className="dropdown-item" to="/student-profile">
+                        <FontAwesomeIcon icon={faUser} /><h6>My Profile</h6>
+                      </Link>
+                      <Link className="dropdown-item" to="/student-changePassword">
+                        <FontAwesomeIcon icon={faKey} /><h6>Change Password</h6>
+                      </Link>
+                    </>
+                  ) : null}
                   <hr className="m-0" />
                   <Link
                     className="dropdown-item logout pb-0"
@@ -764,11 +769,11 @@ const Header = () => {
                 <Link className="dropdown-item" to="/team-profile">
                   My Profile
                 </Link>
-              ) :  presurvey == "COMPLETED" ?(
+              ) : presurvey == "COMPLETED" ? (
                 <Link className="dropdown-item" to="/student-profile">
                   My Profile
                 </Link>
-              ): null}
+              ) : null}
               {/* <Link className="dropdown-item" to="generalsettings">
               Settings
             </Link> */}
@@ -799,11 +804,16 @@ const Header = () => {
                 <Link className="dropdown-item" to="/team-profile">
                   My Profile
                 </Link>
-              ) : presurvey == "COMPLETED" ?(
-                <Link className="dropdown-item" to="/student-profile">
-                  My Profile
-                </Link>
-              ): null}
+              ) : presurvey == "COMPLETED" ? (
+                <>
+                  <Link className="dropdown-item" to="/student-profile">
+                    My Profile
+                  </Link>
+                  <Link className="dropdown-item" to="/student-changePassword">
+                    Change Password
+                  </Link>
+                </>
+              ) : null}
               {/* <Link className="dropdown-item" to="generalsettings">
             Settings
           </Link> */}

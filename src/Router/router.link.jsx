@@ -61,6 +61,7 @@ import StuPreSurvey from "../Team/StuPreSurvey/StuPreSurvey";
 import StuResource from "../Team/StuResources/StuResource";
 import TeamProfile from "../Team/TeamProfile";
 import StudentProfile from "../Team/StuProfile";
+import StudentCP from "../Team/ChangePwd";
 import StudentCertificate from "../Team/Certificate/MyCertificate";
 import StudentCourse from "../Team/Courses/PlayVideo";
 import Institution from "../Admin/Schools/Ticket";
@@ -448,6 +449,14 @@ export const teamRoutes = [
     name: "studentresource",
     element: <StuResource />,
     //protected: true,
+    route: Route,
+  },
+  {
+    id: 13,
+    path: routes.studentCP,
+    name: "studentChangePassword",
+    element: <StudentCP />,
+    // protected: true,
     route: Route,
   },
 ];
