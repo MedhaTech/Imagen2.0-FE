@@ -21,6 +21,8 @@ export const all_routes = {
   instruction:"/instruction",
   adminsupport:"/admin-support",
   studentsupport: "/student-support",
+institutionview:"/view-profile",
+inststuedit:"/Institution-student-edit",
 
   adminresponse:"/admin/support-journey/ans-ticket",
   createpopup:"/create-popup",

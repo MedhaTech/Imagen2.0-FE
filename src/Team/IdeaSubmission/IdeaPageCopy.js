@@ -104,7 +104,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [loading, setLoading] = useState(initialLoadingStatus);
   const currentUser = getCurrentUser("current_user");
 
-  const TeamId = currentUser?.data[0]?.team_id;
+  const TeamId = currentUser?.data[0]?.student_id;
 
   const [currentSection, setCurrentSection] = useState(1);
   const goToNext = () => setCurrentSection(currentSection + 1);
@@ -114,8 +114,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       ? props?.theme
       : formData?.theme
   );
-  // console.log(props?.theme !== "" && props?.theme !== undefined ? "true" : "false" );
-  // console.log(formData?.theme ,"form");
+  
 
   const [focusarea, setFocusArea] = useState(formData?.focus_area);
   const [files, setFiles] = useState([]);
@@ -143,42 +142,16 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [id, setId] = useState("");
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototype_link);
   const [workbook, setWorkbook] = useState(formData?.workbook);
-  // const people = ["None", "2-4 people", "5+ people", "10+ people"];
-  // const people = [
-  //   t("ideaform_questions.stakeholdersop1"),
-  //   t("ideaform_questions.stakeholdersop2"),
-  //   t("ideaform_questions.stakeholdersop3"),
-  //   t("ideaform_questions.stakeholdersop4"),
-  // ];
-
-  // const submit = [
-  //   t("ideaform_questions.workbookyes"),
-  //   t("ideaform_questions.workbookno"),
-  // ];
-  // console.log(error4,"111");
-  // const journey = [
-  //   t("ideaform_questions.probsoljourneyop1"),
-  //   t("ideaform_questions.probsoljourneyop2"),
-
-  //   t("ideaform_questions.probsoljourneyop3"),
-
-  //   t("ideaform_questions.probsoljourneyop4"),
-  // ];
-  // const place = [
-  //   t("ideaform_questions.communityop1"),
-  //   t("ideaform_questions.communityop2"),
-  //   t("ideaform_questions.communityop3"),
-  //   t("ideaform_questions.communityop4"),
-  // ];
+ 
     const submit = [
     { value:"YES", label:  t("ideaform_questions.workbookyes") },
     { value: "NO", label : t("ideaform_questions.workbookno") },
   ];
     const people = [
-    { value:"None", label: t("ideaform_questions.stakeholdersop1") },
-    { value: "2-4 people", label : t("ideaform_questions.stakeholdersop2") },
-    { value: "5+ people", label: t("ideaform_questions.stakeholdersop3") },
-    { value:  "10+ people", label: t("ideaform_questions.stakeholdersop4") },
+    { value:"Not confident", label: t("ideaform_questions.stakeholdersop1") },
+    { value: "Somewhat confident", label : t("ideaform_questions.stakeholdersop2") },
+    { value: "Confident", label: t("ideaform_questions.stakeholdersop3") },
+    { value:  "Very confident", label: t("ideaform_questions.stakeholdersop4") },
   ];
     const journey = [
     { value: "We did the full problem solving journey by ourselves." , label: t("ideaform_questions.probsoljourneyop1") },
@@ -187,16 +160,39 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     { value: "We got feedback on our prototype and modified it", label: t("ideaform_questions.probsoljourneyop4") },
   ];
   const place = [
-    { value: "School", label: t("ideaform_questions.communityop1") },
-    { value: "Home", label: t("ideaform_questions.communityop2") },
+    { value: "Idea stage", label: t("ideaform_questions.communityop1") },
+    { value: "Prototype ready", label: t("ideaform_questions.communityop2") },
     {
-      value: "Other places in the surroundings (Market/Park/Playground etc.)",
+      value: "Testing with users",
       label: t("ideaform_questions.communityop3"),
     },
     {
-      value: "Others(Read in newspapers,saw on the internet, etc.)",
+      value: "Product/Service ready for the market, etc.)",
       label: t("ideaform_questions.communityop4"),
     },
+    {
+      value: "Already launched",
+      label: t("ideaform_questions.communityop5"),
+    },
+  ];
+  const unique = [
+    { value: "Similar to others", label: t("ideaform_questions.uniqueop1") },
+    { value: "Moderately different", label: t("ideaform_questions.uniqueop2") },
+    {
+      value: "Completely unique",
+      label: t("ideaform_questions.uniqueop3"),
+    },
+  
+  ];
+  const supportOptions = [
+    "Funding/Investment",
+    "Mentorship and Guidance",
+    "Access to Technology/Tools",
+    "Marketing & Branding Support",
+    "Product Development Assistance",
+    "Access to Incubators/Networks or Partners",
+    "Legal Support (e.g., Intellectual Property, contracts)",
+    "Other (Please specify)"
   ];
 // console.log(theme,"theme",props?.theme,"props?.theme");
   const initiatedBy = formData?.initiated_by;
@@ -214,15 +210,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setFocusArea(e.target.value);
   };
 
-  // useEffect(() => {
-  //   setFocus(
-  //     focusareasList[
-  //       props?.theme !== "" && props?.theme !== undefined
-  //         ? props?.theme
-  //         : formData?.theme
-  //     ] || []
-  //   );
-  // }, [formData.theme]);
+ 
   useEffect(() => {
     const activeTheme =
       props?.theme !== "" && props?.theme !== undefined
@@ -333,7 +321,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const submittedApi = () => {
     const Param = encryptGlobal(
       JSON.stringify({
-        team_id: TeamId,
+        student_id: TeamId,
       })
     );
     var configidea = {
@@ -368,7 +356,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const apiCall = () => {
     const challengeParamID = encryptGlobal("1");
     const queryObj = JSON.stringify({
-      team_id: TeamId,
+      student_id: TeamId,
     });
     const queryObjEn = encryptGlobal(queryObj);
 
@@ -378,6 +366,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       title: title,
       problem_statement: problemStatement,
       initiated_by: currentUser?.data[0]?.user_id,
+      state:"Tamil Nadu"
     };
     if (causes !== "") {
       body["causes"] = causes;
@@ -876,8 +865,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </select>
                             </div>
                           </div>
+                          {theme === "Others" && (
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            {/* <div className="question quiz mb-0">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -885,8 +875,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               >
                                 {t("ideaform_questions.focusareaq")}
                               </b>
-                            </div>
-                            {theme === "Others" ? (
+                            </div> */}
+                           
                               <div className=" answers row flex-column">
                                 <textarea
                                   disabled={isDisabled}
@@ -901,32 +891,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   {500 - (focusarea ? focusarea.length : 0)}
                                 </div>
                               </div>
-                            ) : (
-                              <div className=" answers row flex-column p-4">
-                                <select
-                                  // onChange={(e) => setFocusArea(e.target.value)}
-                                  className="form-control"
-                                  onChange={handleFocusAreaChange}
-                                  disabled={isDisabled}
-                                  name="focusarea"
-                                  id="focusarea"
-                                >
-                                  <option value={""}>
-                                    Please select the Focus Area
-                                  </option>
-                                  {focus.map((item, i) => (
-                                    <option
-                                      key={i}
-                                      value={item}
-                                      selected={item === focusarea}
-                                    >
-                                      {item}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-                            )}
+                          
                           </div>
+                            )}
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
@@ -1037,6 +1004,33 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </div>
                             </div>
                           </div>
+                          {/* //addon // */}
+                          <div className="card comment-card">
+                            <div className="question quiz mb-0">
+                              <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {t("ideaform_questions.explain")}
+                              </b>
+                            </div>
+                            <div className="answers row flex-column p-4">
+                              <textarea
+                                className="form-control"
+                                disabled={isDisabled}
+                                placeholder={t("home.explace")}
+                                value={effects}
+                                rows={4}
+                                maxLength={500}
+                                // onChange={(e) => setEffects(e.target.value)}
+                              />
+                              <div className="text-end">
+                                {t("student_course.chars")} :
+                                {500 - (effects ? effects.length : 0)}
+                              </div>
+                            </div>
+                          </div>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
@@ -1071,29 +1065,46 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     </label>
                                   </div>
                                 ))}
-                                {/* {place.map((item, i) => (
-                                  <>
-                                    <label
-                                      key={i}
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
-                                      <input
-                                        type="radio"
-                                        value={item}
-                                        disabled={isDisabled}
-                                        checked={item === community}
-                                        onChange={(e) =>
-                                          setCommunity(e.target.value)
-                                        }
-                                      />{" "}
-                                      {item}
+                                
+                              </div>
+                            </div>
+                          </div>
+                          {/* Add On  */}
+                          <div className="card comment-card">
+                            <div className="question quiz mb-0">
+                              <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {t("ideaform_questions.uniqueq")}
+                              </b>
+                            </div>
+                            <div className=" answers row flex-column">
+                              <div>
+                                {unique.map((item,i) => (
+                                  <div key={i}>
+                                     <label
+                                    style={{
+                                      margin: "1rem",
+                                      fontSize: "1rem",
+                                    }}
+                                  >
+                                    <input
+                                      type="radio"
+                                      value={item.value}
+                                      disabled={isDisabled}
+                                      checked={item.value === community}
+                                      // onChange={(e) =>
+                                      //   setCommunity(e.target.value)
+                                      // }
+                                    />
+                                   
+                                      {item.label}
                                     </label>
-                                    <br />
-                                  </>
-                                ))} */}
+                                  </div>
+                                ))}
+                               
                               </div>
                             </div>
                           </div>
@@ -1111,7 +1122,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
-                                placeholder={t("home.ideaEff")}
+                                placeholder={t("home.faci")}
                                 value={facing}
                                 rows={4}
                                 maxLength={500}
@@ -1174,6 +1185,33 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </div>
                             </div>
                           </div>
+                          {/* Add On */}
+                          <div className="card comment-card">
+                            <div className="question quiz mb-0">
+                              <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {t("ideaform_questions.impactq")}
+                              </b>
+                            </div>
+                            <div className="answers row flex-column p-4">
+                              <textarea
+                                className="form-control"
+                                disabled={isDisabled}
+                                placeholder={t("home.data")}
+                                value={solution}
+                                rows={6}
+                                maxLength={1000}
+                                onChange={(e) => setSolution(e.target.value)}
+                              />
+                              <div className="text-end">
+                                {t("student_course.chars")} :
+                                {1000 - (solution ? solution.length : 0)}
+                              </div>
+                            </div>
+                          </div>
                           <div className="card comment-card">
                             <div className="question quiz mb-0 p-4">
                               <b
@@ -1219,7 +1257,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                       fontSize: "1rem",
                                     }}
                                   >
-                                    <input
+                                    {/* <input
                                       type="radio"
                                       value={item.value}
                                       disabled={isDisabled}
@@ -1227,7 +1265,19 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                       onChange={(e) =>
                                         setStakeholders(e.target.value)
                                       }
-                                    />
+                                    /> */}
+                                      <input
+                                        type="checkbox"
+                                        value={item.value} 
+                                        // checked={
+                                        //   Array.isArray(problemSolving) &&
+                                        //   problemSolving.includes(item.value)
+                                        // }
+                                        disabled={isDisabled}
+                                        onChange={() =>
+                                          handleCheckboxChange(item.value)
+                                        } 
+                                      />{" "}
                                    
                                       {item.label}
                                     </label>
@@ -1236,80 +1286,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </div>
                             </div>
                           </div>
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                {t("ideaform_questions.probsoljourneyq")}
-                              </b>
-                            </div>
-                            <div className=" answers row flex-column">
-                              {/* <div>
-                                {journey.map((item, i) => (
-                                  <>
-                                    <label
-                                      key={i}
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
-                                      <input
-                                        type="checkbox"
-                                        value={item}
-                                        checked={
-                                          Array.isArray(problemSolving) &&
-                                          problemSolving.includes(item)
-                                        }
-                                        // checked={problemSolving.includes(item)}
-                                        disabled={isDisabled}
-                                        // checked={
-                                        //     item ===
-                                        //     problemSolving
-                                        // }
-                                        onChange={() =>
-                                          handleCheckboxChange(item)
-                                        }
-                                      />{" "}
-                                      {item}
-                                    </label>
-                                    <br />
-                                  </>
-                                ))}
-                              </div> */}
-                              <div>
-                                {journey.map((item, i) => (
-                                  <div key={i}>
-                                    <label
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
-                                      <input
-                                        type="checkbox"
-                                        value={item.value} 
-                                        checked={
-                                          Array.isArray(problemSolving) &&
-                                          problemSolving.includes(item.value)
-                                        }
-                                        disabled={isDisabled}
-                                        onChange={() =>
-                                          handleCheckboxChange(item.value)
-                                        } 
-                                      />{" "}
-                                      {item.label}
-                                    </label>
-                                    <br />
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="card comment-card">
+                          {/* Add On */}
+                         
+                          {/* <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
                                 style={{
@@ -1334,7 +1313,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {500 - (feedback ? feedback.length : 0)}
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                           <Row>
                             <Col className="d-flex justify-content-start">
                               <button
@@ -1368,6 +1347,71 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               {t("ideaform_questions.section3")}
                             </h5>
                           </Row>
+                          <div className="card comment-card">
+                           
+                           <div className="question quiz mb-0">
+                             <b
+                               style={{
+                                 fontSize: "1rem",
+                               }}
+                             >
+                               {t("ideaform_questions.additionalq")}
+                             </b>
+                           </div>
+
+                           <div className=" answers row flex-column p-4">
+                             <select
+                               className="form-control"
+                               onChange={handleThemeChange}
+                               disabled={isDisabled}
+                               name="theme"
+                               id="theme"
+                             >
+                               <option value={""}>
+                                 Please select Dropdown 
+                               </option>
+                               {supportOptions.map((item, i) => (
+                                 <option
+                                   key={i}
+                                   value={item}
+                                   selected={item === theme}
+                                 >
+                                   {item}
+                                 </option>
+                               ))}
+                             </select>
+                         </div>
+                           {/* <div className=" answers row flex-column">
+                             
+                             <div>
+                               {journey.map((item, i) => (
+                                 <div key={i}>
+                                   <label
+                                     style={{
+                                       margin: "1rem",
+                                       fontSize: "1rem",
+                                     }}
+                                   >
+                                     <input
+                                       type="checkbox"
+                                       value={item.value} 
+                                       checked={
+                                         Array.isArray(problemSolving) &&
+                                         problemSolving.includes(item.value)
+                                       }
+                                       disabled={isDisabled}
+                                       onChange={() =>
+                                         handleCheckboxChange(item.value)
+                                       } 
+                                     />{" "}
+                                     {item.label}
+                                   </label>
+                                   <br />
+                                 </div>
+                               ))}
+                             </div>
+                           </div> */}
+                         </div>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
@@ -1477,7 +1521,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </div>
                             </div>
                           </div>
-                          <div className="card comment-card">
+                          {/* <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
                                 style={{
@@ -1488,31 +1532,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </b>
                             </div>
                             <div className=" answers row flex-column">
-                              {/* <div>
-                                {submit.map((item, i) => (
-                                  <>
-                                    <label
-                                      key={i}
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
-                                      <input
-                                        type="radio"
-                                        value={item}
-                                        disabled={isDisabled}
-                                        checked={item === workbook}
-                                        onChange={(e) =>
-                                          setWorkbook(e.target.value)
-                                        }
-                                      />{" "}
-                                      {item}
-                                    </label>
-                                    <br />
-                                  </>
-                                ))}
-                              </div> */}
+                             
                               <div>
                                 {submit.map((item,i) => (
                                   <div key={i}>
@@ -1537,7 +1557,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 ))}
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                           <div className="d-flex justify-content-start">
                             <button
                               className="btn btn-info "

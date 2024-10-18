@@ -282,17 +282,15 @@ const HorizontalSidebar = () => {
             </ul> */}
           </li>
           <li className="submenu">
-            <Link
+            {/* <Link
               to={`/mentorcourse/${1}
             `}
               onClick={handleSelectClick2}
               className={isActive2 ? "subdrop" : ""}
             >
-              {/* <img src="assets/img/teac.png" alt="img" /> */}
               <img src={logo} alt="Logo" />
               <span>Course</span>
-              {/* <span className="menu-arrow" /> */}
-            </Link>
+            </Link> */}
             {/* <ul style={{ display: isActive2 ? "block" : "none" }}>
               <li>
                 <Link to="product-list">
@@ -856,7 +854,7 @@ const HorizontalSidebar = () => {
               </li>
             </ul> */}
           </li>
-          <li className="submenu">
+          {/* <li className="submenu">
             <Link
               to="/mentorpostsurvey"
               onClick={handleSelectClick5}
@@ -865,7 +863,7 @@ const HorizontalSidebar = () => {
               <img src={support} alt="Survey" />
               <span>Post Survey</span>
             </Link>
-            </li>
+            </li> */}
           {/* <li className="submenu">
             <Link
               to="#"

@@ -118,7 +118,7 @@ const Crew1student = () => {
         iv: iv,
         padding: CryptoJS.pad.NoPadding,
       }).toString();
-      const body = JSON.stringify({
+      const body = {
         full_name: values.full_name,
         username: values.email,
         mobile: values.mobile,
@@ -129,8 +129,8 @@ const Crew1student = () => {
         branch: values.branch,
         year_of_study: values.yearofstudy,
         confirmPassword: encrypted,
-        type: studentId
-      });
+        type: String(studentId)
+      };
 
       var config = {
         method: "post",
@@ -140,7 +140,7 @@ const Crew1student = () => {
           Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
         },
 
-        data: body,
+        data: JSON.stringify(body),
       };
       await axios(config)
         .then((mentorRegRes) => {

@@ -120,12 +120,14 @@ const Dashboard = (props) => {
       { state: { student_id: item.student_id } }
     );
   };
-
-  const renderViewTooltip = (props) => (
-    <Tooltip id="refresh-tooltip" {...props}>
-      View
-    </Tooltip>
-  );
+  const handleEditData = (student_id) => {
+    // alert("hii");
+    console.log(student_id,"id");
+  
+    navigate(`/Institution-student-edit`, { state: { student_id: student_id} });
+ 
+  };
+ 
   const renderAddTooltip = (name, number) => (
     <Tooltip id="refresh-tooltip">
       {`Add Crew-${number} Member to ${name}`}
@@ -138,7 +140,7 @@ const Dashboard = (props) => {
   );
   const renderEditTooltip = (name) => (
     <Tooltip id="refresh-tooltip">
-      {`Edit ${name} Details`}
+      {`EditDetails`}
     </Tooltip>
   );
   const renderSwitchTooltip = (props) => (
@@ -152,7 +154,11 @@ const Dashboard = (props) => {
       {`Delete ${name}`}
     </Tooltip>
   );
-
+  const renderViewTooltip = (id) => (
+    <Tooltip id="refresh-tooltip" {...props}>
+       {`View`}
+    </Tooltip>
+  );
   const findTeamDetails = (id) => {
     //console.log(teamsList,"teamdetailsfunc");
     const team = teamsList.find((item) => item.team_id === id);
@@ -175,7 +181,12 @@ const Dashboard = (props) => {
       }, 1000);
     }
   };
+  const viewDetails = (student_id) => {
+    // console.log(student_id,"item");
   
+    navigate(`/view-profile`, { state: { student_id: student_id} });
+};
+
   const adminTeamsList = {
     data: teamsArray,
     columns: [
@@ -190,12 +201,18 @@ const Dashboard = (props) => {
           whiteSpace: 'pre-wrap',
           wordWrap: 'break-word'
         }}>{row.full_name}</strong>
-          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.full_name)}>
-            <div className="btn text-info" style={{ fontSize: '1rem' }}> <i data-feather="edit" className="feather-edit" /></div>
+          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.student_id)}>
+            <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row.student_id
+)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }}> <i data-feather="trash-2" className="feather-trash-2" /></div>
           </OverlayTrigger>
+          <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.
+student_id)}>
+                    <div className="btn btn-dark btn-sm m-2"  onClick={() => viewDetails(row.student_id
+)}>{<i data-feather="eye" className="feather-eye" />} </div>
+                </OverlayTrigger>
         </div>
         ,
         width: "23%",
@@ -206,8 +223,8 @@ const Dashboard = (props) => {
           whiteSpace: 'pre-wrap',
           wordWrap: 'break-word'
         }}>{row?.crewMembers[0]?.full_name}</strong>
-          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[0]?.full_name)}>
-            <div className="btn text-info" style={{ fontSize: '1rem' }}> <i data-feather="edit" className="feather-edit" /></div>
+          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[0]?.student_id)}>
+            <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row?.crewMembers[0]?.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
             <div className="btn text-dark" style={{ fontSize: '1rem' }}> <i data-feather="user" className="feather-user" /></div>
@@ -215,6 +232,11 @@ const Dashboard = (props) => {
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.crewMembers[0]?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(row?.crewMembers[0]?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
           </OverlayTrigger>
+          <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.crewMembers[0]?.
+student_id)}>
+                    <div className="btn btn-dark btn-sm m-2"  onClick={() => viewDetails(row?.crewMembers[0]?.student_id
+)}>{<i data-feather="eye" className="feather-eye" />} </div>
+                </OverlayTrigger>
         </>
           :
           <OverlayTrigger placement="top" overlay={renderAddTooltip(row?.full_name, 1)}>
@@ -230,8 +252,8 @@ const Dashboard = (props) => {
           whiteSpace: 'pre-wrap',
           wordWrap: 'break-word'
         }}>{row?.crewMembers[1]?.full_name}</strong>
-          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[1]?.full_name)}>
-            <div className="btn text-info" style={{ fontSize: '1rem' }}> <i data-feather="edit" className="feather-edit" /></div>
+          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[1]?.student_id)}>
+            <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row?.crewMembers[1]?.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
             <div className="btn text-dark" style={{ fontSize: '1rem' }}> <i data-feather="user" className="feather-user" /></div>
@@ -239,6 +261,11 @@ const Dashboard = (props) => {
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.crewMembers[1]?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(row?.crewMembers[1]?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
           </OverlayTrigger>
+          <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.crewMembers[1]?.
+student_id)}>
+                    <div className="btn btn-dark btn-sm m-2"  onClick={() => viewDetails(row?.crewMembers[1]?.student_id
+)}>{<i data-feather="eye" className="feather-eye" />} </div>
+                </OverlayTrigger>
         </>
           :
           <OverlayTrigger placement="top" overlay={renderAddTooltip(row?.full_name, 2)}>
@@ -254,8 +281,8 @@ const Dashboard = (props) => {
           whiteSpace: 'pre-wrap',
           wordWrap: 'break-word'
         }}>{row?.crewMembers[2]?.full_name}</strong>
-          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[2]?.full_name)}>
-            <div className="btn text-info" style={{ fontSize: '1rem' }}> <i data-feather="edit" className="feather-edit" /></div>
+          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[2]?.student_id)}>
+            <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row?.crewMembers[2]?.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
             <div className="btn text-dark" style={{ fontSize: '1rem' }}> <i data-feather="user" className="feather-user" /></div>
@@ -263,6 +290,11 @@ const Dashboard = (props) => {
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.crewMembers[2]?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(row?.crewMembers[2]?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
           </OverlayTrigger>
+          <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.crewMembers[2]?.
+student_id)}>
+                    <div className="btn btn-dark btn-sm m-2"  onClick={() => viewDetails(row?.crewMembers[2]?.student_id
+)}>{<i data-feather="eye" className="feather-eye" />} </div>
+                </OverlayTrigger>
         </>
           :
           <OverlayTrigger placement="top" overlay={renderAddTooltip(row?.full_name, 3)}>
