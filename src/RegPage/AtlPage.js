@@ -680,7 +680,7 @@ const Register = () => {
 
                     <br />
                     <p className="text-center">
-                      Copyright © SIM 2024. All rights reserved
+                      Copyright © YFSI 2024. All rights reserved
                     </p>
                   </div>
                 )}

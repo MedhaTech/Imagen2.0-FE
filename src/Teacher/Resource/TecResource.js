@@ -110,7 +110,7 @@ const TecResource = () => {
         <div className="page-header">
           <div className="page-title">
             <h4>Resources</h4>
-            <h6>List of SIM program resources</h6>
+            <h6>List of YFSI program resources</h6>
           </div>
         </div>
         <div className="card table-list-card my-2">
