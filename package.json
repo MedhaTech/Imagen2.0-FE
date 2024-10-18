@@ -30,7 +30,6 @@
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.11",
     "dragula": "^3.7.3",
-    "env-cmd": "^10.1.0",
     "feather-icons-react": "^0.7.0",
     "formik": "^2.4.6",
     "html-react-parser": "^5.1.12",
@@ -125,6 +124,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "env-cmd": "^10.1.0",
     "eslint": "^8.44.0"
   }
 }
