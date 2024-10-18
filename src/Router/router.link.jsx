@@ -94,6 +94,10 @@ import AdminRes from "../Admin/AdminTickets/TicketResponse";
 
 import AdminSupport from "../Admin/AdminTickets/Tickets";
 import TeacherSupport from "../Team/Support/TeacherSupport";
+import ViewTeam from "../Teacher/Teams/ViewTeam";
+import EditInstStu from "../Teacher/Teams/StuEdit";
+
+
 
 
 
@@ -584,7 +588,23 @@ export const mentorRoutes = [
      element: <AddCrew3Stu />,
      protected: true,
      route: Route,
-   }
+   },
+   { 
+    id: 17,
+     path: routes.institutionview,
+     name: "institutionview",
+     element: <ViewTeam />,
+     protected: true,
+     route: Route,
+   },
+   { 
+    id: 18,
+     path: routes.inststuedit,
+     name: "inststuedit",
+     element: <EditInstStu />,
+     protected: true,
+     route: Route,
+   },
   
 ];
 export const stateRoutes = [
