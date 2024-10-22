@@ -75,7 +75,7 @@ const LogInTeacher = (props) => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper login-pass-wrap bg-img">
+        <div className="login-wrapper login-pass-wrap">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">

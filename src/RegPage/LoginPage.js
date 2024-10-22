@@ -16,7 +16,7 @@ const LoginPage = () => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper forgot-pass-wrap bg-img">
+        <div className="login-wrapper forgot-pass-wrap">
           <div className="login-content">
             <form action="index">
               <div className="login-userset">
