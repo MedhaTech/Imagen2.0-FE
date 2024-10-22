@@ -190,7 +190,7 @@ const teamId= currentUser.data[0]?.team_id;
                                     <CardTitle className="text-center">
                                         <h3
                                             style={{
-                                                color: 'orange',
+                                                color: 'black',
                                             }}
                                         >
                                             {' '}
