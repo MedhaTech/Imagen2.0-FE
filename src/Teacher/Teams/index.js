@@ -37,7 +37,7 @@ const Dashboard = (props) => {
   const [teamsList, setTeamsList] = useState([]);
   const [show, setShow] = useState(false);
   const [teamlist, setteamlist] = useState([]);
-  const [datafinal, setDataFinal] = useState([]);
+  const [finalteamlist, setFinalteamlist] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [stuList, setStuList] = useState("");
   const [selectedstudent, setselectedstudent] = useState();
@@ -49,42 +49,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     teamListbymentorid();
   }, []);
-  const ideaStatusfun = (id) => {
-    // console.log(id, "id");
-    const ideaStatusparam = encryptGlobal(
-      JSON.stringify({
-        team_id: id,
-      })
-    );
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/challenge_response/ideastatusbyteamId?Data=${ideaStatusparam}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          // console.log(response, "teamId");
 
-          setIdeaStatus(response.data.data[0].ideaStatus);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-  useEffect(() => {
-    setDataFinal(teamsListData);
-    if (selectedTeam) {
-      // ideaStatusfun(selectedTeam);
-    }
-  }, [selectedTeam]);
   const teamListbymentorid = () => {
     var config = {
       method: "get",
@@ -107,12 +72,21 @@ const Dashboard = (props) => {
   };
   useEffect(() => {
     var teamsArrays = [];
+    var teamObj = {};
+    var teamlist = [];
     teamsList.map((teams, index) => {
       var key = index + 1;
+      if (teams.crewCount < 3) {
+        teamObj[teams.full_name] = teams.student_id;
+        teamlist.push(teams.full_name);
+      }
       return teamsArrays.push({ ...teams, key, crewMembers: JSON.parse(teams.crewDetails) });
     });
+    setteamlist(teamlist);
+    setteamchangeObj(teamObj);
     setTeamsArray(teamsArrays);
   }, [teamsList]);
+
   const handleCreate = (item) => {
     // where item = team name //
     // where we can add team member details //
@@ -121,26 +95,17 @@ const Dashboard = (props) => {
     );
   };
   const handleEditData = (student_id) => {
-    // alert("hii");
-    console.log(student_id,"id");
-  
-    navigate(`/Institution-student-edit`, { state: { student_id: student_id} });
- 
+    navigate(`/Institution-student-edit`, { state: { student_id: student_id } });
   };
- 
+
   const renderAddTooltip = (name, number) => (
     <Tooltip id="refresh-tooltip">
       {`Add Crew-${number} Member to ${name}`}
     </Tooltip>
   );
-  const renderHideTooltip = (props) => (
-    <Tooltip id="refresh-tooltip" {...props}>
-      Hide
-    </Tooltip>
-  );
   const renderEditTooltip = (name) => (
     <Tooltip id="refresh-tooltip">
-      {`EditDetails`}
+      {`Edit ${name} Details`}
     </Tooltip>
   );
   const renderSwitchTooltip = (props) => (
@@ -148,44 +113,19 @@ const Dashboard = (props) => {
       Change Team
     </Tooltip>
   );
-
   const renderDelTooltip = (name) => (
     <Tooltip id="refresh-tooltip">
       {`Delete ${name}`}
     </Tooltip>
   );
-  const renderViewTooltip = (id) => (
+  const renderViewTooltip = (name) => (
     <Tooltip id="refresh-tooltip" {...props}>
-       {`View`}
+      {`View ${name}`}
     </Tooltip>
   );
-  const findTeamDetails = (id) => {
-    //console.log(teamsList,"teamdetailsfunc");
-    const team = teamsList.find((item) => item.team_id === id);
-    setViewedTeam(team);
-    //console.log(ViewedTeam , "viewed team");
-  };
-
-  const handleViewClick = (teamId, stuCount) => {
-    if (selectedTeam === teamId) {
-      setSelectedTeam(null);
-    } else {
-      //console.log(teamId,stuCount);
-      findTeamDetails(teamId);
-      dispatch(getAdminTeamMembersList(teamId));
-      setStuList(stuCount);
-      // props.getAdminTeamMembersListAction(teamId);
-      setDataFinal([]);
-      setTimeout(() => {
-        setSelectedTeam(teamId);
-      }, 1000);
-    }
-  };
   const viewDetails = (student_id) => {
-    // console.log(student_id,"item");
-  
-    navigate(`/view-profile`, { state: { student_id: student_id} });
-};
+    navigate(`/view-profile`, { state: { student_id: student_id } });
+  };
 
   const adminTeamsList = {
     data: teamsArray,
@@ -201,18 +141,15 @@ const Dashboard = (props) => {
           whiteSpace: 'pre-wrap',
           wordWrap: 'break-word'
         }}>{row.full_name}</strong>
-          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.student_id)}>
-            <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row.student_id
-)}> <i data-feather="edit" className="feather-edit" /></div>
+          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.full_name)}>
+            <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.full_name)}>
-            <div className="btn text-danger" style={{ fontSize: '1rem' }}> <i data-feather="trash-2" className="feather-trash-2" /></div>
+            <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeletePilot(row.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
           </OverlayTrigger>
-          <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.
-student_id)}>
-                    <div className="btn btn-dark btn-sm m-2"  onClick={() => viewDetails(row.student_id
-)}>{<i data-feather="eye" className="feather-eye" />} </div>
-                </OverlayTrigger>
+          <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.full_name)}>
+            <div className="btn text-dark" style={{ fontSize: '1rem' }} onClick={() => viewDetails(row.student_id)}>{<i data-feather="eye" className="feather-eye" />} </div>
+          </OverlayTrigger>
         </div>
         ,
         width: "23%",
@@ -223,20 +160,20 @@ student_id)}>
           whiteSpace: 'pre-wrap',
           wordWrap: 'break-word'
         }}>{row?.crewMembers[0]?.full_name}</strong>
-          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[0]?.student_id)}>
+          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[0]?.full_name)}>
             <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row?.crewMembers[0]?.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
-            <div className="btn text-dark" style={{ fontSize: '1rem' }}> <i data-feather="user" className="feather-user" /></div>
+            <div className="btn text-dark" style={{ fontSize: '1rem' }} onClick={() => handleSwitchTeam(row?.crewMembers[0]?.student_id, row?.full_name)}> <i data-feather="user" className="feather-user" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.crewMembers[0]?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(row?.crewMembers[0]?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.crewMembers[0]?.
-student_id)}>
-                    <div className="btn btn-dark btn-sm m-2"  onClick={() => viewDetails(row?.crewMembers[0]?.student_id
-)}>{<i data-feather="eye" className="feather-eye" />} </div>
-                </OverlayTrigger>
+            full_name)}>
+            <div className="btn text-dark" style={{ fontSize: '1rem' }} onClick={() => viewDetails(row?.crewMembers[0]?.student_id
+            )}>{<i data-feather="eye" className="feather-eye" />} </div>
+          </OverlayTrigger>
         </>
           :
           <OverlayTrigger placement="top" overlay={renderAddTooltip(row?.full_name, 1)}>
@@ -252,20 +189,20 @@ student_id)}>
           whiteSpace: 'pre-wrap',
           wordWrap: 'break-word'
         }}>{row?.crewMembers[1]?.full_name}</strong>
-          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[1]?.student_id)}>
+          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[1]?.full_name)}>
             <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row?.crewMembers[1]?.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
-            <div className="btn text-dark" style={{ fontSize: '1rem' }}> <i data-feather="user" className="feather-user" /></div>
+            <div className="btn text-dark" style={{ fontSize: '1rem' }} onClick={() => handleSwitchTeam(row?.crewMembers[1]?.student_id, row?.full_name)}> <i data-feather="user" className="feather-user" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.crewMembers[1]?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(row?.crewMembers[1]?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.crewMembers[1]?.
-student_id)}>
-                    <div className="btn btn-dark btn-sm m-2"  onClick={() => viewDetails(row?.crewMembers[1]?.student_id
-)}>{<i data-feather="eye" className="feather-eye" />} </div>
-                </OverlayTrigger>
+            full_name)}>
+            <div className="btn text-dark" onClick={() => viewDetails(row?.crewMembers[1]?.student_id
+            )}>{<i data-feather="eye" className="feather-eye" />} </div>
+          </OverlayTrigger>
         </>
           :
           <OverlayTrigger placement="top" overlay={renderAddTooltip(row?.full_name, 2)}>
@@ -281,20 +218,20 @@ student_id)}>
           whiteSpace: 'pre-wrap',
           wordWrap: 'break-word'
         }}>{row?.crewMembers[2]?.full_name}</strong>
-          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[2]?.student_id)}>
+          <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[2]?.full_name)}>
             <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row?.crewMembers[2]?.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
-            <div className="btn text-dark" style={{ fontSize: '1rem' }}> <i data-feather="user" className="feather-user" /></div>
+            <div className="btn text-dark" style={{ fontSize: '1rem' }} onClick={() => handleSwitchTeam(row?.crewMembers[2]?.student_id, row?.full_name)}> <i data-feather="user" className="feather-user" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.crewMembers[2]?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(row?.crewMembers[2]?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.crewMembers[2]?.
-student_id)}>
-                    <div className="btn btn-dark btn-sm m-2"  onClick={() => viewDetails(row?.crewMembers[2]?.student_id
-)}>{<i data-feather="eye" className="feather-eye" />} </div>
-                </OverlayTrigger>
+            full_name)}>
+            <div className="btn text-dark" onClick={() => viewDetails(row?.crewMembers[2]?.student_id
+            )}>{<i data-feather="eye" className="feather-eye" />} </div>
+          </OverlayTrigger>
         </>
           :
           <OverlayTrigger placement="top" overlay={renderAddTooltip(row?.full_name, 3)}>
@@ -304,59 +241,10 @@ student_id)}>
         }</div>,
         width: "23%",
       },
-
-      // {
-      //   name: <b style={{ color: "crimson" }}>Actions</b>,
-      //   cell: (params) => {
-      //     return [
-      //       // <div
-      //       //   key={params}
-      //       //   onClick={() =>
-      //       //     handleViewClick(params.student_id, params.crewCount)
-      //       //   }
-      //       // >
-      //       //   {!params.StudentCount < 4 && (
-
-      //       //     <div>
-      //       //       {selectedTeam === params.student_id ?
-      //       //         <OverlayTrigger placement="top" overlay={renderHideTooltip}>
-      //       //           <Link data-bs-toggle="tooltip" data-bs-placement="top" >
-      //       //             <div className="btn btn-dark btn-sm m-2">{<i data-feather="eye-off" className="feather-eye-off" />} </div>
-      //       //           </Link>
-      //       //         </OverlayTrigger>
-
-      //       //         :
-      //       //         <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-      //       //           <Link data-bs-toggle="tooltip" data-bs-placement="top" >
-      //       //             <div className="btn btn-info btn-sm m-2">{<i data-feather="eye" className="feather-eye" />} </div>
-      //       //           </Link>
-      //       //         </OverlayTrigger>
-      //       //       }</div>
-      //       //   )}
-      //       // </div>,
-
-
-
-      //       <div key={params} onClick={() => handleCreate(params)}>
-      //         {process.env.REACT_APP_TEAM_LENGTH > params.crewCount && (
-      //           <OverlayTrigger placement="top" overlay={renderAddTooltip}>
-      //             <Link data-bs-toggle="tooltip" data-bs-placement="top" >
-      //               <div className="btn btn-success btn-sm btn-added"> <i data-feather="plus-circle" className="feather-plus-circle" /></div>
-      //             </Link>
-      //           </OverlayTrigger>
-
-      //         )}
-      //       </div>,
-      //     ];
-      //   },
-      //   width: "26%",
-      //   left: true,
-      // },
     ],
   };
 
-  const handleDeleteTeam = (student) => {
-    // console.log(student);
+  const handleDeleteStudent = (id) => {
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       title: "Are you sure?",
@@ -368,49 +256,7 @@ student_id)}>
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        const paramId = encryptGlobal(JSON.stringify(student));
-        var config = {
-          method: "delete",
-          url: process.env.REACT_APP_API_BASE_URL + "/teams/" + paramId,
-          headers: {
-            "Content-Type": "application/json",
-            // Accept: "application/json",
-            Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-          },
-        };
-        axios(config)
-          .then(function (response) {
-            if (response.status === 200) {
-              teamListbymentorid(currentUser?.data[0]?.mentor_id);
-              // dispatch(getAdminTeamMembersList(selectedTeam));
-              openNotificationWithIcon("success", "Team Deleted Successfully");
-
-              navigate("/institution-dashboard");
-            } else {
-              openNotificationWithIcon("error", "Opps! Something Wrong");
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        MySwal.fire("Cancelled", "Team not Deleted", "error");
-      }
-    });
-  };
-  const handleDeleteStudent = (item) => {
-    const MySwal = withReactContent(Swal);
-    MySwal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      showCancelButton: true,
-      confirmButtonColor: "#00ff00",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonColor: "#ff0000",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const delparamId = encryptGlobal(JSON.stringify(item.student_id));
+        const delparamId = encryptGlobal(JSON.stringify(id));
         var config = {
           method: "delete",
           url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId,
@@ -423,8 +269,7 @@ student_id)}>
         axios(config)
           .then(function (response) {
             if (response.status === 200) {
-              teamListbymentorid(currentUser?.data[0]?.mentor_id);
-              dispatch(getAdminTeamMembersList(selectedTeam));
+              teamListbymentorid();
               openNotificationWithIcon(
                 "success",
                 "Student Deleted Successfully"
@@ -442,25 +287,50 @@ student_id)}>
       }
     });
   };
-  const scroll = () => {
-    const section = document.querySelector("#start");
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-  const handleEdit = (item) => {
-    navigate("/studentedit", {
-      state: {
-        full_name: item.full_name,
-        Age: item.Age,
-        Gender: item.Gender,
-        Grade: item.Grade,
-        disability: item.disability,
-        team_id: item.team_id,
-        username: item?.user?.username,
-        user_id: item.user_id,
-        student_id: item.student_id,
-      },
+  const handleDeletePilot = (id) => {
+    const MySwal = withReactContent(Swal);
+    MySwal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonColor: "#00ff00",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonColor: "#ff0000",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const delparamId = encryptGlobal(JSON.stringify(id));
+        var config = {
+          method: "delete",
+          url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId + "/deleteAllData",
+          headers: {
+            "Content-Type": "application/json",
+            // Accept: "application/json",
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+          },
+        };
+        axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+              teamListbymentorid();
+              openNotificationWithIcon(
+                "success",
+                "Student Deleted Successfully"
+              );
+              window.location.reload();
+            } else {
+              openNotificationWithIcon("error", "Opps! Something Wrong");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        MySwal.fire("Cancelled", "Student not Deleted", "error");
+      }
     });
   };
+
   const customStyles = {
     head: {
       style: {
@@ -468,68 +338,20 @@ student_id)}>
       },
     },
   };
-  const handleSwitchTeam = (item) => {
-    if (teamsListData.length > 2) {
-      teamListby();
-      setselectedstudent(item);
-    } else {
-      openNotificationWithIcon("error", "Opps! Something Wrong");
-    }
+  const handleSwitchTeam = (id, teamName) => {
+    var filterarray = teamlist.filter(item => item !== teamName);
+    setFinalteamlist(filterarray);
+    setselectedstudent(id);
+    setShow(true);
+
   };
-  const teamListby = () => {
-    const teamListbymentorparam = encryptGlobal(
-      JSON.stringify({
-        mentor_id: currentUser?.data[0]?.mentor_id,
-      })
-    );
 
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/teams/listwithideaStatus?Data=${teamListbymentorparam}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          const teamlistobj = {};
-          const listofteams = response.data.data
-            .map((item) => {
-              if (item.StudentCount < 3 && item.ideaStatus === null) {
-                teamlistobj[item.team_name] = item.team_id;
-                return item.team_name;
-              }
-            })
-            .filter(Boolean);
-          if (Object.keys(teamlistobj).length > 0) {
-            let index = listofteams.indexOf(selectedTeam.team_name);
-
-            if (index >= 0) {
-              listofteams.splice(index, 1);
-            }
-          }
-
-          setteamlist(listofteams);
-          setteamchangeObj(teamlistobj);
-          setShow(true);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
   const handleChangeStudent = (name) => {
     const body = {
-      team_id: teamchangeobj[name].toString(),
-      full_name: selectedstudent.full_name,
+      type: teamchangeobj[name].toString()
     };
     const stuparamId = encryptGlobal(
-      JSON.stringify(selectedstudent.student_id)
+      JSON.stringify(selectedstudent)
     );
     var config = {
       method: "PUT",
@@ -544,13 +366,8 @@ student_id)}>
       .then(function (response) {
         if (response.status === 200) {
           setvalue("");
-          teamListbymentorid(currentUser?.data[0]?.mentor_id);
-          dispatch(getAdminTeamMembersList(selectedTeam));
+          teamListbymentorid();
           openNotificationWithIcon("success", "Successfully shifted student");
-          navigate({
-            pathname: "/mentorteams",
-          });
-          setSelectedTeam(null);
         } else {
           openNotificationWithIcon("error", "Opps! Student shift was unsuccessful");
         }
@@ -567,6 +384,7 @@ student_id)}>
       });
     setShow(false);
   };
+
   return (
     <div>
       <div className="page-wrapper">
@@ -617,7 +435,7 @@ student_id)}>
                     Please select Team to switch student
                   </h3>
                   <Select
-                    list={teamlist}
+                    list={finalteamlist}
                     setValue={setvalue}
                     placeHolder={"Please Select team"}
                     value={value}
