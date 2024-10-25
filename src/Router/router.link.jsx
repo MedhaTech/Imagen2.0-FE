@@ -64,6 +64,7 @@ import StudentProfile from "../Team/StuProfile";
 import StudentCP from "../Team/ChangePwd";
 import StudentCertificate from "../Team/Certificate/MyCertificate";
 import StudentCourse from "../Team/Courses/PlayVideo";
+import StudentCourseMenu from "../Team/Courses/Index";
 import Institution from "../Admin/Schools/Ticket";
 import AddInstitution from "../Admin/Schools/AddNewSchool";
 import Reports from "../Admin/Reports/index";
@@ -456,6 +457,14 @@ export const teamRoutes = [
     path: routes.studentCP,
     name: "studentChangePassword",
     element: <StudentCP />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 13,
+    path: routes.studentcourseMenu,
+    name: "studentcourseMenu",
+    element: <StudentCourseMenu />,
     // protected: true,
     route: Route,
   },

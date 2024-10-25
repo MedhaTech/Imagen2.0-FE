@@ -38,7 +38,7 @@ import {
   Server,
   Settings,
 } from "feather-icons-react/build/IconComponents";
-import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { decryptGlobal, encryptGlobal } from "../../constants/encryptDecrypt";
 import { Button } from "../../stories/Button";
 import { GrDocument } from "react-icons/gr";
 import { AiFillPlayCircle, AiOutlineCloseCircle } from "react-icons/ai";
@@ -84,7 +84,8 @@ const PlayVideoCourses = (props) => {
   const [id, setResponce] = useState([]);
 
   const { id: paramId } = useParams();
-  const course_id = paramId ? paramId : 1;
+  console.log(decryptGlobal(paramId),"000");
+  const course_id = paramId ? decryptGlobal(paramId) : 1;
   const description = props?.location?.data
     ? props?.location?.data?.description
     : "";

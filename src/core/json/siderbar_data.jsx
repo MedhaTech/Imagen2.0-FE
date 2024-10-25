@@ -86,7 +86,7 @@ useEffect(() => {
         },
         {
           label:"Course",
-          link: `/studentcourse/${1}`,
+          link: `/studentcourseMenu`,
           icon: <Icon.Monitor />,
           showSubRoute: false,
           submenu: false,
