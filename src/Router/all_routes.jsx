@@ -53,7 +53,7 @@ inststuedit:"/Institution-student-edit",
   mentorpostsurvey: "/mentorpostsurvey",
   mentorcourse: "/mentorcourse/:id",
   studentcourse: "/studentcourse/:id",
-
+  studentcourseMenu: "/studentcourseMenu",
   mentorsupport: "/mentorsupport",
   mentorcertificate: "/mentorcertificate",
   mentorchangepwd: "/mentorchangepwd",
