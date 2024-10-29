@@ -146,7 +146,7 @@ const Crew1student = () => {
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
             navigate("/mentorteams");
-            openNotificationWithIcon("success", "Crew-1 Created successfully");
+            openNotificationWithIcon("success", "Crew Created successfully");
           }
         })
         .catch((err) => {

@@ -1,0 +1,55 @@
+/* StudentTable.css */
+.card-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  border: 1px solid #dbe0e6;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.card-shadow{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.text-right{
+  text-align: right;
+}
+
+.table-title {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+.table-container {
+  overflow-x: auto;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.student-table th,
+.student-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  /* text-align: center; */
+}
+
+.student-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: center;
+}
+
+.student-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.student-table tbody tr:hover {
+  background-color: #e0e0e0;
+}
