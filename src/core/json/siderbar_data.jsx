@@ -85,6 +85,14 @@ useEffect(() => {
           submenu: false,
         },
         {
+          label:"Manage Team",
+          link: "/student-team",
+          icon: <Icon.Grid />,
+          showSubRoute: false,
+          role: "STUDENT",
+          submenu: false,
+        },
+        {
           label:"Course",
           link: `/studentcourseMenu`,
           icon: <Icon.Monitor />,

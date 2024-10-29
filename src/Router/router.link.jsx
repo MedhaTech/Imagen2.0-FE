@@ -56,6 +56,10 @@ import Idea from "../Team/IdeaSubmission/Idea";
 import TeamDashboard from "../Team/TeamDashboard/DboardTeam";
 
 import StudentDashboard from "../Team/StudentDashboard/DBStu";
+import StudentTeam from "../Team/Teams/index";
+import StudentTeamView from "../Team/Teams/ViewTeam";
+import StudentTeamEdit from "../Team/Teams/StuEdit";
+import StudentTeamAdd from "../Team/Teams/AddStudent";
 import StuPostSurvey from "../Team/StuPostSurvey/StuPostSurvey";
 import StuPreSurvey from "../Team/StuPreSurvey/StuPreSurvey";
 import StuResource from "../Team/StuResources/StuResource";
@@ -461,13 +465,42 @@ export const teamRoutes = [
     route: Route,
   },
   {
-    id: 13,
+    id: 14,
     path: routes.studentcourseMenu,
     name: "studentcourseMenu",
     element: <StudentCourseMenu />,
     // protected: true,
     route: Route,
   },
+  {
+    id: 15,
+    path: routes.studentTeam,
+    name: "studentTeam",
+    element: <StudentTeam />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 16,
+    path: routes.studentTeamView,
+    name: "studentTeamView",
+    element: <StudentTeamView />,
+    route: Route,
+  },
+  {
+    id: 17,
+    path: routes.studentTeamEdit,
+    name: "studentTeamEdit",
+    element: <StudentTeamEdit />,
+    route: Route,
+  },
+  {
+    id: 18,
+    path: routes.studentTeamAdd,
+    name: "studentTeamAdd",
+    element: <StudentTeamAdd />,
+    route: Route,
+  }
 ];
 export const mentorRoutes = [
   {
