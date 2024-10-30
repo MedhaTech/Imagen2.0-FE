@@ -51,7 +51,7 @@ import TeacherCourse from "../Teacher/Courses/TeacherPlayVideo";
 import TCertificate from "../Teacher/Certificate/TCertificate";
 import ChangePwd from "../Teacher/ChangePwd";
 import InstructionsPage from "../Team/IdeaSubmission/InstuctionPage";
-import Idea from "../Team/IdeaSubmission/Idea";
+// import Idea from "../Team/IdeaSubmission/Idea";
 
 import TeamDashboard from "../Team/TeamDashboard/DboardTeam";
 
@@ -96,6 +96,7 @@ import AdminSupport from "../Admin/AdminTickets/Tickets";
 import TeacherSupport from "../Team/Support/TeacherSupport";
 import ViewTeam from "../Teacher/Teams/ViewTeam";
 import EditInstStu from "../Teacher/Teams/StuEdit";
+import IdeaSubmission from "../Team/IdeaSubmission/IdeaSubmission";
 
 
 
@@ -389,7 +390,7 @@ export const teamRoutes = [
     id: 5,
     path: routes.idea,
     name: "idea",
-    element: <Idea />,
+    element: <IdeaSubmission />,
     //protected: true,
     route: Route,
   },

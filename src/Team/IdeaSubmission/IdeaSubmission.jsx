@@ -29,7 +29,7 @@ const IdeaSubmission = () => {
   const [showCompleted, setShowCompleted] = useState(false);
   const [view, setView] = useState(false);
   const [isideadisable, setIsideadisable] = useState(false);
-  const TeamId = currentUser?.data[0]?.team_id;
+  const TeamId = currentUser?.data[0]?.student_id;
   const [ideaSubmittedRes, setIdeaSubmittedRes] = useState({});
   const [initiate, setInitiate] = useState("");
   useEffect(() => {
@@ -65,7 +65,7 @@ const IdeaSubmission = () => {
   const submittedApi = () => {
     const Param = encryptGlobal(
       JSON.stringify({
-        team_id: currentUser?.data[0]?.user_id
+        student_id: TeamId
 
       })
     );
@@ -135,7 +135,7 @@ const IdeaSubmission = () => {
     // console.log("3", ideaSubmittedRes);
     const Param = encryptGlobal(
       JSON.stringify({
-        team_id: currentUser?.data[0]?.user_id
+        student_id: TeamId
 
       })
     );
@@ -153,6 +153,8 @@ const IdeaSubmission = () => {
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
+    // console.log("3", response);
+
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
             data.status === 'DRAFT' ? setShowChallenges(true) : setShowCompleted(true);

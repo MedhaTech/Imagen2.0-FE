@@ -57,19 +57,19 @@ const { t } = useTranslation();
 
   const [theme, setTheme] = useState(null);
   const currentUser = getCurrentUser('current_user');
-  const TeamId = currentUser?.data[0]?.team_id;
+  const TeamId = currentUser?.data[0]?.student_id;
   const [themeInt, setThemeInt] = useState("");
   const [error4, seterror4] = useState(false);
 
   const [data, setData] = useState(0);
   const formRef = useRef(null);
   const [initiate, setInitiate] = useState("");
-
+console.log(initiate,"");
   const submittedApi = () => {
     const Param = encryptGlobal(
       JSON.stringify({
-      team_id: currentUser?.data[0]?.user_id
-        ,
+        student_id: TeamId
+
       })
     );
     var configidea = {
@@ -86,19 +86,19 @@ const { t } = useTranslation();
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response.data.data);
+          // console.log(response,"Cards");
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
             setInitiate(response.data.data[0].initiate_by);
+            // console.log(data.initiated_by, "init");
             idea();
-
           }
         }
       })
       .catch(function (error) {
-        if (error.response.status === 404) {
-          //   seterror4( true);
-        }
+        // if (error.response.status === 401) {
+        //     seterror4( true);
+        // }
 
       });
   };

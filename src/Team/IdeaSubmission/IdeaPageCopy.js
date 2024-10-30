@@ -109,22 +109,42 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [currentSection, setCurrentSection] = useState(1);
   const goToNext = () => setCurrentSection(currentSection + 1);
   const goToBack = () => setCurrentSection(currentSection - 1);
+  // Add on 
   const [theme, setTheme] = useState(
     props?.theme !== "" && props?.theme !== undefined
       ? props?.theme
       : formData?.theme
   );
-  
-
-  const [focusarea, setFocusArea] = useState(formData?.focus_area);
-  const [files, setFiles] = useState([]);
-  const [message, setMessage] = useState("");
+  const [others, setOthers] = useState(formData?.others);
+  const [ideaDescribe, setIdeaDescribe] = useState(formData?.ideaDescribe);
+  const [solve, setSolve] = useState(formData?.solve);
+  const [customer, setCustomer] = useState(formData?.customer);
+  const [detail, setDetail] = useState(formData?.detail);
   const [title, setTitle] = useState(formData?.title);
+
+  const [stage, setStage] = useState(
+    formData?.stage || []
+  );
+  const [unique, setUnique] = useState(
+    formData?.unique || []
+  );
+  const [similar, setSimilar] = useState(formData?.similar);
+  const [revenue, setRevenue] = useState(formData?.revenue);
+  const [society
+    , setSociety] = useState(formData?.society
+    );
+    const [confident, setConfident] = useState(
+      formData?.confident || []
+    );
+  const [support, setSupport] = useState(formData?.support);
+
+  const [files, setFiles] = useState([]);
+
+
   const [problemStatement, setProblemStatement] = useState(
     formData?.problemStatement
   );
   const [causes, setCauses] = useState(formData?.causes);
-  const [effects, setEffects] = useState(formData?.effects);
   const [community, setCommunity] = useState(formData?.community);
   const [facing, setFacing] = useState(formData?.facing);
   const [solution, setSolution] = useState(formData?.solution);
@@ -175,7 +195,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       label: t("ideaform_questions.communityop5"),
     },
   ];
-  const unique = [
+  const uniqueData = [
     { value: "Similar to others", label: t("ideaform_questions.uniqueop1") },
     { value: "Moderately different", label: t("ideaform_questions.uniqueop2") },
     {
@@ -199,56 +219,62 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
-    if (selectedTheme === "Others") {
-      setFocus([]);
-      setFocusArea("");
-    } else {
-      setFocus(focusareasList[selectedTheme] || []);
-    }
+  
   };
-  const handleFocusAreaChange = (e) => {
-    setFocusArea(e.target.value);
+  const handleSupportChange = (e) => {
+    const selectedSupport = e.target.value;
+    setSupport(selectedSupport);
+  
   };
-
  
-  useEffect(() => {
-    const activeTheme =
-      props?.theme !== "" && props?.theme !== undefined
-        ? props?.theme
-        : formData?.theme;
+ 
+  // useEffect(() => {
+  //   const activeTheme =
+  //     props?.theme !== "" && props?.theme !== undefined
+  //       ? props?.theme
+  //       : formData?.theme;
 
-    if (activeTheme === "Others") {
-      setFocus([]);
-    } else {
-      setFocus(focusareasList[activeTheme] || []);
-    }
-  }, [formData.theme]);
+  
+  // }, [formData.theme]);
   useEffect(() => {
     setTheme(
       props?.theme !== "" && props?.theme !== undefined
         ? props?.theme
         : formData?.theme
     );
+    setOthers(formData?.others);
     setTitle(formData?.title);
-    setProblemStatement(formData?.problem_statement);
-    setCauses(formData?.causes);
-    setEffects(formData?.effects);
-    setCommunity(formData?.community);
-    setFacing(formData?.facing);
-    setSolution(formData?.solution);
-    setStakeholders(formData?.stakeholders);
-    setFeedback(formData?.feedback);
+    setSolve(formData?.solve);
+    setIdeaDescribe(formData?.idea_describe);
+setCustomer(formData?.customer);
+    setDetail(formData?.detail);
+    setSimilar(formData?.similar);
+    setRevenue(formData?.revenue);
+    setSociety(formData?.society);
+    setSupport(formData?.support);
     setPrototypeImage(formData?.prototype_image);
     setPrototypeLink(formData?.prototype_link);
 
-    setWorkbook(formData?.workbook);
   }, [formData]);
 
   useEffect(() => {
-    if (formData?.problem_solving) {
-      setProblemSolving(JSON.parse(formData.problem_solving));
+    if (formData?.stage) {
+      setStage(JSON.parse(formData.stage));
     } else {
-      setProblemSolving([]);
+      setStage([]);
+    }
+    if (formData?.unique) {
+      setUnique(JSON.parse(formData.unique));
+    } else {
+      setUnique([]);
+    }
+    if (formData?.confident) {
+      const parsedConfident = JSON.parse(formData.confident);
+      // console.log("Parsed Confident from formData:", parsedConfident); 
+      setConfident(parsedConfident);
+      // setConfident(JSON.parse(formData.confident));
+    } else {
+      setConfident([]);
     }
 
     if (formData?.prototype_image) {
@@ -256,13 +282,27 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     } else {
       setPrototypeImage([]);
     }
-  }, [formData?.problem_solving, formData?.theme, formData?.prototype_image]);
-
-  const handleCheckboxChange = (item) => {
-    if (Array.isArray(problemSolving) && problemSolving.includes(item)) {
-      setProblemSolving(problemSolving.filter((i) => i !== item));
+  }, [formData?.stage, formData?.prototype_image,formData?.unique,formData?.confident]);
+// console.log(formData?.confident,"con");
+  const handleStageCheckboxChange = (item) => {
+    if (Array.isArray(stage) && stage.includes(item)) {
+      setStage(stage.filter((i) => i !== item));
     } else {
-      setProblemSolving([...(problemSolving || []), item]);
+      setStage([...(stage || []), item]);
+    }
+  };
+  const handleUniqueCheckboxChange = (item) => {
+    if (Array.isArray(unique) && unique.includes(item)) {
+      setUnique(unique.filter((i) => i !== item));
+    } else {
+      setUnique([...(unique || []), item]);
+    }
+  };
+  const handleConfidentCheckboxChange = (item) => {
+    if (Array.isArray(confident) && confident.includes(item)) {
+      setConfident(confident.filter((i) => i !== item));
+    } else {
+      setConfident([...(confident || []), item]);
     }
   };
   const [immediateLink, setImmediateLink] = useState(null);
@@ -338,11 +378,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
+          console.log(response,"IdeaPageCopy");
+
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
             data && setIsDisabled(true);
             setFormData(data);
-            setFocusArea(response.data.data[0].focus_area);
+            setOthers(response.data.data[0].focus_area);
             setId(response.data.data[0].challenge_response_id);
           }
         }
@@ -362,53 +404,63 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
 
     const body = {
       theme: theme,
-      focus_area: focusarea,
+      idea_describe:ideaDescribe,
       title: title,
-      problem_statement: problemStatement,
+      solve: solve,
       initiated_by: currentUser?.data[0]?.user_id,
-      state:"Tamil Nadu"
+      state:"Tamil Nadu",
+      district:currentUser?.data[0]?.district
     };
-    if (causes !== "") {
-      body["causes"] = causes;
+    // if (others !== "") {
+    //   body["others"] = others;
+    // }
+    if (theme === "Others" && others !== null) {
+      body["others"] = others;
     }
-    if (effects !== "") {
-      body["effects"] = effects;
+    if (customer !== "") {
+      body["customer"] = customer;
     }
-    if (community !== "") {
-      body["community"] = community;
+     if (detail !== "") {
+      body["detail"] = detail;
     }
-    if (facing !== "") {
-      body["facing"] = facing;
+    if (stage !== "") {
+      body["stage"] = JSON.stringify(stage);
     }
-    if (solution !== "") {
-      body["solution"] = solution;
+    if (unique !== "") {
+      body["unique"] = JSON.stringify(unique);
     }
-    if (stakeholders !== "") {
-      body["stakeholders"] = stakeholders;
+    if (similar !== "") {
+      body["similar"] = similar;
     }
-    if (problemSolving !== "") {
-      body["problem_solving"] = JSON.stringify(problemSolving);
+    if (revenue !== "") {
+      body["revenue"] = revenue;
     }
-    if (feedback !== "") {
-      body["feedback"] = feedback;
+    if (society !== "") {
+      body["society"] = society;
     }
+    if (confident !== "") {
+      body["confident"] = JSON.stringify(confident);
+    }
+    if (support !== "") {
+      body["support"] = support;
+    }
+    
     if (prototypeLink !== "") {
       body["prototype_link"] = prototypeLink;
     }
-    if (workbook !== "") {
-      body["workbook"] = workbook;
-    }
+    
     var config = {
       method: "post",
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/challenge_response/${challengeParamID}/initiate?Data=${queryObjEn}`,
+        `/challenge_response/${challengeParamID}/initiate/?Data=${queryObjEn}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
       },
       data: JSON.stringify(body),
     };
+console.log(body,"update");
 
     axios(config)
       .then(async function (response) {
@@ -456,7 +508,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         };
 
         const subId = encryptGlobal(
-          JSON.stringify({ team_id: currentUser?.data[0]?.team_id })
+          JSON.stringify({ student_id: currentUser?.data[0]?.student_id })
         );
 
         const result = await axios
@@ -491,46 +543,50 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       attachmentsList = file.join(", ");
     }
     const body = {
-      team_id: TeamId,
+      student_id: TeamId,
       theme: theme,
-      focus_area: focusarea,
+      idea_describe:ideaDescribe,
       title: title,
-      problem_statement: problemStatement,
+      solve: solve,
       status: stats,
       initiated_by: currentUser?.data[0]?.user_id,
     };
-
-    if (causes !== null) {
-      body["causes"] = causes;
+    
+    if (theme === "Others" && others !== null) {
+      body["others"] = others;
     }
-    if (effects !== null) {
-      body["effects"] = effects;
+    if (customer !== null) {
+      body["customer"] = customer;
     }
-    if (community !== null) {
-      body["community"] = community;
+    if (detail !== null) {
+      body["detail"] = detail;
     }
-    if (facing !== null) {
-      body["facing"] = facing;
+    if (stage !== null) {
+      body["stage"] = JSON.stringify(stage);
     }
-    if (solution !== null) {
-      body["solution"] = solution;
+    if (unique !== null) {
+      body["unique"] = JSON.stringify(unique);
     }
-    if (stakeholders !== null) {
-      body["stakeholders"] = stakeholders;
+    if (similar !== null) {
+      body["similar"] = similar;
     }
-    if (problemSolving !== null) {
-      body["problem_solving"] = JSON.stringify(problemSolving);
+    if (revenue !== null) {
+      body["revenue"] = revenue;
     }
-    if (feedback !== null) {
-      body["feedback"] = feedback;
+    if (society !== null) {
+      body["society"] = society;
+    }
+    if (confident !== null) {
+      body["confident"] = JSON.stringify(confident);
+    }
+    if (support !== null) {
+      body["support"] = support;
     }
     if (prototypeLink !== null) {
       body["prototype_link"] = prototypeLink;
     }
 
-    if (workbook !== null) {
-      body["workbook"] = workbook;
-    }
+  
     if (attachmentsList !== "") {
       body["prototype_image"] = JSON.stringify(file);
     }
@@ -539,51 +595,42 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       if (
         theme === "" ||
         theme === null ||
-
-
-        focusarea === "" ||
-        focusarea === null ||
-
-
-        problemStatement === "" ||
-        problemStatement === null ||
-
         title === "" ||
         title ===  null ||
 
-        causes === "" ||
-        causes === null ||
+        ideaDescribe === "" ||
+        ideaDescribe === null ||
+        solve === "" ||
+        solve === null ||
+        customer === "" ||
+        customer === null ||
 
-        effects === "" ||
-        effects === null ||
+        detail === "" ||
+        detail === null ||
+        stage === "" ||
+        stage === null ||
+        unique === "" ||
+        unique === null ||
+        similar === "" ||
+        similar === null ||
+        revenue === "" ||
+        revenue === null ||
+        society === "" ||
+        society === null ||
 
-        community === "" ||
-        community === null ||
-
-        facing === "" ||
-        facing === null ||
-
-        solution === "" ||
-        solution === null ||
-
-        stakeholders === "" ||
-        stakeholders === null ||
-
-        problemSolving === "" ||
-        problemSolving === null ||
-
-        feedback === "" ||
-        feedback === null ||
-
+        confident === "" ||
+        confident === null ||
+        support === "" ||
+        support == null ||
         prototypeLink === "" ||
-        prototypeLink == null ||
-
-        workbook === "" ||
-        workbook == null
+        prototypeLink == null
+        
       ) {
         allques = false;
       }
-
+      if (theme === "Others" && (others === "" || others === null)) {
+        allques = false;
+      }
       if (
         (attachmentsList?.length === 0 ||
           attachmentsList === null ||
@@ -660,10 +707,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
   const enableSaveBtn =
     theme?.length > 0 &&
-    focusarea?.length > 0 &&
+    ideaDescribe?.length > 0 &&
     title?.length > 0 &&
-    problemStatement?.length > 0;
-  // console.log(stakeholders,"staake",community,"community");
+    solve?.length > 0;
+  console.log(theme,"theme",support,"support");
   return (
     <>
       {/* <div className='content'> */}
@@ -838,7 +885,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.themeq")}
+                               1. {t("ideaform_questions.themeq")}
                               </b>
                             </div>
 
@@ -867,7 +914,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                           </div>
                           {theme === "Others" && (
                           <div className="card comment-card">
-                            {/* <div className="question quiz mb-0">
+                            <div className="question quiz mb-0">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -875,20 +922,20 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               >
                                 {t("ideaform_questions.focusareaq")}
                               </b>
-                            </div> */}
+                            </div>
                            
-                              <div className=" answers row flex-column">
+                              <div className=" answers row flex-column p-4">
                                 <textarea
                                   disabled={isDisabled}
                                   placeholder={t("home.ideaFoc")}
-                                  value={focusarea}
+                                  value={others}
                                   maxLength={500}
-                                  onChange={(e) => setFocusArea(e.target.value)}
+                                  onChange={(e) => setOthers(e.target.value)}
                                   className="form-control"
                                 />
                                 <div className="text-end">
                                   {t("student_course.chars")} :
-                                  {500 - (focusarea ? focusarea.length : 0)}
+                                  {500 - (others ? others.length : 0)}
                                 </div>
                               </div>
                           
@@ -901,23 +948,24 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.ideatitleq")}
+                                2.{t("ideaform_questions.ideatitleq")}
                               </b>
                             </div>
                             <div className="answers row flex-column p-4">
-                              <textarea
+                            <textarea
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder={t("home.ideatit")}
                                 // {t("student_course.chars")}
-                                value={title}
+                                value={ideaDescribe}
                                 rows={4}
                                 maxLength={500}
-                                onChange={(e) => setTitle(e.target.value)}
+                                onChange={(e) => setIdeaDescribe(e.target.value)}
                               />
+                             
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {500 - (title ? title.length : 0)}
+                                {500 - (ideaDescribe ? ideaDescribe.length : 0)}
                               </div>
                             </div>
                           </div>
@@ -928,7 +976,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.problemstatementq")}
+                                3.{t("ideaform_questions.problemstatementq")}
                               </b>
                             </div>
                             <div className="answers row flex-column p-4">
@@ -937,17 +985,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 disabled={isDisabled}
                                 rows={6}
                                 placeholder={t("home.ideaprob")}
-                                value={problemStatement}
+                                value={title}
                                 maxLength={1000}
                                 onChange={(e) =>
-                                  setProblemStatement(e.target.value)
+                                  setTitle(e.target.value)
                                 }
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
                                 {1000 -
-                                  (problemStatement
-                                    ? problemStatement.length
+                                  (title
+                                    ? title.length
                                     : 0)}
                               </div>
                             </div>
@@ -959,7 +1007,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.causesq")}
+                                4.{t("ideaform_questions.causesq")}
                               </b>
                             </div>
                             <div className="answers row flex-column p-4">
@@ -968,13 +1016,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 disabled={isDisabled}
                                 placeholder={t("home.ideaList")}
                                 rows={4}
-                                value={causes}
+                                value={solve}
                                 maxLength={500}
-                                onChange={(e) => setCauses(e.target.value)}
+                                onChange={(e) => setSolve(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {500 - (causes ? causes.length : 0)}
+                                {500 - (solve ? solve.length : 0)}
                               </div>
                             </div>
                           </div>
@@ -985,7 +1033,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.effectsq")}
+                                5.{t("ideaform_questions.effectsq")}
                               </b>
                             </div>
                             <div className="answers row flex-column p-4">
@@ -993,14 +1041,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder={t("home.ideaEff")}
-                                value={effects}
+                                value={customer}
                                 rows={4}
                                 maxLength={500}
-                                onChange={(e) => setEffects(e.target.value)}
+                                onChange={(e) => setCustomer(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {500 - (effects ? effects.length : 0)}
+                                {500 - (customer ? customer.length : 0)}
                               </div>
                             </div>
                           </div>
@@ -1012,7 +1060,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.explain")}
+                                6.{t("ideaform_questions.explain")}
                               </b>
                             </div>
                             <div className="answers row flex-column p-4">
@@ -1020,14 +1068,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder={t("home.explace")}
-                                value={effects}
+                                value={detail}
                                 rows={4}
                                 maxLength={500}
-                                // onChange={(e) => setEffects(e.target.value)}
+                                onChange={(e) => setDetail(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {500 - (effects ? effects.length : 0)}
+                                {500 - (detail ? detail.length : 0)}
                               </div>
                             </div>
                           </div>
@@ -1038,7 +1086,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.communityq")}
+                                7.{t("ideaform_questions.communityq")}
                               </b>
                             </div>
                             <div className=" answers row flex-column">
@@ -1051,15 +1099,19 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                       fontSize: "1rem",
                                     }}
                                   >
-                                    <input
-                                      type="radio"
-                                      value={item.value}
-                                      disabled={isDisabled}
-                                      checked={item.value === community}
-                                      onChange={(e) =>
-                                        setCommunity(e.target.value)
-                                      }
-                                    />
+                                     <input
+                                        type="checkbox"
+                                        value={item.value} 
+                                        checked={
+                                          Array.isArray(stage) &&
+                                          stage.includes(item.value)
+                                        }
+                                        disabled={isDisabled}
+                                        onChange={() =>
+                                          handleStageCheckboxChange(item.value)
+                                        } 
+                                      />{" "}
+                                   
                                    
                                       {item.label}
                                     </label>
@@ -1077,12 +1129,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.uniqueq")}
+                                8.{t("ideaform_questions.uniqueq")}
                               </b>
                             </div>
                             <div className=" answers row flex-column">
                               <div>
-                                {unique.map((item,i) => (
+                                {uniqueData.map((item,i) => (
                                   <div key={i}>
                                      <label
                                     style={{
@@ -1091,14 +1143,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     }}
                                   >
                                     <input
-                                      type="radio"
-                                      value={item.value}
-                                      disabled={isDisabled}
-                                      checked={item.value === community}
-                                      // onChange={(e) =>
-                                      //   setCommunity(e.target.value)
-                                      // }
-                                    />
+                                        type="checkbox"
+                                        value={item.value} 
+                                        checked={
+                                          Array.isArray(unique) &&
+                                          unique.includes(item.value)
+                                        }
+                                        disabled={isDisabled}
+                                        onChange={() =>
+                                          handleUniqueCheckboxChange(item.value)
+                                        } 
+                                      />{" "}
                                    
                                       {item.label}
                                     </label>
@@ -1115,7 +1170,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.facingq")}
+                                9.{t("ideaform_questions.facingq")}
                               </b>
                             </div>
                             <div className=" answers row flex-column p-4">
@@ -1123,14 +1178,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder={t("home.faci")}
-                                value={facing}
+                                value={similar}
                                 rows={4}
                                 maxLength={500}
-                                onChange={(e) => setFacing(e.target.value)}
+                                onChange={(e) => setSimilar(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {500 - (facing ? facing.length : 0)}
+                                {500 - (similar ? similar.length : 0)}
                               </div>
                             </div>
                           </div>
@@ -1166,7 +1221,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.solutiondetailsq")}
+                                10.{t("ideaform_questions.solutiondetailsq")}
                               </b>
                             </div>
                             <div className="answers row flex-column p-4">
@@ -1174,14 +1229,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder={t("home.ideaSol")}
-                                value={solution}
+                                value={revenue}
                                 rows={6}
                                 maxLength={1000}
-                                onChange={(e) => setSolution(e.target.value)}
+                                onChange={(e) => setRevenue(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {1000 - (solution ? solution.length : 0)}
+                                {1000 - (revenue ? revenue.length : 0)}
                               </div>
                             </div>
                           </div>
@@ -1193,7 +1248,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.impactq")}
+                                11.{t("ideaform_questions.impactq")}
                               </b>
                             </div>
                             <div className="answers row flex-column p-4">
@@ -1201,14 +1256,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder={t("home.data")}
-                                value={solution}
+                                value={society}
                                 rows={6}
                                 maxLength={1000}
-                                onChange={(e) => setSolution(e.target.value)}
+                                onChange={(e) => setSociety(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {1000 - (solution ? solution.length : 0)}
+                                {1000 - (society ? society.length : 0)}
                               </div>
                             </div>
                           </div>
@@ -1219,35 +1274,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.stakeholdersq")}
+                               12.{t("ideaform_questions.stakeholdersq")}
                               </b>
                             </div>
                             <div className=" answers row flex-column">
-                              {/* <div>
-                                {people.map((item, i) => (
-                                  <>
-                                    <label
-                                      key={i}
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
-                                      <input
-                                        type="radio"
-                                        value={item}
-                                        disabled={isDisabled}
-                                        checked={item === stakeholders}
-                                        onChange={(e) =>
-                                          setStakeholders(e.target.value)
-                                        }
-                                      />{" "}
-                                      {item}
-                                    </label>
-                                    <br />
-                                  </>
-                                ))}
-                              </div> */}
+                             
                               <div>
                                 {people.map((item,i) => (
                                   <div key={i}>
@@ -1257,25 +1288,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                       fontSize: "1rem",
                                     }}
                                   >
-                                    {/* <input
-                                      type="radio"
-                                      value={item.value}
-                                      disabled={isDisabled}
-                                      checked={item.value === stakeholders}
-                                      onChange={(e) =>
-                                        setStakeholders(e.target.value)
-                                      }
-                                    /> */}
+                                   
                                       <input
                                         type="checkbox"
                                         value={item.value} 
-                                        // checked={
-                                        //   Array.isArray(problemSolving) &&
-                                        //   problemSolving.includes(item.value)
-                                        // }
+                                        checked={
+                                          Array.isArray(confident) &&
+                                          confident.includes(item.value)
+                                        }
                                         disabled={isDisabled}
                                         onChange={() =>
-                                          handleCheckboxChange(item.value)
+                                          handleConfidentCheckboxChange(item.value)
                                         } 
                                       />{" "}
                                    
@@ -1355,17 +1378,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                  fontSize: "1rem",
                                }}
                              >
-                               {t("ideaform_questions.additionalq")}
+                               13.{t("ideaform_questions.additionalq")}
                              </b>
                            </div>
 
                            <div className=" answers row flex-column p-4">
                              <select
                                className="form-control"
-                               onChange={handleThemeChange}
+                               onChange={handleSupportChange}
                                disabled={isDisabled}
-                               name="theme"
-                               id="theme"
+                               name="support"
+                               id="support"
                              >
                                <option value={""}>
                                  Please select Dropdown 
@@ -1374,7 +1397,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                  <option
                                    key={i}
                                    value={item}
-                                   selected={item === theme}
+                                   selected={item === support}
                                  >
                                    {item}
                                  </option>
@@ -1419,7 +1442,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.uploadq")}
+                                14.{t("ideaform_questions.uploadq")}
                               </b>
                             </div>
                             <div className=" answers row flex-column p-4 pb-0">
