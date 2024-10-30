@@ -155,7 +155,7 @@
         "startnow":"Start Now",
         "dolater":"Do Later",
 "textdata":"Join us on this problem solving journey.",
-"ideafocus": "Focus Area",
+"ideafocus": "Please describe category",
 "select":"Select a theme",
 "selectv":"to know more",
 
@@ -504,7 +504,7 @@
         "section2" : "Solution & User Analysis",
         "section3" : "Prototyping",
         "themeq" : "Which category does your idea belong to?",
-        "focusareaq" : "Select Focus Area of your Idea",
+        "focusareaq" : "Describe category does your idea belong to?",
         "ideatitleq" : "Describe your  idea (in one sentence)",
         "problemstatementq" : "Give a title to your idea",
         "causesq" : "What problem does your idea solve?",
