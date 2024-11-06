@@ -209,17 +209,7 @@ const CommonUserProfile = (props) => {
     const handleEdit = () => {
         navigate(
             "/student-edit",
-            {state: {
-                Age: StudentsDaTa.Age,
-                Gender: StudentsDaTa.Gender,
-                Grade: StudentsDaTa.Grade,
-                student_id: StudentsDaTa.student_id,
-                team_id: StudentsDaTa?.team.team_id,
-                full_name: StudentsDaTa.full_name,
-                disability: StudentsDaTa.disability,
-                username: StudentsDaTa.username_email
-            }
-        });
+            { state: { student_id: StudentsDaTa.student_id } });
     };
     const CourseData = {
         data: course && course.length > 0 ? course : [],
@@ -287,66 +277,62 @@ const CommonUserProfile = (props) => {
                     <Card className="py-1 mb-2">
                         <CardBody>
                             <CardText>
-                                <span className="mx-3">
-                                    <b>Name :</b>
+                                <span className="mx-3" style={{fontSize:"1rem"}}>
+                                    <b>Full Name :</b>
                                 </span>
-                                <b>
+                                <b style={{fontSize:"1rem"}}>
                                     {StudentsDaTa.full_name}
-                                    {/* {props.location.data &&
-                                    props.location.data.full_name
-                                        ? props.location.data &&
-                                          props.location.data.full_name
-                                        : '-'}{' '} */}
+                                   
                                 </b>
                             </CardText>
                             <CardText>
-                                <span className="mx-3">
-                                    <b>Class :</b>
+                                <span className="mx-3" style={{fontSize:"1rem"}}>
+                                    <b>Email Address :</b>
                                 </span>
-                                <b>{StudentsDaTa.Grade}</b>
+                                <b style={{fontSize:"1rem"}}>{StudentsDaTa.username_email}</b>
                             </CardText>
                             <CardText>
-                                <span className="mx-3">
-                                    <b> Gender :</b>
+                                <span className="mx-3" style={{fontSize:"1rem"}}>
+                                    <b> Mobile Number :</b>
                                 </span>
-                                <b>{StudentsDaTa.Gender}</b>
-                            </CardText>
-
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Age :</b>
-                                </span>
-                                <b>{StudentsDaTa.Age}</b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Disability :</b>
-                                </span>
-                                <b>{StudentsDaTa?.disability}</b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Email Id:</b>
-                                </span>
-                                <b>{StudentsDaTa?.username_email}</b>
+                                <b style={{fontSize:"1rem"}}>{StudentsDaTa.mobile}</b>
                             </CardText>
 
                             <CardText>
-                                <span className="mx-3">
-                                    <b>Teacher Name :</b>
+                                <span className="mx-3" style={{fontSize:"1rem"}}>
+                                    <b >District :</b>
                                 </span>
-                                <b>{StudentsDaTa.team?.mentor.full_name}</b>
+                                <b style={{fontSize:"1rem"}}>{StudentsDaTa.district}</b>
                             </CardText>
                             <CardText>
-                                <span className="mx-3">
-                                    <b>Team Name :</b>
+                                <span className="mx-3" style={{fontSize:"1rem"}}>
+                                    <b >College Type :</b>
                                 </span>
-                                <b>{StudentsDaTa?.team.team_name}</b>
+                                <b style={{fontSize:"1rem"}}>{StudentsDaTa?.college_type}</b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3" style={{fontSize:"1rem"}}>
+                                    <b>College Name :</b>
+                                </span>
+                                <b style={{fontSize:"1rem"}} >{StudentsDaTa?.college_name}</b>
+                            </CardText>
+
+                            <CardText>
+                                <span className="mx-3" style={{fontSize:"1rem"}}>
+                                    <b>Roll number provided by the college :</b>
+                                </span>
+                                <b style={{fontSize:"1rem"}}>{StudentsDaTa.roll_number}</b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3" style={{fontSize:"1rem"}}>
+                                    <b >Branch :</b>
+                                </span>
+                                <b style={{fontSize:"1rem"}}>{StudentsDaTa?.branch}</b>
                             </CardText>
                         </CardBody>
                     </Card>
                 </Row>
-                <Row className="my-1">
+                {/* <Row className="my-1">
                     <Card className="py-1">
                         <CardBody>
                             <h4 className="mb-2">Organization Details</h4>
@@ -406,17 +392,7 @@ const CommonUserProfile = (props) => {
                                         StudentsDaTa?.team?.mentor?.organization
                                             .category
                                     }
-                                    {/* {props.location.data &&
-                                    props.location.data.team &&
-                                    props.location.data.team.mentor &&
-                                    props.location.data.team.mentor.organization
-                                        .category
-                                        ? props.location.data &&
-                                          props.location.data.team &&
-                                          props.location.data.team.mentor &&
-                                          props.location.data.team.mentor
-                                              .organization.category
-                                        : '-'} */}
+                                   
                                 </b>
                             </CardText>
                             <CardText>
@@ -502,7 +478,7 @@ const CommonUserProfile = (props) => {
                             </CardText>
                         </CardBody>
                     </Card>
-                </Row>
+                </Row> */}
                 {/* <Row className="my-5">
                     {button ? (
                         <Col md={12}>
@@ -675,7 +651,7 @@ const CommonUserProfile = (props) => {
                         </div>
                     )}
                 </Row> */}
-                <Row>
+                {/* <Row>
                     <Card className="py-2">
                         <CardBody>
                             <h4 className="mb-2">Quiz Details Table Format</h4>
@@ -698,7 +674,7 @@ const CommonUserProfile = (props) => {
                             </DataTableExtensions>
                         </div>
                     </Card>
-                </Row>
+                </Row> */}
             </Container>
             </div>
             </div>
