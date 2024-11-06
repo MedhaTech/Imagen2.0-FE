@@ -742,7 +742,7 @@ poptype={poptype}
                                 to={"/mentorteams"}
                                 className="product-img"
                               >
-                                <FaUsers size={30} style={{marginRight : "10px", color:"orange"}}/>
+                                <FaUsers size={30} style={{marginRight : "10px", color:"#28c76f"}}/>
                               </Link>
                               <div className="info">
                                 <Link to={"/mentorteams"}>
@@ -811,7 +811,7 @@ poptype={poptype}
                                 to={"/mentorcourse/1"}
                                 className="product-img"
                               >
-                                <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"#0e4b99"}} />
                               </Link>
                               <div className="info">
                                 <Link to={"/mentorcourse/1"}>
@@ -888,7 +888,7 @@ poptype={poptype}
                                 to={"/mentorpostsurvey"}
                                 className="product-img"
                               >
-                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaPoll size={30} style={{marginRight : "10px", color:"black"}} />
                               </Link>
                               <div className="info">
                                 <Link to={"/mentorpostsurvey"}>
@@ -1010,7 +1010,7 @@ poptype={poptype}
                                 to={"/mentorsupport"}
                                 className="product-img"
                               >
-                                <FaLifeRing size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaLifeRing size={30} style={{marginRight : "10px", color:"#00cfe8"}} />
                               </Link>
                               <div className="info">
                                 <Link to={"/mentorsupport"}>

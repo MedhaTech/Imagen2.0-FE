@@ -168,7 +168,7 @@ const AdminLogin = (props) => {
                     </div>
                   </div>
                 </div>
-                <div className="form-login">
+                <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {/* <Link
                     className="btn btn-login"
                     type="submit"

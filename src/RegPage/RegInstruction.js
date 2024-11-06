@@ -106,7 +106,7 @@ const RegInstruction = () => {
               className="btn btn-warning m-2"
               onClick={() => navigate("/pilotReg")}
             >
-              PROCEED
+              Proceed
               <span>
                 {" "}
                 <ArrowRight />

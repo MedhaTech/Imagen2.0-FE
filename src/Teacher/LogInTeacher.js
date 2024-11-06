@@ -75,7 +75,7 @@ const LogInTeacher = (props) => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper login-pass-wrap">
+        <div className="login-wrapper bg-img login-pass-wrap">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
@@ -164,7 +164,7 @@ const LogInTeacher = (props) => {
                     </div>
                   </div>
                 </div>
-                <div className="form-login">
+                <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {/* <Link className="btn btn-login">Sign In</Link> */}
                   <button
                     type="submit"
