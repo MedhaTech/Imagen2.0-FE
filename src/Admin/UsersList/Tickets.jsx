@@ -36,7 +36,7 @@ import { useDispatch } from 'react-redux';
 import dist from 'react-data-table-component-extensions';
 // import ClipLoader from 'react-spinners/ClipLoader';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
-import { stateList } from '../../RegPage/ORGData.js';
+import { stateList ,districtList} from '../../RegPage/ORGData.js';
 // import { useNavigate } from 'react-router-dom';
 // const { TabPane } = Tabs;
 
@@ -98,7 +98,7 @@ const TicketsPage = (props) => {
 const[applicant,setApplicant]=useState("");
 const [gender,setGender]=useState("");
 const [institution,setInstitution]=useState("");
-    const district = localStorage.getItem('dist');
+    // const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
     const [loading, setLoading] = useState(false);
 const updateStatesList=["All States",...stateList];
@@ -106,12 +106,13 @@ const updateStatesList=["All States",...stateList];
 
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');
-    const [studentDist, setstudentDist] = useState(district ? district : '');
+    // const [studentDist, setstudentDist] = useState(district ? district : '');
     const [mentorDist, setmentorDist] = useState('');
     const [newDist, setNewDists] = useState('');
     const [registerModalShow, setRegisterModalShow] = useState(false);
     const [fetchData, setFetchData] = useState(false);
     const [state,setState]=useState("");
+    const [district,setDistrict]=useState("");
     let State = localStorage.getItem('state');
 
 //   useEffect(()=>{
@@ -133,7 +134,7 @@ const updateStatesList=["All States",...stateList];
         const resparam = encryptGlobal(
             JSON.stringify({
                 status: "ALL",
-                state: state ,
+                district: state ,
                 // year_of_study:applicant,
                 // group:institution,
                 // Gender:gender,
@@ -150,7 +151,7 @@ const updateStatesList=["All States",...stateList];
                     const updatedWithKey =
                         response.data &&
                         response.data.data[0] &&
-                        response.data.data[0].dataValues.map((item, i) => {
+                        response.data.data[0].rows.map((item, i) => {
                             const upd = { ...item };
                             upd['key'] = i + 1;
                             return upd;
@@ -391,8 +392,8 @@ const updateStatesList=["All States",...stateList];
             },
 
             {
-                name: 'UDISE Code',
-                selector: (row) => row?.team?.mentor?.organization?.organization_code,
+                name: 'Full Name',
+                selector: (row) => row?.full_name,
                 cell: (row) => (
                     <div
                         style={{
@@ -400,32 +401,31 @@ const updateStatesList=["All States",...stateList];
                             wordWrap: 'break-word'
                         }} 
                     >
-                        {row?.team?.mentor?.organization?.organization_code}
+                        {row?.full_name}
                     </div>
                 ),
-                cellExport: (row) => row?.team?.mentor?.organization?.organization_code,
+                cellExport: (row) => row?.full_name,
                 width: '9rem'
             },
             {
-                name: 'State',
-                selector: (row) => row?.team?.mentor?.organization.
-                state,
+                name: 'Email',
+                selector: (row) => row?.username_email,
+                width: '14rem'
+            },
+            {
+                name: 'Mobile No',
+                selector: (row) => row?.mobile,
+                cellExport: (row) => row?.mobile,
+                width: '10rem'
+            },
+            {
+                name: 'District',
+                selector: (row) => row.district,
+                cellExport: (row) => row.district,
                 width: '8rem'
             },
             {
-                name: 'Category',
-                selector: (row) => row?.team?.mentor?.organization?.category,
-                cellExport: (row) => row?.team?.mentor?.organization?.category,
-                width: '6rem'
-            },
-            // {
-            //     name: 'Category',
-            //     // selector: (row) => row.team.mentor.organization.category,
-            //     // cellExport: (row) => row.team.mentor.organization.category,
-            //     width: '13rem'
-            // },
-            {
-                name: 'Organization Name',
+                name: 'College Type',
                 cell: (row) => (
                     <div
                         style={{
@@ -433,43 +433,42 @@ const updateStatesList=["All States",...stateList];
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row?.team?.mentor?.organization?.organization_name
+                        {row?.college_type
 }
                     </div>
                 ),
-                selector: (row) => row?.team?.mentor?.organization?.organization_name,
-                cellExport: (row) => row?.team?.mentor?.organization.
-                organization_name,
+                selector: (row) => row?.college_type,
+                cellExport: (row) => row?.college_type,
                 width: '10rem'
             },
 
             {
-                name: 'Student Name',
-                selector: (row) => row?.full_name,
-                cellExport: (row) => row?.sfull_name,
-                width: '8rem'
+                name: 'College Name',
+                selector: (row) => row?.college_name,
+                cellExport: (row) => row?.college_name,
+                width: '13rem'
             },
             {
-                name: 'Age',
-                selector: (row) => row?.Age,
-                width: '5rem'
+                name: 'Roll number',
+                selector: (row) => row?.roll_number,
+                width: '10rem'
             },
 
             {
-                name: 'Gender',
-                selector: (row) => row?.Gender,
+                name: 'Branch',
+                selector: (row) => row?.branch,
                 width: '6rem'
             },
             {
-                name: 'Team Name',
-                selector: (row) => row?.team?.team_name,
+                name: 'Year of Study',
+                selector: (row) => row?.year_of_study,
                 width: '8rem'
             },
-            {
-                name: 'Team Email Id',
-                selector: (row) => row?.team?.team_email,
-                width: '12rem'
-            },
+            // {
+            //     name: 'Team Email Id',
+            //     selector: (row) => row?.team?.team_email,
+            //     width: '12rem'
+            // },
 
           
             // {
@@ -538,10 +537,10 @@ const updateStatesList=["All States",...stateList];
                                             <Col md={2}>
                                                 {/* <div className="my-3 d-md-block d-flex justify-content-center"> */}
                                                     <Select
-                                                        list={updateStatesList}
+                                                        list={districtList["Tamil Nadu"]}
                                                         setValue={setState}
                                                         placeHolder={
-                                                            'State'
+                                                            'District'
                                                         }
                                                         value={state}
                                                          className="form-select"

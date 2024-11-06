@@ -225,8 +225,7 @@ useEffect(() => {
     const stuIdeaSubStatus = () => {
       const ideaSubApi = encryptGlobal(
         JSON.stringify({
-          // team_id: currentUser?.data[0]?.team_id
-          team_id: currentUser?.data[0]?.user_id
+          student_id: currentUser?.data[0]?.student_id
         })
       );
       var config = {
@@ -236,15 +235,14 @@ useEffect(() => {
           `/challenge_response/submittedDetails?Data=${ideaSubApi}`,
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json',
+          Accept: 'application/json', 
           Authorization: `Bearer ${currentUser.data[0]?.token}`
         }
       };
       axios(config)
         .then(function (response) {
-          // console.log(response, "res");
           if (response.status === 200) {
-            // console.log(response, "ideaSubApi");
+            console.log(response, "ideaSubApi");
             setStuIdeaSub(response.data.data[0].status);
             setStuIdeaLoading(false);
           }
