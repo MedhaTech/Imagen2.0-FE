@@ -42,7 +42,7 @@ import {
 import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
-import { stateList, districtList } from "../../../RegPage/ORGData";
+import { stateList, districtList,collegeType } from "../../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMale, faFemale, faSchool } from '@fortawesome/free-solid-svg-icons';
 import ReactApexChart from "react-apexcharts";
@@ -56,10 +56,11 @@ const ReportsRegistration = () => {
     const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    const filterOptions = ['Registered', 'Not Registered'];
-    const categoryData = ['All Categories', 'ATL', 'Non ATL'];
+    const categoryList = ['All Types', ...collegeType];
     const newstateList = ["All States", ...stateList];
-
+    const [studentFilterData, setStudentFilterData] = useState(
+        []
+      );
     // const categoryData =
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
@@ -89,178 +90,97 @@ const ReportsRegistration = () => {
     //     (state) => newstateList
     // );
     const fullStatesNames =newstateList;
-    const fiterDistData = districtList[RegTeachersState];
+    const fiterDistData = districtList["Tamil Nadu"];
     
     const [downloadTableData, setDownloadTableData] = useState(null);
     const summaryHeaders = [
         {
-            label: 'State Name',
-            key: 'state'
+            label: 'District Name',
+            key: 'district'
         },
         {
-            label: 'Total Eligible ATL Schools',
-            key: 'ATL_Count'
+            label: 'No of Students Registered',
+            key: 'studentReg'
         },
         {
-            label: 'Total Not Registered ATL Schools',
-            key: 'total_not_Reg_ATL'
+            label: 'Govt Junior College',
+            key: 'GovtJuniorCollege_Count'
         },
         {
-            label: 'Total Registered ATL Schools',
-            key: 'ATL_Reg_Count'
+            label: 'Govt ITI College',
+            key: 'GovtITICollege_Count'
         },
         {
-            label: 'Total Registered NON-ATL Schools',
-            key: 'NONATL_Reg_Count'
+            label: 'Govt Polytechnic College',
+            key: 'GovtPolytechnicCollege_Count'
         },
         {
-            label: 'Total Registered Teachers (ATL+Non-ATL)',
-            key: 'total_registered_teachers'
+            label: 'Govt Degree College',
+            key: 'GovtDegreeCollege_Count'
         },
         {
-            label: ' Registered Male Teachers',
-            key: 'male_mentor_count'
+            label: 'Social Welfare College',
+            key: 'SocialWelfareCollege_Count'
         },
         {
-            label: ' Registered Female Teachers',
-            key: 'female_mentor_count'
+            label: 'Tribal Welfare College',
+            key: 'TribalWelfareCollege_Count'
+        },
+        {
+            label: 'Private College',
+            key: 'PrivateCollege_Count'
+        },
+        {
+            label: 'Others',
+            key: 'Other_Count'
         }
     ];
     const RegHeaders = [
         {
-            label: 'ATL CODE',
-            key: 'organization.organization_code'
-        },
-        {
-            label: 'UDISE CODE',
-            key: 'organization.unique_code'
-        },
-        {
-            label: 'School Name',
-            key: 'organization.organization_name'
-        },
-        {
-            label: 'School Type/Category',
-            key: 'organization.category'
-        },
-        {
-            label: 'State',
-            key: 'organization.state'
-        },
-        {
-            label: 'District',
-            key: 'organization.district'
-        },
-        {
-            label: 'City',
-            key: 'organization.city'
-        },
-        {
-            label: 'Pin code',
-            key: 'organization.pin_code'
-        },
-        {
-            label: 'Address',
-            key: 'organization.address'
-        },
-        {
-            label: 'HM Name',
-            key: 'organization.principal_name'
-        },
-        {
-            label: 'HM Contact',
-            key: 'organization.principal_mobile'
-        },
-        {
-            label: 'Teacher Name',
+            label: 'Student Full Name',
             key: 'full_name'
         },
         {
-            label: 'Email ID',
-            key: 'user.username'
+            label: 'Email Address',
+            key: 'username'
         },
         {
-            label: 'Teacher Gender',
-            key: 'gender'
-        },
-        {
-            label: 'Teacher Contact',
+            label: 'Mobile Number',
             key: 'mobile'
         },
         {
-            label: 'Teacher WhatsApp Contact',
-            key: 'whatapp_mobile'
-        }
-    ];
-    const notRegHeaders = [
-        {
-            label: 'ATL CODE',
-            key: 'organization_code'
+            label: 'College Type',
+            key: 'college_type'
         },
         {
-            label: 'UDISE CODE',
-            key: 'unique_code'
-        },
-        {
-            label: 'School Name',
-            key: 'organization_name'
-        },
-        {
-            label: 'School Type/Category',
-            key: 'category'
-        },
-        {
-            label: 'State',
-            key: 'state'
+            label: 'College Name',
+            key: 'college_name'
         },
         {
             label: 'District',
             key: 'district'
         },
         {
-            label: 'City',
-            key: 'city'
+            label: 'Branch',
+            key: 'branch'
         },
         {
-            label: 'Pin code',
-            key: 'pin_code'
+            label: 'Roll Number',
+            key: 'roll_number'
         },
         {
-            label: 'Address',
-            key: 'address'
+            label: 'Year of Study',
+            key: 'year_of_study'
         },
-        {
-            label: 'Country',
-            key: 'country'
-        },
-        {
-            label: 'HM Name',
-            key: 'principal_name'
-        },
-        {
-            label: 'HM Contact',
-            key: 'principal_mobile'
-        },
-        {
-            label: 'HM Email',
-            key: 'principal_email'
-        }
+       
     ];
-    // useEffect(() => {
-    //     dispatch(getStateData());
-    // }, []);
+ 
     useEffect(() => {
-        // if (RegTeachersState !== '') {
-        //     (RegTeachersState);
-        // }
-        // setRegTeachersdistrict('');
+      
         fetchChartTableData();
     }, []);
 
-    // useEffect(() => {
-    //     // dispatch(getDistrictData());
-    //     fetchChartTableData();
-    // }, []);
+   
 
     const chartOption = {
         maintainAspectRatio: false,
@@ -350,97 +270,34 @@ const ReportsRegistration = () => {
     //     }
     // };
     
-    var options = {
-        chart: {
-          height: 500,
-          type: "area",
-          toolbar: {
-            show: false,
-          },
-          zoom: {
-            enabled: false,
-          },
-        },
-        colors: ['#4361ee', '#888ea8'],
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          curve: "straight",
-        },
-        title: {
-          text: "ATL Vs Non-ATL Registrations",
-          align: "left",
-        },
-        series: [
-          {
-            name: "Registered ATL",
-            data: series1,
-          },
-          {
-            name: "Registered Non-ATL",
-            data: series2,
-          },
-        ],
-        yaxis: {
-            beginAtZero: true,
-            ticks: {
-                stepSize: 10
-            },
-            labels: {
-              formatter: (val) => {
-                return val / 1 ;
-              },
-            },
-          },
+  
     
-        xaxis: {
-          categories: barChart1Data.labels,
-          ticks: {
-                maxRotation: 80,
-                autoSkip: false
-            }
-        },
-        legend: {
-            position: "top",
-            horizontalAlign: "left",
-          },
-        // tooltip: {
-        //   x: {
-        //     format: "dd/MM/yy HH:mm",
-        //   },
-        // },
-      };
-    
-
-    const fetchData = (item) => {
+      const handleDownload = () => {
+        if (
+            !RegTeachersdistrict ||
+            !category
+        ) {
+            notification.warning({
+                message:
+                    'Please select category and district type before Downloading Reports.'
+            });
+            return;
+        }
+        setIsDownloading(true);
+        fetchData();
+    };
+    const fetchData = () => {
         const param = encryptGlobal(
             JSON.stringify({
-                state: RegTeachersState,
-                status: 'ACTIVE',
-                district: RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict,
+                district: RegTeachersdistrict,
                 category: category
             })
         );
 
-        const params = encryptGlobal(
-            JSON.stringify({
-                state: RegTeachersState,
-                district: RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict,
-                status: 'ACTIVE',
-                category: category
-            })
-        );
-        const url =
-            item === 'Registered'
-                ? `/reports/mentorRegList?Data=${param}`
-                : item === 'Not Registered'
-                ? `/reports/notRegistered?Data=${params}`
-                : '';
-
+      
         const config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + url,
+            url: process.env.REACT_APP_API_BASE_URL + `/reports/studentRegList?Data=${param}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -450,20 +307,12 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    if (item === 'Registered') {
-                        setFilteredData(response?.data?.data || []);
-                        setDownloadData(response?.data?.data || []);
-
-                        csvLinkRef.current.link.click();
-                    } else if (item === 'Not Registered') {
-                        setDownloadNotRegisteredData(
-                            response?.data?.data || []
-                        );
-                        csvLinkRefNotRegistered.current.link.click();
-                    }
+                    console.log(response,"22");
+                    setFilteredData(response?.data?.data || []);
+            setDownloadData(response?.data?.data || []);
                     openNotificationWithIcon(
                         'success',
-                        `${filterType} Report Downloaded Successfully`
+                        `Report Downloaded Successfully`
                     );
                     setIsDownloading(false);
                 }
@@ -474,37 +323,21 @@ const ReportsRegistration = () => {
             });
     };
 
-    const handleDownload = () => {
-        if (
-            !RegTeachersState ||
-            // !RegTeachersdistrict ||
-            !filterType ||
-            !category
-        ) {
-            notification.warning({
-                message:
-                    'Please select a state,category and filter type before Downloading Reports.'
-            });
-            return;
-        }
-        setIsDownloading(true);
-        fetchData(filterType);
-    };
+  
 
     useEffect(() => {
         if (filteredData.length > 0) {
             setDownloadData(filteredData);
+            csvLinkRef.current.link.click();
         }
-    }, [filteredData, downloadNotRegisteredData]);
+    }, [filteredData]);
 
     useEffect(() => {
         if (downloadComplete) {
             setDownloadComplete(false);
-            setRegTeachersState('');
 
             setRegTeachersdistrict('');
 
-            setFilterType('');
         }
         const newDate = new Date();
         const formattedDate = `${newDate.getUTCDate()}/${
@@ -516,7 +349,7 @@ const ReportsRegistration = () => {
     const fetchChartTableData = () => {
         const config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + '/reports/mentorsummary',
+            url: process.env.REACT_APP_API_BASE_URL + '/reports/studentsummary',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -531,56 +364,6 @@ const ReportsRegistration = () => {
                     setDownloadTableData(chartTableData);
                     // console.log(chartTableData, "table data");
 
-                    const lastRow = chartTableData[chartTableData.length - 1];
-                    const maleCount = lastRow?.male_mentor_count || 0;
-                    const femaleCount = lastRow?.female_mentor_count || 0;
-                    const ATLregCount = lastRow?.ATL_Reg_Count || 0;
-                    const NONATLregNotCount = lastRow?.NONATL_Reg_Count || 0;
-
-                    setRegisteredGenderChartData({
-                        labels: ['Male Teachers', 'Female Teachers'],
-                        datasets: [
-                            {
-                                data: [maleCount, femaleCount],
-                                backgroundColor: ['#8bcaf4', '#ff99af'],
-                                hoverBackgroundColor: ['#36A2EB', '#FF6384']
-                            }
-                        ]
-                    });
-
-                    setRegisteredChartData({
-                        labels: ['ATL Teachers Registered', 'NON ATL Teachers Registered'],
-                        datasets: [
-                            {
-                                data: [ATLregCount, NONATLregNotCount],
-                                backgroundColor: ['#85e085', '#ffcc80'],
-                                hoverBackgroundColor: ['#33cc33', '#ffa31a']
-                            }
-                        ]
-                    });
-                    const GraphfilteredData = chartTableData.filter(item => item.state !== "Total");
-                    const barData = {
-                        labels: GraphfilteredData.map((item) => item.state),
-                        datasets: [
-                            {
-                                label: 'Registered ATL Schools',
-                                data: GraphfilteredData.map(
-                                    (item) => item.ATL_Reg_Count
-                                ),
-                                backgroundColor: "#47d147"
-                            },
-                            {
-                                label: 'Registered Non ATL Schools',
-                                data: GraphfilteredData.map(
-                                    (item) => item.NONATL_Reg_Count
-                                ),
-                                backgroundColor: "#ffa31a"
-                            }
-                        ]
-                    };
-                    setBarChart1Data(barData);
-                    setseries1(barData.datasets[0].data);
-                    setseries2(barData.datasets[1].data);
                 }
             })
             .catch((error) => {
@@ -594,8 +377,8 @@ const ReportsRegistration = () => {
                 <div className="page-header">
                     <div className="add-item d-flex">
                         <div className="page-title">
-                            <h4>Schools &amp; Teachers</h4>
-                            <h6>Regristration Status Reports</h6>
+                            <h4>Students</h4>
+                            <h6>Registration Status Reports</h6>
                         </div>
                     </div>
                     <div className="page-btn">
@@ -611,16 +394,7 @@ const ReportsRegistration = () => {
                 <Container className="RegReports userlist">
                         <div className="reports-data mt-2 mb-2">
                             <Row className="align-items-center mt-3 mb-2">
-                                <Col md={2}>
-                                    <div className="my-2 d-md-block d-flex justify-content-center">
-                                        <Select
-                                            list={fullStatesNames}
-                                            setValue={setRegTeachersState}
-                                            placeHolder={'Select State'}
-                                            value={RegTeachersState}
-                                        />
-                                    </div>
-                                </Col>
+                               
                                 <Col md={2}>
                                     <div className="my-2 d-md-block d-flex justify-content-center">
                                         <Select
@@ -631,22 +405,13 @@ const ReportsRegistration = () => {
                                         />
                                     </div>
                                 </Col>
+                               
                                 <Col md={2}>
                                     <div className="my-2 d-md-block d-flex justify-content-center">
                                         <Select
-                                            list={filterOptions}
-                                            setValue={setFilterType}
-                                            placeHolder={'Select Filter'}
-                                            value={filterType}
-                                        />
-                                    </div>
-                                </Col>
-                                <Col md={2}>
-                                    <div className="my-2 d-md-block d-flex justify-content-center">
-                                        <Select
-                                            list={categoryData}
+                                            list={categoryList}
                                             setValue={setCategory}
-                                            placeHolder={'Select Category'}
+                                            placeHolder={'Select College Type'}
                                             value={category}
                                         />
                                     </div>
@@ -673,75 +438,11 @@ const ReportsRegistration = () => {
                             <div className="chart mt-2 mb-2">
                                 {chartTableData.length > 0 && (
                                     <div className="row">
-                                    <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
+                                   
+                                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                                     <div className="card flex-fill default-cover w-100 mb-4">
                                         <div className="card-header d-flex justify-content-between align-items-center">
-                                            <h4 className="card-title mb-0">Data Analytics</h4>
-                                            <div className="dropdown">
-                                            <Link to="#" className="view-all d-flex align-items-center">
-                                                View All
-                                                <span className="ps-2 d-flex align-items-center">
-                                                <ArrowRight className="feather-16" />
-                                                </span>
-                                            </Link>
-                                            </div>
-                                        </div>
-                                        <div className="card-body">
-                                            <div className="row">
-                                                <div className="col-md-12 text-center mt-3">
-                                                    <p>
-                                                        <b>
-                                                            Overall
-                                                            Registered ATL
-                                                            vs Non ATL
-                                                            Schools As of{' '}
-                                                            {newFormat}
-                                                        </b>
-                                                    </p>
-                                                </div>
-                                                <div className="col-md-12 doughnut-chart-container">
-                                                    {registeredChartData && (
-                                                        <Doughnut
-                                                            data={
-                                                                registeredChartData
-                                                            }
-                                                            options={
-                                                                chartOption
-                                                            }
-                                                        />
-                                                    )}
-                                                </div>
-                                                <div className="col-md-12 text-center mt-3">
-                                                    <p>
-                                                        <b>
-                                                            Overall
-                                                            Registered
-                                                            Female vs Male
-                                                            Teachers As of{' '}
-                                                            {newFormat}
-                                                        </b>
-                                                    </p>
-                                                </div>
-                                                <div className="col-md-12 doughnut-chart-container">
-                                                    {registeredGenderChartData && (
-                                                        <Doughnut
-                                                            data={
-                                                                registeredGenderChartData
-                                                            }
-                                                            options={
-                                                                chartOptions
-                                                            }
-                                                        />
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
-                                    <div className="card flex-fill default-cover w-100 mb-4">
-                                        <div className="card-header d-flex justify-content-between align-items-center">
-                                            <h4 className="card-title mb-0">States Registration Stats</h4>
+                                            <h4 className="card-title mb-0">District wise Students Registration Stats</h4>
                                             <div className="dropdown">
                                                 <Link to="#" className="view-all d-flex align-items-center">
                                                     <button
@@ -768,13 +469,18 @@ const ReportsRegistration = () => {
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>State Name</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Eligible ATL <FontAwesomeIcon icon={faSchool} /></th>
-                                                            <th style={{whiteSpace: 'wrap'}}>ATL Teachers</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Non-ATL Teachers</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Total Teachers</th>
-                                                            <th style={{whiteSpace: 'wrap'}}><FontAwesomeIcon icon={faMale} />Male</th>
-                                                            <th style={{whiteSpace: 'wrap'}}><FontAwesomeIcon icon={faFemale} />Female</th>
+                                                            <th>District Name</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>No of Students Reg</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Govt Junior College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Govt Polytechnic College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Govt ITI College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Govt Degree College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Social Welfare College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Tribal Welfare College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Private College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Other</th>
+
+
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -785,26 +491,33 @@ const ReportsRegistration = () => {
                                                                     <td>
                                                                         {index + 1}
                                                                     </td>
-                                                                    <td style={{maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis"}}>
-                                                                        {item.state}
+                                                                    <td style={{maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis",color: "crimson"}}>
+                                                                        {item.district}
                                                                     </td>
                                                                     <td>
-                                                                        {item.ATL_Count}
+                                                                        {item.studentReg}
                                                                     </td>
                                                                     <td>
-                                                                        {item.ATL_Reg_Count}
+                                                                        {item.GovtJuniorCollege_Count}
                                                                     </td>
                                                                     <td>
-                                                                        {item.NONATL_Reg_Count}
+                                                                        {item.GovtITICollege_Count}
                                                                     </td>
                                                                     <td>
-                                                                        {item.total_registered_teachers}
+                                                                        {item.GovtPolytechnicCollege_Count}
                                                                     </td>
                                                                     <td>
-                                                                        {item.male_mentor_count}
+                                                                        {item.GovtDegreeCollege_Count}
                                                                     </td>
                                                                     <td>
-                                                                        {item.female_mentor_count}
+                                                                        {item.SocialWelfareCollege_Count}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.TribalWelfareCollege_Count ? item.TribalWelfareCollege_Count :"0" }
+                                                                    </td> <td>
+                                                                        {item.PrivateCollege_Count}
+                                                                    </td> <td>
+                                                                        {item.Other_Count ? item.Other_Count :"0"}
                                                                     </td>
                                                                 </tr>
                                                             )
@@ -817,51 +530,7 @@ const ReportsRegistration = () => {
                                     </div>
                                     </div>
                                 )}
-                                <div className="col-md-12">
-                                    <div className="card">
-                                    <div className="card-header">
-                                        <h5 className="card-title">Registered ATL Schools
-                                                        V/s Registered Non ATL
-                                                        Schools {newFormat}</h5>
-                                    </div>
-                                    <div className="card-body">
-                                        <div id="s-line-area" />
-                                        <ReactApexChart
-                                        options={options}
-                                        series={options.series}
-                                        type="area"
-                                        height={400}
-                                        />
-                                    </div>
-                                    </div>
-                                </div>
-                                {/* <div className="mt-5">
-                                    <div
-                                        className="col-md-12 chart-container mt-5"
-                                        style={{
-                                            width: '100%',
-                                            height: '370px'
-                                        }}
-                                    >
-                                        <div className="chart-box">
-                                            <Chart
-                                                type="bar"
-                                                data={barChart1Data}
-                                                options={options}
-                                                style={{ height: "300px" }}
-                                            />
-                                            <div className="chart-title">
-                                                <p>
-                                                    <b>
-                                                        Registered ATL Schools
-                                                        v/s Registered Non ATL
-                                                        Schools {newFormat}
-                                                    </b>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> */}
+                              
                                 {downloadTableData && (
                                     <CSVLink
                                         data={downloadTableData}
@@ -881,7 +550,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadData}
                                         headers={RegHeaders}
-                                        filename={`Teacher_${filterType}Report_${newFormat}.csv`}
+                                        filename={`TeacherReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                         // onDownloaded={() => {
@@ -892,21 +561,7 @@ const ReportsRegistration = () => {
                                         Download CSV
                                     </CSVLink>
                                 )}
-                                {downloadNotRegisteredData && (
-                                    <CSVLink
-                                        data={downloadNotRegisteredData}
-                                        headers={notRegHeaders}
-                                        filename={`Teacher_${filterType}Report_${newFormat}.csv`}
-                                        className="hidden"
-                                        ref={csvLinkRefNotRegistered}
-                                        // onDownloaded={() => {
-                                        //     setIsDownloading(false);
-                                        //     setDownloadComplete(true);
-                                        // }}
-                                    >
-                                        Download Not Registered CSV
-                                    </CSVLink>
-                                )}
+                               
                             </div>
                         </div>
                 </Container>
