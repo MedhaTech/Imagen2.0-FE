@@ -77,7 +77,7 @@ const LogInTeam = (props) => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper email-veri-wrap">
+        <div className="login-wrapper bg-img email-veri-wrap">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
@@ -158,7 +158,7 @@ const LogInTeam = (props) => {
                     </div>
                   </div>
                 </div>
-                <div className="form-login">
+                <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <button
                     type="submit"
                     className={`btn btn-login ${

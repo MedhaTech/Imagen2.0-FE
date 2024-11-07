@@ -480,7 +480,7 @@ useEffect(() => {
                                 to={"/studentpresurvey"}
                                 className="product-img"
                               >
-                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}}/>
+                                <FaPoll size={30} style={{marginRight : "10px", color:"#28c76f"}}/>
                               </Link>
                               <div className="info">
                                 <Link to={"/studentpresurvey"}>
@@ -549,7 +549,7 @@ useEffect(() => {
                                 to={"/studentcourse/1"}
                                 className="product-img"
                               >
-                                <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"#0e4b99"}} />
                               </Link>
                               <div className="info">
                                 <Link to={"/studentcourse/1"}>
@@ -626,7 +626,7 @@ useEffect(() => {
                                 to={"/idea"}
                                 className="product-img"
                               >
-                                <FaLightbulb size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaLightbulb size={30} style={{marginRight : "10px", color:"#ffe000"}} />
                               </Link>
                               <div className="info">
                                 <Link to={"/idea"}>
@@ -694,7 +694,7 @@ useEffect(() => {
                                 to={"/studentpostsurvey"}
                                 className="product-img"
                               >
-                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaPoll size={30} style={{marginRight : "10px", color:"black"}} />
                               </Link>
                               <div className="info">
                                 <Link to={"/studentpostsurvey"}>
@@ -762,7 +762,7 @@ useEffect(() => {
                                 to={"/studentresource"}
                                 className="product-img"
                               >
-                                <FaBook size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaBook size={30} style={{marginRight : "10px", color:"#3cb2bf"}} />
                               </Link>
                               <div className="info">
                                 <Link to={"/studentresource"}>
