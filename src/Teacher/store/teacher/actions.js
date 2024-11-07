@@ -47,6 +47,7 @@ export const getTeacherByID = (id) => async (dispatch) => {
       });
     if (result && result.status === 200) {
       const item = result.data.data[0];
+      
       dispatch(getTeacherByIdSuccess(item));
     } else {
       openNotificationWithIcon("error", "Something went wrong");

@@ -30,7 +30,10 @@ const CommonUserProfile = (props) => {
     const [button, setButton] = useState('');
     const [data, setData] = useState('');
     const currentUser = getCurrentUser('current_user');
-
+    const dispatch = useDispatch();
+    const [badges, setBadges] = useState(0);
+    const [quiz, setQuiz] = useState(0);
+    const [videos, setVideos] = useState(0);
     const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
     // console.log(StudentsDaTa,"111");
     const [course, setCourse] = useState([]);
@@ -40,8 +43,159 @@ const CommonUserProfile = (props) => {
     const dashboardStatus = useSelector(
         (state) => state?.studentRegistration.dashboardStatus
     );
+    useEffect(()=>{
+        stuQuizCount();
+        stuVideosCount();
+        stuBadgesCount();
+        courseApi();
+        QuizScoreApi();
+    },[]);
+    const QuizScoreApi=()=>{
+        const stuParam = encryptGlobal(
+            JSON.stringify({
+                user_id: StudentsDaTa.user_id
+            })
+        );
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/quizscores?Data=${stuParam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log(response,"table");
 
-    const dispatch = useDispatch();
+                    setCourseTable(response.data.data[0]?.scores);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const courseApi=()=>{
+        const stuParam = encryptGlobal(
+            JSON.stringify({
+                user_id: StudentsDaTa.user_id
+            })
+        );
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/stuCourseStats?Data=${stuParam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response,"res");
+                    // const per = Math.round(
+                    //     (response.data.data[0].topics_completed_count /
+                    //       response.data.data[0].all_topics_count) *
+                    //     100
+                    //   );
+                    setCourse(response.data.data[0]);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const stuQuizCount = () => {
+        const quizApi = encryptGlobal(
+          JSON.stringify({
+            user_id: StudentsDaTa?.user_id
+          })
+        );
+        var config = {
+          method: 'get',
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuQuizStats?Data=${quizApi}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+        };
+        axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+            //   console.log(response,"quiz");
+              setQuiz(response.data.data[0].quiz_completed_count);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      };
+      const stuVideosCount = () => {
+        const videoApi = encryptGlobal(
+          JSON.stringify({
+            user_id: StudentsDaTa?.user_id
+          })
+        );
+        var config = {
+          method: 'get',
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuVideoStats?Data=${videoApi}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+        };
+        axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+              // console.log(response);
+              setVideos(response.data.data[0].videos_completed_count);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      };
+    const stuBadgesCount = () => {
+        const badgeApi = encryptGlobal(
+          JSON.stringify({
+            user_id: StudentsDaTa?.user_id
+          })
+        );
+        var config = {
+          method: 'get',
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuBadgesStats?Data=${badgeApi}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+        };
+        axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+              // console.log(response);
+              setBadges(response.data.data[0].badges_earned_count);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      };
     // useEffect(() => {
     //     if (currentUser) {
     //         dispatch(getStudentDashboardStatus(StudentsDaTa.user_id, language));
@@ -332,94 +486,7 @@ const CommonUserProfile = (props) => {
                         </CardBody>
                     </Card>
                 </Row>
-                {/* <Row className="my-1">
-                    <Card className="py-1">
-                        <CardBody>
-                            <h4 className="mb-2">Organization Details</h4>
-
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>UDISCE Code :</b>
-                                </span>
-
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .organization_code
-                                    }
-                                </b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>School Name :</b>
-                                </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .organization_name
-                                    }
-                                </b>
-                            </CardText>
-
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>District :</b>
-                                </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .district
-                                    }
-                                </b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>State :</b>
-                                </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .state
-                                    }
-                                </b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Category :</b>
-                                </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .category
-                                    }
-                                   
-                                </b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Pincode :</b>
-                                </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .pin_code
-                                    }
-                                </b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Address :</b>
-                                </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .address
-                                    }
-                                </b>
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                </Row>
+          
                 <Row className="my-1">
                     <Card className="py-1">
                         <CardBody>
@@ -430,10 +497,8 @@ const CommonUserProfile = (props) => {
                                     <b>Completed Videos :</b>
                                 </span>
                                 <b>
-                                    {dashboardStatus &&
-                                    dashboardStatus?.videos_completed_count
-                                        ? dashboardStatus?.videos_completed_count
-                                        : '-'}
+                                {videos
+                                    }
                                 </b>
                             </CardText>
 
@@ -442,10 +507,7 @@ const CommonUserProfile = (props) => {
                                     <b>Completed Quiz :</b>
                                 </span>
                                 <b>
-                                    {dashboardStatus &&
-                                    dashboardStatus?.quiz_completed_count
-                                        ? dashboardStatus?.quiz_completed_count
-                                        : '-'}
+                                {quiz}
                                 </b>
                             </CardText>
                             <CardText>
@@ -453,12 +515,12 @@ const CommonUserProfile = (props) => {
                                     <b>Course Completion :</b>
                                 </span>
                                 <b>
-                                    {dashboardStatus?.topics_completed_count !==
+                                {course?.topics_completed_count !==
                                     undefined
                                         ? `${
                                               Math.round(
-                                                  (dashboardStatus?.topics_completed_count /
-                                                      dashboardStatus?.all_topics_count) *
+                                                  (course?.topics_completed_count /
+                                                    course?.all_topics_count) *
                                                       100
                                               ) + '%'
                                           }`
@@ -470,188 +532,14 @@ const CommonUserProfile = (props) => {
                                     <b>Earned Badges :</b>
                                 </span>
                                 <b>
-                                    {dashboardStatus &&
-                                    dashboardStatus?.badges_earned_count
-                                        ? dashboardStatus?.badges_earned_count
-                                        : '-'}
+                                {badges}
                                 </b>
                             </CardText>
                         </CardBody>
                     </Card>
-                </Row> */}
-                {/* <Row className="my-5">
-                    {button ? (
-                        <Col md={12}>
-                            <Card className="w-100  mb-5 p-4">
-                                <CardBody>
-                                    <h2 className="mb-4">Mentor Details</h2>
-                                    <Row>
-                                        <Col
-                                            md={8}
-                                            className="border-right my-auto "
-                                        >
-                                            <Row>
-                                                <Col
-                                                    md={7}
-                                                    className="my-auto profile-detail w-100"
-                                                >
-                                                    <CardText>
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <b>
-                                                                    Mentor Name
-                                                                </b>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <b>
-                                                                    {data?.moc_name
-                                                                        ? data?.moc_name
-                                                                        : '-'}
-                                                                </b>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <b>
-                                                                    Email
-                                                                    Address
-                                                                </b>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <b>
-                                                                    {data?.moc_email
-                                                                        ? data?.moc_email
-                                                                        : '-'}
-                                                                </b>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <b>Gender</b>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <b>
-                                                                    {data?.moc_gender
-                                                                        ? data?.moc_gender
-                                                                        : '-'}
-                                                                </b>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <b>Mobile</b>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <b>
-                                                                    {data?.moc_phone
-                                                                        ? data?.moc_phone
-                                                                        : '-'}
-                                                                </b>
-                                                            </Col>
-                                                        </Row>
-                                                    </CardText>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                    </Row>
-                                </CardBody>
-                            </Card>
-                        </Col>
-                    ) : (
-                        <div>
-                            <Row className="py-5">
-                                <Card className="py-5">
-                                    <CardBody>
-                                        <h2 className="mb-4 ">
-                                            No Mentor assigned yet
-                                        </h2>
-                                    </CardBody>
-                                </Card>
-                            </Row>
-                        </div>
-                    )}
-                </Row> */}
-                {/* <Row>
+                </Row>
+              
+                <Row>
                     <Card className="py-2">
                         <CardBody>
                             <h4 className="mb-2">Quiz Details Table Format</h4>
@@ -674,7 +562,7 @@ const CommonUserProfile = (props) => {
                             </DataTableExtensions>
                         </div>
                     </Card>
-                </Row> */}
+                </Row>
             </Container>
             </div>
             </div>

@@ -48,9 +48,9 @@ const [data,setData]=useState({});
             {/* <h6>User Profile</h6> */}
           </div>
           <div>
-          <button onClick={() => handleEdit() }className={"btn btn-primary"}>
+          {/* <button onClick={() => handleEdit() }className={"btn btn-primary"}>
                         <img src={edit} alt="Edit" />
-                      </button>
+                      </button> */}
                         {/* <h4>Update Personal Details.</h4> */}
                       </div>
         </div>
@@ -81,8 +81,7 @@ const [data,setData]=useState({});
                   </div>
                   <div className="profile-contentname">
                     <h2>
-                      {teacher?.title +
-                        "." +
+                      {
                         teacher?.full_name}
                     </h2>
                     {/* <h4>Update Personal Details.</h4> */}
@@ -93,14 +92,13 @@ const [data,setData]=useState({});
             <div className="row">
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Teacher Name</label>
+                  <label className="form-label">Full Name</label>
                   <input
                     type="text"
                     className="form-control"
                     defaultValue={
-                      currentUser?.data[0]?.title +
-                      "." +
-                      currentUser?.data[0]?.full_name
+                     
+                      teacher.full_name
                     }
                     readOnly="readonly"
                   />
@@ -108,12 +106,12 @@ const [data,setData]=useState({});
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Gender</label>
+                  <label className="form-label">Email</label>
                   <input
                     type="text"
                     className="form-control"
                     defaultValue={
-                      currentUser?.data[0]?.gender
+                      teacher.username_email
                     }
                     readOnly="readonly"
                   />
@@ -132,86 +130,47 @@ const [data,setData]=useState({});
                   />
                 </div>
               </div>
-              {/* <div className="col-lg-6 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label"></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    defaultValue={currentUser?.data[0]?.full_name}
-                  />
-                </div>
-              </div> */}
               <div className="col-lg-6 col-sm-12">
-                <div className="input-blocks">
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    defaultValue={teacher?.username_email
-                    }
-                    readOnly="readonly"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label">Udise Code</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    defaultValue={
-                      teacher?.organization?.organization_code
-
-
-                    }
-                    readOnly="readonly"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label">School Name</label>
-                  <input
-                    type="text"
-                    defaultValue={currentUser?.data[0]?.organization_name}
-                    readOnly="readonly"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-4 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label">Category</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    defaultValue={teacher?.organization?.category}
-                    readOnly="readonly"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">District</label>
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.district}
+                    defaultValue={
+                      teacher?.district
+                    }
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6 col-sm-12">
+                <div className="input-blocks">
+                  <label>College Type</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    defaultValue={teacher?.college_type
+                    }
                     readOnly="readonly"
                   />
                 </div>
               </div>
-              <div className="col-lg-4 col-sm-12">
+              <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">State</label>
+                  <label className="form-label">College Name</label>
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={currentUser?.data[0]?.state}
+                    defaultValue={
+                      teacher?.college_name
+
+
+                    }
                     readOnly="readonly"
                   />
                 </div>
               </div>
+             
+             
               {/* <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">Password</label>

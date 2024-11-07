@@ -424,23 +424,23 @@ const updateStatesList=["All States",...stateList];
                 cellExport: (row) => row.district,
                 width: '8rem'
             },
-            {
-                name: 'College Type',
-                cell: (row) => (
-                    <div
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
-                        }}
-                    >
-                        {row?.college_type
-}
-                    </div>
-                ),
-                selector: (row) => row?.college_type,
-                cellExport: (row) => row?.college_type,
-                width: '10rem'
-            },
+//             {
+//                 name: 'College Type',
+//                 cell: (row) => (
+//                     <div
+//                         style={{
+//                             whiteSpace: 'pre-wrap',
+//                             wordWrap: 'break-word'
+//                         }}
+//                     >
+//                         {row?.college_type
+// }
+//                     </div>
+//                 ),
+//                 selector: (row) => row?.college_type,
+//                 cellExport: (row) => row?.college_type,
+//                 width: '10rem'
+//             },
 
             {
                 name: 'College Name',
@@ -448,43 +448,23 @@ const updateStatesList=["All States",...stateList];
                 cellExport: (row) => row?.college_name,
                 width: '13rem'
             },
-            {
-                name: 'Roll number',
-                selector: (row) => row?.roll_number,
-                width: '10rem'
-            },
-
-            {
-                name: 'Branch',
-                selector: (row) => row?.branch,
-                width: '6rem'
-            },
-            {
-                name: 'Year of Study',
-                selector: (row) => row?.year_of_study,
-                width: '8rem'
-            },
             // {
-            //     name: 'Team Email Id',
-            //     selector: (row) => row?.team?.team_email,
-            //     width: '12rem'
+            //     name: 'Roll number',
+            //     selector: (row) => row?.roll_number,
+            //     width: '10rem'
             // },
 
-          
             // {
-            //     name: 'Status',
-            //     cell: (row) => [
-            //         <Badge
-            //             key={row.mentor_id}
-            //             bg={`${
-            //                 row.status === 'ACTIVE' ? 'secondary' : 'danger'
-            //             }`}
-            //         >
-            //             {row.status}
-            //         </Badge>
-            //     ],
+            //     name: 'Branch',
+            //     selector: (row) => row?.branch,
+            //     width: '6rem'
+            // },
+            // {
+            //     name: 'Year of Study',
+            //     selector: (row) => row?.year_of_study,
             //     width: '8rem'
             // },
+           
             {
                 name: 'Actions',
                 sortable: false,
@@ -531,7 +511,7 @@ const updateStatesList=["All States",...stateList];
         <div className="content">
             <Container className="ticket-page mb-50 userlist">
                 <Row className="mt-0">
-                    <h2>Students List</h2>
+                    <h2 className='mb-2'>Students List</h2>
                     <Container fluid className="px-0">
                                         <Row className="align-items-center">
                                             <Col md={2}>
