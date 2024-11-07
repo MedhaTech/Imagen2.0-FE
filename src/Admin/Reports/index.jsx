@@ -43,11 +43,11 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>Schools Vs Teachers</h4>
+                                    <h4>District wise Students Reg Status</h4>
                             </div>
                         </Link>
                         <ul className="team-members">
-                            <li>Total Teachers: 07</li>
+                            {/* <li>Total Teachers: 07</li> */}
                             <li>
                             <ul>
                                 <li>
