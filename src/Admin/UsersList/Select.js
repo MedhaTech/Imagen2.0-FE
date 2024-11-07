@@ -5,7 +5,7 @@ const Select = ({ list, setValue, placeHolder, value }) => {
             value={value}
             // className="border rounded-3 px-4 pointer w-75"
             className="form-select"
-            style={{ height: '2.2rem', outline: 'none' }}
+            style={{ height: '2.4rem', outline: 'none' }}
         >
             <option value={''} disabled>
                 {placeHolder}

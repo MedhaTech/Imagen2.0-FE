@@ -23,7 +23,7 @@ export const all_routes = {
   studentsupport: "/student-support",
 institutionview:"/view-profile",
 inststuedit:"/Institution-student-edit",
-
+institutionUsersList:"/institution-users-list",
   adminresponse:"/admin/support-journey/ans-ticket",
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",

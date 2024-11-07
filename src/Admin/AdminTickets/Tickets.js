@@ -24,7 +24,8 @@ const AdminSupport = () => {
     const [rows, setRows] = React.useState([]);
     const [fetchData, setFetchData] = useState(false);
     useEffect(() => {
-         listApi();
+        //  listApi();
+         openListApi();
     }, []);
 
     async function listApi() {
@@ -201,20 +202,20 @@ const AdminSupport = () => {
                 cellExport: (row) => row.index,
                 width: '4rem'
             },
-            {
-                name: 'UDISE Code',
-                selector: (row) => row.organization_code,
-                cellExport: (row) => row.organization_code,
-                sortable: true,
-                width: '9rem'
-            },
-            {
-                name: 'State',
-                selector: (row) => row.state,
-                cellExport: (row) => row.state,
-                sortable: true,
-                width: '9rem'
-            },
+            // {
+            //     name: 'UDISE Code',
+            //     selector: (row) => row.organization_code,
+            //     cellExport: (row) => row.organization_code,
+            //     sortable: true,
+            //     width: '9rem'
+            // },
+            // {
+            //     name: 'State',
+            //     selector: (row) => row.state,
+            //     cellExport: (row) => row.state,
+            //     sortable: true,
+            //     width: '9rem'
+            // },
             {
                 name: 'District',
                 selector: (row) => row.district,
@@ -294,16 +295,27 @@ const AdminSupport = () => {
         return () => clearTimeout(timeout);
     }, []);
     const changeTab = async (e) => {
+        // if (e === '1') {
+        //     await listApi();
+        // } else if (e === '2') {
+        //     await openListApi();
+        // } else if (e === '3') {
+        //     await inProgressApi();
+        // } else if (e === '4') {
+        //     await resolvedApi();
+        // } else {
+        //     await invalidApi();
+        // }
         if (e === '1') {
-            await listApi();
-        } else if (e === '2') {
             await openListApi();
-        } else if (e === '3') {
+        } else if (e === '2') {
             await inProgressApi();
-        } else if (e === '4') {
+        } else if (e === '3') {
             await resolvedApi();
-        } else {
+        } else if (e === '4') {
             await invalidApi();
+        } else {
+            await listApi();
         }
     };
     const customStyles = {
@@ -329,7 +341,7 @@ const AdminSupport = () => {
     <div className="content">            
             <div className="card">
             <div className="card-header d-flex align-items-center flex-wrap justify-content-between">
-                    <div className="card-title">Support Queries Raised by Students</div>
+                    <div className="card-title">Support Queries Raised by students</div>
                     <div>
                         <ul
                             className="nav nav-pills justify-content-end nav-style-2"
@@ -346,7 +358,7 @@ const AdminSupport = () => {
                                     aria-selected="true"
                                     
                                 >
-                                    All Tickets
+                                    Open
                                 </Link>
                             </li>
                             <li className="nav-item" onClick={(key) => changeTab("2")}>
@@ -359,7 +371,7 @@ const AdminSupport = () => {
                                     aria-selected="false"
                                     key = "2"
                                 >
-                                    Open
+                                    InProgress
                                 </Link>
                             </li>
                             <li className="nav-item" onClick={(key) => changeTab("3")}>
@@ -371,7 +383,7 @@ const AdminSupport = () => {
                                     to="#services-center"
                                     aria-selected="false"
                                 >
-                                    InProgress
+                                    Resolved
                                 </Link>
                             </li>
                             <li className="nav-item" onClick={(key) => changeTab("4")}>
@@ -383,7 +395,7 @@ const AdminSupport = () => {
                                     to="#contacts-center"
                                     aria-selected="false"
                                 >
-                                    Resolved
+                                    Invalid
                                 </Link>
                             </li>
                             <li className="nav-item" onClick={(key) => changeTab("5")}>
@@ -395,7 +407,7 @@ const AdminSupport = () => {
                                     to="#invalid-center"
                                     aria-selected="false"
                                 >
-                                    Invalid
+                                    All Tickets
                                 </Link>
                             </li>
                         </ul>
@@ -531,6 +543,8 @@ const AdminSupport = () => {
                                             <DataTable
                                                 data={rows}
                                                 defaultSortField="4"
+                                                customStyles={customStyles}
+
                                                 defaultSortAsc={false}
                                                 pagination
                                                 highlightOnHover
@@ -565,6 +579,8 @@ const AdminSupport = () => {
                                             <DataTable
                                                 data={rows}
                                                 defaultSortField="5"
+                                                customStyles={customStyles}
+
                                                 defaultSortAsc={false}
                                                 pagination
                                                 highlightOnHover

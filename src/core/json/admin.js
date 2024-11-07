@@ -70,13 +70,13 @@ const AdminSidebarData = () => {
           submenu: false,
         },
        
-        // {
-        //   label:"Teams",
-        //   link: "/teams",
-        //   icon: <Icon.UserPlus />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+        {
+          label:"Institution Users",
+          link: "/institution-users-list",
+          icon: <Icon.UserPlus />,
+          showSubRoute: false,
+          submenu: false,
+        },
         {
           label:"Admins",
           link: "/admins",

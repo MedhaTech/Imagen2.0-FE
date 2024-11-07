@@ -103,7 +103,7 @@ import TeacherSupport from "../Team/Support/TeacherSupport";
 import ViewTeam from "../Teacher/Teams/ViewTeam";
 import EditInstStu from "../Teacher/Teams/StuEdit";
 import IdeaSubmission from "../Team/IdeaSubmission/IdeaSubmission";
-
+import AdminInstitutionUsersList from "../Admin/UsersList/institutionList";
 
 
 
@@ -345,6 +345,14 @@ export const publicRoutes = [
     path: routes.adminresponse,
     name: "adminresponse",
     element: <AdminRes />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 28,
+    path: routes.institutionUsersList,
+    name: "institutionUsersList",
+    element: <AdminInstitutionUsersList/>,
     protected: true,
     route: Route,
   },
