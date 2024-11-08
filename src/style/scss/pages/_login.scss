@@ -133,12 +133,12 @@
         font-size: $font-size-24;
         font-weight: $font-weight-bold;
         @include margin-padding(0 0 10px, null);
-        color: $black;
+        color:  #83cf6f;
       }
       h4 {
         font-size: $font-size-14;
         font-weight: $font-weight-normal;
-        color: $secondary;
+        color: #3cb2bf;
         line-height: 1.4;
       }
       .verfy-mail-content {
