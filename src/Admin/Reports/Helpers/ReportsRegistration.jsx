@@ -307,13 +307,17 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(response,"22");
+                    // console.log(response,"22");
                     setFilteredData(response?.data?.data || []);
             setDownloadData(response?.data?.data || []);
-                    openNotificationWithIcon(
-                        'success',
-                        `Report Downloaded Successfully`
-                    );
+            if (response?.data.count > 0) {
+                openNotificationWithIcon(
+                  "success",
+                  `Report Downloaded Successfully`
+                );
+              } else {
+                openNotificationWithIcon("error", "No Data Found");
+              }
                     setIsDownloading(false);
                 }
             })
