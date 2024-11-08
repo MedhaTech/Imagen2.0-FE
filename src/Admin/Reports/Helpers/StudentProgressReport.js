@@ -21,7 +21,7 @@ import { Bar } from "react-chartjs-2";
 import { categoryValue } from "../../Schools/constentText";
 import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
-import { stateList, districtList } from "../../../RegPage/ORGData";
+import { stateList, districtList,collegeType} from "../../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMale,
@@ -37,7 +37,7 @@ const StudentProgress = () => {
   const [selectstate, setSelectState] = React.useState("");
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
-  const categoryData = ["All Categories", "ATL", "Non ATL"];
+  const categoryList = ['All Types', ...collegeType];
   const newstateList = ["All States", ...stateList];
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -75,15 +75,10 @@ const StudentProgress = () => {
     datasets: [],
   });
   const fullStatesNames = newstateList;
-  const fiterDistData = districtList[selectstate];
-  // useEffect(() => {
-  //     dispatch(getStateData());
-  // }, []);
+  const fiterDistData = districtList["Tamil Nadu"];
+  
   useEffect(() => {
-    // if (selectstate !== '') {
-    //     dispatch(getFetchDistData(selectstate));
-    // }
-    // setdistrict('');
+   
     fetchChartTableData();
     const newDate = new Date();
     const formattedDate = `${newDate.getUTCDate()}/${
@@ -95,15 +90,15 @@ const StudentProgress = () => {
 
   const tableHeaders = [
     {
-      label: "State Name",
-      key: "state",
+      label: "District Name",
+      key: "district",
     },
+    // {
+    //   label: "Total No.Of TEAMS created",
+    //   key: "totalTeams",
+    // },
     {
-      label: "Total No.Of TEAMS created",
-      key: "totalTeams",
-    },
-    {
-      label: "Total No.Of STUDENTS enrolled",
+      label: "Total No.Of Students enrolled",
       key: "totalStudents",
     },
     {
@@ -122,118 +117,80 @@ const StudentProgress = () => {
       label: "Course Completion Percentage",
       key: "coursePercentage",
     },
+    {
+      label: 'No.of Teams Submitted Ideas',
+      key: 'submittedCount'
+    },
+    {
+      label: 'No.of Teams Ideas in Draft',
+      key: 'draftCount'
+    },
+    {
+      label: 'No.of Teams Not Stated Idea Submission',
+      key: 'ideaNotStarted'
+    },
   ];
   const teacherDetailsHeaders = [
     {
-      label: "UDISE CODE",
-      key: "organization_code",
-    },
-    {
-      label: "School Name",
-      key: "organization_name",
-    },
-    {
-      label: "School Type/Category",
-      key: "category",
-    },
-    {
-      label: "State",
-      key: "state",
-    },
+      label: 'Student Full Name',
+      key: 'full_name'
+  },
+  {
+      label: 'Email Address',
+      key: 'username'
+  },
+  {
+      label: 'Mobile Number',
+      key: 'mobile'
+  },
+  {
+      label: 'College Type',
+      key: 'college_type'
+  },
+  {
+      label: 'College Name',
+      key: 'college_name'
+  },
     {
       label: "District",
       key: "district",
     },
-    // {
-    //   label: "City",
-    //   key: "city",
-    // },
+    {
+      label: 'Branch',
+      key: 'branch'
+  },
+  {
+      label: 'Roll Number',
+      key: 'roll_number'
+  },
+  {
+      label: 'Year of Study',
+      key: 'year_of_study'
+  },
+  {
+    label: "Pre Survey Status",
+    key: "pre_survey_status",
+  },
+  {
+    label: 'Course Completion%',
+    key: 'course_per'
+  },
+  {
+    label: 'Course Status',
+    key: 'user_count'
+  },
+  {
+    label: 'Idea Status',
+    key: 'idea_status'
+  },
+  {
+    label: "Post Survey Status",
+    key: "post_survey_status",
+  },
   
-    {
-      label: "Teacher Name",
-      key: "full_name",
-    },
-    {
-      label: "Teacher Email",
-      key: "username",
-    },
-    {
-      label: "Teacher Gender",
-      key: "gender",
-    },
-    {
-      label: "Teacher Contact",
-      key: "mobile",
-    },
-    {
-      label: "Teacher WhatsApp Contact",
-      key: "whatapp_mobile",
-    },
-  
-    {
-        label: 'Team Name',
-        key: 'team_name'
-    },
-    {
-        label: 'Student Name',
-        key: 'studentfullname'
-    },
-    // {
-    //     label: 'Student Username',
-    //     key: 'Student Username'
-    // },
-    {
-        label: 'Age',
-        key: 'Age'
-    },
-    {
-        label: 'Gender',
-        key: 'studentgender'
-    },
-    {
-        label: 'Class',
-        key: 'Grade'
-    },
-    {
-        label: 'Disability status',
-        key: 'disability'
-    },
-    {
-        label: "Pre Survey Status",
-        key: "pre_survey_status",
-      },
-     
-      {
-        label: "Post Survey Status",
-        key: "post_survey_status",
-      },
-    {
-        label: 'Course Status',
-        key: 'user_count'
-    },
-    // {
-    //     label: 'No.of Teams Idea Submitted',
-    //     key: 'submittedcout'
-    // },
-    // {
-    //     label: 'No.of Teams Idea in Draft',
-    //     key: 'draftcout'
-    // },
-    // {
-    //     label: 'No.of Teams Idea NOt Initiated',
-    //     key: 'ideanotIN'
-    // }
   ];
 
-  // useEffect(() => {
-  //     dispatch(getDistrictData());
-  //     fetchChartTableData();
-  //     const newDate = new Date();
-  //     const formattedDate = `${newDate.getUTCDate()}/${
-  //         1 + newDate.getMonth()
-  //     }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
-  //     setNewFormat(formattedDate);
-  // }, []);
+  
 
   var chartOption = {
     chart: {
@@ -479,68 +436,15 @@ const StudentProgress = () => {
     labels: ["Completed", "InProgress", "NotStarted"],
   };
 
-  // useEffect(() => {
-  //     nonAtlCount();
-  // }, []);
-  const nonAtlCount = () => {
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL + `/reports/studentATLnonATLcount`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (res) {
-        if (res.status === 200) {
-          var mentorStuArray = [];
-          res &&
-            res.data &&
-            res.data.data &&
-            res.data.data.map((students, index) => {
-              var key = index + 1;
-              return mentorStuArray.push({ ...students, key });
-            });
-          setAtl(mentorStuArray);
 
-          // setAtl(response.data.data);
-          const barStudentData = {
-            labels: mentorStuArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No.of  ATL Students",
-                data: mentorStuArray.map((item) => item.ATL_Student_Count),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No.of Non ATL Students",
-                data: mentorStuArray.map((item) => item.NONATL_Student_Count),
-                backgroundColor: "rgba(75, 162, 192, 0.6)",
-              },
-            ],
-          };
-          setBarChart3Data(barStudentData);
-          // console.log(barStudentData,"barStudentData");
-          setseries7(barStudentData.datasets[0].data);
-          setseries6(barStudentData.datasets[1].data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
   const handleDownload = () => {
     if (
-      !selectstate ||
-      //  || !district
+       !district ||
       !category
     ) {
       notification.warning({
         message:
-          "Please select a state and category type before Downloading Reports.",
+          "Please select a district and category type before Downloading Reports.",
       });
       return;
     }
@@ -557,12 +461,10 @@ const StudentProgress = () => {
   const fetchData = () => {
     const apiRes = encryptGlobal(
       JSON.stringify({
-        state: selectstate,
-        district: district === "" ? "All Districts" : district,
+        district: district ,
         category: category,
       })
     );
-    // console.log(selectstate,district,category);
     const config = {
       method: "get",
       url:
@@ -576,10 +478,8 @@ const StudentProgress = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-        //   console.log(response, "res");
-          // console.log(response.data.data[0].preSurvey,"preSurvey");
-          // console.log(response.data.data[0].Username,"Username");
-          // console.log(response.data.data[0],"response");
+          console.log(response, "filter");
+        
           const preSurveyMap = response.data.data[0].preSurvey.reduce(
             (map, item) => {
               map[item.user_id] = item.pre_survey_status;
@@ -595,18 +495,10 @@ const StudentProgress = () => {
             },
             {}
           );
-          const mentorMap = response.data.data[0].mentorData.reduce(
+          const ideaStatusDataMap = response.data.data[0].ideaStatusData.reduce(
             (map, item) => {
-              map[item.mentor_id] = item;
+              map[item.student_id] = item;
 
-              return map;
-            },
-            {}
-          );
-
-          const teamDataMap = response.data.data[0].teamData.reduce(
-            (map, item) => {
-              map[item.mentor_id] = item;
               return map;
             },
             {}
@@ -621,45 +513,35 @@ const StudentProgress = () => {
             },
             {}
           );
-          const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
-            (map, item) => {
-              map[item.user_id] = item;
-              return map;
-            },
-            {}
-          );
+        
          
           const newdatalist = response.data.data[0].summary.map((item) => {
-            const mentorData = teamDataMap[item.team_id];
-            const mentStats = mentorMap[item.team_id];
-            const mentUser =mentorUsernameMap[item.team_id];
+           
  
             return {
               ...item,
               pre_survey_status: preSurveyMap[item.user_id] || "Not started",
               post_survey_status: postSurveyMap[item.user_id] || "Not started",
-              username: mentUser?.username,
-              user_count: userTopicDataMap[item.user_id] === 0 ? "Not Started" : userTopicDataMap[item.user_id] === 31 ? "Completed" : "In Progress",
-              team_name: mentorData?.team_name,
-              team_email: mentorData?.team_email,
-              mentor_id: mentorData?.mentor_id,
-              category: mentStats?.category,
-              district: mentStats?.district,
+              Idea_status: ideaStatusDataMap[item.student_id] || "Not Initiated",
 
-              full_name: mentStats?.full_name,
-              gender: mentStats?.gender,
-              mobile: mentStats?.mobile,
-              organization_code: mentStats?.organization_code,
-              organization_name: mentStats?.organization_name,
-              state: mentStats?.state,
-              whatapp_mobile: mentStats?.whatapp_mobile,
+              user_count: userTopicDataMap[item.user_id] === 0 ? "Not Started" : userTopicDataMap[item.user_id] === 31 ? "Completed" : "In Progress",
+              course_per: userTopicDataMap[item.user_id] && typeof userTopicDataMap[item.user_id] === "number"
+                ? `${Math.round((userTopicDataMap[item.user_id] / 31) * 100)}%`
+                : `0%`,
             };
           });
-        //   console.log(newdatalist, "fina");
+          console.log(newdatalist,"full Map data");
           setstudentDetailedReportsData(newdatalist);
+          if (response.data.data[0].summary.length > 0) {
+            openNotificationWithIcon(
+              'success',
+              "Report Downloaded Successfully"
+            );
+          } else {
+            openNotificationWithIcon('error', 'No Data Found');
+          }
         //   csvLinkRef.current.link.click();
         //   console.log(studentDetailedReportsData,"ttt");
-          openNotificationWithIcon("success", "Report Downloaded Successfully");
           setIsDownload(false);
         }
       })
@@ -684,52 +566,64 @@ const StudentProgress = () => {
         if (response.status === 200) {
           // console.log(response,"view");
           const summary = response.data.data[0].summary;
-          const studentCountDetails = response.data.data[0].studentCountDetails;
 
           const courseCompleted = response.data.data[0].courseCompleted;
           const courseINprogesss = response.data.data[0].courseINprogesss;
+          const draftCount = response.data.data[0].draftCount;
+          const submittedCount = response.data.data[0].submittedCount;
+
 
           const combinedArray = summary.map((summaryItem) => {
-            const state = summaryItem.state;
-            const totalTeams = summaryItem.totalTeams;
-            // const teamCountItem = teamCount.find(
-            //     (item) => item.state === state
-            // );
-            const studentCountItem = studentCountDetails.find(
-              (item) => item.state === state
+            const district = summaryItem.district;
+            const draftCountItem = draftCount.find(
+              (item) => item.district === district
             );
+            const submittedCountItem = submittedCount.find(
+              (item) => item.district === district
+            );
+          
             const courseCompletedItem = courseCompleted.find(
-              (item) => item.state === state
+              (item) => item.district === district
             );
             const courseINprogesssItem = courseINprogesss.find(
-              (item) => item.state === state
+              (item) => item.district === district
             );
+            const ideaNotStarted =
+            summaryItem.totalstudent -
+            ((submittedCountItem
+              ? submittedCountItem.submittedCount
+              : 0) +
+              (draftCountItem
+                ? draftCountItem.draftCount
+                : 0));
             const courseNotStarted =
-              summaryItem.totalTeams -
+              summaryItem.totalstudent -
               ((courseCompletedItem
                 ? courseCompletedItem.studentCourseCMP
                 : 0) +
                 (courseINprogesssItem
                   ? courseINprogesssItem.studentCourseIN
                   : 0));
-            // console.log(courseNotStarted,"11");
 
             const coursePercentage =
-              studentCountItem && studentCountItem.totalstudent > 0
+            summaryItem && summaryItem.totalstudent > 0
                 ? Math.round(
                     ((courseCompletedItem
                       ? courseCompletedItem.studentCourseCMP
                       : 0) /
-                      studentCountItem.totalstudent) *
+                      summaryItem.totalstudent) *
                       100
                   )
                 : 0;
             return {
-              state,
+              district
+              ,
+              draftCount: draftCountItem ? draftCountItem.draftCount : 0,
+              submittedCount: submittedCountItem ? submittedCountItem.submittedCount : 0,
+              ideaNotStarted,
               coursePercentage,
-              totalTeams,
-              totalStudents: studentCountItem
-                ? studentCountItem.totalstudent
+              totalStudents: summaryItem
+                ? summaryItem.totalstudent
                 : 0,
               courseCompleted: courseCompletedItem
                 ? courseCompletedItem.studentCourseCMP
@@ -742,93 +636,36 @@ const StudentProgress = () => {
           });
           const total = combinedArray.reduce(
             (acc, item) => {
-              acc.state = "Total";
-              // acc.totalReg += item.totalReg;
-              acc.totalTeams += item.totalTeams;
+              acc.district = "Total";
               acc.totalStudents += item.totalStudents;
-              // acc.maleStudents += item.maleStudents;
-              // acc.femaleStudents += item.femaleStudents;
-              // acc.otherStudents += item.otherStudents;
               acc.courseCompleted += item.courseCompleted;
               acc.courseINprogesss += item.courseINprogesss;
-              // acc.courseNotStarted += item.courseNotStarted;
               acc.courseNotStarted =
                 acc.totalStudents -
                 (acc.courseCompleted + acc.courseINprogesss);
+                acc.draftCount += item.draftCount;
+                acc.submittedCount += item.submittedCount;
+                acc.ideaNotStarted =
+                acc.totalStudents -
+                (acc.submittedCount + acc.draftCount);
               return acc;
             },
             {
-              state: "None",
-              // totalReg: 0,
+              district: "None",
               totalTeams: 0,
               totalStudents: 0,
-
-              // maleStudents: 0,
-              // femaleStudents: 0,
-              // otherStudents : 0,
+              draftCount: 0,
+              submittedCount: 0,
+              ideaNotStarted: 0,
               courseCompleted: 0,
               courseINprogesss: 0,
               courseNotStarted: 0,
             }
           );
-          const doughnutData = {
-            labels: ["Male", "Female"],
-            datasets: [
-              {
-                data: [total.maleStudents, total.femaleStudents],
-                backgroundColor: ["#8bcaf4", "#ff99af"],
-                hoverBackgroundColor: ["#36A2EB", "#FF6384"],
-              },
-            ],
-          };
-
-          const barData = {
-            labels: combinedArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No.of Students Enrolled",
-                data: combinedArray.map((item) => item.totalStudents),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No. of Teams created",
-                data: combinedArray.map((item) => item.totalTeams),
-                backgroundColor: "rgba(75, 162, 192, 0.6)",
-              },
-            ],
-          };
-          setseries2(barData.datasets[0].data);
-          setseries1(barData.datasets[1].data);
-
-          const stackedBarChartData = {
-            labels: combinedArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No. of Students not started course",
-                data: combinedArray.map((item) => item.courseNotStarted),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No. of Students course IN progress",
-                data: combinedArray.map((item) => item.courseINprogesss),
-                backgroundColor: "rgba(255, 255, 0, 0.6)",
-              },
-              {
-                label: "No. of Students Completed Course",
-                data: combinedArray.map((item) => item.courseCompleted),
-                backgroundColor: "rgba(0, 128, 0, 0.6)",
-              },
-            ],
-          };
-          setseries3(stackedBarChartData.datasets[0].data);
-          setseries4(stackedBarChartData.datasets[1].data);
-          setseries5(stackedBarChartData.datasets[2].data);
+         
           const newcombinedArray = [...combinedArray, total];
           setCombinedArray(combinedArray);
           setDownloadTableData(newcombinedArray);
-          setDoughnutChartData(doughnutData);
-          setBarChart1Data(barData);
-          setBarChart2Data(stackedBarChartData);
           setTotalCount(total);
         }
       })
@@ -864,7 +701,7 @@ const StudentProgress = () => {
         <Container className="RegReports userlist">
           <div className="reports-data mt-2 mb-2">
             <Row className="align-items-center mt-3 mb-2">
-              <Col md={3}>
+              {/* <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
                     list={fullStatesNames}
@@ -873,7 +710,7 @@ const StudentProgress = () => {
                     value={selectstate}
                   />
                 </div>
-              </Col>
+              </Col> */}
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
@@ -887,9 +724,9 @@ const StudentProgress = () => {
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
-                    list={categoryData}
+                    list={categoryList}
                     setValue={setCategory}
-                    placeHolder={"Select Category"}
+                    placeHolder={'Select College Type'}
                     value={category}
                   />
                 </div>
@@ -911,68 +748,13 @@ const StudentProgress = () => {
             <div className="chart mt-2 mb-2">
               {combinedArray.length > 0 && (
                 <>
-                  <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                      <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title mb-0">Data Analytics</h4>
-                          <div className="dropdown">
-                            <Link
-                              to="#"
-                              className="view-all d-flex align-items-center"
-                            >
-                              View All
-                              <span className="ps-2 d-flex align-items-center">
-                                <ArrowRight className="feather-16" />
-                              </span>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <div className="row">
-                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                              <p>
-                                <b>
-                                  Students as per Idea Submission {newFormat}
-                                </b>
-                              </p>
-                              {/* {doughnutChartData && (
-                                                    <div id="donut-chart" >
-                                                        <ReactApexChart
-                                                        options={chartOption}
-                                                        series={chartOption.series}
-                                                        type="donut"
-                                                        height={330}
-                                                        />
-                                                    </div>
-                                                )} */}
-                            </div>
-                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                              <p>
-                                <b>Students Course Status As of {newFormat}</b>
-                              </p>
-                              {totalCount && (
-                                <div id="radial-chart">
-                                  <ReactApexChart
-                                    options={radialChart}
-                                    series={radialChart.series}
-                                    type="radialBar"
-                                    height={350}
-                                  />
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                 
                   <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">
-                            State Student Progress Stats
+                            District wise Student Progress Stats
                           </h4>
                           <div className="dropdown">
                             <Link
@@ -1002,16 +784,16 @@ const StudentProgress = () => {
                                 <tr>
                                   <th style={{ color: "#36A2EB" }}>#</th>
                                   <th style={{ color: "#36A2EB" }}>
-                                    State Name
+                                    District Name
                                   </th>
-                                  <th
+                                  {/* <th
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
                                     }}
                                   >
                                     #Teams Created
-                                  </th>
+                                  </th> */}
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
@@ -1064,6 +846,30 @@ const StudentProgress = () => {
                                     />{" "}
                                     Course Completion%
                                   </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB", fontWeight: "bold"
+                                    }}
+                                  >
+                                    No of Submitted Ideas
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB", fontWeight: "bold"
+                                    }}
+                                  >
+                                    No of Ideas in Draft
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB", fontWeight: "bold"
+                                    }}
+                                  >
+                                    No of Ideas Not Started
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody className="text-center">
@@ -1079,16 +885,19 @@ const StudentProgress = () => {
                                         color: "crimson",
                                       }}
                                     >
-                                      {item.state}
+                                      {item.district}
                                     </td>
 
-                                    <td>{item.totalTeams}</td>
+                                    {/* <td>{item.totalTeams}</td> */}
                                     <td>{item.totalStudents}</td>
 
                                     <td>{item.courseCompleted}</td>
                                     <td>{item.courseINprogesss}</td>
                                     <td>{item.courseNotStarted}</td>
                                     <td>{item.coursePercentage}%</td>
+                                    <td>{item.submittedCount}</td>{" "}
+                                    <td>{item.draftCount}</td>{" "}
+                                    <td>{item.ideaNotStarted}</td>
                                   </tr>
                                 ))}
                                 <tr>
@@ -1105,9 +914,9 @@ const StudentProgress = () => {
                                     {"Total Count"}
                                   </td>
 
-                                  <td style={{ color: "crimson" }}>
+                                  {/* <td style={{ color: "crimson" }}>
                                     {totalCount.totalTeams}
-                                  </td>
+                                  </td> */}
                                   <td style={{ color: "crimson" }}>
                                     {totalCount.totalStudents}
                                   </td>
@@ -1129,6 +938,9 @@ const StudentProgress = () => {
                                     )}
                                     %
                                   </td>
+                                  <td style={{ color: "crimson" }}>{totalCount.submittedCount}</td>{" "}
+                                  <td style={{ color: "crimson" }}>{totalCount.draftCount}</td>{" "}
+                                  <td style={{ color: "crimson" }}>{totalCount.ideaNotStarted}</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -1139,25 +951,8 @@ const StudentProgress = () => {
                   </div>
                 </>
               )}
-              <div className="col-md-12">
-                <div className="card">
-                  <div className="card-header">
-                    <h5 className="card-title">
-                      Teams, Students Enrolled As of {newFormat}
-                    </h5>
-                  </div>
-                  <div className="card-body">
-                    <div id="s-line-area" />
-                    <ReactApexChart
-                      options={options}
-                      series={options.series}
-                      type="line"
-                      height={400}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-12">
+            
+              {/* <div className="col-md-12">
                 <div className="card">
                   <div className="card-header">
                     <h5 className="card-title">
@@ -1174,23 +969,8 @@ const StudentProgress = () => {
                     />
                   </div>
                 </div>
-              </div>
-              {/* <div className="col-md-12">
-                        <div className="card">
-                        <div className="card-header">
-                            <h5 className="card-title">No.of Students Enrolled from ATL v/s Non ATL Schools{' '}{newFormat}</h5>
-                        </div>
-                        <div className="card-body">
-                            <div id="mixed-chart" />
-                            <ReactApexChart
-                            options={optionsStudent}
-                            series={optionsStudent.series}
-                            type="line"
-                            height={400}
-                            />
-                        </div>
-                        </div>
-                    </div> */}
+              </div> */}
+            
 
               {downloadTableData && (
                 <CSVLink
