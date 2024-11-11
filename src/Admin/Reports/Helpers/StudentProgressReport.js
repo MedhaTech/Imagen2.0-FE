@@ -75,7 +75,9 @@ const StudentProgress = () => {
     datasets: [],
   });
   const fullStatesNames = newstateList;
-  const fiterDistData = districtList["Tamil Nadu"];
+  // const fiterDistData = districtList["Tamil Nadu"];
+  const fiterDistData = [...districtList["Tamil Nadu"]];
+  fiterDistData.unshift("All Districts");
   
   useEffect(() => {
    
@@ -462,7 +464,7 @@ const StudentProgress = () => {
     const apiRes = encryptGlobal(
       JSON.stringify({
         district: district ,
-        category: category,
+        college_type: category,
       })
     );
     const config = {

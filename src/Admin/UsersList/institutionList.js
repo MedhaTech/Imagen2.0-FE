@@ -52,7 +52,8 @@ const [institution,setInstitution]=useState("");
     const [loading, setLoading] = useState(false);
 const updateStatesList=["All States",...stateList];
 
-
+const fiterDistData = [...districtList["Tamil Nadu"]];
+  fiterDistData.unshift("All Districts");
     const [tab, setTab] = useState('1');
     const [mentorDist, setmentorDist] = useState('');
     const [newDist, setNewDists] = useState('');
@@ -246,7 +247,7 @@ const updateStatesList=["All States",...stateList];
                                             <Col md={2}>
                                                 {/* <div className="my-3 d-md-block d-flex justify-content-center"> */}
                                                     <Select
-                                                        list={districtList["Tamil Nadu"]}
+                                                        list={fiterDistData}
                                                         setValue={setState}
                                                         placeHolder={
                                                             'District'
