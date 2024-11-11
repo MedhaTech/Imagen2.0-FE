@@ -89,8 +89,10 @@ const ReportsRegistration = () => {
     // const fullStatesNames = useSelector(
     //     (state) => newstateList
     // );
-    const fullStatesNames =newstateList;
-    const fiterDistData = districtList["Tamil Nadu"];
+    const fullDistNames =newstateList;
+    // const fiterDistData = districtList["Tamil Nadu"];
+    const fiterDistData = [...districtList["Tamil Nadu"]];
+    fiterDistData.unshift("All Districts");
     
     const [downloadTableData, setDownloadTableData] = useState(null);
     const summaryHeaders = [
@@ -290,7 +292,7 @@ const ReportsRegistration = () => {
         const param = encryptGlobal(
             JSON.stringify({
                 district: RegTeachersdistrict,
-                category: category
+                college_type: category
             })
         );
 
@@ -364,8 +366,39 @@ const ReportsRegistration = () => {
             .then((response) => {
                 if (response.status === 200) {
                     const chartTableData = response?.data?.data || [];
-                    setChartTableData(chartTableData);
-                    setDownloadTableData(chartTableData);
+                    const totals = chartTableData.reduce(
+                        (acc, curr) => {
+                            acc.district = "Total";
+                          (acc.studentReg += curr.studentReg || 0),
+                            (acc.GovtJuniorCollege_Count += curr.GovtJuniorCollege_Count || 0),
+                            acc.GovtITICollege_Count += curr.GovtITICollege_Count || 0;
+                            (acc.GovtPolytechnicCollege_Count += curr.GovtPolytechnicCollege_Count || 0),
+                            (acc.GovtDegreeCollege_Count += curr.GovtDegreeCollege_Count || 0),
+                            (acc.SocialWelfareCollege_Count +=
+                                curr.SocialWelfareCollege_Count || 0),
+                            (acc.TribalWelfareCollege_Count += curr.TribalWelfareCollege_Count || 0),
+                            (acc.PrivateCollege_Count += curr.PrivateCollege_Count || 0);
+                            (acc.Other_Count += curr.Other_Count || 0);
+            
+                           
+                          return acc;
+                        },
+                        {
+                          district: "None",
+                          studentReg:0,
+                          GovtJuniorCollege_Count:0,
+                          GovtPolytechnicCollege_Count:0,
+                          GovtDegreeCollege_Count:0,
+                          SocialWelfareCollege_Count: 0,
+                          TribalWelfareCollege_Count:0,
+                          GovtITICollege_Count: 0,
+                          PrivateCollege_Count:0,
+                          Other_Count:0,
+                        }
+                      );
+                      const chartTableDataWithTotals = [...chartTableData, totals];
+                      setChartTableData(chartTableDataWithTotals);
+                      setDownloadTableData(chartTableDataWithTotals);
                     // console.log(chartTableData, "table data");
 
                 }
@@ -502,24 +535,24 @@ const ReportsRegistration = () => {
                                                                         {item.studentReg}
                                                                     </td>
                                                                     <td>
-                                                                        {item.GovtJuniorCollege_Count}
+                                                                        {item.GovtJuniorCollege_Count ? item.GovtJuniorCollege_Count :"0"}
                                                                     </td>
                                                                     <td>
-                                                                        {item.GovtITICollege_Count}
+                                                                        {item.GovtITICollege_Count ? item.GovtITICollege_Count :"0"}
                                                                     </td>
                                                                     <td>
-                                                                        {item.GovtPolytechnicCollege_Count}
+                                                                        {item.GovtPolytechnicCollege_Count ? item.GovtPolytechnicCollege_Count :"0"}
                                                                     </td>
                                                                     <td>
-                                                                        {item.GovtDegreeCollege_Count}
+                                                                        {item.GovtDegreeCollege_Count ? item.GovtDegreeCollege_Count :"0"}
                                                                     </td>
                                                                     <td>
-                                                                        {item.SocialWelfareCollege_Count}
+                                                                        {item.SocialWelfareCollege_Count ? item.SocialWelfareCollege_Count :"0"}
                                                                     </td>
                                                                     <td>
                                                                         {item.TribalWelfareCollege_Count ? item.TribalWelfareCollege_Count :"0" }
                                                                     </td> <td>
-                                                                        {item.PrivateCollege_Count}
+                                                                        {item.PrivateCollege_Count ? item.PrivateCollege_Count :"0"}
                                                                     </td> <td>
                                                                         {item.Other_Count ? item.Other_Count :"0"}
                                                                     </td>

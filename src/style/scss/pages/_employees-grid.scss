@@ -1,5 +1,6 @@
 .employee-grid-profile {
     text-align: center;
+    height: 200px;
     background: $white;
     border-radius: 8px;
     @include margin-padding(0 0 24px,15px);
@@ -91,6 +92,7 @@
         &.department-profile-info {
             background-color: $gray-100;
             padding: 15px;
+            height: 100px;
             border-radius: 10px;
             .profile-pic {
                 width: 40px;
