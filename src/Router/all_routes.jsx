@@ -24,6 +24,7 @@ export const all_routes = {
 institutionview:"/view-profile",
 inststuedit:"/Institution-student-edit",
 institutionUsersList:"/institution-users-list",
+instprogress:"/institution-progress",
   adminresponse:"/admin/support-journey/ans-ticket",
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",

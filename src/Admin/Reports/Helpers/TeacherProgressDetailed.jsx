@@ -39,6 +39,8 @@ const TeacherProgressDetailed = () => {
   const [isDownload, setIsDownload] = useState(false);
   const categoryList = ["All Types", ...collegeType];
   const [chartTableData, setChartTableData] = useState([]);
+  const [chartTableData1, setChartTableData1] = useState([]);
+
 
   const newstateList = ["All States", ...stateList];
   // const categoryData =
@@ -135,97 +137,33 @@ const TeacherProgressDetailed = () => {
   ];
   const teacherDetailsHeaders = [
     {
-      label: "UDISE CODE",
-      key: "organization_code",
-    },
-    {
-      label: "School Name",
-      key: "organization_name",
-    },
-    {
-      label: "School Type/Category",
-      key: "category",
-    },
-    {
-      label: "State",
-      key: "state",
-    },
+      label: 'Institution User Full Name',
+      key: 'full_name'
+  },
+  {
+      label: 'Email Address',
+      key: 'username'
+  },
+  {
+      label: 'Mobile Number',
+      key: 'mobile'
+  },
+  {
+      label: 'College Type',
+      key: 'college_type'
+  },
+  {
+      label: 'College Name',
+      key: 'college_name'
+  },
     {
       label: "District",
       key: "district",
     },
-    {
-      label: "City",
-      key: "city",
-    },
-    {
-      label: "HM Name",
-      key: "principal_name",
-    },
-    {
-      label: "HM Contact",
-      key: "principal_mobile",
-    },
-    {
-      label: "Teacher Name",
-      key: "full_name",
-    },
-    {
-      label: "Teacher Email",
-      key: "username",
-    },
-    {
-      label: "Teacher Gender",
-      key: "gender",
-    },
-    {
-      label: "Teacher Contact",
-      key: "mobile",
-    },
-    {
-      label: "Teacher WhatsApp Contact",
-      key: "whatapp_mobile",
-    },
-    {
-      label: "Pre Survey Status",
-      key: "pre_survey_status",
-    },
-    {
-      label: "Course Status",
-      key: "course_status",
-    },
-    {
-      label: "Post Survey Status",
-      key: "post_survey_status",
-    },
-    {
-      label: "NO.of Teams Created",
-      key: "team_count",
-    },
-    {
-      label: "No.of Students Enrollrd",
-      key: "student_count",
-    },
-    {
-      label: "No.of Students Course Completed",
-      key: "countop",
-    },
-    {
-      label: "No.of Students Course Inprogress",
-      key: "courseinprogess",
-    },
    
   ];
 
-  // useEffect(() => {
-  //     dispatch(getDistrictData());
-  //     fetchChartTableData();
-  //     const newDate = new Date();
-  //     const formattedDate = `${newDate.getUTCDate()}/${
-  //         1 + newDate.getMonth()
-  //     }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
-  //     setNewFormat(formattedDate);
-  // }, []);
+ 
 
   var chartOption = {
     chart: {
@@ -465,59 +403,7 @@ const TeacherProgressDetailed = () => {
     labels: ["Completed", "InProgress", "NotStarted"],
   };
 
-  useEffect(() => {
-    nonAtlCount();
-  }, []);
-  const nonAtlCount = () => {
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL + `/reports/studentATLnonATLcount`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (res) {
-        if (res.status === 200) {
-          var mentorStuArray = [];
-          res &&
-            res.data &&
-            res.data.data &&
-            res.data.data.map((students, index) => {
-              var key = index + 1;
-              return mentorStuArray.push({ ...students, key });
-            });
-          setAtl(mentorStuArray);
-
-          // setAtl(response.data.data);
-          const barStudentData = {
-            labels: mentorStuArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No.of  ATL Students",
-                data: mentorStuArray.map((item) => item.ATL_Student_Count),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No.of Non ATL Students",
-                data: mentorStuArray.map((item) => item.NONATL_Student_Count),
-                backgroundColor: "rgba(75, 162, 192, 0.6)",
-              },
-            ],
-          };
-          setBarChart3Data(barStudentData);
-          // console.log(barStudentData,"barStudentData");
-          setseries7(barStudentData.datasets[0].data);
-          setseries6(barStudentData.datasets[1].data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+ 
   const handleDownload = () => {
     if (!district || !category) {
       notification.warning({
@@ -536,12 +422,11 @@ const TeacherProgressDetailed = () => {
         college_type: category,
       })
     );
-    // console.log(selectstate,district,category);
     const config = {
       method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/reports/mentordetailsreport?Data=${apiRes}`,
+        `/reports/instRegList?Data=${apiRes}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -550,73 +435,21 @@ const TeacherProgressDetailed = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "22");
+          // console.log(response, "22");
 
-          const preSurveyMap = response.data.data[0].preSurvey.reduce(
-            (map, item) => {
-              map[item.user_id] = item.pre_survey_status;
-              return map;
-            },
-            {}
-          );
-          const postSurveyMap = response.data.data[0].postSurvey.reduce(
-            (map, item) => {
-              map[item.user_id] = item.post_survey_status;
-              return map;
-            },
-            {}
-          );
-          const CourseMap = response.data.data[0].Course.reduce((map, item) => {
-            map[item.user_id] = item.course_status;
-            return map;
-          }, {});
-          const teamCountMap = response.data.data[0].teamCount.reduce(
-            (map, item) => {
-              map[item.mentor_id] = item.team_count;
-              return map;
-            },
-            {}
-          );
-          const studentCountMap = response.data.data[0].studentCount.reduce(
-            (map, item) => {
-              map[item.mentor_id] = item.student_count;
-              return map;
-            },
-            {}
-          );
-          const StudentCourseCmpMap =
-            response.data.data[0].StudentCourseCmp.reduce((map, item) => {
-              map[item.mentor_id] = item.countop;
-              return map;
-            }, {});
-          const StudentCourseINproMap =
-            response.data.data[0].StudentCourseINpro.reduce((map, item) => {
-              map[item.mentor_id] = item.courseinprogess;
-              return map;
-            }, {});
-          const UsernameeMap = response.data.data[0].Username.reduce(
-            (map, item) => {
-              map[item.user_id] = item.username;
-              return map;
-            },
-            {}
-          );
-
-          const newdatalist = response.data.data[0].summary.map((item) => ({
-            ...item,
-            pre_survey_status: preSurveyMap[item.user_id] || "Not started",
-            post_survey_status: postSurveyMap[item.user_id] || "Not started",
-            course_status: CourseMap[item.user_id] || "Not started",
-            team_count: teamCountMap[item.mentor_id] || 0,
-            student_count: studentCountMap[item.mentor_id] || 0,
-            countop: StudentCourseCmpMap[item.mentor_id] || 0,
-            courseinprogess: StudentCourseINproMap[item.mentor_id] || 0,
-            username: UsernameeMap[item.user_id],
-          }));
-
-          setmentorDetailedReportsData(newdatalist);
-          csvLinkRef.current.link.click();
-          openNotificationWithIcon("success", "Report Downloaded Successfully");
+          const chartTable = response?.data?.data || [];
+        
+          setChartTableData1(chartTable);
+          // console.log(chartTableData1,"data");
+          if (response.data.count > 0) {
+            openNotificationWithIcon(
+              'success',
+              "Report Downloaded Successfully"
+            );
+          } else {
+            openNotificationWithIcon('error', 'No Data Found');
+          }
+          // csvLinkRef.current.link.click();
           setIsDownload(false);
         }
       })
@@ -625,7 +458,13 @@ const TeacherProgressDetailed = () => {
         setIsDownload(false);
       });
   };
+  useEffect(() => {
+    if (chartTableData1.length > 0) {
+      console.log("Performing operation with the updated data.");
+      csvLinkRef.current.link.click();
 
+    }
+  }, [chartTableData1]);
   const fetchChartTableData = () => {
     const config = {
       method: "get",
@@ -671,7 +510,7 @@ const TeacherProgressDetailed = () => {
               Other_Count:0,
             }
           );
-          console.log(totals,"1");
+          // console.log(totals,"1");
           const chartTableDataWithTotals = [...chartTableData, totals];
           setChartTableData(chartTableDataWithTotals);
           setDownloadTableData(chartTableDataWithTotals);
@@ -981,7 +820,7 @@ const TeacherProgressDetailed = () => {
                 <CSVLink
                   data={downloadTableData}
                   headers={tableHeaders}
-                  filename={`SchoolDetailedSummaryReport_${newFormat}.csv`}
+                  filename={`InstitutionDetailedSummaryReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable}
                 >
@@ -989,11 +828,11 @@ const TeacherProgressDetailed = () => {
                 </CSVLink>
               )}
 
-              {mentorDetailedReportsData && (
+              {chartTableData1 && (
                 <CSVLink
                   headers={teacherDetailsHeaders}
-                  data={mentorDetailedReportsData}
-                  filename={`SchoolProgressDetailedReport_${newFormat}.csv`}
+                  data={chartTableData1}
+                  filename={`InstitutionProgressDetailedReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
                 >

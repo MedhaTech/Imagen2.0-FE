@@ -26,8 +26,9 @@ return (
                 </div>
             </div>
             <div className="employee-grid-widget">
-                <div className="row">
-                    <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+                <div className="row d-flex justify-content-center">
+                    <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6"
+                    >
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
@@ -66,6 +67,31 @@ return (
                                     />
                                     </div>
                                     <h4>District wise Institutions Reg Status</h4>
+                            </div>
+                        </Link>
+                       
+                        </div>
+                    </div>
+                    </div>
+                    <div className="row d-flex justify-content-center">
+
+                    <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+                        <div className="employee-grid-profile">
+                        <div className="profile-head">
+                            <div className="dep-name">
+                                <h5 className="active">Institutions Progress</h5>
+                            </div>
+                        </div>
+                        <Link  to="/institution-progress">
+                            <div className="profile-info department-profile-info" >
+                                
+                                    <div className="profile-pic">
+                                    <img
+                                        src={student}
+                                        alt=""
+                                    />
+                                    </div>
+                                    <h4>Institution Individuals status</h4>
                             </div>
                         </Link>
                        
