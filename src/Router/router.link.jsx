@@ -105,6 +105,7 @@ import EditInstStu from "../Teacher/Teams/StuEdit";
 import IdeaSubmission from "../Team/IdeaSubmission/IdeaSubmission";
 import AdminInstitutionUsersList from "../Admin/UsersList/institutionList";
 import AdminInstitutionProgress from "../Admin/Reports/Helpers/InstProgressReport";
+import AdminIdea from "../Admin/Reports/Helpers/IdeaReport";
 
 
 
@@ -363,6 +364,14 @@ export const publicRoutes = [
     path: routes.instprogress,
     name: "instprogress",
     element: <AdminInstitutionProgress/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 29,
+    path: routes.adminIdeareport,
+    name: "adminIdeareport",
+    element: <AdminIdea/>,
     protected: true,
     route: Route,
   },
