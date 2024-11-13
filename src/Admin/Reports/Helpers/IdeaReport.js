@@ -141,141 +141,104 @@ const IdeaReport = () => {
   ];
   const teacherDetailsHeaders = [
     {
-      label: "UDISE CODE",
-      key: "organization_code",
-    },
-    {
-      label: "State",
-      key: "state",
-    },
+      label: 'Student Full Name',
+      key: 'studentfullname'
+  },
+ 
+  {
+      label: 'Mobile Number',
+      key: 'mobile'
+  },
+  {
+      label: 'College Type',
+      key: 'college_type'
+  },
+  {
+      label: 'College Name',
+      key: 'college_name'
+  },
     {
       label: "District",
       key: "district",
     },
     {
-      label: 'CID',
-      key: 'challenge_response_id'
-    },
+      label: 'Branch',
+      key: 'branch'
+  },
+  {
+      label: 'Roll Number',
+      key: 'roll_number'
+  },
+  {
+    label: 'Year of Study',
+    key: 'year_of_study'
+},
+   
+    // {
+    //   label: "Student Names",
+    //   key: "names",
+    // },
     {
-      label: "School Name",
-      key: "organization_name",
-    },
-    {
-      label: "School Type/Category",
-      key: "category",
-    },
-    {
-      label: 'Pin code',
-      key: 'pin_code'
-    },
-    {
-      label: 'Address',
-      key: 'address'
-    },
-    {
-      label: "Teacher Name",
-      key: "full_name",
-    },
-    {
-      label: "Teacher Email",
-      key: "username",
-    },
-    {
-      label: "Teacher Gender",
-      key: "gender",
-    },
-    {
-      label: "Teacher Contact",
-      key: "mobile",
-    },
-    {
-      label: "Team Name",
-      key: "team_name",
-    },
-    {
-      label: "Team Username",
-      key: "team_username",
-    },
-    {
-      label: "Student Names",
-      key: "names",
-    },
-    {
-      label: 'Theme',
+      label: 'Which category does your idea belong to?',
       key: 'theme'
     },
     {
-      label: 'Focus Area',
-      key: 'focus_area'
+      label: 'Describe your  idea (in one sentence)',
+      key: 'idea_describe'
     },
     {
-      label: 'Select in which language you prefer Submitting Your Idea?',
-      key: 'language'
-    },
-    {
-      label: 'Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.',
+      label: 'Give a title to your idea ',
       key: 'title'
     },
     {
-      label: 'Write down your Problem statement',
-      key: 'problem_statement'
+      label: 'What problem does your idea solve?',
+      key: 'solve'
     },
     {
-      label: 'List the Causes of the problem',
-      key: 'causes'
+      label: 'Who are your target customers/users? ',
+      key: 'customer'
     },
     {
-      label: 'List the Effects of the problem',
-      key: 'effects'
+      label: 'Explain your idea in detail',
+      key: 'detail'
     },
     {
-      label: 'In which places in your community did you find this problem?',
-      key: 'community'
+      label: 'What stage is your idea currently at?',
+      key: 'stage'
     },
     {
-      label: 'Who all are facing this problem?',
-      key: 'facing'
+      label: 'How unique is your idea compared to existing solutions?',
+      key: 'unique'
     },
     {
-      label: 'Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.',
-      key: 'solution'
+      label: 'Who are your competitors or similar ideas? ',
+      key: 'similar'
     },
     {
-      label: 'Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?',
-      key: 'stakeholders'
+      label: 'How will your idea make revenue or sustain itself?',
+      key: 'revenue'
     },
     {
-      label: 'Pick the actions your team did in your problem solving journey (You can choose multiple options)',
-      key: 'problem_solving'
+      label: 'What impact will your idea have on society or the environment?',
+      key: 'society'
     },
     {
-      label: 'Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.',
-      key: 'feedback'
+      label: 'How confident are you in your ability to implement your idea with your current skill set?',
+      key: 'confident'
     },
     {
-      label: 'Upload image of your prototype.',
+      label: 'What additional support and resources would you need to implement or get started with your idea ?',
+      key: 'support'
+    },
+    {
+      label: 'Upload images/documents & video links related to your Idea.*  (total size   limit : 50 MB)',
       key: 'prototype_image'
     },
     {
       label: 'Upload documents & video links of your prototype.',
       key: 'prototype_link'
     },
-    {
-      label: 'Did your team complete and submit the workbook to your school Guide teacher?',
-      key: 'workbook'
-    },
-    {
-      label: 'Idea Submission Status',
-      key: 'status'
-    },
-    {
-      label: 'Teacher Verified Status',
-      key: 'verifiedment'
-    },
-    {
-      label: 'Teacher Verified At',
-      key: 'verified_at'
-    },
+   
   ];
 
  
@@ -389,23 +352,30 @@ const IdeaReport = () => {
           const newdatalist = IdeaData.map((item) => {
             return {
               ...item,
-            //   verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
-            //   username: mentorUsernameMap[item.mentorUserId],
-              focus_area: item.focus_area ? item.focus_area.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              prototype_image: item.prototype_image ? item.prototype_image.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              problem_solving: item.problem_solving ? item.problem_solving.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              feedback: item.feedback ? item.feedback.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              stakeholders: item.stakeholders ? item.stakeholders.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              solution: item.solution ? item.solution.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              facing: item.facing ? item.facing.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              community: item.community ? item.community.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              effects: item.effects ? item.effects.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              causes: item.causes ? item.causes.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              problem_statement: item.problem_statement ? item.problem_statement.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+          
+              theme: item.theme ? item.theme.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              others: item.others ? item.others.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              idea_describe: item.idea_describe
+              ? item.idea_describe
+              .replace(/,/g, ';').replace(/\n/g, ' ') : '',
               title: item.title ? item.title.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              verified_at:item.verified_at ? moment(item.verified_at).format(
-                "DD-MM-YYYY"
-              ) : ''
+              solve: item.solve ? item.solve.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              customer: item.customer ? item.customer.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              detail: item.detail ? item.detail.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              stage: item.stage ? item.stage.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              unique: item.unique ? item.unique.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              similar: item.similar ? item.similar.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              revenue: item.revenue ? item.revenue.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              society: item.society ? item.society.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              confident: item.confident ? item.confident.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              support: item.support ? item.support.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              prototype_image
+: item.prototype_image
+? item.prototype_image
+.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+
+             
             };
           });
 
