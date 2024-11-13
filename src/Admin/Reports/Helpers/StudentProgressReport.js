@@ -135,12 +135,12 @@ const StudentProgress = () => {
   const teacherDetailsHeaders = [
     {
       label: 'Student Full Name',
-      key: 'full_name'
+      key: 'studentfullname'
   },
-  {
-      label: 'Email Address',
-      key: 'username'
-  },
+  // {
+  //     label: 'Email Address',
+  //     key: 'username'
+  // },
   {
       label: 'Mobile Number',
       key: 'mobile'
