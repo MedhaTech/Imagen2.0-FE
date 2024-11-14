@@ -90,8 +90,8 @@ const ReportsRegistration = () => {
     //     (state) => newstateList
     // );
     const fullDistNames =newstateList;
-    // const fiterDistData = districtList["Tamil Nadu"];
-    const fiterDistData = [...districtList["Tamil Nadu"]];
+    // const fiterDistData = districtList["Telangana"];
+    const fiterDistData = [...districtList["Telangana"]];
     fiterDistData.unshift("All Districts");
     
     const [downloadTableData, setDownloadTableData] = useState(null);

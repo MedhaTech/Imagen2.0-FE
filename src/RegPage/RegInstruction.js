@@ -5,6 +5,7 @@ import './Styles.css';
 import logo from "../assets/img/logo.png";
 import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const RegInstruction = () => {
   const navigate = useNavigate();
@@ -71,8 +72,26 @@ const RegInstruction = () => {
                 <span className='second_text'>Enter your team member-3 details.</span>
               </div>
             </div>
+            <div className="row m-2 mb-3 mt-3">
+  <div className="col-md-10 ps-3">
+    <span className="mt-5 p">Already have an account?</span>
+    <span className="second_text"> 
+      <Link className="hover-a" to={"/registration"}>
+        {" "} Click Here
+      </Link>
+    </span>
+  </div>
+</div>
 
-
+            {/* <div className="signinform">
+                  <h4>
+                  Already have an account?
+                    <Link className="hover-a" to={"/registration"}>
+                      {" "}
+                      Click Here
+                    </Link>
+                  </h4>
+                </div>  */}
           </div>
           <div className="col-md-8 p-4" style={{ backgroundColor: '#EEEEEE' }}>
             <div className="mn-ht-600">

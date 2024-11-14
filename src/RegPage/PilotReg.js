@@ -12,6 +12,8 @@ import { districtList, collegeType, yearofstudyList, collegeNameList } from './O
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import OtpInput from "react-otp-input-rc-17";
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+
 
 const PilotReg = () => {
   const navigate = useNavigate();
@@ -315,7 +317,16 @@ const PilotReg = () => {
               </div>
             </div>
 
-
+            <div className="row m-2 mb-3 mt-3">
+  <div className="col-md-10 ps-3">
+    <span className="mt-5 p">Already have an account?</span>
+    <span className="second_text"> 
+      <Link className="hover-a" to={"/registration"}>
+        {" "} Click Here
+      </Link>
+    </span>
+  </div>
+</div>
           </div>
           <div className="col-md-8 p-4" style={{ backgroundColor: '#EEEEEE' }}>
             <form action="signin" onSubmit={formik.handleSubmit}>
@@ -440,7 +451,7 @@ const PilotReg = () => {
                           onChange={formik.handleChange}
                         >
                           <option value={""}>District</option>
-                          {districtList["Tamil Nadu"].map((item) => (
+                          {districtList["Telangana"].map((item) => (
                             <option key={item} value={item}>
                               {item}
                             </option>

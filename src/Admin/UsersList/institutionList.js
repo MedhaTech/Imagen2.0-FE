@@ -52,7 +52,7 @@ const [institution,setInstitution]=useState("");
     const [loading, setLoading] = useState(false);
 const updateStatesList=["All States",...stateList];
 
-const fiterDistData = [...districtList["Tamil Nadu"]];
+const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
     const [tab, setTab] = useState('1');
     const [mentorDist, setmentorDist] = useState('');

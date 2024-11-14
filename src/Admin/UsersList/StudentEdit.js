@@ -365,7 +365,7 @@ const StuEdit = () => {
                               onChange={formik.handleChange}
                             >
                               <option value={""}>District</option>
-                              {districtList["Tamil Nadu"].map((item) => (
+                              {districtList["Telangana"].map((item) => (
                                 <option key={item} value={item}>
                                   {item}
                                 </option>

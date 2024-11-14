@@ -45,7 +45,7 @@ const IdeaReport = () => {
 
  
   const categoryList = ['All Types', ...collegeType];
-  const fiterDistData = [...districtList["Tamil Nadu"]];
+  const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
   const newThemesList = ["All Themes", ...themesList];
 

@@ -242,7 +242,7 @@ const MentorDashboard = () => {
   const mentorIdeaCount = () => {
       const ideaApi = encryptGlobal(
           JSON.stringify({
-              mentor_id: currentUser?.data[0]?.mentor_id
+            college_name: currentUser?.data[0]?.college_name
           })
       );
       var config = {

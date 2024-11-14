@@ -21,6 +21,7 @@ const CommonPage = ({
     // here we can go for the next course //
     navigate("/student/post-survey");
   };
+  console.log("Congrats Screen");
 
   return (
     <Container className="presuervey mb-50 mt-5 ">

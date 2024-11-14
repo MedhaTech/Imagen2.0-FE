@@ -9,14 +9,14 @@ import axios from 'axios';
 const SidebarData = () => {
   // const { t } = useTranslation();
   const presurvey = localStorage.getItem("stupresurveystatus") ;
-  console.log(presurvey,"status");
+  // console.log(presurvey,"status");
   const currentUser = getCurrentUser('current_user');
   const TeamId = currentUser?.data[0]?.student_id;
   const [link, setLink] = useState('/instruction');
   const submittedApi = () => {
     const Param = encryptGlobal(
       JSON.stringify({
-        team_id: TeamId,
+        student_id: TeamId,
       })
     );
     var configidea = {
@@ -38,6 +38,7 @@ const SidebarData = () => {
             const data = response.data.data[0];
             if (response.data.data[0].status === 'SUBMITTED') {
               setLink('/idea');
+              console.log("headerData",response.data.data[0].status);
             } else {
               setLink('/instruction');
             } 
