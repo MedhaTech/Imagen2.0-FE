@@ -103,7 +103,7 @@ const [institution,setInstitution]=useState("");
     const [loading, setLoading] = useState(false);
 const updateStatesList=["All States",...stateList];
 
-const fiterDistData = [...districtList["Tamil Nadu"]];
+const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');

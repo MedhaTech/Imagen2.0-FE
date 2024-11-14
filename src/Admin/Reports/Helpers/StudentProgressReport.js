@@ -75,8 +75,8 @@ const StudentProgress = () => {
     datasets: [],
   });
   const fullStatesNames = newstateList;
-  // const fiterDistData = districtList["Tamil Nadu"];
-  const fiterDistData = [...districtList["Tamil Nadu"]];
+  // const fiterDistData = districtList["Telangana"];
+  const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
   
   useEffect(() => {

@@ -378,7 +378,7 @@ setCustomer(formData?.customer);
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response,"IdeaPageCopy");
+          // console.log(response,"IdeaPageCopy");
 
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
@@ -408,7 +408,7 @@ setCustomer(formData?.customer);
       title: title,
       solve: solve,
       initiated_by: currentUser?.data[0]?.user_id,
-      state:"Tamil Nadu",
+      state:"Telangana",
       district:currentUser?.data[0]?.district
     };
     // if (others !== "") {
@@ -460,7 +460,6 @@ setCustomer(formData?.customer);
       },
       data: JSON.stringify(body),
     };
-console.log(body,"update");
 
     axios(config)
       .then(async function (response) {
@@ -710,7 +709,7 @@ console.log(body,"update");
     ideaDescribe?.length > 0 &&
     title?.length > 0 &&
     solve?.length > 0;
-  console.log(theme,"theme",support,"support");
+  console.log("Idea Form Screen");
   return (
     <>
       {/* <div className='content'> */}
@@ -826,7 +825,7 @@ console.log(body,"update");
                                                             </>)}
                                                       
                                                     </div> */}
-                    <div className="text-right">
+                    <div className="text-right mb-3">
                       {!isDisabled && (
                         <Button
                           type="button"
@@ -868,16 +867,10 @@ console.log(body,"update");
                         )
                       }
                     </div>
-                    {currentSection === 1 && (
+                    {/* {currentSection === 1 && ( */}
                       <div className="d-md-flex justify-content-end px-0">
                         <Row>
-                          <Row>
-                            <h5 className="py-2 text-warning text-uppercase">
-                              {" "}
-                              {t("home.section1")}:{" "}
-                              {t("ideaform_questions.section1")}
-                            </h5>
-                          </Row>
+                        
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
@@ -1189,31 +1182,25 @@ console.log(body,"update");
                               </div>
                             </div>
                           </div>
-                          <div>
+                          {/* <div>
                             <Col className="d-flex justify-content-end">
                               <button
                                 className="btn btn-secondary"
                                 onClick={goToNext}
                               >
-                                {/* {t("student_course.chars")} */}
-                                {/* NEXT */}
+                               
                                 {t("idea_page.next")}
                               </button>
                             </Col>
-                          </div>
+                          </div> */}
                         </Row>
                       </div>
-                    )}
+                    {/* // )} */}
 
-                    {currentSection === 2 && (
+                    {/* {currentSection === 2 && ( */}
                       <div className="d-md-flex justify-content-end px-0">
                         <Row>
-                          <Row>
-                            <h5 className="py-2 text-warning text-uppercase">
-                              {t("home.section2")}:{" "}
-                              {t("ideaform_questions.section2")}
-                            </h5>
-                          </Row>
+                         
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
@@ -1337,39 +1324,14 @@ console.log(body,"update");
                               </div>
                             </div>
                           </div> */}
-                          <Row>
-                            <Col className="d-flex justify-content-start">
-                              <button
-                                className="btn btn-info"
-                                onClick={goToBack}
-                              >
-                                {/* {t("student_course.chars")} */}
-                                {/* BACK */}
-                                {t("idea_page.back")}
-                              </button>
-                            </Col>
-                            <Col className="d-flex justify-content-end">
-                              <button
-                                className="btn btn-secondary"
-                                onClick={goToNext}
-                              >
-                                {t("idea_page.next")}
-                                {/* NEXT */}
-                              </button>
-                            </Col>
-                          </Row>
+                         
                         </Row>
                       </div>
-                    )}
-                    {currentSection === 3 && (
+                    {/* // )} */}
+                    {/* {currentSection === 3 && ( */}
                       <div className="d-md-flex justify-content-end px-0">
                         <Row>
-                          <Row>
-                            <h5 className="py-2 text-warning text-uppercase">
-                              {t("home.section3")}:{" "}
-                              {t("ideaform_questions.section3")}
-                            </h5>
-                          </Row>
+                          
                           <div className="card comment-card">
                            
                            <div className="question quiz mb-0">
@@ -1581,18 +1543,10 @@ console.log(body,"update");
                               </div>
                             </div>
                           </div> */}
-                          <div className="d-flex justify-content-start">
-                            <button
-                              className="btn btn-info "
-                              onClick={goToBack}
-                            >
-                              {t("idea_page.back")}
-                              {/* BACK */}
-                            </button>
-                          </div>
+                         
                         </Row>
                       </div>
-                    )}
+                    {/* )} */}
                   </Form>
                   {/* <div className="d-flex justify-content-start">
                     {!isDisabled && (

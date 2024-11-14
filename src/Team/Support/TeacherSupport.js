@@ -205,7 +205,7 @@ console.log(supportTickets,"supportTickets");
         const body = {
           query_category: values.ticket,
           query_details: values.ticketDetails,
-          state: "Tamil Nadu",
+          state: "Telangana",
         };
         if (values.file_name !== "") {
           body["file"] = values.file_name;

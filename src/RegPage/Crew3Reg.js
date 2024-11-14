@@ -11,6 +11,7 @@ import { districtList, collegeType, yearofstudyList, collegeNameList } from './O
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Crew3Reg = () => {
   const navigate = useNavigate();
@@ -232,7 +233,16 @@ const Crew3Reg = () => {
               </div>
             </div>
 
-
+            <div className="row m-2 mb-3 mt-3">
+  <div className="col-md-10 ps-3">
+    <span className="mt-5 p">Already have an account?</span>
+    <span className="second_text"> 
+      <Link className="hover-a" to={"/registration"}>
+        {" "} Click Here
+      </Link>
+    </span>
+  </div>
+</div>
           </div>
           <div className="col-md-8 p-4" style={{ backgroundColor: '#EEEEEE' }}>
             <form action="signin" onSubmit={formik.handleSubmit}>
@@ -349,7 +359,7 @@ const Crew3Reg = () => {
                           onChange={formik.handleChange}
                         >
                           <option value={""}>District</option>
-                          {districtList["Tamil Nadu"].map((item) => (
+                          {districtList["Telangana"].map((item) => (
                             <option key={item} value={item}>
                               {item}
                             </option>
