@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import axios from "axios";
 
@@ -81,47 +82,8 @@ export const teacherLoginUser =
 
         localStorage.setItem("time", new Date().toString());
         dispatch(teacherLoginUserSuccess(result));
-        const currentUser = getCurrentUser('current_user');
-        const presurveyApi = encryptGlobal(
-            JSON.stringify({
-                user_id: currentUser?.data[0]?.user_id
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/mentorSurveyStatus?Data=${presurveyApi}`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    console.log(response);
-                    const pre = (response.data.data[0].preSurvey);
-                    if (pre != 'COMPLETED') {
-                      localStorage.setItem("presurveystatus", "INCOMPLETED");
-                      navigate("/mentorpresurvey");
-                    } else{
-                      localStorage.setItem("presurveystatus", "COMPLETED");
-                      navigate("/institution-dashboard");
-                    }
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        //const PreSurvey = mentorpresurvey(); 
-        
-        //return true;
-        //navigate("/institution-dashboard");
-        // setTimeout(() => {
-        //     localStorage.clear();
-        // }, 60000);
+        navigate("/institution-dashboard");
+       
       } else {
         if (result.status === 401) {
           openNotificationWithIcon(

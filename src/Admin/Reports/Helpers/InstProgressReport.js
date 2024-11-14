@@ -106,6 +106,10 @@ const InstProgressDetailed = () => {
       label: "Total Registered Students",
       key: "studentReg",
     },
+    {
+      label: "Total Teams Created",
+      key: "teamCount",
+    },
    
   ];
   const teacherDetailsHeaders = [
@@ -136,6 +140,10 @@ const InstProgressDetailed = () => {
     {
       label: "Total Registered Students",
       key: "total_student",
+    },
+    {
+      label: "Total Teams Created",
+      key: "team_count",
     },
     {
       label: 'No.of Students Course Completed',
@@ -473,23 +481,31 @@ const InstProgressDetailed = () => {
             },
             {}
           );
-          const studentCountMap = response.data.data[0].studentCount
-          .reduce(
-            (map, item) => {
-              map[item.
-                college_name
-                ] = item.stuCount;
-              return map;
-            },
-            {}
-          );
-        
+          // const studentCountMap = response.data.data[0].studentCount
+          // .reduce(
+          //   (map, item) => {
+          //     map[item.
+          //       college_name
+          //       ] = item.stuCount;
+          //     return map;
+          //   },
+          //   {}
+          // );
+          const studentCountMap = response.data.data[0].studentCount.reduce((map, item) => {
+            map[item.college_name] = {
+              stuCount: item.stuCount,
+              teamCount: item.teamCount
+            };
+            return map;
+          }, {});
          
           const newdatalist = response.data.data[0].summary.map((item) => {
             const collegeName = item.college_name;
             const draftCount = StuIdeaDraftCountMap[collegeName] || 0;
             const submitCount = StuIdeaSubCountMap[collegeName] || 0;
-            const totalStudents = studentCountMap[collegeName] || 0;
+            // const totalStudents = studentCountMap[collegeName] || 0;
+            const totalStudents = studentCountMap[collegeName]?.stuCount || 0;
+            const teamCount = studentCountMap[collegeName]?.teamCount || 0;
             const completedCount = StudentCourseCmpMap[collegeName] || 0;
             const inProgressCount = StudentCourseINproMap[collegeName] || 0;
             const notInitiatedCount = totalStudents - (draftCount + submitCount);
@@ -500,6 +516,7 @@ const InstProgressDetailed = () => {
     submit_count: submitCount || 0,
     initiated_status: notInitiatedCount  || 0 ,
     total_student:totalStudents || 0,
+    team_count: teamCount || 0,
     completed_count: completedCount || 0,
     in_progress_count: inProgressCount || 0,
     course_not_started: courseNotStartedCount > 0 ? courseNotStartedCount : "Not Started",
@@ -551,10 +568,13 @@ const InstProgressDetailed = () => {
                 acc.district = "Total";
               (acc.insReg += curr.insReg || 0),
               (acc.studentReg += curr.studentReg || 0);
+              (acc.teamCount += curr.teamCount || 0);
+
               return acc;
             },
             {
               district: "None",
+              teamCount:0,
               insReg:0,
               studentReg:0,
             }
@@ -690,7 +710,7 @@ const InstProgressDetailed = () => {
                             </div> */}
                   </div>
                   <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-6 d-flex">
+                    <div className="col-sm-12 col-md-12 col-xl-9 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">
@@ -742,7 +762,14 @@ const InstProgressDetailed = () => {
                                   >
                                      No of Reg Students
                                   </th>
-                                
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                     No of Teams Created
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody className="text-center">
@@ -764,6 +791,11 @@ const InstProgressDetailed = () => {
                                     <td>
                                       {item.studentReg
                                         ? item.studentReg
+                                        : "0"}
+                                    </td>
+                                    <td>
+                                      {item.teamCount
+                                        ? item.teamCount
                                         : "0"}
                                     </td>
                                   
