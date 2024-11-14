@@ -214,7 +214,7 @@ const MentorDashboard = () => {
   const mentorTeamsCount = () => {
     const teamApi = encryptGlobal(
         JSON.stringify({
-            mentor_id: currentUser?.data[0]?.mentor_id
+          college_name: currentUser?.data[0]?.college_name
         })
     );
     var config = {
@@ -231,7 +231,7 @@ const MentorDashboard = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                setTeamsCount(response.data.data[0].teams_count);
+                setTeamsCount(response.data.data[0].team_count);
                 setTeamCountLoading(false);
             }
         })
@@ -272,7 +272,7 @@ const MentorDashboard = () => {
   const mentorStudentCount = () => {
       const studentApi = encryptGlobal(
           JSON.stringify({
-              mentor_id: currentUser?.data[0]?.mentor_id
+            college_name: currentUser?.data[0]?.college_name
           })
       );
       var config = {
@@ -529,9 +529,9 @@ poptype={poptype}
                         ) : coursepercentage === 0 ? (
                       <>
                         <h5>To know about YFSI</h5>
-                        <a onClick={redirectToCourse} href='#' >
+                        {/* <a onClick={redirectToCourse} href='#' >
                           Click here & Start Course
-                        </a>
+                        </a> */}
                       </>
                     ) : (
                       <>
@@ -627,7 +627,7 @@ poptype={poptype}
               </div>
             </div>
             {/* Row two other features */}
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            {/* <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count" onClick={redirectToPost} >
                   <div className="dash-widgetcontent">
                     {teacPostSLoading ? ( 
@@ -653,8 +653,8 @@ poptype={poptype}
                   <FaPoll />
                 </div>
               </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            </div> */}
+            <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-count das1">
                       {teacPostSurvey != "COMPLETED" ? (
                           <>
@@ -686,7 +686,7 @@ poptype={poptype}
                   </div> */}
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-count das2">
                 <div className="dash-counts">
                   <h4>Teams Progress</h4>
@@ -695,7 +695,7 @@ poptype={poptype}
                 <SchoolTeamPDF />
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-count das3">
                 <div className="dash-counts">
                   <h4>Join Whatsapp</h4>
@@ -804,7 +804,7 @@ poptype={poptype}
                             </div>
                           </td>
                         </tr>
-                        <tr>
+                        {/* <tr>
                           <td>
                             <div className="product-info">
                               <Link
@@ -880,9 +880,9 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                        </tr>
+                        </tr> */}
                         <tr>
-                          <td>
+                          {/* <td>
                             <div className="product-info">
                               <Link
                                 to={"/mentorpostsurvey"}
@@ -897,8 +897,8 @@ poptype={poptype}
                                 <p className="dull-text">Complete survey & Get Certificate</p>
                               </div>
                             </div>
-                          </td>
-                          <td>
+                          </td> */}
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -914,8 +914,8 @@ poptype={poptype}
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
-                          <td>
+                          </td> */}
+                          {/* <td>
                             {teacPostSLoading ? ( 
                                 <Loader />
                               ) : teacPostSurvey != "COMPLETED" ?  (
@@ -936,8 +936,8 @@ poptype={poptype}
                                 </span>
                               </>
                             )}
-                          </td>
-                          <td>
+                          </td> */}
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
@@ -947,9 +947,9 @@ poptype={poptype}
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                         </tr>
-                        <hr/>
+                        {/* <hr/> */}
                         <tr>
                           <td>
                             <div className="product-info">
