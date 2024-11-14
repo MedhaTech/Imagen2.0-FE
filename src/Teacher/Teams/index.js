@@ -51,9 +51,12 @@ const Dashboard = (props) => {
   }, []);
 
   const teamListbymentorid = () => {
+    const queryparm = encryptGlobal(JSON.stringify({
+      college_name : currentUser.data[0]?.college_name
+    }));
     var config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + `/students/ListOfPilotStudent`,
+      url: process.env.REACT_APP_API_BASE_URL + `/students/ListOfPilotStudent?Data=${queryparm}`,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
