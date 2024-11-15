@@ -60,11 +60,11 @@ const { t } = useTranslation();
   const TeamId = currentUser?.data[0]?.student_id;
   const [themeInt, setThemeInt] = useState("");
   const [error4, seterror4] = useState(false);
-
+const [statusCode,setStatusCode]= useState(false);
   const [data, setData] = useState(0);
+  // console.log(data,"data");
   const formRef = useRef(null);
   const [initiate, setInitiate] = useState("");
-console.log(initiate,"");
   const submittedApi = () => {
     const Param = encryptGlobal(
       JSON.stringify({
@@ -86,6 +86,7 @@ console.log(initiate,"");
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
+          setStatusCode(false);
           // console.log(response,"Cards");
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
@@ -96,9 +97,10 @@ console.log(initiate,"");
         }
       })
       .catch(function (error) {
-        // if (error.response.status === 401) {
-        //     seterror4( true);
-        // }
+        if (error.response.status === 404) {
+            setStatusCode( true);
+            // setTheme("");
+        }
 
       });
   };
@@ -107,7 +109,7 @@ console.log(initiate,"");
   }, []);
 
 
-
+// console.log(statusCode,"status");
   const challenges = () => {
     showChallenge();
   };
@@ -121,7 +123,7 @@ console.log(initiate,"");
           </div>
         </div>
 
-        {!theme ? (
+        {statusCode ? (
           <div className="row align-items-start pos-wrapper pos-design">
             <div className="col-md-12 col-lg-8">
               <div className="pos-categories tabs_wrapper">
@@ -150,7 +152,7 @@ console.log(initiate,"");
                               </h6>
                               <div className="d-flex align-items-center justify-content-between price">
                                 <span>{t('home.ideafocus')}</span>
-                                {theme.id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{theme.focusareas.length - 1}</p>)}
+                                {theme.id === 18 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : ""}
                               </div>
                             </div>
                           </div>
@@ -182,34 +184,9 @@ console.log(initiate,"");
                       <span>{t(themes[data - 1].desc)}</span>
                     </div>
                   </div>
-                  <div className="product-added block-section">
-                    <div className="head-text d-flex align-items-center justify-content-between">
-                      <h6 className="d-flex align-items-center mb-0">
-                      {t('home.ideafocus')}<span className="count">{themes[data - 1].id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{themes[data - 1].focusareas.length - 1}</p>)}</span>
-                      </h6>
-                    </div>
-                    <div className="product-wrap">
-                      <div className="product-list d-flex align-items-center justify-content-between">
-                        <div className="d-flex align-items-center product-info">
-                          <div className="info">
-                            {themes[data - 1].focusareas.slice(0, themes[data - 1].focusareas.length - 1).map((focusarea, index) => (
-                              <h6 key={index}>
-                                <span>{t(focusarea)}</span>
-                              </h6>
-                            ))}
-                            {/* {themes[data - 1].focusareas.length} to display others also
-                              {themes[data - 1].focusareas.map((focusarea, index) => (
-                                <h6 key={index}>
-                                  <span>{focusarea}</span>
-                                </h6>
-                              ))} */}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                
                   <div className="btn-row d-sm-flex align-items-center justify-content-between"
-                    onClick={() => setTheme(themes[data - 1].title)}
+                    onClick={() => {setTheme(themes[data - 1].title);setStatusCode(false);}}
                   //   onClick={() =>
                   //     handleSelect(
                   //       (themes[data - 1].title)
@@ -231,7 +208,7 @@ console.log(initiate,"");
             )}
           </div>
         ) : (
-          <IdeaPageCopy  showChallenges={challenges} />
+          <IdeaPageCopy  showChallenges={challenges} theme={theme}/>
         )}
 
       </div>

@@ -171,14 +171,7 @@ const IdeaSubmission = () => {
 
   };
 
-  // const submitted = useCallback(a () => {
-  //     console.log("3", ideaSubmittedRes); 
-  //     if (ideaSubmittedRes.status === 'DRAFT') {
-  //       setShowChallenges(true);
-  //     } else {
-  //       setShowCompleted(true);
-  //     }
-  //   }, [ideaSubmittedRes]);
+ 
 
   // console.log(showChallenges,"showChallenges",showCompleted,"showCompleted",);
   return showCompleted ? (
