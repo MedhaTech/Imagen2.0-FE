@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-undef */
 /* eslint-disable no-unexpected-multiline */
 /* eslint-disable indent */
@@ -187,7 +188,7 @@ const teamId= currentUser.data[0]?.team_id;
                         >
                             <Fragment>
                                 <Card className="course-sec-basic p-4">
-                                    <CardTitle className="text-center">
+                                    <CardTitle className="text-center m-3">
                                         <h3
                                             style={{
                                                 color: 'black',
@@ -198,13 +199,40 @@ const teamId= currentUser.data[0]?.team_id;
                                         </h3>
                                     </CardTitle>
                                     <CardBody>
-                                        <div
+                                    <ul style={{listStyleType:"disc",fontSize:"17px"}}>
+  <li className='mb-2'>
+    All the team members are expected to brainstorm and work together. 
+    <span >(బృందంలోని సభ్యులందరూ చర్చించుకోవాలి)</span>
+  </li>
+  <li className='mb-2'>
+    The pilot will have to fill this out on behalf of the team. 
+    <span >(జట్టు తరపున పైలట్ దీన్ని పూరించాలి)</span>
+  </li>
+  <li className='mb-2'>
+    You can also send your idea in audio or video format. 
+    <span >(మీరు మీ ఆలోచనను ఆడియో లేదా వీడియో ఫార్మాట్‌లో కూడా పంపవచ్చు)</span>
+  </li>
+  <li className='mb-2'>
+    Do not forget to ‘save as draft’ to save your progress. You can continue to work from where you left off the next time you log in. 
+    <span >(మీ పురోగతిని సేవ్ చేయడానికి 'Save as Draft' చేయడం మర్చిపోవద్దు. మీరు తదుపరిసారి లాగిన్ అయినప్పుడు మీరు ఆపివేసిన చోట నుండి పనిని కొనసాగించవచ్చు)</span>
+  </li>
+  <li className='mb-2'>
+    You can submit the idea proposal only after all the members in your team complete ‘Post-Survey’. 
+    <span >(మీ బృందంలోని సభ్యులందరూ 'పోస్ట్-సర్వే' పూర్తి చేసిన తర్వాత మాత్రమే మీరు idea proposal సమర్పించగలరు)</span>
+  </li>
+  <li className='mb-2'>
+    Once you have completed, you have to click on ‘Submit’. You cannot change or edit once after submitting. 
+    <span>(మీరు పూర్తి చేసిన తర్వాత, 'submit’ పై క్లిక్ చేయాలి. Submit చేసిన తరువాత మీరు ఎటువంటి మార్పు చేయలేరు)</span>
+  </li>
+</ul>
+
+                                        {/* <div
                                             dangerouslySetInnerHTML={{
                                                 __html: t(
                                                     'student_course.idea_ins_note'
                                                 )
                                             }}
-                                        ></div>
+                                        ></div> */}
 
                                         <div className="text-right">
                                             {/* <a
