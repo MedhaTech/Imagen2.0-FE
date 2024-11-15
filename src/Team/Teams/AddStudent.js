@@ -36,7 +36,8 @@ const Crew1student = () => {
       password: "",
       confirmPassword: "",
       collegeType: "",
-      ocn: ""
+      ocn: "",
+      id_number:""
     },
 
     validationSchema: Yup.object({
@@ -95,6 +96,7 @@ const Crew1student = () => {
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Roll Number</span>
       ),
+      id_number: Yup.string().optional(),
       branch: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Branch</span>
       ),
@@ -127,9 +129,11 @@ const Crew1student = () => {
         branch: values.branch,
         year_of_study: values.yearofstudy,
         confirmPassword: encrypted,
-        type: currentUser?.data[0]?.student_id
+        type: JSON.stringify(currentUser?.data[0]?.student_id)
       };
-
+      if (values.id_number !== "" ) {
+        body["id_number"] = values.id_number;
+      }
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
@@ -431,7 +435,7 @@ const Crew1student = () => {
                           }
 
 
-                          <div className="col-md-6">
+                          <div className="col-md-4">
                             <label className="form-label" htmlFor="branch">Branch</label>
                             <input
                               type="text"
@@ -461,8 +465,45 @@ const Crew1student = () => {
                               </small>
                             ) : null}
                           </div>
-
-                          <div className={`col-md-6`}
+                          <div className={`col-md-4`}
+                      >
+                        <label
+                          htmlFor="id_number"
+                          className="form-label"
+                        >
+                          Apaar Id
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="id_number"
+                          placeholder="Apaar Id"
+                          // disabled={areInputsDisabled}
+                          name="id_number"
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const lettersOnly = inputValue.replace(
+                              /[^a-zA-Z0-9 \s]/g,
+                              ""
+                            );
+                            formik.setFieldValue(
+                              "id_number",
+                              lettersOnly
+                            );
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.id_number}
+                        />
+                        {formik.touched.id_number && formik.errors.id_number ? (
+                          <small
+                            className="error-cls"
+                            style={{ color: "red" }}
+                          >
+                            {formik.errors.id_number}
+                          </small>
+                        ) : null}
+                      </div>
+                          <div className={`col-md-4`}
                           >
                             <label
                               htmlFor="yearofstudy"

@@ -48,7 +48,8 @@ const Crew1Reg = () => {
       password: "",
       confirmPassword: "",
       collegeType: "",
-      ocn: ""
+      ocn: "",
+      id_number:""
     },
 
     validationSchema: Yup.object({
@@ -107,6 +108,7 @@ const Crew1Reg = () => {
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Roll Number</span>
       ),
+      id_number: Yup.string().optional(),
       branch: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Branch</span>
       ),
@@ -128,7 +130,7 @@ const Crew1Reg = () => {
         iv: iv,
         padding: CryptoJS.pad.NoPadding,
       }).toString();
-      const body = JSON.stringify({
+      const body = {
         full_name: values.full_name,
         username: values.email,
         mobile: values.mobile,
@@ -140,8 +142,10 @@ const Crew1Reg = () => {
         year_of_study: values.yearofstudy,
         confirmPassword: encrypted,
         type: pilotStudentId
-      });
-
+      };
+      if (values.id_number !== "" ) {
+        body["id_number"] = values.id_number;
+      }
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
@@ -150,7 +154,7 @@ const Crew1Reg = () => {
           Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
         },
 
-        data: body,
+        data: JSON.stringify(body),
       };
       await axios(config)
         .then((mentorRegRes) => {
@@ -512,7 +516,7 @@ const Crew1Reg = () => {
                       }
 
 
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <label className="form-label" htmlFor="branch">Branch</label>
                         <input
                           type="text"
@@ -542,8 +546,45 @@ const Crew1Reg = () => {
                           </small>
                         ) : null}
                       </div>
-
-                      <div className={`col-md-6`}
+                      <div className={`col-md-4`}
+                      >
+                        <label
+                          htmlFor="id_number"
+                          className="form-label"
+                        >
+                          Apaar Id
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="id_number"
+                          placeholder="Apaar Id"
+                          // disabled={areInputsDisabled}
+                          name="id_number"
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const lettersOnly = inputValue.replace(
+                              /[^a-zA-Z0-9 \s]/g,
+                              ""
+                            );
+                            formik.setFieldValue(
+                              "id_number",
+                              lettersOnly
+                            );
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.id_number}
+                        />
+                        {formik.touched.id_number && formik.errors.id_number ? (
+                          <small
+                            className="error-cls"
+                            style={{ color: "red" }}
+                          >
+                            {formik.errors.id_number}
+                          </small>
+                        ) : null}
+                      </div>
+                      <div className={`col-md-4`}
                       >
                         <label
                           htmlFor="yearofstudy"

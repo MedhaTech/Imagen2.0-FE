@@ -46,7 +46,8 @@ const PilotReg = () => {
       password: "",
       confirmPassword: "",
       collegeType: "",
-      ocn: ""
+      ocn: "",
+      id_number:""
     },
 
     validationSchema: Yup.object({
@@ -103,13 +104,14 @@ const PilotReg = () => {
         <span style={{ color: "red" }}>Please Select college</span>
       ),
       rollnumber: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Roll Number</span>
+        <span style={{ color: "red" }}>Please Enter Roll Number</span>
       ),
+      id_number: Yup.string().optional(),
       branch: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Branch</span>
       ),
       yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select yearofstudy</span>
+        <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
         <span style={{ color: "red" }}>Please Select password</span>
@@ -122,7 +124,7 @@ const PilotReg = () => {
     onSubmit: async (values) => {
       setIsSubmitting(true);
       if (values.otp.length < 5) {
-        console.log("ooo");
+        // console.log("ooo");
       } else {
         const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
         const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
@@ -130,7 +132,7 @@ const PilotReg = () => {
           iv: iv,
           padding: CryptoJS.pad.NoPadding,
         }).toString();
-        const body = JSON.stringify({
+        const body = {
           full_name: values.full_name,
           username: values.email,
           mobile: values.mobile,
@@ -141,8 +143,10 @@ const PilotReg = () => {
           branch: values.branch,
           year_of_study: values.yearofstudy,
           confirmPassword: encrypted
-        });
-
+        };
+        if (values.id_number !== "") {
+          body["id_number"] = values.id_number;
+        }
         var config = {
           method: "post",
           url: process.env.REACT_APP_API_BASE_URL + "/students/register",
@@ -151,8 +155,9 @@ const PilotReg = () => {
             Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
           },
 
-          data: body,
+          data: JSON.stringify(body),
         };
+        console.log(body,"body");
         await axios(config)
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
@@ -210,7 +215,7 @@ const PilotReg = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          console.log(UNhashedPassword,"otp");
+          // console.log(UNhashedPassword,"otp");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "Otp send to Email Id");
           setBtnOtp(true);
@@ -608,7 +613,7 @@ const PilotReg = () => {
                       }
 
 
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <label className="form-label" htmlFor="branch">Branch</label>
                         <input
                           type="text"
@@ -639,8 +644,45 @@ const PilotReg = () => {
                           </small>
                         ) : null}
                       </div>
-
-                      <div className={`col-md-6`}
+                      <div className={`col-md-4`}
+                      >
+                        <label
+                          htmlFor="id_number"
+                          className="form-label"
+                        >
+                          Apaar Id
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="id_number"
+                          placeholder="Apaar Id"
+                          disabled={areInputsDisabled}
+                          name="id_number"
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const lettersOnly = inputValue.replace(
+                              /[^a-zA-Z0-9 \s]/g,
+                              ""
+                            );
+                            formik.setFieldValue(
+                              "id_number",
+                              lettersOnly
+                            );
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.id_number}
+                        />
+                        {formik.touched.id_number && formik.errors.id_number ? (
+                          <small
+                            className="error-cls"
+                            style={{ color: "red" }}
+                          >
+                            {formik.errors.id_number}
+                          </small>
+                        ) : null}
+                      </div>
+                      <div className={`col-md-4`}
                       >
                         <label
                           htmlFor="yearofstudy"
