@@ -184,7 +184,7 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div>
-              <div className="col-lg-6 col-sm-12">
+              <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">Branch</label>
                   <input
@@ -195,7 +195,18 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div>
-              <div className="col-lg-6 col-sm-12">
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Apaar Id</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={data.id_number}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">Year of Study</label>
                   <input

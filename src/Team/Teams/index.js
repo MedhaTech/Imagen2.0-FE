@@ -152,11 +152,11 @@ const Dashboard = (props) => {
             </ul>}
 
           </div>
-          <div className="employee-grid-widget">
+          <div className="employee-grid-widget" style={{height:"300px"}}>
             <div className="row">
               {teamsArray.map((student, i) => (
                 <div key={i} className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
-                  <div className="employee-grid-profile">
+                  <div className="employee-grid-profile" style={{ height: "300px" }}>
                     <div className="profile-head">
                       <div className="profile-head-action">
                         <OverlayTrigger placement="top" overlay={renderEditTooltip(student.full_name)}>
