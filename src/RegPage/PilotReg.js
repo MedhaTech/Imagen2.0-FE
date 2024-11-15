@@ -321,7 +321,7 @@ const PilotReg = () => {
   <div className="col-md-10 ps-3">
     <span className="mt-5 p">Already have an account?</span>
     <span className="second_text"> 
-      <Link className="hover-a" to={"/registration"}>
+      <Link className="hover-a" to={"/login"}>
         {" "} Click Here
       </Link>
     </span>
