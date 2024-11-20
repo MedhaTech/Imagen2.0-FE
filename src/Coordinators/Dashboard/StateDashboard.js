@@ -84,11 +84,12 @@ const Dashboard = () => {
   });
   const MySwal = withReactContent(Swal);
   const showConfirmationAlert = () => {
+  
     MySwal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       showCancelButton: true,
-      confirmButtonColor: "#00ff00",
+      confirmButtonColor: "#1e90ff",
       confirmButtonText: "Yes, delete it!",
       cancelButtonColor: "#ff0000",
       cancelButtonText: "Cancel",

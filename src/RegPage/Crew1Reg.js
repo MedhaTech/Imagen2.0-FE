@@ -110,7 +110,7 @@ const Crew1Reg = () => {
       ),
       id_number: Yup.string().optional(),
       branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Branch</span>
+        <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select yearofstudy</span>
@@ -258,7 +258,8 @@ const Crew1Reg = () => {
                   <div className="row g-3 mt-0">
                     <>
                       <div className="col-md-6">
-                        <label className="form-label" htmlFor="full_name">Full Name</label>
+                        <label className="form-label" htmlFor="full_name">Full Name</label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <input
                           type="text"
                           className="form-control"
@@ -293,7 +294,8 @@ const Crew1Reg = () => {
                           className="form-label"
                         >
                           Email
-                        </label>
+                        </label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <input
                           type="email"
                           className="form-control"
@@ -318,7 +320,8 @@ const Crew1Reg = () => {
                       >
                         <label className="form-label" htmlFor="mobile">
                           Mobile Number
-                        </label>
+                        </label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
 
                         <input
                           type="text"
@@ -353,7 +356,8 @@ const Crew1Reg = () => {
                           className="form-label"
                         >
                           District
-                        </label>
+                        </label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <select
                           id="district"
                           className="form-select"
@@ -384,7 +388,8 @@ const Crew1Reg = () => {
                           className="form-label"
                         >
                           College Type
-                        </label>
+                        </label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <select
                           id="collegeType"
                           className="form-select"
@@ -415,7 +420,8 @@ const Crew1Reg = () => {
                           className="form-label"
                         >
                           College Name
-                        </label>
+                        </label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <select
                           id="college"
                           className="form-select"
@@ -445,7 +451,8 @@ const Crew1Reg = () => {
                           className="form-label"
                         >
                           Roll number provided by the college
-                        </label>
+                        </label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <input
                           type="text"
                           className="form-control"
@@ -483,7 +490,8 @@ const Crew1Reg = () => {
                             className="form-label"
                           >
                             Other College Name
-                          </label>
+                          </label>&nbsp;
+                          <span style={{color:"red",fontWeight:"bold"}}>*</span>
                           <input
                             type="text"
                             className="form-control"
@@ -517,7 +525,8 @@ const Crew1Reg = () => {
 
 
                       <div className="col-md-4">
-                        <label className="form-label" htmlFor="branch">Branch</label>
+                        <label className="form-label" htmlFor="branch">Branch</label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <input
                           type="text"
                           className="form-control"
@@ -591,7 +600,8 @@ const Crew1Reg = () => {
                           className="form-label"
                         >
                           Year of Study
-                        </label>
+                        </label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <select
                           id="yearofstudy"
                           className="form-select"
@@ -622,7 +632,8 @@ const Crew1Reg = () => {
                           className="form-label"
                         >
                           Password
-                        </label>
+                        </label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <input
                           type="text"
                           name="password"
@@ -647,7 +658,8 @@ const Crew1Reg = () => {
                           className="form-label"
                         >
                           Confirm Password
-                        </label>
+                        </label>&nbsp;
+                        <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <input
                           type="text"
                           name="confirmPassword"

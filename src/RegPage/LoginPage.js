@@ -16,7 +16,7 @@ const LoginPage = () => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper bg-img forgot-pass-wrap">
+        <div className="login-wrapper common-pass-wrap bg-img">
           <div className="login-content">
             <form action="index">
               <div className="login-userset">
@@ -72,6 +72,9 @@ const LoginPage = () => {
                     </Link>
                   </h4>
                 </div>
+                <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
+                    <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                  </div>
               </div>
             </form>
           </div>

@@ -483,6 +483,13 @@ const CommonUserProfile = (props) => {
                                 </span>
                                 <b style={{fontSize:"1rem"}}>{StudentsDaTa?.branch}</b>
                             </CardText>
+                            <CardText>
+                                <span className="mx-3" style={{fontSize:"1rem"}}>
+                                    <b >Apaar Id :</b>
+                                </span>
+                                <b style={{fontSize:"1rem"}}>{StudentsDaTa?.
+id_number}</b>
+                            </CardText>
                         </CardBody>
                     </Card>
                 </Row>

@@ -20,6 +20,7 @@ import team from "../../assets/img/icons/team2.png";
 import "./styles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
+import Avatar from 'react-string-avatar';
 
 const Header = () => {
   const route = all_routes;
@@ -214,6 +215,7 @@ const Header = () => {
           onMouseOver={expandMenuOpen}
         >
           <img src={logo} alt="Logo" className="responsive-image" />
+
           {/*<Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>
@@ -641,6 +643,8 @@ const Header = () => {
                       alt="Profile"
                     /> */}
                     <img src={team} alt="Team" id="blah" />
+          {/* <Avatar initials={currentUser?.data[0]?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar> */}
+
                   </span>
                   <span className="user-detail">
                     <span className="user-name"> {capitalizedFullName}</span>
@@ -655,6 +659,8 @@ const Header = () => {
                   <div className="profileset">
                     <span className="user-img">
                       <img src={team} alt="Team" id="blah" />
+          {/* <Avatar initials={currentUser?.data[0]?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar> */}
+
                       <span className="status online" />
                     </span>
                     <div className="profilesets">

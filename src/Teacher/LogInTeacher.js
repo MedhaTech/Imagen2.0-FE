@@ -176,7 +176,7 @@ const LogInTeacher = (props) => {
                     Sign In
                   </button>
                 </div>
-                <div className="signinform">
+                <div className="signinform d-flex justify-content-center align-items-center copyright-text">
                   <h4>
                   Not Yet Registered ? 
                     <Link className="hover-a" to={"/institution-registration"}>
@@ -185,6 +185,9 @@ const LogInTeacher = (props) => {
                     </Link>
                   </h4>
                 </div>
+                <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
+                    <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                  </div>
                 {/* <div className="form-setlogin or-text">
                   <h4>OR</h4>
                 </div>
