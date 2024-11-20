@@ -34,7 +34,8 @@ const CreatepilotStudent = () => {
       password: "",
       confirmPassword: "",
       collegeType: "",
-      ocn: ""
+      ocn: "",
+      id_number:""
     },
 
     validationSchema: Yup.object({
@@ -81,6 +82,7 @@ const CreatepilotStudent = () => {
           10,
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
+        id_number: Yup.string().optional(),
       collegeType: Yup.string().required(
         <span style={{ color: "red" }}>Please Select collegeType</span>
       ),
@@ -94,7 +96,7 @@ const CreatepilotStudent = () => {
         <span style={{ color: "red" }}>Please Select Roll Number</span>
       ),
       branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Branch</span>
+        <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select yearofstudy</span>
@@ -126,7 +128,9 @@ const CreatepilotStudent = () => {
         year_of_study: values.yearofstudy,
         confirmPassword: encrypted
       });
-
+      if (values.id_number !== "") {
+        body["id_number"] = values.id_number;
+      }
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/register",
@@ -171,7 +175,8 @@ const CreatepilotStudent = () => {
                       <div className="row g-3 mt-0">
                         <>
                           <div className="col-md-6">
-                            <label className="form-label" htmlFor="full_name">Full Name</label>
+                            <label className="form-label" htmlFor="full_name">Full Name</label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               className="form-control"
@@ -206,7 +211,8 @@ const CreatepilotStudent = () => {
                               className="form-label"
                             >
                               Email
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="email"
                               className="form-control"
@@ -231,7 +237,8 @@ const CreatepilotStudent = () => {
                           >
                             <label className="form-label" htmlFor="mobile">
                               Mobile Number
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
 
                             <input
                               type="text"
@@ -266,7 +273,8 @@ const CreatepilotStudent = () => {
                               className="form-label"
                             >
                               District
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="district"
                               className="form-select"
@@ -297,7 +305,8 @@ const CreatepilotStudent = () => {
                               className="form-label"
                             >
                               College Type
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="collegeType"
                               className="form-select"
@@ -328,7 +337,8 @@ const CreatepilotStudent = () => {
                               className="form-label"
                             >
                               College Name
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="college"
                               className="form-select"
@@ -358,7 +368,8 @@ const CreatepilotStudent = () => {
                               className="form-label"
                             >
                               Roll number provided by the college
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               className="form-control"
@@ -396,7 +407,8 @@ const CreatepilotStudent = () => {
                                 className="form-label"
                               >
                                 Other College Name
-                              </label>
+                              </label>&nbsp;
+                              <span style={{color:"red",fontWeight:"bold"}}>*</span>
                               <input
                                 type="text"
                                 className="form-control"
@@ -429,8 +441,9 @@ const CreatepilotStudent = () => {
                           }
 
 
-                          <div className="col-md-6">
-                            <label className="form-label" htmlFor="branch">Branch</label>
+                          <div className="col-md-4">
+                            <label className="form-label" htmlFor="branch">Branch</label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               className="form-control"
@@ -459,15 +472,52 @@ const CreatepilotStudent = () => {
                               </small>
                             ) : null}
                           </div>
-
-                          <div className={`col-md-6`}
+                          <div className={`col-md-4`}
+                      >
+                        <label
+                          htmlFor="id_number"
+                          className="form-label"
+                        >
+                          Apaar Id
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="id_number"
+                          placeholder="Apaar Id"
+                          name="id_number"
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const lettersOnly = inputValue.replace(
+                              /[^a-zA-Z0-9 \s]/g,
+                              ""
+                            );
+                            formik.setFieldValue(
+                              "id_number",
+                              lettersOnly
+                            );
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.id_number}
+                        />
+                        {formik.touched.id_number && formik.errors.id_number ? (
+                          <small
+                            className="error-cls"
+                            style={{ color: "red" }}
+                          >
+                            {formik.errors.id_number}
+                          </small>
+                        ) : null}
+                      </div>
+                          <div className={`col-md-4`}
                           >
                             <label
                               htmlFor="yearofstudy"
                               className="form-label"
                             >
                               Year of Study
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="yearofstudy"
                               className="form-select"
@@ -498,7 +548,8 @@ const CreatepilotStudent = () => {
                               className="form-label"
                             >
                               Password
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               name="password"
@@ -523,7 +574,8 @@ const CreatepilotStudent = () => {
                               className="form-label"
                             >
                               Confirm Password
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               name="confirmPassword"

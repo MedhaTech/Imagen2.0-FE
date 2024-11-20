@@ -88,7 +88,7 @@ export const teacherLoginUser =
         if (result.status === 401) {
           openNotificationWithIcon(
             "error",
-            "Your Account is Inactive. Contact administrator"
+            "Invalid Email Id or Password"
           );
         } else {
           openNotificationWithIcon("error", "Invalid Email Id or Password");

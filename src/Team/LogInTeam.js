@@ -20,7 +20,7 @@ const LogInTeam = (props) => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const inputUserId = {
     type: "text",
-    placeholder: "Please Enter Email ID",
+    placeholder: "Please Enter Email Address",
   };
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
@@ -34,7 +34,7 @@ const LogInTeam = (props) => {
     validationSchema: Yup.object({
       email: Yup.string()
         // .email("Must be a valid email")
-        .required("Please Enter Your Team Id")
+        .required("Please Enter Email Address")
         .max(255)
         .trim(),
       password: Yup.string().required("Please Enter Your Password").trim(),
@@ -95,11 +95,11 @@ const LogInTeam = (props) => {
                    Student Team Journey coming soon ...
                   </h3> */}
                   <h4>
-                    Access the Student panel using your credentails.
+                    Access the Student panel using your Email and Password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
-                  <label className="form-label">Enter Email ID</label>
+                  <label className="form-label">Email</label>
                   <div className="form-addons">
                     <input
                       {...inputUserId}
@@ -169,7 +169,7 @@ const LogInTeam = (props) => {
                     Sign In
                   </button>
                 </div>
-                <div className="signinform">
+                <div className="signinform  d-flex justify-content-center align-items-center">
                   <h4>
                   Not Yet Registered ? 
                     <Link className="hover-a" to={"/registration"}>

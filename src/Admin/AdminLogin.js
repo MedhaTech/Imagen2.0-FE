@@ -50,7 +50,7 @@ const AdminLogin = (props) => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().email("Must be a valid email").required("Please Enter Email"),
+      email: Yup.string().email("Must be a valid Email Address").required("Please Enter Email Address"),
       password: Yup.string().required("Please Enter Password"),
     }),
     onSubmit: (values) => {
@@ -87,7 +87,7 @@ const AdminLogin = (props) => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper bg-img">
+        <div className="login-wrapper reset-pass-wrap bg-img">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
@@ -109,7 +109,7 @@ const AdminLogin = (props) => {
                   </h4>
                 </div>
                 <div className="form-login mb-3">
-                  <label className="form-label">Email Address</label>
+                  <label className="form-label">Email</label>
                   <div className="form-addons">
                     <input
                       {...inputUserId}
@@ -193,6 +193,9 @@ const AdminLogin = (props) => {
                     Sign In
                   </button>
                 </div>
+                <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
+                    <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                  </div>
               </div>
             </form>
           </div>

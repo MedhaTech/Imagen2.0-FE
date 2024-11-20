@@ -88,6 +88,8 @@ const StuEdit = () => {
       yearofstudy: '',
       collegeType: '',
       ocn: '',
+      id_number:"",
+
     },
     // initialValues: {
     //   full_name: data?.full_name || '',
@@ -115,6 +117,7 @@ const StuEdit = () => {
           </span>
         )
         .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
+        id_number: Yup.string().optional(),
       email: Yup.string()
         .email(
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
@@ -161,7 +164,7 @@ const StuEdit = () => {
         <span style={{ color: "red" }}>Please Select Roll Number</span>
       ),
       branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Branch</span>
+        <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select yearofstudy</span>
@@ -183,6 +186,9 @@ const StuEdit = () => {
       };
       if (data && data.username_email !== values.email) {
         body['username'] = values.email;
+    }
+    if (data && data.id_number !== values.id_number ) {
+      body["id_number"] = values.id_number;
     }
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
@@ -225,6 +231,7 @@ const StuEdit = () => {
         yearofstudy: data.year_of_study || '',
         collegeType: data.college_type || '',
         ocn: data.college_name || '',
+        id_number: data.id_number || '',
       });
     }
   }, [data]); 
@@ -490,7 +497,7 @@ const StuEdit = () => {
                             </div>
                           )}
 
-                          <div className="col-md-6">
+                          <div className="col-md-4">
                             <label className="form-label" htmlFor="branch">
                               Branch
                             </label>
@@ -518,8 +525,45 @@ const StuEdit = () => {
                               </small>
                             ) : null}
                           </div>
-
-                          <div className={`col-md-6`}>
+                          <div className={`col-md-4`}
+                      >
+                        <label
+                          htmlFor="id_number"
+                          className="form-label"
+                        >
+                          Apaar Id
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="id_number"
+                          placeholder="Apaar Id"
+                          // disabled={areInputsDisabled}
+                          name="id_number"
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const lettersOnly = inputValue.replace(
+                              /[^a-zA-Z0-9 \s]/g,
+                              ""
+                            );
+                            formik.setFieldValue(
+                              "id_number",
+                              lettersOnly
+                            );
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.id_number}
+                        />
+                        {formik.touched.id_number && formik.errors.id_number ? (
+                          <small
+                            className="error-cls"
+                            style={{ color: "red" }}
+                          >
+                            {formik.errors.id_number}
+                          </small>
+                        ) : null}
+                      </div>
+                          <div className={`col-md-4`}>
                             <label htmlFor="yearofstudy" className="form-label">
                               Year of Study
                             </label>

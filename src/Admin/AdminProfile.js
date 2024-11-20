@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../helpers/Utils";
 import edit from "../assets/img/icons/edit-set.svg";
-// import customer from "../assets/img/customer/customer5.jpg";
+import male from "../assets/img/imazenlogo1.jpg";
+
 import { useNavigate } from "react-router-dom";
 const AdminProfile = () => {
   const currentUser = getCurrentUser("current_user");
@@ -26,10 +26,9 @@ const AdminProfile = () => {
               <div className="profile-head"></div>
               <div className="profile-top">
                 <div className="profile-content">
-                  {/* <div className="profile-contentimg"> */}
-                  {/* <img src={customer} alt="Customer" id="blah" /> */}
-                  {/* <div className="profileupload"></div> */}
-                  {/* </div> */}
+                  <div className="profile-contentimg">
+                  <img src={male} alt="Male" id="blah" />
+                  </div>
                   <div className="profile-contentname">
                     <h2>{currentUser?.data[0]?.full_name}</h2>
                   </div>

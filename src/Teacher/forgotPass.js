@@ -26,7 +26,7 @@ const Forgotpassword = () => {
         )
         .required(
           <span style={{ color: "red" }}>
-            Please Enter Registered Email ID
+            Please Enter Registered Email Address
           </span>
         )
         .max(255)
@@ -45,7 +45,7 @@ const Forgotpassword = () => {
           if (checkOrgRes.status == 202) {
             openNotificationWithIcon(
               "success",
-              "Password sent to your registered email address"
+              "Password sent to your Registered Email Address"
             );
             seterrorMsg("");
             setTimeout(() => {
@@ -117,7 +117,7 @@ const Forgotpassword = () => {
                     Please Enter Registered Email Address
                   </b>
                 )}
-                <div className="form-login">
+                <div className="form-login d-flex justify-content-center align-items-center">
                   <button
                     className={`btn btn-login ${
                       !(formik.dirty && formik.isValid) ? "default" : "primary"
@@ -128,7 +128,7 @@ const Forgotpassword = () => {
                       Send Password
                   </button>
                 </div>
-                <div className="signinform text-center">
+                <div className="signinform d-flex justify-content-center align-items-center ">
                   <h4>
                     Return to
                     <Link to="/institution" className="hover-a">
@@ -137,6 +137,9 @@ const Forgotpassword = () => {
                     </Link>
                   </h4>
                 </div>
+                <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
+                    <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                  </div>
               </div>
             </form>
           </div>

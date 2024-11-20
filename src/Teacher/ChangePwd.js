@@ -145,7 +145,7 @@ const ChangePwd = (props) => {
   return (
     <div className="page-wrapper">
       <div className="content">
-        <div className="login-wrapper reset-pass-wrap bg-img">
+        <div className="login-wrapper  bg-img">
           <div className="login-content">
             <form action="success-3" onSubmit={formik.handleSubmit}>
               <div className="login-userset">

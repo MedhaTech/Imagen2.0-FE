@@ -31,19 +31,23 @@
     }
 
     &.forgot-pass-wrap {
-      background-image: url(../../../assets/img/Loginoption1.png);
+      background-image: url(../../../assets/img/resetPic.png);
       // background-image: url(../../../assets/img/authentication/forgot-password-img.jpg);
     }
     &.reset-pass-wrap {
-      background-image: url(../../../assets/img/resetpwd.png);
+      background-image: url(../../../assets/img/admin.png);
       // background-image: url(../../../assets/img/authentication/reset-password-img.jpg);
     }
     &.login-pass-wrap {
       background-image: url(../../../assets/img/Teacherlogin1.png);
       // background-image: url(../../../assets/img/authentication/reset-password-img.jpg);
     }
+    &.common-pass-wrap {
+      background-image: url(../../../assets/img/admin.png);
+      // background-image: url(../../../assets/img/authentication/reset-password-img.jpg);
+    }
     &.email-veri-wrap {
-      background-image: url(../../../assets/img/Studentlogin1.png);
+      background-image: url(../../../assets/img/StudentNew.png);
       // background-image: url(../../../assets/img/authentication/email-verification-img.jpg);
     }
   }

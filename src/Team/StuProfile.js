@@ -14,6 +14,7 @@ import users from "../assets/img/user.png";
 import { useLocation } from "react-router-dom";
 import { encryptGlobal } from "../constants/encryptDecrypt";
 import axios from "axios";
+import Avatar from 'react-string-avatar';
 
 const TeacherProfile = () => {
   const location = useLocation();
@@ -70,7 +71,8 @@ const TeacherProfile = () => {
               <div className="profile-top">
                 <div className="profile-content">
                   <div className="profile-contentimg">
-                  <img src={users} alt="user" id="blah" />
+                  {/* <img src={users} alt="user" id="blah" /> */}
+                  <Avatar initials={currentUser?.data[0]?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar>
 
                     {/* {currentUser?.data[0]?.role === "TEAM" ? ( */}
                       {/* <img

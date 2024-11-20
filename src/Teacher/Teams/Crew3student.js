@@ -106,7 +106,7 @@ const Crew1student = () => {
         <span style={{ color: "red" }}>Please Select Roll Number</span>
       ),
       branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Branch</span>
+        <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select yearofstudy</span>
@@ -171,7 +171,7 @@ const Crew1student = () => {
     <div className="page-wrapper">
       <div className="content">
         <div className="login-userheading">
-          <h4>Create Crew-1 Student</h4>
+          <h4>Create Crew-3 Student</h4>
         </div>
         <div className='d-flex justify-content-center align-items-center'>
           <div className="card container m-4">

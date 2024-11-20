@@ -90,7 +90,7 @@ const TeacherProfile = () => {
                     {/* <img src={customer} alt="Customer" id="blah" /> */}
                     
                       {/* <img src={user} alt="user" id="blah" /> */}
-                      <Avatar initials={data?.full_name?.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256} width={'inherit'}></Avatar>
+                      <Avatar initials={data?.full_name?.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256} height={100}  width={110}></Avatar>
                     <div className="profileupload">
                       {/* <input type="file" id="imgInp" /> */}
                     </div>
