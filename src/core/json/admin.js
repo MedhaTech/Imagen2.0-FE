@@ -20,13 +20,13 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        {
-          label:"Institution",
-          link: "/institution-registration",
-          icon: <Icon.Home />,
-          showSubRoute: false,
-          submenu: false,
-        },
+        // {
+        //   label:"Institution",
+        //   link: "/institution-registration",
+        //   icon: <Icon.Home />,
+        //   showSubRoute: false,
+        //   submenu: false,
+        // },
         {
           label:"PopUp",
           link: "/popup",
@@ -71,7 +71,7 @@ const AdminSidebarData = () => {
         },
        
         {
-          label:"Institution Users",
+          label:"Institutions",
           link: "/institution-users-list",
           icon: <Icon.UserPlus />,
           showSubRoute: false,
