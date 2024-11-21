@@ -259,7 +259,7 @@ const Dashboard = (props) => {
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        const delparamId = encryptGlobal(JSON.stringify(id));
+        const delparamId = encryptGlobal(id);
         var config = {
           method: "delete",
           url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId,
@@ -277,7 +277,6 @@ const Dashboard = (props) => {
                 "success",
                 "Student Deleted Successfully"
               );
-              window.location.reload();
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
@@ -320,7 +319,6 @@ const Dashboard = (props) => {
                 "success",
                 "Student Deleted Successfully"
               );
-              window.location.reload();
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
