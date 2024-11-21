@@ -143,10 +143,10 @@ const ChangePwd = (props) => {
     }
   };
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper" >
       <div className="content">
-        <div className="login-wrapper  bg-img">
-          <div className="login-content">
+        <div className="login-wrapper ">
+          <div className="login-content user-login ">
             <form action="success-3" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
                 <div className="login-userheading">
@@ -244,7 +244,7 @@ const ChangePwd = (props) => {
                 </div>
                 <b style={{ color: "red" }}>{error}</b>
                 <b style={{ color: "#3BB143" }}>{responce}</b>
-                <div className="form-login">
+                <div className="form-login d-flex justify-content-center">
                   <button className="btn btn-login" type="submit">
                     Change Password{"  "} <FontAwesomeIcon icon={faKey} />
                   </button>
