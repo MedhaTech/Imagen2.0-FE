@@ -47,10 +47,7 @@ const Dashboard = () => {
     adminideasCount();
     adminMentorCount();
     adminSudentbygenderCount();
-    adminSchoolCount();
-    adminmentorCourseCount();
     adminStudentCourseCount();
-    nonAtlCount();
 }, []);
 const [totalteamsCount, setTotalteamsCount] = useState('-');
 const [totalStudentCount, setTotalStudentCount] = useState('-');
@@ -112,7 +109,7 @@ const adminTeamsCount = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                setTotalteamsCount(response.data.data[0].teams_count);
+                setTotalteamsCount(response.data.data[0].teamCount);
             }
         })
         .catch(function (error) {
@@ -177,7 +174,7 @@ const adminMentorCount = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-    console.log(response,"res");
+    // console.log(response,"res");
     setTotalMentorCount(response.data.data[0].mentorCount);
     setTotalMentorFeMaleCount(response.data.data[0].mentorFemale
     );
@@ -295,96 +292,9 @@ const adminStudentCourseCount = () => {
       <div className="page-wrapper">
         <div className="content">
           <div className="row">
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              
-            </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              <div className="dash-widget">
-                <div className="dash-widgetimg">
-                  <span>
-                 
-                    <FcLibrary size={30} style={{ color: 'crimson' }}  />
-                  </span>
-                
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {totalSchoolCount}
-
-                  </h5>
-                  <h6>Total Schools in Database</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              
-            </div>
-            {/* row1 */}
-            
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                  <img src={schoolreg} style={{width:"70%"}} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                  {Number(atl) + Number(nonAtl) + Number(other) }
-                  </h5>
-                  <h6>Registered Schools</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                  <span style={{fontSize:"1.5rem"}}>
-                    <i className="fas fa-school" style={{color:"orange"}}></i>
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>{atl}</h5>
-                  <h6>Atl Schools Reg</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                  <span style={{fontSize:"1.5rem"}}>
-                    <i className="fas fa-school" style={{color:"orange"}}></i>
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {nonAtl}
-
-                  </h5>
-                  <h6>Non-ATL Schools Reg</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                  <span style={{fontSize:"1.5rem"}}>
-                    <i className="fas fa-school" style={{color:"orange"}}></i>
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                   
-                    {other}
-
-                  </h5>
-                  <h6>Other Schools Reg</h6>
-                </div>
-              </div>
-            </div>
-            
-            
-            {/* row2 */}
+           
+           
+           
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash2 w-100">
                 <div className="dash-widgetimg">
@@ -400,58 +310,7 @@ const adminStudentCourseCount = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash2 w-100">
-                <div className="dash-widgetimg">
-                <span>
-                  <img src={teamale} style={{width:"70%"}} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                   
-                    {totalMentorMaleCount}
-
-                  </h5>
-                  <h6>Male Teachers</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash2 w-100">
-                <div className="dash-widgetimg">
-                <span>
-                  <img src={teafem} style={{width:"70%"}} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                   
-                  {totalMentorFeMaleCount}
-                  </h5>
-                  <h6>Female Teachers</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash2 w-100">
-                <div className="dash-widgetimg">
-                  
-                <span>
-                  <img src={teaoth} style={{width:"70%"}} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    
-                  {(Number(totalMentorCount) - (Number(totalMentorMaleCount) + Number(totalMentorFeMaleCount)))}
-                   
-                    {/* {totalteamsCount} */}
-                  </h5>
-                  <h6>Other Teachers</h6>
-                </div>
-              </div>
-            </div>
+           
             
             {/* row3 */}
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
@@ -472,60 +331,7 @@ const adminStudentCourseCount = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash1 w-100">
-                <div className="dash-widgetimg">
-                 
-                <span>
-                    <img src={stumale} style={{width:"65%"}} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                   
-                                                {totalStudentMaleCount}
-
-                  </h5>
-                  <h6>Male Students</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash1 w-100">
-                <div className="dash-widgetimg">
-                 
-                <span>
-                  <img src={stufem} style={{width:"70%"}} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                   
-                                                {totalStudentFemaleCount}
-
-                  </h5>
-                  <h6>Female Students</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash1 w-100">
-                <div className="dash-widgetimg">
-                 
-                <span>
-                  <img src={stuoth} style={{width:"70%"}} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                   
-                    {(Number(totalStudentCount) - (Number(totalStudentMaleCount) + Number(totalStudentFemaleCount)))}
-
-                  </h5>
-                  <h6>Others Students</h6>
-                </div>
-              </div>
-            </div>
+           
             {/* row4 */}
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
@@ -598,23 +404,7 @@ const adminStudentCourseCount = () => {
             
             {/* row5 */}
             
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                 
-                  <span>
-                    <FaChalkboardTeacher size={30} style={{color:"#fd7e14"}}/>
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {mentorCoursesCompletedCount}
-
-                  </h5>
-                  <h6>Teachers Completed Course </h6>
-                </div>
-              </div>
-            </div>
+          
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget w-100">
                 <div className="dash-widgetimg">

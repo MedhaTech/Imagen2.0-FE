@@ -159,9 +159,9 @@ const Dashboard = (props) => {
                   <div className="employee-grid-profile" style={{ height: "300px" }}>
                     <div className="profile-head">
                       <div className="profile-head-action">
-                        <OverlayTrigger placement="top" overlay={renderEditTooltip(student.full_name)}>
+                      {student.type == 0 && <OverlayTrigger placement="top" overlay={renderEditTooltip(student.full_name)}>
                           <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(student.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
-                        </OverlayTrigger>
+                        </OverlayTrigger>}
                         {student.type !== 0 && <OverlayTrigger placement="top" overlay={renderDelTooltip(student?.full_name)}>
                           <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(student?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
                         </OverlayTrigger>}

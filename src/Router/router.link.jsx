@@ -99,6 +99,8 @@ import StuEdit from "../Admin/UsersList/StudentEdit";
 import AdminRes from "../Admin/AdminTickets/TicketResponse";
 
 import AdminSupport from "../Admin/AdminTickets/Tickets";
+import AddInst from "../Admin/UsersList/AddInstitution";
+
 import TeacherSupport from "../Team/Support/TeacherSupport";
 import ViewTeam from "../Teacher/Teams/ViewTeam";
 import EditInstStu from "../Teacher/Teams/StuEdit";
@@ -372,6 +374,14 @@ export const publicRoutes = [
     path: routes.adminIdeareport,
     name: "adminIdeareport",
     element: <AdminIdea/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 30,
+    path: routes.adminaddinstitution,
+    name: "adminaddinstitution",
+    element: <AddInst/>,
     protected: true,
     route: Route,
   },

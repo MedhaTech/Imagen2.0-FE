@@ -279,7 +279,8 @@ const StuEdit = () => {
                           <div className="col-md-6">
                             <label className="form-label" htmlFor="full_name">
                               Full Name
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               className="form-control"
@@ -307,7 +308,8 @@ const StuEdit = () => {
                           <div className={`col-md-6`}>
                             <label htmlFor="email" className="form-label">
                               Email
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="email"
                               className="form-control"
@@ -331,7 +333,8 @@ const StuEdit = () => {
                           <div className="col-md-4">
                             <label className="form-label" htmlFor="mobile">
                               Mobile Number
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
 
                             <input
                               type="text"
@@ -362,7 +365,8 @@ const StuEdit = () => {
                           <div className={`col-md-4`}>
                             <label htmlFor="district" className="form-label">
                               District
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="district"
                               className="form-select"
@@ -389,7 +393,8 @@ const StuEdit = () => {
                           <div className={`col-md-4`}>
                             <label htmlFor="collegeType" className="form-label">
                               College Type
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="collegeType"
                               className="form-select"
@@ -416,7 +421,8 @@ const StuEdit = () => {
                           <div className={`col-md-6`}>
                             <label htmlFor="college" className="form-label">
                               College Name
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="college"
                               className="form-select"
@@ -441,7 +447,8 @@ const StuEdit = () => {
                           <div className={`col-md-6`}>
                             <label htmlFor="rollnumber" className="form-label">
                               Roll number provided by the college
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               className="form-control"
@@ -473,7 +480,8 @@ const StuEdit = () => {
                             <div className={`col-md-12`}>
                               <label htmlFor="ocn" className="form-label">
                                 Other College Name
-                              </label>
+                              </label>&nbsp;
+                              <span style={{color:"red",fontWeight:"bold"}}>*</span>
                               <input
                                 type="text"
                                 className="form-control"
@@ -505,7 +513,8 @@ const StuEdit = () => {
                           <div className="col-md-4">
                             <label className="form-label" htmlFor="branch">
                               Branch
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               className="form-control"
@@ -571,7 +580,8 @@ const StuEdit = () => {
                           <div className={`col-md-4`}>
                             <label htmlFor="yearofstudy" className="form-label">
                               Year of Study
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="yearofstudy"
                               className="form-select"
