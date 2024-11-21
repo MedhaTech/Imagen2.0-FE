@@ -46,7 +46,8 @@ const Crew1student = () => {
       password: "",
       confirmPassword: "",
       collegeType: "",
-      ocn: ""
+      ocn: "",
+       id_number:""
     },
 
     validationSchema: Yup.object({
@@ -99,6 +100,8 @@ const Crew1student = () => {
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
+      id_number: Yup.string().optional(),
+
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select college</span>
       ),
@@ -126,7 +129,7 @@ const Crew1student = () => {
         iv: iv,
         padding: CryptoJS.pad.NoPadding,
       }).toString();
-      const body = JSON.stringify({
+      const body ={
         full_name: values.full_name,
         username: values.email,
         mobile: values.mobile,
@@ -138,8 +141,10 @@ const Crew1student = () => {
         year_of_study: values.yearofstudy,
         confirmPassword: encrypted,
         type: pilotStudentId
-      });
-
+      };
+      if (values.id_number !== "") {
+        body["id_number"] = values.id_number;
+      }
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
@@ -148,7 +153,7 @@ const Crew1student = () => {
           Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
         },
 
-        data: body,
+        data: JSON.stringify(body),
       };
       await axios(config)
         .then((mentorRegRes) => {
@@ -183,7 +188,8 @@ const Crew1student = () => {
                       <div className="row g-3 mt-0">
                         <>
                           <div className="col-md-6">
-                            <label className="form-label" htmlFor="full_name">Full Name</label>
+                            <label className="form-label" htmlFor="full_name">Full Name</label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               className="form-control"
@@ -218,7 +224,8 @@ const Crew1student = () => {
                               className="form-label"
                             >
                               Email
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="email"
                               className="form-control"
@@ -243,7 +250,8 @@ const Crew1student = () => {
                           >
                             <label className="form-label" htmlFor="mobile">
                               Mobile Number
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
 
                             <input
                               type="text"
@@ -278,7 +286,8 @@ const Crew1student = () => {
                               className="form-label"
                             >
                               District
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="district"
                               className="form-select"
@@ -309,7 +318,8 @@ const Crew1student = () => {
                               className="form-label"
                             >
                               College Type
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="collegeType"
                               className="form-select"
@@ -340,7 +350,8 @@ const Crew1student = () => {
                               className="form-label"
                             >
                               College Name
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="college"
                               className="form-select"
@@ -370,7 +381,8 @@ const Crew1student = () => {
                               className="form-label"
                             >
                               Roll number provided by the college
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               className="form-control"
@@ -408,7 +420,8 @@ const Crew1student = () => {
                                 className="form-label"
                               >
                                 Other College Name
-                              </label>
+                              </label>&nbsp;
+                              <span style={{color:"red",fontWeight:"bold"}}>*</span>
                               <input
                                 type="text"
                                 className="form-control"
@@ -441,8 +454,9 @@ const Crew1student = () => {
                           }
 
 
-                          <div className="col-md-6">
-                            <label className="form-label" htmlFor="branch">Branch</label>
+                          <div className="col-md-4">
+                            <label className="form-label" htmlFor="branch">Branch</label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               className="form-control"
@@ -471,15 +485,52 @@ const Crew1student = () => {
                               </small>
                             ) : null}
                           </div>
-
-                          <div className={`col-md-6`}
+                          <div className={`col-md-4`}
+                      >
+                        <label
+                          htmlFor="id_number"
+                          className="form-label"
+                        >
+                          Apaar Id
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="id_number"
+                          placeholder="Apaar Id"
+                          name="id_number"
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const lettersOnly = inputValue.replace(
+                              /[^a-zA-Z0-9 \s]/g,
+                              ""
+                            );
+                            formik.setFieldValue(
+                              "id_number",
+                              lettersOnly
+                            );
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.id_number}
+                        />
+                        {formik.touched.id_number && formik.errors.id_number ? (
+                          <small
+                            className="error-cls"
+                            style={{ color: "red" }}
+                          >
+                            {formik.errors.id_number}
+                          </small>
+                        ) : null}
+                      </div>
+                          <div className={`col-md-4`}
                           >
                             <label
                               htmlFor="yearofstudy"
                               className="form-label"
                             >
                               Year of Study
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
                               id="yearofstudy"
                               className="form-select"
@@ -510,7 +561,8 @@ const Crew1student = () => {
                               className="form-label"
                             >
                               Password
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               name="password"
@@ -535,7 +587,8 @@ const Crew1student = () => {
                               className="form-label"
                             >
                               Confirm Password
-                            </label>
+                            </label>&nbsp;
+                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               name="confirmPassword"

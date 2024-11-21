@@ -85,7 +85,7 @@ export const loginUser = (data, navigate, module) => async (dispatch) => {
       navigate("/student-dashboard");
     } else {
       dispatch(loginUserError(result.statusText));
-      openNotificationWithIcon("error", "Invalid Username or Password");
+      openNotificationWithIcon("error", "Invalid Email Address or Password");
     }
   } catch (error) {
     dispatch(loginUserError({}));

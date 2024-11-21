@@ -149,12 +149,7 @@ const Header = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img
-            src={logo}
-            alt="Logo"
-            style={{ padding: "0.7rem" }}
-            // className="logo-image"
-          />
+           <img src={Icon} alt="Team" id="blah" />
           {/* <Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>
@@ -629,6 +624,7 @@ const Header = () => {
                       alt="img"
                     /> */}
                     {/* <img src={avtar} alt="Avtar" /> */}
+                    <img src={Icon} alt="Team" id="blah" />
 
                     <span className="status online" />
                   </span>

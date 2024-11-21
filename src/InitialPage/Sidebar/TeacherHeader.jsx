@@ -16,6 +16,8 @@ import logo from "../../assets/img/logo.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
+import Icon from "../../assets/img/favicon.png";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey,faUser } from '@fortawesome/free-solid-svg-icons';
 import  "./styles.css";
@@ -147,20 +149,20 @@ const MentorHeader = () => {
       }
     }
   };
-  const getProfileImage = (gender) => {
-    switch (gender) {
-      case "Male":
-        return male;
-      case "MALE":
-        return male;
-      case "Female":
-        return female;
-      case "FEMALE":
-          return female;
-      default:
-        return user;
-    }
-  };
+  // const getProfileImage = (gender) => {
+  //   switch (gender) {
+  //     case "Male":
+  //       return male;
+  //     case "MALE":
+  //       return male;
+  //     case "Female":
+  //       return female;
+  //     case "FEMALE":
+  //         return female;
+  //     default:
+  //       return user;
+  //   }
+  // };
   const fullName = currentUser?.data[0]?.full_name;
   const capitalizeFirstLetter = (string) => {
     if (!string) return "";
@@ -205,7 +207,7 @@ const MentorHeader = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img src={logo} alt="Logo"  className="responsive-image" />
+          <img src={Icon} alt="Team" id="blah" />
           {/* <Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>
@@ -658,10 +660,8 @@ const MentorHeader = () => {
                     alt="img"
                     className="img-fluid"
                   /> */}
-                  <img
-                    src={getProfileImage(currentUser?.data[0]?.gender)}
-                    alt="Profile"
-                  />
+                           <img src={Icon} alt="Team" id="blah" />
+
                 </span>
                 <span className="user-detail">
                   {/* {currentUser?.data[0]?.role} */}
@@ -670,7 +670,7 @@ const MentorHeader = () => {
                     {capitalizedFullName}
                     {/* {currentUser?.data[0]?.full_name} */}
                   </span>
-                  <span className="user-role">Teacher</span>
+                  <span className="user-role">Institution</span>
                 </span>
               </span>
             </Link>
@@ -678,16 +678,14 @@ const MentorHeader = () => {
               <div className="profilename">
                 <div className="profileset">
                   <span className="user-img">
-                    <img
-                      src={getProfileImage(currentUser?.data[0]?.gender)}
-                      alt="Profile"
-                    />
+                  <img src={Icon} alt="Team" id="blah" />
+
                     <span className="status online" />
                   </span>
                   <div className="profilesets">
                     {/* <h6> {currentUser?.data[0]?.full_name}</h6> */}
                     <h6>{capitalizedFullName}</h6>
-                    <h5>Teacher</h5>
+                    <h5>Institution</h5>
                   </div>
                 </div>
                 {(presurvey != "INCOMPLETED") ? (

@@ -38,7 +38,8 @@ const Crew1student = () => {
       password: "",
       confirmPassword: "",
       collegeType: "",
-      ocn: ""
+      ocn: "",
+        id_number:""
     },
 
     validationSchema: Yup.object({
@@ -85,6 +86,8 @@ const Crew1student = () => {
           10,
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
+      id_number: Yup.string().optional(),
+
       collegeType: Yup.string().required(
         <span style={{ color: "red" }}>Please Select collegeType</span>
       ),
@@ -131,7 +134,9 @@ const Crew1student = () => {
         confirmPassword: encrypted,
         type: String(studentId)
       };
-
+      if (values.id_number !== "") {
+        body["id_number"] = JSON.stringify(values.id_number);
+      }
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
@@ -142,6 +147,7 @@ const Crew1student = () => {
 
         data: JSON.stringify(body),
       };
+      console.log(body,"bb");
       await axios(config)
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {

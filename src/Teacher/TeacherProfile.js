@@ -1,24 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState ,useLayoutEffect,} from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../helpers/Utils";
-import edit from "../assets/img/icons/edit-set.svg";
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useNavigate } from "react-router-dom";
-import female from "../assets/img/Female_Profile.png";
-import male from "../assets/img/Male_Profile.png";
+import male from "../assets/img/imazenlogo1.jpg";
 import { useDispatch, useSelector } from 'react-redux';
 import { getTeacherByID } from '../redux/actions';
-import user from "../assets/img/user.png";
 
 import axios from "axios";
 const TeacherProfile = () => {
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
   const { teacher } = useSelector((state) => state.teacher);
-  console.log(teacher,"11");
+  // console.log(teacher,"11");
   const navigate = useNavigate();
 const [data,setData]=useState({});
   const handleEdit = () => {
@@ -62,17 +57,10 @@ const [data,setData]=useState({});
               <div className="profile-top">
                 <div className="profile-content">
                   <div className="profile-contentimg">
-                    {/* <ImageWithBasePath
-                      src="assets/img/customer/customer5.jpg"
-                      alt="img"
-                      id="blah"
-                    /> */}
-                    {/* <img src={customer} alt="Customer" id="blah" /> */}
-                    {teacher?.gender === "Male" || teacher?.gender === "MALE" ? (
+                    
+                   
                       <img src={male} alt="Male" id="blah" />
-                    ) : ((teacher?.gender === "Female" || teacher?.gender === "FEMALE")?(
-                      <img src={female} alt="Female" id="blah" />):(<img src={user} alt="user" id="blah" />)
-                    )}
+                   
                     <div className="profileupload">
                       {/* <input type="file" id="imgInp" /> */}
                       
