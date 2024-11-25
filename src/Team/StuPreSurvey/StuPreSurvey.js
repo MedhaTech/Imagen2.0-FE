@@ -251,8 +251,8 @@ return (
                           <div
                             dangerouslySetInnerHTML={{
                               __html:
-                                "We're happy to have you join us in this exciting learning adventure! </br></br> <b class='text-success'>Here's what you'll do during the program:</b></br></br><ol><li>1. Log in to the portal to get started.</li><li>2. Complete the pre-survey to share your thoughts before we begin.</li><li>3. Dive into the course and explore all the amazing videos.</li><li>4. Work with your teammates to identify a problem and work together to find a solution.</li><li>5. Submit your innovative idea to the Innovation Marathon and showcase your creativity.</li><li>6. Complete the post-survey to share your feedback and experience.</li><li>7. Download your certificates to celebrate your achievements!</li></br>We can't wait to see the incredible ideas you'll come up with. Have fun, learn a lot, and let's make this an unforgettable journey!",
-                            }}
+                                "We are excited to have you join us on this transformative journey to develop your <b>innovation</b> and <b>entrepreneurial skills!</b> This program is designed to empower you and your team to:</br><ol><li><b>. </b>Solve real-world problems with innovative solutions.</li><li><b>. </b>Create and build entrepreneurial ideas that can make a meaningful impact.</li><br><p>Through this course, you will:</p><li><b>. </b>Learn essential creative thinking, <b>critical thinking,</b> and <b>problem-solving skills</b>.</li><li><b>. </b>Explore <b>engaging videos </b>to guide and inspire you.</li><li><b>. </b>Gain hands-on experience in identifying challenges and crafting innovative or entrepreneurial solutions.</li></ol></br><p>We look forward to seeing your creative ideas and impactful solutions come to life. Wishing you all the best on this exciting adventure!</p>",
+        }}
                           ></div>
                           <button
                             className="btn btn-primary m-3"

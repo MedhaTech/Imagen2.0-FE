@@ -30,6 +30,11 @@ import VideoModal from '../../HelpVideo/VideoModal';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
+import team from "../../assets/img/icons/team.svg";
+import { getTeamMemberStatus } from "../../Teacher/store/teams/actions";
+import Table from "../../core/pagination/datatable";
+import { CheckCircle } from "react-feather";
+import { IoHelpOutline } from "react-icons/io5";
 
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 const GreetingModal = (props) => {
@@ -76,7 +81,10 @@ const DBStu = () => {
   const [showsPopup, setShowsPopup] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
   const[state,setState]=useState("");
-
+  const dispatch = useDispatch();
+  const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
+    (state) => state.teams
+  );
   /////////my code//////////////////
   const currentUser = getCurrentUser("current_user");
   const [selectedLanguage, setSelectedLanguage] = useState('Select Language');
@@ -94,6 +102,22 @@ const DBStu = () => {
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
 );
+// const teamId = currentUser?.data[0]?.student_id;
+const teamId = currentUser?.data[0]?.type_id === 0 
+  ? currentUser?.data[0]?.student_id 
+  : currentUser?.data[0]?.type_id;
+useEffect(() => {
+  if (teamId) {
+    dispatch(getTeamMemberStatus(teamId, setshowDefault));
+  }
+}, [teamId, dispatch]);
+useEffect(() => {
+  if(teamsMembersStatus.length != 0){
+    // setStuInstructionsLoading(false);
+  }
+}, [teamsMembersStatus]);
+
+
 useEffect(() => {
   const popParam = encryptGlobal(
     JSON.stringify({
@@ -129,7 +153,120 @@ useEffect(() => {
       <span className="visually-hidden">Loading...</span>
     </div>
   );
-
+  const percentageBWNumbers = (a, b) => {
+    return (((a - b) / a) * 100).toFixed(2);
+  };
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "full_name",
+      width: "15rem",
+    },
+    {
+      title: "Pre Survey",
+      dataIndex: "pre_survey_status",
+      align: "center",
+      width: "15rem",
+      render: (_, record) =>
+        record.pre_survey_status ? ( 
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
+    {
+      title: "Lesson Progress",
+      dataIndex: "address",
+      align: "center",
+      width: "30rem",
+      render: (_, record) => {
+        let percent =
+          100 -
+          percentageBWNumbers(
+            record.all_topics_count,
+            record.topics_completed_count
+          );
+        return (
+          <>
+          <div
+            className="progress progress-sm progress-custom progress-animate"
+            role="progressbar"
+            aria-valuenow={Math.round(percent) ? Math.round(percent) : "0"}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
+            <div
+           style={{ width: `${percent}%` }}
+              className={
+                percent
+                  ? percent <= 25
+                    ? "progress-bar bg-danger"
+                    : percent > 25 && percent <= 50
+                    ? "progress-bar bg-primary"
+                    : percent > 50 && percent <= 75
+                    ? "progress-bar bg-info"
+                    : "progress-bar bg-success"
+                  : "progress-bar bg-danger"
+              }
+            >
+              <div
+                className={
+                  percent
+                    ? percent <= 25
+                      ? "progress-bar-value bg-danger"
+                      : percent > 25 && percent <= 50
+                      ? "progress-bar-value bg-primary"
+                      : percent > 50 && percent <= 75
+                      ? "progress-bar-value bg-info"
+                      : "progress-bar-value bg-success"
+                    : "progress-bar-value bg-danger"
+                }
+              >
+                {Math.round(percent) ? Math.round(percent) : "0"}%
+              </div>
+            </div>
+          </div>
+          </>
+        );
+      },
+    },
+    {
+      title: "Idea Submission",
+      dataIndex: "idea_submission",
+      align: "center",
+      width: "20rem",
+      render: (_, record) =>
+        record?.idea_submission ? (
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
+    {
+      title: "Post Survey",
+      dataIndex: "post_survey_status",
+      align: "center",
+      width: "10rem",
+      render: (_, record) =>
+        record?.post_survey_status ? (
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
+    {
+      title: "Certificate",
+      dataIndex: "certificate",
+      align: "center",
+      width: "10rem",
+      render: (_, record) =>
+        record?.certificate ? (
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
+  ];
   const redirectToPreSurvey = () => {
     navigate(`/studentpresurvey`);
   };
@@ -188,6 +325,7 @@ useEffect(() => {
   const [badges,setBadges] = useState(0);
   const [quiz,setQuiz] = useState(0);
   const [videos,setVideos] = useState(0);
+  const [showDefault, setshowDefault] = useState(true);
 
   const stuSurveyStatus = () => {
     const surveyApi = encryptGlobal(
@@ -887,8 +1025,47 @@ useEffect(() => {
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <LatestNews />
             </div>
+
           </div>
-          
+             <div className="card table-list-card">
+            <div className="card-header d-flex justify-content-between align-items-center">
+              <h4 className="card-title mb-0">
+                {" "}
+                <img
+                  src={team}
+                  style={{
+                    marginRight: "6px",
+                    width: "7%",
+                    verticalAlign: "middle",
+                  }}
+                />
+                Team Progress
+              </h4>
+            </div>
+            <div className="card-body">
+              <div className="table-responsive">
+                {showDefault && (
+                  <div className="d-flex justify-content-center align-items-center">
+                    <h4 className="text-primary">Loading</h4>
+                  </div>
+                )}
+                {teamsMembersStatus.length > 0 && !showDefault ? (
+                  <Table
+                    //bordered
+                    pagination={false}
+                    dataSource={teamsMembersStatus}
+                    columns={columns}
+                  />
+                ) : teamsMembersStatusErr ? (
+                  <div className="d-flex justify-content-center align-items-center">
+                    <h4 className="text-danger">
+                      There are no students in your Team
+                    </h4>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       {show &&  <VideoModal v={video} setShow={setShow}/>}
