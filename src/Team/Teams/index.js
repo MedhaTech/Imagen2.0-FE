@@ -2,6 +2,8 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Container, Row, Col, List, Label, Card } from 'reactstrap';
+
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import "react-data-table-component-extensions/dist/index.css";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
@@ -159,10 +161,10 @@ const Dashboard = (props) => {
                   <div className="employee-grid-profile" style={{ height: "300px" }}>
                     <div className="profile-head">
                       <div className="profile-head-action">
-                      {student.type == 0 && <OverlayTrigger placement="top" overlay={renderEditTooltip(student.full_name)}>
+                      {(currentUser?.data[0]?.type_id === 0) && <OverlayTrigger placement="top" overlay={renderEditTooltip(student.full_name)}>
                           <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(student.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
                         </OverlayTrigger>}
-                        {student.type !== 0 && <OverlayTrigger placement="top" overlay={renderDelTooltip(student?.full_name)}>
+                        {(currentUser?.data[0]?.type_id === 0) && <OverlayTrigger placement="top" overlay={renderDelTooltip(student?.full_name)}>
                           <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(student?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
                         </OverlayTrigger>}
                         <OverlayTrigger placement="top" overlay={renderViewTooltip(student?.full_name)}>
@@ -194,6 +196,77 @@ const Dashboard = (props) => {
               ))}
             </div>
           </div>
+          <Row className="pt-2">
+                    <Card className="w-100 p-5">
+                      <div>
+                        <Label className="text-danger">
+                            Instructions for adding Teams :
+                        </Label>
+                        <h4 style={{fontWeight:"bold"}}>
+                        Who Can Register?
+                        </h4>
+                        <ul >
+                            <li style={{listStyleType:"disc"}}>
+                            Are you 16 years or older?
+                            </li>
+                            <li style={{listStyleType:"disc"}}>Are you studying diploma/UG/PG in a college within the state?</li>
+                            <li style={{listStyleType:"disc"}}>
+                            Do you have a passion for innovation, entrepreneurship, and making an impact?
+                            </li>
+                        </ul>
+                        <br/>
+                        <p>If your answer to all these questions is <b>“Yes”</b>, then you’re good to go! 🚀
+                        </p>
+                        <h4 style={{fontWeight:"bold"}}>
+                        How Can You Register?
+
+                        </h4>
+                          <p ><span style={{fontWeight:"bold"}}>1. Form a Team</span>
+                        <ul >
+                            <li style={{listStyleType:"disc"}}>
+                            Teams must have <b>1 to 4 participants</b>.
+                            </li>
+                            <li style={{listStyleType:"disc"}}>One member will act as the <b>“Pilot”</b> (team leader) and be the main point of contact.</li>
+                            <li style={{listStyleType:"disc"}}>
+                            Other members are the <b>“Crew”</b>.
+                            </li>
+                        </ul>
+                            </p>
+                        {/* <br/> */}
+                        <p ><span style={{fontWeight:"bold"}}>2. Pilot Starts Registration</span>
+                        <ul >
+                            <li style={{listStyleType:"disc"}}>
+                            Enter the Pilot’s personal details.
+                            </li>
+                            <li style={{listStyleType:"disc"}}>Choose a <b>unique team name</b> and set a <b>team password</b>.</li>
+                            <li style={{listStyleType:"disc"}}>
+                            Add the details of all Crew members.
+                            </li>
+                        </ul>
+                            </p>
+                        {/* <br/> */}
+                        <p ><span style={{fontWeight:"bold"}}>3. Set Up Team Logins
+                        </span>
+                        <ul >
+                            <li style={{listStyleType:"disc"}}>
+                            All team members log in using their registered email and the team password (default).
+                            </li>
+                            <li style={{listStyleType:"disc"}}>Members can reset and create their own passwords anytime.</li>
+                        </ul>
+                            </p>
+                        {/* <br/> */}
+                        <p ><span style={{fontWeight:"bold"}}>4. Manage Your Team
+                        </span>
+                        <ul >
+                            <li style={{listStyleType:"disc"}}>
+                            The Pilot can edit Crew details or add members until the program begins.
+                            </li>
+                        </ul>
+                            </p>
+                        {/* <br/> */}
+                        </div>
+                    </Card>
+                </Row>
         </div>
       </div>
     </div>

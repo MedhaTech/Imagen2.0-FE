@@ -157,7 +157,7 @@ const PilotReg = () => {
 
           data: JSON.stringify(body),
         };
-        console.log(body,"body");
+        // console.log(body,"body");
         await axios(config)
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {

@@ -109,7 +109,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [currentSection, setCurrentSection] = useState(1);
   const goToNext = () => setCurrentSection(currentSection + 1);
   const goToBack = () => setCurrentSection(currentSection - 1);
-  // Add on 
+  // Add on
   const [theme, setTheme] = useState(
     props?.theme !== "" && props?.theme !== undefined
       ? props?.theme
@@ -122,24 +122,15 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [detail, setDetail] = useState(formData?.detail);
   const [title, setTitle] = useState(formData?.title);
 
-  const [stage, setStage] = useState(
-    formData?.stage || []
-  );
-  const [unique, setUnique] = useState(
-    formData?.unique || []
-  );
+  const [stage, setStage] = useState(formData?.stage || []);
+  const [unique, setUnique] = useState(formData?.unique || []);
   const [similar, setSimilar] = useState(formData?.similar);
   const [revenue, setRevenue] = useState(formData?.revenue);
-  const [society
-    , setSociety] = useState(formData?.society
-    );
-    const [confident, setConfident] = useState(
-      formData?.confident || []
-    );
+  const [society, setSociety] = useState(formData?.society);
+  const [confident, setConfident] = useState(formData?.confident || []);
   const [support, setSupport] = useState(formData?.support);
 
   const [files, setFiles] = useState([]);
-
 
   const [problemStatement, setProblemStatement] = useState(
     formData?.problemStatement
@@ -162,22 +153,37 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [id, setId] = useState("");
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototype_link);
   const [workbook, setWorkbook] = useState(formData?.workbook);
- 
-    const submit = [
-    { value:"YES", label:  t("ideaform_questions.workbookyes") },
-    { value: "NO", label : t("ideaform_questions.workbookno") },
+
+  const submit = [
+    { value: "YES", label: t("ideaform_questions.workbookyes") },
+    { value: "NO", label: t("ideaform_questions.workbookno") },
   ];
-    const people = [
-    { value:"Not confident", label: t("ideaform_questions.stakeholdersop1") },
-    { value: "Somewhat confident", label : t("ideaform_questions.stakeholdersop2") },
+  const people = [
+    { value: "Not confident", label: t("ideaform_questions.stakeholdersop1") },
+    {
+      value: "Somewhat confident",
+      label: t("ideaform_questions.stakeholdersop2"),
+    },
     { value: "Confident", label: t("ideaform_questions.stakeholdersop3") },
-    { value:  "Very confident", label: t("ideaform_questions.stakeholdersop4") },
+    { value: "Very confident", label: t("ideaform_questions.stakeholdersop4") },
   ];
-    const journey = [
-    { value: "We did the full problem solving journey by ourselves." , label: t("ideaform_questions.probsoljourneyop1") },
-    { value:"We got feedback on our problem and modified it",  label : t("ideaform_questions.probsoljourneyop2") },
-    { value: "We got feedback on our idea and modified it", label: t("ideaform_questions.probsoljourneyop3") },
-    { value: "We got feedback on our prototype and modified it", label: t("ideaform_questions.probsoljourneyop4") },
+  const journey = [
+    {
+      value: "We did the full problem solving journey by ourselves.",
+      label: t("ideaform_questions.probsoljourneyop1"),
+    },
+    {
+      value: "We got feedback on our problem and modified it",
+      label: t("ideaform_questions.probsoljourneyop2"),
+    },
+    {
+      value: "We got feedback on our idea and modified it",
+      label: t("ideaform_questions.probsoljourneyop3"),
+    },
+    {
+      value: "We got feedback on our prototype and modified it",
+      label: t("ideaform_questions.probsoljourneyop4"),
+    },
   ];
   const place = [
     { value: "Idea stage", label: t("ideaform_questions.communityop1") },
@@ -202,7 +208,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       value: "Completely unique",
       label: t("ideaform_questions.uniqueop3"),
     },
-  
   ];
   const supportOptions = [
     "Funding/Investment",
@@ -212,29 +217,25 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     "Product Development Assistance",
     "Access to Incubators/Networks or Partners",
     "Legal Support (e.g., Intellectual Property, contracts)",
-    "Other (Please specify)"
+    "Other (Please specify)",
   ];
-// console.log(theme,"theme",props?.theme,"props?.theme");
+  // console.log(theme,"theme",props?.theme,"props?.theme");
   const initiatedBy = formData?.initiated_by;
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
-  
   };
   const handleSupportChange = (e) => {
     const selectedSupport = e.target.value;
     setSupport(selectedSupport);
-  
   };
- 
- 
+
   // useEffect(() => {
   //   const activeTheme =
   //     props?.theme !== "" && props?.theme !== undefined
   //       ? props?.theme
   //       : formData?.theme;
 
-  
   // }, [formData.theme]);
   useEffect(() => {
     setTheme(
@@ -246,7 +247,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setTitle(formData?.title);
     setSolve(formData?.solve);
     setIdeaDescribe(formData?.idea_describe);
-setCustomer(formData?.customer);
+    setCustomer(formData?.customer);
     setDetail(formData?.detail);
     setSimilar(formData?.similar);
     setRevenue(formData?.revenue);
@@ -254,7 +255,6 @@ setCustomer(formData?.customer);
     setSupport(formData?.support);
     setPrototypeImage(formData?.prototype_image);
     setPrototypeLink(formData?.prototype_link);
-
   }, [formData]);
 
   useEffect(() => {
@@ -270,7 +270,7 @@ setCustomer(formData?.customer);
     }
     if (formData?.confident) {
       const parsedConfident = JSON.parse(formData.confident);
-      // console.log("Parsed Confident from formData:", parsedConfident); 
+      // console.log("Parsed Confident from formData:", parsedConfident);
       setConfident(parsedConfident);
       // setConfident(JSON.parse(formData.confident));
     } else {
@@ -282,8 +282,13 @@ setCustomer(formData?.customer);
     } else {
       setPrototypeImage([]);
     }
-  }, [formData?.stage, formData?.prototype_image,formData?.unique,formData?.confident]);
-// console.log(formData?.confident,"con");
+  }, [
+    formData?.stage,
+    formData?.prototype_image,
+    formData?.unique,
+    formData?.confident,
+  ]);
+  // console.log(formData?.confident,"con");
   const handleStageCheckboxChange = (item) => {
     if (Array.isArray(stage) && stage.includes(item)) {
       setStage(stage.filter((i) => i !== item));
@@ -404,12 +409,12 @@ setCustomer(formData?.customer);
 
     const body = {
       theme: theme,
-      idea_describe:ideaDescribe,
+      idea_describe: ideaDescribe,
       title: title,
       solve: solve,
       initiated_by: currentUser?.data[0]?.user_id,
-      state:"Telangana",
-      district:currentUser?.data[0]?.district
+      state: "Telangana",
+      district: currentUser?.data[0]?.district,
     };
     // if (others !== "") {
     //   body["others"] = others;
@@ -420,7 +425,7 @@ setCustomer(formData?.customer);
     if (customer !== "") {
       body["customer"] = customer;
     }
-     if (detail !== "") {
+    if (detail !== "") {
       body["detail"] = detail;
     }
     if (stage !== "") {
@@ -444,11 +449,11 @@ setCustomer(formData?.customer);
     if (support !== "") {
       body["support"] = support;
     }
-    
+
     if (prototypeLink !== "") {
       body["prototype_link"] = prototypeLink;
     }
-    
+
     var config = {
       method: "post",
       url:
@@ -532,7 +537,7 @@ setCustomer(formData?.customer);
       }
     }
   };
- 
+
   const handleSubmitAll = async (item, stats, file) => {
     // alert("hii");
     setLoading(initialLoadingStatus);
@@ -544,13 +549,13 @@ setCustomer(formData?.customer);
     const body = {
       student_id: TeamId,
       theme: theme,
-      idea_describe:ideaDescribe,
+      idea_describe: ideaDescribe,
       title: title,
       solve: solve,
       status: stats,
       initiated_by: currentUser?.data[0]?.user_id,
     };
-    
+
     if (theme === "Others" && others !== null) {
       body["others"] = others;
     }
@@ -585,7 +590,6 @@ setCustomer(formData?.customer);
       body["prototype_link"] = prototypeLink;
     }
 
-  
     if (attachmentsList !== "") {
       body["prototype_image"] = JSON.stringify(file);
     }
@@ -595,15 +599,13 @@ setCustomer(formData?.customer);
         theme === "" ||
         theme === null ||
         title === "" ||
-        title ===  null ||
-
+        title === null ||
         ideaDescribe === "" ||
         ideaDescribe === null ||
         solve === "" ||
         solve === null ||
         customer === "" ||
         customer === null ||
-
         detail === "" ||
         detail === null ||
         stage === "" ||
@@ -616,14 +618,12 @@ setCustomer(formData?.customer);
         revenue === null ||
         society === "" ||
         society === null ||
-
         confident === "" ||
         confident === null ||
         support === "" ||
         support == null ||
         prototypeLink === "" ||
         prototypeLink == null
-        
       ) {
         allques = false;
       }
@@ -728,16 +728,17 @@ setCustomer(formData?.customer);
                           <div className="d-md-flex justify-content-end px-4">
                             <Card className="p-3 card-bg-warning">
                               <h5 className="text-white p-1">
-                              {t("idea_page.modified")} : {formData?.initiated_name}{" "}
+                                {t("idea_page.modified")} :{" "}
+                                {formData?.initiated_name}{" "}
                               </h5>
                               <h5 className="text-white p-1">
-                              {t("idea_page.date")} :{" "}
+                                {t("idea_page.date")} :{" "}
                                 {moment(formData?.verified_at).format(
                                   "DD-MM-YYYY"
                                 )}{" "}
                               </h5>
                               <h5 className="text-white p-1">
-                              {t("idea_page.reject")} :{" "}
+                                {t("idea_page.reject")} :{" "}
                                 {formData?.mentor_rejected_reason}{" "}
                               </h5>
                             </Card>
@@ -772,7 +773,7 @@ setCustomer(formData?.customer);
                               : ""}
                           </h5>
                           <h5 className="text-white p-1">
-                          {t("idea_page.review")}  :
+                            {t("idea_page.review")} :
                             {formData?.verified_status === null ||
                             formData?.verified_status === ""
                               ? " Yet to be Reviewed"
@@ -868,44 +869,43 @@ setCustomer(formData?.customer);
                       }
                     </div>
                     {/* {currentSection === 1 && ( */}
-                      <div className="d-md-flex justify-content-end px-0">
-                        <Row>
-                        
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                               1. {t("ideaform_questions.themeq")}
-                              </b>
-                            </div>
-
-                            <div className=" answers row flex-column p-4">
-                              <select
-                                className="form-control"
-                                onChange={handleThemeChange}
-                                disabled={isDisabled}
-                                name="theme"
-                                id="theme"
-                              >
-                                <option value={""}>
-                                  Please select the Theme
-                                </option>
-                                {themesList.map((item, i) => (
-                                  <option
-                                    key={i}
-                                    value={item}
-                                    selected={item === theme}
-                                  >
-                                    {item}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
+                    <div className="d-md-flex justify-content-end px-0">
+                      <Row>
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              1. {t("ideaform_questions.themeq")}
+                            </b>
                           </div>
-                          {theme === "Others" && (
+
+                          <div className=" answers row flex-column p-4">
+                            <select
+                              className="form-control"
+                              onChange={handleThemeChange}
+                              disabled={isDisabled}
+                              name="theme"
+                              id="theme"
+                            >
+                              <option value={""}>
+                                Please select the Theme
+                              </option>
+                              {themesList.map((item, i) => (
+                                <option
+                                  key={i}
+                                  value={item}
+                                  selected={item === theme}
+                                >
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                        {theme === "Others" && (
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
@@ -916,273 +916,262 @@ setCustomer(formData?.customer);
                                 {t("ideaform_questions.focusareaq")}
                               </b>
                             </div>
-                           
-                              <div className=" answers row flex-column p-4">
-                                <textarea
-                                  disabled={isDisabled}
-                                  placeholder={t("home.ideaFoc")}
-                                  value={others}
-                                  maxLength={500}
-                                  onChange={(e) => setOthers(e.target.value)}
-                                  className="form-control"
-                                />
-                                <div className="text-end">
-                                  {t("student_course.chars")} :
-                                  {500 - (others ? others.length : 0)}
-                                </div>
+
+                            <div className=" answers row flex-column p-4">
+                              <textarea
+                                disabled={isDisabled}
+                                placeholder={t("home.ideaFoc")}
+                                value={others}
+                                maxLength={500}
+                                onChange={(e) => setOthers(e.target.value)}
+                                className="form-control"
+                              />
+                              <div className="text-end">
+                                {t("student_course.chars")} :
+                                {500 - (others ? others.length : 0)}
                               </div>
-                          
-                          </div>
-                            )}
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                2.{t("ideaform_questions.ideatitleq")}
-                              </b>
                             </div>
-                            <div className="answers row flex-column p-4">
+                          </div>
+                        )}
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              2. {t("ideaform_questions.ideatitleq")}
+                            </b>
+                          </div>
+                          <div className="answers row flex-column p-4">
                             <textarea
-                                className="form-control"
-                                disabled={isDisabled}
-                                placeholder={t("home.ideatit")}
-                                // {t("student_course.chars")}
-                                value={ideaDescribe}
-                                rows={4}
-                                maxLength={500}
-                                onChange={(e) => setIdeaDescribe(e.target.value)}
-                              />
-                             
-                              <div className="text-end">
-                                {t("student_course.chars")} :
-                                {500 - (ideaDescribe ? ideaDescribe.length : 0)}
-                              </div>
+                              className="form-control"
+                              disabled={isDisabled}
+                              placeholder={t("home.ideatit")}
+                              // {t("student_course.chars")}
+                              value={ideaDescribe}
+                              rows={4}
+                              maxLength={500}
+                              onChange={(e) => setIdeaDescribe(e.target.value)}
+                            />
+
+                            <div className="text-end">
+                              {t("student_course.chars")} :
+                              {500 - (ideaDescribe ? ideaDescribe.length : 0)}
                             </div>
                           </div>
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                3.{t("ideaform_questions.problemstatementq")}
-                              </b>
-                            </div>
-                            <div className="answers row flex-column p-4">
-                              <textarea
-                                className="form-control"
-                                disabled={isDisabled}
-                                rows={6}
-                                placeholder={t("home.ideaprob")}
-                                value={title}
-                                maxLength={1000}
-                                onChange={(e) =>
-                                  setTitle(e.target.value)
-                                }
-                              />
-                              <div className="text-end">
-                                {t("student_course.chars")} :
-                                {1000 -
-                                  (title
-                                    ? title.length
-                                    : 0)}
-                              </div>
+                        </div>
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              3. {t("ideaform_questions.problemstatementq")}
+                            </b>
+                          </div>
+                          <div className="answers row flex-column p-4">
+                            <textarea
+                              className="form-control"
+                              disabled={isDisabled}
+                              rows={6}
+                              placeholder={t("home.ideaprob")}
+                              value={title}
+                              maxLength={1000}
+                              onChange={(e) => setTitle(e.target.value)}
+                            />
+                            <div className="text-end">
+                              {t("student_course.chars")} :
+                              {1000 - (title ? title.length : 0)}
                             </div>
                           </div>
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                4.{t("ideaform_questions.causesq")}
-                              </b>
-                            </div>
-                            <div className="answers row flex-column p-4">
-                              <textarea
-                                className="form-control"
-                                disabled={isDisabled}
-                                placeholder={t("home.ideaList")}
-                                rows={4}
-                                value={solve}
-                                maxLength={500}
-                                onChange={(e) => setSolve(e.target.value)}
-                              />
-                              <div className="text-end">
-                                {t("student_course.chars")} :
-                                {500 - (solve ? solve.length : 0)}
-                              </div>
+                        </div>
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              4. {t("ideaform_questions.causesq")}
+                            </b>
+                          </div>
+                          <div className="answers row flex-column p-4">
+                            <textarea
+                              className="form-control"
+                              disabled={isDisabled}
+                              placeholder={t("home.ideaList")}
+                              rows={4}
+                              value={solve}
+                              maxLength={500}
+                              onChange={(e) => setSolve(e.target.value)}
+                            />
+                            <div className="text-end">
+                              {t("student_course.chars")} :
+                              {500 - (solve ? solve.length : 0)}
                             </div>
                           </div>
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                5.{t("ideaform_questions.effectsq")}
-                              </b>
-                            </div>
-                            <div className="answers row flex-column p-4">
-                              <textarea
-                                className="form-control"
-                                disabled={isDisabled}
-                                placeholder={t("home.ideaEff")}
-                                value={customer}
-                                rows={4}
-                                maxLength={500}
-                                onChange={(e) => setCustomer(e.target.value)}
-                              />
-                              <div className="text-end">
-                                {t("student_course.chars")} :
-                                {500 - (customer ? customer.length : 0)}
-                              </div>
+                        </div>
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              5. {t("ideaform_questions.effectsq")}
+                            </b>
+                          </div>
+                          <div className="answers row flex-column p-4">
+                            <textarea
+                              className="form-control"
+                              disabled={isDisabled}
+                              placeholder={t("home.ideaEff")}
+                              value={customer}
+                              rows={4}
+                              maxLength={500}
+                              onChange={(e) => setCustomer(e.target.value)}
+                            />
+                            <div className="text-end">
+                              {t("student_course.chars")} :
+                              {500 - (customer ? customer.length : 0)}
                             </div>
                           </div>
-                          {/* //addon // */}
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                6.{t("ideaform_questions.explain")}
-                              </b>
-                            </div>
-                            <div className="answers row flex-column p-4">
-                              <textarea
-                                className="form-control"
-                                disabled={isDisabled}
-                                placeholder={t("home.explace")}
-                                value={detail}
-                                rows={4}
-                                maxLength={500}
-                                onChange={(e) => setDetail(e.target.value)}
-                              />
-                              <div className="text-end">
-                                {t("student_course.chars")} :
-                                {500 - (detail ? detail.length : 0)}
-                              </div>
+                        </div>
+                        {/* //addon // */}
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              6. {t("ideaform_questions.explain")}
+                            </b>
+                          </div>
+                          <div className="answers row flex-column p-4">
+                            <textarea
+                              className="form-control"
+                              disabled={isDisabled}
+                              placeholder={t("home.explace")}
+                              value={detail}
+                              rows={4}
+                              maxLength={500}
+                              onChange={(e) => setDetail(e.target.value)}
+                            />
+                            <div className="text-end">
+                              {t("student_course.chars")} :
+                              {500 - (detail ? detail.length : 0)}
                             </div>
                           </div>
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                7.{t("ideaform_questions.communityq")}
-                              </b>
-                            </div>
-                            <div className=" answers row flex-column">
-                              <div>
-                                {place.map((item,i) => (
-                                  <div key={i}>
-                                     <label
-                                    style={{
-                                      margin: "1rem",
-                                      fontSize: "1rem",
-                                    }}
-                                  >
-                                     <input
-                                        type="checkbox"
-                                        value={item.value} 
-                                        checked={
-                                          Array.isArray(stage) &&
-                                          stage.includes(item.value)
-                                        }
-                                        disabled={isDisabled}
-                                        onChange={() =>
-                                          handleStageCheckboxChange(item.value)
-                                        } 
-                                      />{" "}
-                                   
-                                   
-                                      {item.label}
-                                    </label>
-                                  </div>
-                                ))}
-                                
-                              </div>
-                            </div>
+                        </div>
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              7. {t("ideaform_questions.communityq")}
+                            </b>
                           </div>
-                          {/* Add On  */}
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                8.{t("ideaform_questions.uniqueq")}
-                              </b>
-                            </div>
-                            <div className=" answers row flex-column">
-                              <div>
-                                {uniqueData.map((item,i) => (
-                                  <div key={i}>
-                                     <label
+                          <div className=" answers row flex-column">
+                            <div>
+                              {place.map((item, i) => (
+                                <div key={i}>
+                                  <label
                                     style={{
                                       margin: "1rem",
                                       fontSize: "1rem",
                                     }}
                                   >
                                     <input
-                                        type="checkbox"
-                                        value={item.value} 
-                                        checked={
-                                          Array.isArray(unique) &&
-                                          unique.includes(item.value)
-                                        }
-                                        disabled={isDisabled}
-                                        onChange={() =>
-                                          handleUniqueCheckboxChange(item.value)
-                                        } 
-                                      />{" "}
-                                   
-                                      {item.label}
-                                    </label>
-                                  </div>
-                                ))}
-                               
-                              </div>
+                                      type="checkbox"
+                                      value={item.value}
+                                      checked={
+                                        Array.isArray(stage) &&
+                                        stage.includes(item.value)
+                                      }
+                                      disabled={isDisabled}
+                                      onChange={() =>
+                                        handleStageCheckboxChange(item.value)
+                                      }
+                                    />{" "}
+                                    {item.label}
+                                  </label>
+                                </div>
+                              ))}
                             </div>
                           </div>
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                9.{t("ideaform_questions.facingq")}
-                              </b>
-                            </div>
-                            <div className=" answers row flex-column p-4">
-                              <textarea
-                                className="form-control"
-                                disabled={isDisabled}
-                                placeholder={t("home.faci")}
-                                value={similar}
-                                rows={4}
-                                maxLength={500}
-                                onChange={(e) => setSimilar(e.target.value)}
-                              />
-                              <div className="text-end">
-                                {t("student_course.chars")} :
-                                {500 - (similar ? similar.length : 0)}
-                              </div>
+                        </div>
+                        {/* Add On  */}
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              8. {t("ideaform_questions.uniqueq")}
+                            </b>
+                          </div>
+                          <div className=" answers row flex-column">
+                            <div>
+                              {uniqueData.map((item, i) => (
+                                <div key={i}>
+                                  <label
+                                    style={{
+                                      margin: "1rem",
+                                      fontSize: "1rem",
+                                    }}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      value={item.value}
+                                      checked={
+                                        Array.isArray(unique) &&
+                                        unique.includes(item.value)
+                                      }
+                                      disabled={isDisabled}
+                                      onChange={() =>
+                                        handleUniqueCheckboxChange(item.value)
+                                      }
+                                    />{" "}
+                                    {item.label}
+                                  </label>
+                                </div>
+                              ))}
                             </div>
                           </div>
-                          {/* <div>
+                        </div>
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              9. {t("ideaform_questions.facingq")}
+                            </b>
+                          </div>
+                          <div className=" answers row flex-column p-4">
+                            <textarea
+                              className="form-control"
+                              disabled={isDisabled}
+                              placeholder={t("home.faci")}
+                              value={similar}
+                              rows={4}
+                              maxLength={500}
+                              onChange={(e) => setSimilar(e.target.value)}
+                            />
+                            <div className="text-end">
+                              {t("student_course.chars")} :
+                              {500 - (similar ? similar.length : 0)}
+                            </div>
+                          </div>
+                        </div>
+                        {/* <div>
                             <Col className="d-flex justify-content-end">
                               <button
                                 className="btn btn-secondary"
@@ -1193,112 +1182,110 @@ setCustomer(formData?.customer);
                               </button>
                             </Col>
                           </div> */}
-                        </Row>
-                      </div>
+                      </Row>
+                    </div>
                     {/* // )} */}
 
                     {/* {currentSection === 2 && ( */}
-                      <div className="d-md-flex justify-content-end px-0">
-                        <Row>
-                         
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                10.{t("ideaform_questions.solutiondetailsq")}
-                              </b>
-                            </div>
-                            <div className="answers row flex-column p-4">
-                              <textarea
-                                className="form-control"
-                                disabled={isDisabled}
-                                placeholder={t("home.ideaSol")}
-                                value={revenue}
-                                rows={6}
-                                maxLength={1000}
-                                onChange={(e) => setRevenue(e.target.value)}
-                              />
-                              <div className="text-end">
-                                {t("student_course.chars")} :
-                                {1000 - (revenue ? revenue.length : 0)}
-                              </div>
+                    <div className="d-md-flex justify-content-end px-0">
+                      <Row>
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              10. {t("ideaform_questions.solutiondetailsq")}
+                            </b>
+                          </div>
+                          <div className="answers row flex-column p-4">
+                            <textarea
+                              className="form-control"
+                              disabled={isDisabled}
+                              placeholder={t("home.ideaSol")}
+                              value={revenue}
+                              rows={6}
+                              maxLength={1000}
+                              onChange={(e) => setRevenue(e.target.value)}
+                            />
+                            <div className="text-end">
+                              {t("student_course.chars")} :
+                              {1000 - (revenue ? revenue.length : 0)}
                             </div>
                           </div>
-                          {/* Add On */}
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                11.{t("ideaform_questions.impactq")}
-                              </b>
-                            </div>
-                            <div className="answers row flex-column p-4">
-                              <textarea
-                                className="form-control"
-                                disabled={isDisabled}
-                                placeholder={t("home.data")}
-                                value={society}
-                                rows={6}
-                                maxLength={1000}
-                                onChange={(e) => setSociety(e.target.value)}
-                              />
-                              <div className="text-end">
-                                {t("student_course.chars")} :
-                                {1000 - (society ? society.length : 0)}
-                              </div>
+                        </div>
+                        {/* Add On */}
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              11. {t("ideaform_questions.impactq")}
+                            </b>
+                          </div>
+                          <div className="answers row flex-column p-4">
+                            <textarea
+                              className="form-control"
+                              disabled={isDisabled}
+                              placeholder={t("home.data")}
+                              value={society}
+                              rows={6}
+                              maxLength={1000}
+                              onChange={(e) => setSociety(e.target.value)}
+                            />
+                            <div className="text-end">
+                              {t("student_course.chars")} :
+                              {1000 - (society ? society.length : 0)}
                             </div>
                           </div>
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0 p-4">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                               12.{t("ideaform_questions.stakeholdersq")}
-                              </b>
-                            </div>
-                            <div className=" answers row flex-column">
-                             
-                              <div>
-                                {people.map((item,i) => (
-                                  <div key={i}>
-                                     <label
+                        </div>
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              12. {t("ideaform_questions.stakeholdersq")}
+                            </b>
+                          </div>
+                          <div className=" answers row flex-column">
+                            <div>
+                              {people.map((item, i) => (
+                                <div key={i}>
+                                  <label
                                     style={{
                                       margin: "1rem",
                                       fontSize: "1rem",
                                     }}
                                   >
-                                   
-                                      <input
-                                        type="checkbox"
-                                        value={item.value} 
-                                        checked={
-                                          Array.isArray(confident) &&
-                                          confident.includes(item.value)
-                                        }
-                                        disabled={isDisabled}
-                                        onChange={() =>
-                                          handleConfidentCheckboxChange(item.value)
-                                        } 
-                                      />{" "}
-                                   
-                                      {item.label}
-                                    </label>
-                                  </div>
-                                ))}
-                              </div>
+                                    <input
+                                      type="checkbox"
+                                      value={item.value}
+                                      checked={
+                                        Array.isArray(confident) &&
+                                        confident.includes(item.value)
+                                      }
+                                      disabled={isDisabled}
+                                      onChange={() =>
+                                        handleConfidentCheckboxChange(
+                                          item.value
+                                        )
+                                      }
+                                    />{" "}
+                                    {item.label}
+                                  </label>
+                                </div>
+                              ))}
                             </div>
                           </div>
-                          {/* Add On */}
-                         
-                          {/* <div className="card comment-card">
+                        </div>
+                        {/* Add On */}
+
+                        {/* <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
                                 style={{
@@ -1324,49 +1311,44 @@ setCustomer(formData?.customer);
                               </div>
                             </div>
                           </div> */}
-                         
-                        </Row>
-                      </div>
+                      </Row>
+                    </div>
                     {/* // )} */}
                     {/* {currentSection === 3 && ( */}
-                      <div className="d-md-flex justify-content-end px-0">
-                        <Row>
-                          
-                          <div className="card comment-card">
-                           
-                           <div className="question quiz mb-0">
-                             <b
-                               style={{
-                                 fontSize: "1rem",
-                               }}
-                             >
-                               13.{t("ideaform_questions.additionalq")}
-                             </b>
-                           </div>
+                    <div className="d-md-flex justify-content-end px-0">
+                      <Row>
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              13. {t("ideaform_questions.additionalq")}
+                            </b>
+                          </div>
 
-                           <div className=" answers row flex-column p-4">
-                             <select
-                               className="form-control"
-                               onChange={handleSupportChange}
-                               disabled={isDisabled}
-                               name="support"
-                               id="support"
-                             >
-                               <option value={""}>
-                                 Please select Dropdown 
-                               </option>
-                               {supportOptions.map((item, i) => (
-                                 <option
-                                   key={i}
-                                   value={item}
-                                   selected={item === support}
-                                 >
-                                   {item}
-                                 </option>
-                               ))}
-                             </select>
-                         </div>
-                           {/* <div className=" answers row flex-column">
+                          <div className=" answers row flex-column p-4">
+                            <select
+                              className="form-control"
+                              onChange={handleSupportChange}
+                              disabled={isDisabled}
+                              name="support"
+                              id="support"
+                            >
+                              <option value={""}>Please select Dropdown</option>
+                              {supportOptions.map((item, i) => (
+                                <option
+                                  key={i}
+                                  value={item}
+                                  selected={item === support}
+                                >
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          {/* <div className=" answers row flex-column">
                              
                              <div>
                                {journey.map((item, i) => (
@@ -1396,21 +1378,21 @@ setCustomer(formData?.customer);
                                ))}
                              </div>
                            </div> */}
-                         </div>
-                          <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                14.{t("ideaform_questions.uploadq")}
-                              </b>
-                            </div>
-                            <div className=" answers row flex-column p-4 pb-0">
-                              {/* <FormGroup check className="answers"> */}
-                              <div className="wrapper my-3 common-flex">
-                                {/* {!isDisabled && (
+                        </div>
+                        <div className="card comment-card">
+                          <div className="question quiz mb-0">
+                            <b
+                              style={{
+                                fontSize: "1rem",
+                              }}
+                            >
+                              14. {t("ideaform_questions.uploadq")}
+                            </b>
+                          </div>
+                          <div className=" answers row flex-column p-4 pb-0">
+                            {/* <FormGroup check className="answers"> */}
+                            <div className="wrapper my-3 common-flex">
+                              {/* {!isDisabled && (
                                                                                                     <Button
                                                                                                         type="button"
                                                                                                         btnClass={`${
@@ -1424,89 +1406,86 @@ setCustomer(formData?.customer);
                                                                                                         )}
                                                                                                     />
                                                                                                 )} */}
-                                {!isDisabled && (
-                                  <Button
-                                    label={t("home.ideaFi")}
-                                    // btnClass="primary"
-                                    btnClass={`${
-                                      isDisabled ? "secondary" : "primary"
-                                    } me-3 pointer `}
-                                    size="small"
-                                    onClick={() => {
-                                      document.getElementById("file").click();
-                                    }}
-                                  />
-                                )}
-                                <input
-                                  type="file"
-                                  name="file"
-                                  className="form-control"
-                                  id="file"
-                                  style={{
-                                    display: "none",
+                              {!isDisabled && (
+                                <Button
+                                  label={t("home.ideaFi")}
+                                  // btnClass="primary"
+                                  btnClass={`${
+                                    isDisabled ? "secondary" : "primary"
+                                  } me-3 pointer `}
+                                  size="small"
+                                  onClick={() => {
+                                    document.getElementById("file").click();
                                   }}
-                                  disabled={isDisabled}
-                                  accept="image/jpeg,image/jpg,image/png,application/pdf"
-                                  multiple
-                                  // className="hidden"
-                                  // style='display: none'
-                                  onChange={(e) => fileHandler(e)}
                                 />
-                              </div>
-                              {/* </FormGroup> */}
-                              <div className="mx-4">
-                                {immediateLink &&
-                                  immediateLink.length > 0 &&
-                                  immediateLink.map((item, i) => (
-                                    <LinkComponent
-                                      item={item}
-                                      url={true}
-                                      key={i}
-                                    />
-                                  ))}
-                                {!immediateLink &&
-                                  files.length > 0 &&
-                                  files.map((item, i) => (
-                                    <LinkComponent
-                                      original={true}
-                                      item={item}
-                                      i={i}
-                                      key={i}
-                                      removeFileHandler={removeFileHandler}
-                                    />
-                                  ))}
-
-                                {!immediateLink &&
-                                  files.length === 0 &&
-                                  Array.isArray(prototypeImage) &&
-                                  prototypeImage.map((item, i) => (
-                                    <LinkComponent
-                                      item={item}
-                                      url={true}
-                                      key={i}
-                                    />
-                                  ))}
-                              </div>
-                            </div>
-                            <div className=" answers row flex-column p-4 pt-0">
-                              <textarea
+                              )}
+                              <input
+                                type="file"
+                                name="file"
                                 className="form-control"
+                                id="file"
+                                style={{
+                                  display: "none",
+                                }}
                                 disabled={isDisabled}
-                                placeholder={t("home.ideaUp")}
-                                value={prototypeLink}
-                                maxLength={300}
-                                onChange={(e) =>
-                                  setPrototypeLink(e.target.value)
-                                }
+                                accept="image/jpeg,image/jpg,image/png,application/pdf"
+                                multiple
+                                // className="hidden"
+                                // style='display: none'
+                                onChange={(e) => fileHandler(e)}
                               />
-                              <div className="text-end">
-                                {t("student_course.chars")} :
-                                {300 -
-                                  (prototypeLink ? prototypeLink.length : 0)}
-                              </div>
+                            </div>
+                            {/* </FormGroup> */}
+                            <div className="mx-4">
+                              {immediateLink &&
+                                immediateLink.length > 0 &&
+                                immediateLink.map((item, i) => (
+                                  <LinkComponent
+                                    item={item}
+                                    url={true}
+                                    key={i}
+                                  />
+                                ))}
+                              {!immediateLink &&
+                                files.length > 0 &&
+                                files.map((item, i) => (
+                                  <LinkComponent
+                                    original={true}
+                                    item={item}
+                                    i={i}
+                                    key={i}
+                                    removeFileHandler={removeFileHandler}
+                                  />
+                                ))}
+
+                              {!immediateLink &&
+                                files.length === 0 &&
+                                Array.isArray(prototypeImage) &&
+                                prototypeImage.map((item, i) => (
+                                  <LinkComponent
+                                    item={item}
+                                    url={true}
+                                    key={i}
+                                  />
+                                ))}
                             </div>
                           </div>
-                          {/* <div className="card comment-card">
+                          <div className=" answers row flex-column p-4 pt-0">
+                            <textarea
+                              className="form-control"
+                              disabled={isDisabled}
+                              placeholder={t("home.ideaUp")}
+                              value={prototypeLink}
+                              maxLength={300}
+                              onChange={(e) => setPrototypeLink(e.target.value)}
+                            />
+                            <div className="text-end">
+                              {t("student_course.chars")} :
+                              {300 - (prototypeLink ? prototypeLink.length : 0)}
+                            </div>
+                          </div>
+                        </div>
+                        {/* <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
                                 style={{
@@ -1543,9 +1522,8 @@ setCustomer(formData?.customer);
                               </div>
                             </div>
                           </div> */}
-                         
-                        </Row>
-                      </div>
+                      </Row>
+                    </div>
                     {/* )} */}
                   </Form>
                   {/* <div className="d-flex justify-content-start">

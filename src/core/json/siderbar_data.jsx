@@ -88,7 +88,7 @@ useEffect(() => {
         {
           label:"Manage Team",
           link: "/student-team",
-          icon: <Icon.Grid />,
+          icon: <Icon.UserPlus />,
           showSubRoute: false,
           role: "STUDENT",
           submenu: false,
