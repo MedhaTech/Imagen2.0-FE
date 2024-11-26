@@ -30,7 +30,6 @@ const StuEdit = () => {
   const location = useLocation();
   const studentData = location.state || {};
   const currentUser = getCurrentUser("current_user");
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
@@ -90,21 +89,6 @@ const StuEdit = () => {
       ocn: '',
       id_number:"",
     },
-    // initialValues: {
-    //   full_name: data?.full_name || '',
-    //   email: data.username_email,
-    //   mobile: data?.mobile,
-    //   district: data?.district,
-    //   college: data?.college_name,
-    //   rollnumber: data?.roll_number,
-    //   branch: data?.branch,
-    //   yearofstudy: data?.
-    //   year_of_study
-    //   ,
-    //   collegeType: data?.college_type,
-    //   ocn: data?.college_name,
-    // },
-
     validationSchema: Yup.object({
       full_name: Yup.string()
         .trim()
@@ -160,20 +144,25 @@ const StuEdit = () => {
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select college</span>
       ),
+    
+      // ocn: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Enter College Name</span>
+      // ),
+     
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Roll Number</span>
       ),
       branch: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
+     
       yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select yearofstudy</span>
+        <span style={{ color: "red" }}>Please Select year of study</span>
       ),
     
     }),
 
     onSubmit: (values) => {
-      // alert("hii");
       const body ={
         full_name: values.full_name,
         mobile: String(values.mobile),
@@ -200,9 +189,15 @@ const StuEdit = () => {
         },
         data: JSON.stringify(body),
       };
+      // console.log(body,"body");
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
+            if (currentUser.data[0].type_id === "0"){
+
+              currentUser.data[0].full_name = values.full_name;
+              setCurrentUser(currentUser);
+            }
             openNotificationWithIcon(
               "success",
               "Student details updated Successfully"
@@ -214,7 +209,7 @@ const StuEdit = () => {
           }
         })
         .catch(function (error) {
-          openNotificationWithIcon("error", error?.response?.data?.message);
+          openNotificationWithIcon("error", "Other College Name is required");
         });
     },
   });
@@ -230,7 +225,8 @@ const StuEdit = () => {
         branch: data.branch || '',
         yearofstudy: data.year_of_study || '',
         collegeType: data.college_type || '',
-        ocn: data.college_name || '',
+        // ocn: data.college_name || '',
+        ocn: data.college_type === 'Other' ? data.college_name : '',
         id_number: data.id_number || '',
       });
     }
@@ -239,6 +235,7 @@ const StuEdit = () => {
     if (data?.college_type) {
       formik.setFieldValue('collegeType', data.college_type);
     }
+ 
   }, [data?.college_type]);
   useEffect(() => {
     if (data.college_name) {
@@ -253,6 +250,7 @@ const StuEdit = () => {
         ] || []
     );
    },[data.college_type]);
+   console.log( formik.values.college,"clg",formik.values.ocn,"other");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -471,7 +469,7 @@ const StuEdit = () => {
                               </small>
                             ) : null}
                           </div>
-                          {formik.values.college === "Other" && (
+                          {formik.values.collegeType === "Other" && (
                             <div className={`col-md-12`}>
                               <label htmlFor="ocn" className="form-label">
                                 Other College Name
@@ -605,16 +603,11 @@ const StuEdit = () => {
 
                         <div className="form-login d-flex justify-content-between">
                           <button
-    //                         type="submit"
-    // className={`btn btn-warning m-2 ${
-    //   !formik.dirty || !formik.isValid ? "default" : "primary"
-    // }`}
-    className="btn btn-warning m-2"
+    className={`btn btn-warning m-2 ${
+      !formik.dirty || !formik.isValid  ? "default" : "primary"
+    }`}
     type="submit"
-    disabled={
-      !formik.isValid || !formik.dirty
-    }
-    // disabled={!formik.dirty || !formik.isValid}
+    disabled={!formik.dirty || !formik.isValid ||  (formik.values.collegeType === "Other" && !formik.values.ocn)}
                           >
                             Submit
                             <ArrowRight />

@@ -545,7 +545,7 @@ useEffect(() => {
             </div>
           </div>
           <div className="row sales-cards">
-            <div className="col-xl-3 col-sm-6 col-12">
+            <div className="col-xl-4 col-sm-6 col-12">
               <div className="card color-info bg-success mb-4 ">
                 <h3>
                   {" "}
@@ -557,7 +557,7 @@ useEffect(() => {
                 <FeatherIcon icon="monitor" />
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12">
+            {/* <div className="col-xl-3 col-sm-6 col-12">
               <div className="card color-info"  style={{background:"#00CFE8"}}>
                 <h3>
                   {" "}
@@ -568,8 +568,8 @@ useEffect(() => {
                 <p>Quizes Passed</p>
                 <FeatherIcon icon="thumbs-up" />
               </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12">
+            </div> */}
+            <div className="col-xl-4 col-sm-6 col-12">
               <div className="card color-info bg-secondary mb-4">
                 <h3>
                   <CountUp end={videos} duration={4}>
@@ -580,12 +580,12 @@ useEffect(() => {
                 <FeatherIcon icon="video" />
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12">
+            <div className="col-xl-4 col-sm-6 col-12">
               <div className="card color-info bg-primary">
                 <h3>
                   <CountUp end={badges} duration={4}>
                     +
-                  </CountUp> / 8
+                  </CountUp> / 3
                 </h3>
                 <p>Badges Achieved</p>
                 <FeatherIcon icon="award" />
