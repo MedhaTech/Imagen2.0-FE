@@ -308,7 +308,7 @@ const AdminLatestNews = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '4rem'
+                width: '6rem'
             },
             {
                 name: 'Role',
@@ -316,12 +316,12 @@ const AdminLatestNews = () => {
                 sortable: true,
                 width: '6rem'
             },
-            {
-                name: 'State',
-                selector: (row) => row.state,
-                sortable: true,
-                width: '10rem'
-            },
+            // {
+            //     name: 'State',
+            //     selector: (row) => row.state,
+            //     sortable: true,
+            //     width: '10rem'
+            // },
             // {
             //     name: 'Enable/Disable',
             //     width: '12rem',
@@ -441,7 +441,7 @@ const AdminLatestNews = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '4rem'
+                width: '6rem'
             },
             {
                 name: 'Role',
@@ -449,12 +449,12 @@ const AdminLatestNews = () => {
                 sortable: true,
                 width: '6rem'
             },
-            {
-                name: 'State',
-                selector: (row) => row.state,
-                sortable: true,
-                width: '10rem'
-            },
+            // {
+            //     name: 'State',
+            //     selector: (row) => row.state,
+            //     sortable: true,
+            //     width: '10rem'
+            // },
             
             {
                 name: 'Details',

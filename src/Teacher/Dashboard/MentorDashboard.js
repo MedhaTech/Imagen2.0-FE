@@ -492,7 +492,7 @@ poptype={poptype}
               <h6>here&apos;s what&apos;s happening with your Youth for Social Impact 2024 journey.</h6>
             </div>
             <div className="d-flex align-items-center">
-              <div className="action-table-data">
+              {/* <div className="action-table-data">
                 <div className="edit-delete-action">
                   <OverlayTrigger placement="top" overlay={renderTooltip}>
                     <Link
@@ -506,7 +506,7 @@ poptype={poptype}
                     </Link>
                   </OverlayTrigger>
                 </div>
-              </div>
+              </div> */}
               {/* <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
                 <Link data-bs-toggle="tooltip" data-bs-placement="top" onClick={handleRefresh} >
                   <RotateCcw className="feather feather-rotate-ccw feather-16" />
@@ -752,7 +752,7 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -768,7 +768,7 @@ poptype={poptype}
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             {teamCountLoading ? ( 
                                 <Loader />
@@ -967,7 +967,7 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -983,7 +983,7 @@ poptype={poptype}
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
@@ -1020,7 +1020,7 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -1036,7 +1036,7 @@ poptype={poptype}
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             <span
                               className={"badge badge-linesuccess"}

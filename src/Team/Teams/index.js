@@ -196,7 +196,7 @@ const Dashboard = (props) => {
               ))}
             </div>
           </div>
-          <Row className="pt-2">
+          {/* <Row className="pt-2">
                     <Card className="w-100 p-5">
                       <div>
                         <Label className="text-danger">
@@ -232,7 +232,6 @@ const Dashboard = (props) => {
                             </li>
                         </ul>
                             </p>
-                        {/* <br/> */}
                         <p ><span style={{fontWeight:"bold"}}>2. Pilot Starts Registration</span>
                         <ul >
                             <li style={{listStyleType:"disc"}}>
@@ -244,7 +243,6 @@ const Dashboard = (props) => {
                             </li>
                         </ul>
                             </p>
-                        {/* <br/> */}
                         <p ><span style={{fontWeight:"bold"}}>3. Set Up Team Logins
                         </span>
                         <ul >
@@ -254,7 +252,6 @@ const Dashboard = (props) => {
                             <li style={{listStyleType:"disc"}}>Members can reset and create their own passwords anytime.</li>
                         </ul>
                             </p>
-                        {/* <br/> */}
                         <p ><span style={{fontWeight:"bold"}}>4. Manage Your Team
                         </span>
                         <ul >
@@ -263,10 +260,9 @@ const Dashboard = (props) => {
                             </li>
                         </ul>
                             </p>
-                        {/* <br/> */}
                         </div>
                     </Card>
-                </Row>
+                </Row> */}
         </div>
       </div>
     </div>
