@@ -248,12 +248,17 @@ return (
                             Welcome Students!
                           </h2>
                           <br/>
-                          <div className="m-2"
+                          <div
+  dangerouslySetInnerHTML={{
+    __html: t('home.preinst') 
+  }}
+/>
+                          {/* <div className="m-2"
                             dangerouslySetInnerHTML={{
                               __html:
                                 "<span class='text-blue'>We are excited to have you join us on this transformative journey to develop your <b>innovation</b> and <b></br>entrepreneurial skills!</b></span></br> This program is designed to empower you and your team to:</br><ol><li><b>. </b>Solve real-world problems with innovative solutions.</li><li><b>. </b>Create and build entrepreneurial ideas that can make a meaningful impact.</li><br><p>Through this course, you will:</p><li><b>. </b>Learn essential creative thinking, <b>critical thinking,</b> and <b>problem-solving skills</b>.</li><li><b>. </b>Explore <b>engaging videos </b>to guide and inspire you.</li><li><b>. </b>Gain hands-on experience in identifying challenges and crafting innovative or entrepreneurial solutions.</li></ol></br><p>We look forward to seeing your creative ideas and impactful solutions come to life.</br> <span class='text-success'><b>Wishing you all the best on this exciting adventure!</b></span></p>",
         }}
-                          ></div>
+                          ></div> */}
                           <button
                             className="btn btn-primary m-3"
                             onClick={handleStart}
