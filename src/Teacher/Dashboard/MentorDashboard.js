@@ -654,7 +654,7 @@ poptype={poptype}
                 </div>
               </div>
             </div> */}
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            {/* <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-count das1">
                       {teacPostSurvey != "COMPLETED" ? (
                           <>
@@ -670,23 +670,18 @@ poptype={poptype}
                           <>
                             <div className="dash-counts">
                               <h4>Congrats</h4>
-                              {/* <h5>Download Certificate</h5> */}
                               <h5>Certificate enables soon</h5>
                             </div>
                             <div className="dash-imgs" 
-                            // onClick={handleCertificateDownload}
                             >
                                 <GiAchievement size={30} />
                             </div>
                           </>
                         )}
-                  {/* </div>
-                  <div className="dash-imgs" onClick={handleCertificateDownload}>
-                      <GiAchievement size={30} />
-                  </div> */}
+                  
               </div>
-            </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            </div> */}
+            <div className="col-xl-6 col-sm-6 col-12 d-flex">
               <div className="dash-count das2">
                 <div className="dash-counts">
                   <h4>Teams Progress</h4>
@@ -695,7 +690,7 @@ poptype={poptype}
                 <SchoolTeamPDF />
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-6 col-sm-6 col-12 d-flex">
               <div className="dash-count das3">
                 <div className="dash-counts">
                   <h4>Join Whatsapp</h4>
