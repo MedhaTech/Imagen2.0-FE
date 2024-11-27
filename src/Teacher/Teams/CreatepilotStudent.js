@@ -93,19 +93,19 @@ const CreatepilotStudent = () => {
         <span style={{ color: "red" }}>Please Select college</span>
       ),
       rollnumber: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Roll Number</span>
+        <span style={{ color: "red" }}>Please Enter Roll Number</span>
       ),
       branch: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select yearofstudy</span>
+        <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select password</span>
+        <span style={{ color: "red" }}>Please Enter password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
       )
     }),
 
