@@ -192,8 +192,11 @@ const StuEdit = () => {
       if (data && data.username_email !== values.email) {
         body['username'] = values.email;
     }
-    if (data && data.id_number !== values.id_number ) {
-      body["id_number"] = values.id_number;
+    // if (data && data.id_number !== values.id_number ) {
+    //   body["id_number"] = values.id_number;
+    // }
+    if (values.id_number !== "") {
+      body["id_number"] = JSON.stringify(values.id_number);
     }
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
@@ -235,7 +238,7 @@ const StuEdit = () => {
         branch: data.branch || '',
         yearofstudy: data.year_of_study || '',
         collegeType: data.college_type || '',
-        ocn: data.college_name || '',
+        ocn: data.college_type === 'Other' ? data.college_name : '',
         id_number: data.id_number || '',
       });
     }
@@ -476,7 +479,7 @@ const StuEdit = () => {
                               </small>
                             ) : null}
                           </div>
-                          {formik.values.college === "Other" && (
+                          {formik.values.collegeType === "Other" && (
                             <div className={`col-md-12`}>
                               <label htmlFor="ocn" className="form-label">
                                 Other College Name

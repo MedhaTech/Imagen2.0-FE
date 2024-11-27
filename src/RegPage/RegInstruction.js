@@ -98,10 +98,10 @@ const RegInstruction = () => {
               <h5 className='headertitle'>Who can register ?</h5>
               <ul style={{ paddingLeft: '3rem', listStyle: 'disc' }}>
                 <li>Are you more than 16 years of age?</li>
-                <li>Are you studying diploma/UG/PG in a college which is located in Telangana State?</li>
-                <li>Do you have the thirst to learn and explore with a passion to make a social impact?</li>
+                <li>  Do you have ideas that can make a positive impact? </li>
+                {/* <li>Do you have the thirst to learn and explore with a passion to make a social impact?</li> */}
               </ul>
-              <p className='mt-2'> If the answer to all the above questions is “Yes”, then yeah, you can proceed! </p>
+              <p className='mt-2'> If the answer to all the above questions is “Yes”, then yes, you can proceed! </p>
               <h5 className="headertitle">How can you register?</h5>
               <ul style={{ paddingLeft: '3rem', listStyle: 'disc' }}>
                 <li>Youth for Social Impact requires a team of 2 to 4 participants.</li>
@@ -117,7 +117,7 @@ const RegInstruction = () => {
                 <li>Team members can reset and set up their individual password anytime.</li>
                 <li>The pilot will have the access to change the details of crew members or add new members
                   until they start the course.</li>
-                <li>For any other concerns, you can raise a ticket or visit our FAQs.</li>
+                <li>For any other concerns, you can contact us or visit our FAQs.</li>
               </ul>
             </div>
             <button

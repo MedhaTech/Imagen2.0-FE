@@ -464,13 +464,25 @@ const CommonUserProfile = (props) => {
                                 </span>
                                 <b style={{fontSize:"1rem"}}>{StudentsDaTa?.college_type}</b>
                             </CardText>
-                            <CardText>
-                                <span className="mx-3" style={{fontSize:"1rem"}}>
-                                    <b>College Name :</b>
-                                </span>
-                                <b style={{fontSize:"1rem"}} >{StudentsDaTa?.college_name}</b>
-                            </CardText>
-
+                           {StudentsDaTa?.college_type !== "Other" && (<CardText>
+                                   <span className="mx-3" style={{ fontSize: "1rem" }}>
+                                       <b>College Name :</b>
+                                   </span>
+                                   <b style={{ fontSize: "1rem" }}>{StudentsDaTa?.college_name}</b>
+                               </CardText>
+                               )} 
+                           {StudentsDaTa?.college_type == "Other" && ( <><CardText>
+                                   <span className="mx-3" style={{ fontSize: "1rem" }}>
+                                       <b>College Name :</b>
+                                   </span>
+                                   <b style={{ fontSize: "1rem" }}>Other</b>
+                               </CardText><CardText>
+                                       <span className="mx-3" style={{ fontSize: "1rem" }}>
+                                           <b>Other College Name </b>
+                                       </span>
+                                       <b style={{ fontSize: "1rem" }}>{StudentsDaTa?.college_name}</b>
+                                   </CardText></>
+                            )}
                             <CardText>
                                 <span className="mx-3" style={{fontSize:"1rem"}}>
                                     <b>Roll number provided by the college :</b>
@@ -509,14 +521,14 @@ id_number}</b>
                                 </b>
                             </CardText>
 
-                            <CardText>
+                            {/* <CardText>
                                 <span className="mx-3">
                                     <b>Completed Quiz :</b>
                                 </span>
                                 <b>
                                 {quiz}
                                 </b>
-                            </CardText>
+                            </CardText> */}
                             <CardText>
                                 <span className="mx-3">
                                     <b>Course Completion :</b>
@@ -546,7 +558,7 @@ id_number}</b>
                     </Card>
                 </Row>
               
-                <Row>
+                {/* <Row>
                     <Card className="py-2">
                         <CardBody>
                             <h4 className="mb-2">Quiz Details Table Format</h4>
@@ -569,7 +581,7 @@ id_number}</b>
                             </DataTableExtensions>
                         </div>
                     </Card>
-                </Row>
+                </Row> */}
             </Container>
             </div>
             </div>
