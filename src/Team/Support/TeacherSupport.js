@@ -205,7 +205,7 @@ console.log(supportTickets,"supportTickets");
         const body = {
           query_category: values.ticket,
           query_details: values.ticketDetails,
-          state: "Telangana",
+          district: currentUser?.data[0]?.district
         };
         if (values.file_name !== "") {
           body["file"] = values.file_name;
