@@ -204,9 +204,7 @@ const TeacherSupport = () => {
                 const body = {
                     query_category: values.ticket,
                     query_details: values.ticketDetails,
-                    state: currentUser.data[0].state,
-                    // district: currentUser.data[0].district
-
+                    district: currentUser?.data[0]?.district
                 };
                 if (values.file_name !== '') {
                     body['file'] = values.file_name;
