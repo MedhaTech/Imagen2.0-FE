@@ -24,7 +24,7 @@ const Dashboard = (props) => {
   const navigate = useNavigate();
   const [teamsArray, setTeamsArray] = useState([]);
   const currentUser = getCurrentUser("current_user");
-
+const [hidebutton,setHideButton]=useState("");
   useEffect(() => {
     teamListbymentorid();
   }, []);
@@ -49,6 +49,8 @@ const Dashboard = (props) => {
       .then(function (response) {
         if (response.status === 200) {
           setTeamsArray(response.data.data);
+          setHideButton(response.data.count);
+          console.log(response,"response");
         }
       })
       .catch(function (error) {
@@ -142,7 +144,7 @@ const Dashboard = (props) => {
                 {/* <h6>You can &quot;Create Teams&quot; & then &quot;View&quot; , &quot;Edit&quot; , &quot;Delete&quot; & &quot;Swap&quot; students in teams</h6> */}
               </div>
             </div>
-            {currentUser?.data[0]?.type_id === 0 && <ul className="table-top-head">
+            {(currentUser?.data[0]?.type_id === 0 && hidebutton < 4 )&& <ul className="table-top-head">
               <li>
                 <div className="page-btn mb-2">
                   <Link to="/student-teamAdd" className="btn btn-added btn-primary">

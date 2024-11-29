@@ -210,14 +210,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     },
   ];
   const supportOptions = [
-    "Funding/Investment",
-    "Mentorship and Guidance",
-    "Access to Technology/Tools",
-    "Marketing & Branding Support",
-    "Product Development Assistance",
-    "Access to Incubators/Networks or Partners",
-    "Legal Support (e.g., Intellectual Property, contracts)",
-    "Other (Please specify)",
+    "Funding/Investment / నిధులు/రూపాయాల పెట్టుబడులు",
+    "Mentorship and Guidance / మార్గదర్శకత్వం మరియు సహాయం",
+    "Access to Technology/Tools/ టెక్నాలజీ/సాధనలకు ప్రవేశం",
+    "Marketing & Branding Support / మార్కెటింగ్ మరియు బ్రాండింగ్ మద్దతు",
+    "Product Development Assistance/ ఉత్పత్తి అభివృద్ధి సహాయం",
+    "Access to Incubators/Networks or Partners / ఇంక్యుబేటర్లు/నెట్‌వర్క్‌లు లేదా భాగస్వాముల దగ్గర ప్రవేశం",
+    "Legal Support (e.g., Intellectual Property, contracts) / చట్టపరమైన మద్దతు (ఉదాహరణకు, మేధా సంపత్తి, ఒప్పందాలు)",
+    "Other (Please specify) / ఇతర (దయచేసి వివరించండి)",
   ];
   // console.log(theme,"theme",props?.theme,"props?.theme");
   const initiatedBy = formData?.initiated_by;
@@ -772,7 +772,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 )
                               : ""}
                           </h5>
-                          <h5 className="text-white p-1">
+                          {/* <h5 className="text-white p-1">
                             {t("idea_page.review")} :
                             {formData?.verified_status === null ||
                             formData?.verified_status === ""
@@ -790,7 +790,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               : moment(formData?.verified_at).format(
                                   "DD-MM-YYYY HH:MM A"
                                 )}
-                          </h5>
+                          </h5> */}
                         </Card>
                       </div>
                     )}

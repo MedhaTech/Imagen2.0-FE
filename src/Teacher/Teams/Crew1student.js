@@ -163,7 +163,14 @@ const Crew1student = () => {
           }
         })
         .catch((err) => {
-          openNotificationWithIcon("error", err.response.data?.message);
+          if(err?.response?.data?.status === 406){
+            openNotificationWithIcon("error", err.response.data?.message);
+  
+            }else{
+  
+              openNotificationWithIcon("error", "Email Id is Invalid");
+            }
+          // openNotificationWithIcon("error", err.response.data?.message);
           // setBtn(false);
           formik.setErrors({
             check: err.response && err?.response?.data?.message,

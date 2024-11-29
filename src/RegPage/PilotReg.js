@@ -167,7 +167,15 @@ const PilotReg = () => {
             }
           })
           .catch((err) => {
-            openNotificationWithIcon("error", err.response.data?.message);
+            if(err?.response?.data?.status === 406){
+              openNotificationWithIcon("error", err.response.data?.message);
+    
+              }else{
+    
+                openNotificationWithIcon("error", "Email Id is Invalid");
+              }
+            // setIsSubmitting(false);
+
             // setBtn(false);
             formik.setErrors({
               check: err.response && err?.response?.data?.message,

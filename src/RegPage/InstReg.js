@@ -250,7 +250,15 @@ const Register = () => {
             }
           })
           .catch((err) => {
-            openNotificationWithIcon("error", err.response.data?.message);
+            if(err?.response?.data?.status === 406){
+              openNotificationWithIcon("error", err.response.data?.message);
+    
+              }else{
+    
+                openNotificationWithIcon("error", "Email Id is Invalid");
+              }
+            // openNotificationWithIcon("error", "Email Id is Invalid");
+
             // setBtn(false);
             formik.setErrors({
               check: err.response && err?.response?.data?.message,
@@ -363,6 +371,7 @@ const Register = () => {
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
           openNotificationWithIcon("error", error?.response.data?.message);
+          // openNotificationWithIcon("error", "Email Id is Invalid");
 
           setDisable(true);
           setAreInputsDisabled(false);
@@ -440,14 +449,23 @@ const Register = () => {
   const handleLogoClick = () => {
     navigate('/');
   };
-
+  useEffect(() => {
+    document.body.style.overflow = 'auto'; // Enable scrolling
+    document.body.style.overflowY = 'hidden'; // Hide vertical scrollbar
+  }, []);
   //console.log(formik.values.district,"district", );
   // const route = all_routes;
+  const style = {
+    overflow: 'auto',
+   
+    scrollbarWidth: 'none', // Hides scrollbar in Firefox
+    msOverflowStyle: 'none', // Hides scrollbar in Internet Explorer
+  };
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper register-wrap bg-img">
-          <div className="login-content">
+        <div className="login-wrapper register-wrap  bg-img">
+          <div className="login-content" style={style} >
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
                 <div className="login-logo logo-normal" onClick={handleLogoClick}>
@@ -878,7 +896,7 @@ const Register = () => {
                         )}
 
                         {btnOtp && (
-                          <div className="form-login">
+                          <div className="form-login text-center">
                             <button
                               className="btn btn-login"
                               type="submit"
