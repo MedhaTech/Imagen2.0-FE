@@ -142,7 +142,27 @@ const [data,setData]=useState({});
                   />
                 </div>
               </div>
-              <div className="col-lg-6 col-sm-12">
+              {teacher?.college_type == "Other" &&( <><div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">College Name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue="Other"
+                    readOnly="readonly" />
+                </div>
+              </div>
+              <div className="col-lg-4 col-sm-12">
+                  <div className="input-blocks">
+                    <label className="form-label">Other College Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      defaultValue={teacher?.college_name}
+                      readOnly="readonly" />
+                  </div>
+                </div></>)}
+              {/* <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">College Name</label>
                   <input
@@ -156,8 +176,17 @@ const [data,setData]=useState({});
                     readOnly="readonly"
                   />
                 </div>
-              </div>
-             
+              </div> */}
+              {teacher.college_type !== "Other" &&( <div className="col-lg-6 col-sm-12">
+                  <div className="input-blocks">
+                    <label className="form-label">College Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      defaultValue={teacher.college_name}
+                      readOnly="readonly" />
+                  </div>
+                </div>)}
              
               {/* <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">

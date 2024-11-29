@@ -221,8 +221,12 @@ const StuEdit = () => {
             openNotificationWithIcon("error", "Opps! Something Wrong");
           }
         })
-        .catch(function (error) {
-          openNotificationWithIcon("error", error?.response?.data?.message);
+        .catch(function (err) {
+          if(err?.response?.data?.status === 400){
+            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email Id is Invalid");
+            }else{
+              openNotificationWithIcon("error", "Email Id is Invalid");
+            }
         });
     },
   });

@@ -19,7 +19,7 @@ const CommonPage = ({
   // const history = useHistory();
   const handleClick = () => {
     // here we can go for the next course //
-    navigate("/student/post-survey");
+    navigate("/studentpostsurvey");
   };
   console.log("Congrats Screen");
 

@@ -60,7 +60,7 @@ const Crew1student = () => {
         )
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-          "Email Must be VALID"
+          "Email Must be Valid"
         )
         .max(255),
       mobile: Yup.string()
@@ -94,20 +94,20 @@ const Crew1student = () => {
         <span style={{ color: "red" }}>Please Select college</span>
       ),
       rollnumber: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Roll Number</span>
+        <span style={{ color: "red" }}>Please Enter Roll Number</span>
       ),
       id_number: Yup.string().optional(),
       branch: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select yearofstudy</span>
+        <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select password</span>
+        <span style={{ color: "red" }}>Please Enter password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
       )
     }),
 
@@ -152,7 +152,14 @@ const Crew1student = () => {
           }
         })
         .catch((err) => {
-          openNotificationWithIcon("error", err.response.data?.message);
+          if(err?.response?.data?.status === 406){
+            openNotificationWithIcon("error", err.response.data?.message);
+  
+            }else{
+  
+              openNotificationWithIcon("error", "Email Id is Invalid");
+            }
+          // openNotificationWithIcon("error", err.response.data?.message);
           // setBtn(false);
           formik.setErrors({
             check: err.response && err?.response?.data?.message,

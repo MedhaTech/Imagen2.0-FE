@@ -231,7 +231,7 @@ const MentorDashboard = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                setTeamsCount(response.data.data[0].team_count);
+                setTeamsCount(response.data.data[0].teamCount);
                 setTeamCountLoading(false);
             }
         })
@@ -681,7 +681,7 @@ poptype={poptype}
                   
               </div>
             </div> */}
-            <div className="col-xl-6 col-sm-6 col-12 d-flex">
+            {/* <div className="col-xl-6 col-sm-6 col-12 d-flex">
               <div className="dash-count das2">
                 <div className="dash-counts">
                   <h4>Teams Progress</h4>
@@ -709,7 +709,7 @@ poptype={poptype}
                 )}
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           {/* Quicklinks , Latest News */}
           <div className="row">

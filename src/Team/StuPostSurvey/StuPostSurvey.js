@@ -41,11 +41,13 @@ const StuPostSurvey = () => {
     const [postSurveyStatus, setPostSurveyStatus] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const [answerResponses, setAnswerResponses] = useState([]);
-    const ideastatus = localStorage.getItem("ideaSubStatus");
     const userID = currentUser?.data[0]?.user_id;
+    const [ideastatus,setIdeaStatus]=useState("");
     const language = useSelector(
       (state) => state?.studentRegistration?.studentLanguage
   );
+  const TeamId = currentUser?.data[0]?.student_id;
+
     const filterAnswer = (questionId) => {
       const data =
         answerResponses &&
@@ -148,10 +150,45 @@ const StuPostSurvey = () => {
         }
       };
       useEffect(() => {
-        console.log("pre page id");
       apiData(language);
       }, [count]);
+      useEffect(()=>{
+        submittedApi();
+      },[]);
+      const submittedApi = () => {
+        const Param = encryptGlobal(
+          JSON.stringify({
+            student_id: TeamId
     
+          })
+        );
+        var configidea = {
+          method: "get",
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/challenge_response/submittedDetails?Data=${Param}`,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${currentUser.data[0]?.token}`,
+          },
+        };
+        axios(configidea)
+          .then(function (response) {
+            if (response.status === 200) {
+        // console.log("3", response);
+        setIdeaStatus(response.data.data[0].status);
+    
+            }
+          })
+          .catch(function (error) {
+            if (error.response.status === 404) {
+              //   seterror4( true);
+            }
+    
+          });
+    
+      };
       // useEffect(() => {
         const apiData=(language)=>{
         const locale = getLanguage(language);
@@ -190,7 +227,7 @@ const StuPostSurvey = () => {
 
 
 
-
+console.log(ideastatus,"stats",postSurveyStatus,"survey");
 return (
     <div className="page-wrapper">
       <div className="content">
@@ -208,8 +245,7 @@ return (
               <div className="aside  p-4">
                 <CardBody>
                   {
-                    // teamsCount !== 0 &&
-                    ideastatus == 1 && postSurveyStatus != "COMPLETED" ? (
+                   ( ideastatus === "SUBMITTED" && postSurveyStatus != "COMPLETED") ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
                         {t('student.please_com_postsurvey_for_certificate')}
@@ -223,7 +259,7 @@ return (
                         >
                           {postSurveyList.map((eachQuestion, i) => (
                             <Row key={i}>
-                              <Card className="card my-3 mt-2 comment-card px-0 px-5 py-1">
+                              <Card className="card my-3 mt-2 comment-card px-0 px-4 py-1">
                                 <div className="question quiz mb-0 mt-2">
                                   <h6 style={{ marginBottom: "10px" }}>
                                     {i + 1}. {eachQuestion.question}
