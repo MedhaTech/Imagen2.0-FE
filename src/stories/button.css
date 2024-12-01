@@ -42,15 +42,18 @@
 .storybook-button--small {
   font-size: 14px;
   padding: 0.5rem 1.5rem;
+  border-radius: 100px;
 }
 .storybook-button--medium {
   font-size: 1.4rem;
   padding: 11px 30px;
+  border-radius: 100px;
 }
 .storybook-button--large {
   font-size: 16px;
   padding: 12px 24px;
   width: 100%;
+  border-radius: 100px;
 }
 .storybook-button--black {
   background: var(--color-white-6);

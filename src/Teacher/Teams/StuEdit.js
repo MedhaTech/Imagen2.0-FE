@@ -13,7 +13,7 @@ import {
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { ArrowRight } from "react-feather";
+import { ArrowLeft, ArrowRight } from "react-feather";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
@@ -606,6 +606,15 @@ const StuEdit = () => {
                         </>
 
                         <div className="form-login d-flex justify-content-between">
+                         
+                          <button
+                            className="btn btn-warning m-2"
+                            type="button"
+                            onClick={() => navigate("/mentorteams")}
+                          >
+                            <ArrowLeft />Back
+                            
+                          </button>
                           <button
     //                         type="submit"
     // className={`btn btn-warning m-2 ${
@@ -619,14 +628,6 @@ const StuEdit = () => {
     // disabled={!formik.dirty || !formik.isValid}
                           >
                             Submit
-                          </button>
-                          <button
-                            className="btn btn-warning m-2"
-                            type="button"
-                            onClick={() => navigate("/mentorteams")}
-                          >
-                            Back
-                            <ArrowRight />
                           </button>
                         </div>
                       </div>

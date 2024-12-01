@@ -236,6 +236,7 @@ button {
     font-size: 0.85rem;
     transition: all 0.5s;
     font-weight: $font-weight-semibold;
+    border-radius:100px;
     &:focus {
         box-shadow: none !important;
     }
