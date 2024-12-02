@@ -7,34 +7,36 @@ import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import { districtList, collegeType, yearofstudyList, collegeNameList } from '../../RegPage/ORGData.js';
-import { openNotificationWithIcon } from "../../helpers/Utils.js";
+import { openNotificationWithIcon,getCurrentUser } from "../../helpers/Utils.js";
 import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 
 const CreatepilotStudent = () => {
   const navigate = useNavigate();
-  const [collegeNamesList, setCollegeNamesList] = useState([]);
-  const handleCollegeTypeChange = (event) => {
-    const collegeType = event.target.value;
-    formik.setFieldValue("collegeType", collegeType);
-    formik.setFieldValue('college', '');
-    formik.setFieldValue('ocn', '');
-    setCollegeNamesList(collegeNameList[collegeType] || []);
-  };
+  // const [collegeNamesList, setCollegeNamesList] = useState([]);
+  const currentUser = getCurrentUser("current_user");
+
+  // const handleCollegeTypeChange = (event) => {
+  //   const collegeType = event.target.value;
+  //   formik.setFieldValue("collegeType", collegeType);
+  //   formik.setFieldValue('college', '');
+  //   formik.setFieldValue('ocn', '');
+  //   setCollegeNamesList(collegeNameList[collegeType] || []);
+  // };
   const formik = useFormik({
     initialValues: {
       full_name: "",
       email: "",
       mobile: "",
       district: "",
-      college: "",
+      // college: "",
       rollnumber: "",
       branch: "",
       yearofstudy: "",
       password: "",
       confirmPassword: "",
-      collegeType: "",
-      ocn: "",
+      // collegeType: "",
+      // ocn: "",
       id_number:""
     },
 
@@ -83,15 +85,15 @@ const CreatepilotStudent = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
         id_number: Yup.string().optional(),
-      collegeType: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select collegeType</span>
-      ),
+      // collegeType: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Select collegeType</span>
+      // ),
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
-      college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
-      ),
+      // college: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Select college</span>
+      // ),
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Roll Number</span>
       ),
@@ -121,8 +123,10 @@ const CreatepilotStudent = () => {
         username: values.email,
         mobile: values.mobile,
         district: values.district,
-        college_type: values.collegeType,
-        college_name: values.college === 'Other' ? values.ocn : values.college,
+        college_type: currentUser?.data[0]?.college_type,
+        college_name: currentUser?.data[0]?.college_name,
+        // college_type: values.collegeType,
+        // college_name: values.college === 'Other' ? values.ocn : values.college,
         roll_number: values.rollnumber,
         branch: values.branch,
         year_of_study: values.yearofstudy,
@@ -157,7 +161,6 @@ const CreatepilotStudent = () => {
   
               openNotificationWithIcon("error", "Email Id is Invalid");
             }
-          // openNotificationWithIcon("error", err.response.data?.message);
           // setBtn(false);
           formik.setErrors({
             check: err.response && err?.response?.data?.message,
@@ -240,7 +243,7 @@ const CreatepilotStudent = () => {
                             ) : null}
                           </div>
 
-                          <div className="col-md-4"
+                          <div className="col-md-6"
                           >
                             <label className="form-label" htmlFor="mobile">
                               Mobile Number
@@ -273,7 +276,7 @@ const CreatepilotStudent = () => {
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-4`}
+                          <div className={`col-md-6`}
                           >
                             <label
                               htmlFor="district"
@@ -305,7 +308,7 @@ const CreatepilotStudent = () => {
                             ) : null}
                           </div>
 
-                          <div className={`col-md-4`}
+                          {/* <div className={`col-md-4`}
                           >
                             <label
                               htmlFor="collegeType"
@@ -335,9 +338,9 @@ const CreatepilotStudent = () => {
                                 {formik.errors.collegeType}
                               </small>
                             ) : null}
-                          </div>
+                          </div> */}
 
-                          <div className={`col-md-6`}
+                          {/* <div className={`col-md-6`}
                           >
                             <label
                               htmlFor="college"
@@ -367,7 +370,7 @@ const CreatepilotStudent = () => {
                                 {formik.errors.college}
                               </small>
                             ) : null}
-                          </div>
+                          </div> */}
                           <div className={`col-md-6`}
                           >
                             <label
@@ -406,7 +409,7 @@ const CreatepilotStudent = () => {
                               </small>
                             ) : null}
                           </div>
-                          {formik.values.college === 'Other' &&
+                          {/* {formik.values.college === 'Other' &&
                             <div className={`col-md-12`}
                             >
                               <label
@@ -445,10 +448,10 @@ const CreatepilotStudent = () => {
                                 </small>
                               ) : null}
                             </div>
-                          }
+                          } */}
 
 
-                          <div className="col-md-4">
+                          <div className="col-md-6">
                             <label className="form-label" htmlFor="branch">Branch</label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
@@ -479,7 +482,7 @@ const CreatepilotStudent = () => {
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-4`}
+                          <div className={`col-md-6`}
                       >
                         <label
                           htmlFor="id_number"
@@ -516,7 +519,7 @@ const CreatepilotStudent = () => {
                           </small>
                         ) : null}
                       </div>
-                          <div className={`col-md-4`}
+                          <div className={`col-md-6`}
                           >
                             <label
                               htmlFor="yearofstudy"

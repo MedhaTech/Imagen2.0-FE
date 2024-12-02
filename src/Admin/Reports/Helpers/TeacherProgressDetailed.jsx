@@ -408,7 +408,7 @@ const TeacherProgressDetailed = () => {
     if (!district || !category) {
       notification.warning({
         message:
-          "Please select a district and college Type type before Downloading Reports.",
+           'Please select District and College Type before Downloading Reports.'
       });
       return;
     }

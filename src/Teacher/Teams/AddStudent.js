@@ -7,38 +7,39 @@ import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import { districtList, collegeType, yearofstudyList, collegeNameList } from '../../RegPage/ORGData.js';
-import { openNotificationWithIcon } from "../../helpers/Utils.js";
+import { openNotificationWithIcon,getCurrentUser } from "../../helpers/Utils.js";
 import { ArrowRight } from 'react-feather';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Crew1student = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [collegeNamesList, setCollegeNamesList] = useState([]);
+  // const [collegeNamesList, setCollegeNamesList] = useState([]);
+  const currentUser = getCurrentUser("current_user");
 
   const studentId = location.state.student_id || '';
 
-  const handleCollegeTypeChange = (event) => {
-    const collegeType = event.target.value;
-    formik.setFieldValue("collegeType", collegeType);
-    formik.setFieldValue('college', '');
-    formik.setFieldValue('ocn', '');
-    setCollegeNamesList(collegeNameList[collegeType] || []);
-  };
+  // const handleCollegeTypeChange = (event) => {
+  //   const collegeType = event.target.value;
+  //   formik.setFieldValue("collegeType", collegeType);
+  //   formik.setFieldValue('college', '');
+  //   formik.setFieldValue('ocn', '');
+  //   setCollegeNamesList(collegeNameList[collegeType] || []);
+  // };
   const formik = useFormik({
     initialValues: {
       full_name: "",
       email: "",
       mobile: "",
       district: "",
-      college: "",
+      // college: "",
       rollnumber: "",
       branch: "",
       yearofstudy: "",
       password: "",
       confirmPassword: "",
-      collegeType: "",
-      ocn: "",
+      // collegeType: "",
+      // ocn: "",
         id_number:""
     },
 
@@ -88,15 +89,15 @@ const Crew1student = () => {
         ),
       id_number: Yup.string().optional(),
 
-      collegeType: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select collegeType</span>
-      ),
+      // collegeType: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Select collegeType</span>
+      // ),
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
-      college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
-      ),
+      // college: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Select college</span>
+      // ),
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Roll Number</span>
       ),
@@ -126,8 +127,8 @@ const Crew1student = () => {
         username: values.email,
         mobile: values.mobile,
         district: values.district,
-        college_type: values.collegeType,
-        college_name: values.college === 'Other' ? values.ocn : values.college,
+        college_type: currentUser?.data[0]?.college_type,
+        college_name: currentUser?.data[0]?.college_name,
         roll_number: values.rollnumber,
         branch: values.branch,
         year_of_study: values.yearofstudy,
@@ -156,7 +157,14 @@ const Crew1student = () => {
           }
         })
         .catch((err) => {
-          openNotificationWithIcon("error", err.response.data?.message);
+          if(err?.response?.data?.status === 406){
+            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email Id is Invalid");
+
+            // openNotificationWithIcon("error", err.response.data?.message);
+            }else{
+              openNotificationWithIcon("error", "Email Id is Invalid");
+            }
+          // openNotificationWithIcon("error", err.response.data?.message);
           // setBtn(false);
           formik.setErrors({
             check: err.response && err?.response?.data?.message,
@@ -239,7 +247,7 @@ const Crew1student = () => {
                             ) : null}
                           </div>
 
-                          <div className="col-md-4"
+                          <div className="col-md-6"
                           >
                             <label className="form-label" htmlFor="mobile">
                               Mobile Number
@@ -272,7 +280,7 @@ const Crew1student = () => {
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-4`}
+                          <div className={`col-md-6`}
                           >
                             <label
                               htmlFor="district"
@@ -304,7 +312,7 @@ const Crew1student = () => {
                             ) : null}
                           </div>
 
-                          <div className={`col-md-4`}
+                          {/* <div className={`col-md-4`}
                           >
                             <label
                               htmlFor="collegeType"
@@ -334,9 +342,9 @@ const Crew1student = () => {
                                 {formik.errors.collegeType}
                               </small>
                             ) : null}
-                          </div>
+                          </div> */}
 
-                          <div className={`col-md-6`}
+                          {/* <div className={`col-md-6`}
                           >
                             <label
                               htmlFor="college"
@@ -366,7 +374,7 @@ const Crew1student = () => {
                                 {formik.errors.college}
                               </small>
                             ) : null}
-                          </div>
+                          </div> */}
                           <div className={`col-md-6`}
                           >
                             <label
@@ -405,7 +413,7 @@ const Crew1student = () => {
                               </small>
                             ) : null}
                           </div>
-                          {formik.values.college === 'Other' &&
+                          {/* {formik.values.college === 'Other' &&
                             <div className={`col-md-12`}
                             >
                               <label
@@ -444,7 +452,7 @@ const Crew1student = () => {
                                 </small>
                               ) : null}
                             </div>
-                          }
+                          } */}
 
 
                           <div className="col-md-6">
@@ -478,7 +486,44 @@ const Crew1student = () => {
                               </small>
                             ) : null}
                           </div>
-
+                          <div className={`col-md-6`}
+                      >
+                        <label
+                          htmlFor="id_number"
+                          className="form-label"
+                        >
+                          Apaar Id
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="id_number"
+                          placeholder="Apaar Id"
+                          // disabled={areInputsDisabled}
+                          name="id_number"
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const lettersOnly = inputValue.replace(
+                              /[^a-zA-Z0-9 \s]/g,
+                              ""
+                            );
+                            formik.setFieldValue(
+                              "id_number",
+                              lettersOnly
+                            );
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.id_number}
+                        />
+                        {formik.touched.id_number && formik.errors.id_number ? (
+                          <small
+                            className="error-cls"
+                            style={{ color: "red" }}
+                          >
+                            {formik.errors.id_number}
+                          </small>
+                        ) : null}
+                      </div>
                           <div className={`col-md-6`}
                           >
                             <label

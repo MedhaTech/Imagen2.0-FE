@@ -311,7 +311,7 @@ const IdeaReport = () => {
     ) {
       notification.warning({
         message:
-          "Select district, college type and Theme to download report.",
+          "Select District, College Type and Theme to download report.",
       });
       return;
     }
