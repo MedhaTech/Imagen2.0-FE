@@ -8,7 +8,7 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import { districtList, collegeType, yearofstudyList, collegeNameList } from '../../RegPage/ORGData.js';
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
-import { ArrowRight } from 'react-feather';
+import { ArrowLeft, ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 
 const CreatepilotStudent = () => {
@@ -609,6 +609,15 @@ const CreatepilotStudent = () => {
                         </>
 
                         <div className="form-login d-flex justify-content-between">
+                          
+                          <button
+                            className="btn btn-warning m-2"
+                            type="submit"
+                            onClick={() => navigate("/mentorteams")}
+
+                          >
+                            <ArrowLeft />Back
+                          </button>
                           <button
                             className="btn btn-warning m-2"
                             type="submit"
@@ -617,14 +626,6 @@ const CreatepilotStudent = () => {
                             }
                           >
                             PROCEED<ArrowRight />
-                          </button>
-                          <button
-                            className="btn btn-warning m-2"
-                            type="submit"
-                            onClick={() => navigate("/mentorteams")}
-
-                          >
-                            Back<ArrowRight />
                           </button>
                         </div>
 
