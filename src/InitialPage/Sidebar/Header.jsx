@@ -149,7 +149,7 @@ const Header = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-           <img src={Icon} alt="Team" id="blah" />
+           <img src={logo} alt="Team" className="responsive-image" />
           {/* <Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>
@@ -159,7 +159,7 @@ const Header = () => {
           <Link to="/dashboard" className="logo-small">
             <ImageWithBasePath src="assets/img/logo-small.png" alt="img" />
           </Link> */}
-          {/* <Link
+          <Link
             id="toggle_btn"
             to="#"
             style={{
@@ -173,7 +173,7 @@ const Header = () => {
             onClick={handlesidebar}
           >
             <FeatherIcon icon="chevrons-left" className="feather-16" />
-          </Link> */}
+          </Link>
         </div>
         {/* /Logo */}
         <Link

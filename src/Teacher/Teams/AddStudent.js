@@ -1,15 +1,23 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import './Styles.css';
+import React, { useEffect, useState } from "react";
+import "./Styles.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import axios from "axios";
-import { districtList, collegeType, yearofstudyList, collegeNameList } from '../../RegPage/ORGData.js';
-import { openNotificationWithIcon,getCurrentUser } from "../../helpers/Utils.js";
-import { ArrowRight,ArrowLeft } from 'react-feather';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  districtList,
+  collegeType,
+  yearofstudyList,
+  collegeNameList,
+} from "../../RegPage/ORGData.js";
+import {
+  openNotificationWithIcon,
+  getCurrentUser,
+} from "../../helpers/Utils.js";
+import { ArrowRight, ArrowLeft } from "react-feather";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Crew1student = () => {
   const navigate = useNavigate();
@@ -17,7 +25,7 @@ const Crew1student = () => {
   // const [collegeNamesList, setCollegeNamesList] = useState([]);
   const currentUser = getCurrentUser("current_user");
 
-  const studentId = location.state.student_id || '';
+  const studentId = location.state.student_id || "";
 
   // const handleCollegeTypeChange = (event) => {
   //   const collegeType = event.target.value;
@@ -40,7 +48,7 @@ const Crew1student = () => {
       confirmPassword: "",
       // collegeType: "",
       // ocn: "",
-        id_number:""
+      id_number: "",
     },
 
     validationSchema: Yup.object({
@@ -112,7 +120,7 @@ const Crew1student = () => {
       ),
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter confirmPassword</span>
-      )
+      ),
     }),
 
     onSubmit: async (values) => {
@@ -133,7 +141,7 @@ const Crew1student = () => {
         branch: values.branch,
         year_of_study: values.yearofstudy,
         confirmPassword: encrypted,
-        type: String(studentId)
+        type: String(studentId),
       };
       if (values.id_number !== "") {
         body["id_number"] = JSON.stringify(values.id_number);
@@ -148,7 +156,7 @@ const Crew1student = () => {
 
         data: JSON.stringify(body),
       };
-      console.log(body,"bb");
+      console.log(body, "bb");
       await axios(config)
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
@@ -157,13 +165,18 @@ const Crew1student = () => {
           }
         })
         .catch((err) => {
-          if(err?.response?.data?.status === 406){
-            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email Id is Invalid");
+          if (err?.response?.data?.status === 406) {
+            openNotificationWithIcon(
+              "error",
+              err.response.data?.message !== "Bad Request"
+                ? err.response.data?.message
+                : "Email Id is Invalid"
+            );
 
             // openNotificationWithIcon("error", err.response.data?.message);
-            }else{
-              openNotificationWithIcon("error", "Email Id is Invalid");
-            }
+          } else {
+            openNotificationWithIcon("error", "Email Id is Invalid");
+          }
           // openNotificationWithIcon("error", err.response.data?.message);
           // setBtn(false);
           formik.setErrors({
@@ -179,18 +192,26 @@ const Crew1student = () => {
         <div className="login-userheading">
           <h4>Adding Student</h4>
         </div>
-        <div className='d-flex justify-content-center align-items-center'>
+        <div className="d-flex justify-content-center align-items-center">
           <div className="card container m-4">
             <div className="row">
-              <div className="col-md-12 p-4" style={{ backgroundColor: '#EEEEEE' }}>
+              <div
+                className="col-md-12 p-4"
+                style={{ backgroundColor: "#EEEEEE" }}
+              >
                 <form action="signin" onSubmit={formik.handleSubmit}>
                   <div className="login-userset">
                     <div className="col-xl-12">
                       <div className="row g-3 mt-0">
                         <>
                           <div className="col-md-6">
-                            <label className="form-label" htmlFor="full_name">Full Name</label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            <label className="form-label" htmlFor="full_name">
+                              Full Name
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="text"
                               className="form-control"
@@ -203,30 +224,26 @@ const Crew1student = () => {
                                   /[^a-zA-Z\s]/g,
                                   ""
                                 );
-                                formik.setFieldValue(
-                                  "full_name",
-                                  lettersOnly
-                                );
+                                formik.setFieldValue("full_name", lettersOnly);
                               }}
                               onBlur={formik.handleBlur}
                               value={formik.values.full_name}
                             />
                             {formik.touched.full_name &&
-                              formik.errors.full_name ? (
+                            formik.errors.full_name ? (
                               <small className="error-cls">
                                 {formik.errors.full_name}
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="email"
-                              className="form-label"
-                            >
+                          <div className={`col-md-6`}>
+                            <label htmlFor="email" className="form-label">
                               Email
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="email"
                               className="form-control"
@@ -247,13 +264,14 @@ const Crew1student = () => {
                             ) : null}
                           </div>
 
-                          <div className="col-md-6"
-                          >
+                          <div className="col-md-6">
                             <label className="form-label" htmlFor="mobile">
                               Mobile Number
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="text"
                               className="form-control"
@@ -273,22 +291,20 @@ const Crew1student = () => {
                               onBlur={formik.handleBlur}
                               value={formik.values.mobile}
                             />
-
                             {formik.touched.mobile && formik.errors.mobile ? (
                               <small className="error-cls">
                                 {formik.errors.mobile}
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="district"
-                              className="form-label"
-                            >
+                          <div className={`col-md-6`}>
+                            <label htmlFor="district" className="form-label">
                               District
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <select
                               id="district"
                               className="form-select"
@@ -305,7 +321,7 @@ const Crew1student = () => {
                               ))}
                             </select>
                             {formik.touched.district &&
-                              formik.errors.district ? (
+                            formik.errors.district ? (
                               <small className="error-cls">
                                 {formik.errors.district}
                               </small>
@@ -375,15 +391,14 @@ const Crew1student = () => {
                               </small>
                             ) : null}
                           </div> */}
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="rollnumber"
-                              className="form-label"
-                            >
+                          <div className={`col-md-6`}>
+                            <label htmlFor="rollnumber" className="form-label">
                               Roll number provided by the college
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="text"
                               className="form-control"
@@ -396,15 +411,13 @@ const Crew1student = () => {
                                   /[^a-zA-Z0-9 \s]/g,
                                   ""
                                 );
-                                formik.setFieldValue(
-                                  "rollnumber",
-                                  lettersOnly
-                                );
+                                formik.setFieldValue("rollnumber", lettersOnly);
                               }}
                               onBlur={formik.handleBlur}
                               value={formik.values.rollnumber}
                             />
-                            {formik.touched.rollnumber && formik.errors.rollnumber ? (
+                            {formik.touched.rollnumber &&
+                            formik.errors.rollnumber ? (
                               <small
                                 className="error-cls"
                                 style={{ color: "red" }}
@@ -454,10 +467,14 @@ const Crew1student = () => {
                             </div>
                           } */}
 
-
                           <div className="col-md-6">
-                            <label className="form-label" htmlFor="branch">Branch</label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            <label className="form-label" htmlFor="branch">
+                              Branch
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="text"
                               className="form-control"
@@ -471,68 +488,57 @@ const Crew1student = () => {
                                   /[^a-zA-Z0-9 \s]/g,
                                   ""
                                 );
-                                formik.setFieldValue(
-                                  "branch",
-                                  lettersOnly
-                                );
+                                formik.setFieldValue("branch", lettersOnly);
                               }}
                               onBlur={formik.handleBlur}
                               value={formik.values.branch}
                             />
-                            {formik.touched.branch &&
-                              formik.errors.branch ? (
+                            {formik.touched.branch && formik.errors.branch ? (
                               <small className="error-cls">
                                 {formik.errors.branch}
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-6`}
-                      >
-                        <label
-                          htmlFor="id_number"
-                          className="form-label"
-                        >
-                          Apaar Id
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="id_number"
-                          placeholder="Apaar Id"
-                          // disabled={areInputsDisabled}
-                          name="id_number"
-                          onChange={(e) => {
-                            const inputValue = e.target.value;
-                            const lettersOnly = inputValue.replace(
-                              /[^a-zA-Z0-9 \s]/g,
-                              ""
-                            );
-                            formik.setFieldValue(
-                              "id_number",
-                              lettersOnly
-                            );
-                          }}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.id_number}
-                        />
-                        {formik.touched.id_number && formik.errors.id_number ? (
-                          <small
-                            className="error-cls"
-                            style={{ color: "red" }}
-                          >
-                            {formik.errors.id_number}
-                          </small>
-                        ) : null}
-                      </div>
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="yearofstudy"
-                              className="form-label"
-                            >
+                          <div className={`col-md-6`}>
+                            <label htmlFor="id_number" className="form-label">
+                              Apaar Id
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="id_number"
+                              placeholder="Apaar Id"
+                              // disabled={areInputsDisabled}
+                              name="id_number"
+                              onChange={(e) => {
+                                const inputValue = e.target.value;
+                                const lettersOnly = inputValue.replace(
+                                  /[^a-zA-Z0-9 \s]/g,
+                                  ""
+                                );
+                                formik.setFieldValue("id_number", lettersOnly);
+                              }}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.id_number}
+                            />
+                            {formik.touched.id_number &&
+                            formik.errors.id_number ? (
+                              <small
+                                className="error-cls"
+                                style={{ color: "red" }}
+                              >
+                                {formik.errors.id_number}
+                              </small>
+                            ) : null}
+                          </div>
+                          <div className={`col-md-6`}>
+                            <label htmlFor="yearofstudy" className="form-label">
                               Year of Study
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <select
                               id="yearofstudy"
                               className="form-select"
@@ -549,22 +555,21 @@ const Crew1student = () => {
                               ))}
                             </select>
                             {formik.touched.yearofstudy &&
-                              formik.errors.yearofstudy ? (
+                            formik.errors.yearofstudy ? (
                               <small className="error-cls">
                                 {formik.errors.yearofstudy}
                               </small>
                             ) : null}
                           </div>
 
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="password"
-                              className="form-label"
-                            >
+                          <div className={`col-md-6`}>
+                            <label htmlFor="password" className="form-label">
                               Password
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="text"
                               name="password"
@@ -576,21 +581,23 @@ const Crew1student = () => {
                               value={formik.values.password}
                             />
                             {formik.touched.password &&
-                              formik.errors.password ? (
+                            formik.errors.password ? (
                               <small className="error-cls">
                                 {formik.errors.password}
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-6`}
-                          >
+                          <div className={`col-md-6`}>
                             <label
                               htmlFor="confirmPassword"
                               className="form-label"
                             >
                               Confirm Password
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="text"
                               name="confirmPassword"
@@ -602,40 +609,48 @@ const Crew1student = () => {
                               value={formik.values.confirmPassword}
                             />
                             {formik.touched.confirmPassword &&
-                              formik.errors.confirmPassword ? (
+                            formik.errors.confirmPassword ? (
                               <small className="error-cls">
                                 {formik.errors.confirmPassword}
                               </small>
                             ) : null}
-                            {
-                              (formik.values.confirmPassword !== '' && !(formik.values.password === formik.values.confirmPassword)) &&
-                              <small className="text-danger">
-                                Confirm Password is not same as Password
-                              </small>
-                            }
+                            {formik.values.confirmPassword !== "" &&
+                              !(
+                                formik.values.password ===
+                                formik.values.confirmPassword
+                              ) && (
+                                <small className="text-danger">
+                                  Confirm Password is not same as Password
+                                </small>
+                              )}
                           </div>
                         </>
 
                         <div className="form-login d-flex justify-content-between">
-                          
                           <button
                             className="btn btn-warning m-2"
                             type="submit"
                             onClick={() => navigate("/mentorteams")}
                           >
-                            <ArrowLeft />Back
+                            <ArrowLeft />
+                            Back
                           </button>
                           <button
                             className="btn btn-warning m-2"
                             type="submit"
                             disabled={
-                              !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
+                              !formik.isValid ||
+                              !formik.dirty ||
+                              !(
+                                formik.values.password ===
+                                formik.values.confirmPassword
+                              )
                             }
                           >
-                            PROCEED<ArrowRight />
+                            PROCEED
+                            <ArrowRight />
                           </button>
                         </div>
-
                       </div>
                     </div>
                   </div>

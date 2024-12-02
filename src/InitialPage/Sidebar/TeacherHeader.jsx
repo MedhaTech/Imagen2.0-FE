@@ -207,7 +207,9 @@ const MentorHeader = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img src={Icon} alt="Team" id="blah" />
+          {/* <img src={Icon} alt="Team" id="blah" /> */}
+          <img src={logo} alt="Team" className="responsive-image" />
+
           {/* <Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>

@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
+import {PlusCircle} from 'feather-icons-react/build/IconComponents';
+
 import 'sweetalert2/src/sweetalert2.scss';
 const AdminResources = () => {
     const navigate = useNavigate();
@@ -547,7 +549,8 @@ const AdminResources = () => {
                                                 '/create-popup'
                                             )
                                         }
-                                    >Create-PopUp</button>
+                                    >  <PlusCircle className="me-2" style={{color:"white"}} /><b>Create-PopUp</b>
+                                        </button>
                         </Col>
                        
                             <div className="my-2">

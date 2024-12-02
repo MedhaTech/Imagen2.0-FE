@@ -538,11 +538,12 @@ const ReportsRegistration = () => {
                                                                         {item.GovtJuniorCollege_Count ? item.GovtJuniorCollege_Count :"0"}
                                                                     </td>
                                                                     <td>
-                                                                        {item.GovtITICollege_Count ? item.GovtITICollege_Count :"0"}
-                                                                    </td>
-                                                                    <td>
                                                                         {item.GovtPolytechnicCollege_Count ? item.GovtPolytechnicCollege_Count :"0"}
                                                                     </td>
+                                                                    <td>
+                                                                        {item.GovtITICollege_Count ? item.GovtITICollege_Count :"0"}
+                                                                    </td>
+                                                                  
                                                                     <td>
                                                                         {item.GovtDegreeCollege_Count ? item.GovtDegreeCollege_Count :"0"}
                                                                     </td>

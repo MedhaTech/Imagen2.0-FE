@@ -1,23 +1,26 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable indent */
-import i1 from "../../assets/img/Themes/new1.png";
-import i2 from "../../assets/img/Themes/new2c.png";
-import i3 from "../../assets/img/Themes/new3c.png";
-import i4 from "../../assets/img/Themes/new4.png";
-import i5 from "../../assets/img/Themes/new5.png";
-import i6 from "../../assets/img/Themes/new6.png";
-import i7 from "../../assets/img/Themes/new7.png";
-import i8 from "../../assets/img/Themes/new8.png";
-import i9 from "../../assets/img/Themes/new9.png";
-import i10 from "../../assets/img/Themes/new10c.png";
-import i11 from "../../assets/img/Themes/new11.png";
-import i12 from "../../assets/img/Themes/new12.png";
-import i13 from "../../assets/img/Themes/new13c.png";
-import i14 from "../../assets/img/Themes/new14c.png";
-import i15 from "../../assets/img/Themes/new15c.png";
-import i16 from "../../assets/img/Themes/new16.png";
-import i17 from "../../assets/img/Themes/new17.png";
-import i18 from "../../assets/img/Themes/new18.png";
+import i1 from "../../assets/img/Themes/theme1.png";
+import i2 from "../../assets/img/Themes/theme2.png";
+import i3 from "../../assets/img/Themes/theme3.png";
+import i4 from "../../assets/img/Themes/theme4.png";
+import i5 from "../../assets/img/Themes/theme5.png";
+import i6 from "../../assets/img/Themes/theme6.png";
+import i7 from "../../assets/img/Themes/theme7.png";
+import i8 from "../../assets/img/Themes/theme8.png";
+import i9 from "../../assets/img/Themes/theme9.png";
+import i10 from "../../assets/img/Themes/theme10.png";
+import i11 from "../../assets/img/Themes/theme11.png";
+import i12 from "../../assets/img/Themes/theme12.png";
+import i13 from "../../assets/img/Themes/theme13.png";
+import i14 from "../../assets/img/Themes/theme14.png";
+import i15 from "../../assets/img/Themes/theme15.png";
+import i16 from "../../assets/img/Themes/theme16.png";
+import i17 from "../../assets/img/Themes/theme17.png";
+import i18 from "../../assets/img/Themes/theme18.png";
+import i19 from "../../assets/img/Themes/theme19.png";
+import i20  from "../../assets/img/Themes/theme20.png";
+
 
 
 
@@ -26,20 +29,23 @@ export const themesList = [
     "Fitness and Sports",
     "Heritage and Culture",
     "MedTech or BioTech or HealthTech",
-    "Agriculture, FoodTech and Rural Development",
+    "Agriculture, and Rural Development",
     "Smart Vehicles",
     "Transportation and Logistics",
     "Robotics and Drones",
     "Clean and Green Technology",
     "Tourism",
-    "Renewable or sustainable Energy",
+    "Renewable and sustainable Energy",
     "Blockchain and Cybersecurity",
     "Smart Education",
     "Disaster Management",
     "Toys and Games",
     "Miscellaneous",
     "Space Technology",
-    "Others"
+    "Financial Inclusion and FinTech",
+    "Rural Innovation and Development",
+    "Public Governance and CivicTech",
+    // "Others"
 ];
 export const focusareasList = {
     "Smart Automation": [
@@ -313,13 +319,34 @@ export const themes = [
         // ], 
         desc: "Space technology refers to the application of engineering principles to the design, development, manufacture, and operation of devices and systems for space travel and exploration."
     }, 
-    { 
+     { 
         id: 18, 
         image: i18, 
-        title: 'Others', 
+        title: 'Financial Inclusion and FinTech', 
         // focusareas: ["Other area that broadly qualifies for the vision of Viksit Bharat"], 
-        desc: "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress." 
-    }
+        desc: "Develop solutions to enhance financial literacy, inclusion amd access to financial services." 
+    },
+    { 
+        id: 19, 
+        image: i19, 
+        title: 'Rural Innovation and Development', 
+        // focusareas: ["Other area that broadly qualifies for the vision of Viksit Bharat"], 
+        desc: "Develop solutions that promote health,fitness, and enhance sports performance." 
+    },
+    { 
+        id: 20, 
+        image: i20, 
+        title: 'Public Governance and CivicTech', 
+        // focusareas: ["Other area that broadly qualifies for the vision of Viksit Bharat"], 
+        desc: "Create technology-driven solutions to improve governance, and civic engagement." 
+    },
+    // { 
+    //     id: 18, 
+    //     image: i18, 
+    //     title: 'Others', 
+    //     // focusareas: ["Other area that broadly qualifies for the vision of Viksit Bharat"], 
+    //     desc: "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress." 
+    // }
   ];
 
 export const questions = [
