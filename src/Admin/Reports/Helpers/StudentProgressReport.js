@@ -617,6 +617,8 @@ const StudentProgress = () => {
                       100
                   )
                 : 0;
+          // console.log(coursePercentage,"coursePercentage");
+
             return {
               district
               ,
