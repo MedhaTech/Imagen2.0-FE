@@ -97,13 +97,62 @@ const RegInstruction = () => {
             <div className="mn-ht-600">
               <h5 className='headertitle'>Who can register ?</h5>
               <ul style={{ paddingLeft: '3rem', listStyle: 'disc' }}>
-                <li>Are you more than 16 years of age?</li>
-                <li>  Do you have ideas that can make a positive impact? </li>
-                {/* <li>Do you have the thirst to learn and explore with a passion to make a social impact?</li> */}
+                <li>Are you <b>16 years or older?</b></li>
+                <li>Are you studying <b>diploma/UG/PG in a college within the state? </b></li>
+                <li>Do you have a <b>passion for innovation, entrepreneurship, and making an impact?</b></li>
               </ul>
-              <p className='mt-2'> If the answer to all the above questions is “Yes”, then yes, you can proceed! </p>
+              <p className='mt-2'> If your answer to all these questions is <b>“Yes”</b>, then you’re good to go! 🚀</p>
               <h5 className="headertitle">How can you register?</h5>
-              <ul style={{ paddingLeft: '3rem', listStyle: 'disc' }}>
+              <p ><span style={{paddingLeft: '2rem',fontWeight:"bold"}}>1. Form a Team</span>
+                        <ul style={{paddingLeft: '5rem',listStyleType:"disc"}}>
+                            <li >
+                            Teams must have <b>1 to 4 participants</b>.
+                            </li>
+                            <li >One member will act as the <b>“Pilot”</b> (team leader) and be the main point of contact.</li>
+                            <li >
+                            Other members are the <b>“Crew”</b>.
+                            </li>
+                        </ul>
+                            </p>
+                            <p ><span style={{paddingLeft: '2rem',fontWeight:"bold"}}>2. Pilot Starts Registration</span>
+                        <ul style={{paddingLeft: '5rem',listStyleType:"disc"}}>
+                            <li >
+                            Enter the Pilot’s personal details.
+                            </li>
+                            <li >Choose a <b>unique team name</b> and set a <b>team password</b>.</li>
+                            <li >
+                            Add the details of all Crew members.
+                            </li>
+                        </ul>
+                            </p>
+                        <p ><span style={{paddingLeft: '2rem',fontWeight:"bold"}}>3. Set Up Team Logins
+                        </span>
+                        <ul style={{paddingLeft: '5rem',listStyleType:"disc"}}>
+                            <li >
+                            All team members log in using their registered email and the team password (default).
+                            </li>
+                            <li >Members can reset and create their own passwords anytime.</li>
+                        </ul>
+                            </p>
+                        <p ><span style={{paddingLeft: '2rem',fontWeight:"bold"}}>4. Manage Your Team
+                        </span>
+                        <ul style={{paddingLeft: '5rem',listStyleType:"disc"}}>
+                            <li >
+                            The Pilot can edit Crew details or add members until the program begins.
+                            </li>
+                        </ul>
+                            </p>
+                            <h5 className="headertitle">Need Help?
+                            </h5>
+                            <ul style={{ paddingLeft: '3rem', listStyle: 'disc' }}>
+                <li><b>Raise a Ticket : </b> Use the support option on the website</li>
+                <li><b>FAQs :</b> Check our FAQ section for answers.
+                </li>
+              </ul>
+              <p className='mt-2'> Join now and unlock your potential in innovation and entrepreneurship! 💡
+              </p>
+
+              {/* <ul style={{ paddingLeft: '3rem', listStyle: 'disc' }}>
                 <li>Youth for Social Impact requires a team of 2 to 4 participants.</li>
                 <li>The person who is registering is called as the “Pilot”, who will act as the point of
                   contact for the team and the other team members are called as the “Crew”</li>
@@ -118,7 +167,7 @@ const RegInstruction = () => {
                 <li>The pilot will have the access to change the details of crew members or add new members
                   until they start the course.</li>
                 <li>For any other concerns, you can contact us or visit our FAQs.</li>
-              </ul>
+              </ul> */}
             </div>
             <button
               type="button"
