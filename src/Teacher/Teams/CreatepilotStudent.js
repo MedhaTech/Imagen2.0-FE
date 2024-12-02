@@ -8,7 +8,7 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import { districtList, collegeType, yearofstudyList, collegeNameList } from '../../RegPage/ORGData.js';
 import { openNotificationWithIcon,getCurrentUser } from "../../helpers/Utils.js";
-import { ArrowRight } from 'react-feather';
+import { ArrowRight ,ArrowLeft} from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 
 const CreatepilotStudent = () => {

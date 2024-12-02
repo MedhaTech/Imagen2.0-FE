@@ -1480,26 +1480,27 @@ const PlayVideoCourses = (props) => {
                             {videoCompleted ? (
                               <CourseSuccessMessage />
                             ) : (
-                              <Vimeo
-                                video={id.video_stream_id}
-                                volume={volume}
-                                paused={paused}
-                                onPause={handlePlayerPause}
-                                onPlay={handlePlayerPlay}
-                                onSeeked={handleSeeked}
-                                onTimeUpdate={handleTimeUpdate}
-                                onEnd={() => {
-                                  if (backToQuiz) {
-                                    setBackToQuiz(false);
-                                    setItem("");
-                                    setHideQuiz(true);
-                                    setQuizTopic("");
-                                    return;
-                                  }
-                                  handleVimeoOnEnd(id);
-                                }}
-                                showTitle
-                              />
+                              <><Vimeo
+                                            video={id.video_stream_id}
+                                            volume={volume}
+                                            paused={paused}
+                                            onPause={handlePlayerPause}
+                                            onPlay={handlePlayerPlay}
+                                            onSeeked={handleSeeked}
+                                            onTimeUpdate={handleTimeUpdate}
+                                            onEnd={() => {
+                                              if (backToQuiz) {
+                                                setBackToQuiz(false);
+                                                setItem("");
+                                                setHideQuiz(true);
+                                                setQuizTopic("");
+                                                return;
+                                              }
+                                              handleVimeoOnEnd(id);
+                                            } }
+                                            showTitle /><p style={{ marginTop: "2rem",paddingLeft:"1rem", fontSize: "1rem", color: "black" }}>
+                                              {id.description}
+                                            </p></>
                             )}
                             {/* <p className="p-4">
                                                                     <span> Description : </span> Lorem
