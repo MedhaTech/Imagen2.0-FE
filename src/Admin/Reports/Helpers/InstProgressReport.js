@@ -508,7 +508,7 @@ const InstProgressDetailed = () => {
             const teamCount = studentCountMap[collegeName]?.teamCount || 0;
             const completedCount = StudentCourseCmpMap[collegeName] || 0;
             const inProgressCount = StudentCourseINproMap[collegeName] || 0;
-            const notInitiatedCount = totalStudents - (draftCount + submitCount);
+            const notInitiatedCount = teamCount - (draftCount + submitCount);
             const courseNotStartedCount = totalStudents - (completedCount + inProgressCount);
             return {
               ...item,

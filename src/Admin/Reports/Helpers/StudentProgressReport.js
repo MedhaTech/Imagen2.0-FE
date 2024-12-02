@@ -183,7 +183,7 @@ const StudentProgress = () => {
   },
   {
     label: 'Idea Status',
-    key: 'idea_status'
+    key: 'Idea_status'
   },
   {
     label: "Post Survey Status",
@@ -499,8 +499,7 @@ const StudentProgress = () => {
           );
           const ideaStatusDataMap = response.data.data[0].ideaStatusData.reduce(
             (map, item) => {
-              map[item.student_id] = item;
-
+              map[item.student_id] = item.status;
               return map;
             },
             {}
@@ -509,7 +508,7 @@ const StudentProgress = () => {
           const userTopicDataMap = response.data.data[0].userTopicData.reduce(
             (map, item) => {
               map[item.
-                mentorUserId
+                user_id
                 ] = item.user_count;
               return map;
             },
@@ -525,14 +524,12 @@ const StudentProgress = () => {
               pre_survey_status: preSurveyMap[item.user_id] || "Not started",
               post_survey_status: postSurveyMap[item.user_id] || "Not started",
               Idea_status: ideaStatusDataMap[item.student_id] || "Not Initiated",
-
-              user_count: userTopicDataMap[item.user_id] === 0 ? "Not Started" : userTopicDataMap[item.user_id] === 31 ? "Completed" : "In Progress",
+              user_count: userTopicDataMap[item.user_id] === 0 ? "Not Started" : userTopicDataMap[item.user_id] === 26 ? "Completed" : "In Progress",
               course_per: userTopicDataMap[item.user_id] && typeof userTopicDataMap[item.user_id] === "number"
-                ? `${Math.round((userTopicDataMap[item.user_id] / 31) * 100)}%`
+                ? `${Math.round((userTopicDataMap[item.user_id] / 26) * 100)}%`
                 : `0%`,
             };
           });
-          // console.log(newdatalist,"full Map data");
           setstudentDetailedReportsData(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             openNotificationWithIcon(

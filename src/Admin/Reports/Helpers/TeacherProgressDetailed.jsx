@@ -770,13 +770,13 @@ const TeacherProgressDetailed = () => {
                                         : "0"}
                                     </td>
                                     <td>
-                                      {item.GovtITICollege_Count
-                                        ? item.GovtITICollege_Count
+                                      {item.GovtPolytechnicCollege_Count
+                                        ? item.GovtPolytechnicCollege_Count
                                         : "0"}
                                     </td>
                                     <td>
-                                      {item.GovtPolytechnicCollege_Count
-                                        ? item.GovtPolytechnicCollege_Count
+                                      {item.GovtITICollege_Count
+                                        ? item.GovtITICollege_Count
                                         : "0"}
                                     </td>
                                     <td>
