@@ -612,6 +612,15 @@ const CreatepilotStudent = () => {
                         </>
 
                         <div className="form-login d-flex justify-content-between">
+                          
+                          <button
+                            className="btn btn-warning m-2"
+                            type="submit"
+                            onClick={() => navigate("/mentorteams")}
+
+                          >
+                            <ArrowLeft />Back
+                          </button>
                           <button
                             className="btn btn-warning m-2"
                             type="submit"
@@ -620,14 +629,6 @@ const CreatepilotStudent = () => {
                             }
                           >
                             PROCEED<ArrowRight />
-                          </button>
-                          <button
-                            className="btn btn-warning m-2"
-                            type="submit"
-                            onClick={() => navigate("/mentorteams")}
-
-                          >
-                            Back<ArrowRight />
                           </button>
                         </div>
 

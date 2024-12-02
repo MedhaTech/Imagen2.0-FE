@@ -16,7 +16,7 @@ import {
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { ArrowRight } from "react-feather";
+import { ArrowLeft, ArrowRight } from "react-feather";
 import {
   districtList,
   collegeType,
@@ -635,8 +635,8 @@ const StuEdit = () => {
                             type="button"
                             onClick={() => navigate("/students")}
                           >
-                            Back
-                            <ArrowRight />
+                            <ArrowLeft />Back
+                            
                           </button>
                         </div>
                       </div>
