@@ -446,7 +446,7 @@ const StudentProgress = () => {
     ) {
       notification.warning({
         message:
-          "Please select a district and category type before Downloading Reports.",
+          'Please select District and College Type before Downloading Reports.'
       });
       return;
     }

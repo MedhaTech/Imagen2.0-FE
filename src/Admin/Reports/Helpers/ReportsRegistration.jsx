@@ -281,7 +281,7 @@ const ReportsRegistration = () => {
         ) {
             notification.warning({
                 message:
-                    'Please select category and district type before Downloading Reports.'
+                    'Please select District and College Type before Downloading Reports.'
             });
             return;
         }

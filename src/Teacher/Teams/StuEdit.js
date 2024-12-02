@@ -64,17 +64,17 @@ const StuEdit = () => {
         console.log(error);
       });
   };
-  const [collegeNamesList, setCollegeNamesList] = useState([]);
-  const handleCollegeTypeChange = (event) => {
-    const selectedCollegeType = event.target.value;
-    formik.setFieldValue("collegeType", selectedCollegeType); 
-    formik.setFieldValue("college", ""); 
-    formik.setFieldValue("ocn", "");
+  // const [collegeNamesList, setCollegeNamesList] = useState([]);
+  // const handleCollegeTypeChange = (event) => {
+  //   const selectedCollegeType = event.target.value;
+  //   formik.setFieldValue("collegeType", selectedCollegeType); 
+  //   formik.setFieldValue("college", ""); 
+  //   formik.setFieldValue("ocn", "");
   
-    const updatedCollegeNames = collegeNameList[selectedCollegeType] || [];
-    setCollegeNamesList(updatedCollegeNames);
+  //   const updatedCollegeNames = collegeNameList[selectedCollegeType] || [];
+  //   setCollegeNamesList(updatedCollegeNames);
    
-  };
+  // };
  
   const formik = useFormik({
     initialValues: {
@@ -82,29 +82,16 @@ const StuEdit = () => {
       email: '',
       mobile: '',
       district: '',
-      college: '',
+      // college: '',
       rollnumber: '',
       branch: '',
       yearofstudy: '',
-      collegeType: '',
-      ocn: '',
+      // collegeType: '',
+      // ocn: '',
       id_number:"",
 
     },
-    // initialValues: {
-    //   full_name: data?.full_name || '',
-    //   email: data.username_email,
-    //   mobile: data?.mobile,
-    //   district: data?.district,
-    //   college: data?.college_name,
-    //   rollnumber: data?.roll_number,
-    //   branch: data?.branch,
-    //   yearofstudy: data?.
-    //   year_of_study
-    //   ,
-    //   collegeType: data?.college_type,
-    //   ocn: data?.college_name,
-    // },
+    
 
     validationSchema: Yup.object({
       full_name: Yup.string()
@@ -151,15 +138,15 @@ const StuEdit = () => {
           10,
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
-      collegeType: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select collegeType</span>
-      ),
+      // collegeType: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Select collegeType</span>
+      // ),
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
-      college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
-      ),
+      // college: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Select college</span>
+      // ),
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Roll Number</span>
       ),
@@ -178,8 +165,8 @@ const StuEdit = () => {
         full_name: values.full_name,
         mobile: String(values.mobile),
         district: values.district,
-        college_type: values.collegeType,
-        college_name: values.college === 'Other' ? values.ocn : values.college,
+        college_type: currentUser?.data[0]?.college_type,
+        college_name: currentUser?.data[0]?.college_name,
         roll_number: values.rollnumber,
         branch: values.branch,
         year_of_study: values.yearofstudy,
@@ -227,34 +214,34 @@ const StuEdit = () => {
         email: data.username_email || '',
         mobile: data.mobile || '',
         district: data.district || '',
-        college: data.college_name || '',
+        // college: data.college_name || '',
         rollnumber: data.roll_number || '',
         branch: data.branch || '',
         yearofstudy: data.year_of_study || '',
-        collegeType: data.college_type || '',
-        ocn: data.college_type === 'Other' ? data.college_name : '',
+        // collegeType: data.college_type || '',
+        // ocn: data.college_type === 'Other' ? data.college_name : '',
         id_number: data.id_number || '',
       });
     }
   }, [data]); 
-  useEffect(() => {
-    if (data?.college_type) {
-      formik.setFieldValue('collegeType', data.college_type);
-    }
-  }, [data?.college_type]);
-  useEffect(() => {
-    if (data.college_name) {
-      formik.setFieldValue('college', data.college_name);
-    }
-  }, [data.college_name]);
-  useEffect(()=>{
-    setCollegeNamesList(
-      collegeNameList[
+  // useEffect(() => {
+  //   if (data?.college_type) {
+  //     formik.setFieldValue('collegeType', data.college_type);
+  //   }
+  // }, [data?.college_type]);
+  // useEffect(() => {
+  //   if (data.college_name) {
+  //     formik.setFieldValue('college', data.college_name);
+  //   }
+  // }, [data.college_name]);
+  // useEffect(()=>{
+  //   setCollegeNamesList(
+  //     collegeNameList[
             
-        data.college_type
-        ] || []
-    );
-   },[data.college_type]);
+  //       data.college_type
+  //       ] || []
+  //   );
+  //  },[data.college_type]);
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -327,7 +314,7 @@ const StuEdit = () => {
                             ) : null}
                           </div>
 
-                          <div className="col-md-4">
+                          <div className="col-md-6">
                             <label className="form-label" htmlFor="mobile">
                               Mobile Number
                             </label>&nbsp;
@@ -359,7 +346,7 @@ const StuEdit = () => {
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-4`}>
+                          <div className={`col-md-6`}>
                             <label htmlFor="district" className="form-label">
                               District
                             </label>&nbsp;
@@ -387,7 +374,7 @@ const StuEdit = () => {
                             ) : null}
                           </div>
 
-                          <div className={`col-md-4`}>
+                          {/* <div className={`col-md-4`}>
                             <label htmlFor="collegeType" className="form-label">
                               College Type
                             </label>&nbsp;
@@ -440,7 +427,7 @@ const StuEdit = () => {
                                 {formik.errors.college}
                               </small>
                             ) : null}
-                          </div>
+                          </div> */}
                           <div className={`col-md-6`}>
                             <label htmlFor="rollnumber" className="form-label">
                               Roll number provided by the college
@@ -473,7 +460,7 @@ const StuEdit = () => {
                               </small>
                             ) : null}
                           </div>
-                          {formik.values.collegeType === "Other" && (
+                          {/* {formik.values.collegeType === "Other" && (
                             <div className={`col-md-12`}>
                               <label htmlFor="ocn" className="form-label">
                                 Other College Name
@@ -505,9 +492,9 @@ const StuEdit = () => {
                                 </small>
                               ) : null}
                             </div>
-                          )}
+                          )} */}
 
-                          <div className="col-md-4">
+                          <div className="col-md-6">
                             <label className="form-label" htmlFor="branch">
                               Branch
                             </label>&nbsp;
@@ -536,7 +523,7 @@ const StuEdit = () => {
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-4`}
+                          <div className={`col-md-6`}
                       >
                         <label
                           htmlFor="id_number"
@@ -574,7 +561,7 @@ const StuEdit = () => {
                           </small>
                         ) : null}
                       </div>
-                          <div className={`col-md-4`}>
+                          <div className={`col-md-6`}>
                             <label htmlFor="yearofstudy" className="form-label">
                               Year of Study
                             </label>&nbsp;
