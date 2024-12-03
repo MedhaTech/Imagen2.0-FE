@@ -107,37 +107,85 @@ const IdeaReport = () => {
       key: "totalSubmited",
     },
     {
-      label: "Agriculture and Rural Development",
+      label: "Smart Automation",
+      key: "SmartAutomation",
+    },
+    {
+      label: "Fitness and Sports",
+      key: "FitnessandSports",
+    },
+    {
+      label: "Heritage and Culture",
+      key: "HeritageandCulture",
+    },
+    {
+      label: "MedTech or BioTech or HealthTech",
+      key: "MedTechorBioTechorHealthTech",
+    },
+    {
+      label: "Agriculture, and Rural Development",
       key: "AgricultureandRuralDevelopment",
     },
     {
-      label: "Digital Transformation",
-      key: "DigitalTransformation",
+      label: "Smart Vehicles",
+      key: "SmartVehicles",
     },
     {
-      label: "Economic Empowerment",
-      key: "EconomicEmpowerment",
+      label: "Transportation and Logistics",
+      key: "TransportationandLogistics",
     },
     {
-      label: "Health and Well-being",
-      key: "HealthandWellbeing",
+      label: "Robotics and Drones",
+      key: "RoboticsandDrones",
     },
     {
-      label: "Quality Education",
-      key: "QualityEducation",
+      label: "Clean and Green Technology",
+      key: "CleanandGreenTechnology",
     },
     {
-      label: "Smart and Resilient Communities",
-      key: "SmartandResilientCommunities",
+      label: "Tourism",
+      key: "Tourism",
     },
     {
-      label: "Sustainable Development and Environment",
-      key: "SustainableDevelopmentandEnvironment",
+      label: "Renewable and sustainable Energy",
+      key: "RenewableandsustainableEnergy",
     },
     {
-      label: "Others",
-      key: "OTHERS",
+      label: "Blockchain and Cybersecurity",
+      key: "BlockchainandCybersecurity",
     },
+    {
+      label: "Smart Education",
+      key: "SmartEducation",
+    },
+    {
+      label: "Disaster Management",
+      key: "DisasterManagement",
+    },
+    {
+      label: "Toys and Games",
+      key: "ToysandGames",
+    },
+    {
+      label: "Miscellaneous",
+      key: "Miscellaneous",
+    },
+    {
+      label: "Space Technology",
+      key: "SpaceTechnology",
+    },
+    {
+      label: "Financial Inclusion and FinTech",
+      key: "FinancialInclusionandFinTech",
+    },
+    {
+      label: "Rural Innovation and Development",
+      key: "RuralInnovationandDevelopment",
+    },
+    {
+      label: "Public Governance and CivicTech",
+      key: "PublicGovernanceandCivicTech",
+    }
   ];
   const teacherDetailsHeaders = [
     {
@@ -261,25 +309,50 @@ const IdeaReport = () => {
       "#dda0dd",],
     labels: [
 
-      "Agriculture and Rural Development",
-      "Digital Transformation",
-      "Economic Empowerment",
-      "Health and Well-being",
-      "Quality Education",
-      "Smart and Resilient Communities",
-      "Sustainable Development and Environment",
-      "Others"
+      "Smart Automation",
+                    "Fitness and Sports",
+                    "Heritage and Culture",
+                    "MedTech or BioTech or HealthTech",
+                    "Agriculture, and Rural Development",
+                    "Smart Vehicles",
+                    "Transportation and Logistics",
+                    "Robotics and Drones",
+                    "Clean and Green Technology",
+                    "Tourism",
+                    "Renewable and sustainable Energy",
+                    "Blockchain and Cybersecurity",
+                    "Smart Education",
+                    "Disaster Management",
+                    "Toys and Games",
+                    "Miscellaneous",
+                    "Space Technology",
+                    "Financial Inclusion and FinTech",
+                    "Rural Innovation and Development",
+                    "Public Governance and CivicTech",
+     // "Others"
     ],
     series: [
+      totalCount.SmartAutomation,
+      totalCount.FitnessandSports,
+      totalCount.HeritageandCulture,
+      totalCount.MedTechorBioTechorHealthTech,
       totalCount.AgricultureandRuralDevelopment,
-      totalCount.DigitalTransformation,
-      totalCount.EconomicEmpowerment,
-      totalCount.HealthandWellbeing,
-      totalCount.QualityEducation,
-      totalCount.SmartandResilientCommunities,
-      totalCount.SustainableDevelopmentandEnvironment,
-      totalCount.OTHERS,
-
+      totalCount.SmartVehicles,
+      totalCount.TransportationandLogistics,
+      totalCount.RoboticsandDrones,
+      totalCount.CleanandGreenTechnology,
+      totalCount.Tourism,
+      totalCount.RenewableandsustainableEnergy,
+      totalCount.BlockchainandCybersecurity,
+      totalCount.SmartEducation,
+      totalCount.DisasterManagement,
+      totalCount.ToysandGames,
+      totalCount.Miscellaneous,
+      totalCount.SpaceTechnology,
+      totalCount.FinancialInclusionandFinTech,
+      totalCount.RuralInnovationandDevelopment,
+      totalCount.PublicGovernanceandCivicTech,
+     //totalCount.OTHERS,
     ],
     legend: {
       position: "top",
@@ -346,7 +419,7 @@ const IdeaReport = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response,"filter");
+          // console.log(response,"filter");
           const IdeaData=response.data.data[0].summary || [];
         
           const newdatalist = IdeaData.map((item) => {
@@ -421,57 +494,103 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
             (acc, item) => {
               acc.district = "Total";
               (acc.totalSubmited += item.totalSubmited),
-                acc.AgricultureandRuralDevelopment +=
-                item.AgricultureandRuralDevelopment;
-              acc.DigitalTransformation += item.DigitalTransformation;
-              acc.EconomicEmpowerment += item.EconomicEmpowerment;
-              acc.HealthandWellbeing += item.HealthandWellbeing;
-              acc.QualityEducation += item.QualityEducation;
-              acc.SustainableDevelopmentandEnvironment +=
-                item.SustainableDevelopmentandEnvironment;
-
-              acc.OTHERS += item.OTHERS;
-
-              acc.SmartandResilientCommunities +=
-                item.SmartandResilientCommunities;
+              acc.SmartAutomation += item.SmartAutomation;
+              acc.FitnessandSports += item.FitnessandSports;
+              acc.HeritageandCulture += item.HeritageandCulture;
+              acc.MedTechorBioTechorHealthTech += item.MedTechorBioTechorHealthTech;
+              acc.AgricultureandRuralDevelopment += item.AgricultureandRuralDevelopment;
+              acc.SmartVehicles += item.SmartVehicles;
+              acc.TransportationandLogistics += item.TransportationandLogistics;
+              acc.RoboticsandDrones += item.RoboticsandDrones;
+              acc.CleanandGreenTechnology += item.CleanandGreenTechnology;
+              acc.Tourism += item.Tourism;
+              acc.RenewableandsustainableEnergy += item.RenewableandsustainableEnergy;
+              acc.BlockchainandCybersecurity += item.BlockchainandCybersecurity;
+              acc.SmartEducation += item.SmartEducation;
+              acc.DisasterManagement += item.DisasterManagement;
+              acc.ToysandGames += item.ToysandGames;
+              acc.Miscellaneous += item.Miscellaneous;
+              acc.SpaceTechnology += item.SpaceTechnology;
+              acc.FinancialInclusionandFinTech += item.FinancialInclusionandFinTech;
+              acc.RuralInnovationandDevelopment += item.RuralInnovationandDevelopment;
+              acc.PublicGovernanceandCivicTech += item.PublicGovernanceandCivicTech;
+              //acc.OTHERS += item.OTHERS;
               return acc;
             },
             {
               totalSubmited: 0,
-              AgricultureandRuralDevelopment: 0,
-              DigitalTransformation: 0,
-              EconomicEmpowerment: 0,
-              HealthandWellbeing: 0,
-              QualityEducation: 0,
-              SmartandResilientCommunities: 0,
-              SustainableDevelopmentandEnvironment: 0,
-              OTHERS: 0,
+              SmartAutomation:0,
+              FitnessandSports:0,
+              HeritageandCulture:0,
+              MedTechorBioTechorHealthTech:0,
+              AgricultureandRuralDevelopment:0,
+              SmartVehicles:0,
+              TransportationandLogistics:0,
+              RoboticsandDrones:0,
+              CleanandGreenTechnology:0,
+              Tourism:0,
+              RenewableandsustainableEnergy:0,
+              BlockchainandCybersecurity:0,
+              SmartEducation:0,
+              DisasterManagement:0,
+              ToysandGames:0,
+              Miscellaneous:0,
+              SpaceTechnology:0,
+              FinancialInclusionandFinTech:0,
+              RuralInnovationandDevelopment:0,
+              PublicGovernanceandCivicTech:0,
+              //OTHERS: 0,
               //
             }
           );
 
           const doughnutData = {
             labels: [
-              "Agriculture and Rural Development",
-              "Digital Transformation",
-              "Economic Empowerment",
-              "Health and Well-being",
-              "Quality Education",
-              "Smart and Resilient Communities",
-              "Sustainable Development and Environment",
-              "Others",
+                    "Smart Automation",
+                    "Fitness and Sports",
+                    "Heritage and Culture",
+                    "MedTech or BioTech or HealthTech",
+                    "Agriculture, and Rural Development",
+                    "Smart Vehicles",
+                    "Transportation and Logistics",
+                    "Robotics and Drones",
+                    "Clean and Green Technology",
+                    "Tourism",
+                    "Renewable and sustainable Energy",
+                    "Blockchain and Cybersecurity",
+                    "Smart Education",
+                    "Disaster Management",
+                    "Toys and Games",
+                    "Miscellaneous",
+                    "Space Technology",
+                    "Financial Inclusion and FinTech",
+                    "Rural Innovation and Development",
+                    "Public Governance and CivicTech",
             ],
             datasets: [
               {
                 data: [
+                  total.SmartAutomation,
+                  total.FitnessandSports,
+                  total.HeritageandCulture,
+                  total.MedTechorBioTechorHealthTech,
                   total.AgricultureandRuralDevelopment,
-                  total.DigitalTransformation,
-                  total.EconomicEmpowerment,
-                  total.HealthandWellbeing,
-                  total.QualityEducation,
-                  total.SmartandResilientCommunities,
-                  total.SustainableDevelopmentandEnvironment,
-                  total.Others,
+                  total.SmartVehicles,
+                  total.TransportationandLogistics,
+                  total.RoboticsandDrones,
+                  total.CleanandGreenTechnology,
+                  total.Tourism,
+                  total.RenewableandsustainableEnergy,
+                  total.BlockchainandCybersecurity,
+                  total.SmartEducation,
+                  total.DisasterManagement,
+                  total.ToysandGames,
+                  total.Miscellaneous,
+                  total.SpaceTechnology,
+                  total.FinancialInclusionandFinTech,
+                  total.RuralInnovationandDevelopment,
+                  total.PublicGovernanceandCivicTech,
+                  //total.Others,
                 ],
                 backgroundColor: [
                   "#8bcaf4",
@@ -482,6 +601,19 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                   "#00ffff",
                   "#0000ff",
                   "#800080",
+                  "#8bcaf4",
+                  "#ff99af",
+                  "#ff0000",
+                  "#800000",
+                  "#648c11",
+                  "#00ffff",
+                  "#0000ff",
+                  "#800080",
+                  "#0000ff",
+                  "#800080",
+                  "#8bcaf4",
+                  "#ff99af",
+                  "#ff0000",
                 ],
                 hoverBackgroundColor: [
                   "#36A2EB",
@@ -492,6 +624,19 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                   "#b2ffff",
                   "#4169e1",
                   "#dda0dd",
+                  "#36A2EB",
+                  "#FF6384",
+                  "#ff6666",
+                  "#954535",
+                  "#a6d608",
+                  "#b2ffff",
+                  "#4169e1",
+                  "#dda0dd",
+                  "#dda0dd",
+                  "#36A2EB",
+                  "#FF6384",
+                  "#ff6666",
+                  "#954535",
                 ],
               },
             ],
@@ -683,7 +828,7 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                       fontWeight: "bold",
                                     }}
                                   >
-                                    Agriculture and Rural Development
+                                    Smart Automation
                                   </th>
                                   <th
                                     style={{
@@ -691,8 +836,7 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                       color: "#36A2EB",
                                     }}
                                   >
-                                  
-                                    Digital Transformation
+                                    Fitness and Sports
                                   </th>
                                   <th
                                     style={{
@@ -700,8 +844,7 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                       color: "#36A2EB",
                                     }}
                                   >
-                                  
-                                    Economic Empowerment
+                                  Heritage and Culture
                                   </th>
                                   <th
                                     style={{
@@ -709,8 +852,7 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                       color: "#36A2EB",
                                     }}
                                   >
-                                   
-                                    Health and Well-being
+                                    MedTech or BioTech or HealthTech
                                   </th>
 
                                   <th
@@ -720,7 +862,7 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                     }}
                                   >
                                    
-                                    Quality Education{" "}
+                                   Agriculture, and Rural Development
                                   </th>
 
                                   <th
@@ -730,7 +872,7 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                       fontWeight: "bold",
                                     }}
                                   >
-                                    Smart and Resilient Communities
+                                    Smart Vehicles
                                   </th>
                                   <th
                                     style={{
@@ -738,11 +880,96 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                       color: "#36A2EB",
                                     }}
                                   >
-                                    Sustainable Development and Environment
+                                    Transportation and Logistics
                                   </th>
-
-
-
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Robotics and Drones
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Clean and Green Technology
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Tourism
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Renewable and sustainable Energy
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Blockchain and Cybersecurity
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Smart Education
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Disaster Management
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Toys and Games
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Miscellaneous
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Space Technology
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Financial Inclusion and FinTech
+                                  </th>
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
@@ -750,7 +977,16 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                       fontWeight: "bold",
                                     }}
                                   >
-                                    Others
+                                    Rural Innovation and Development
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    Public Governance and CivicTech
                                   </th>
                                 </tr>
                               </thead>
@@ -770,27 +1006,30 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                       {item.district}
                                     </td>
                                     <td>{item.totalSubmited}</td>
-                                    <td>
-                                      {item.AgricultureandRuralDevelopment}
-                                    </td>{" "}
-                                    <td>{item.DigitalTransformation}</td>
-                                    <td>{item.EconomicEmpowerment}</td>
-                                    <td>{item.HealthandWellbeing}</td>
-                                    <td>{item.QualityEducation}</td>
-
-                                    <td>
-                                      {item.SmartandResilientCommunities}
-                                    </td>{" "}
-                                    <td>
-                                      {
-                                        item.SustainableDevelopmentandEnvironment
-                                      }
-                                    </td>
-                                    <td>{item.OTHERS}</td>
+                                    <td>{item.SmartAutomation }</td>
+                                    <td>{item.FitnessandSports }</td>
+                                    <td>{item.HeritageandCulture }</td>
+                                    <td>{item.MedTechorBioTechorHealthTech }</td>
+                                    <td>{item.AgricultureandRuralDevelopment }</td>
+                                    <td>{item.SmartVehicles }</td>
+                                    <td>{item.TransportationandLogistics }</td>
+                                    <td>{item.RoboticsandDrones }</td>
+                                    <td>{item.CleanandGreenTechnology }</td>
+                                    <td>{item.Tourism }</td>
+                                    <td>{item.RenewableandsustainableEnergy }</td>
+                                    <td>{item.BlockchainandCybersecurity }</td>
+                                    <td>{item.SmartEducation }</td>
+                                    <td>{item.DisasterManagement }</td>
+                                    <td>{item.ToysandGames }</td>
+                                    <td>{item.Miscellaneous }</td>
+                                    <td>{item.SpaceTechnology }</td>
+                                    <td>{item.FinancialInclusionandFinTech }</td>
+                                    <td>{item.RuralInnovationandDevelopment }</td>
+                                    <td>{item.PublicGovernanceandCivicTech }</td>
                                   </tr>
                                 ))}
                                 <tr>
-                                  <td>{ }</td>
+                                  <td>{combinedArray?.length + 1}</td>
                                   <td
                                     style={{
                                       color: "crimson",
@@ -805,33 +1044,26 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                   <td style={{ color: "crimson" }}>
                                     {totalCount.totalSubmited}
                                   </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.AgricultureandRuralDevelopment}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.DigitalTransformation}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.EconomicEmpowerment}
-                                  </td>{" "}
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.HealthandWellbeing}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.QualityEducation}
-                                  </td>
-
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.SmartandResilientCommunities}
-                                  </td>{" "}
-                                  <td style={{ color: "crimson" }}>
-                                    {
-                                      totalCount.SustainableDevelopmentandEnvironment
-                                    }
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.OTHERS}
-                                  </td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.SmartAutomation }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.FitnessandSports }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.HeritageandCulture }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.MedTechorBioTechorHealthTech }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.AgricultureandRuralDevelopment }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.SmartVehicles }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.TransportationandLogistics }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.RoboticsandDrones }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.CleanandGreenTechnology }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.Tourism }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.RenewableandsustainableEnergy }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.BlockchainandCybersecurity }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.SmartEducation }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.DisasterManagement }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.ToysandGames }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.Miscellaneous }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.SpaceTechnology }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.FinancialInclusionandFinTech }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.RuralInnovationandDevelopment }</td>
+                                  <td style={{ color: 'crimson' }}>{totalCount.PublicGovernanceandCivicTech }</td>
                                 </tr>
                               </tbody>
                             </table>

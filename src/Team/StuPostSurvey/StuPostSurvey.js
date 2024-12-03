@@ -46,7 +46,7 @@ const StuPostSurvey = () => {
     const language = useSelector(
       (state) => state?.studentRegistration?.studentLanguage
   );
-  const TeamId = currentUser?.data[0]?.student_id;
+  const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
 
     const filterAnswer = (questionId) => {
       const data =

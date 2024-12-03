@@ -29,7 +29,7 @@ const IdeaSubmission = () => {
   const [showCompleted, setShowCompleted] = useState(false);
   const [view, setView] = useState(false);
   const [isideadisable, setIsideadisable] = useState(false);
-  const TeamId = currentUser?.data[0]?.student_id;
+  const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
   const [ideaSubmittedRes, setIdeaSubmittedRes] = useState({});
   const [initiate, setInitiate] = useState("");
   useEffect(() => {

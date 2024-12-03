@@ -57,7 +57,7 @@ const { t } = useTranslation();
 
   const [theme, setTheme] = useState(null);
   const currentUser = getCurrentUser('current_user');
-  const TeamId = currentUser?.data[0]?.student_id;
+  const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
   const [themeInt, setThemeInt] = useState("");
   const [error4, seterror4] = useState(false);
 const [statusCode,setStatusCode]= useState(false);

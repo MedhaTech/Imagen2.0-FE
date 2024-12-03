@@ -363,7 +363,7 @@ useEffect(() => {
     const stuIdeaSubStatus = () => {
       const ideaSubApi = encryptGlobal(
         JSON.stringify({
-          student_id: currentUser?.data[0]?.student_id
+          student_id: currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id
         })
       );
       var config = {
