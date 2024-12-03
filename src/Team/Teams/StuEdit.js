@@ -191,10 +191,11 @@ const StuEdit = () => {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            if (currentUser.data[0].type_id === "0"){
-
+            if (currentUser?.data[0]?.type_id == "0"){
+             
               currentUser.data[0].full_name = values.full_name;
               setCurrentUser(currentUser);
+
             }
             openNotificationWithIcon(
               "success",
@@ -233,6 +234,8 @@ const StuEdit = () => {
       });
     }
   }, [data]); 
+  // console.log(currentUser,"cc");
+
   useEffect(() => {
     if (data?.college_type) {
       formik.setFieldValue('collegeType', data.college_type);
@@ -252,7 +255,7 @@ const StuEdit = () => {
         ] || []
     );
    },[data.college_type]);
-   console.log( formik.values.college,"clg",formik.values.ocn,"other");
+  //  console.log( formik.values.college,"clg",formik.values.ocn,"other");
   return (
     <div className="page-wrapper">
       <div className="content">

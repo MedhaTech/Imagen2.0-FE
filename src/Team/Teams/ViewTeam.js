@@ -28,7 +28,7 @@ const TeacherProfile = () => {
   useEffect(() => {
     mentorViewApi();
   }, [mentorData.student_id]);
-  console.log(typeof(mentorData.student_id),"type");
+  // console.log(typeof(mentorData.student_id),"type");
   const mentorViewApi = () => {
     let supId;
     if(typeof(mentorData.student_id) !== "string"){
