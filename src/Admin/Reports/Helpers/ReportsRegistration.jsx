@@ -310,6 +310,7 @@ const ReportsRegistration = () => {
             .then((response) => {
                 if (response.status === 200) {
                     // console.log(response,"22");
+                    const Data = response?.data?.data || [];
                     setFilteredData(response?.data?.data || []);
             setDownloadData(response?.data?.data || []);
             if (response?.data.count > 0) {

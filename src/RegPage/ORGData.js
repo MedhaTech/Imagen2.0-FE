@@ -866,7 +866,7 @@ export const districtList = {
   ],
 };
 export const userList = [
-  "Mentor",
+  "Institution",
   "Student"
 ];
 export const navList = {

@@ -10,6 +10,8 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { useNavigate } from 'react-router-dom';
+// import { stateList} from "../../RegPage/ORGData";
+// import Select from "../Reports/Helpers/Select";
 
 
 const EditResource = () => {
@@ -17,11 +19,13 @@ const EditResource = () => {
     const navigate = useNavigate();
     const resID = JSON.parse(localStorage.getItem('resID'));
     const currentUser = getCurrentUser('current_user');
+//   const allData = ["All States", ...stateList];
+
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
     };
-
+   
     const fileHandler = (e) => {
         let file = e.target.files[0];
 
@@ -74,18 +78,23 @@ const EditResource = () => {
             role: resID && resID.role,
             description: resID && resID.description,
             type: resID && resID.type,
+            // state: resID?.state,
+
             attachments: (resID && resID.attachments) || ''
         },
+        enableReinitialize: true,
         validationSchema: Yup.object({
             role: Yup.string()
                 .optional()
-                .oneOf(['mentor', 'student'], 'Role is Required'),
+                .oneOf(['Institution', 'Student']).required('Role is Required'),
+    //   state: Yup.string().required("Please Select State"),
+
             description: Yup.string()
                 .optional()
                 .required('Details is Required'),
             type: Yup.string()
                 .optional()
-                .oneOf(['file', 'link'], 'Submission type is Required'),
+                .oneOf(['file', 'link']).required('Submission type is Required'),
             attachments: Yup.string().required('Attachments are required'),
         }),
         onSubmit: async (values) => {
@@ -124,6 +133,7 @@ const EditResource = () => {
                     status: 'ACTIVE',
                     role: values.role,
                     type: values.type,
+                    // state: values.state,
                     description: values.description,
                     attachments: values.attachments
                 };
@@ -167,15 +177,23 @@ const EditResource = () => {
         marginRight: '10px',
       };
 
-
+    //   const handleStateChange = (event) => {
+    //     const state = event.target.value;
+    //     formik.setFieldValue("state", state);
+    //   };
+    //   console.log(formik.values.state,"state");
     return (
         <div className="page-wrapper">
+             <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Resources
+        </h4>
             <div className="content">
                 <div className="page-header">
                     <div className="add-item d-flex">
                         <div className="page-title">
                             <h4>Edit Resource</h4>
-                            <h6>You can modify details in this resourse</h6>
+                            <h6>You can modify details in this resource</h6>
                         </div>
                     </div>
                 </div>
@@ -186,9 +204,10 @@ const EditResource = () => {
                                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                                     <div className="create-ticket register-block">
                                         <Row className="mb-3 modal-body-table search-modal-header">
-                                            <Col>
+                                            <Col md={4}>
                                                 <Label className="mb-2" htmlFor="role">
                                                     Role
+                                                    <span required>*</span>
                                                 </Label>
                                                 <select
                                                     name="role"
@@ -198,11 +217,11 @@ const EditResource = () => {
                                                     onChange={formik.handleChange}
                                                     onBlur={formik.handleBlur}
                                                 >
-                                                    <option value="mentor">
-                                                        mentor
+                                                    <option value="Institution">
+                                                        Institution
                                                     </option>
-                                                    <option value="student">
-                                                        student
+                                                    <option value="Student">
+                                                        Student
                                                     </option>
                                                 </select>
                                                 {formik.touched.role &&
@@ -212,13 +231,36 @@ const EditResource = () => {
                                                         </small>
                                                     )}
                                             </Col>
-                                            <Col>
+                                            {/* <Col md={4}>
+                          <Label className="form-label" htmlFor="state">
+                            State
+                            <span required>*</span> 
+                          </Label>
+                          <Select
+  list={allData}
+  setValue={(value) => formik.setFieldValue("state", value)} // Update Formik state
+  placeHolder={"Select State"}
+  value={formik.values.state}  // Bind the Formik state value
+/>
+                       
+
+                          {formik.touched.state && formik.errors.state ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.state}
+                            </small>
+                          ) : null}
+                        </Col> */}
+                                            <Col md={4}>
 
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="description"
                                             >
-                                                Description
+                                                Details
+                                                <span required>*</span>
                                             </Label>
                                             <Input
                                                 {...inputDICE}
@@ -242,6 +284,7 @@ const EditResource = () => {
                                             <Col>
                                             <Label className="mb-2" htmlFor="type">
                                                 Type
+                                                <span required>*</span>
                                             </Label>
                                             <select
                                                 name="type"
@@ -273,6 +316,7 @@ const EditResource = () => {
                                                         htmlFor="attachments"
                                                     >
                                                         File
+
                                                     </Label>
                                                     <div className="d-flex align-items-center">
                                                         <input
@@ -302,30 +346,37 @@ const EditResource = () => {
                                                                     .click();
                                                             }}
                                                         />
-                                                        <button
-                                                            className='btn btn-info mx-2'
+                                                      {formik.values.attachments ?  (<button
+                                                            className='btn btn-info m-2'
                                                             type="button"
+                                                            // disabled={!formik.values.attachments}
                                                             onClick={() => {
-                                                                window.open(
-                                                                    formik.values
-                                                                        .attachments,
-                                                                    '_blank'
-                                                                );
+                                                                if (formik.values.attachments instanceof File) {
+                                                                    const fileURL = URL.createObjectURL(formik.values.attachments);
+                                                                    window.open(fileURL, '_blank');
+                                                              } else {
+                                                                    window.open(formik.values.attachments, '_blank');
+                                                                }
                                                             }}
+                                                           
                                                         >
-                                                            Download
+                                                              {formik.values.attachments instanceof File
+            ? formik.values.attachments.name
+            : formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1)}
+                                                      
+                                                           
                                                         </button>
-                                                        
+                                                      ):null}
                                                         {formik.values
                                                             .attachments &&
                                                         formik.values.attachments
                                                             .name ? (
                                                             <span className="ml-2">
-                                                                {
+                                                                {/* {
                                                                     formik.values
                                                                         .attachments
                                                                         .name
-                                                                }
+                                                                } */}
                                                             </span>
                                                         ) : (
                                                             <span className="ml-2">
@@ -362,6 +413,7 @@ const EditResource = () => {
                                                         htmlFor="attachments"
                                                     >
                                                         Link
+                                                        <span required>*</span>
                                                     </Label>
                                                     <Input
                                                         {...inputDICE}
@@ -398,7 +450,10 @@ const EditResource = () => {
                                         <div style={buttonContainerStyle} className='mt-3'>
                                             <button
                                                 type="submit"
-                                                className='btn btn-warning'
+                                                className={`btn btn-warning ${
+      !formik.dirty || !formik.isValid ? "default" : "primary"
+    }`}
+    disabled={!formik.dirty || !formik.isValid}
                                                 style={buttonStyle}
                                             >
                                                 Submit details

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
 // import Layout from '../../Admin/Layout';
@@ -12,14 +13,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { URL, KEY } from '../../constants/defaultValues';
 // import { staticData } from './index';
-import {userList, navList,districtList } from "../../RegPage/ORGData";
+import { stateList, userList, navList } from "../../RegPage/ORGData";
 const Createpopup = () => {
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
-  const [path, setPath] = useState([]);
-//   const allData = ["All States", ...stateList];
-  const fiterDistData = [...districtList["Telangana"]];
-  fiterDistData.unshift("All Districts");
+  // const [path, setPath] = useState([]);
+  // const allData = ["All States", ...stateList];
   const navigate = useNavigate();
   // const inputDICE = {
   //     type: 'text',
@@ -76,9 +75,9 @@ const Createpopup = () => {
   const formik = useFormik({
     initialValues: {
       role: "",
-      navigate: "",
+      // navigate: "",
       type: "",
-      state: "",
+      // state: "",
       attachments: "",
     },
     validationSchema: Yup.object({
@@ -86,7 +85,7 @@ const Createpopup = () => {
       // .optional()
       // .oneOf(['mentor', 'student'], 'Role is Required'),
       navigate: Yup.string().optional(),
-      state: Yup.string().required("Please Select District"),
+      // state: Yup.string().required("Please Select State"),
 
       // .required(' is Required'),
       type: Yup.string()
@@ -131,13 +130,13 @@ const Createpopup = () => {
         const body = {
           role: values.role,
           type: values.type,
-          state: values.state,
+          // state: values.state,
           url: values.attachments,
           on_off: "0",
         };
-        if (values.navigate !== "") {
-          body["navigate"] = values.navigate;
-        }
+        // if (values.navigate !== "") {
+        //   body["navigate"] = values.navigate;
+        // }
         // console.log(body,"body");
         const response = await axios.post(
           `${process.env.REACT_APP_API_BASE_URL}/popup`,
@@ -203,15 +202,15 @@ const Createpopup = () => {
   // const handleFileChange = (e) => {
   //   formik.setFieldValue('file', e.target.files[0]);
   // };
-  const handleStateChange = (event) => {
-    const state = event.target.value;
-    formik.setFieldValue("state", state);
-  };
+  // const handleStateChange = (event) => {
+  //   const state = event.target.value;
+  //   formik.setFieldValue("state", state);
+  // };
   const handleroleChange = (event) => {
     const role = event.target.value;
     formik.setFieldValue("role", role);
-    formik.setFieldValue("navigate", "");
-    setPath(navList[role] || []);
+    // formik.setFieldValue("navigate", "");
+    // setPath(navList[role] || []);
   };
   //   console.log(formik.values.navigate,"nn");
   //   const handlepathChange = (event) => {
@@ -240,7 +239,7 @@ const Createpopup = () => {
                   <div className="create-ticket register-block">
                     <FormGroup className="form-group" md={12}>
                       <Row className="mb-3 modal-body-table search-modal-header">
-                        <Col md={6}>
+                        <Col md={12}>
                           <Label className="mb-2" htmlFor="role">
                             Role
                             <span required>*</span>
@@ -268,9 +267,9 @@ const Createpopup = () => {
                             </small>
                           )}
                         </Col>
-                        <Col md={6}>
+                        {/* <Col md={6}>
                           <Label className="form-label" htmlFor="state">
-                            District
+                            State
                             <span required>*</span> 
                           </Label>
                           <select
@@ -278,8 +277,8 @@ const Createpopup = () => {
                             className="form-select"
                             onChange={(e) => handleStateChange(e)}
                           >
-                            <option value="">Select District</option>
-                            {fiterDistData.map((state) => (
+                            <option value="">Select State</option>
+                            {allData.map((state) => (
                               <option key={state} value={state}>
                                 {state}
                               </option>
@@ -294,10 +293,10 @@ const Createpopup = () => {
                               {formik.errors.state}
                             </small>
                           ) : null}
-                        </Col>
+                        </Col> */}
                       </Row>
                       <Row className="mb-3 modal-body-table search-modal-header">
-                        <Col md={6}>
+                        <Col md={12}>
                           <Label className="mb-2" htmlFor="type">
                             Type
                             <span required>*</span>
@@ -335,7 +334,7 @@ const Createpopup = () => {
                             </small>
                           )}
                         </Col>
-                        <Col md={6}>
+                        {/* <Col md={6}>
                           <Label className="mb-2" htmlFor="navigate">
                             Navigate Menu
                           </Label>
@@ -367,7 +366,7 @@ const Createpopup = () => {
                                 {formik.errors.navigate}
                               </small>
                             )}
-                        </Col>
+                        </Col> */}
                         {formik.values.type === "file" && (
                           <>
                             <Label className="mb-2 mt-4" htmlFor="attachments">

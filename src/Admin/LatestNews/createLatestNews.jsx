@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 // import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { stateList  } from "../../RegPage/ORGData";
 
 const CreateLatestNews = () => {
     const { t } = useTranslation();
@@ -21,6 +22,7 @@ const CreateLatestNews = () => {
         type: 'text',
         className: 'defaultInput'
     };
+    const allData = ["All States", ...stateList];
 
     const fileHandler = (e) => {
         let file = e.target.files[0];
@@ -64,16 +66,14 @@ const CreateLatestNews = () => {
             details: '',
             file_name: '',
             url: '',
-            new_status: ''
+            new_status: '',
+            // state:""
         },
         validationSchema: Yup.object({
-            role: Yup.string()
-                .optional()
-                .oneOf(['mentor', 'student'], 'Role is Required'),
-            details: Yup.string().optional().required('details is Required'),
-            new_status: Yup.string()
-                .optional()
-                .oneOf(['0', '1'], 'New Status type is Required'),
+            role: Yup.string().optional().oneOf(['Institution', 'Student']).required('Role is Required'),
+                // state: Yup.string().required("Please Select State"),
+            details: Yup.string().optional().required('Details is Required'),
+            new_status: Yup.string().optional().oneOf(['0', '1']).required('New Icon Status is Required'),
             file_name: Yup.mixed(),
             url: Yup.string()
         }),
@@ -99,6 +99,8 @@ const CreateLatestNews = () => {
                 const body = {
                     category: values.role,
                     details: values.details,
+        //   state: values.state,
+
                     new_status: values.new_status
                 };
                 if (values.file_name !== '') {
@@ -142,25 +144,40 @@ const CreateLatestNews = () => {
       const buttonStyle = {
         marginRight: '10px',
       };
+    //   const handleStateChange = (event) => {
+    //     const state = event.target.value;
+    //     formik.setFieldValue("state", state);
+    //   };
     return (
         <div className="page-wrapper">
+             <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Latest News
+        </h4>
         <div className="content">
+                <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            <h4>Add New Latest News</h4>
+                            <h6>You can add new Latest News by submitting details here</h6>
+                        </div>
+                    </div>
+                </div>
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <h3 className="mb-1">Add New LatestNews Details</h3>
-
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
                                     {/* <FormGroup className="form-group" md={12}> */}
                                         <Row className="mb-3 modal-body-table search-modal-header">
-                                            <Col>
+                                            <Col md={6}>
                                                 <Label
                                                     className="mb-2"
                                                     htmlFor="role"
                                                 >
                                                     Role
+                                                    <span required>*</span>
                                                 </Label>
                                                 <select
                                                     name="role"
@@ -175,26 +192,27 @@ const CreateLatestNews = () => {
                                                     <option value="">
                                                         Select role
                                                     </option>
-                                                    <option value="mentor">
-                                                        mentor
+                                                    <option value="Institution">
+                                                    Institution
                                                     </option>
-                                                    <option value="student">
-                                                        student
+                                                    <option value="Student">
+                                                        Student
                                                     </option>
                                                 </select>
                                                 {formik.touched.role &&
                                                     formik.errors.role && (
-                                                        <small className="error-cls">
+                                                        <small className="error-cls" style={{ color: "red" }}>
                                                             {formik.errors.role}
                                                         </small>
                                                     )}
                                             </Col>
-                                            <Col>
+                                            <Col md={6}>
                                                 <Label
                                                     className="mb-2"
                                                     htmlFor="new_status"
                                                 >
                                                     New Icon Status
+                                                    <span required>*</span>
                                                 </Label>
                                                 <select
                                                     name="new_status"
@@ -221,14 +239,40 @@ const CreateLatestNews = () => {
                                                 {formik.touched.new_status &&
                                                     formik.errors
                                                         .new_status && (
-                                                        <small className="error-cls">
+                                                        <small className="error-cls" style={{ color: "red" }}>
                                                             {
-                                                                formik.errors
-                                                                    .new_status
+                                                                formik.errors.new_status
                                                             }
                                                         </small>
                                                     )}
                                             </Col>
+                                            {/* <Col md={4}>
+                          <Label className="form-label" htmlFor="state">
+                            State
+                            <span required>*</span>
+                          </Label>
+                          <select
+                            id="inputState"
+                            className="form-select"
+                            onChange={(e) => handleStateChange(e)}
+                          >
+                            <option value="">Select State</option>
+                            {allData.map((state) => (
+                              <option key={state} value={state}>
+                                {state}
+                              </option>
+                            ))}
+                          </select>
+
+                          {formik.touched.state && formik.errors.state ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.state}
+                            </small>
+                          ) : null}
+                        </Col> */}
                                         </Row>
                                         <Row className="mb-3 modal-body-table search-modal-header">
                                         <Label
@@ -236,6 +280,7 @@ const CreateLatestNews = () => {
                                             htmlFor="details"
                                         >
                                             Details
+                                            <span required>*</span>
                                         </Label>
                                         <Input
                                             type="text"

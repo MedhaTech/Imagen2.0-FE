@@ -8,12 +8,15 @@ import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+// import { stateList } from "../../RegPage/ORGData";
 
 
 const CreateResource = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const currentUser = getCurrentUser('current_user');
+//   const allData = ["All States", ...stateList];
+
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -62,18 +65,21 @@ const CreateResource = () => {
             role: '',
             description: '',
             type: '',
+            // state: "",
             attachments: ''
         },
         validationSchema: Yup.object({
             role: Yup.string()
                 .optional()
-                .oneOf(['mentor', 'student'], 'Role is Required'),
+                .oneOf(['Institution', 'Student']).required('Role is Required'),
             description: Yup.string()
                 .optional()
                 .required('Details is Required'),
+    //   state: Yup.string().required("Please Select State"),
+
             type: Yup.string()
                 .optional()
-                .oneOf(['file', 'link'], 'Type is Required'),
+                .oneOf(['file', 'link']).required('Type is Required'),
             attachments: Yup.string().required('Attachments are required'),
         }),
         onSubmit: async (values) => {
@@ -107,6 +113,8 @@ const CreateResource = () => {
                 const body = {
                     role: values.role,
                     type: values.type,
+                    // state: values.state,
+
                     description: values.description,
                     attachments: values.attachments
                 };
@@ -146,15 +154,22 @@ const CreateResource = () => {
       const buttonStyle = {
         marginRight: '10px',
       };
-
+    //   const handleStateChange = (event) => {
+    //     const state = event.target.value;
+    //     formik.setFieldValue("state", state);
+    //   };
     return (
         <div className="page-wrapper">
+             <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Resources
+        </h4>
         <div className="content">
             <div className="page-header">
                     <div className="add-item d-flex">
                         <div className="page-title">
                             <h4>Add Resource</h4>
-                            <h6>You can add new resourse by submitting details here</h6>
+                            <h6>You can add new resource by submitting details here</h6>
                         </div>
                     </div>
                 </div>
@@ -165,9 +180,10 @@ const CreateResource = () => {
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
                                     <Row className="mb-3 modal-body-table search-modal-header">
-                                        <Col>
+                                        <Col md={6}>
                                             <Label className="mb-2" htmlFor="role">
                                                 Role
+                                                <span required>*</span>
                                             </Label>
                                             <select
                                                 name="role"
@@ -188,11 +204,11 @@ const CreateResource = () => {
                                                 <option value="" disabled={true}>
                                                     Select role
                                                 </option>
-                                                <option value="mentor">
-                                                    mentor
+                                                <option value="Institution">
+                                                    Institution
                                                 </option>
-                                                <option value="student">
-                                                    student
+                                                <option value="Student">
+                                                    Student
                                                 </option>
                                             </select>
                                             {formik.touched.role &&
@@ -202,12 +218,40 @@ const CreateResource = () => {
                                                     </small>
                                                 )}
                                         </Col>
-                                        <Col>
+                                        {/* <Col md={4}>
+                          <Label className="form-label" htmlFor="state">
+                            State
+                            <span required>*</span> 
+                          </Label>
+                          <select
+                            id="inputState"
+                            className="form-select"
+                            onChange={(e) => handleStateChange(e)}
+                          >
+                            <option value="">Select State</option>
+                            {allData.map((state) => (
+                              <option key={state} value={state}>
+                                {state}
+                              </option>
+                            ))}
+                          </select>
+
+                          {formik.touched.state && formik.errors.state ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.state}
+                            </small>
+                          ) : null}
+                        </Col> */}
+                                        <Col  md={6}>
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="description"
                                             >
                                                 Details
+                                                <span required>*</span>
                                             </Label>
                                             <Input
                                                 {...inputDICE}
@@ -228,9 +272,10 @@ const CreateResource = () => {
                                         </Col>
                                     </Row>
                                     <Row className="mb-3 modal-body-table search-modal-header">
-                                        <Col>
+                                        <Col >
                                             <Label className="mb-2" htmlFor="type">
                                                 Type
+                                                <span required>*</span>
                                             </Label>
                                             <select
                                                 name="type"

@@ -38,7 +38,7 @@ const AdminLatestNews = () => {
     const teacherList = () => {
         let teacherParam = encryptGlobal(
             JSON.stringify({
-                category: 'mentor'
+                category: 'Institution'
             })
         );
         var config = {
@@ -276,7 +276,7 @@ const AdminLatestNews = () => {
     const stuList = () => {
         const stuParam = encryptGlobal(
             JSON.stringify({
-                category: 'student'
+                category: 'Student'
             })
         );
         var config = {
@@ -308,7 +308,7 @@ const AdminLatestNews = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '6rem'
+                width: '5rem'
             },
             {
                 name: 'Role',
@@ -362,7 +362,7 @@ const AdminLatestNews = () => {
                 name: 'Link',
                 width: '5rem',
                 cell: (record) => {
-                    if (record.url === null) {
+                    if (record.url === null || record.url === "") {
                         return <p>No link</p>;
                     } else {
                         return (
@@ -441,7 +441,7 @@ const AdminLatestNews = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '6rem'
+                width: '5rem'
             },
             {
                 name: 'Role',
@@ -487,7 +487,7 @@ const AdminLatestNews = () => {
                 name: 'Link',
                 width: '5rem',
                 cell: (record) => {
-                    if (record.url === null) {
+                    if (record.url === null || record.url === "") {
                         return <p>No link</p>;
                     } else {
                         return (
@@ -526,7 +526,7 @@ const AdminLatestNews = () => {
                                     handleNewStatus(record, '1');
                                 }}
                             >
-                                Turned Off<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
+                                Turned Off<AlertOctagon className="ms-1"  style={{ height: 15, width: 15,color:"red"}}/>
                             </button>
                         );
                     }
@@ -604,12 +604,12 @@ const AdminLatestNews = () => {
                             {reqList ? (
                                 <>
                                     <h4>Student Latest News</h4>
-                                    <h6>Create , Edit , Del State & User specific Latest News here</h6>
+                                    <h6>Create , Edit , Del User specific Latest News here</h6>
                                 </>
                             ) : (
                                 <>
-                                    <h4>Teacher Latest News</h4>
-                                    <h6>Create , Edit , Del State & User specific Latest News here</h6>
+                                    <h4>Institution Latest News</h4>
+                                    <h6>Create , Edit , Del User specific Latest News here</h6>
                                 </>
                             )}
                             
