@@ -524,7 +524,7 @@ const StudentProgress = () => {
               pre_survey_status: preSurveyMap[item.user_id] || "Not started",
               post_survey_status: postSurveyMap[item.user_id] || "Not started",
               Idea_status: ideaStatusDataMap[item.student_id] || "Not Initiated",
-              user_count: userTopicDataMap[item.user_id] === 0 ? "Not Started" : userTopicDataMap[item.user_id] === 26 ? "Completed" : "In Progress",
+              user_count: userTopicDataMap[item.user_id] === undefined ? "Not Started" : userTopicDataMap[item.user_id] === 26 ? "Completed" : "In Progress",
               course_per: userTopicDataMap[item.user_id] && typeof userTopicDataMap[item.user_id] === "number"
                 ? `${Math.round((userTopicDataMap[item.user_id] / 26) * 100)}%`
                 : `0%`,

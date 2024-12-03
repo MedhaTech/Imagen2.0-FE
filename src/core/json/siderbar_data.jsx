@@ -11,7 +11,7 @@ const SidebarData = () => {
   const presurvey = localStorage.getItem("stupresurveystatus") ;
   // console.log(presurvey,"status");
   const currentUser = getCurrentUser('current_user');
-  const TeamId = currentUser?.data[0]?.student_id;
+  const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
   const [link, setLink] = useState('/instruction');
   const submittedApi = () => {
     const Param = encryptGlobal(

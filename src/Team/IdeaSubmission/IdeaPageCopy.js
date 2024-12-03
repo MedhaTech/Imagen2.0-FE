@@ -104,7 +104,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [loading, setLoading] = useState(initialLoadingStatus);
   const currentUser = getCurrentUser("current_user");
 
-  const TeamId = currentUser?.data[0]?.student_id;
+  const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
 
   const [currentSection, setCurrentSection] = useState(1);
   const goToNext = () => setCurrentSection(currentSection + 1);
