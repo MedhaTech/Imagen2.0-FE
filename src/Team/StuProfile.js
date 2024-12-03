@@ -46,7 +46,7 @@ const TeacherProfile = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "res");
+          // console.log(response, "res");
           setData(response.data.data[0]);
         }
       })
@@ -105,7 +105,7 @@ const TeacherProfile = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={currentUser?.data[0]?.full_name}
+                    defaultValue={data?.full_name}
                     readOnly="readonly"
                   />
                 </div>

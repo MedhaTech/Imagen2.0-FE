@@ -50,7 +50,7 @@ const [hidebutton,setHideButton]=useState("");
         if (response.status === 200) {
           setTeamsArray(response.data.data);
           setHideButton(response.data.count);
-          console.log(response,"response");
+          // console.log(response,"response");
         }
       })
       .catch(function (error) {
