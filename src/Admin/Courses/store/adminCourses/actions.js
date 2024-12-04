@@ -272,10 +272,11 @@ export const getAdminRfQuizResponce =
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       const locale = getLanguage(lang);
       const parse = encryptGlobal(JSON.stringify({ locale }));
+      const eqnquizId = encryptGlobal(JSON.stringify(quizId));
       const result = await axios
         .post(
           `${
-            URL.postAdminRefQuizResponce + quizId + "/" + "response"
+            URL.postAdminRefQuizResponce + eqnquizId + "/" + "response"
           }?Data=${parse}`,
           body,
           axiosConfig
@@ -315,10 +316,11 @@ export const getAdminRefQuizQst = (refQizId, lang) => async (dispatch) => {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     const locale = getLanguage(lang);
     const parseQ = encryptGlobal(JSON.stringify({ locale }));
+    const enqrefQizId = encryptGlobal(JSON.stringify(refQizId));
     const result = await axios
       .get(
         `${
-          URL.getAdminRefQizList + refQizId + "/" + "nextQuestion"
+          URL.getAdminRefQizList + enqrefQizId + "/" + "nextQuestion"
         }?Data=${parseQ}`,
         axiosConfig
       )
