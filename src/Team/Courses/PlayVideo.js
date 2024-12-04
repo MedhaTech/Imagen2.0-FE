@@ -1580,22 +1580,22 @@ const PlayVideoCourses = (props) => {
             </div>
           </div>
         )}
-        {/* <TakeAssesmentPopup
+        <TakeAssesmentPopup
                 quiz="true"
                 refQst={id && id.reflective_quiz_questions}
                 videoId={videoId}
                 show={modalShow}
                 handleClose={() => handleAssesmentClose()}
                 onHide={() => setModalShow(false)}
-            /> */}
-        <VideoPopup
+            />
+        {/* <VideoPopup
           quiz="true"
           refQst={id && id.reflective_quiz_questions}
           videoId={videoId}
           show={modalShow}
           handleClose={() => handleAssesmentClose()}
           onHide={() => setModalShow(false)}
-        />
+        /> */}
       </div>
     </div>
   );
