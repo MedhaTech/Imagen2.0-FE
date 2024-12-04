@@ -367,7 +367,20 @@ const ReportsRegistration = () => {
             .then((response) => {
                 if (response.status === 200) {
                     const chartTableData = response?.data?.data || [];
-                    const totals = chartTableData.reduce(
+                     // added for download report //
+          const updatedChartTableData = chartTableData.map(item => {
+            if (item.PrivateCollege_Count === undefined) item.PrivateCollege_Count = 0;
+            if (item.GovtJuniorCollege_Count === undefined) item.GovtJuniorCollege_Count = 0;
+            if (item.GovtPolytechnicCollege_Count === undefined) item.GovtPolytechnicCollege_Count = 0;
+            if (item.GovtDegreeCollege_Count === undefined) item.GovtDegreeCollege_Count = 0;
+            if (item.SocialWelfareCollege_Count === undefined) item.SocialWelfareCollege_Count = 0;
+            if (item.TribalWelfareCollege_Count === undefined) item.TribalWelfareCollege_Count = 0;
+            if (item.GovtITICollege_Count === undefined) item.GovtITICollege_Count = 0;
+            if (item.Other_Count === undefined) item.Other_Count = 0;
+          
+            return item;
+          });
+                    const totals = updatedChartTableData.reduce(
                         (acc, curr) => {
                             acc.district = "Total";
                           (acc.studentReg += curr.studentReg || 0),
@@ -397,7 +410,7 @@ const ReportsRegistration = () => {
                           Other_Count:0,
                         }
                       );
-                      const chartTableDataWithTotals = [...chartTableData, totals];
+                      const chartTableDataWithTotals = [...updatedChartTableData, totals];
                       setChartTableData(chartTableDataWithTotals);
                       setDownloadTableData(chartTableDataWithTotals);
                     // console.log(chartTableData, "table data");
