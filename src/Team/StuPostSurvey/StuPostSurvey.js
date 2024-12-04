@@ -509,6 +509,34 @@ return (
                                                 </Label>
                                               </FormGroup>
                                             )}
+                                               {eachQuestion.option_e &&
+                                            eachQuestion.option_e !== "" && (
+                                              <FormGroup
+                                                check
+                                                //   className="mx-1"
+                                              >
+                                                <Label
+                                                  check
+                                                  style={{
+                                                    fontSize: "1rem",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                  }}
+                                                >
+                                                  <Input
+                                                    type="radio"
+                                                    onChange={(e) =>
+                                                      handleChange(e)
+                                                    }
+                                                    name={`${eachQuestion.quiz_survey_question_id}`}
+                                                    disabled={isDisabled}
+                                                    id="radioOption5"
+                                                    value={`${eachQuestion.option_e}`}
+                                                  />{" "}
+                                                  {eachQuestion.option_e}
+                                                </Label>
+                                              </FormGroup>
+                                            )}
                                         </>
                                       )}
                                       {eachQuestion.type === "MCQ" && (
@@ -653,6 +681,43 @@ return (
                                                   value={`${eachQuestion.option_d}`}
                                                 />
                                                 {eachQuestion.option_d}
+                                              </Label>
+                                            </FormGroup>
+                                          )}
+                                           {eachQuestion.option_e !== null && (
+                                            <FormGroup
+                                              check
+                                              //   className="mx-1"
+                                            >
+                                              <Label
+                                                check
+                                                style={{
+                                                  fontSize: "1rem",
+                                                  display: "flex",
+                                                  alignItems: "center",
+                                                }}
+                                              >
+                                                <Input
+                                                  type="checkbox"
+                                                  name={`${eachQuestion.quiz_survey_question_id}`}
+                                                  disabled={isDisabled}
+                                                  checked={
+                                                    filterAnswer(
+                                                      eachQuestion.quiz_survey_question_id
+                                                    ) &&
+                                                    filterAnswer(
+                                                      eachQuestion.quiz_survey_question_id
+                                                    ).includes(
+                                                      eachQuestion.option_e
+                                                    )
+                                                  }
+                                                  id={eachQuestion.option_e}
+                                                  onChange={(e) =>
+                                                    handleChange(e)
+                                                  }
+                                                  value={`${eachQuestion.option_e}`}
+                                                />
+                                                {eachQuestion.option_e}
                                               </Label>
                                             </FormGroup>
                                           )}

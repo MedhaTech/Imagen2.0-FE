@@ -36,7 +36,7 @@ const StuEdit = () => {
   useEffect(() => {
     mentorViewApi();
   }, [studentData.student_id]);
-  
+  // console.log(currentUser?.data[0]?.type_id,"tt");
   const mentorViewApi = () => {
     let supId;
     if (typeof studentData.student_id !== "string") {
@@ -57,6 +57,7 @@ const StuEdit = () => {
       .then(function (response) {
         if (response.status === 200) {
           setData(response.data.data[0]);
+          // console.log(response,"11");
         }
       })
       .catch(function (error) {
@@ -191,7 +192,7 @@ const StuEdit = () => {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            if (currentUser?.data[0]?.type_id == "0"){
+            if (studentData.student_id === currentUser?.data[0]?.student_id){
              
               currentUser.data[0].full_name = values.full_name;
               setCurrentUser(currentUser);
