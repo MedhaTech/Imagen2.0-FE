@@ -709,7 +709,7 @@ return (
                                                 </Label>
                                               </FormGroup>
                                             )}
-                                              {eachQuestion.option_e !== null && (
+                                              {eachQuestion.option_e !== null && eachQuestion.option_e !== "" && (
                                               <FormGroup
                                                 check
                                                 //className="mx-1"
