@@ -60,6 +60,7 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
           scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.Imagen_Prod_FE_HOSTNAME }}:/tmp/imagen_prod_fe_build
           ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.Imagen_Prod_FE_HOSTNAME }} '
+            sudo rm -rf /var/www/html/Imagen-Fe/build &&
             sudo mv /tmp/imagen_prod_fe_build /var/www/html/Imagen-Fe/build &&
             cd /var/www/html/Imagen-Fe &&
             sudo git fetch origin &&
