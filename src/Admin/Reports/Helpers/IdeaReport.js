@@ -733,13 +733,13 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
             {isloader ?
             <div className="chart mt-2 mb-2">
               {combinedArray.length > 0 && (
-                <>
-                  <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                      <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title mb-0">Data Analytics</h4>
-                          <div className="dropdown">
+                <div className="row">
+                  {/* <div className="row"> */}
+                    <div className="col-sm-12 col-md-6 col-xl-6 d-flex">
+                      <div className="card flex-fill default-cover w-100 mb-2" style={{ height: "500px" }}>
+                        {/* <div className="card-header d-flex justify-content-between align-items-center"> */}
+                          {/* <h4 className="card-title mb-0">Data Analytics</h4> */}
+                          {/* <div className="dropdown">
                             <Link
                               to="#"
                               className="view-all d-flex align-items-center"
@@ -749,11 +749,11 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                 <ArrowRight className="feather-16" />
                               </span>
                             </Link>
-                          </div>
-                        </div>
+                          </div> */}
+                        {/* </div> */}
                         <div className="card-body">
                           <div className="row">
-                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
+                            <div className="col-sm-12 text-center ">
                               <p>
                                 <b>
                                   Theme-Wise Ideas Submissions as of {newFormat}
@@ -765,7 +765,7 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                                     options={chartOption}
                                     series={chartOption.series}
                                     type="donut"
-                                    height={330}
+                                    // height={330}
                                   />
                                 </div>
                               )}
@@ -773,11 +773,11 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                            
                           </div>
                         </div>
-                      </div>
+                      {/* </div> */}
                     </div>
                   </div>
-                  <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                  {/* <div className="row"> */}
+                    <div className="col-sm-12 col-md-6 col-xl-6 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">
@@ -805,7 +805,11 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                           </div>
                         </div>
                         <div className="card-body">
-                          <div className="table-responsive">
+                          <div className="table-responsive"  style={{
+          overflowY: "auto",
+          scrollbarWidth: "none", // For Firefox
+          msOverflowStyle: "none", // For Internet Explorer
+        }}>
                             <table className="table table-border recent-transactions">
                               <thead>
                                 <tr>
@@ -1071,8 +1075,8 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                         </div>
                       </div>
                     </div>
-                  </div>
-                </>
+                  {/* </div> */}
+                </div>
               )}
              
             

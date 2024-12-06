@@ -633,6 +633,7 @@ const StudentProgress = () => {
                 ? courseINprogesssItem.studentCourseIN
                 : 0,
               courseNotStarted,
+
             };
           });
           const total = combinedArray.reduce(
@@ -663,7 +664,11 @@ const StudentProgress = () => {
               courseNotStarted: 0,
             }
           );
-         
+          total.coursePercentage = Math.round(
+            (total.courseCompleted /
+              total.totalStudents) *
+            100
+          );
           const newcombinedArray = [...combinedArray, total];
           setCombinedArray(combinedArray);
           setDownloadTableData(newcombinedArray);

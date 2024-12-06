@@ -29,6 +29,7 @@ const TeamsProgDD = ({user}) => {
     const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
         (state) => state.teams
     );
+    // console.log(teamsMembersStatus,"team");
     const [teamId, setTeamId] = useState(null);
     const [mentorid, setmentorid] = useState('');
     const [showDefault, setshowDefault] = useState(true);
@@ -75,6 +76,7 @@ const TeamsProgDD = ({user}) => {
             .then(function (response) {
                 if (response.status === 200) {
                     setTeamsList(response.data.data);
+                    // console.log(response,"res");
                 }
             })
             .catch(function (error) {

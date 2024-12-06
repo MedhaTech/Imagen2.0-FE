@@ -181,7 +181,7 @@ const StuEdit = () => {
       // alert("hii");
       const body ={
         full_name: values.full_name,
-        mobile: String(values.mobile),
+        // mobile: String(values.mobile),
         district: values.district,
         college_type: values.collegeType,
         college_name: values.college === 'Other' ? values.ocn : values.college,
@@ -192,6 +192,9 @@ const StuEdit = () => {
       if (data && data.username_email !== values.email) {
         body['username'] = values.email;
     }
+    if (data && data?.mobile !== values.mobile) {
+      body['mobile'] = values.mobile;
+  }
     // if (data && data.id_number !== values.id_number ) {
     //   body["id_number"] = values.id_number;
     // }

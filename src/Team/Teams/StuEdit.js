@@ -166,7 +166,7 @@ const StuEdit = () => {
     onSubmit: (values) => {
       const body ={
         full_name: values.full_name,
-        mobile: String(values.mobile),
+        // mobile: String(values.mobile),
         district: values.district,
         college_type: values.collegeType,
         college_name: values.college === 'Other' ? values.ocn : values.college,
@@ -175,9 +175,12 @@ const StuEdit = () => {
         year_of_study: values.yearofstudy,
         id_number:values.id_number
       };
-      if (data && data.username_email !== values.email) {
+      if (data && data?.username_email !== values.email) {
         body['username'] = values.email;
     }
+    if (data && data?.mobile !== values.mobile) {
+      body['mobile'] = values.mobile;
+  }
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
         method: "put",
@@ -188,7 +191,7 @@ const StuEdit = () => {
         },
         data: JSON.stringify(body),
       };
-      // console.log(body,"body");
+      console.log(body,"body");
       axios(config)
         .then(function (response) {
           if (response.status === 200) {

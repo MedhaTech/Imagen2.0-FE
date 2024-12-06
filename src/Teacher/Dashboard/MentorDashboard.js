@@ -135,7 +135,7 @@ const MentorDashboard = () => {
     
     const newListParam = encryptGlobal(
       JSON.stringify({
-        state:currentUser.data[0]?.state,
+        // state:currentUser.data[0]?.state,
         role:currentUser.data[0]?.role
       })
   );
@@ -151,7 +151,7 @@ const MentorDashboard = () => {
     axios(config)
         .then(function (res) {
             if (res.status === 200 && res.data.data[0]?.on_off === '1') {
-              // console.log(res,"res");
+              console.log(res,"res");
               setShowsPopup(true);
               setPopType(res?.data?.data[0]?.type);
 

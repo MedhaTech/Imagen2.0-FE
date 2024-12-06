@@ -85,6 +85,7 @@ const DBStu = () => {
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
     (state) => state.teams
   );
+  // console.log(teamsMembersStatus,"team");
   /////////my code//////////////////
   const currentUser = getCurrentUser("current_user");
   const [selectedLanguage, setSelectedLanguage] = useState('Select Language');
@@ -380,7 +381,7 @@ useEffect(() => {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            console.log(response, "ideaSubApi");
+            // console.log(response, "ideaSubApi");
             setStuIdeaSub(response.data.data[0].status);
             setStuIdeaLoading(false);
           }
