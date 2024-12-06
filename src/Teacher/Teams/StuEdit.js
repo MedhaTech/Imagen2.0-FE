@@ -163,7 +163,7 @@ const StuEdit = () => {
       // alert("hii");
       const body ={
         full_name: values.full_name,
-        mobile: String(values.mobile),
+        // mobile: String(values.mobile),
         district: values.district,
         college_type: currentUser?.data[0]?.college_type,
         college_name: currentUser?.data[0]?.college_name,
@@ -175,6 +175,9 @@ const StuEdit = () => {
       if (data && data.username_email !== values.email) {
         body['username'] = values.email;
     }
+    if (data && data?.mobile !== values.mobile) {
+      body['mobile'] = values.mobile;
+  }
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
         method: "put",

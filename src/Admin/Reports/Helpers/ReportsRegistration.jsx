@@ -491,8 +491,8 @@ const ReportsRegistration = () => {
                                     <div className="row">
                                    
                                     <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                                    <div className="card flex-fill default-cover w-100 mb-4">
-                                        <div className="card-header d-flex justify-content-between align-items-center">
+                                    <div className="card flex-fill default-cover w-100 mb-2">
+                                        <div className="card-header d-flex justify-content-between align-items-center" style={{ borderBottom: 'none',paddingBottom: 0 }}>
                                             <h4 className="card-title mb-0">District wise Students Registration Stats</h4>
                                             <div className="dropdown">
                                                 <Link to="#" className="view-all d-flex align-items-center">
@@ -514,21 +514,21 @@ const ReportsRegistration = () => {
                                                 </Link>
                                             </div>
                                         </div>
-                                        <div className="card-body">
+                                        <div className="card-body" >
                                             <div className="table-responsive">
-                                                <table className="table table-borderless recent-transactions">
+                                                <table  className="table table-striped table-bordered responsive">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>District Name</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>No of Students Reg</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt Junior College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt Polytechnic College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt ITI College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt Degree College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Social Welfare College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Tribal Welfare College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Private College</th>
+                                                            <th>No</th>
+                                                            <th>District <br/>Name</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>No of <br/>Students <br/>Reg</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Govt <br/>Junior <br/> College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Govt <br/>Polytechnic<br/> College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Govt <br/>ITI <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Govt <br/>Degree <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Social <br/>Welfare <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Tribal <br/>Welfare <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Private <br/>College</th>
                                                             <th style={{whiteSpace: 'wrap'}}>Other</th>
 
 
@@ -539,16 +539,16 @@ const ReportsRegistration = () => {
                                                                 <tr 
                                                                     key={index}
                                                                 >
-                                                                    <td>
+                                                                    <td >
                                                                         {index + 1}
                                                                     </td>
                                                                     <td style={{maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis",color: "crimson"}}>
                                                                         {item.district}
                                                                     </td>
-                                                                    <td>
+                                                                    <td >
                                                                         {item.studentReg}
                                                                     </td>
-                                                                    <td>
+                                                                    <td >
                                                                         {item.GovtJuniorCollege_Count ? item.GovtJuniorCollege_Count :"0"}
                                                                     </td>
                                                                     <td>

@@ -133,7 +133,7 @@ export const getTeamMemberStatus =
           });
         if (result && result.status === 200) {
           const data = result.data && result.data.data;
-          console.log(data,"data");
+          // console.log(data,"data");
           if (data.length > 0) {
             dispatch(getTeamMemberStatusSuccess(data));
           } else {

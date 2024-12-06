@@ -709,7 +709,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     ideaDescribe?.length > 0 &&
     title?.length > 0 &&
     solve?.length > 0;
-  console.log("Idea Form Screen");
+  // console.log("Idea Form Screen");
   return (
     <>
       {/* <div className='content'> */}
