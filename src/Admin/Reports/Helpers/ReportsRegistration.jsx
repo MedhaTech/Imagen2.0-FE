@@ -519,17 +519,17 @@ const ReportsRegistration = () => {
                                                 <table  className="table table-striped table-bordered responsive">
                                                     <thead>
                                                         <tr>
-                                                            <th>No</th>
-                                                            <th>District <br/>Name</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>No of <br/>Students <br/>Reg</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt <br/>Junior <br/> College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt <br/>Polytechnic<br/> College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt <br/>ITI <br/>College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt <br/>Degree <br/>College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Social <br/>Welfare <br/>College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Tribal <br/>Welfare <br/>College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Private <br/>College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Other</th>
+                                                            <th style={{ color: "#36A2EB" }}>No</th>
+                                                            <th style={{ color: "#36A2EB" }}>District <br/>Name</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>No of <br/>Students <br/>Reg</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Govt <br/>Junior <br/> College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Govt <br/>Polytechnic<br/> College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Govt <br/>ITI <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Govt <br/>Degree <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Social <br/>Welfare <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Tribal <br/>Welfare <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Private <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Other</th>
 
 
                                                         </tr>
@@ -542,7 +542,7 @@ const ReportsRegistration = () => {
                                                                     <td >
                                                                         {index + 1}
                                                                     </td>
-                                                                    <td style={{maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis",color: "crimson"}}>
+                                                                    <td style={{textAlign: "left",maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis",color: "crimson"}}>
                                                                         {item.district}
                                                                     </td>
                                                                     <td >
@@ -587,7 +587,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={summaryHeaders}
-                                        filename={`MentorSummaryTable_${newFormat}.csv`}
+                                        filename={`StudentRegistrationSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                         // onDownloaded={() => {
@@ -602,7 +602,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadData}
                                         headers={RegHeaders}
-                                        filename={`TeacherReport_${newFormat}.csv`}
+                                        filename={`StudentRegistrationDetailedReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                         // onDownloaded={() => {

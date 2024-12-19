@@ -272,7 +272,7 @@ useEffect(() => {
     navigate(`/studentpresurvey`);
   };
   const redirectToCourse = () => {
-    navigate(`/studentcourse/1`);
+    navigate(`/studentcourseMenu`);
   };
   const redirectToPost = () => {
     navigate(`/studentpostsurvey`);
@@ -685,13 +685,13 @@ useEffect(() => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to={"/studentcourse/1"}
+                                to={"/studentcourseMenu"}
                                 className="product-img"
                               >
                                 <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"#0e4b99"}} />
                               </Link>
                               <div className="info">
-                                <Link to={"/studentcourse/1"}>
+                                <Link to={"/studentcourseMenu"}>
                                   <h4>Student Course</h4>
                                 </Link>
                                 <p className="dull-text">On Problem Solving Journey</p>
@@ -750,7 +750,7 @@ useEffect(() => {
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/studentcourse/1"} >
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/studentcourseMenu"} >
                                     <Eye className="feather-view" />
                                   </Link>
                                 </OverlayTrigger>

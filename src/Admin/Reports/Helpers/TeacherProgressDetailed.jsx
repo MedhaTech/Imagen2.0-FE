@@ -658,7 +658,7 @@ const TeacherProgressDetailed = () => {
                   <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
+                        <div className="card-header d-flex justify-content-between align-items-center"style={{ borderBottom: 'none',paddingBottom: 0 }}>
                           <h4 className="card-title mb-0">
                             District wise Registered Institution Stats
                           </h4>
@@ -685,10 +685,10 @@ const TeacherProgressDetailed = () => {
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">
-                            <table className="table table-borderless recent-transactions">
+                            <table className="table table-striped table-bordered responsive">
                               <thead>
                                 <tr>
-                                  <th style={{ color: "#36A2EB" }}>#</th>
+                                  <th style={{ color: "#36A2EB" }}>No</th>
                                   <th style={{ color: "#36A2EB" }}>
                                     District Name
                                   </th>
@@ -833,7 +833,7 @@ const TeacherProgressDetailed = () => {
                 <CSVLink
                   data={downloadTableData}
                   headers={tableHeaders}
-                  filename={`InstitutionDetailedSummaryReport_${newFormat}.csv`}
+                  filename={`InstitutionRegistrationSummaryReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable}
                 >
@@ -845,7 +845,7 @@ const TeacherProgressDetailed = () => {
                 <CSVLink
                   headers={teacherDetailsHeaders}
                   data={chartTableData1}
-                  filename={`InstitutionProgressDetailedReport_${newFormat}.csv`}
+                  filename={`InstitutionRegistrationDetailedReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
                 >
