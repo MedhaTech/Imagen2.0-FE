@@ -143,7 +143,7 @@ const AddInstitution = () => {
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
                 navigate("/institution-users-list");
-                openNotificationWithIcon("success", "Institution adding successfully");
+                openNotificationWithIcon("success", "Institution added successfully");
             }
           })
           .catch((err) => {

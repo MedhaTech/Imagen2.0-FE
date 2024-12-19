@@ -63,7 +63,7 @@ const StuPreSurvey = () => {
         scroll();
     };
     const handleLogout = (e) => {
-        logout(navigate, t, "TEAM");
+        logout(navigate, t, "STUDENT");
         e.preventDefault();
     };
 
