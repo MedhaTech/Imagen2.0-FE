@@ -243,7 +243,7 @@ const Register = () => {
             if (mentorRegRes?.data?.status == 201) {
               setMentData(mentorRegRes.data && mentorRegRes.data.data[0]);
               navigate("/atl-success");
-              openNotificationWithIcon("success", "Email sent successfully");
+              // openNotificationWithIcon("success", "Email sent successfully");
               // setTimeout(() => {
               //   apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
               // }, 3000);
@@ -792,7 +792,8 @@ const Register = () => {
                             className="btn btn-warning m-2"
                             onClick={(e) => handleSendOtp(e)}
                             disabled={
-                              !formik.isValid || !formik.dirty || otpSent || !(formik.values.password === formik.values.confirmPassword)
+                              !formik.isValid || !formik.dirty || otpSent || !(formik.values.password === formik.values.confirmPassword) ||
+                              (formik.values.college === 'Other' && !formik.values.ocn) 
                             }
                           >
                             {otpSent ? `Resend OTP (${timer})` : change}

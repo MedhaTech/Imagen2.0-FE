@@ -519,11 +519,11 @@ const InstProgressDetailed = () => {
     team_count: teamCount || 0,
     completed_count: completedCount || 0,
     in_progress_count: inProgressCount || 0,
-    course_not_started: courseNotStartedCount > 0 ? courseNotStartedCount : "Not Started",
+    course_not_started: courseNotStartedCount  || 0 ,
             };
           });
           setmentorDetailedReportsData(newdatalist);
-          if (response.data.count > 0) {
+          if (response.data.data[0]?.summary?.length > 0) {
             openNotificationWithIcon(
               'success',
               "Report Downloaded Successfully"
