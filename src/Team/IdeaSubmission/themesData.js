@@ -147,7 +147,7 @@ export const themes = [
     { 
         id: 4, 
         image: i4, 
-        title:  "MedTech/BioTech/HealthTech", 
+        title:  "MedTech or BioTech or HealthTech", 
         // focusareas: [
         //     "Online Learning (e.g., e-learning platforms, virtual classrooms)",
         //     "Inclusive Education (e.g., education for all, special needs education)",
@@ -160,7 +160,7 @@ export const themes = [
     { 
         id: 5, 
         image: i5, 
-        title:  "Agriculture, FoodTech and Rural Development",
+        title:   "Agriculture, and Rural Development",
         // focusareas: [
         //     "Financial Education (e.g., budgeting, saving, investing)",
         //     "Start-up Innovations (e.g., new business ideas, entrepreneurship support)",
