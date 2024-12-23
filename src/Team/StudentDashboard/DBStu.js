@@ -575,7 +575,7 @@ useEffect(() => {
                 <h3>
                   <CountUp end={videos} duration={4}>
                     +
-                  </CountUp> / 24
+                  </CountUp> / 25
                 </h3>
                 <p>Course Videos Watched</p>
                 <FeatherIcon icon="video" />
