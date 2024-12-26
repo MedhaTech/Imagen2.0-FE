@@ -145,7 +145,7 @@ const StuPreSurvey = () => {
                 // console.log(preSurveyRes, "aaaaa");
                 openNotificationWithIcon(
                   "success",
-                  "Pre Survey has been submitted successfully..!!",
+                  "Pre Survey Submitted Successfully..!!",
                   ""
                 );
     

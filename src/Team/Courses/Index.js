@@ -37,11 +37,13 @@ const Index = () => {
 
   return (
     <div className='page-wrapper'>
-      <div className='content'>
+      <div className='content' style={{
+    padding: window.innerWidth > 768 ? '30px' : '0', // Dynamic padding based on window width
+  }}>
         <div className="page-header">
           <div className="page-title">
-            <h4>Course</h4>
-            <h6>Join us on this problem solving journey.</h6>
+            <h4 className='m-2'>Course</h4>
+            <h6 className='m-2'>Join us on this problem solving journey.</h6>
           </div>
         </div>
         <div className="row align-items-start pos-wrapper pos-design">
@@ -51,20 +53,25 @@ const Index = () => {
                 <div className="tabs_container">
                   <div className="tab_content active">
                     <div className="row">
-                      {studentD >= 1 && (<div className="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-                        <div className="product-info default-cover card">
+                      {studentD >= 1 && (<div className="col-sm-2 col-md-6 col-lg-6 col-xl-3 pe-2">
+                        <div className="product-info default-cover card"  style={{ width: '250px', height: '200px', padding: '20px' }}>
                           <Link className="img-bg" to='/studentcourse/VTJGc2RHVmtYMThUMXFCOXBiWTZReGN3dXdSU3JzSlJYM3NwblpZSVlSZz0='>
                             <img
                               src={C1}
                               alt={'course1'}
+                              style={{ width: '2500px', height: '100%', objectFit: 'cover' }}
                             />
                             <span>
 
                               <Check className="feather-16" />
                             </span>
                           </Link>
-                          <h6 className="product-name">
-                            <Link to='/studentcourse/VTJGc2RHVmtYMThUMXFCOXBiWTZReGN3dXdSU3JzSlJYM3NwblpZSVlSZz0='>Course1</Link>
+                          <h6 
+                          className="product-name col-sm-6 col-md-6 col-lg-3 col-xl-6" 
+                          style={{ fontSize: '1.2rem', marginTop: '1rem', textAlign:"center"}}
+                          // className="product-name"
+                          >
+                            <Link to='/studentcourse/VTJGc2RHVmtYMThUMXFCOXBiWTZReGN3dXdSU3JzSlJYM3NwblpZSVlSZz0='>Course 1</Link>
                           </h6>
                           {/* <div className="d-flex align-items-center justify-content-between price">
                               <span>{t('home.ideafocus')}</span>

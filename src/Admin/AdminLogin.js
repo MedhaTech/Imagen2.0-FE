@@ -50,8 +50,8 @@ const AdminLogin = (props) => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().email("Must be a valid Email Address").required("Please Enter Email Address"),
-      password: Yup.string().required("Please Enter Password"),
+      email: Yup.string().email("Must be a valid Email Address").required("Please Enter Your Email Address"),
+      password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: (values) => {
     localStorage.clear();
@@ -135,22 +135,24 @@ const AdminLogin = (props) => {
                     <input
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
-                      placeholder="Please Enter password"
+                      placeholder="Please Enter Password"
                       // className="pass-input form-control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls" style={{color:"red"}}>{formik.errors.password}</small>
-                    ) : null}
-                    <span
+                   
+                    <div
                       className={`fas toggle-password ${
                         isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={togglePasswordVisibility}
-                    ></span>
-                  </div>
+                    ></div>
+                     </div>
+                     {formik.touched.password && formik.errors.password ? (
+                      <small className="error-cls" style={{color:"red"}}>{formik.errors.password}</small>
+                    ) : null}
+                 
                 </div>
                 <div className="form-login authentication-check">
                   <div className="row">
