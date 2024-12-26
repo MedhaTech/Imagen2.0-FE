@@ -34,7 +34,7 @@ const LogInTeam = (props) => {
     validationSchema: Yup.object({
       email: Yup.string()
         // .email("Must be a valid email")
-        .required("Please Enter Email Address")
+        .required("Please Enter Your Email Address")
         .max(255)
         .trim(),
       password: Yup.string().required("Please Enter Your Password").trim(),

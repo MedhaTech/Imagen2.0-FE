@@ -136,7 +136,7 @@ const StuPostSurvey = () => {
                 // console.log(preSurveyRes, "aa");
                 openNotificationWithIcon(
                   "success",
-                  "Post Survey has been submitted successfully..!!",
+                  "Post Survey Submitted Successfully..!!",
                   ""
                 );
     
