@@ -143,9 +143,12 @@ const Crew1student = () => {
         confirmPassword: encrypted,
         type: String(studentId),
       };
-      if (values.id_number !== "") {
-        body["id_number"] = JSON.stringify(values.id_number);
+      if (values.id_number !== "" ) {
+        body["id_number"] = values.id_number;
       }
+      // if (values.id_number !== "") {
+      //   body["id_number"] = JSON.stringify(values.id_number);
+      // }
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
