@@ -292,11 +292,16 @@ const adminStudentCourseCount = () => {
       <div className="page-wrapper">
         <div className="content">
           <div className="row">
+          <div className="page-title">
+                           
+                                    <h4 className="m-3">Admin Dashboard</h4>
+                                    {/* <h6>Create , Edit , Del User specific Latest News here</h6> */}
+                    
+                        </div>
            
            
-           
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash2 w-100">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex mb-3 mt-3">
+              <div className="dash-widget dash2 w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                 <div className="dash-widgetimg">
                   <span>
                     <img src={teacherreg} style={{width:"70%"}} />
@@ -313,8 +318,8 @@ const adminStudentCourseCount = () => {
            
             
             {/* row3 */}
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash1 w-100">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex mb-3 mt-3">
+              <div className="dash-widget dash1 w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                 <div className="dash-widgetimg">
                  
                 <span>
@@ -333,8 +338,8 @@ const adminStudentCourseCount = () => {
             </div>
            
             {/* row4 */}
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash3 w-100">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex mb-3 mt-3">
+              <div className="dash-widget dash3 w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                 <div className="dash-widgetimg">
                   
                 <span>
@@ -351,8 +356,8 @@ const adminStudentCourseCount = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash3 w-100">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex mb-3">
+              <div className="dash-widget dash3 w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                 <div className="dash-widgetimg">
                  
                 <span>
@@ -368,8 +373,8 @@ const adminStudentCourseCount = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash3 w-100">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex mb-3">
+              <div className="dash-widget dash3 w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                 <div className="dash-widgetimg">
                 <span>
                   <img src={ideadraft} style={{ width:"70%"}} />
@@ -384,8 +389,8 @@ const adminStudentCourseCount = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash3 w-100">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex mb-3">
+              <div className="dash-widget dash3 w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                 <div className="dash-widgetimg">
                 <span>
                   <img src={ideanotsub} style={{ width:"70%"}} />
@@ -405,8 +410,8 @@ const adminStudentCourseCount = () => {
             {/* row5 */}
             
           
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+              <div className="dash-widget w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                 <div className="dash-widgetimg">
                 <span>
                     <img src={stucorcom} style={{width:"70%"}} />
@@ -419,8 +424,8 @@ const adminStudentCourseCount = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+              <div className="dash-widget w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                 <div className="dash-widgetimg">
                 <span>
                     <img src={stucorin} style={{width:"70%"}} />
@@ -436,8 +441,8 @@ const adminStudentCourseCount = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+              <div className="dash-widget w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                 <div className="dash-widgetimg">
                 <span>
                    <img src={stucornot} style={{width:"70%"}} />
@@ -459,7 +464,7 @@ const adminStudentCourseCount = () => {
             
 
 
-            {/* <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            {/* <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-widget w-100">
                 <div className="dash-widgetimg">
                  

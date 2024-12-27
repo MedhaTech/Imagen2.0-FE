@@ -241,12 +241,13 @@ const Register = () => {
         await axios(config)
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
+              // console.log(mentorRegRes,"mm");
               setMentData(mentorRegRes.data && mentorRegRes.data.data[0]);
-              navigate("/atl-success");
+              // navigate("/atl-success");
               // openNotificationWithIcon("success", "Email sent successfully");
-              // setTimeout(() => {
-              //   apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
-              // }, 3000);
+              setTimeout(() => {
+                apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
+              }, 3000);
             }
           })
           .catch((err) => {
@@ -280,41 +281,40 @@ const Register = () => {
     formik.setFieldValue("otp", "");
 
   }, [formik.values.email]);
-  // async function apiCall(mentData) {
-  //   // Dice code list API //
-  //   // where list = diescode  //
-  //   const body = {
-  //     school_name: orgData.organization_name,
-  //     udise_code: orgData.organization_code,
-  //     district: formik.values.district,
-  //     state: orgData.state,
-  //     pin_code: orgData.pin_code,
-  //     email: mentData.username,
-  //     mobile: mentData.mobile,
-  //   };
+  async function apiCall(mentData) {
+    // Dice code list API //
+    // where list = diescode  //
+    const body = {
+      college_name: mentData.college_name,
+      college_type: mentData.college_type,
 
-  //   var config = {
-  //     method: "post",
-  //     url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-  //     },
-  //     data: JSON.stringify(body),
-  //   };
+      district: orgData.district,
+      email: mentData.username,
+      mobile: mentData.mobile,
+    };
 
-  //   await axios(config)
-  //     .then(async function (response) {
-  //       if (response.status == 200) {
-  //         setButtonData(response?.data?.data[0]?.data);
-  //         navigate("/atl-success");
-  //         openNotificationWithIcon("success", "Email sent successfully");
-  //       }
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: JSON.stringify(body),
+    };
+
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          setButtonData(response?.data?.data[0]?.data);
+          navigate("/atl-success");
+          openNotificationWithIcon("success", "Email sent successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   const handleCheckbox = (e, click) => {
     if (click) {
       setCheckBox(click);
