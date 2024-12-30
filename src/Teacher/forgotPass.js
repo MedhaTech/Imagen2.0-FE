@@ -22,7 +22,7 @@ const Forgotpassword = () => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email(
-          <span style={{ color: "red" }}>Must be a valid email address</span>
+          <span style={{ color: "red" }}>Must be a valid Email Address</span>
         )
         .required(
           <span style={{ color: "red" }}>

@@ -826,12 +826,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                                             </>)}
                                                       
                                                     </div> */}
-                    <div className="text-right mb-3">
+                    <div 
+                    className="d-flex flex-nowrap justify-content-end gap-2 mb-3"
+                    // className="text-right mb-3"
+                    >
                       {!isDisabled && (
                         <Button
                           type="button"
                           btnClass="me-3 btn btn-warning"
-                          // backgroundColor="#067DE1"
                           onClick={(e) => handleSubmit(e, "DRAFT")}
                           size="small"
                           label={`${
@@ -843,10 +845,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                         />
                       )}
                       {
-                        //         initiatedBy &&
-                        // initiatedBy ===
-                        //     currentUser?.data[0]
-                        //         ?.user_id &&
+                       
                         formData.status !== "SUBMITTED" && isDisabled && (
                           <>
                             <Button
@@ -855,7 +854,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               onClick={handleEdit}
                               size="small"
                               label={t("teacher_teams.edit_idea")}
-                              style={{ marginRight: "1rem" }}
+                              style={{
+                                marginRight: window.innerWidth > 768 ? "1rem" : "0",
+                              }}
+                              // style={{ marginRight: "1rem" }}
                             />
                             <Button
                               type="button"
