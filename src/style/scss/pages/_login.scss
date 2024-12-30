@@ -23,6 +23,16 @@
       display: flex;
       margin: 80px 0 0 0;
       backdrop-filter: blur(17px);
+      overflow: hidden;
+    }
+    //added //
+    @media screen and (max-width: 768px) {
+      .login-content {
+        height: 530px; /* Reduced height for mobile */
+        width:300px; /* Adjust width for mobile responsiveness */
+        margin: 40px auto; /* Center with reduced margin */
+        overflow: hidden;
+      }
     }
     &.register-wrap {
       background-image: url(../../../assets/img/plain.jpg);

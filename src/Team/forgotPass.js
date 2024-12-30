@@ -22,11 +22,11 @@ const Forgotpassword = () => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email(
-          <span style={{ color: "red" }}>Must be a valid email address</span>
+          <span style={{ color: "red" }}>Must be a valid Email Address</span>
         )
         .required(
           <span style={{ color: "red" }}>
-            Please Enter Registered Email ID
+            Please Enter Registered Email Address
           </span>
         )
         .max(255)
@@ -45,7 +45,7 @@ const Forgotpassword = () => {
           if (checkOrgRes.status == 202) {
             openNotificationWithIcon(
               "success",
-              "Password sent to your registered email address"
+              "Password sent to your Registered Email Address"
             );
             seterrorMsg("");
             setTimeout(() => {
