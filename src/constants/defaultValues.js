@@ -73,6 +73,8 @@ export const URL = {
     process.env.REACT_APP_API_BASE_URL + "/students/forgotPassword",
   getMentorSupportTickets:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
+  email:
+    process.env.REACT_APP_API_BASE_URL + "/mentors/emailOtp",
   createMentorSupportTickets:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
   updateSupportTicketResponse:
