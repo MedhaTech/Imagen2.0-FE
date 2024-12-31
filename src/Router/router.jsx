@@ -57,6 +57,7 @@ import Crew2Reg from "../RegPage/Crew2Reg";
 import Crew3Reg from "../RegPage/Crew3Reg";
 import InstitutionReg from "../RegPage/InstReg";
 import StudentSidebar from "../InitialPage/Sidebar/StudedentSidebar";
+import ApEmailValidation from "../RegPage/ApEmailValidation";
 // import "../i18n";
 
 const AllRoutes = () => {
@@ -140,6 +141,7 @@ const AllRoutes = () => {
         <Route path="/">
           
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/email" element={<ApEmailValidation/>} />
           <Route path="/institution-registration" element={<InstitutionReg />} />
           <Route path="/atl-success" element={<AtlSucess />} />
           <Route path="/non-atl-success" element={<NonAtlSuccess />} />
