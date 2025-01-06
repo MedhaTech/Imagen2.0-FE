@@ -104,10 +104,10 @@ const Crew1student = () => {
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       )
     }),
 
@@ -157,7 +157,7 @@ const Crew1student = () => {
   
             }else{
   
-              openNotificationWithIcon("error", "Email Id is Invalid");
+              openNotificationWithIcon("error", "Email id is Invalid");
             }
           // openNotificationWithIcon("error", err.response.data?.message);
           // setBtn(false);
@@ -376,7 +376,7 @@ const Crew1student = () => {
                               htmlFor="rollnumber"
                               className="form-label"
                             >
-                              Roll number provided by the college
+                              Roll Number Provided by the College
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input

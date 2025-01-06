@@ -103,10 +103,10 @@ const AddInstitution = () => {
         <span style={{ color: "red" }}>Please Select college type</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       ),
     }),
 

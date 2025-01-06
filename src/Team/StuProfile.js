@@ -189,7 +189,7 @@ const TeacherProfile = () => {
   } col-sm-12`}>
                 <div className="input-blocks">
                   <label className="form-label">
-                    Roll number provided by the college
+                    Roll Number Provided by the College
                   </label>
                   <input
                     type="text"

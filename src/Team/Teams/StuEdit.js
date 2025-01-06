@@ -203,7 +203,7 @@ const StuEdit = () => {
             }
             openNotificationWithIcon(
               "success",
-              "Student details updated Successfully"
+              "Student Details Updated Successfully updated Successfully"
             );
             navigate("/student-team");
             // handleView(studentData);
@@ -213,9 +213,9 @@ const StuEdit = () => {
         })
         .catch(function (err) {
           if(err?.response?.data?.status === 400){
-            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email Id is Invalid");
+            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email id is Invalid");
             }else{
-              openNotificationWithIcon("error", "Email Id is Invalid");
+              openNotificationWithIcon("error", "Email id is Invalid");
             }
         });
     },
@@ -448,7 +448,7 @@ const StuEdit = () => {
                           </div>
                           <div className={`col-md-6`}>
                             <label htmlFor="rollnumber" className="form-label">
-                              Roll number provided by the college
+                              Roll Number Provided by the College
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input

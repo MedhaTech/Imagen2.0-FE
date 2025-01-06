@@ -25,7 +25,6 @@ const PilotReg = () => {
   const [timer, setTimer] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [collegeNamesList, setCollegeNamesList] = useState([]);
-
   const handleCollegeTypeChange = (event) => {
     const collegeType = event.target.value;
     formik.setFieldValue("collegeType", collegeType);
@@ -114,10 +113,10 @@ const PilotReg = () => {
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       ),
     }),
 
@@ -163,7 +162,7 @@ const PilotReg = () => {
             if (mentorRegRes?.data?.status == 201) {
               navigate("/crew1Reg");
               sessionStorage.setItem('pilotKey', mentorRegRes?.data?.data[0]?.student_id);
-              openNotificationWithIcon("success", "Pilot Registration successfully");
+              openNotificationWithIcon("success", "Pilot User Registered Sucessfully");
             }
           })
           .catch((err) => {
@@ -172,7 +171,7 @@ const PilotReg = () => {
     
               }else{
     
-                openNotificationWithIcon("error", "Email Id is Invalid");
+                openNotificationWithIcon("error", "Email id is Invalid");
               }
             // setIsSubmitting(false);
 
@@ -225,7 +224,7 @@ const PilotReg = () => {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
           // console.log(UNhashedPassword,"otp");
           setOtpRes(JSON.parse(UNhashedPassword));
-          openNotificationWithIcon("success", "Otp send to Email Id");
+          openNotificationWithIcon("success", "OTP Sent to Given Email Id");
           setBtnOtp(true);
           setTimeout(() => {
             setOtpSent("Resend OTP");
@@ -334,7 +333,7 @@ const PilotReg = () => {
   <div className="col-md-10 ps-3">
     <span className="mt-5 p">Already have an account?</span>
     <span className="second_text"> 
-      <Link className="hover-a" to={"/login"}>
+      <Link className="hover-a" to={"/login"} style={{color:"blue"}}>
         {" "} Click Here
       </Link>
     </span>
@@ -552,7 +551,7 @@ const PilotReg = () => {
                           htmlFor="rollnumber"
                           className="form-label"
                         >
-                          Roll number provided by the college
+                          Roll Number Provided by the College
                         </label>&nbsp;
                         <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <input

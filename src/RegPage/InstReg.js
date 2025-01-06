@@ -197,10 +197,10 @@ const Register = () => {
         <span style={{ color: "red" }}>Please Select college type</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       ),
     }),
 
@@ -256,9 +256,9 @@ const Register = () => {
     
               }else{
     
-                openNotificationWithIcon("error", "Email Id is Invalid");
+                openNotificationWithIcon("error", "Email id is Invalid");
               }
-            // openNotificationWithIcon("error", "Email Id is Invalid");
+            // openNotificationWithIcon("error", "Email id is Invalid");
 
             // setBtn(false);
             formik.setErrors({
@@ -357,7 +357,7 @@ const Register = () => {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
           // console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
-          openNotificationWithIcon("success", "Otp send to Email Id");
+          openNotificationWithIcon("success", "OTP Sent to Given Email Id");
           setBtnOtp(true);
           setPerson(false);
           setTimeout(() => {
@@ -371,7 +371,7 @@ const Register = () => {
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
           openNotificationWithIcon("error", error?.response.data?.message);
-          // openNotificationWithIcon("error", "Email Id is Invalid");
+          // openNotificationWithIcon("error", "Email id is Invalid");
 
           setDisable(true);
           setAreInputsDisabled(false);
