@@ -113,13 +113,13 @@ const Crew1Reg = () => {
         <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select yearofstudy</span>
+        <span style={{ color: "red" }}>Please Select year of study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       )
     }),
 
@@ -160,7 +160,7 @@ const Crew1Reg = () => {
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
             navigate("/crew2Reg");
-            openNotificationWithIcon("success", "Crew-1 Registration successfully");
+            openNotificationWithIcon("success", "Crew User1 Registered Successfully");
           }
         })
         .catch((err) => {
@@ -169,7 +169,7 @@ const Crew1Reg = () => {
   
             }else{
   
-              openNotificationWithIcon("error", "Email Id is Invalid");
+              openNotificationWithIcon("error", "Email id is Invalid");
             }
           // setBtn(false);
           formik.setErrors({
@@ -246,7 +246,7 @@ const Crew1Reg = () => {
   <div className="col-md-10 ps-3">
     <span className="mt-5 p">Already have an account?</span>
     <span className="second_text"> 
-      <Link className="hover-a" to={"/login"}>
+      <Link className="hover-a" to={"/login"} style={{color:"blue"}}>
         {" "} Click Here
       </Link>
     </span>
@@ -456,7 +456,7 @@ const Crew1Reg = () => {
                           htmlFor="rollnumber"
                           className="form-label"
                         >
-                          Roll number provided by the college
+                          Roll Number Provided by the College
                         </label>&nbsp;
                         <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <input
@@ -699,7 +699,8 @@ const Crew1Reg = () => {
                           !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
                         }
                       >
-                        PROCEED<ArrowRight />
+                        PROCEED
+                        {/* <ArrowRight /> */}
                       </button>
                       <button
                         className="btn btn-warning m-2"
@@ -707,7 +708,8 @@ const Crew1Reg = () => {
                         onClick={() => navigate("/regSuccess")}
 
                       >
-                        SKIP NOW<ArrowRight />
+                        SKIP NOW
+                        {/* <ArrowRight /> */}
                       </button>
                     </div>
 

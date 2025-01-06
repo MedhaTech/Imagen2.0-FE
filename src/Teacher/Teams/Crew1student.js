@@ -116,10 +116,10 @@ const Crew1student = () => {
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       )
     }),
 
@@ -162,7 +162,7 @@ const Crew1student = () => {
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
             navigate("/AddCrew2Stu");
-            openNotificationWithIcon("success", "Crew-1 Created successfully");
+            openNotificationWithIcon("success", "Crew User1 Created Successfully");
           }
         })
         .catch((err) => {
@@ -171,7 +171,7 @@ const Crew1student = () => {
   
             }else{
   
-              openNotificationWithIcon("error", "Email Id is Invalid");
+              openNotificationWithIcon("error", "Email id is Invalid");
             }
           // setBtn(false);
           formik.setErrors({
@@ -389,7 +389,7 @@ const Crew1student = () => {
                               htmlFor="rollnumber"
                               className="form-label"
                             >
-                              Roll number provided by the college
+                              Roll Number Provided by the College
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
@@ -631,14 +631,16 @@ const Crew1student = () => {
                               !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
                             }
                           >
-                            PROCEED<ArrowRight />
+                            PROCEED
+                            {/* <ArrowRight /> */}
                           </button>
                           <button
                             className="btn btn-warning m-2"
                             type="submit"
                             onClick={() => navigate("/mentorteams")}
                           >
-                            SKIP NOW<ArrowRight />
+                            SKIP NOW
+                            {/* <ArrowRight /> */}
                           </button>
                         </div>
 

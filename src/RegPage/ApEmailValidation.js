@@ -142,7 +142,7 @@ const Register = () => {
     
     //           }else{
     
-    //             openNotificationWithIcon("error", "Email Id is Invalid");
+    //             openNotificationWithIcon("error", "Email id is Invalid");
     //           }
 
     //         formik.setErrors({
@@ -237,7 +237,7 @@ const Register = () => {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
           console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
-          openNotificationWithIcon("success", "Otp send to Email Id");
+          openNotificationWithIcon("success", "OTP Sent to Given Email Id");
           setBtnOtp(true);
           setPerson(false);
           setTimeout(() => {
