@@ -98,7 +98,7 @@ const StateLogin = (props) => {
                 <div className="login-userheading">
                   <h3>Evaluator Eadmin Login</h3>
                   {/* <h4>
-                    Access the EAdmin panel using your email and passcode.
+                    Access the EAdmin Panel Using Your email and passcode.
                   </h4> */}
                 </div>
                 <div className="form-login mb-3">

@@ -95,7 +95,7 @@ const LogInTeam = (props) => {
                    Student Team Journey coming soon ...
                   </h3> */}
                   <h4>
-                    Access the Student panel using your Email and Password.
+                    Access the Student Panel Using Your Email and Password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
