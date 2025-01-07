@@ -58,10 +58,19 @@ const StuPreSurvey = () => {
           ? data[0].selected_option
           : "";
       };
+    // const handleStart = () => {
+    //     setShow(true);
+    //     scroll();
+    // };
     const handleStart = () => {
-        setShow(true);
-        scroll();
+      setShow(true);
+      const startElement = document.getElementById('start');
+      if (startElement) {
+        startElement.scrollIntoView({ behavior: 'smooth' });
+      }
     };
+    
+    
     const handleLogout = (e) => {
         logout(navigate, t, "STUDENT");
         e.preventDefault();
@@ -280,8 +289,7 @@ return (
                       {preSurveyStatus != "COMPLETED" && (
                         <Form
                           className="form-row"
-                          // onSubmit={formik.handleSubmit}
-                          // isSubmitting
+                          
                         >
                           {preSurveyList.map((eachQuestion, i) => {
                             return (
@@ -292,105 +300,7 @@ return (
                                       {i + 1}. {eachQuestion.question}
                                     </h6>
                                   </div>
-                                  {/* <div className="answers">
-                                                        <FormGroup
-                                                            tag="fieldset"
-                                                            className="w-100"
-                                                            id="radioGroup1"
-                                                            label="One of these please"
-                                                            value={
-                                                                formik
-                                                                    .values
-                                                                    .radioGroup1
-                                                            }
-                                                            error={
-                                                                formik
-                                                                    .errors
-                                                                    .radioGroup1
-                                                            }
-                                                            touched={
-                                                                formik
-                                                                    .touched
-                                                                    .radioGroup1
-                                                            }
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                        >
-                                                            <FormGroup
-                                                                check
-                                                            >
-                                                                <Label
-                                                                    check
-                                                                >
-                                                                    <Input
-                                                                        type="radio"
-                                                                        name={`radioGroup${i}`}
-                                                                        id="radioOption1"
-                                                                        value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_a}`}
-                                                                    />{' '}
-                                                                    {
-                                                                        eachQuestion.option_a
-                                                                    }
-                                                                </Label>
-                                                            </FormGroup>
-                                                            <FormGroup
-                                                                check
-                                                            >
-                                                                <Label
-                                                                    check
-                                                                >
-                                                                    <Input
-                                                                        type="radio"
-                                                                        name={`radioGroup${i}`}
-                                                                        id="radioOption2"
-                                                                        value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_b}`}
-                                                                    />{' '}
-                                                                    {
-                                                                        eachQuestion.option_b
-                                                                    }
-                                                                </Label>
-                                                            </FormGroup>
-                                                            <FormGroup
-                                                                check
-                                                            >
-                                                                <Label
-                                                                    check
-                                                                >
-                                                                    <Input
-                                                                        type="radio"
-                                                                        name={`radioGroup${i}`}
-                                                                        id="radioOption3"
-                                                                        value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_c}`}
-                                                                    />{' '}
-                                                                    {
-                                                                        eachQuestion.option_c
-                                                                    }
-                                                                </Label>
-                                                            </FormGroup>
-
-                                                            <FormGroup
-                                                                check
-                                                            >
-                                                                <Label
-                                                                    check
-                                                                >
-                                                                    <Input
-                                                                        type="radio"
-                                                                        name={`radioGroup${i}`}
-                                                                        id="radioOption4"
-                                                                        value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_d}`}
-                                                                    />{' '}
-                                                                    {
-                                                                        eachQuestion.option_d
-                                                                    }
-                                                                </Label>
-                                                            </FormGroup>
-                                                        </FormGroup>
-                                                    </div> */}
+                                 
                                   <div className="answers">
                                     <FormGroup
                                       tag="fieldset"
@@ -405,7 +315,6 @@ return (
                                               eachQuestion.option_a !== "" && (
                                                 <FormGroup
                                                   check
-                                                  //className="mx-1"
                                                 >
                                                   <Label
                                                     check
@@ -443,7 +352,6 @@ return (
                                               eachQuestion.option_b !== "" && (
                                                 <FormGroup
                                                   check
-                                                  //className="mx-1"
                                                 >
                                                   <Label
                                                     check
@@ -481,7 +389,6 @@ return (
                                               eachQuestion.option_c !== "" && (
                                                 <FormGroup
                                                   check
-                                                  //className="mx-1"
                                                 >
                                                   <Label
                                                     check
@@ -510,7 +417,6 @@ return (
                                               eachQuestion.option_d !== "" && (
                                                 <FormGroup
                                                   check
-                                                  //className="mx-1"
                                                 >
                                                   <Label
                                                     check
@@ -538,7 +444,6 @@ return (
                                               eachQuestion.option_e !== "" && (
                                                 <FormGroup
                                                   check
-                                                  //className="mx-1"
                                                 >
                                                   <Label
                                                     check
@@ -568,7 +473,6 @@ return (
                                           <>
                                             <FormGroup
                                               check
-                                              //className="mx-1"
                                             >
                                               <Label
                                                 check
@@ -603,7 +507,6 @@ return (
                                             </FormGroup>
                                             <FormGroup
                                               check
-                                              //className="mx-1"
                                             >
                                               <Label
                                                 check
@@ -638,7 +541,6 @@ return (
                                             </FormGroup>
                                             <FormGroup
                                               check
-                                              //className="mx-1"
                                             >
                                               <Label
                                                 check
@@ -675,7 +577,6 @@ return (
                                             {eachQuestion.option_d !== null && (
                                               <FormGroup
                                                 check
-                                                //className="mx-1"
                                               >
                                                 <Label
                                                   check
@@ -712,7 +613,6 @@ return (
                                               {eachQuestion.option_e !== null && eachQuestion.option_e !== "" && (
                                               <FormGroup
                                                 check
-                                                //className="mx-1"
                                               >
                                                 <Label
                                                   check

@@ -266,6 +266,7 @@ const teamId= currentUser.data[0]?.team_id;
                                                     btnClass="primary mt-4 mx-4"
                                                     size="small"
                                                     onClick={handleNext}
+                                                    style={{ padding: '0.5rem 2rem' }}
                                                 />
                                             {/* {ideaEnableStatus ==1 ? 
                                             (

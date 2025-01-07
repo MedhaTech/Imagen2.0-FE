@@ -105,7 +105,7 @@ const AdminLogin = (props) => {
                 <div className="login-userheading">
                   <h3> Super Admin Login</h3>
                   <h4>
-                    Access the Super Admin panel using your Email and Password.
+                    Access the Super Admin Panel Using Your Email and Password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">

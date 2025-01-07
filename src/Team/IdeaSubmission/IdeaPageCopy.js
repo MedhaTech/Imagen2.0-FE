@@ -693,14 +693,29 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       console.error("showChallenges is not a function");
     }
   };
+  // const scroll = () => {
+  //   const section = document.querySelector("#start");
+  //   section.scrollIntoView({ behavior: "smooth", block: "start" });
+  // };
+  // added
   const scroll = () => {
     const section = document.querySelector("#start");
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // Fallback to scroll to top if section is not found
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
+  useEffect(() => {
+    scroll();
+  }, []);
+  // Added
   const handleEdit = () => {
     setIsDisabled(false);
     scroll();
   };
+  
   const comingSoonText = t("dummytext.student_idea_sub");
   // const acceptedParamfileTypes =>
   //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';

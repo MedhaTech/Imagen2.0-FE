@@ -94,13 +94,13 @@ const PilotReg = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       collegeType: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select collegeType</span>
+        <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
       college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
+        <span style={{ color: "red" }}>Please Select College</span>
       ),
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Roll Number</span>
@@ -162,7 +162,7 @@ const PilotReg = () => {
             if (mentorRegRes?.data?.status == 201) {
               navigate("/crew1Reg");
               sessionStorage.setItem('pilotKey', mentorRegRes?.data?.data[0]?.student_id);
-              openNotificationWithIcon("success", "Pilot User Registered Sucessfully");
+              openNotificationWithIcon("success", "Pilot User Registered Successfully");
             }
           })
           .catch((err) => {

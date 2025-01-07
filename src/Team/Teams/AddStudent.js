@@ -85,13 +85,13 @@ const Crew1student = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       collegeType: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select collegeType</span>
+        <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
       college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
+        <span style={{ color: "red" }}>Please Select College</span>
       ),
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Roll Number</span>

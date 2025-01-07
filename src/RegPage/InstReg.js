@@ -191,10 +191,10 @@ const Register = () => {
         <span style={{ color: "red" }}>Please Select District</span>
       ),
       college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
+        <span style={{ color: "red" }}>Please Select College</span>
       ),
       college_type: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college type</span>
+        <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       password: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Password</span>
@@ -308,7 +308,7 @@ const Register = () => {
         if (response.status == 200) {
           setButtonData(response?.data?.data[0]?.data);
           navigate("/atl-success");
-          openNotificationWithIcon("success", "Email sent successfully");
+          openNotificationWithIcon("success", "Email Sent Successfully");
         }
       })
       .catch(function (error) {

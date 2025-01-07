@@ -28,7 +28,7 @@ const SigninThree = () => {
                   <div className="login-userheading">
                     <h3>Sign In</h3>
                     <h4>
-                      Access the panel using your email and passcode.
+                      Access the Panel Using Your email and passcode.
                     </h4>
                   </div>
                   <div className="form-login">

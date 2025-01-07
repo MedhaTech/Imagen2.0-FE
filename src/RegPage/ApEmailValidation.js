@@ -192,7 +192,7 @@ const Register = () => {
         if (response.status == 200) {
           setButtonData(response?.data?.data[0]?.data);
           navigate("/atl-success");
-          openNotificationWithIcon("success", "Email sent successfully");
+          openNotificationWithIcon("success", "Email Sent Successfully");
         }
       })
       .catch(function (error) {

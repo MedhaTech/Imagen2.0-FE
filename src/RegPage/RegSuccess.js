@@ -78,13 +78,14 @@ const RegSuccess = () => {
           <div className="col-md-8 p-4 d-flex flex-column justify-content-center align-items-center" style={{ backgroundColor: '#EEEEEE' }}>
             <i className="fa fa-check-circle fa-5x text-success mb-3"></i>
             <h4 className="text-success">REGISTRATION SUCCESS</h4>
-            <h6 className="mb-2">Congratulations, Your account has been successfully created.</h6>
+            <h6 className="mb-2">Congratulations, Your Account has been Successfully Created.</h6>
             <button
               className="btn btn-warning m-2"
               type="submit"
               onClick={() => navigate("/login")}
             >
-              LOGIN<ArrowRight />
+              LOGIN
+              {/* <ArrowRight /> */}
             </button>
           </div>
         </div>

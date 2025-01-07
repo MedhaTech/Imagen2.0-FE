@@ -93,7 +93,7 @@ const LogInTeacher = (props) => {
                 <div className="login-userheading">
                   <h3> Institution Login</h3>
                   <h4>
-                    Access the Institution panel using your Email and
+                    Access the Institution Panel Using Your Email and
                     Password.
                   </h4>
                 </div>
