@@ -4,16 +4,11 @@
 import React, { useEffect } from "react";
 import { Row, Col, Form, Label, Card, CardBody, Input } from "reactstrap";
 // import { withRouter } from 'react-router-dom';
-// import '../../Admin/Tickets/style.scss';
-// import Layout from '../Layout';
 import { Button } from "../../stories/Button";
-// import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWithSearch';
-// import { TextArea } from '../../stories/TextArea/TextArea';
 import axios from "axios";
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line no-unused-vars
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
@@ -41,7 +36,6 @@ const StateRes = (props) => {
   const navigate = useNavigate();
   const id = new URLSearchParams(search).get("id");
   const { supportTicket } = useSelector((state) => state?.mentors);
-  // console.log(supportTicket,"ss");
   const language = useSelector((state) => state?.mentors.mentorLanguage);
 
   useEffect(() => {
