@@ -108,6 +108,11 @@ import IdeaSubmission from "../Team/IdeaSubmission/IdeaSubmission";
 import AdminInstitutionUsersList from "../Admin/UsersList/institutionList";
 import AdminInstitutionProgress from "../Admin/Reports/Helpers/InstProgressReport";
 import AdminIdea from "../Admin/Reports/Helpers/IdeaReport";
+import StudentDiscussion from "../Team/SupportJourney/Ticket";
+import StudentNewChat from "../Team/SupportJourney/AddNewTicket";
+
+
+
 
 
 
@@ -538,7 +543,22 @@ export const teamRoutes = [
     name: "studentTeamAdd",
     element: <StudentTeamAdd />,
     route: Route,
-  }
+  },
+  {
+    id: 19,
+    path: routes.discussionlist,
+    name: "discussionlist",
+    element: <StudentDiscussion />,
+    route: Route,
+  },
+  {
+    id: 20,
+    path: routes.newchat,
+    name: "newchat",
+    element: <StudentNewChat />,
+    route: Route,
+  },
+
 ];
 export const mentorRoutes = [
   {

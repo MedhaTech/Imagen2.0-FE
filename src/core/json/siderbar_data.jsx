@@ -126,6 +126,13 @@ useEffect(() => {
           showSubRoute: false,
           submenu: false,
         },
+        // {
+        //   label: "Discussion-Form",
+        //   link: "/discussion-chat",
+        //   icon: <Icon.Inbox />,
+        //   showSubRoute: false,
+        //   submenu: false,
+        // },
         {
           label: "Resources",
           link: "/studentresource",

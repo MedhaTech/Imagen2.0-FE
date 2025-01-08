@@ -70,7 +70,7 @@ const Forgotpassword = () => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper forgot-pass-wrap bg-img">
+        <div className="login-wrapper student-forgot-wrap bg-img">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
