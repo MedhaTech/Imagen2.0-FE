@@ -797,7 +797,7 @@ const PilotReg = () => {
                         className="btn btn-warning m-2"
                         onClick={(e) => handleSendOtp(e)}
                         disabled={
-                          !formik.isValid || !formik.dirty || otpSent || !(formik.values.password === formik.values.confirmPassword)
+                          !formik.isValid || !formik.dirty || otpSent || !(formik.values.password === formik.values.confirmPassword) ||(formik.values.college === 'Other' && !formik.values.ocn) 
                         }
                       >
                         {otpSent ? `Resend OTP (${timer})` : change}

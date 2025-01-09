@@ -203,7 +203,7 @@ const StuEdit = () => {
             }
             openNotificationWithIcon(
               "success",
-              "Student Details Updated Successfully updated Successfully"
+              "Student Details Updated Successfully "
             );
             navigate("/student-team");
             // handleView(studentData);
