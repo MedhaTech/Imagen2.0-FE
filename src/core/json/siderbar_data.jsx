@@ -6,6 +6,10 @@ import * as Icon from "react-feather";
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
+import FeatherIcon from "feather-icons-react";
+import discussionIcon from '../../assets/img/meeting.png';
+import { FaComments} from "react-icons/fa";
+import { GoCommentDiscussion } from "react-icons/go";
 const SidebarData = () => {
   // const { t } = useTranslation();
   const presurvey = localStorage.getItem("stupresurveystatus") ;
@@ -126,13 +130,15 @@ useEffect(() => {
           showSubRoute: false,
           submenu: false,
         },
-        // {
-        //   label: "Discussion-Form",
-        //   link: "/discussion-chat",
-        //   icon: <Icon.Inbox />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+        {
+          label: "Discussion-Form",
+          link: "/discussion-chat",
+          // icon: <FaComments />,
+          icon:<GoCommentDiscussion />,
+          // icon: <img src={discussionIcon} alt="Discussion Icon" style={{ width: '20px', height: '24px' }} />,
+          showSubRoute: false,
+          submenu: false,
+        },
         {
           label: "Resources",
           link: "/studentresource",

@@ -41,12 +41,7 @@ const TicketsPage = () => {
 console.log(supportTickets,"supportTickets");
     const navigate = useNavigate();
 
-//   const ticketOptions = [
-//     { value: "", label: "Select Category", display: true },
-//     { value: "General", label: "General query" },
-//     { value: "Technical", label: "Technical query" },
-//     { value: "Suggestion", label: "Suggestion" },
-//   ];
+
 
   useEffect(() => {
     formik.setFieldValue("selectStatusTicket", supportTicket.status);
@@ -84,8 +79,8 @@ console.log(supportTickets,"supportTickets");
             <a
               href="#"
               key={params.support_ticket_id}
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight"
+              // data-bs-toggle="offcanvas"
+              // data-bs-target="#offcanvasRight"
               onClick={() => handleChat(params.support_ticket_id)}
             >
               <FaComments />{" "}
