@@ -215,17 +215,53 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       label: t("ideaform_questions.uniqueop3"),
     },
   ];
+  // const supportOptions = [
+  //   "Funding or Investment / నిధులు/రూపాయాల పెట్టుబడులు",
+  //   "Mentorship and Guidance / మార్గదర్శకత్వం మరియు సహాయం",
+  //   "Access to Technology or Tools/ టెక్నాలజీ/సాధనలకు ప్రవేశం",
+  //   "Marketing & Branding Support / మార్కెటింగ్ మరియు బ్రాండింగ్ మద్దతు",
+  //   "Product Development Assistance/ ఉత్పత్తి అభివృద్ధి సహాయం",
+  //   "Access to Incubators or Networks or Partners / ఇంక్యుబేటర్లు/నెట్‌వర్క్‌లు లేదా భాగస్వాముల దగ్గర ప్రవేశం",
+  //   "Legal Support (e.g., Intellectual Property, contracts) / చట్టపరమైన మద్దతు (ఉదాహరణకు, మేధా సంపత్తి, ఒప్పందాలు)",
+  //   "Other (Please specify) / ఇతర (దయచేసి వివరించండి)",
+  // ];
   const supportOptions = [
-    "Funding/Investment / నిధులు/రూపాయాల పెట్టుబడులు",
-    "Mentorship and Guidance / మార్గదర్శకత్వం మరియు సహాయం",
-    "Access to Technology/Tools/ టెక్నాలజీ/సాధనలకు ప్రవేశం",
-    "Marketing & Branding Support / మార్కెటింగ్ మరియు బ్రాండింగ్ మద్దతు",
-    "Product Development Assistance/ ఉత్పత్తి అభివృద్ధి సహాయం",
-    "Access to Incubators/Networks or Partners / ఇంక్యుబేటర్లు/నెట్‌వర్క్‌లు లేదా భాగస్వాముల దగ్గర ప్రవేశం",
-    "Legal Support (e.g., Intellectual Property, contracts) / చట్టపరమైన మద్దతు (ఉదాహరణకు, మేధా సంపత్తి, ఒప్పందాలు)",
-    "Other (Please specify) / ఇతర (దయచేసి వివరించండి)",
+    {
+      label: "Funding or Investment / నిధులు/రూపాయాల పెట్టుబడులు",
+      value: "Funding or Investment"
+    },
+    {
+      label: "Mentorship and Guidance / మార్గదర్శకత్వం మరియు సహాయం",
+      value: "Mentorship and Guidance"
+    },
+    {
+      label: "Access to Technology or Tools / టెక్నాలజీ/సాధనాలకు ప్రవేశం",
+      value: "Access to Technology or Tools"
+    },
+    {
+      label: "Marketing & Branding Support / మార్కెటింగ్ మరియు బ్రాండింగ్ మద్దతు",
+      value: "Marketing & Branding Support"
+    },
+    {
+      label: "Product Development Assistance / ఉత్పత్తి అభివృద్ధి సహాయం",
+      value: "Product Development Assistance"
+    },
+    {
+      label: "Access to Incubators or Networks or Partners / ఇంక్యుబేటర్లు/నెట్‌వర్క్‌లు లేదా భాగస్వాముల దగ్గర ప్రవేశం",
+      value: "Access to Incubators or Networks or Partners"
+    },
+    {
+      label: "Legal Support (e.g., Intellectual Property, contracts) / చట్టపరమైన మద్దతు (ఉదాహరణకు, మేధా సంపత్తి, ఒప్పందాలు)",
+      value: "Legal Support"
+    },
+    {
+      label: "Other (Please specify) / ఇతర (దయచేసి వివరించండి)",
+      value: "Other"
+    }
   ];
-  // console.log(theme,"theme",props?.theme,"props?.theme");
+  
+  // cons
+  // ole.log(theme,"theme",props?.theme,"props?.theme");
   const initiatedBy = formData?.initiated_by;
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
@@ -262,7 +298,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setPrototypeImage(formData?.prototype_image);
     setPrototypeLink(formData?.prototype_link);
   }, [formData]);
-
+console.log(support,"ss");
   useEffect(() => {
     if (formData?.stage) {
       setStage(JSON.parse(formData.stage));
@@ -1358,15 +1394,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               disabled={isDisabled}
                               name="support"
                               id="support"
+                              value={support} 
                             >
                               <option value={""}>Please select Dropdown</option>
                               {supportOptions.map((item, i) => (
                                 <option
                                   key={i}
-                                  value={item}
-                                  selected={item === support}
+                                  value={item.value}
+                                  // selected={item === support}
                                 >
-                                  {item}
+                                   {/* {item} */}
+                                  {item.label}
                                 </option>
                               ))}
                             </select>
@@ -1459,7 +1497,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               />
                             </div>
                             {/* </FormGroup> */}
-                            <div className="mx-4">
+                            <div className="mx-1">
                               {immediateLink &&
                                 immediateLink.length > 0 &&
                                 immediateLink.map((item, i) => (

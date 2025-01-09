@@ -30,18 +30,10 @@ import FeatherIcon from "feather-icons-react";
 import { useNavigate } from "react-router-dom";
 
 const TeacherSupport = () => {
-  const { supportTickets } = useSelector((state) => state.mentors);
-  const { supportTicket } = useSelector((state) => state.mentors);
-  const language = useSelector((state) => state?.mentors.mentorLanguage);
   const { t } = useTranslation();
       const navigate = useNavigate();
   
-  //const [id, setId] = useState();
-  useEffect(() => {
-    dispatch(getSupportTickets(currentUser?.data[0]));
-  }, []);
-console.log(supportTickets,"supportTickets");
-
+ 
   const ticketOptions = [
     { value: "", label: "Select Category", display: true },
     { value: "General", label: "General query" },
@@ -49,81 +41,9 @@ console.log(supportTickets,"supportTickets");
     { value: "Suggestion", label: "Suggestion" },
   ];
 
-  useEffect(() => {
-    formik.setFieldValue("selectStatusTicket", supportTicket.status);
-  }, [supportTicket]);
+ 
 
-  const SchoolsData = {
-    data: supportTickets,
-    columns: [
-      {
-        name: <h6>No</h6>,
-        selector: (row) => row.id,
-        width: "4rem",
-      },
-      {
-        name: <h6>Query Category</h6>,
-        selector: (row) => row.query_category,
-        sortable: true,
-        width: "10rem",
-      },
-      {
-        name: <h6>Query Details</h6>,
-        selector: (row) => row.query_details,
-        sortable: true,
-        width: "30rem",
-
-        cell: (params) => [
-          <p key={params.support_ticket_id}>{params?.query_details}</p>,
-        ],
-      },
-      {
-        name: <h6>Chat</h6>,
-        width: "8rem",
-        cell: (params) => {
-          return [
-            <a
-              href="#"
-              key={params.support_ticket_id}
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight"
-              onClick={() => handleChat(params.support_ticket_id)}
-            >
-              <FaComments />{" "}
-              <span className="badge rounded-pill bg-primary">
-                {params.replies_count}
-              </span>
-            </a>,
-          ];
-        },
-      },
-      {
-        name: <h6>Status</h6>,
-        width: "8rem",
-        cell: (params) => [
-          params.status === "OPEN" ? (
-            <span className="badge bg-secondary">
-                            Open
-                        </span>
-                    ) : params?.status === 'INPROGRESS' ? (
-                        <span className="badge bg-info">
-                            Inprogress
-                        </span>
-                    ) : params?.status === 'RESOLVED' ? (
-                        <span className="badge bg-success">
-                            Resolved
-                        </span>
-                    ) : params?.status === 'INVALID' ? (
-                        <span className="badge bg-light text-dark">
-                            Invalid
-                        </span>
-                    ) : (
-                        ''
-                    )
-        ],
-      },
-    ],
-  };
+ 
 
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
@@ -218,10 +138,12 @@ console.log(supportTickets,"supportTickets");
         }
 
         dispatch(createSupportTickets(body));
-        document.getElementById("discard").click();
         setTimeout(() => {
           dispatch(getSupportTickets(currentUser?.data[0]));
         }, 500);
+        navigate(
+          '/discussion-chat'
+      );
       } catch (error) {
         console.log(error);
       }
@@ -229,69 +151,9 @@ console.log(supportTickets,"supportTickets");
   });
  
 
-  const formik = useFormik({
-    initialValues: {
-      ansTicket: "",
-      selectStatusTicket: supportTicket.status,
-      file_name: "",
-      url: "",
-    },
+ 
 
-    validationSchema: Yup.object({
-      ansTicket: Yup.string().required("Required"),
-      selectStatusTicket: Yup.string(),
-    }),
-
-    onSubmit: async (values) => {
-      try {
-        if (values.file_name !== "") {
-          const fileData = new FormData();
-          fileData.append("file", values.file_name);
-
-          const response = await axios.post(
-            `${process.env.REACT_APP_API_BASE_URL}/supportTickets/supportTicketFileUpload`,
-            fileData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-              },
-            }
-          );
-          values.file_name = response?.data?.data[0].attachments[0].toString();
-        }
-        const ansTicket = values.ansTicket;
-        const id = supportTicket.support_ticket_id;
-
-        const bodyForm2 = {
-          support_ticket_id: id,
-          reply_details: ansTicket,
-        };
-        if (values.file_name !== "") {
-          bodyForm2["file"] = values.file_name;
-        }
-        if (values.url !== "") {
-          bodyForm2["link"] = values.url;
-        }
-
-        dispatch(createSupportTicketResponse(bodyForm2));
-        dispatch(
-          SupportTicketStatusChange(id, { status: values.selectStatusTicket })
-        );
-        document.getElementById("sendresponseID").click();
-        setTimeout(() => {
-          dispatch(getSupportTickets(currentUser?.data[0]));
-        }, 500);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  });
-
-  const handleChat = (id) => {
-    dispatch(getSupportTicketById(id, language));
-  };
-
+ 
   return (
     <>
      
@@ -305,10 +167,8 @@ console.log(supportTickets,"supportTickets");
                   <h4>Ask Your Query</h4>
                 </div>
                 <div className="page-btn">
-                  <a
-                    href="#"
+                  <button
                     className="btn btn-added"
-                    data-bs-dismiss="offcanvas"
                     onClick={() =>
                       navigate(
                             '/discussion-chat'
@@ -317,7 +177,7 @@ console.log(supportTickets,"supportTickets");
                   >
                     <ArrowLeft className="me-2" />
                     Back To List
-                  </a>
+                  </button>
                 </div>
               </div>
               {/* /add */}
@@ -439,7 +299,7 @@ console.log(supportTickets,"supportTickets");
                             id="discard"
                             type="button"
                             className="btn btn-reset me-2"
-                            data-bs-dismiss="offcanvas"
+                            // data-bs-dismiss="offcanvas"
                             onClick={() =>
                               navigate(
                                     '/discussion-chat'
