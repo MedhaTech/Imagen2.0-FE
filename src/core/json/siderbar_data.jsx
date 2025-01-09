@@ -7,7 +7,6 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
 import FeatherIcon from "feather-icons-react";
-import discussionIcon from '../../assets/img/meeting.png';
 import { FaComments} from "react-icons/fa";
 import { GoCommentDiscussion } from "react-icons/go";
 const SidebarData = () => {
@@ -135,7 +134,6 @@ useEffect(() => {
           link: "/discussion-chat",
           // icon: <FaComments />,
           icon:<GoCommentDiscussion />,
-          // icon: <img src={discussionIcon} alt="Discussion Icon" style={{ width: '20px', height: '24px' }} />,
           showSubRoute: false,
           submenu: false,
         },
