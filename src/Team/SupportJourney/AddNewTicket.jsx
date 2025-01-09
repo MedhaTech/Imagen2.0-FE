@@ -9,8 +9,8 @@ import Select from "react-select";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
-import { createSupportTickets } from "../../Teacher/store/mentors/actions";
-import { getSupportTickets } from "../../redux/actions";
+import { createDiscussionChats } from "../../Teacher/store/mentors/actions";
+import { getDiscussionList } from "../../redux/actions";
 import { FaComments, FaFile, FaLink } from "react-icons/fa";
 import DataTableExtensions from "react-data-table-component-extensions";
 import DataTable, { Alignment } from "react-data-table-component";
@@ -114,7 +114,7 @@ const TeacherSupport = () => {
           fileData.append("file", values.file_name);
 
           const response = await axios.post(
-            `${process.env.REACT_APP_API_BASE_URL}/supportTickets/supportTicketFileUpload`,
+            `${process.env.REACT_APP_API_BASE_URL}/discussionForums/discussionForumFileUpload`,
             fileData,
             {
               headers: {
@@ -137,9 +137,9 @@ const TeacherSupport = () => {
           body["link"] = values.url;
         }
 
-        dispatch(createSupportTickets(body));
+        dispatch(createDiscussionChats(body));
         setTimeout(() => {
-          dispatch(getSupportTickets(currentUser?.data[0]));
+          dispatch(getDiscussionList(currentUser?.data[0]));
         }, 500);
         navigate(
           '/discussion-chat'
@@ -309,7 +309,7 @@ const TeacherSupport = () => {
                             Discard
                           </button>
                           <button type="submit" className="btn btn-save">
-                            Create Ticket
+                          Post Your Answer
                           </button>
                         </div>
                       </div>
