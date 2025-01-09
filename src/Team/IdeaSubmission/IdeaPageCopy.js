@@ -39,6 +39,7 @@ import logout from "../../assets/img/logout.svg";
 // import { cardData, subCategoryData } from './SDGData';
 import moment from "moment";
 // import { getLanguage } from "../../constants/languageOptions";
+import "./idea.css";
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
@@ -50,9 +51,11 @@ import { getLanguage } from "../../constants/languageOptions";
 const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
   let a_link;
   let count;
+  let fileName;
   if (url) {
     a_link = item.split("/");
     count = a_link.length - 1;
+    fileName = a_link[count];
   }
   return (
     <>
@@ -67,12 +70,15 @@ const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
         </div>
       ) : (
         <a
-          className="badge mb-2 bg-info p-3 ms-3"
+          className="badge link-badge mb-2 bg-info p-3 ms-3"
           href={item}
           target="_blank"
           rel="noreferrer"
         >
-          {a_link[count]}
+           <span className="file-name">
+                                {fileName}
+                            </span>
+          {/* {a_link[count]} */}
         </a>
       )}
     </>
@@ -783,7 +789,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               : formData?.submitted_at
                               ? " On " +
                                 moment(formData?.submitted_at).format(
-                                  "DD-MM-YYYY HH:MM A"
+                                  "DD-MM-YYYY"
                                 )
                               : ""}
                           </h5>

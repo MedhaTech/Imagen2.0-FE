@@ -193,7 +193,7 @@ const StuEdit = () => {
           if (response.status === 200) {
             openNotificationWithIcon(
               "success",
-              "Student Details Updated Successfully updated Successfully"
+              "Student Details Updated Successfully"
             );
             navigate("/mentorteams");
             // handleView(studentData);
