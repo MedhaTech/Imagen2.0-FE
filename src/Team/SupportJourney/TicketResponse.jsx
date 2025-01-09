@@ -12,11 +12,12 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line no-unused-vars
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
-import { getSupportTickets } from "../../redux/actions";
+import { getDiscussionList } from "../../redux/actions";
 
 import {
   createSupportTicketResponse,
-  getSupportTicketById,
+  createDiscussionChatResponse,
+  getDiscussionChatById,
   SupportTicketStatusChange,
 } from "../../Teacher/store/mentors/actions";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -35,20 +36,20 @@ const StateRes = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = new URLSearchParams(search).get("id");
-  const { supportTicket } = useSelector((state) => state?.mentors);
+  const { discussionChat } = useSelector((state) => state?.mentors);
   const language = useSelector((state) => state?.mentors.mentorLanguage);
 
   useEffect(() => {
-    dispatch(getSupportTickets(currentUser?.data[0]));
+    dispatch(getDiscussionList(currentUser?.data[0]));
   }, []);
   useEffect(() => {
-    dispatch(getSupportTicketById(id, language));
+    dispatch(getDiscussionChatById(id, language));
   }, []);
 
   const formik = useFormik({
     initialValues: {
       ansTicket: "",
-      selectStatusTicket: supportTicket?.status,
+      selectStatusTicket: discussionChat?.status,
       file_name: "",
       url: "",
     },
@@ -64,7 +65,7 @@ const StateRes = (props) => {
           fileData.append("file", values.file_name);
 
           const response = await axios.post(
-            `${process.env.REACT_APP_API_BASE_URL}/supportTickets/supportTicketFileUpload`,
+            `${process.env.REACT_APP_API_BASE_URL}/discussionForums/discussionForumFileUpload`,
             fileData,
             {
               headers: {
@@ -76,10 +77,10 @@ const StateRes = (props) => {
           values.file_name = response?.data?.data[0].attachments[0].toString();
         }
         const ansTicket = values.ansTicket;
-        const id = supportTicket.support_ticket_id;
+        const id = discussionChat.discussion_forum_id;
 
         const body = {
-          support_ticket_id: id,
+          discussion_forum_id: id,
           reply_details: ansTicket,
         };
         if (values.file_name !== "") {
@@ -89,14 +90,14 @@ const StateRes = (props) => {
           body["link"] = values.url;
         }
 
-        dispatch(createSupportTicketResponse(body));
+        dispatch(createDiscussionChatResponse(body));
         dispatch(
           SupportTicketStatusChange(id, { status: values.selectStatusTicket })
         );
-        navigate("/admin-support");
+        navigate("/discussion-chat");
         // document.getElementById("sendresponseID").click();
         setTimeout(() => {
-          dispatch(getSupportTickets(currentUser?.data[0]));
+          dispatch(getDiscussionList(currentUser?.data[0]));
         }, 500);
       } catch (error) {
         console.log(error);
@@ -191,20 +192,20 @@ const StateRes = (props) => {
                           className="saved-text"
                           style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}
                         >
-                          {supportTicket?.query_details}
+                          {discussionChat?.query_details}
                         </div>
                       {/* <strong>{supportTicket?.query_details}</strong> */}
                       <hr />
                     </Col>
                     <Col md={3}>
                       <span>
-                        <FaUserCircle /> {supportTicket?.created_by}
+                        <FaUserCircle /> {discussionChat?.created_by}
                       </span>{" "}
                     </Col>
                     <Col md={3} className="text-right">
-                      {supportTicket?.link && (
+                      {discussionChat?.link && (
                         <a
-                          href={supportTicket?.link}
+                          href={discussionChat?.link}
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -212,9 +213,9 @@ const StateRes = (props) => {
                           {"Link "}
                         </a>
                       )}
-                      {supportTicket?.file && (
+                      {discussionChat?.file && (
                         <a
-                          href={supportTicket?.file}
+                          href={discussionChat?.file}
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -226,7 +227,7 @@ const StateRes = (props) => {
                     <Col md={6} className="text-right">
                       <span>
                         <FaRegClock />{" "}
-                        {moment(supportTicket.created_at).format(
+                        {moment(discussionChat.created_at).format(
                           // 'Do MMM, YYYY HH:mm',
                           "LLL"
                         )}
@@ -235,8 +236,8 @@ const StateRes = (props) => {
                   </Row>
                 </div>
 
-                {supportTicket?.support_ticket_replies?.length > 0 &&
-                  supportTicket.support_ticket_replies.map((data, i) => {
+                {discussionChat?.support_ticket_replies?.length > 0 &&
+                  discussionChat.support_ticket_replies.map((data, i) => {
                     return (
                       <div
                         key={i}
@@ -307,8 +308,8 @@ const StateRes = (props) => {
                     );
                   })}
 
-                {supportTicket?.status != "INVALID" &&
-                supportTicket?.status != "RESOLVED" ? (
+                {discussionChat?.status != "INVALID" &&
+                discussionChat?.status != "RESOLVED" ? (
                   <Row className="p-2">
                     <Col md={12}>
                       <div>
@@ -409,8 +410,8 @@ const StateRes = (props) => {
                             value={formik.values.selectStatusTicket}
                           >
                             <option value="" disabled={true}>
-                              {supportTicket?.status
-                                ? supportTicket?.status
+                              {discussionChat?.status
+                                ? discussionChat?.status
                                 : "Select Status"}
                             </option>
                             <option value="OPEN">OPEN</option>
@@ -437,19 +438,19 @@ const StateRes = (props) => {
 
               <div className="mb-3">
                 <Row>
-                  {supportTicket.status != "INVALID" &&
-                  supportTicket.status != "RESOLVED" ? (
+                  {discussionChat.status != "INVALID" &&
+                  discussionChat.status != "RESOLVED" ? (
                     <div className="col-lg-12">
                       <div className="view-btn d-flex justify-content-between">
                         <button
                           type="button"
-                          onClick={() => navigate("/admin-support")}
+                          onClick={() => navigate("/discussion-chat")}
                           className="btn btn-secondary me-2"
                         >
                           Discard
                         </button>
                         <button type="submit" className="btn btn-warning">
-                          Send Response
+                          Post Your Answer
                         </button>
                       </div>
                     </div>

@@ -110,6 +110,8 @@ import AdminInstitutionProgress from "../Admin/Reports/Helpers/InstProgressRepor
 import AdminIdea from "../Admin/Reports/Helpers/IdeaReport";
 import StudentDiscussion from "../Team/SupportJourney/Ticket";
 import StudentNewChat from "../Team/SupportJourney/AddNewTicket";
+import StudentNewChatResponse from "../Team/SupportJourney/TicketResponse";
+
 
 
 
@@ -559,6 +561,13 @@ export const teamRoutes = [
     route: Route,
   },
 
+ {
+    id: 21,
+    path: routes.discussionChatResponse,
+    name: "discussionChatResponse",
+    element: <StudentNewChatResponse />,
+    route: Route,
+  },
 ];
 export const mentorRoutes = [
   {

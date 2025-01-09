@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 // Foulders Reducers //
 // import { languageOptions } from '../../../constants/languageOptions.js';
 import {
@@ -7,6 +8,8 @@ import {
     MENTORS_LIST,
     MENTORS_LIST_SUCCESS,
     MENTORS_LIST_ERROR,
+    DISCUSSION_LIST_ERROR,
+
     MENTORS_DELETE,
     MENTORS_DELETE_SUCCESS,
     MENTORS_DELETE_ERROR,
@@ -15,7 +18,10 @@ import {
     MENTORS_GET_SUPPORT_TICKETS,
     MENTORS_GET_SUPPORT_TICKETS_BY_ID,
     MENTORS_GET_SUPPORT_TICKETS_RESPONSES_BY_ID,
-    GET_TEACHERS_PRESURVEY_STATUS
+    GET_TEACHERS_PRESURVEY_STATUS,
+    DISCUSSION_GET_CHAT,
+    GET_DISCUSSION_CHAT_BY_ID,
+    
 } from '../../../redux/actions.js';
 
 const INIT_STATE = {
@@ -25,7 +31,10 @@ const INIT_STATE = {
     successDleteMessage: '',
     mentorsList: [],
     supportTickets:[],
+    discussionChats:[],
+
     supportTicket:{},
+    discussionChat:{},
     supportTicketRespnses:{},
     mentorLanguage:"",
     teacherPresurveyStatus:null,
@@ -72,6 +81,13 @@ export default (state = INIT_STATE, action) => {
             mentorsList: [],
             error: action.payload.message,
         };
+        case DISCUSSION_LIST_ERROR:
+            return {
+                ...state,
+                loading: false,
+                mentorsList: [],
+                error: action.payload.message,
+            };
     case MENTORS_DELETE:
         return { ...state, loading: true, error: '' };
     case MENTORS_DELETE_SUCCESS:
@@ -93,11 +109,22 @@ export default (state = INIT_STATE, action) => {
             ...state,
             supportTickets: action.payload,
         };
+        case DISCUSSION_GET_CHAT:
+            return {
+                ...state,
+                discussionChats: action.payload,
+            };
     case MENTORS_GET_SUPPORT_TICKETS_BY_ID:
         return {
             ...state,
             supportTicket: action.payload,
         };
+        case     GET_DISCUSSION_CHAT_BY_ID
+        :
+            return {
+                ...state,
+                discussionChat: action.payload,
+            };
     case MENTORS_GET_SUPPORT_TICKETS_RESPONSES_BY_ID:
         return {
             ...state,
