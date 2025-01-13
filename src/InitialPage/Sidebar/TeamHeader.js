@@ -21,7 +21,8 @@ import "./styles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import Avatar from 'react-string-avatar';
-
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import axios from "axios";
 const Header = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
@@ -32,7 +33,39 @@ const Header = () => {
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };
+  const [data, setData] = useState([]);
+  const user = currentUser.data[0]?.student_id;
+  useEffect(() => {
+    mentorViewApi();
+  }, [user]);
 
+  const mentorViewApi = () => {
+    let supId;
+    if (typeof user !== "string") {
+      supId = encryptGlobal(JSON.stringify(user));
+    } else {
+      supId = encryptGlobal(user);
+    }
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_API_BASE_URL + `/students/${supId}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response, "res");
+          setData(response.data.data[0]);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     const handleMouseover = (e) => {
       e.stopPropagation();
@@ -171,7 +204,7 @@ const Header = () => {
     }
   };
 
-  const fullName = currentUser?.data[0]?.full_name;
+  const fullName = data?.full_name;
   const capitalizeFirstLetter = (string) => {
     if (!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1);

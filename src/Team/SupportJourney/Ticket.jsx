@@ -18,20 +18,35 @@ import { FaCircleUser } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { FaReply } from "react-icons/fa";
+import Avatar from "react-string-avatar";
+import { FaComment } from "react-icons/fa";
+import { formatDistanceToNow } from "date-fns";
+import { BiSolidLike,BiSolidDislike } from "react-icons/bi";
 const TicketsPage = () => {
   const { discussionChats } = useSelector((state) => state.mentors);
   const language = useSelector((state) => state?.mentors.mentorLanguage);
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { t } = useTranslation();
   useEffect(() => {
     dispatch(getDiscussionList(currentUser?.data[0]));
   }, []);
-console.log(discussionChats,"supportTickets");
-    const navigate = useNavigate();
-    return (
-      <div className="page-wrapper">
+  console.log(discussionChats, "supportTickets");
+  {
+    /* <FaComments className="me-1" /> */
+  }
+  {
+    /* <FaCircleUser size={30} style={{marginRight:"16px"}} />{discussion.created_by} */
+  }
+  {
+    /* <FaReply size={20} style={{ marginRight: "10px" }} /> */
+  }
+
+  // Remove "about" from the string
+  return (
+    <div className="page-wrapper">
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
@@ -44,7 +59,7 @@ console.log(discussionChats,"supportTickets");
             <button
               className="btn btn-primary add-em-payroll"
               type="button"
-              onClick={() => navigate('/new-chat')}
+              onClick={() => navigate("/new-chat")}
             >
               <PlusCircle className="me-2" />
               Ask Question
@@ -55,28 +70,72 @@ console.log(discussionChats,"supportTickets");
           {discussionChats && discussionChats.length > 0 ? (
             discussionChats.map((discussion) => (
               <div key={discussion.discussion_forum_id} className="col-md-12">
-                <div className="card mb-3" 
-               
-                  >
+                <div className="card mb-3">
                   <div className="card-body">
-                  <h5 className="card-title">{discussion.query_category}</h5>
-                    <p className="card-text">{discussion.query_details}</p>
-                        
-                        <p className="card-text mb-2">
-                    <Link
-                      to={`/Discussion-Chat-Response?id=${discussion.discussion_forum_id}`}
-                      className="btn btn-outline-primary m-1 rounded-1"
-                    >
-                      {/* <FaComments className="me-1" /> */}
-                      <span className="badge bg-primary " style={{fontSize:"14px"}}
-                     >
+                    <div className="d-flex">
+                      <Avatar
+                        initials={discussion.created_by
+                          ?.split(" ")
+                          .map((w) => w.charAt(0))
+                          .join("")}
+                        bgColor="#36adf2"
+                        textColor="black"
+                        roundShape="true"
+                        pictureResolution={25}
+                        height={30}
+                        width={30}
+                      />
+                      <div className="mx-3">
+                        <p
+                          className="mb-0 card-text"
+                          style={{ fontSize: "16px", fontWeight: "bold" }}
+                        >
+                          {discussion.created_by}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mx-5">
+                      <h5 className="mb-0 card-title">
+                        {discussion.query_category}
+                      </h5>
+                      <p className="mb-0 card-text">
+                        {discussion.query_details}
+                      </p>
+                    </div>
+                    <div className="d-flex align-items-center mx-5 mt-3">
+                    <p className="card-text mb-2 mx-3">
+                    <BiSolidLike size={20}
+                          style={{ marginRight: "10px" }}/>
+                      </p>
+                      <p className="card-text mb-2 mx-3">
+                    <BiSolidDislike size={20}
+                          style={{ marginRight: "10px" }}/>
+                      </p>
+                      <p className="card-text mb-2 mx-3">
+                        <Link
+                          to={`/Discussion-Chat-Response?id=${discussion.discussion_forum_id}`}
+                          className="d-flex align-items-center"
+                        >
+                          <FaComment size={20} style={{ marginRight: "5px" }} />
 
-<FaReply size={20} style={{marginRight:"10px"}}/>{discussion.replies_count}
-                      </span>
-                    </Link>
-                    <br/>
-                    <FaCircleUser size={30} style={{marginRight:"16px"}} />{discussion.created_by}
-                    </p>
+                          {discussion.replies_count}
+                        </Link>
+                      </p>
+
+                      <p className="card-text mb-2 mx-3">
+                        <FaCircleUser
+                          size={20}
+                          style={{ marginRight: "10px" }}
+                        />
+                        {(() => {
+                          const timeAgo = formatDistanceToNow(
+                            new Date(discussion.created_at),
+                            { addSuffix: true }
+                          );
+                          return timeAgo.replace(/^about\s/, "");
+                        })()}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -87,7 +146,7 @@ console.log(discussionChats,"supportTickets");
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default TicketsPage;

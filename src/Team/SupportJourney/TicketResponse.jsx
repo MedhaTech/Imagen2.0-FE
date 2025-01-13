@@ -236,8 +236,8 @@ const StateRes = (props) => {
                   </Row>
                 </div>
 
-                {discussionChat?.support_ticket_replies?.length > 0 &&
-                  discussionChat.support_ticket_replies.map((data, i) => {
+                {discussionChat?.discussion_forum_replies?.length > 0 &&
+                  discussionChat.discussion_forum_replies.map((data, i) => {
                     return (
                       <div
                         key={i}
