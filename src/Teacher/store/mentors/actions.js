@@ -21,6 +21,10 @@ import {
   MENTORS_GET_SUPPORT_TICKETS_RESPONSES_BY_ID,
   MENTORS_SUPPORT_TICKETS_STATUS,
   GET_TEACHERS_PRESURVEY_STATUS,
+  DISCUSSION_GET_CHAT,
+  DISCUSSION_LIST_ERROR,
+  GET_DISCUSSION_CHAT_BY_ID,
+
   // MENTORS_CREATE_SUPPORT_TICKETS
 } from "../../../redux/actions.js";
 import { URL, KEY } from "../../../constants/defaultValues.js";
@@ -83,7 +87,12 @@ export const getMentorsListError = (message) => async (dispatch) => {
     payload: { message },
   });
 };
-
+export const getDiscussionListError = (message) => async (dispatch) => {
+  dispatch({
+    type: DISCUSSION_LIST_ERROR,
+    payload: { message },
+  });
+};
 export const getStudentByIdData = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_TEACHERS });
@@ -207,6 +216,48 @@ export const getSupportTicketsSuccess = (tickets) => async (dispatch) => {
     payload: tickets,
   });
 };
+export const getDiscussionChatSuccess = (tickets) => async (dispatch) => {
+  dispatch({
+    type: DISCUSSION_GET_CHAT,
+    payload: tickets,
+  });
+};
+export const getDiscussionList = (user) => async (dispatch) => {
+  try {
+    const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+    const lang = "locale=en";
+    const final = lang.split("=");
+
+    const param = encryptGlobal(
+      JSON.stringify({
+        user_id: user.user_id,
+        locale: final[1],
+      })
+    );
+    const result = await axios
+      .get(`${URL.getstudentChat}?Data=${param}`, axiosConfig)
+      .then((user) => user)
+      .catch((err) => {
+        return err.response;
+      });
+    if (result && result.status === 200) {
+      console.log(result,"Discussion List");
+      const data =
+        result.data.data[0].dataValues.length > 0
+          ? result.data.data[0].dataValues.map((item, i) => {
+              item.id = i + 1;
+              return item;
+            })
+          : [];
+
+      dispatch(getDiscussionChatSuccess(data));
+    } else {
+      dispatch(getDiscussionListError(result.statusText));
+    }
+  } catch (error) {
+    dispatch(getDiscussionListError({}));
+  }
+};
 export const getSupportTickets = (user) => async (dispatch) => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -243,6 +294,7 @@ export const getSupportTickets = (user) => async (dispatch) => {
   }
 };
 
+
 export const createSupportTickets = (data) => async () => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -262,10 +314,35 @@ export const createSupportTickets = (data) => async () => {
     openNotificationWithIcon("error", "Something went wrong!", "");
   }
 };
+export const createDiscussionChats = (data) => async () => {
+  try {
+    const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+    const result = await axios
+      .post(`${URL.createDiscussionChat}`, data, axiosConfig)
+      .then((user) => user)
+      .catch((err) => {
+        return err.response;
+      });
+
+    if (result && result.status === 201) {
+      openNotificationWithIcon("success", "Ticket Created Successfully!", "");
+    } else {
+      openNotificationWithIcon("error", "Something went wrong!", "");
+    }
+  } catch (error) {
+    openNotificationWithIcon("error", "Something went wrong!", "");
+  }
+};
 
 export const getSupportTicketByIdSuccess = (tickets) => async (dispatch) => {
   dispatch({
     type: MENTORS_GET_SUPPORT_TICKETS_BY_ID,
+    payload: tickets,
+  });
+};
+export const getDiscussionChatByIdSuccess = (tickets) => async (dispatch) => {
+  dispatch({
+    type: GET_DISCUSSION_CHAT_BY_ID,
     payload: tickets,
   });
 };
@@ -306,6 +383,50 @@ export const getSupportTicketById = (id) => async (dispatch) => {
     if (result && result.status === 200) {
       const data = result.data.data[0];
       dispatch(getSupportTicketByIdSuccess(data));
+    } else {
+      openNotificationWithIcon("error", "Something went wrong!", "");
+    }
+  } catch (error) {
+    openNotificationWithIcon("error", "Something went wrong!456", "");
+  }
+};
+export const getDiscussionChatById = (id) => async (dispatch) => {
+  try {
+    const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+    // const supId = encryptGlobal(
+    //   JSON.stringify(id)
+    // );
+    let supId;
+    if(typeof(id) !== "string"){
+  supId = encryptGlobal(
+      JSON.stringify(id)
+    );
+    }else{
+     supId = encryptGlobal(id);
+
+    }
+    // console.log(typeof(id),"id");
+    const lang = "locale=en";
+    const final = lang.split("=");
+    let enParamData = encryptGlobal(
+      JSON.stringify({
+        locale: final[1],
+      })
+    );
+    const result = await axios
+      .get(
+        `${URL.getDiscussionChatById}${supId}?Data=${enParamData}`,
+        axiosConfig
+      )
+      .then((user) => user)
+      .catch((err) => {
+        return err.response;
+      });
+
+    if (result && result.status === 200) {
+      console.log(result,"id");
+      const data = result.data.data[0];
+      dispatch(getDiscussionChatByIdSuccess(data));
     } else {
       openNotificationWithIcon("error", "Something went wrong!", "");
     }
@@ -389,7 +510,27 @@ export const createSupportTicketResponse = (data) => async () => {
     openNotificationWithIcon("error", "Something went wrong!catch", "");
   }
 };
+export const createDiscussionChatResponse = (data) => async () => {
+  try {
+    const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+    const result = await axios
+      .post(`${URL.createDiscussionChatResponse}`, data, axiosConfig)
+      .then((user) => user)
+      .catch((err) => {
+        return err.response;
+      });
 
+    if (result && result.status === 201) {
+      console.log(result,"Chat Reply");
+      // history.push('/institution/support-journey');
+      openNotificationWithIcon("success", "Reply submitted successfully!", "");
+    } else {
+      openNotificationWithIcon("error", "Something went wrong!else", "");
+    }
+  } catch (error) {
+    openNotificationWithIcon("error", "Something went wrong!catch", "");
+  }
+};
 export const SupportTicketStatus = (message) => async (dispatch) => {
   dispatch({
     type: MENTORS_SUPPORT_TICKETS_STATUS,

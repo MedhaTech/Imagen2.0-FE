@@ -73,16 +73,24 @@ export const URL = {
     process.env.REACT_APP_API_BASE_URL + "/students/forgotPassword",
   getMentorSupportTickets:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
+    getstudentChat:
+    process.env.REACT_APP_API_BASE_URL + "/discussionForums",
   email:
     process.env.REACT_APP_API_BASE_URL + "/mentors/emailOtp",
   createMentorSupportTickets:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
+    createDiscussionChat:
+    process.env.REACT_APP_API_BASE_URL + "/discussionForums",
   updateSupportTicketResponse:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
   createMentorSupportTicketResponse:
     process.env.REACT_APP_API_BASE_URL + "/supportTicketsReply",
+    createDiscussionChatResponse:
+    process.env.REACT_APP_API_BASE_URL + "/discussionForumsReply",
   getMentorSupportTicketsById:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets/",
+    getDiscussionChatById:
+    process.env.REACT_APP_API_BASE_URL + "/discussionForums/",
   getMentorSupportTicketResponsesById:
     process.env.REACT_APP_API_BASE_URL + "/supportTicketsReply",
   // getPostSurveyList: `${process.env.REACT_APP_API_BASE_URL}/quizSurveys`,
