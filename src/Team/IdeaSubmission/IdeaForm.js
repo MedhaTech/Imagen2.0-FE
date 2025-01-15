@@ -165,7 +165,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                         className="btn btn-soft-light rounded-pill"
                         onClick={handleNext}
                       >
-                        <ArrowLeft className="me-2" />
+                        {/* <ArrowLeft className="me-2" /> */}
                         {" "}Next
                       </a>
                     </div>
@@ -315,7 +315,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                         className="btn btn-soft-light rounded-pill"
                         onClick={handleNext}
                       >
-                        <ArrowLeft className="me-2" />
+                        {/* <ArrowLeft className="me-2" /> */}
                         {" "}Next
                       </a>
                     </div>

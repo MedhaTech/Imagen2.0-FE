@@ -619,7 +619,8 @@ const CreatepilotStudent = () => {
                             onClick={() => navigate("/mentorteams")}
 
                           >
-                            <ArrowLeft />Back
+                            {/* <ArrowLeft /> */}
+                            Back
                           </button>
                           <button
                             className="btn btn-warning m-2"

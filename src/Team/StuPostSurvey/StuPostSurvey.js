@@ -758,7 +758,7 @@ return (
                           </div>
                         </Form>
                       </>
-                    ) : ideastatus == 1 && postSurveyStatus == "COMPLETED" ? (
+                    ) : ideastatus == "SUBMITTED" && postSurveyStatus == "COMPLETED" ? (
                       <div style={{ textAlign: "center" }}>
                         <div>
                           <img

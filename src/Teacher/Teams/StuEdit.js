@@ -602,7 +602,8 @@ const StuEdit = () => {
                             type="button"
                             onClick={() => navigate("/mentorteams")}
                           >
-                            <ArrowLeft />Back
+                            {/* <ArrowLeft /> */}
+                            Back
                             
                           </button>
                           <button

@@ -22,6 +22,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
 const AdminResources = () => {
     const navigate = useNavigate();
+    const [showCreateButton, setShowCreateButton] = useState(false);
     const [resList, setResList] = useState([]);
     const [tecList, setTecList] = useState([]);
     // const [reqList, setReqList] = useState(false);
@@ -51,6 +52,20 @@ const AdminResources = () => {
                 console.log(response,"11");
                 
                 setTecList(response.data?.data);
+                let studentCount = 0;
+                let institutionCount = 0;
+
+                response.data?.data.forEach(item => {
+                    if (item.role === 'Student') studentCount++;
+                    if (item.role === 'Institution') institutionCount++;
+                });
+
+                // Show button only if there is either one Student or one Institution
+                if ((studentCount === 1 && institutionCount === 0) || (studentCount === 0 && institutionCount === 1)) {
+                    setShowCreateButton(true);
+                } else {
+                    setShowCreateButton(false);
+                }
             }
         } catch (error) {
             console.log(error);
@@ -552,6 +567,7 @@ const AdminResources = () => {
                     </div>
                 </div>
                 <div className="page-btn">
+                {showCreateButton && (
                     <button
                         type="button"
                         className="btn btn-info"
@@ -563,6 +579,7 @@ const AdminResources = () => {
                     >
                         <PlusCircle className="me-2" style={{color:"white"}} /><b>Create PopUp</b>
                     </button>
+                     )}
                 </div>
             </div>
             <Container className="ticket-page mb-50">

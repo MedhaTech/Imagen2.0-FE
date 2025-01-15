@@ -199,7 +199,7 @@ const StuEdit = () => {
     //   body["id_number"] = values.id_number;
     // }
     if (values.id_number !== "") {
-      body["id_number"] = JSON.stringify(values.id_number);
+      body["id_number"] = values.id_number;
     }
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
@@ -638,7 +638,8 @@ const StuEdit = () => {
                             type="button"
                             onClick={() => navigate("/students")}
                           >
-                            <ArrowLeft />Back
+                            {/* <ArrowLeft /> */}
+                            Back
                             
                           </button>
                         </div>

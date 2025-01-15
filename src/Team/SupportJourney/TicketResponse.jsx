@@ -49,14 +49,14 @@ const StateRes = (props) => {
   const formik = useFormik({
     initialValues: {
       ansTicket: "",
-      selectStatusTicket: discussionChat?.status,
+      // selectStatusTicket: discussionChat?.status,
       file_name: "",
       url: "",
     },
 
     validationSchema: Yup.object({
       ansTicket: Yup.string().required("Required"),
-      selectStatusTicket: Yup.string(),
+      // selectStatusTicket: Yup.string(),
     }),
     onSubmit: async (values) => {
       try {
@@ -91,9 +91,9 @@ const StateRes = (props) => {
         }
 
         dispatch(createDiscussionChatResponse(body));
-        dispatch(
-          SupportTicketStatusChange(id, { status: values.selectStatusTicket })
-        );
+        // dispatch(
+        //   SupportTicketStatusChange(id, { status: values.selectStatusTicket })
+        // );
         navigate("/discussion-chat");
         // document.getElementById("sendresponseID").click();
         setTimeout(() => {
@@ -308,8 +308,8 @@ const StateRes = (props) => {
                     );
                   })}
 
-                {discussionChat?.status != "INVALID" &&
-                discussionChat?.status != "RESOLVED" ? (
+                {/* {discussionChat?.status != "INVALID" &&
+                discussionChat?.status != "RESOLVED" ? ( */}
                   <Row className="p-2">
                     <Col md={12}>
                       <div>
@@ -393,7 +393,7 @@ const StateRes = (props) => {
                             </small>
                           )}
                       </div>
-                      <div className="mb-3">
+                      {/* <div className="mb-3">
                         <Label className="mb-2">Select Status</Label>
                         <Col className="form-group" md={12}>
                           <select
@@ -426,14 +426,14 @@ const StateRes = (props) => {
                               </small>
                             )}
                         </Col>
-                      </div>
+                      </div> */}
                     </Col>
                   </Row>
-                ) : (
-                  <UncontrolledAlert color="danger" className="mb-2">
-                    Chat window closed. 
-                  </UncontrolledAlert>
-                )}
+                {/* // ) : (
+                //   <UncontrolledAlert color="danger" className="mb-2">
+                //     Chat window closed. 
+                //   </UncontrolledAlert>
+                // )} */}
               </Card>
 
               <div className="mb-3">
