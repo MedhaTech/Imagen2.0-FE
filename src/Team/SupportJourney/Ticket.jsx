@@ -95,9 +95,9 @@ const TicketsPage = () => {
                       </div>
                     </div>
                     <div className="mx-5">
-                      <h5 className="mb-0 card-title">
+                      {/* <h5 className="mb-0 card-title">
                         {discussion.query_category}
-                      </h5>
+                      </h5> */}
                       <p className="mb-0 card-text">
                         {discussion.query_details}
                       </p>

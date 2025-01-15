@@ -402,7 +402,7 @@ console.log(supportTickets,"supportTickets");
                     data-bs-dismiss="offcanvas"
                     onClick={() => formik1.resetForm()}
                   >
-                    <ArrowLeft className="me-2" />
+                    {/* <ArrowLeft className="me-2" /> */}
                     Back To List
                   </a>
                 </div>
@@ -567,7 +567,7 @@ console.log(supportTickets,"supportTickets");
                     data-bs-dismiss="offcanvas"
                     onClick={() => formik.resetForm()}
                   >
-                    <ArrowLeft className="me-2" />
+                    {/* <ArrowLeft className="me-2" /> */}
                     Back To List
                   </a>
                 </div>

@@ -94,14 +94,14 @@ const TeacherSupport = () => {
 
   const formik1 = useFormik({
     initialValues: {
-      ticket: "",
+      // ticket: "",
       ticketDetails: "",
       file_name: "",
       url: "",
     },
 
     validationSchema: Yup.object({
-      ticket: Yup.string().required("Required"),
+      // ticket: Yup.string().required("Required"),
       ticketDetails: Yup.string().required("Required"),
       file_name: Yup.mixed(),
       url: Yup.string(),
@@ -126,7 +126,7 @@ const TeacherSupport = () => {
           values.file_name = response?.data?.data[0].attachments[0].toString();
         }
         const body = {
-          query_category: values.ticket,
+          // query_category: values.ticket,
           query_details: values.ticketDetails,
           district: currentUser?.data[0]?.district
         };
@@ -175,7 +175,7 @@ const TeacherSupport = () => {
                         )
                     }
                   >
-                    <ArrowLeft className="me-2" />
+                    {/* <ArrowLeft className="me-2" /> */}
                     Back To List
                   </button>
                 </div>
@@ -185,7 +185,7 @@ const TeacherSupport = () => {
                 <div className="card-body">
                   <form onSubmit={formik1.handleSubmit}>
                     <div className="row">
-                      <div className="col-lg-4 col-sm-6 col-12">
+                      {/* <div className="col-lg-4 col-sm-6 col-12">
                         <div className="mb-3">
                           <label className="form-label">
                             Select Query Category <span>*</span>
@@ -210,7 +210,7 @@ const TeacherSupport = () => {
                             </small>
                           ) : null}
                         </div>
-                      </div>
+                      </div> */}
                       <div className="mb-3">
                         <label className="form-label">
                           Description <span>*</span>
