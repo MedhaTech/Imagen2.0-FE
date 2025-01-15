@@ -35,10 +35,14 @@ const Forgotpassword = () => {
 
     onSubmit: async (values) => {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+      const loginData = {
+        ...values,
+        role: "STUDENT",
+      };
       await axios
         .put(
           `${URL.putstudentforgotPassword}`,
-          JSON.stringify(values, null, 2),
+          JSON.stringify(loginData, null, 2),
           axiosConfig
         )
         .then((checkOrgRes) => {

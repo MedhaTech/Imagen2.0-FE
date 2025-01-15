@@ -1,4 +1,3 @@
-/* eslint-disable no-unreachable */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { Fragment, useState, useEffect } from "react";
@@ -85,7 +84,7 @@ const PlayVideoCourses = (props) => {
   const [id, setResponce] = useState([]);
 
   const { id: paramId } = useParams();
-  // console.log(decryptGlobal(paramId),"000");
+  console.log(decryptGlobal(paramId),"000");
   const course_id = paramId ? decryptGlobal(paramId) : 1;
   const description = props?.location?.data
     ? props?.location?.data?.description
@@ -419,7 +418,6 @@ const PlayVideoCourses = (props) => {
     await axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response,"res");
           SetWorksheetResponce(response.data.data[0]);
           if (response.data.data[0].response) {
             const userUploadedfiles =
@@ -469,7 +467,7 @@ const PlayVideoCourses = (props) => {
     await axios(config)
       .then(function (response) {
         if (response.status === 201) {
-          console.log(response, "userTopic");
+          // console.log(response, "userTopic");
           setUpdateModuleResponce(response.data && response.data.data[0]);
           props.getAdminCourseDetailsActions(
             course_id,
@@ -570,7 +568,7 @@ const PlayVideoCourses = (props) => {
     const topixIndex = setTopicArrays.findIndex(
       (item) => item.topic_type_id === topicObj.topic_type_id
     );
-    // if (event.reflective_quiz_status !== "INCOMPLETE") {
+    if (event.reflective_quiz_status !== "INCOMPLETE") {
       if (
         topicObj.topic_type_id !==
         setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id ||
@@ -587,12 +585,10 @@ const PlayVideoCourses = (props) => {
         handlePlayerPlay();
       } else {
         setVideoCompleted(true);
-        // getWorkSheetApi(worksheetId);
-
       }
-    // }
+    }
   };
-console.log(videoCompleted,"video");
+
   const handleTimeUpdate = (event) => {
     // console.log("==========", event);
     const videoLength = event.duration; //500
@@ -625,15 +621,15 @@ console.log(videoCompleted,"video");
     //   setModalShow(true);
     // }
 
-    // if (id.reflective_quiz_status === "INCOMPLETE") {
-    //   if (event.percent === 1) {
-    //     handlePlayerPause();
-    //     setModalShow(true);
-    //     setTimeout(() => {
-    //       handlePlayerPause();
-    //     }, 1000);
-    //   }
-    // }
+    if (id.reflective_quiz_status === "INCOMPLETE") {
+      if (event.percent === 1) {
+        handlePlayerPause();
+        setModalShow(true);
+        setTimeout(() => {
+          handlePlayerPause();
+        }, 1000);
+      }
+    }
 
     // // if (
     // //   event.percent === calculatePercentage1 &&
@@ -721,25 +717,24 @@ console.log(videoCompleted,"video");
       setWorksheetId(topicId);
       getWorkSheetApi(topicId);
       setItem("WORKSHEET");
-      // setHideQuiz(false);
-    // } else if (type === "QUIZ") {
-    //   resultdata(topicId);
-    //   setItem("QUIZ");
-    //   setQizId(topicId);
+      setHideQuiz(false);
+    } else if (type === "QUIZ") {
+      resultdata(topicId);
+      setItem("QUIZ");
+      setQizId(topicId);
     } else if (type === "VIDEO") {
       setItem("VIDEO");
       fetchData(topicId);
-      // setHideQuiz(false);
+      setHideQuiz(false);
     } else {
       setItem("");
-      // setHideQuiz(false);
+      setHideQuiz(false);
     }
     scrollRef.current.scrollIntoView();
     // }
   };
 
   const videoStatus = (type, status) => {
-    // console.log(type,"type");
     // here type = video , worksheet , quiz //
     // here status = Incomplete , completed //
     // const done = <IoCheckmarkDoneCircleSharp className="done" />;
@@ -758,8 +753,8 @@ console.log(videoCompleted,"video");
     );
     if (type === "VIDEO" && status === "COMPLETED") {
       return done;
-      // console.log("=================================================");
     } else if (type === "VIDEO" && status === "INCOMPLETE") {
+      // console.log("=================================================");
       return notDone;
     }
 
@@ -769,28 +764,28 @@ console.log(videoCompleted,"video");
       return notDone;
     }
 
-    // if (type === "QUIZ" && status === "COMPLETED") {
-    //   return done;
-    // } else if (type === "QUIZ" && status === "INCOMPLETE") {
-    //   return notDone;
-    // }
+    if (type === "QUIZ" && status === "COMPLETED") {
+      return done;
+    } else if (type === "QUIZ" && status === "INCOMPLETE") {
+      return notDone;
+    }
   };
 
   const handleClose = (item) => {
     // here we can close the worksheet //
     setItem("WORKSHEET");
     setModalShow(item);
-    // setHideQuiz(false);
+    setHideQuiz(false);
   };
-  // const handleQuiz = () => {
-  //   // here we can see quiz //
-  //   modulesListUpdateApi(topicObj.course_topic_id);
-  //   handleSelect(
-  //     topicObj.topic_type_id,
-  //     topicObj.course_topic_id,
-  //     topicObj.topic_type
-  //   );
-  // };
+  const handleQuiz = () => {
+    // here we can see quiz //
+    modulesListUpdateApi(topicObj.course_topic_id);
+    handleSelect(
+      topicObj.topic_type_id,
+      topicObj.course_topic_id,
+      topicObj.topic_type
+    );
+  };
   const handleAssesmentClose = () => {
     modulesListUpdateApi(topicObj.course_topic_id);
     setItem("VIDEO");
@@ -801,7 +796,7 @@ console.log(videoCompleted,"video");
       topicObj.topic_type
     );
     setModalShow(false);
-    // setHideQuiz(false);
+    setHideQuiz(false);
   };
 
   const changeHandler = (event) => {
@@ -890,9 +885,6 @@ console.log(videoCompleted,"video");
       );
     } else {
       setShowCompleteMessage(true);
-      // getWorkSheetApi(worksheetId);
-
-
     }
   };
 
@@ -1065,7 +1057,7 @@ console.log(videoCompleted,"video");
                                                     lecture.course_topic_id,
                                                     lecture.topic_type
                                                   );
-                                                  // setHideQuiz(false);
+                                                  setHideQuiz(false);
                                                   setQuizTopic("");
                                                   setBackToQuiz(false);
                                                 }}
@@ -1155,187 +1147,185 @@ console.log(videoCompleted,"video");
                     width: `${fullScreen.isFullSCreen ? fullScreen.width : ""}`,
                   }}
                 >
-                  {(showCompleteMessage && videoCompleted == true ) ? (
+                  {showCompleteMessage ? (
                     <div className="bg-white rounded">
                       <CourseSuccessMessage />
                     </div>
                   ) : (
                     <>
-                      {
-                      // item === "QUIZ" && !showQuiz ? (
-                      //   <div
-                      //     size="lg"
-                      //     className="modal-popup text-screen modal-popup"
-                      //   >
-                      //     <div className="modal-content card p-4">
-                      //       {quizStart ? (
-                      //         <>
-                      //           <Modal.Header>
-                      //             <Modal.Title className="w-100 d-block mb-2">
-                      //               <div className="text-left text-primary"
-                      //                 dangerouslySetInnerHTML={{
-                      //                   __html: t(
-                      //                     "student_course.quiz_start_title"
-                      //                   ),
-                      //                 }}
-                      //               ></div>
-                      //             </Modal.Title>
-                      //             {/* <div
-                      //             className="w-100 d-block text-left"
-                      //             dangerouslySetInnerHTML={{
-                      //               __html: t("student_course.quiz_inst_msg"),
-                      //             }}
-                      //           ></div> */}
-                      //           </Modal.Header>
-                      //           <Modal.Body>
-                      //             <Row>
-                      //               <Col md={12}>
-                      //                 <div
-                      //                   className="w-100 d-block text-left mb-3"
-                      //                   dangerouslySetInnerHTML={{
-                      //                     __html: t("student_course.quiz_inst_msg1"),
-                      //                   }}
-                      //                 ></div>
-                      //                 <div
-                      //                   className="w-100 d-block text-left"
-                      //                   dangerouslySetInnerHTML={{
-                      //                     __html: t("student_course.quiz_inst_msg2"),
-                      //                   }}
-                      //                 ></div>
-                      //                 <Button
-                      //                   label={
-                      //                     quizStart
-                      //                       ? t("student.lets_start")
-                      //                       : quizCompleted
-                      //                         ? t("student.see_result")
-                      //                         : t("student.resume_quiz")
-                      //                   }
-                      //                   btnClass="primary mt-4"
-                      //                   size="small"
-                      //                   onClick={() => {
-                      //                     setHideQuiz(true);
-                      //                     setQuizAttempted(true);
-                      //                   }}
-                      //                 />
-                      //               </Col>
-                      //             </Row>
-                      //           </Modal.Body>
-                      //         </>
-                      //       ) : quizCompleted ? (
-                      //         <>
-                      //           <Modal.Header>
-                      //             <Modal.Title className="w-100 d-block mb-2">
-                      //               <div className="text-primary"
-                      //                 dangerouslySetInnerHTML={{
-                      //                   __html: t(
-                      //                     "student_course.quiz_com_title"
-                      //                   ),
-                      //                 }}
-                      //               ></div>
-                      //             </Modal.Title>
-                      //           </Modal.Header>
-                      //           <Modal.Body>
-                      //             <Row>
-                      //               <Col md={12} className="text-center">
-                      //                 <div>
-                      //                   <img
-                      //                     className="img-fluid imgWidthSize"
-                      //                     src={Congo}
-                      //                   ></img>
-                      //                 </div>
-                      //                 <h5
-                      //                   className="w-100 d-block"
-                      //                   dangerouslySetInnerHTML={{
-                      //                     __html: t("student_course.quiz_com_note"),
-                      //                   }}
-                      //                 ></h5>
-                      //                 {/* <div
-                      //                   className="w-100 d-block text-left mb-3"
-                      //                   dangerouslySetInnerHTML={{
-                      //                     __html: t("student_course.quiz_inst_msg1"),
-                      //                   }}
-                      //                 ></div> */}
+                      {item === "QUIZ" && !showQuiz ? (
+                        <div
+                          size="lg"
+                          className="modal-popup text-screen modal-popup"
+                        >
+                          <div className="modal-content card p-4">
+                            {quizStart ? (
+                              <>
+                                <Modal.Header>
+                                  <Modal.Title className="w-100 d-block mb-2">
+                                    <div className="text-left text-primary"
+                                      dangerouslySetInnerHTML={{
+                                        __html: t(
+                                          "student_course.quiz_start_title"
+                                        ),
+                                      }}
+                                    ></div>
+                                  </Modal.Title>
+                                  {/* <div
+                                  className="w-100 d-block text-left"
+                                  dangerouslySetInnerHTML={{
+                                    __html: t("student_course.quiz_inst_msg"),
+                                  }}
+                                ></div> */}
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <Row>
+                                    <Col md={12}>
+                                      <div
+                                        className="w-100 d-block text-left mb-3"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_inst_msg1"),
+                                        }}
+                                      ></div>
+                                      <div
+                                        className="w-100 d-block text-left"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_inst_msg2"),
+                                        }}
+                                      ></div>
+                                      <Button
+                                        label={
+                                          quizStart
+                                            ? t("student.lets_start")
+                                            : quizCompleted
+                                              ? t("student.see_result")
+                                              : t("student.resume_quiz")
+                                        }
+                                        btnClass="primary mt-4"
+                                        size="small"
+                                        onClick={() => {
+                                          setHideQuiz(true);
+                                          setQuizAttempted(true);
+                                        }}
+                                      />
+                                    </Col>
+                                  </Row>
+                                </Modal.Body>
+                              </>
+                            ) : quizCompleted ? (
+                              <>
+                                <Modal.Header>
+                                  <Modal.Title className="w-100 d-block mb-2">
+                                    <div className="text-primary"
+                                      dangerouslySetInnerHTML={{
+                                        __html: t(
+                                          "student_course.quiz_com_title"
+                                        ),
+                                      }}
+                                    ></div>
+                                  </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <Row>
+                                    <Col md={12} className="text-center">
+                                      <div>
+                                        <img
+                                          className="img-fluid imgWidthSize"
+                                          src={Congo}
+                                        ></img>
+                                      </div>
+                                      <h5
+                                        className="w-100 d-block"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_com_note"),
+                                        }}
+                                      ></h5>
+                                      {/* <div
+                                        className="w-100 d-block text-left mb-3"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_inst_msg1"),
+                                        }}
+                                      ></div> */}
 
-                      //                 <Button
-                      //                   label={
-                      //                     quizStart
-                      //                       ? t("student.lets_start")
-                      //                       : quizCompleted
-                      //                         ? t("student.see_result")
-                      //                         : t("student.resume_quiz")
-                      //                   }
-                      //                   btnClass="primary mt-4"
-                      //                   size="small"
-                      //                   onClick={() => {
-                      //                     setHideQuiz(true);
-                      //                     setQuizAttempted(true);
-                      //                   }}
-                      //                 />
-                      //               </Col>
-                      //             </Row>
-                      //           </Modal.Body>
-                      //         </>
-                      //       ) : (
-                      //         <>
-                      //           <Modal.Header>
-                      //             <Modal.Title className="w-100 d-block mb-2">
-                      //               <div className="text-primary"
-                      //                 dangerouslySetInnerHTML={{
-                      //                   __html: t(
-                      //                     "student_course.quiz_con_title"
-                      //                   ),
-                      //                 }}
-                      //               ></div>
-                      //             </Modal.Title>
-                      //             {/* <div
-                      //             className="w-100 d-block text-left"
-                      //             dangerouslySetInnerHTML={{
-                      //               __html: t("student_course.quiz_inst_msg"),
-                      //             }}
-                      //           ></div> */}
-                      //           </Modal.Header>
-                      //           <Modal.Body>
-                      //             <Row>
-                      //               <Col md={12}>
-                      //                 <div
-                      //                   className="w-100 d-block text-left mb-3"
-                      //                   dangerouslySetInnerHTML={{
-                      //                     __html: t("student_course.quiz_inst_msg1"),
-                      //                   }}
-                      //                 ></div>
-                      //                 <div
-                      //                   className="w-100 d-block text-left"
-                      //                   dangerouslySetInnerHTML={{
-                      //                     __html: t("student_course.quiz_inst_msg2"),
-                      //                   }}
-                      //                 ></div>
-                      //                 <Button
-                      //                   label={
-                      //                     quizStart
-                      //                       ? t("student.lets_start")
-                      //                       : quizCompleted
-                      //                         ? t("student.see_result")
-                      //                         : t("student.resume_quiz")
-                      //                   }
-                      //                   btnClass="primary mt-4"
-                      //                   size="small"
-                      //                   onClick={() => {
-                      //                     setHideQuiz(true);
-                      //                     setQuizAttempted(true);
-                      //                   }}
-                      //                 />
-                      //               </Col>
-                      //             </Row>
-                      //           </Modal.Body>
-                      //         </>
+                                      <Button
+                                        label={
+                                          quizStart
+                                            ? t("student.lets_start")
+                                            : quizCompleted
+                                              ? t("student.see_result")
+                                              : t("student.resume_quiz")
+                                        }
+                                        btnClass="primary mt-4"
+                                        size="small"
+                                        onClick={() => {
+                                          setHideQuiz(true);
+                                          setQuizAttempted(true);
+                                        }}
+                                      />
+                                    </Col>
+                                  </Row>
+                                </Modal.Body>
+                              </>
+                            ) : (
+                              <>
+                                <Modal.Header>
+                                  <Modal.Title className="w-100 d-block mb-2">
+                                    <div className="text-primary"
+                                      dangerouslySetInnerHTML={{
+                                        __html: t(
+                                          "student_course.quiz_con_title"
+                                        ),
+                                      }}
+                                    ></div>
+                                  </Modal.Title>
+                                  {/* <div
+                                  className="w-100 d-block text-left"
+                                  dangerouslySetInnerHTML={{
+                                    __html: t("student_course.quiz_inst_msg"),
+                                  }}
+                                ></div> */}
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <Row>
+                                    <Col md={12}>
+                                      <div
+                                        className="w-100 d-block text-left mb-3"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_inst_msg1"),
+                                        }}
+                                      ></div>
+                                      <div
+                                        className="w-100 d-block text-left"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t("student_course.quiz_inst_msg2"),
+                                        }}
+                                      ></div>
+                                      <Button
+                                        label={
+                                          quizStart
+                                            ? t("student.lets_start")
+                                            : quizCompleted
+                                              ? t("student.see_result")
+                                              : t("student.resume_quiz")
+                                        }
+                                        btnClass="primary mt-4"
+                                        size="small"
+                                        onClick={() => {
+                                          setHideQuiz(true);
+                                          setQuizAttempted(true);
+                                        }}
+                                      />
+                                    </Col>
+                                  </Row>
+                                </Modal.Body>
+                              </>
 
-                      //       )}
+                            )}
 
 
-                      //     </div>
-                      //   </div>
-                      // ) :
-                       item === "WORKSHEET" ? (
+                          </div>
+                        </div>
+                      ) : item === "WORKSHEET" ? (
                         <>
                           {worksheetId === 2 ? (
                             <>
@@ -1447,7 +1437,7 @@ console.log(videoCompleted,"video");
                             </Fragment>
                           )}
                         </>
-                      ) : courseData !== null  ? (
+                      ) : courseData !== null && !showQuiz ? (
                         <Fragment>
                           <Card className="course-sec-basic p-3" id="desc">
                             <CardBody>
@@ -1486,6 +1476,7 @@ console.log(videoCompleted,"video");
                                 />
                               )}
                             </CardTitle>
+                            {/* https://vimeo.com/226260195 */}
                             {videoCompleted ? (
                               <CourseSuccessMessage />
                             ) : (
@@ -1498,24 +1489,33 @@ console.log(videoCompleted,"video");
                                             onSeeked={handleSeeked}
                                             onTimeUpdate={handleTimeUpdate}
                                             onEnd={() => {
-                                              // if (backToQuiz) {
-                                              //   setBackToQuiz(false);
-                                              //   setItem("");
-                                              //   setHideQuiz(true);
-                                              //   setQuizTopic("");
-                                              //   return;
-                                              // }
+                                              if (backToQuiz) {
+                                                setBackToQuiz(false);
+                                                setItem("");
+                                                setHideQuiz(true);
+                                                setQuizTopic("");
+                                                return;
+                                              }
                                               handleVimeoOnEnd(id);
                                             } }
-                                            showTitle /><p style={{ marginTop: "0.5rem",paddingLeft:"1rem", fontSize: "13.6px", color: "black",fontWeight:"bold" }}>
+                                            showTitle /><p style={{ marginTop: "2rem",paddingLeft:"1rem", fontSize: "1rem", color: "black" }}>
                                               {id.description}
                                             </p></>
                             )}
-                          
+                            {/* <p className="p-4">
+                                                                    <span> Description : </span> Lorem
+                                                                    ipsum dolor sit amet, consectetur
+                                                                    adipisicing elit. Ullam fugiat fuga
+                                                                    alias cupiditate dolor quos mollitia
+                                                                    maiores quia, aliquid perspiciatis
+                                                                    praesentium nisi voluptatum
+                                                                    quibusdam consequuntur. Saepe harum
+                                                                    hic dicta eius.
+                                                                </p> */}
                           </Card>
                         </>
                       ) : (
-                        // showQuiz === false &&
+                        showQuiz === false &&
                         item !== "VIDEO" &&
                         condition !== "Video1" && (
                           <Fragment>
@@ -1556,7 +1556,7 @@ console.log(videoCompleted,"video");
                           </Fragment>
                         )
                       )}
-                      {/* {showQuiz ? (
+                      {showQuiz ? (
                         <DetaledQuiz
                           course_id={course_id}
                           quizId={quizId}
@@ -1572,7 +1572,7 @@ console.log(videoCompleted,"video");
                         />
                       ) : (
                         ""
-                      )} */}
+                      )}
                     </>
                   )}
                 </Col>
