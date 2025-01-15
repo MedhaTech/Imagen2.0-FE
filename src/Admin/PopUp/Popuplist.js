@@ -293,12 +293,12 @@ const AdminResources = () => {
                     if (value === '0') {
                         openNotificationWithIcon(
                             'success',
-                            'PopUp Disabled successfully'
+                            'PopUp Disabled Successfully'
                         );
                     } else if (value === '1') {
                         openNotificationWithIcon(
                             'success',
-                            'PopUp Enabled successfully'
+                            'PopUp Enabled Successfully'
                         );
                     }
                     // openNotificationWithIcon(
