@@ -586,7 +586,9 @@ const PlayVideoCourses = (props) => {
         );
         handlePlayerPlay();
       } else {
+
         setVideoCompleted(true);
+        // alert("hii");
         // getWorkSheetApi(worksheetId);
 
       }
@@ -1155,7 +1157,7 @@ console.log(videoCompleted,"video");
                     width: `${fullScreen.isFullSCreen ? fullScreen.width : ""}`,
                   }}
                 >
-                  {(showCompleteMessage && videoCompleted == true ) ? (
+                  {showCompleteMessage  ? (
                     <div className="bg-white rounded">
                       <CourseSuccessMessage />
                     </div>
