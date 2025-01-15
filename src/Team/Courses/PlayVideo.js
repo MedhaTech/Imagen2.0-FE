@@ -588,7 +588,7 @@ const PlayVideoCourses = (props) => {
       } else {
 
         setVideoCompleted(true);
-        alert("hii");
+        // alert("hii");
         // getWorkSheetApi(worksheetId);
 
       }
