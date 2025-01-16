@@ -571,11 +571,16 @@ const PlayVideoCourses = (props) => {
       (item) => item.topic_type_id === topicObj.topic_type_id
     );
     // if (event.reflective_quiz_status !== "INCOMPLETE") {
+
+      //old if condition for videos
+      // (topicObj.topic_type_id !==
+      // setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id ||
+      // topicObj.topic_type !=
+      // setTopicArrays[setTopicArrays?.length - 1]?.topic_type)
+
+
       if (
-        topicObj.topic_type_id !==
-        setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id ||
-        topicObj.topic_type !=
-        setTopicArrays[setTopicArrays?.length - 1]?.topic_type
+        topicObj.topic_type!=='QUIZ'
       ) {
         setTopic(setTopicArrays[topixIndex]);
         modulesListUpdateApi(topicObj.course_topic_id);
@@ -721,7 +726,7 @@ console.log(videoCompleted,"video");
     setTopicObj(topicObj);
     if (type === "WORKSHEET") {
       setWorksheetId(topicId);
-      getWorkSheetApi(topicId);
+      //getWorkSheetApi(topicId); enable when worksheet is available 
       setItem("WORKSHEET");
       // setHideQuiz(false);
     // } else if (type === "QUIZ") {
