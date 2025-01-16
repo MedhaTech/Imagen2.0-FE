@@ -230,7 +230,8 @@ const Crew3Reg = () => {
               type="submit"
 
             >
-              LOGIN<ArrowRight />
+              LOGIN
+              <ArrowRight />
             </button>
           </div>
         </div>

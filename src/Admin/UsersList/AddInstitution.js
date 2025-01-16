@@ -479,14 +479,16 @@ const AddInstitution = () => {
                               !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
                             }
                           >
-                            PROCEED<ArrowRight />
+                            PROCEED
+                            {/* <ArrowRight /> */}
                           </button>
                           <button
                             className="btn btn-warning m-2"
                             type="submit"
                             onClick={() => navigate("/institution-users-list")}
                           >
-                            Back<ArrowRight />
+                            Back
+                            {/* <ArrowRight /> */}
                           </button>
                         </div>
                   </div>

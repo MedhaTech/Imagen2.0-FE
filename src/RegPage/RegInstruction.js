@@ -177,7 +177,7 @@ const RegInstruction = () => {
               Proceed
               <span>
                 {" "}
-                <ArrowRight />
+                {/* <ArrowRight /> */}
               </span>
             </button>
           </div>

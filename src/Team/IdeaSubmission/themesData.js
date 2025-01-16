@@ -35,7 +35,7 @@ export const themesList = [
     "Robotics and Drones",
     "Clean and Green Technology",
     "Tourism",
-    "Renewable and sustainable Energy",
+    "Renewable and Sustainable Energy",
     "Blockchain and Cybersecurity",
     "Smart Education",
     "Disaster Management",
@@ -237,7 +237,7 @@ export const themes = [
     },  { 
         id: 11, 
         image: i11, 
-        title:  "Renewable and sustainable Energy",
+        title:  "Renewable and Sustainable Energy",
         // focusareas: [
         //     "Modern Farming Techniques (e.g., hydroponics, precision farming)",
         //     "Rural Development (e.g., rural infrastructure, community projects)",
