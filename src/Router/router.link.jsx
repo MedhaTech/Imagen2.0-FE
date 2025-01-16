@@ -35,7 +35,9 @@ import MentorProfile from "../Teacher/TeacherProfile";
 import MentorEditProfile from "../Teacher/TeacherEdit";
 import AdminPassword from "../Admin/AdminPassword";
 import StateDashboard from "../Coordinators/Dashboard/StateDashboard";
-import EadminDashboard from "../Evaluator/Admin/Dashboard/EadminDashboard";
+// import EadminDashboard from "../Evaluator/Admin/Dashboard/EadminDashboard";
+import EadminDashboard from "../Evaluator/Admin/Evaluation/index";
+
 import MentorPresurvey from "../Teacher/PreSurvey/PreSurvey";
 import MentorPostsurvey from "../Teacher/PostSurvey/PostSurvey";
 import MentorTeams from "../Teacher/Teams/index";
@@ -112,11 +114,85 @@ import StudentDiscussion from "../Team/SupportJourney/Ticket";
 import StudentNewChat from "../Team/SupportJourney/AddNewTicket";
 import StudentNewChatResponse from "../Team/SupportJourney/TicketResponse";
 
-
-
-
-
-
+import EadminChallenges from "../Evaluator/Admin/Challenges/ViewSelectedChallenges";
+import EadminProcess from "../Evaluator/Admin/EvalProcess/index";
+import EadminEval from "../Evaluator/Admin/Evaluator/EadminEvaluator";
+import ViewSelectedideasNew from "../Evaluator/Admin/Evaluation/ViewSelectedIdea/ViewSelectedideasNew";
+import EadminFinal from "../Evaluator/Admin/Evaluation/FinalResults/ViewFinalSelectedideas";
+import EadminRest from "../Evaluator/Admin/Pages/ChangePSWModal";
+import EadminDist from "../Evaluator/Admin/EvalProcess/SelectingDistricts";
+import ReportsCard from "../Evaluator/Admin/Reports/index";
+import ReportL1 from "../Evaluator/Admin/Reports/ReportL1";
+import ReportL2 from "../Evaluator/Admin/Reports/ReportL2";
+import ReportL3 from "../Evaluator/Admin/Reports/ReportL3";
+import EditEvaluator from "../Evaluator/Admin/Evaluator/EadminEditProfile";
+import State from "../Evaluator/Admin/Evaluator/State";
+import SearchCID from "../Evaluator/Admin/Dashboard/SearchCID";
+import Instruction from "../Evaluator/Instructions/Instructions";
+import IdeaList from "../Evaluator/IdeaList/IdeaList";
+import NextLevel from "../Evaluator/IdeaList/NextLevelIdeas";
+import ChangeEval from "../Evaluator/ChangePSWModal";
+import EvaluateL1 from "../Evaluator/EvaluatedIdea/EvaluatedIdea";
+import EvaluateL2 from "../Evaluator/EvaluatedIdea/EvaluatedIdeaL2";
+import EvaluatorProfile from "../Evaluator/EvaluatorProfile";
+export const evaluatorRoutes = [
+  {
+    id: 1,
+    path: routes.evalinstructions,
+    name: "evalinstructions",
+    element: <Instruction />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 2,
+    path: routes.evalsubmit,
+    name: "evalsubmit",
+    element: <IdeaList />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 3,
+    path: routes.evalsubmitwo,
+    name: "evalsubmitwo",
+    element: <NextLevel />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 4,
+    path: routes.evalchange,
+    name: "evalchange",
+    element: <ChangeEval/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.evlL1,
+    name: "evlL1",
+    element: <EvaluateL1/>,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 6,
+    path: routes.evlL2,
+    name: "evlL2",
+    element: <EvaluateL2/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 7,
+    path: routes.evlProfile,
+    name: "evlProfile",
+    element: <EvaluatorProfile/>,
+    protected: true,
+    route: Route,
+  },
+];
 
 
 
@@ -738,9 +814,120 @@ export const stateRoutes = [
 export const eadminRoutes = [
   {
     id: 1,
+    path: routes.eadminevaluation,
+    name: "eadminevaluation",
+    element: <EadminDashboard />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 2,
     path: routes.eadmindashboard,
     name: "eadminhome",
-    element: <EadminDashboard />,
+    element: <EadminChallenges />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 3,
+    path: routes.eadminEvaluationProcess,
+    name: "eadminEvaluationProcess",
+    element: <EadminProcess />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 4,
+    path: routes.eadminevaluator,
+    name: "eadminevaluator",
+    element: <EadminEval />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.eadminstats,
+    name: "eadminstats",
+    element: <ViewSelectedideasNew/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 6,
+    path: routes.eadminfinal,
+    name: "eadminfinal",
+    element: <EadminFinal/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 7,
+    path: routes.eadminRest,
+    name: "eadminRest",
+    element: <EadminRest/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 8,
+    path: routes.eadminDist,
+    name: "eadminDist",
+    element: <EadminDist/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 9,
+    path: routes.evalState,
+    name: "evalState",
+    element: <State/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 10,
+    path: routes.evalReports,
+    name: "evalReports",
+    element: <ReportsCard/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 11,
+    path: routes.evalL1,
+    name: "evalL1",
+    element: <ReportL1/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 12,
+    path: routes.evalL2,
+    name: "evalL2",
+    element: <ReportL2/>,
+    protected: true,
+    route: Route,
+  }, {
+    id: 13,
+    path: routes.evalL3,
+    name: "evalL3",
+    element: <ReportL3/>,
+    protected: true,
+    route: Route,
+  }
+  , {
+    id: 14,
+    path: routes.editeval,
+    name: "editeval",
+    element: <EditEvaluator/>,
+    protected: true,
+    route: Route,
+  }
+  , {
+    id: 15,
+    path: routes.searchCid,
+    name: "searchCid",
+    element: <SearchCID/>,
     protected: true,
     route: Route,
   },

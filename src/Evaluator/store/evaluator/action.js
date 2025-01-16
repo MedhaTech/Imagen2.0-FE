@@ -38,7 +38,7 @@ export const evaluatorLoginUserError = (message) => async (dispatch) => {
 };
 
 export const evaluatorLoginUser =
-  (data, history, module) => async (dispatch) => {
+  (data, navigate, module) => async (dispatch) => {
     try {
       const loginData = {
         ...data,
@@ -60,12 +60,23 @@ export const evaluatorLoginUser =
         localStorage.setItem("module", module);
         dispatch(evaluatorLoginUserSuccess(result));
 
-        history.push("/evaluator/instructions");
-      } else {
-        openNotificationWithIcon("error", "Invalid Username or Password");
+        navigate("/evaluator/instructions");
+      } else if (result && result.status === 404) {
+        openNotificationWithIcon("error", "Invalid Credentials entered");
+       
         dispatch(evaluatorLoginUserError(result.statusText));
+      }else{
+        openNotificationWithIcon(
+          'error',
+         "Entered Evaluator Credentials are in InActive Status"
+        );
       }
-    } catch (error) {
+      
+    }catch (error) {
+      openNotificationWithIcon(
+        'error',
+       "Entered Evaluator Credentials are in InActive Status"
+    );
       dispatch(evaluatorLoginUserError({}));
     }
   };
@@ -109,15 +120,26 @@ export const evaluatorAdminLoginUser =
         setCurrentUser(item);
         localStorage.setItem("module", module);
         localStorage.setItem("time", new Date().toString());
-        localStorage.setItem("layoutStyling", "modern");
+        // localStorage.setItem("layoutStyling", "modern");
+        localStorage.setItem("layoutStyling", "default");
         dispatch(evaluatorAdminLoginUserSuccess(result));
 
-        navigate("/eadmin-dashboard");
-      } else {
-        openNotificationWithIcon("error", "Invalid Username or Password");
+        navigate("/eadmin/evaluationStatus");
+      } else if (result && result.status === 404) {
+        openNotificationWithIcon("error", "Invalid Credentials entered");
+       
         dispatch(evaluatorAdminLoginUserError(result.statusText));
+      }else{
+        openNotificationWithIcon(
+          'error',
+         "Entered Eadmin Credentials are in InActive Status"
+        );
       }
     } catch (error) {
+      openNotificationWithIcon(
+        'error',
+       "Entered Eadmin Credentials are in InActive Status"
+    );
       dispatch(evaluatorAdminLoginUserError({}));
     }
   };
@@ -210,7 +232,7 @@ export const getL1EvaluatedIdea = (params, setshowspin) => async (dispatch) => {
     const result = await axios
       .get(
         `${
-          process.env.REACT_APP_API_BASE_URL +
+          process.env.REACT_APP_API_BASE_URL_FOR_REPORTS  +
           "/challenge_response/evaluated/" +
           evId +
           "?Data=" +

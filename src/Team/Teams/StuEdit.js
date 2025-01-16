@@ -57,7 +57,7 @@ const StuEdit = () => {
       .then(function (response) {
         if (response.status === 200) {
           setData(response.data.data[0]);
-          // console.log(response,"11");
+          console.log(response,"11");
         }
       })
       .catch(function (error) {
@@ -162,7 +162,7 @@ const StuEdit = () => {
       ),
     
     }),
-
+//  (values.college === 'Other' || values.college === 'Govt Junior College' || values.college === 'Private College')
     onSubmit: (values) => {
       const body ={
         full_name: values.full_name,
@@ -191,7 +191,7 @@ const StuEdit = () => {
         },
         data: JSON.stringify(body),
       };
-      console.log(body,"body");
+      // console.log(body,"body");
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
@@ -233,12 +233,12 @@ const StuEdit = () => {
         yearofstudy: data.year_of_study || '',
         collegeType: data.college_type || '',
         // ocn: data.college_name || '',
-        ocn: data.college_type === 'Other' ? data.college_name : '',
+        ocn: (data.college_type === 'Other' || data.college_type === 'Private College' || data.college_type === 'Govt Junior College') ? data.college_name : '',
         id_number: data.id_number || '',
       });
     }
   }, [data]); 
-  // console.log(currentUser,"cc");
+  // console.log(data,"cc");
 
   useEffect(() => {
     if (data?.college_type) {
@@ -259,7 +259,7 @@ const StuEdit = () => {
         ] || []
     );
    },[data.college_type]);
-  //  console.log( formik.values.college,"clg",formik.values.ocn,"other");
+   console.log( formik.values.collegeType,"clg",formik.values.ocn,"other");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -478,7 +478,7 @@ const StuEdit = () => {
                               </small>
                             ) : null}
                           </div>
-                          {formik.values.collegeType === "Other" && (
+                          {(formik.values.collegeType.trim() === "Other" || formik.values.collegeType.trim() === "Govt Junior College" || formik.values.collegeType.trim() === "Private College" )&& (
                             <div className={`col-md-12`}>
                               <label htmlFor="ocn" className="form-label">
                                 Other College Name
@@ -619,7 +619,7 @@ const StuEdit = () => {
     disabled={!formik.dirty || !formik.isValid ||  (formik.values.collegeType === "Other" && !formik.values.ocn)}
                           >
                             Submit
-                            <ArrowRight />
+                            {/* <ArrowRight /> */}
 
                           </button>
                           <button
@@ -628,7 +628,7 @@ const StuEdit = () => {
                             onClick={() => navigate("/student-team")}
                           >
                             Back
-                            <ArrowRight />
+                            {/* <ArrowRight /> */}
                           </button>
                         </div>
                       </div>

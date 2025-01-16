@@ -651,7 +651,7 @@ const Crew1student = () => {
                             }
                           >
                             PROCEED
-                            <ArrowRight />
+                            {/* <ArrowRight /> */}
                           </button>
                         </div>
                       </div>

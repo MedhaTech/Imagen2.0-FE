@@ -619,14 +619,16 @@ const Crew1student = () => {
                               !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
                             }
                           >
-                            PROCEED<ArrowRight />
+                            PROCEED
+                            {/* <ArrowRight /> */}
                           </button>
                           <button
                             className="btn btn-warning m-2"
                             type="submit"
                             onClick={() => navigate("/student-team")}
                           >
-                            Back<ArrowRight />
+                            Back
+                            {/* <ArrowRight /> */}
                           </button>
                         </div>
 

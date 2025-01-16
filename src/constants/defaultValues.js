@@ -14,15 +14,27 @@ export const URL = {
     process.env.REACT_APP_API_BASE_URL + "/reflectiveQuiz/",
   getAdminRefQizList: process.env.REACT_APP_API_BASE_URL + "/reflectiveQuiz/",
   getStudents: process.env.REACT_APP_API_BASE_URL + "/students",
-
+  getidealist: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS
+  + '/challenge_response?',
   getMentors: process.env.REACT_APP_API_BASE_URL + '/mentors',
-
+  getAdminEvaluator: process.env.REACT_APP_API_BASE_URL + '/evaluators',
+  getNotificationsList:
+  process.env.REACT_APP_API_BASE_URL + '/notifications/tome',
   // getStudentById: process.env.REACT_APP_API_BASE_URL + '/students/',
   updateStudentStatus: process.env.REACT_APP_API_BASE_URL + "/students",
   getChallengeQuestions: process.env.REACT_APP_API_BASE_URL + "/challenge",
   getChallengeSubmittedResponse:
     process.env.REACT_APP_API_BASE_URL +
     "/challenge_response/submittedDetails?",
+    getFinalEvaluation:
+  process.env.REACT_APP_API_BASE_URL_FOR_REPORTS  +
+        '/challenge_response/finalEvaluation',
+        getidealistfinal:
+  process.env.REACT_APP_API_BASE_URL_FOR_REPORTS 
+ +
+  '/challenge_response/evaluationResult',
+  gettotalcount:
+  process.env.REACT_APP_API_BASE_URL + '/dashboard/evaluatorStats',
   initiateChallenge:
     process.env.REACT_APP_API_BASE_URL + "/challenge_response/",
   uploadFile:
