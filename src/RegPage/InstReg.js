@@ -288,7 +288,7 @@ const Register = () => {
       college_name: mentData.college_name,
       college_type: mentData.college_type,
 
-      district: orgData.district,
+      district: mentData.district,
       email: mentData.username,
       mobile: mentData.mobile,
     };
