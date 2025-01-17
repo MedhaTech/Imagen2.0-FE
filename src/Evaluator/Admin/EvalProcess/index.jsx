@@ -105,7 +105,7 @@ const Evalprocess = () => {
                             style={{ marginRight: '12px' }}
                         >
                             <div className="btn btn-info mx-2">
-                                States
+                                Districts
                             </div>
                         </div>
                     </>

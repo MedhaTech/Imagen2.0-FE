@@ -123,7 +123,7 @@ console.log(mobile,"m");
                 <Card className="m-3 p-3">
                   
                     <Row>
-                        <Label className="mb-2">Evaluator Enable States:</Label>
+                        <Label className="mb-2">Evaluator Enable Districts:</Label>
                         <Row>
                         {/* {states.length > 0 ? (
                         states.map((state, index) => (
@@ -155,7 +155,7 @@ console.log(mobile,"m");
                             </Col>
                         ))
                     ) : (
-                        <div>No states available</div>
+                        <div>No Districts available</div>
                     )}
                 </Row>
                     </Row>

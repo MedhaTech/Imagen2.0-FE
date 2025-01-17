@@ -13,6 +13,7 @@ export const all_routes = {
   adminlist:"/admins",
   mentortableview:"/mentor-view",
   popup:"/popup",
+  searchCid:"/search-cid",
   mentordetails:"/mentor-details",
   studentreport:"Student-Report",
   mentorEdit:"/admin-mentor-edit",

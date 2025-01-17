@@ -164,16 +164,7 @@ const StateLogin = (props) => {
                   </div>
                 </div> */}
                  <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  {/* <Link
-                    className="btn btn-login"
-                    type="submit"
-                    btnClass={
-                      !(formik.dirty && formik.isValid) ? "default" : "primary"
-                    }
-                    disabled={!(formik.dirty && formik.isValid)}
-                  >
-                    Sign In
-                  </Link> */}
+                
                   <button
                     // className="btn btn-login"
                     type="submit"

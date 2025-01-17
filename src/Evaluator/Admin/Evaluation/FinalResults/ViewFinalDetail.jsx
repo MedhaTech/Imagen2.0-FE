@@ -282,13 +282,13 @@ const ViewDetail = (props) => {
                                                             }
                                                         </span>
                                                         <br/>
-                                                        <span>State :</span>
+                                                        {/* <span>State :</span>
                                                         <span >
                                                             &nbsp;
                                                             {
                                                                 teamResponse.state
                                                             }
-                                                        </span>
+                                                        </span> */}
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
@@ -386,35 +386,7 @@ const ViewDetail = (props) => {
                             </div>
                         </div>
                         <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                                <div
-                                    // key={index}
-                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
-                                >
-                                    <div className="question quiz mb-0">
-                                        <b
-                                            style={{
-                                                fontSize: '1rem',marginBottom:"1rem"
-                                            }}
-                                        >
-                                            Idea Submission Language
-                                            
-                                        </b>
-                                    </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"50px" }}>
-                                        <p
-                                            style={{
-                                                fontSize: '1rem',color:"black"
-                                            }}
-                                        >
-                                            {
-                                                teamResponse.language
-                                            }
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                <h4>Section-1: Problem Identification</h4>
+                       
 
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
@@ -427,7 +399,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            1.Theme
+                                            1. Which category does your idea belong to?
                                             
                                         </b>
                                     </div>
@@ -455,7 +427,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                           2.Focus Area
+                                           2.Describe your idea (in one sentence).
                                             {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
                                         </b>
@@ -467,7 +439,7 @@ const ViewDetail = (props) => {
                                             }}
                                         >
                                             {
-                                                teamResponse.focus_area
+                                                teamResponse.idea_describe
                                             }
                                         </p>
                                     </div>
@@ -484,8 +456,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                             3. Title of your idea (Think of a proper name. Don't describe
-                                                the solution or problem statement here.)
+                                             3.Give a title to your idea.
                                            
                                         </b>
                                     </div>
@@ -513,7 +484,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            4. Write down your Problem statement
+                                            4. What problem does your idea solve?
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto", }}>
@@ -522,7 +493,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                            {teamResponse.problem_statement}
+                                            {teamResponse.solve}
                                         </p>
                                     </div>
                                 </div>
@@ -538,7 +509,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                              5. List the Causes of the problem
+                                              5. Who are your target customers/users?
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto", }}>
@@ -547,7 +518,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                            {teamResponse.causes}
+                                            {teamResponse.customer}
                                         </p>
                                     </div>
                                 </div>
@@ -563,7 +534,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            6. List the Effects of the problem
+                                            6. Explain your idea in detail
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto", }}>
@@ -572,7 +543,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                            {teamResponse.effects}
+                                            {teamResponse.detail}
                                         </p>
                                     </div>
                                 </div>
@@ -588,7 +559,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                             7. In which places in your community did you find this problem?
+                                             7. What stage is your idea currently at?
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -597,7 +568,14 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                            {teamResponse.community}
+                                            {teamResponse.stage &&
+                        JSON.parse(teamResponse.stage).map((item, index) => (
+                          <span key={index}>
+                            {item}
+                            {index !==
+                              JSON.parse(teamResponse.stage).length - 1 && ", "}
+                          </span>
+                        ))}
                                         </p>
                                     </div>
                                 </div>
@@ -613,7 +591,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                             8. Who all are facing this problem?
+                                             8. How unique is your idea compared to existing solutions?
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -622,12 +600,19 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                            {teamResponse.facing}
+                                           {teamResponse.unique &&
+                        JSON.parse(teamResponse.unique).map((item, index) => (
+                          <span key={index}>
+                            {item}
+                            {index !==
+                              JSON.parse(teamResponse.unique).length - 1 &&
+                              ", "}
+                          </span>
+                        ))}
                                         </p>
                                     </div>
                                 </div>
                             </div>{' '}
-                <h4>Section-2: Solution & User Analysis</h4>
 
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
@@ -640,9 +625,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                              9. Describe the solution to the problem your team found. Explain
-                your solution clearly - how does it work, who is it helping, and
-                how will it solve the problem.
+                                              9.Who are your competitors or similar ideas?
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto",}}>
@@ -651,7 +634,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                            {teamResponse.solution}
+                                            {teamResponse.similar}
                                         </p>
                                     </div>
                                 </div>
@@ -667,8 +650,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                             10. Apart from your teacher, how many people/stakeholders did you
-                                             speak to to understand or improve your problem or solution?
+                                             10. How will your idea make revenue or sustain itself?
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -677,7 +659,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                            {teamResponse.stakeholders}
+                                            {teamResponse.revenue}
                                         </p>
                                     </div>
                                 </div>
@@ -693,8 +675,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                             11. Pick the actions your team did in your problem solving
-                                             journey (You can choose multiple options)
+                                             11. What impact will your idea have on society or the environment?
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -703,13 +684,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                              {teamResponse.problem_solving &&
-            JSON.parse(teamResponse.problem_solving).map((item, index) => (
-                <span key={index}>
-                    {item}
-                    {index !== JSON.parse(teamResponse.problem_solving).length - 1 && ", "}
-                </span>
-            ))}
+                                              {teamResponse.society}
                                            {/* {problemSolvingArray} */}
                                         </p>
                                     </div>
@@ -726,8 +701,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                             12. Mention the feedback that your team got and the changes you
-                                             have made, if any, to your problem or solution.
+                                             12.  How confident are you in your ability to implement your idea with your current skill set?
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -736,12 +710,21 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                          {teamResponse.feedback}
+                                         {teamResponse.confident &&
+                        JSON.parse(teamResponse.confident).map(
+                          (item, index) => (
+                            <span key={index}>
+                              {item}
+                              {index !==
+                                JSON.parse(teamResponse.confident).length - 1 &&
+                                ", "}
+                            </span>
+                          )
+                        )}
                                         </p>
                                     </div>
                                 </div>
                             </div>{' '}
-                <h4>Section-3: Prototyping</h4>
 
                           
                                     <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
@@ -755,7 +738,7 @@ const ViewDetail = (props) => {
                                                         fontSize: '1rem',marginBottom:"1rem"
                                                     }}
                                                 >
-                                                    13. Descriptive Document/Image of your prototype
+                                                    13. What additional support and resources would you need to implement or get started with your idea ?
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto",}}>
@@ -780,9 +763,10 @@ const ViewDetail = (props) => {
                                                             </a>
                                                         </div>
                                                     ))} */}
-                                                     {
+                                                    {teamResponse.support}
+                                                     {/* {
                         <LinkComponent item={images} />
-                      }
+                      } */}
                                                 {/* <p
                                         style={{
                                             fontSize: '1.4rem'
@@ -804,9 +788,17 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Clear Video Explaining your Solution
+                                            14. Upload images/documents & video links related to your Idea.(total size limit : 50 MB) 
                                         </b>
                                     </div>
+                                    <p
+                    style={{
+                      fontSize: "1rem",
+                      color: "black",
+                    }}
+                  >
+                    {<LinkComponent item={images} />}
+                  </p>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
@@ -826,32 +818,7 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                                <div
-                                    // key={index}
-                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
-                                >
-                                    <div className="question quiz mb-0">
-                                        <b
-                                            style={{
-                                                fontSize: '1rem',marginBottom:"1rem"
-                                            }}
-                                        >
-                                            15. Did your team complete and submit the workbook to your
-                                            school Guide teacher?
-                                        </b>
-                                    </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"50px" }}>
-                                        <p
-                                            style={{
-                                                fontSize: '1rem',color:"black"
-                                            }}
-                                        >
-                                            {teamResponse.workbook}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                           
                             {/* {teamResponse?.map((item, index) => {
                                 return (
                                     <div

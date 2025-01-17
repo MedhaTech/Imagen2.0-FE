@@ -28,8 +28,10 @@ const State = (props) => {
     const [clickedValue, setclickedValue] = useState({});
     const [selectedStates, setselectedStates] = useState([]);
 const navigate = useNavigate();
-    const newstateList = ["All States", ...stateList];
-    const fullStatesNames = newstateList;
+const fullStatesNames = [...districtList["Telangana"]];
+fullStatesNames.unshift("All Districts");
+    // const newstateList = ["All Districts", ...districtList];
+    // const fullStatesNames = newstateList;
 
     useEffect(() => {
         
@@ -37,7 +39,7 @@ const navigate = useNavigate();
             if (
                 evalID.state.split(',').length ===
                     fullStatesNames.length - 1 &&
-                !evalID.state.includes('All States')
+                !evalID.state.includes('All Districts')
             ) {
                 setselectedStates(fullStatesNames);
             } else {
@@ -47,22 +49,22 @@ const navigate = useNavigate();
     }, []);
 
     useEffect(() => {
-        if (clickedValue.name === 'All States') {
-            if (selectedStates.includes('All States')) {
+        if (clickedValue.name === 'All Districts') {
+            if (selectedStates.includes('All Districts')) {
                 setselectedStates(fullStatesNames);
             } else {
                 setselectedStates([]);
             }
         } else if (
             clickedValue.name &&
-            clickedValue.name !== 'All States' &&
+            clickedValue.name !== 'All Districts' &&
             selectedStates.length === fullStatesNames.length - 1 &&
-            !selectedStates.includes('All States')
+            !selectedStates.includes('All Districts')
         ) {
             setselectedStates(fullStatesNames);
-        } else if (clickedValue.name && clickedValue.name !== 'All States') {
+        } else if (clickedValue.name && clickedValue.name !== 'All Districts') {
             setselectedStates(
-                selectedStates?.filter((item) => item !== 'All States')
+                selectedStates?.filter((item) => item !== 'All Districts')
             );
         }
     }, [clickedValue]);
@@ -100,9 +102,9 @@ const navigate = useNavigate();
     const handleclick = async () => {
         // where we can select  the States //
         const value = { state: '' };
-        selectedStates.includes('All States')
+        selectedStates.includes('All Districts')
             ? (value.state = selectedStates
-                  ?.filter((item) => item !== 'All States')
+                  ?.filter((item) => item !== 'All Districts')
                   .toString())
             : (value.state = selectedStates.toString());
         await handleStates(value);
@@ -131,7 +133,7 @@ const navigate = useNavigate();
                       
                     </Row>
                     <Row>
-                        <Label className="mb-2 text-info form-label">States:</Label>
+                        <Label className="mb-2 text-info form-label">Districts :</Label>
                         <Check
                             list={fullStatesNames}
                             value={selectedStates}

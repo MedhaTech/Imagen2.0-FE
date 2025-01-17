@@ -111,7 +111,7 @@ const ViewSelectedIdea = () => {
       .get(`${URL.getidealist}Data=${newParam}`, axiosConfig)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"dist");
+          console.log(response,"dist");
           const updatedWithKey =
             response.data &&
             response.data.data[0] &&
@@ -129,7 +129,7 @@ const ViewSelectedIdea = () => {
         setshowspin(false);
       });
   }
-  // console.log(selectstate,"state",district,"district");
+  // console.log(tableData,"state");
   const evaluatedIdeaforsub = {
     data: tableData && tableData.length > 0 ? tableData : [],
     columns: [
@@ -150,11 +150,11 @@ const ViewSelectedIdea = () => {
         selector: (row) => row.district,
         width: "10rem",
       },
-      {
-        name: "Udise Code",
-        selector: (row) => row.organization_code,
-        width: "9rem",
-      },
+      // {
+      //   name: "Udise Code",
+      //   selector: (row) => row.organization_code,
+      //   width: "9rem",
+      // },
       {
         name: "Team Name",
         selector: (row) => row.team_name,
@@ -302,7 +302,7 @@ const ViewSelectedIdea = () => {
     ],
   };
   // console.log("SUBMITTED Daaaaaaaa");
-  const showbutton = selectstate && sdg;
+  const showbutton = district && sdg;
 
   const handleNext = () => {
     // here we can go for next page //

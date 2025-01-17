@@ -194,21 +194,37 @@ const LoginEvaluator = (props) => {
                       </div>
                     </div>
                   </div> */}
-                  <div className="form-login">
+                  {/* <div className="form-login">
                     <button
-                      // className="btn btn-login"
                       type="submit"
                       className={`btn btn-login ${
                         !(formik.dirty && formik.isValid) ? "default" : "primary"
                       }`}
-                      // btnClass={
-                      //   !(formik.dirty && formik.isValid) ? "default" : "primary"
-                      // }
+                    
                       disabled={!(formik.dirty && formik.isValid)}
                     >
                       Sign In
                     </button>
-                  </div>
+                  </div> */}
+                    <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                
+                <button
+                  // className="btn btn-login"
+                  type="submit"
+                  className={`btn btn-login ${
+                    !(formik.dirty && formik.isValid) ? "default" : "primary"
+                  }`}
+                  // btnClass={
+                  //   !(formik.dirty && formik.isValid) ? "default" : "primary"
+                  // }
+                  disabled={!(formik.dirty && formik.isValid)}
+                >
+                  Sign In
+                </button>
+              </div>
+              <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
+                  <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                </div>
                 </div>
               </form>
             </div>

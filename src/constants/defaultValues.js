@@ -33,6 +33,8 @@ export const URL = {
   process.env.REACT_APP_API_BASE_URL_FOR_REPORTS 
  +
   '/challenge_response/evaluationResult',
+  updateEvaluatorState:
+        process.env.REACT_APP_API_BASE_URL + '/evaluators/',
   gettotalcount:
   process.env.REACT_APP_API_BASE_URL + '/dashboard/evaluatorStats',
   initiateChallenge:

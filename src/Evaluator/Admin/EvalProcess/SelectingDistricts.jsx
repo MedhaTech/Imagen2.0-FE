@@ -25,8 +25,10 @@ const EditEvalProcess = (props) => {
     const [clickedValue, setclickedValue] = useState({});
     const [selectedStates, setselectedStates] = useState([]);
 const navigate = useNavigate();
-const newstateList = ["All Districts", ...districtList];
-    const fullStatesNames = newstateList;
+const fullStatesNames = [...districtList["Telangana"]];
+fullStatesNames.unshift("All Districts");
+// const newstateList = ["All Districts", ...districtList];
+//     const fullStatesNames = newstateList;
 
     useEffect(() => {
         // evalID && evalID.state
