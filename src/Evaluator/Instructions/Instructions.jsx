@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { Card } from 'reactstrap';
@@ -14,9 +15,9 @@ const Instructions = () => {
         (state) => state?.evaluator.instructionsData
     );
 
-    React.useEffect(() => {
-        dispatch(getInstructions());
-    }, []);
+    // React.useEffect(() => {
+    //     dispatch(getInstructions());
+    // }, []);
 
     return (
         <div className="page-wrapper">

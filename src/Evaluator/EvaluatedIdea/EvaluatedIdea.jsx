@@ -137,23 +137,23 @@ const EvaluatedIdea = () => {
                 sortable: true,
                 width: '6rem'
             },
-            {
-                name: 'State',
-                selector: (row) => row.state,
-                width: '10rem'
-            },
+            // {
+            //     name: 'State',
+            //     selector: (row) => row.state,
+            //     width: '10rem'
+            // },
             {
                 name: 'District',
                 selector: (row) => row.district,
                 width: '10rem'
             },
-            {
-                name: 'Udise Code',
-                selector: (row) => row.
-                organization_code
-                ,
-                width: '9rem'
-            },
+            // {
+            //     name: 'Udise Code',
+            //     selector: (row) => row.
+            //     organization_code
+            //     ,
+            //     width: '9rem'
+            // },
             {
                 name: 'Team Name',
                 selector: (row) => row.team_name,

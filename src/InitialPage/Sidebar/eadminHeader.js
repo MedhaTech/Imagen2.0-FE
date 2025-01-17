@@ -188,7 +188,7 @@ const EadmiHeader = () => {
     axios(config)
       .then(async function (response) {
         if (response.status == 200) {
-          //  console.log(response,"res");
+           console.log(response,"res");
            const multiOrgData = response?.data?.data[0];
            localStorage.setItem("diesCode", JSON.stringify(diesCode));
            localStorage.setItem(
