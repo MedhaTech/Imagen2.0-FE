@@ -90,7 +90,7 @@ fullStatesNames.unshift("All Districts");
                 if (response.status == 200) {
                     openNotificationWithIcon(
                         'success',
-                        'States Update Successfully'
+                        'Districts Update Successfully'
                     );
                     navigate('/eadmin/evaluationProcess');
                 }

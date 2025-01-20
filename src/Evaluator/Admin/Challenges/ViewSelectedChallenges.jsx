@@ -151,15 +151,15 @@ const ViewSelectedIdea = () => {
         width: "10rem",
       },
       // {
-      //   name: "Udise Code",
+      //   name: "College Type",
       //   selector: (row) => row.organization_code,
-      //   width: "9rem",
+      //   width: "1rem",
       // },
-      {
-        name: "Team Name",
-        selector: (row) => row.team_name,
-        width: "10rem",
-      },
+      // {
+      //   name: "Team Name",
+      //   selector: (row) => row.team_name,
+      //   width: "10rem",
+      // },
       {
         name: "CID",
         selector: (row) => row.challenge_response_id,

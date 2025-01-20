@@ -218,9 +218,9 @@ const TicketsPage = (props) => {
                 width: '10rem'
             },
             {
-                name: 'States',
-                selector: (row) => row.state,
-                cellExport: (row) => row.state,
+                name: 'Districts',
+                selector: (row) => row.district,
+                cellExport: (row) => row.district,
                 omit: true,
                 width: '11rem'
             },
@@ -298,7 +298,7 @@ const TicketsPage = (props) => {
                       style={{ marginRight: '10px' }}
                   >
                       <div className="btn btn-info m-2">
-                          States
+                          Districts
                       </div>
                   </div>
                     // <div
