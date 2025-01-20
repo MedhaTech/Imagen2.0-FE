@@ -51,7 +51,7 @@ const TicketsPage = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Discussion - Forum</h4>
+              <h4>Discussion Forum</h4>
               <h6>Raise your queries here</h6>
             </div>
           </div>
