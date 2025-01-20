@@ -310,7 +310,10 @@ const StateRes = (props) => {
 
                 {/* {discussionChat?.status != "INVALID" &&
                 discussionChat?.status != "RESOLVED" ? ( */}
-                  <Row className="p-2">
+                  <Row    style={{
+                   
+                    padding: "1.2rem",
+                  }}>
                     <Col md={12}>
                       <div>
                         <label className="form-label">
@@ -318,6 +321,8 @@ const StateRes = (props) => {
                         </label>
                         <textarea
                           className="text-form form-control"
+                          style={{ borderColor: '#d1d9e8' }}
+
                           placeholder="Enter Details"
                           id="ansTicket"
                           name="ansTicket"
@@ -332,7 +337,7 @@ const StateRes = (props) => {
                           </small>
                         ) : null}
                       </div>
-                      <div className="mb-3">
+                      <div className="mb-3 mt-3">
                         <Label className="mb-2" htmlFor="url">
                           Link
                         </Label>
@@ -340,6 +345,8 @@ const StateRes = (props) => {
                           type="text"
                           name="url"
                           id="url"
+                          style={{ borderColor: '#d1d9e8' }}
+
                           placeholder="Please enter the link"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -373,15 +380,16 @@ const StateRes = (props) => {
                             onClick={() => {
                               document.getElementById("file_name2").click();
                             }}
+                            disabled={formik.values.file_name} 
                           >
                             Upload File
                           </button>
                           {formik.values.file_name ? (
-                            <span className="ml-2">
+                            <span className="ml-2 mx-2 mt-2">
                               {formik.values.file_name.name}
                             </span>
                           ) : (
-                            <span className="ml-2">
+                            <span className="ml-2 mx-2 mt-2">
                               {formik.initialValues.file_name}
                             </span>
                           )}

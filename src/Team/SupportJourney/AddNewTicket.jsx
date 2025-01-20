@@ -185,37 +185,13 @@ const TeacherSupport = () => {
                 <div className="card-body">
                   <form onSubmit={formik1.handleSubmit}>
                     <div className="row">
-                      {/* <div className="col-lg-4 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Select Query Category <span>*</span>
-                          </label>
-                          <Select
-                            name="ticket"
-                            id="ticket"
-                            classNamePrefix="react-select"
-                            options={ticketOptions}
-                            onChange={(option) =>
-                              formik1.setFieldValue("ticket", option.value)
-                            }
-                            onBlur={formik1.handleBlur}
-                            value={ticketOptions.find(
-                              (option) => option.value === formik1.values.ticket
-                            )}
-                            placeholder="Select Category"
-                          />
-                          {formik1.errors.ticket ? (
-                            <small className="error-cls text-danger">
-                              {formik1.errors.ticket}
-                            </small>
-                          ) : null}
-                        </div>
-                      </div> */}
+                     
                       <div className="mb-3">
                         <label className="form-label">
                           Description <span>*</span>
                         </label>
                         <textarea
+                         style={{ borderColor: '#d1d9e8' }}
                           className="text-form form-control"
                           placeholder="Enter Details"
                           id="ticketDetails"
@@ -240,6 +216,7 @@ const TeacherSupport = () => {
                           type="text"
                           name="url"
                           id="url"
+                          style={{ borderColor: '#d1d9e8' }}
                           placeholder="Please enter the link"
                           onChange={formik1.handleChange}
                           onBlur={formik1.handleBlur}
@@ -255,13 +232,13 @@ const TeacherSupport = () => {
                         <Label className="mb-2" htmlFor="file_name">
                           File
                         </Label>
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex" style={{ gap: '0', justifyContent: 'flex-start' }}>
                           <input
                             type="file"
                             id="file_name"
                             name="file_name"
                             style={{
-                              display: "none",
+                              display: "none"
                             }}
                             accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                             onChange={(e) => fileHandler(e)}
@@ -273,15 +250,16 @@ const TeacherSupport = () => {
                             onClick={() => {
                               document.getElementById("file_name").click();
                             }}
+                            disabled={formik1.values.file_name} 
                           >
                             Upload File
                           </button>
                           {formik1.values.file_name ? (
-                            <span className="ml-2">
+                            <span className="ml-2 mx-2 mt-2" >
                               {formik1.values.file_name.name}
                             </span>
                           ) : (
-                            <span className="ml-2">
+                            <span className="ml-2 mx-2 mt-2" >
                               {formik1.initialValues.file_name}
                             </span>
                           )}

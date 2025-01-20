@@ -72,7 +72,7 @@ const TicketsPage = () => {
               <div key={discussion.discussion_forum_id} className="col-md-12">
                 <div className="card mb-3">
                   <div className="card-body">
-                    <div className="d-flex">
+                    <div className="d-flex"style={{ gap: '0', justifyContent: 'flex-start' }}>
                       <Avatar
                         initials={discussion.created_by
                           ?.split(" ")
@@ -102,7 +102,7 @@ const TicketsPage = () => {
                         {discussion.query_details}
                       </p>
                     </div>
-                    <div className="d-flex align-items-center mx-5 mt-3">
+                    <div className="d-flex align-items-center mx-5 mt-3 " style={{ gap: '0', justifyContent: 'flex-start' }}>
                     <p className="card-text mb-2 mx-3">
                     <BiSolidLike size={20}
                           style={{ marginRight: "10px" }}/>

@@ -445,6 +445,8 @@ console.log(supportTickets,"supportTickets");
                         <textarea
                           className="text-form form-control"
                           placeholder="Enter Details"
+                          style={{ borderColor: '#d1d9e8' }}
+
                           id="ticketDetails"
                           name="ticketDetails"
                           rows={4}
@@ -467,6 +469,8 @@ console.log(supportTickets,"supportTickets");
                           type="text"
                           name="url"
                           id="url"
+                          style={{ borderColor: '#d1d9e8' }}
+
                           placeholder="Please enter the link"
                           onChange={formik1.handleChange}
                           onBlur={formik1.handleBlur}
@@ -497,6 +501,8 @@ console.log(supportTickets,"supportTickets");
                           <button
                             className="btn btn-primary add-em-payroll"
                             type="button"
+                            disabled={formik1.values.file_name} 
+
                             onClick={() => {
                               document.getElementById("file_name").click();
                             }}
@@ -504,11 +510,11 @@ console.log(supportTickets,"supportTickets");
                             Upload File
                           </button>
                           {formik1.values.file_name ? (
-                            <span className="ml-2">
+                            <span className="ml-2 mx-2 mt-2">
                               {formik1.values.file_name.name}
                             </span>
                           ) : (
-                            <span className="ml-2">
+                            <span className="ml-2 mx-2 mt-2">
                               {formik1.initialValues.file_name}
                             </span>
                           )}
@@ -732,6 +738,8 @@ console.log(supportTickets,"supportTickets");
                           <textarea
                             className="text-form form-control"
                             placeholder="Enter Details"
+                          style={{ borderColor: '#d1d9e8' }}
+
                             id="ansTicket"
                             name="ansTicket"
                             rows={4}
@@ -754,6 +762,8 @@ console.log(supportTickets,"supportTickets");
                             type="text"
                             name="url"
                             id="url"
+                          style={{ borderColor: '#d1d9e8' }}
+
                             placeholder="Please enter the link"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -784,6 +794,7 @@ console.log(supportTickets,"supportTickets");
                             <button
                               className="btn btn-primary add-em-payroll"
                               type="button"
+                              disabled={formik.values.file_name} 
                               onClick={() => {
                                 document.getElementById("file_name2").click();
                               }}
@@ -791,11 +802,11 @@ console.log(supportTickets,"supportTickets");
                               Upload File
                             </button>
                             {formik.values.file_name ? (
-                              <span className="ml-2">
+                              <span className="ml-2 mx-2 mt-2">
                                 {formik.values.file_name.name}
                               </span>
                             ) : (
-                              <span className="ml-2">
+                              <span className="ml-2 mx-2 mt-2">
                                 {formik.initialValues.file_name}
                               </span>
                             )}

@@ -13,6 +13,7 @@ import { setToogleHeader } from "../../core/redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import { Tooltip } from "react-bootstrap";
 import { all_routes } from "../../Router/all_routes";
+import { RiTeamFill } from "react-icons/ri";
 ////////my code/////////////
 import { getCurrentUser } from "../../helpers/Utils";
 import FeatherIcon from "feather-icons-react";
@@ -546,7 +547,7 @@ useEffect(() => {
             </div>
           </div>
           <div className="row sales-cards">
-            <div className="col-xl-4 col-sm-6 col-12">
+            <div className="col-xl-6 col-sm-6 col-12">
               <div className="card color-info bg-success mb-4 ">
                 <h3>
                   {" "}
@@ -570,7 +571,7 @@ useEffect(() => {
                 <FeatherIcon icon="thumbs-up" />
               </div>
             </div> */}
-            <div className="col-xl-4 col-sm-6 col-12">
+            <div className="col-xl-6 col-sm-6 col-12">
               <div className="card color-info bg-secondary mb-4">
                 <h3>
                   <CountUp end={videos} duration={4}>
@@ -581,7 +582,7 @@ useEffect(() => {
                 <FeatherIcon icon="video" />
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12">
+            {/* <div className="col-xl-4 col-sm-6 col-12">
               <div className="card color-info bg-primary">
                 <h3>
                   <CountUp end={badges} duration={4}>
@@ -591,7 +592,7 @@ useEffect(() => {
                 <p>Badges Achieved</p>
                 <FeatherIcon icon="award" />
               </div>
-            </div>
+            </div> */}
           </div>
           {/* Quicklinks , Latest News */}
           <div className="row">
@@ -1032,14 +1033,18 @@ useEffect(() => {
             <div className="card-header d-flex justify-content-between align-items-center">
               <h4 className="card-title mb-0">
                 {" "}
-                <img
+                {/* <img
                   src={team}
                   style={{
                     marginRight: "6px",
                     width: "7%",
                     verticalAlign: "middle",
                   }}
-                />
+                /> */}
+                <RiTeamFill size="25"  style={{
+                    marginRight: "6px",
+                    verticalAlign: "middle",
+                  }}/>
                 Team Progress
               </h4>
             </div>

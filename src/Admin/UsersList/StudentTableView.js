@@ -497,7 +497,7 @@ const CommonUserProfile = (props) => {
                             </CardText>
                             <CardText>
                                 <span className="mx-3" style={{fontSize:"1rem"}}>
-                                    <b >Apaar Id :</b>
+                                    <b >APAAR Id :</b>
                                 </span>
                                 <b style={{fontSize:"1rem"}}>{StudentsDaTa?.
 id_number}</b>

@@ -139,7 +139,8 @@ const LogInTeam = (props) => {
                       <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
                     ) : null}
                 </div>
-                <div className="form-login authentication-check">
+                
+                {/* <div className="form-login authentication-check">
                   <div className="row">
                     <div className="col-12 d-flex align-items-center justify-content-between">
                       <div className="custom-control custom-checkbox">
@@ -157,7 +158,7 @@ const LogInTeam = (props) => {
                      
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <button
                     type="submit"
