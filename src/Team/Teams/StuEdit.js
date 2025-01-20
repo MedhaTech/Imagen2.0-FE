@@ -547,13 +547,13 @@ const StuEdit = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          Apaar Id
+                          APAAR Id
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="Apaar Id"
+                          placeholder="APAAR Id"
                           // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {

@@ -23,6 +23,7 @@ import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import Avatar from 'react-string-avatar';
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import axios from "axios";
+
 const Header = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
@@ -675,8 +676,8 @@ const Header = () => {
                       src={getProfileImage(currentUser?.data[0]?.gender)}
                       alt="Profile"
                     /> */}
-                    <img src={team} alt="Team" id="blah" />
-          {/* <Avatar initials={currentUser?.data[0]?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar> */}
+                    {/* <img src={team} alt="Team" id="blah" /> */}
+          <Avatar initials={data?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar>
 
                   </span>
                   <span className="user-detail">
@@ -691,8 +692,8 @@ const Header = () => {
                 <div className="profilename">
                   <div className="profileset">
                     <span className="user-img">
-                      <img src={team} alt="Team" id="blah" />
-          {/* <Avatar initials={currentUser?.data[0]?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar> */}
+                      {/* <img src={team} alt="Team" id="blah" /> */}
+          <Avatar initials={data?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar>
 
                       <span className="status online" />
                     </span>
@@ -731,10 +732,20 @@ const Header = () => {
                   alt="img"
                   className="img-fluid"
                 /> */}
-                    <img
+                    {/* <img
                       src={getProfileImage(currentUser?.data[0]?.Gender)}
                       alt="Profile"
-                    />
+                    /> */}
+                    <Avatar
+  initials={data.full_name ? data.full_name.split(' ').map(w => w.charAt(0)).join('') : ''}
+  bgColor="#36adf2"
+  textColor="black"
+  // roundShape="true"
+  pictureResolution={256}
+  height={40}
+  width={40}
+/>
+
                   </span>
                   <span className="user-detail">
                     <span className="user-name"> {capitalizedFullName}</span>
@@ -748,10 +759,20 @@ const Header = () => {
                 <div className="profilename">
                   <div className="profileset">
                     <span className="user-img">
-                      <img
+                      {/* <img
                         src={getProfileImage(currentUser?.data[0]?.Gender)}
                         alt="Profile"
-                      />
+                      /> */}
+         <Avatar
+  initials={data.full_name ? data.full_name.split(' ').map(w => w.charAt(0)).join('') : ''}
+  bgColor="#36adf2"
+  textColor="black"
+  // roundShape="true"
+  pictureResolution={256}
+  height={40}
+  width={40}
+/>
+
                       <span className="status online" />
                     </span>
                     <div className="profilesets">

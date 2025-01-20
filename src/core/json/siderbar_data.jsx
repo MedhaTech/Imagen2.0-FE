@@ -130,7 +130,7 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label: "Discussion - Form",
+          label: "Discussion Forum",
           link: "/discussion-chat",
           // icon: <FaComments />,
           icon:<GoCommentDiscussion />,

@@ -24,7 +24,7 @@ import FeatherIcon from "feather-icons-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import Confetti from "react-confetti";
-
+import { GoVideo } from "react-icons/go";
 import {
   Accordion,
   AccordionItem,
@@ -1021,11 +1021,14 @@ console.log(videoCompleted,"video");
                                     </div>
 
                                     <div className="course-time">
-                                      <span>
+                                      <span  
+                                      className="badge rounded-pill bg-primary"
+  >
                                         {course.videos_count}{" "}
-                                        {t("student.videos")}
+                                       
                                       </span>
-
+ {/* <GoVideo /> */}
+                                        {/* {t("student.videos")} */}
                                       {/* <span>
                                   <BsDot />
                                   {course.sectionDuration}mins
