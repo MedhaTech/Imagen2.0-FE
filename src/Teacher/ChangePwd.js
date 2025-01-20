@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import "sweetalert2/src/sweetalert2.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import male from "../assets/img/imazenlogo1.jpg";
 
 const ChangePwd = (props) => {
   // here we can change the  teacher password //
@@ -142,125 +143,189 @@ const ChangePwd = (props) => {
         break;
     }
   };
+  const formLoginStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  };
+  const buttonStyle = {
+    marginRight: '10px'
+  };
+
+  const cancelLinkStyle = {
+    marginLeft: 'auto'
+  };
   return (
-    <div className="page-wrapper" >
+    <div className="page-wrapper">
       <div className="content">
-        <div className="login-wrapper ">
-          <div className="login-content user-login ">
-            <form action="success-3" onSubmit={formik.handleSubmit}>
-              <div className="login-userset">
-                <div className="login-userheading">
-                  <h3>Reset password?</h3>
-                  <h4>
-                    A strong password helps prevent unauthorized access to your
-                    account.
-                  </h4>
+        <div className="page-header">
+          <div className="page-title">
+            <h4>Change Password</h4>
+            <p>
+              A strong password helps prevent unauthorized access to your
+              account.
+            </p>
+            {/* <h6>User Profile</h6> */}
+          </div>
+          <div>
+            {/* <button onClick={() => handleEdit() }className={"btn btn-primary"}>
+                      <img src={edit} alt="Edit" />
+                    </button> */}
+            {/* <h4>Update Personal Details.</h4> */}
+          </div>
+        </div>
+        {/* /product list */}
+        <form onSubmit={formik.handleSubmit}>
+        <div className="card">
+          <div className="card-body">
+            <div className="profile-set">
+              <div className="profile-head"></div>
+              <div className="profile-top">
+                <div className="profile-content">
+                  <div className="profile-contentimg">
+                    <img src={male} alt="Male" id="blah" />
+
+                    <div className="profileupload"></div>
+                  </div>
+
+                  <div className="profile-contentname"></div>
                 </div>
-                <div className="form-login mb-2">
-                  <label>Current Password</label>
-                  <div className="pass-group">
-                    <input
-                      className="pass-input"
-                      {...oldPassword}
-                      id="oldPassword"
-                      name="oldPassword"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.oldPassword}
-                    />
-                    <div
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks" style={{ position: "relative" }}>
+                  <label className="form-label">Current Password</label>
+                  <input
+                    className="pass-input"
+                    {...oldPassword}
+                    id="oldPassword"
+                    name="oldPassword"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.oldPassword}
+                    style={{ paddingRight: '30px' }}
+                  />
+                  <div
                       className={`fas toggle-password ${
                         isOldPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={() => {
                         handleShowPassword(oldPassword);
                       }}
-                    ></div>
-                  </div>
-                  {formik.touched.oldPassword && formik.errors.oldPassword ? (
-                    <small className="error-cls">
-                      {formik.errors.oldPassword}
-                    </small>
-                  ) : null}
-                </div>
-                <div className="form-login mb-2">
-                  <label>New Password</label>
-                  <div className="pass-group">
-                    <input
-                      className="pass-inputs"
-                      {...newPassword}
-                      id="newPassword"
-                      name="newPassword"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.newPassword}
-                    />
-                    <div
-                      className={`fas toggle-password ${
-                        isNewPasswordVisible ? "fa-eye" : "fa-eye-slash"
-                      }`}
-                      onClick={() => {
-                        handleShowPassword(newPassword);
+                      style={{
+                        position: 'absolute',
+                        right: '10px',  
+                        top: '70%',
+                        transform: 'translateY(-50%)',
+                        cursor: 'pointer',
                       }}
                     ></div>
-                  </div>
-                  <small className="mt-2">
-                    8-character minimum; case sensitive
+                </div>
+                {formik.touched.oldPassword && formik.errors.oldPassword ? (
+                  <small className="error-cls">
+                    {formik.errors.oldPassword}
                   </small>
-                  <br />
-                  {formik.touched.newPassword && formik.errors.newPassword ? (
-                    <small className="error-cls">
-                      {formik.errors.newPassword}
-                    </small>
-                  ) : null}
-                </div>
-                <div className="form-login mb-2">
-                  <label> Confirm New Password</label>
-                  <div className="pass-group">
-                    <input
-                      className="pass-inputa"
-                      {...confirmPassword}
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.confirmPassword}
-                    />
-                    <div
-                      className={`fas toggle-password ${
-                        isPasswordVisible ? "fa-eye" : "fa-eye-slash"
-                      }`}
-                      onClick={() => {
-                        handleShowPassword(confirmPassword);
-                      }}
-                    ></div>
-                  </div>
-                  {formik.touched.confirmPassword &&
-                  formik.errors.confirmPassword ? (
-                    <small className="error-cls">
-                      {formik.errors.confirmPassword}
-                    </small>
-                  ) : null}
-                </div>
-                <b style={{ color: "red" }}>{error}</b>
-                <b style={{ color: "#3BB143" }}>{responce}</b>
-                <div className="form-login d-flex justify-content-center">
-                  <button className="btn btn-login" type="submit">
-                    Change Password{"  "} <FontAwesomeIcon icon={faKey} />
-                  </button>
-                </div>
-                <div className="signinform text-center">
-                  <h4>
-                    <Link to={"/institution-dashboard"} className="hover-a">
-                      {" "}
-                      Cancel{" "}
-                    </Link>
-                  </h4>
-                </div>
+                ) : null}
               </div>
-            </form>
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks" style={{ position: "relative" }}>
+                  <label className="form-label">New Password</label>
+                  <input
+                    className="pass-inputs"
+                    {...newPassword}
+                    id="newPassword"
+                    name="newPassword"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.newPassword}
+                  />
+
+                  <div
+                    className={`fas toggle-password ${
+                      isNewPasswordVisible ? "fa-eye" : "fa-eye-slash"
+                    }`}
+                    onClick={() => {
+                      handleShowPassword(newPassword);
+                    }}
+                    style={{
+                      position: 'absolute',
+                      right: '10px',  
+                      top: '70%',
+                      transform: 'translateY(-50%)',
+                      cursor: 'pointer',
+                    }}
+                  ></div>
+                </div>
+                <small>
+                  8-character minimum; case sensitive
+                </small>
+                <br />
+                {formik.touched.newPassword && formik.errors.newPassword ? (
+                  <small className="error-cls">
+                    {formik.errors.newPassword}
+                  </small>
+                ) : null}
+              </div>
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks" style={{ position: "relative" }}>
+                  <label className="form-label">Confirm New Password</label>
+                  <input
+                    className="pass-inputa"
+                    {...confirmPassword}
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.confirmPassword}
+                  />
+
+                  <div
+                    className={`fas toggle-password ${
+                      isPasswordVisible ? "fa-eye" : "fa-eye-slash"
+                    }`}
+                    onClick={() => {
+                      handleShowPassword(confirmPassword);
+                    }}
+                    style={{
+                      position: 'absolute',
+                      right: '10px',  
+                      top: '70%',
+                      transform: 'translateY(-50%)',
+                      cursor: 'pointer',
+                    }}
+                  ></div>
+                </div>
+                {formik.touched.confirmPassword &&
+                formik.errors.confirmPassword ? (
+                  <small className="error-cls">
+                    {formik.errors.confirmPassword}
+                  </small>
+                ) : null}
+              </div>
+               <div className="form-login" style={formLoginStyle}>
+                                <button
+                                  style={buttonStyle}
+                                  
+                                  type="submit"
+                                  className={`btn btn-warning  ${
+                                    !(formik.dirty && formik.isValid) ? "default" : "primary"
+                                  }`}
+                                  disabled={!(formik.dirty && formik.isValid)}
+                                >
+                                  Change Password <FontAwesomeIcon icon={faKey} />
+
+                                </button>
+                                <Link className="btn btn-cancel" to={"/institution-dashboard"}  style={cancelLinkStyle}>
+                                  Cancel
+                                </Link>
+                              </div>
+            </div>
+
+            {/* </div> */}
           </div>
         </div>
+        </form>
       </div>
     </div>
   );

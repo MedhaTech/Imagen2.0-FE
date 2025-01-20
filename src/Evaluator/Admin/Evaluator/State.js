@@ -89,7 +89,7 @@ fullStatesNames.unshift("All Districts");
 
                     openNotificationWithIcon(
                         'success',
-                        'States Update Successfully'
+                        'Districts Update Successfully'
                     );
                     navigate('/eadmin/evaluator');
                 }

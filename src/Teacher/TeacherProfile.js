@@ -39,7 +39,7 @@ const [data,setData]=useState({});
       <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>Teacher Profile</h4>
+            <h4>Institution Profile</h4>
             {/* <h6>User Profile</h6> */}
           </div>
           <div>

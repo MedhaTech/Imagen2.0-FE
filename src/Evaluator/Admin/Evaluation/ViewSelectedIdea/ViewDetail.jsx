@@ -239,14 +239,14 @@ console.log(level,"level");
         <div>
             {teamResponse ? (
                 <>
-                    <div style={{ display: 'none' }}>
+                    {/* <div style={{ display: 'none' }}>
                         <DetailToDownload
                             ref={componentRef}
                             ideaDetails={props?.ideaDetails}
                             teamResponse={teamResponse}
                             level={'Draft'}
                         />
-                    </div>
+                    </div> */}
                     {/* <div id="pdfId" style={{ display: 'none' }}>
                         <DetailToDownload
                             ideaDetails={props?.ideaDetails}
