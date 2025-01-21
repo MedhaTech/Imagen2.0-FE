@@ -150,21 +150,21 @@ const ReportL1 = () => {
       key: 'challenge_response_id'
     },
     {
-      label: "School Name",
+      label: "College Name",
       key: "organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "College Type",
       key: "category",
     },
-    {
-      label: 'Pin code',
-      key: 'pin_code'
-    },
-    {
-      label: 'Address',
-      key: 'address'
-    },
+    // {
+    //   label: 'Pin code',
+    //   key: 'pin_code'
+    // },
+    // {
+    //   label: 'Address',
+    //   key: 'address'
+    // },
     {
       label: "Teacher Name",
       key: "full_name",
@@ -173,14 +173,14 @@ const ReportL1 = () => {
       label: "Teacher Email",
       key: "username",
     },
-    {
-      label: "Teacher Gender",
-      key: "gender",
-    },
-    {
-      label: "Teacher Contact",
-      key: "mobile",
-    },
+    // {
+    //   label: "Teacher Gender",
+    //   key: "gender",
+    // },
+    // {
+    //   label: "Teacher Contact",
+    //   key: "mobile",
+    // },
     {
       label: "Team Name",
       key: "team_name",
@@ -198,77 +198,74 @@ const ReportL1 = () => {
       key: 'theme'
     },
     {
-      label: 'Focus Area',
-      key: 'focus_area'
+      label: 'Describe your idea (in one sentence).',
+      key: 'idea_describe'
     },
     {
-      label: 'Select in which language you prefer Submitting Your Idea?',
-      key: 'language'
-    },
-    {
-      label: 'Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.',
+      label: 'Give a title to your idea.',
       key: 'title'
     },
     {
-      label: 'Write down your Problem statement',
-      key: 'problem_statement'
+      label: 'What problem does your idea solve?',
+      key: 'solve'
     },
     {
-      label: 'List the Causes of the problem',
-      key: 'causes'
+      label: "Who are your target customers/users?",
+      key: 'customer'
     },
     {
-      label: 'List the Effects of the problem',
-      key: 'effects'
+      label: 'Explain your idea in detail',
+      key: 'detail'
     },
     {
-      label: 'In which places in your community did you find this problem?',
-      key: 'community'
+      label: 'What stage is your idea currently at?',
+      key: 'stage'
     },
     {
-      label: 'Who all are facing this problem?',
-      key: 'facing'
+      label: 'How unique is your idea compared to existing solutions?',
+      key: 'unique'
     },
     {
-      label: 'Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.',
-      key: 'solution'
+      label: 'Who are your competitors or similar ideas?',
+      key: 'similar'
     },
     {
-      label: 'Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?',
-      key: 'stakeholders'
+      label: 'How will your idea make revenue or sustain itself?',
+      key: 'revenue'
     },
     {
-      label: 'Pick the actions your team did in your problem solving journey (You can choose multiple options)',
-      key: 'problem_solving'
+      label: 'What impact will your idea have on society or the environment?',
+      key: 'society'
     },
     {
-      label: 'Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.',
-      key: 'feedback'
+      label: 'How confident are you in your ability to implement your idea with your current skill set?',
+      key: 'confident'
     },
     {
-      label: 'Upload image of your prototype.',
+      label: ' What additional support and resources would you need to implement or get started with your idea ?',
+      key: 'support'
+    },
+    {
+      label: 'Upload images/documents & video links related to your Idea.(total size limit : 50 MB)',
       key: 'prototype_image'
     },
     {
-      label: 'Upload documents & video links of your prototype.',
+      label: 'Upload images/documents & video links related to your Idea.(total size limit : 50 MB)',
       key: 'prototype_link'
     },
-    {
-      label: 'Did your team complete and submit the workbook to your school Guide teacher?',
-      key: 'workbook'
-    },
+  
     {
       label: 'Idea Submission Status',
       key: 'status'
     },
-    {
-      label: 'Teacher Verified Status',
-      key: 'verifiedment'
-    },
-    {
-      label: 'Teacher Verified At',
-      key: 'verified_at'
-    },
+    // {
+    //   label: 'Teacher Verified Status',
+    //   key: 'verifiedment'
+    // },
+    // {
+    //   label: 'Teacher Verified At',
+    //   key: 'verified_at'
+    // },
     {
       label: 'L1 Status',
       key: 'l1status'
@@ -297,7 +294,7 @@ const ReportL1 = () => {
     if (!RegTeachersdistrict  || !category || !sdg || !status) {
       notification.warning({
         message:
-        "Select district, category type, status and Theme to download report.",
+        "Select District, College Type, Status and Theme to download report.",
       });
       return;
     }
@@ -406,60 +403,59 @@ const ReportL1 = () => {
                       category: mentorMap[item.mentor_id].category,
                       district: mentorMap[item.mentor_id].district,
                       full_name: mentorMap[item.mentor_id].full_name,
-                      gender: mentorMap[item.mentor_id].gender,
-                      mobile: mentorMap[item.mentor_id].mobile,
-                      organization_code: mentorMap[item.mentor_id].organization_code,
-                      unique_code: mentorMap[item.mentor_id].unique_code,
+                      // gender: mentorMap[item.mentor_id].gender,
+                      // mobile: mentorMap[item.mentor_id].mobile,
+                      // organization_code: mentorMap[item.mentor_id].organization_code,
+                      // unique_code: mentorMap[item.mentor_id].unique_code,
                       organization_name: mentorMap[item.mentor_id].organization_name,
-                      state: mentorMap[item.mentor_id].state,
+                      // state: mentorMap[item.mentor_id].state,
                       // whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
                       mentorUserId: mentorMap[item.mentor_id].mentorUserId,
-                      city: mentorMap[item.mentor_id].city,
-                      principal_name: mentorMap[item.mentor_id].principal_name,
-                      principal_mobile: mentorMap[item.mentor_id].principal_mobile,
-                      pin_code: mentorMap[item.mentor_id].pin_code,
-                      address: mentorMap[item.mentor_id].address,
+                      // city: mentorMap[item.mentor_id].city,
+                      // principal_name: mentorMap[item.mentor_id].principal_name,
+                      // principal_mobile: mentorMap[item.mentor_id].principal_mobile,
+                      // pin_code: mentorMap[item.mentor_id].pin_code,
+                      // address: mentorMap[item.mentor_id].address,
         
                     };
                   });
                   const newdatalist = mentorAndOrg.map((item) => {
                     return {
-                        "UDISE CODE":item.organization_code,
-                                   State:item.state,
+                        // "UDISE CODE":item.organization_code,
+                                  //  State:item.state,
                                    District:item.district,
                                    CID:item.challenge_response_id,
-                                   "School Name":item.organization_name,
-                                   "School Type/Category":item.category,
-                                   "Pin code":item.pin_code,
-                                   Address:item.address,
+                                   "College Name":item.organization_name,
+                                   "College Type":item.category,
+                                  //  "Pin code":item.pin_code,
+                                  //  Address:item.address,
                                     "Teacher Name":item.full_name,
                                     "Teacher Email":mentorUsernameMap[item.mentorUserId],
-                                    "Teacher Gender":item.gender,
-                                    "Teacher Contact":item.mobile,
+                                    // "Teacher Gender":item.gender,
+                                    // "Teacher Contact":item.mobile,
                                     "Team Name":item.team_name,
                                     "Team Username":item.team_username,
                                     "Student Names":item.names,
                                     Theme:item.theme,
-                                    "Focus Area":item.focus_area,
-                                    "Select in which language you prefer Submitting Your Idea?":item.language,
-                                    "Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.":item.title,
-                                    "Write down your Problem statement":item.problem_statement,
-                                    "List the Causes of the problem":item.causes,
-                                    "List the Effects of the problem":item.effects,
-                                    "In which places in your community did you find this problem?":item.community,
-                                    "Who all are facing this problem?":item.facing,
-                                    "Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.":item.solution,
-                                    "Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?":item.stakeholders,
-                                    "Pick the actions your team did in your problem solving journey (You can choose multiple options)":item.problem_solving,
-                                    "Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.":item.feedback,
-                                    "Descriptive Document/Image of your prototype.":item.prototype_image,
-                                    "Clear Video Explaining your Solution":item.prototype_link,
-                                    "Did your team complete and submit the workbook to your school Guide teacher?":item.workbook,
+                                    "Describe your idea (in one sentence).":item.idea_describe,
+                                    "Give a title to your idea.":item.title,
+                                    "What problem does your idea solve?":item.solve,
+                                    "Who are your target customers/users?":item.customer,
+                                    "Explain your idea in detail":item.detail,
+                                    "What stage is your idea currently at?":item.stage,
+                                    "How unique is your idea compared to existing solutions?":item.unique,
+                                    "Who are your competitors or similar ideas?":item.similar,
+                                    "How will your idea make revenue or sustain itself?":item.revenue,
+                                    "What impact will your idea have on society or the environment?":item.society,
+                                    "How confident are you in your ability to implement your idea with your current skill set?":item.confident,
+                                    "What additional support and resources would you need to implement or get started with your idea ?":item.support,
+                                    "Upload images/documents & video links related to your(total size limit : 50 MB)":item.prototype_image,
+                                    "Upload images/documents & video links related to your Idea.(total size limit : 50 MB)":item.prototype_link,
                                     "Idea Submission Status":item.status,
-                                    "Teacher Verified Status":item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
-                                    "Teacher Verified At":item.verified_at ? moment(item.verified_at).format(
-                                      "DD-MM-YYYY"
-                                    ) : '',
+                                    // "Teacher Verified Status":item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
+                                    // "Teacher Verified At":item.verified_at ? moment(item.verified_at).format(
+                                    //   "DD-MM-YYYY"
+                                    // ) : '',
                                     "L1 Status":item.evaluation_status === 'SELECTEDROUND1'  ? 'Accepted': 'Rejected',
 
                       // ...item,

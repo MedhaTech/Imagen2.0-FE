@@ -43,10 +43,12 @@ const EvaluatedIdea = () => {
         ...districtList,
       };
       // const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
-      const fiterDistData = selectstate === "All States" 
-    ? []  
-    : ["All Districts", ...(allDistricts[selectstate] || [])];
-    const fullStatesNames = newstateList;
+    //   const fiterDistData = selectstate === "All States" 
+    // ? []  
+    // : ["All Districts", ...(allDistricts[selectstate] || [])];
+     const fiterDistData = [...districtList["Telangana"]];
+        fiterDistData.unshift("All Districts");
+    // const fullStatesNames = fiterDistData;
 
     const statusdata = ['Accepted', 'Rejected', 'Both'];
 
@@ -86,7 +88,7 @@ const EvaluatedIdea = () => {
         const newQuery = {
             level:'L1',
             evaluation_status: status !== 'Both'? (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1'): '',
-            state: selectstate !== 'All States' ? selectstate : '',
+            // state: selectstate !== 'All States' ? selectstate : '',
             district: district !== 'All Districts' ? district : '',
             theme: sdg !== 'All Themes' ? sdg : '',
             rejected_reason : reason,
@@ -145,8 +147,18 @@ const EvaluatedIdea = () => {
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '10rem'
+                width: '8rem'
             },
+            // {
+            //     name: "College Type",
+            //     selector: (row) => row.college_type,
+            //     width: "10rem",
+            //   },
+            //   {
+            //     name: "College Name",
+            //     selector: (row) => row.college_name,
+            //     width: "10rem",
+            //   },
             // {
             //     name: 'Udise Code',
             //     selector: (row) => row.
@@ -154,11 +166,11 @@ const EvaluatedIdea = () => {
             //     ,
             //     width: '9rem'
             // },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name,
-                width: '10rem'
-            },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row.team_name,
+            //     width: '10rem'
+            // },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
@@ -307,16 +319,16 @@ const EvaluatedIdea = () => {
                                        
                                               
 
-                                        <Col md={2}>
+                                        {/* <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                             <Select
                     list={fullStatesNames}
                     setValue={setSelectState}
-                    placeHolder={"Select State"}
+                    placeHolder={"Select District"}
                     value={selectstate}
                   />
                                             </div>
-                                        </Col>
+                                        </Col> */}
                                         <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                             <Select
@@ -396,7 +408,7 @@ const EvaluatedIdea = () => {
                                                     //         : 'default'
                                                     // }
                                                     btnClass={
-                                                        status && selectstate && sdg
+                                                        status && district && sdg
                                                             ? 'primary'
                                                             : 'default'
                                                     }
@@ -414,7 +426,7 @@ const EvaluatedIdea = () => {
                                                     disabled={
                                                         !(
                                                             status &&
-                                                            selectstate &&
+                                                            district &&
                                                             sdg
                                                         )
                                                     }

@@ -154,7 +154,7 @@ const AdminLogin = (props) => {
                     ) : null}
                  
                 </div>
-                <div className="form-login authentication-check">
+                {/* <div className="form-login authentication-check">
                   <div className="row">
                     <div className="col-12 d-flex align-items-center justify-content-between">
                       <div className="custom-control custom-checkbox">
@@ -164,12 +164,10 @@ const AdminLogin = (props) => {
                           Remember me
                         </label>
                       </div>
-                      {/* <div className="text-end">
-                        <Link className="forgot-link">Forgot Password?</Link>
-                      </div> */}
+                     
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {/* <Link
                     className="btn btn-login"

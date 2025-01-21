@@ -19,31 +19,32 @@ import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { stateList, districtList } from "../../../RegPage/ORGData.js";
 const State = (props) => {
     const location = useLocation();
-    const { evaluatorId } = location.state || {};
-    // console.log(evaluatorId,"id");
+    const { evaluatorId } = location.district || {};
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
-    const IdIntial =evaluatorId ? evaluatorId : evalID.evaluator_id ;
+    const IdIntial = evaluatorId ? evaluatorId : (typeof evalID === 'object' ? evalID.evaluator_id : evalID);
     // console.log(evalID,"item");
+    // console.log(IdIntial, "final id");
+
+
+    // const IdIntial =evaluatorId ? evaluatorId : evalID.evaluator_id ;
     const dispatch = useDispatch();
     const [clickedValue, setclickedValue] = useState({});
     const [selectedStates, setselectedStates] = useState([]);
 const navigate = useNavigate();
 const fullStatesNames = [...districtList["Telangana"]];
 fullStatesNames.unshift("All Districts");
-    // const newstateList = ["All Districts", ...districtList];
-    // const fullStatesNames = newstateList;
 
     useEffect(() => {
         
-        if (evalID && evalID.state) {
+        if (evalID && evalID.district) {
             if (
-                evalID.state.split(',').length ===
+                evalID.district.split(',').length ===
                     fullStatesNames.length - 1 &&
-                !evalID.state.includes('All Districts')
+                !evalID.district.includes('All Districts')
             ) {
                 setselectedStates(fullStatesNames);
             } else {
-                setselectedStates(evalID.state.split(','));
+                setselectedStates(evalID.district.split(','));
             }
         }
     }, []);
@@ -72,8 +73,8 @@ fullStatesNames.unshift("All Districts");
     async function handleStates(value) {
         //  handleStates Api where value = state //
         // where we can update the state //
-        if(value.state===''){
-            value.state = '-';
+        if(value.district===''){
+            value.district = '-';
         }
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const evalid = encryptGlobal(JSON.stringify(IdIntial));
@@ -101,12 +102,12 @@ fullStatesNames.unshift("All Districts");
 
     const handleclick = async () => {
         // where we can select  the States //
-        const value = { state: '' };
+        const value = { district: '' };
         selectedStates.includes('All Districts')
-            ? (value.state = selectedStates
+            ? (value.district = selectedStates
                   ?.filter((item) => item !== 'All Districts')
                   .toString())
-            : (value.state = selectedStates.toString());
+            : (value.district = selectedStates.toString());
         await handleStates(value);
     };
     const handleDiscard = () => {

@@ -41,11 +41,12 @@ const EvaluatedIdea = () => {
         ...districtList,
       };
       // const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
-      const fiterDistData = selectstate === "All States" 
-    ? []  
-    : ["All Districts", ...(allDistricts[selectstate] || [])];
+    //   const fiterDistData = selectstate === "All States" 
+    // ? []  
+    // : ["All Districts", ...(allDistricts[selectstate] || [])];
     const fullStatesNames = newstateList;
-
+ const fiterDistData = [...districtList["Telangana"]];
+        fiterDistData.unshift("All Districts");
     // const SDGDate = cardData.map((i) => {
     //     return i.goal_title;
     // });
@@ -58,14 +59,14 @@ const EvaluatedIdea = () => {
     // );
 
     const [tabledate, settabledate] = React.useState([]);
- useEffect(() => {
-        // if (selectstate === "All States") {
-            setdistrict('');  // Reset the district value
-        //   }
-    }, [selectstate]);
+//  useEffect(() => {
+//         // if (selectstate === "All States") {
+//             setdistrict('');  // Reset the district value
+//         //   }
+//     }, [selectstate]);
    
     useEffect(() => {
-        if (selectstate === '') {
+        if (district === '') {
             settabledate([]);
         } else {
             settabledate(evaluatedIdeaList);
@@ -77,7 +78,7 @@ const EvaluatedIdea = () => {
         const newQuery = {
             evaluation_status : 'SELECTEDROUND1',
             level:'L2',
-            state: selectstate !== 'All States' ? selectstate : '',
+            // state: selectstate !== 'All States' ? selectstate : '',
             district: district !== 'All Districts' ? district : '',
 
             theme: sdg !== 'All Themes' ? sdg : '',
@@ -121,17 +122,27 @@ const EvaluatedIdea = () => {
                 width: '10rem'
             },
             // {
+            //     name: "College Type",
+            //     selector: (row) => row.college_type,
+            //     width: "10rem",
+            //   },
+            //   {
+            //     name: "College Name",
+            //     selector: (row) => row.college_name,
+            //     width: "10rem",
+            //   },
+            // {
             //     name: 'Udise Code',
             //     selector: (row) => row.
             //     organization_code
             //     ,
             //     width: '9rem'
             // },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name,
-                width: '10rem'
-            },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row.team_name,
+            //     width: '10rem'
+            // },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
@@ -288,16 +299,16 @@ const EvaluatedIdea = () => {
                                 <h4 >L2 Evaluated Idea</h4>
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
-                                        <Col md={2}>
+                                        {/* <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={fullStatesNames}
                                                     setValue={setSelectState}
-                                                    placeHolder={'Select State'}
+                                                    placeHolder={'Select District'}
                                                     value={selectstate}
                                                 />
                                             </div>
-                                        </Col>
+                                        </Col> */}
                                         <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                             <Select
@@ -324,13 +335,13 @@ const EvaluatedIdea = () => {
                                             <div className="text-center">
                                                 <Button
                                                     btnClass={
-                                                        selectstate && sdg
+                                                        district && sdg
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
-                                                    disabled={!(selectstate && sdg)}
+                                                    disabled={!(district && sdg)}
                                                     onClick={() =>
                                                         handleclickcall()
                                                     }

@@ -17,6 +17,8 @@ export const URL = {
   getidealist: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS
   + '/challenge_response?',
   getMentors: process.env.REACT_APP_API_BASE_URL + '/mentors',
+  updateEvalProcess:
+        process.env.REACT_APP_API_BASE_URL + '/evaluationProcess/',
   getAdminEvaluator: process.env.REACT_APP_API_BASE_URL + '/evaluators',
   getNotificationsList:
   process.env.REACT_APP_API_BASE_URL + '/notifications/tome',

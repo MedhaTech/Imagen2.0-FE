@@ -119,8 +119,9 @@ const navigate=useNavigate();
                 // .post(actualUrl, JSON.stringify(values, null, 2), axiosConfig)
                 .then((evaluatorRegRes) => {
                     if (evaluatorRegRes?.data?.status == 201) {
-                        // console.log(evaluatorRegRes,"11");
                         const evaluatorId = evaluatorRegRes?.data?.data[0].evaluator_id;
+                        // console.log(evaluatorId,"11");
+
                         localStorage.setItem('eavlId', JSON.stringify(evaluatorId));
                         dispatch(getAdminEvalutorsList());
                         setTimeout(()=>{
@@ -128,7 +129,7 @@ const navigate=useNavigate();
                                 'success',
                                 evaluatorRegRes?.data?.message
                             );
-                        navigate("/evaluator/selecting-states",{state:{evaluatorId}});
+                        navigate("/evaluator/selecting-states",{district:{evaluatorId}});
 
                             props.setShow(false);
                         },[3000]);

@@ -45,7 +45,7 @@ getAPi();
           if (response.status === 200) {
             console.log(response,"response");
             setMobile(response.data.data[0].mobile);
-            const statesString = response.data.data[0].state; 
+            const statesString = response.data.data[0].district; 
             setStates(statesString.split(','));
             // setStates(response.data.data[0].states);
 

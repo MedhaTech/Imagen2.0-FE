@@ -140,26 +140,21 @@ const ViewSelectedIdea = () => {
         width: "6rem",
       },
 
-      // {
-      //   name: "State",
-      //   selector: (row) => row.state,
-      //   width: "10rem",
-      // },
       {
         name: "District",
         selector: (row) => row.district,
+        width: "8rem",
+      },
+      {
+        name: "College Type",
+        selector: (row) => row.college_type,
         width: "10rem",
       },
-      // {
-      //   name: "College Type",
-      //   selector: (row) => row.organization_code,
-      //   width: "1rem",
-      // },
-      // {
-      //   name: "Team Name",
-      //   selector: (row) => row.team_name,
-      //   width: "10rem",
-      // },
+      {
+        name: "College Name",
+        selector: (row) => row.college_name,
+        width: "10rem",
+      },
       {
         name: "CID",
         selector: (row) => row.challenge_response_id,
