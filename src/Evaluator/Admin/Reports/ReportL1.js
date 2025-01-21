@@ -780,7 +780,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  #
+                                  S.No
                                 </th>
                                 <th
                                   style={{
@@ -789,7 +789,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  State Name
+                                  District Name
                                 </th>
                                 <th
                                   style={{
@@ -798,7 +798,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No.of Ideas Approved by Mentor{" "}
+                                  No.of Submitted Ideas{" "}
                                 </th>
                                 <th
                                   style={{
@@ -832,7 +832,7 @@ const ReportL1 = () => {
                                       color: "crimson",
                                     }}
                                   >
-                                    {item.state}
+                                    {item.district}
                                   </td>
                                   <td> {item.totalSubmited}</td>
                                   <td>{item.accepted}</td>
@@ -891,7 +891,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  #
+                                  S.No
                                 </th>
                                 <th
                                   style={{

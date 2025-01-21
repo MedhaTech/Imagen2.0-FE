@@ -185,11 +185,28 @@ const RatedDetailCard = (props) => {
       <p className="my-0 ">Evaluated By :</p>
     </div>
     <div className="col-7">
-      {props?.details?.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
+      {/* {props?.details?.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
         <p className="my-0"style={{ fontSize: '14px'}} key={i}>
           {`${i + 1}: ${item}`}
         </p>
-      ))}
+      ))} */}
+       {/* {Array.isArray(props?.details?.evaluator_ratings[0]?.rated_evaluated_name) &&
+      props.details.evaluator_ratings[0].rated_evaluated_name.map((item, i) => (
+        <p className="my-0" style={{ fontSize: '14px' }} key={i}>
+          {`${i + 1}: ${item}`}
+        </p>
+      ))} */}
+       {Array.isArray(props?.details?.evaluator_ratings[0]?.rated_evaluated_name) ? (
+      props.details.evaluator_ratings[0].rated_evaluated_name.map((item, i) => (
+        <p className="my-0" style={{ fontSize: '14px' }} key={i}>
+          {`${i + 1}: ${item}`}
+        </p>
+      ))
+    ) : (
+      <p className="my-0" style={{ fontSize: '14px' }}>
+        {`1: ${props.details.evaluator_ratings[0].rated_evaluated_name}`}
+      </p>
+    )}
     </div>
   </div>
 {/* // )} */}

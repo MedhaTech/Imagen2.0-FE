@@ -25,39 +25,16 @@ import { BiSolidLike,BiSolidDislike } from "react-icons/bi";
 const TicketsPage = () => {
   const { t } = useTranslation();
   const { discussionChats } = useSelector((state) => state.mentors);
+  const language = useSelector((state) => state?.mentors.mentorLanguage);
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
   useEffect(() => {
     dispatch(getDiscussionList(currentUser?.data[0]));
   }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop
-        >= document.documentElement.offsetHeight - 10
-      ) {
-        loadMoreItems();
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const loadMoreItems = () => {
-    if (discussionChats.length > currentPage * itemsPerPage) {
-      setCurrentPage(prevPage => prevPage + 1);
-    }
-  };
-
-  const itemsToDisplay = discussionChats.slice(0, currentPage * itemsPerPage);
-
+  console.log(discussionChats, "supportTickets");
+ 
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -80,15 +57,12 @@ const TicketsPage = () => {
           </div>
         </div>
         <div className="row">
-          {itemsToDisplay.length > 0 ? (
-            itemsToDisplay.map((discussion,index) => (
+          {discussionChats && discussionChats.length > 0 ? (
+            discussionChats.map((discussion) => (
               <div key={discussion.discussion_forum_id} className="col-md-12">
                 <div className="card mb-3">
                   <div className="card-body">
                     <div className="d-flex"style={{ gap: '0', justifyContent: 'flex-start' }}>
-                    {/* <p className="card-text mb-2 mx-3">
-            <strong>S.No:</strong> {index + 1}
-          </p> */}
                       <Avatar
                         initials={discussion.created_by
                           ?.split(" ")
@@ -162,4 +136,5 @@ const TicketsPage = () => {
     </div>
   );
 };
+
 export default TicketsPage;

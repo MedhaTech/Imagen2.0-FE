@@ -927,7 +927,7 @@ const ReportL3 = () => {
                                       fontWeight: "bold",
                                     }}
                                   >
-                                    #
+                                    S.No
                                   </th>
                                   <th
                                     style={{
@@ -1136,7 +1136,7 @@ const ReportL3 = () => {
                                       fontWeight: "bold",
                                     }}
                                   >
-                                    #
+                                    S.No
                                   </th>
                                   <th
                                     style={{
@@ -1145,7 +1145,7 @@ const ReportL3 = () => {
                                       fontWeight: "bold",
                                     }}
                                   >
-                                      State Name
+                                    District Name
                                   </th>
                                   <th
                                     style={{
@@ -1194,7 +1194,7 @@ const ReportL3 = () => {
                                         color: "crimson",
                                       }}
                                     >
-                                      {item.state}
+                                      {item.district}
                                     </td>
                                     <td> {item.shortedlisted}</td>
                                     <td>{item.winners}</td>
