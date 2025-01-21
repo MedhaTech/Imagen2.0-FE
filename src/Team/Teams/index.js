@@ -28,12 +28,13 @@ const [hidebutton,setHideButton]=useState("");
   useEffect(() => {
     teamListbymentorid();
   }, []);
+  const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
 
   const teamListbymentorid = () => {
     const queryteam = encryptGlobal(JSON.stringify(
       {
         team: true,
-        student_id: currentUser.data[0]?.student_id
+        student_id: TeamId
       }
     ));
     var config = {
@@ -50,7 +51,7 @@ const [hidebutton,setHideButton]=useState("");
         if (response.status === 200) {
           setTeamsArray(response.data.data);
           setHideButton(response.data.count);
-          // console.log(response,"response");
+          console.log(response,"Single user");
         }
       })
       .catch(function (error) {

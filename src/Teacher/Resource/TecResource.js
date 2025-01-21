@@ -22,7 +22,7 @@ const TecResource = () => {
   async function fetchResourceList() {
     const fectchTecParam = encryptGlobal(
       JSON.stringify({
-        role: "mentor",
+        role: "Institution",
       })
     );
 

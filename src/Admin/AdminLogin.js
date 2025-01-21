@@ -50,8 +50,8 @@ const AdminLogin = (props) => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().email("Must be a valid Email Address").required("Please Enter Email Address"),
-      password: Yup.string().required("Please Enter Password"),
+      email: Yup.string().email("Must be a valid Email Address").required("Please Enter Your Email Address"),
+      password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: (values) => {
     localStorage.clear();
@@ -105,7 +105,7 @@ const AdminLogin = (props) => {
                 <div className="login-userheading">
                   <h3> Super Admin Login</h3>
                   <h4>
-                    Access the Super Admin panel using your Email and Password.
+                    Access the Super Admin Panel Using Your Email and Password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
@@ -135,24 +135,26 @@ const AdminLogin = (props) => {
                     <input
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
-                      placeholder="Please Enter password"
+                      placeholder="Please Enter Password"
                       // className="pass-input form-control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls" style={{color:"red"}}>{formik.errors.password}</small>
-                    ) : null}
-                    <span
+                   
+                    <div
                       className={`fas toggle-password ${
                         isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={togglePasswordVisibility}
-                    ></span>
-                  </div>
+                    ></div>
+                     </div>
+                     {formik.touched.password && formik.errors.password ? (
+                      <small className="error-cls" style={{color:"red"}}>{formik.errors.password}</small>
+                    ) : null}
+                 
                 </div>
-                <div className="form-login authentication-check">
+                {/* <div className="form-login authentication-check">
                   <div className="row">
                     <div className="col-12 d-flex align-items-center justify-content-between">
                       <div className="custom-control custom-checkbox">
@@ -162,12 +164,10 @@ const AdminLogin = (props) => {
                           Remember me
                         </label>
                       </div>
-                      {/* <div className="text-end">
-                        <Link className="forgot-link">Forgot Password?</Link>
-                      </div> */}
+                     
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {/* <Link
                     className="btn btn-login"

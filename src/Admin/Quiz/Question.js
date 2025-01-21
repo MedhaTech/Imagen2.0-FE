@@ -150,7 +150,7 @@ const Question = (props) => {
         (quiz[0] && quiz[0].type == "MRQ")) && (
         <div className="answers">
           {quiz[0] &&
-            quiz[0].options.map((answer, i) => {
+            JSON.parse(quiz[0].options).map((answer, i) => {
               const file = answer.split(".", 2);
               return (
                 <div className={"answer "} key={i}>

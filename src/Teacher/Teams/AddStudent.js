@@ -116,10 +116,10 @@ const Crew1student = () => {
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       ),
     }),
 
@@ -143,9 +143,12 @@ const Crew1student = () => {
         confirmPassword: encrypted,
         type: String(studentId),
       };
-      if (values.id_number !== "") {
-        body["id_number"] = JSON.stringify(values.id_number);
+      if (values.id_number !== "" ) {
+        body["id_number"] = values.id_number;
       }
+      // if (values.id_number !== "") {
+      //   body["id_number"] = JSON.stringify(values.id_number);
+      // }
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
@@ -170,12 +173,12 @@ const Crew1student = () => {
               "error",
               err.response.data?.message !== "Bad Request"
                 ? err.response.data?.message
-                : "Email Id is Invalid"
+                : "Email id is Invalid"
             );
 
             // openNotificationWithIcon("error", err.response.data?.message);
           } else {
-            openNotificationWithIcon("error", "Email Id is Invalid");
+            openNotificationWithIcon("error", "Email id is Invalid");
           }
           // openNotificationWithIcon("error", err.response.data?.message);
           // setBtn(false);
@@ -393,7 +396,7 @@ const Crew1student = () => {
                           </div> */}
                           <div className={`col-md-6`}>
                             <label htmlFor="rollnumber" className="form-label">
-                              Roll number provided by the college
+                              Roll Number Provided by the College
                             </label>
                             &nbsp;
                             <span style={{ color: "red", fontWeight: "bold" }}>
@@ -501,13 +504,13 @@ const Crew1student = () => {
                           </div>
                           <div className={`col-md-6`}>
                             <label htmlFor="id_number" className="form-label">
-                              Apaar Id
+                              APAAR Id
                             </label>
                             <input
                               type="text"
                               className="form-control"
                               id="id_number"
-                              placeholder="Apaar Id"
+                              placeholder="APAAR Id"
                               // disabled={areInputsDisabled}
                               name="id_number"
                               onChange={(e) => {
@@ -648,7 +651,7 @@ const Crew1student = () => {
                             }
                           >
                             PROCEED
-                            <ArrowRight />
+                            {/* <ArrowRight /> */}
                           </button>
                         </div>
                       </div>

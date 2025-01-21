@@ -154,7 +154,7 @@ const StuEdit = () => {
         <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select yearofstudy</span>
+        <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
     
     }),
@@ -163,7 +163,7 @@ const StuEdit = () => {
       // alert("hii");
       const body ={
         full_name: values.full_name,
-        mobile: String(values.mobile),
+        // mobile: String(values.mobile),
         district: values.district,
         college_type: currentUser?.data[0]?.college_type,
         college_name: currentUser?.data[0]?.college_name,
@@ -175,6 +175,9 @@ const StuEdit = () => {
       if (data && data.username_email !== values.email) {
         body['username'] = values.email;
     }
+    if (data && data?.mobile !== values.mobile) {
+      body['mobile'] = values.mobile;
+  }
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
         method: "put",
@@ -190,7 +193,7 @@ const StuEdit = () => {
           if (response.status === 200) {
             openNotificationWithIcon(
               "success",
-              "Student details updated Successfully"
+              "Student Details Updated Successfully"
             );
             navigate("/mentorteams");
             // handleView(studentData);
@@ -200,9 +203,9 @@ const StuEdit = () => {
         })
         .catch(function (err) {
           if(err?.response?.data?.status === 400){
-            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email Id is Invalid");
+            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email id is Invalid");
             }else{
-              openNotificationWithIcon("error", "Email Id is Invalid");
+              openNotificationWithIcon("error", "Email id is Invalid");
             }
         });
     },
@@ -430,7 +433,7 @@ const StuEdit = () => {
                           </div> */}
                           <div className={`col-md-6`}>
                             <label htmlFor="rollnumber" className="form-label">
-                              Roll number provided by the college
+                              Roll Number Provided by the College
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
@@ -529,13 +532,13 @@ const StuEdit = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          Apaar Id
+                          APAAR Id
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="Apaar Id"
+                          placeholder="APAAR Id"
                           // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
@@ -599,7 +602,8 @@ const StuEdit = () => {
                             type="button"
                             onClick={() => navigate("/mentorteams")}
                           >
-                            <ArrowLeft />Back
+                            {/* <ArrowLeft /> */}
+                            Back
                             
                           </button>
                           <button

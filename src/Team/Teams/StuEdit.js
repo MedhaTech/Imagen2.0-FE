@@ -36,7 +36,7 @@ const StuEdit = () => {
   useEffect(() => {
     mentorViewApi();
   }, [studentData.student_id]);
-  
+  // console.log(currentUser?.data[0]?.type_id,"tt");
   const mentorViewApi = () => {
     let supId;
     if (typeof studentData.student_id !== "string") {
@@ -57,6 +57,7 @@ const StuEdit = () => {
       .then(function (response) {
         if (response.status === 200) {
           setData(response.data.data[0]);
+          console.log(response,"11");
         }
       })
       .catch(function (error) {
@@ -136,13 +137,13 @@ const StuEdit = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       collegeType: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select collegeType</span>
+        <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
       college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
+        <span style={{ color: "red" }}>Please Select College</span>
       ),
     
       // ocn: Yup.string().required(
@@ -157,15 +158,15 @@ const StuEdit = () => {
       ),
      
       yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select year of study</span>
+        <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
     
     }),
-
+//  (values.college === 'Other' || values.college === 'Govt Junior College' || values.college === 'Private College')
     onSubmit: (values) => {
       const body ={
         full_name: values.full_name,
-        mobile: String(values.mobile),
+        // mobile: String(values.mobile),
         district: values.district,
         college_type: values.collegeType,
         college_name: values.college === 'Other' ? values.ocn : values.college,
@@ -174,9 +175,12 @@ const StuEdit = () => {
         year_of_study: values.yearofstudy,
         id_number:values.id_number
       };
-      if (data && data.username_email !== values.email) {
+      if (data && data?.username_email !== values.email) {
         body['username'] = values.email;
     }
+    if (data && data?.mobile !== values.mobile) {
+      body['mobile'] = values.mobile;
+  }
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
         method: "put",
@@ -191,7 +195,7 @@ const StuEdit = () => {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            if (currentUser?.data[0]?.type_id == "0"){
+            if (studentData.student_id === currentUser?.data[0]?.student_id){
              
               currentUser.data[0].full_name = values.full_name;
               setCurrentUser(currentUser);
@@ -199,7 +203,7 @@ const StuEdit = () => {
             }
             openNotificationWithIcon(
               "success",
-              "Student details updated Successfully"
+              "Student Details Updated Successfully "
             );
             navigate("/student-team");
             // handleView(studentData);
@@ -209,9 +213,9 @@ const StuEdit = () => {
         })
         .catch(function (err) {
           if(err?.response?.data?.status === 400){
-            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email Id is Invalid");
+            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email id is Invalid");
             }else{
-              openNotificationWithIcon("error", "Email Id is Invalid");
+              openNotificationWithIcon("error", "Email id is Invalid");
             }
         });
     },
@@ -229,12 +233,12 @@ const StuEdit = () => {
         yearofstudy: data.year_of_study || '',
         collegeType: data.college_type || '',
         // ocn: data.college_name || '',
-        ocn: data.college_type === 'Other' ? data.college_name : '',
+        ocn: (data.college_type === 'Other' || data.college_type === 'Private College' || data.college_type === 'Govt Junior College') ? data.college_name : '',
         id_number: data.id_number || '',
       });
     }
   }, [data]); 
-  // console.log(currentUser,"cc");
+  // console.log(data,"cc");
 
   useEffect(() => {
     if (data?.college_type) {
@@ -255,7 +259,7 @@ const StuEdit = () => {
         ] || []
     );
    },[data.college_type]);
-  //  console.log( formik.values.college,"clg",formik.values.ocn,"other");
+   console.log( formik.values.collegeType,"clg",formik.values.ocn,"other");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -444,7 +448,7 @@ const StuEdit = () => {
                           </div>
                           <div className={`col-md-6`}>
                             <label htmlFor="rollnumber" className="form-label">
-                              Roll number provided by the college
+                              Roll Number Provided by the College
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
@@ -474,7 +478,7 @@ const StuEdit = () => {
                               </small>
                             ) : null}
                           </div>
-                          {formik.values.collegeType === "Other" && (
+                          {(formik.values.collegeType.trim() === "Other" || formik.values.collegeType.trim() === "Govt Junior College" || formik.values.collegeType.trim() === "Private College" )&& (
                             <div className={`col-md-12`}>
                               <label htmlFor="ocn" className="form-label">
                                 Other College Name
@@ -543,13 +547,13 @@ const StuEdit = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          Apaar Id
+                          APAAR Id
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="Apaar Id"
+                          placeholder="APAAR Id"
                           // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
@@ -615,7 +619,7 @@ const StuEdit = () => {
     disabled={!formik.dirty || !formik.isValid ||  (formik.values.collegeType === "Other" && !formik.values.ocn)}
                           >
                             Submit
-                            <ArrowRight />
+                            {/* <ArrowRight /> */}
 
                           </button>
                           <button
@@ -624,7 +628,7 @@ const StuEdit = () => {
                             onClick={() => navigate("/student-team")}
                           >
                             Back
-                            <ArrowRight />
+                            {/* <ArrowRight /> */}
                           </button>
                         </div>
                       </div>

@@ -174,7 +174,7 @@ const TeacherProfile = () => {
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">
-                    Roll number provided by the college
+                    Roll Number Provided by the College
                   </label>
                   <input
                     type="text"
@@ -196,7 +196,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Apaar Id</label>
+                  <label className="form-label">APAAR Id</label>
                   <input
                     type="text"
                     className="form-control"

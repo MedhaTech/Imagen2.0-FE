@@ -2,16 +2,17 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 import React, { useState, useLayoutEffect } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/img/logo.png";
+// import logo from "../../assets/img/new-logo.png";
 import email from "../../assets/img/icons/mail.svg";
-// import { openNotificationWithIcon } from "../../helpers/Utils";
+import { openNotificationWithIcon } from "../../helpers/Utils";
 import { evaluatorAdminLoginUser } from "../../redux/actions";
+import logo from "../../assets/img/logo.png";
 
 const StateLogin = (props) => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const StateLogin = (props) => {
       localStorage.getItem("module")
     ) {
       moduleName === "MENTOR"
-        ? navigate("/institution-dashboard")
+        ? navigate("/teacher-dashboard")
         : moduleName === "ADMIN"
         ? navigate("/admin-dashboard")
         : moduleName === "EVALUATOR"
@@ -48,22 +49,22 @@ const StateLogin = (props) => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().email("Must be a valid email").required("required"),
-      password: Yup.string().required("required"),
+      email: Yup.string().email("Please Enter a Valid Email Address").required("Required"),
+      password: Yup.string().required("Required"),
     }),
     onSubmit: (values) => {
-      // if (
-      //   localStorage.getItem("current_user") &&
-      //   localStorage.getItem("module")
-      // ) {
-      //   openNotificationWithIcon(
-      //     "error",
-      //     `Another User(${localStorage.getItem(
-      //       "module"
-      //     )}) has already logged in`
-      //   );
-      //   return;
-      // }
+      localStorage.clear();
+      if (
+        localStorage.getItem('current_user') &&
+        localStorage.getItem('module')
+    ) {
+        openNotificationWithIcon(
+            'error',
+           
+              "Clear your browser cache and try logging in"
+        );
+        return;
+    }
       const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
       const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
       const encrypted = CryptoJS.AES.encrypt(values.password, key, {
@@ -83,7 +84,7 @@ const StateLogin = (props) => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper bg-img">
+        <div className="login-wrapper reset-pass-wrap bg-img">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
@@ -96,9 +97,12 @@ const StateLogin = (props) => {
                 </div>
 
                 <div className="login-userheading">
-                  <h3>Evaluator Eadmin Login</h3>
+                  <h3>Evaluator Admin Login</h3>
+                  <h4>
+                    Access the Evaluator Admin panel using your Email and Password.
+                  </h4>
                   {/* <h4>
-                    Access the EAdmin panel using your email and passcode.
+                    Access the Dreamspos panel using your email and passcode.
                   </h4> */}
                 </div>
                 <div className="form-login mb-3">
@@ -113,7 +117,7 @@ const StateLogin = (props) => {
                       value={formik.values.email}
                     />
                     {formik.touched.email && formik.errors.email ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.email}</small>
                     ) : null}
 
                     <img src={email} alt="Email" />
@@ -131,18 +135,19 @@ const StateLogin = (props) => {
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls">Required</small>
-                    ) : null}
-                    <span
+                   
+                    <div
                       className={`fas toggle-password ${
                         isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={togglePasswordVisibility}
-                    ></span>
+                    ></div>
                   </div>
+                  {formik.touched.password && formik.errors.password ? (
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
+                    ) : null}
                 </div>
-                <div className="form-login authentication-check">
+                {/* <div className="form-login authentication-check">
                   <div className="row">
                     <div className="col-12 d-flex align-items-center justify-content-between">
                       <div className="custom-control custom-checkbox">
@@ -157,8 +162,9 @@ const StateLogin = (props) => {
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="form-login">
+                </div> */}
+                 <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                
                   <button
                     // className="btn btn-login"
                     type="submit"
@@ -173,6 +179,9 @@ const StateLogin = (props) => {
                     Sign In
                   </button>
                 </div>
+                <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
+                    <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                  </div>
               </div>
             </form>
           </div>

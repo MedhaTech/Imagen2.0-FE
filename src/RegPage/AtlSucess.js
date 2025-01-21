@@ -40,7 +40,7 @@ const AtlSucess = () => {
 
                 <h4 className="mb-3">
                   {" "}
-                  Congratulations, Your account has been successfully created.
+                  Congratulations, Your Account has been Successfully Created.
                 </h4>
                 {/* <h4 style={{ color: "black" }}>
                   <b>Teacher Login ID : </b>{" "}

@@ -191,16 +191,16 @@ const Register = () => {
         <span style={{ color: "red" }}>Please Select District</span>
       ),
       college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
+        <span style={{ color: "red" }}>Please Select College</span>
       ),
       college_type: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college type</span>
+        <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       ),
     }),
 
@@ -241,12 +241,13 @@ const Register = () => {
         await axios(config)
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
+              // console.log(mentorRegRes,"mm");
               setMentData(mentorRegRes.data && mentorRegRes.data.data[0]);
-              navigate("/atl-success");
-              openNotificationWithIcon("success", "Email sent successfully");
-              // setTimeout(() => {
-              //   apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
-              // }, 3000);
+              // navigate("/atl-success");
+              // openNotificationWithIcon("success", "Email sent successfully");
+              setTimeout(() => {
+                apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
+              }, 3000);
             }
           })
           .catch((err) => {
@@ -255,9 +256,9 @@ const Register = () => {
     
               }else{
     
-                openNotificationWithIcon("error", "Email Id is Invalid");
+                openNotificationWithIcon("error", "Email id is Invalid");
               }
-            // openNotificationWithIcon("error", "Email Id is Invalid");
+            // openNotificationWithIcon("error", "Email id is Invalid");
 
             // setBtn(false);
             formik.setErrors({
@@ -280,41 +281,40 @@ const Register = () => {
     formik.setFieldValue("otp", "");
 
   }, [formik.values.email]);
-  // async function apiCall(mentData) {
-  //   // Dice code list API //
-  //   // where list = diescode  //
-  //   const body = {
-  //     school_name: orgData.organization_name,
-  //     udise_code: orgData.organization_code,
-  //     district: formik.values.district,
-  //     state: orgData.state,
-  //     pin_code: orgData.pin_code,
-  //     email: mentData.username,
-  //     mobile: mentData.mobile,
-  //   };
+  async function apiCall(mentData) {
+    // Dice code list API //
+    // where list = diescode  //
+    const body = {
+      college_name: mentData.college_name,
+      college_type: mentData.college_type,
 
-  //   var config = {
-  //     method: "post",
-  //     url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-  //     },
-  //     data: JSON.stringify(body),
-  //   };
+      district: mentData.district,
+      email: mentData.username,
+      mobile: mentData.mobile,
+    };
 
-  //   await axios(config)
-  //     .then(async function (response) {
-  //       if (response.status == 200) {
-  //         setButtonData(response?.data?.data[0]?.data);
-  //         navigate("/atl-success");
-  //         openNotificationWithIcon("success", "Email sent successfully");
-  //       }
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: JSON.stringify(body),
+    };
+
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          setButtonData(response?.data?.data[0]?.data);
+          navigate("/atl-success");
+          openNotificationWithIcon("success", "Email Sent Successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   const handleCheckbox = (e, click) => {
     if (click) {
       setCheckBox(click);
@@ -357,7 +357,7 @@ const Register = () => {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
           // console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
-          openNotificationWithIcon("success", "Otp send to Email Id");
+          openNotificationWithIcon("success", "OTP Sent to Given Email Id");
           setBtnOtp(true);
           setPerson(false);
           setTimeout(() => {
@@ -371,7 +371,7 @@ const Register = () => {
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
           openNotificationWithIcon("error", error?.response.data?.message);
-          // openNotificationWithIcon("error", "Email Id is Invalid");
+          // openNotificationWithIcon("error", "Email id is Invalid");
 
           setDisable(true);
           setAreInputsDisabled(false);
@@ -792,7 +792,8 @@ const Register = () => {
                             className="btn btn-warning m-2"
                             onClick={(e) => handleSendOtp(e)}
                             disabled={
-                              !formik.isValid || !formik.dirty || otpSent || !(formik.values.password === formik.values.confirmPassword)
+                              !formik.isValid || !formik.dirty || otpSent || !(formik.values.password === formik.values.confirmPassword) ||
+                              (formik.values.college === 'Other' && !formik.values.ocn) 
                             }
                           >
                             {otpSent ? `Resend OTP (${timer})` : change}

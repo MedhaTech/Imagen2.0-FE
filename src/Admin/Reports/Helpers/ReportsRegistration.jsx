@@ -367,7 +367,20 @@ const ReportsRegistration = () => {
             .then((response) => {
                 if (response.status === 200) {
                     const chartTableData = response?.data?.data || [];
-                    const totals = chartTableData.reduce(
+                     // added for download report //
+          const updatedChartTableData = chartTableData.map(item => {
+            if (item.PrivateCollege_Count === undefined) item.PrivateCollege_Count = 0;
+            if (item.GovtJuniorCollege_Count === undefined) item.GovtJuniorCollege_Count = 0;
+            if (item.GovtPolytechnicCollege_Count === undefined) item.GovtPolytechnicCollege_Count = 0;
+            if (item.GovtDegreeCollege_Count === undefined) item.GovtDegreeCollege_Count = 0;
+            if (item.SocialWelfareCollege_Count === undefined) item.SocialWelfareCollege_Count = 0;
+            if (item.TribalWelfareCollege_Count === undefined) item.TribalWelfareCollege_Count = 0;
+            if (item.GovtITICollege_Count === undefined) item.GovtITICollege_Count = 0;
+            if (item.Other_Count === undefined) item.Other_Count = 0;
+          
+            return item;
+          });
+                    const totals = updatedChartTableData.reduce(
                         (acc, curr) => {
                             acc.district = "Total";
                           (acc.studentReg += curr.studentReg || 0),
@@ -397,7 +410,7 @@ const ReportsRegistration = () => {
                           Other_Count:0,
                         }
                       );
-                      const chartTableDataWithTotals = [...chartTableData, totals];
+                      const chartTableDataWithTotals = [...updatedChartTableData, totals];
                       setChartTableData(chartTableDataWithTotals);
                       setDownloadTableData(chartTableDataWithTotals);
                     // console.log(chartTableData, "table data");
@@ -478,8 +491,8 @@ const ReportsRegistration = () => {
                                     <div className="row">
                                    
                                     <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                                    <div className="card flex-fill default-cover w-100 mb-4">
-                                        <div className="card-header d-flex justify-content-between align-items-center">
+                                    <div className="card flex-fill default-cover w-100 mb-2">
+                                        <div className="card-header d-flex justify-content-between align-items-center" style={{ borderBottom: 'none',paddingBottom: 0 }}>
                                             <h4 className="card-title mb-0">District wise Students Registration Stats</h4>
                                             <div className="dropdown">
                                                 <Link to="#" className="view-all d-flex align-items-center">
@@ -501,22 +514,22 @@ const ReportsRegistration = () => {
                                                 </Link>
                                             </div>
                                         </div>
-                                        <div className="card-body">
+                                        <div className="card-body" >
                                             <div className="table-responsive">
-                                                <table className="table table-borderless recent-transactions">
+                                                <table  className="table table-striped table-bordered responsive">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>District Name</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>No of Students Reg</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt Junior College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt Polytechnic College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt ITI College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Govt Degree College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Social Welfare College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Tribal Welfare College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Private College</th>
-                                                            <th style={{whiteSpace: 'wrap'}}>Other</th>
+                                                            <th style={{ color: "#36A2EB" }}>No</th>
+                                                            <th style={{ color: "#36A2EB" }}>District <br/>Name</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>No of <br/>Students <br/>Reg</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Govt <br/>Junior <br/> College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Govt <br/>Polytechnic<br/> College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Govt <br/>ITI <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Govt <br/>Degree <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Social <br/>Welfare <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Tribal <br/>Welfare <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Private <br/>College</th>
+                                                            <th style={{whiteSpace: 'wrap',  color: "#36A2EB",}}>Other</th>
 
 
                                                         </tr>
@@ -526,16 +539,16 @@ const ReportsRegistration = () => {
                                                                 <tr 
                                                                     key={index}
                                                                 >
-                                                                    <td>
+                                                                    <td >
                                                                         {index + 1}
                                                                     </td>
-                                                                    <td style={{maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis",color: "crimson"}}>
+                                                                    <td style={{textAlign: "left",maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis",color: "crimson"}}>
                                                                         {item.district}
                                                                     </td>
-                                                                    <td>
+                                                                    <td >
                                                                         {item.studentReg}
                                                                     </td>
-                                                                    <td>
+                                                                    <td >
                                                                         {item.GovtJuniorCollege_Count ? item.GovtJuniorCollege_Count :"0"}
                                                                     </td>
                                                                     <td>
@@ -574,7 +587,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={summaryHeaders}
-                                        filename={`MentorSummaryTable_${newFormat}.csv`}
+                                        filename={`StudentRegistrationSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                         // onDownloaded={() => {
@@ -589,7 +602,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadData}
                                         headers={RegHeaders}
-                                        filename={`TeacherReport_${newFormat}.csv`}
+                                        filename={`StudentRegistrationDetailedReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                         // onDownloaded={() => {

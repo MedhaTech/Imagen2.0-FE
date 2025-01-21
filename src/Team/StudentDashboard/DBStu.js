@@ -13,6 +13,7 @@ import { setToogleHeader } from "../../core/redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import { Tooltip } from "react-bootstrap";
 import { all_routes } from "../../Router/all_routes";
+import { RiTeamFill } from "react-icons/ri";
 ////////my code/////////////
 import { getCurrentUser } from "../../helpers/Utils";
 import FeatherIcon from "feather-icons-react";
@@ -85,6 +86,7 @@ const DBStu = () => {
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
     (state) => state.teams
   );
+  // console.log(teamsMembersStatus,"team");
   /////////my code//////////////////
   const currentUser = getCurrentUser("current_user");
   const [selectedLanguage, setSelectedLanguage] = useState('Select Language');
@@ -271,7 +273,7 @@ useEffect(() => {
     navigate(`/studentpresurvey`);
   };
   const redirectToCourse = () => {
-    navigate(`/studentcourse/1`);
+    navigate(`/studentcourseMenu`);
   };
   const redirectToPost = () => {
     navigate(`/studentpostsurvey`);
@@ -380,7 +382,7 @@ useEffect(() => {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            console.log(response, "ideaSubApi");
+            // console.log(response, "ideaSubApi");
             setStuIdeaSub(response.data.data[0].status);
             setStuIdeaLoading(false);
           }
@@ -545,7 +547,7 @@ useEffect(() => {
             </div>
           </div>
           <div className="row sales-cards">
-            <div className="col-xl-4 col-sm-6 col-12">
+            <div className="col-xl-6 col-sm-6 col-12">
               <div className="card color-info bg-success mb-4 ">
                 <h3>
                   {" "}
@@ -569,18 +571,18 @@ useEffect(() => {
                 <FeatherIcon icon="thumbs-up" />
               </div>
             </div> */}
-            <div className="col-xl-4 col-sm-6 col-12">
+            <div className="col-xl-6 col-sm-6 col-12">
               <div className="card color-info bg-secondary mb-4">
                 <h3>
                   <CountUp end={videos} duration={4}>
                     +
-                  </CountUp> / 24
+                  </CountUp> / 25
                 </h3>
                 <p>Course Videos Watched</p>
                 <FeatherIcon icon="video" />
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12">
+            {/* <div className="col-xl-4 col-sm-6 col-12">
               <div className="card color-info bg-primary">
                 <h3>
                   <CountUp end={badges} duration={4}>
@@ -590,7 +592,7 @@ useEffect(() => {
                 <p>Badges Achieved</p>
                 <FeatherIcon icon="award" />
               </div>
-            </div>
+            </div> */}
           </div>
           {/* Quicklinks , Latest News */}
           <div className="row">
@@ -684,13 +686,13 @@ useEffect(() => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to={"/studentcourse/1"}
+                                to={"/studentcourseMenu"}
                                 className="product-img"
                               >
                                 <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"#0e4b99"}} />
                               </Link>
                               <div className="info">
-                                <Link to={"/studentcourse/1"}>
+                                <Link to={"/studentcourseMenu"}>
                                   <h4>Student Course</h4>
                                 </Link>
                                 <p className="dull-text">On Problem Solving Journey</p>
@@ -749,7 +751,7 @@ useEffect(() => {
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/studentcourse/1"} >
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/studentcourseMenu"} >
                                     <Eye className="feather-view" />
                                   </Link>
                                 </OverlayTrigger>
@@ -1031,14 +1033,19 @@ useEffect(() => {
             <div className="card-header d-flex justify-content-between align-items-center">
               <h4 className="card-title mb-0">
                 {" "}
-                <img
+                {/* <img
                   src={team}
                   style={{
                     marginRight: "6px",
                     width: "7%",
                     verticalAlign: "middle",
                   }}
-                />
+                /> */}
+                <RiTeamFill size="25"  style={{
+                    marginRight: "6px",
+                    verticalAlign: "middle",
+                    color:"#0e4b99"
+                  }}/>
                 Team Progress
               </h4>
             </div>

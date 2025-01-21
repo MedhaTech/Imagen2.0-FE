@@ -104,10 +104,10 @@ const CreatepilotStudent = () => {
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       )
     }),
 
@@ -159,7 +159,7 @@ const CreatepilotStudent = () => {
   
             }else{
   
-              openNotificationWithIcon("error", "Email Id is Invalid");
+              openNotificationWithIcon("error", "Email id is Invalid");
             }
           // setBtn(false);
           formik.setErrors({
@@ -377,7 +377,7 @@ const CreatepilotStudent = () => {
                               htmlFor="rollnumber"
                               className="form-label"
                             >
-                              Roll number provided by the college
+                              Roll Number Provided by the College
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
@@ -488,13 +488,13 @@ const CreatepilotStudent = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          Apaar Id
+                          APAAR Id
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="Apaar Id"
+                          placeholder="APAAR Id"
                           name="id_number"
                           onChange={(e) => {
                             const inputValue = e.target.value;
@@ -619,7 +619,8 @@ const CreatepilotStudent = () => {
                             onClick={() => navigate("/mentorteams")}
 
                           >
-                            <ArrowLeft />Back
+                            {/* <ArrowLeft /> */}
+                            Back
                           </button>
                           <button
                             className="btn btn-warning m-2"
@@ -628,7 +629,8 @@ const CreatepilotStudent = () => {
                               !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
                             }
                           >
-                            PROCEED<ArrowRight />
+                            PROCEED
+                            {/* <ArrowRight /> */}
                           </button>
                         </div>
 

@@ -72,7 +72,8 @@ const TeacherProfile = () => {
                 <div className="profile-content">
                   <div className="profile-contentimg">
                   {/* <img src={users} alt="user" id="blah" /> */}
-                  <Avatar initials={currentUser?.data[0]?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar>
+                  {/* initials={data?.full_name.split(' ').map(w => w.charAt(0)).join('')} */}
+                  <Avatar  initials={(data?.full_name?.split(' ').map(w => w.charAt(0)).join('')) || 'NN'}  bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar>
 
                     {/* {currentUser?.data[0]?.role === "TEAM" ? ( */}
                       {/* <img
@@ -93,7 +94,7 @@ const TeacherProfile = () => {
                     <div className="profileupload"></div>
                   </div>
                   <div className="profile-contentname">
-                    <h2>{currentUser?.data[0]?.full_name}</h2>
+                    <h2>{data?.full_name}</h2>
                   </div>
                 </div>
               </div>
@@ -189,7 +190,7 @@ const TeacherProfile = () => {
   } col-sm-12`}>
                 <div className="input-blocks">
                   <label className="form-label">
-                    Roll number provided by the college
+                    Roll Number Provided by the College
                   </label>
                   <input
                     type="text"
@@ -212,7 +213,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Apaar Id</label>
+                  <label className="form-label">APAAR Id</label>
                   <input
                     type="text"
                     className="form-control"

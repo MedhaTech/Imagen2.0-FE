@@ -601,42 +601,42 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                   "#00ffff",
                   "#0000ff",
                   "#800080",
+                  "#ffa07a",
+                  "#ffff00",
+                  "#e8f48c",
+                  "#08e8de",
+                  "#002147",
+                  "#1d2951",
+                  "#997a8d",
+                  "#4f3a3c",
+                  "#843f5b",
+                  "#4b0082",
+                  "#da9100",
+                  "#fbab60",
+                  "#592720",
+                ],
+                hoverBackgroundColor: [
                   "#8bcaf4",
                   "#ff99af",
                   "#ff0000",
                   "#800000",
-                  "#648c11",
-                  "#00ffff",
-                  "#0000ff",
-                  "#800080",
-                  "#0000ff",
-                  "#800080",
-                  "#8bcaf4",
-                  "#ff99af",
-                  "#ff0000",
-                ],
-                hoverBackgroundColor: [
-                  "#36A2EB",
-                  "#FF6384",
-                  "#ff6666",
-                  "#954535",
-                  "#a6d608",
-                  "#b2ffff",
-                  "#4169e1",
-                  "#dda0dd",
-                  "#36A2EB",
-                  "#FF6384",
-                  "#ff6666",
-                  "#954535",
-                  "#a6d608",
-                  "#b2ffff",
-                  "#4169e1",
-                  "#dda0dd",
-                  "#dda0dd",
-                  "#36A2EB",
-                  "#FF6384",
-                  "#ff6666",
-                  "#954535",
+                 "#648c11",
+                 "#00ffff",
+                 "#0000ff",
+                 "#800080",
+                  "#ffa07a",
+                  "#ffff00",
+                  "#e8f48c",
+                  "#08e8de",
+                  "#002147",
+                  "#1d2951",
+                  "#997a8d",
+                  "#4f3a3c",
+                  "#843f5b",
+                  "#4b0082",
+                  "#da9100",
+                  "#fbab60",
+                  "#592720",
                 ],
               },
             ],
@@ -733,53 +733,13 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
             {isloader ?
             <div className="chart mt-2 mb-2">
               {combinedArray.length > 0 && (
-                <>
-                  {/* <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                <div>
+                  {/* <div className="row"> */}
+                   
+                  {/* <div className="row"> */}
+                    <div className="col-sm-12 col-md-6 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title mb-0">Data Analytics</h4>
-                          <div className="dropdown">
-                            <Link
-                              to="#"
-                              className="view-all d-flex align-items-center"
-                            >
-                              View All
-                              <span className="ps-2 d-flex align-items-center">
-                                <ArrowRight className="feather-16" />
-                              </span>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <div className="row">
-                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                              <p>
-                                <b>
-                                  Theme-Wise Ideas Submissions as of {newFormat}
-                                </b>
-                              </p>
-                              {doughnutChartData && (
-                                <div id="donut-chart">
-                                  <ReactApexChart
-                                    options={chartOption}
-                                    series={chartOption.series}
-                                    type="donut"
-                                    height={330}
-                                  />
-                                </div>
-                              )}
-                            </div>
-                           
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
-                  <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                      <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
+                        <div className="card-header d-flex justify-content-between align-items-center"style={{ borderBottom: 'none',paddingBottom: 0 }}>
                           <h4 className="card-title mb-0">
                             District wise Submitted Ideas Stats
                           </h4>
@@ -805,11 +765,17 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                           </div>
                         </div>
                         <div className="card-body">
-                          <div className="table-responsive">
-                            <table className="table table-border recent-transactions">
+                          <div className="table-responsive"  style={{
+          overflowY: "auto",
+          scrollbarWidth: "none", // For Firefox
+          msOverflowStyle: "none", // For Internet Explorer
+        }}>
+                            <table className="table table-striped table-bordered responsive"
+                            // className="table table-border recent-transactions"
+                            >
                               <thead>
                                 <tr>
-                                  <th style={{ color: "#36A2EB" }}>#No</th>
+                                  <th style={{ color: "#36A2EB" }}>No</th>
                                   <th style={{ color: "#36A2EB" }}>
                                     District Name
                                   </th>
@@ -1071,8 +1037,50 @@ prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').rep
                         </div>
                       </div>
                     </div>
+                    <div className="row">
+                    <div className="col-sm-12 col-md-6 col-xl-6 d-flex">
+                      <div className="card flex-fill default-cover w-100 mb-2" style={{ height: "500px" }}>
+                        {/* <div className="card-header d-flex justify-content-between align-items-center"> */}
+                          {/* <h4 className="card-title mb-0">Data Analytics</h4> */}
+                          {/* <div className="dropdown">
+                            <Link
+                              to="#"
+                              className="view-all d-flex align-items-center"
+                            >
+                              View All
+                              <span className="ps-2 d-flex align-items-center">
+                                <ArrowRight className="feather-16" />
+                              </span>
+                            </Link>
+                          </div> */}
+                        {/* </div> */}
+                        <div className="card-body">
+                          <div className="row">
+                            <div className="col-sm-12 text-center ">
+                              <h4 className="card-title mb-2">
+                                {/* <b> */}
+                                  Theme-Wise Ideas Submissions as of {newFormat}
+                                {/* </b> */}
+                              </h4>
+                              {doughnutChartData && (
+                                <div id="donut-chart">
+                                  <ReactApexChart
+                                    options={chartOption}
+                                    series={chartOption.series}
+                                    type="donut"
+                                    // height={330}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                           
+                          </div>
+                        </div>
+                      {/* </div> */}
+                    </div>
                   </div>
-                </>
+                  </div>
+                </div>
               )}
              
             

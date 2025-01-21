@@ -39,6 +39,7 @@ import logout from "../../assets/img/logout.svg";
 // import { cardData, subCategoryData } from './SDGData';
 import moment from "moment";
 // import { getLanguage } from "../../constants/languageOptions";
+import "./idea.css";
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
@@ -50,9 +51,11 @@ import { getLanguage } from "../../constants/languageOptions";
 const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
   let a_link;
   let count;
+  let fileName;
   if (url) {
     a_link = item.split("/");
     count = a_link.length - 1;
+    fileName = a_link[count];
   }
   return (
     <>
@@ -67,12 +70,15 @@ const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
         </div>
       ) : (
         <a
-          className="badge mb-2 bg-info p-3 ms-3"
+          className="badge link-badge mb-2 bg-info p-3 ms-3"
           href={item}
           target="_blank"
           rel="noreferrer"
         >
-          {a_link[count]}
+           <span className="file-name">
+                                {fileName}
+                            </span>
+          {/* {a_link[count]} */}
         </a>
       )}
     </>
@@ -209,17 +215,53 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       label: t("ideaform_questions.uniqueop3"),
     },
   ];
+  // const supportOptions = [
+  //   "Funding or Investment / నిధులు/రూపాయాల పెట్టుబడులు",
+  //   "Mentorship and Guidance / మార్గదర్శకత్వం మరియు సహాయం",
+  //   "Access to Technology or Tools/ టెక్నాలజీ/సాధనలకు ప్రవేశం",
+  //   "Marketing & Branding Support / మార్కెటింగ్ మరియు బ్రాండింగ్ మద్దతు",
+  //   "Product Development Assistance/ ఉత్పత్తి అభివృద్ధి సహాయం",
+  //   "Access to Incubators or Networks or Partners / ఇంక్యుబేటర్లు/నెట్‌వర్క్‌లు లేదా భాగస్వాముల దగ్గర ప్రవేశం",
+  //   "Legal Support (e.g., Intellectual Property, contracts) / చట్టపరమైన మద్దతు (ఉదాహరణకు, మేధా సంపత్తి, ఒప్పందాలు)",
+  //   "Other (Please specify) / ఇతర (దయచేసి వివరించండి)",
+  // ];
   const supportOptions = [
-    "Funding/Investment / నిధులు/రూపాయాల పెట్టుబడులు",
-    "Mentorship and Guidance / మార్గదర్శకత్వం మరియు సహాయం",
-    "Access to Technology/Tools/ టెక్నాలజీ/సాధనలకు ప్రవేశం",
-    "Marketing & Branding Support / మార్కెటింగ్ మరియు బ్రాండింగ్ మద్దతు",
-    "Product Development Assistance/ ఉత్పత్తి అభివృద్ధి సహాయం",
-    "Access to Incubators/Networks or Partners / ఇంక్యుబేటర్లు/నెట్‌వర్క్‌లు లేదా భాగస్వాముల దగ్గర ప్రవేశం",
-    "Legal Support (e.g., Intellectual Property, contracts) / చట్టపరమైన మద్దతు (ఉదాహరణకు, మేధా సంపత్తి, ఒప్పందాలు)",
-    "Other (Please specify) / ఇతర (దయచేసి వివరించండి)",
+    {
+      label: "Funding or Investment / నిధులు/రూపాయాల పెట్టుబడులు",
+      value: "Funding or Investment"
+    },
+    {
+      label: "Mentorship and Guidance / మార్గదర్శకత్వం మరియు సహాయం",
+      value: "Mentorship and Guidance"
+    },
+    {
+      label: "Access to Technology or Tools / టెక్నాలజీ/సాధనాలకు ప్రవేశం",
+      value: "Access to Technology or Tools"
+    },
+    {
+      label: "Marketing & Branding Support / మార్కెటింగ్ మరియు బ్రాండింగ్ మద్దతు",
+      value: "Marketing & Branding Support"
+    },
+    {
+      label: "Product Development Assistance / ఉత్పత్తి అభివృద్ధి సహాయం",
+      value: "Product Development Assistance"
+    },
+    {
+      label: "Access to Incubators or Networks or Partners / ఇంక్యుబేటర్లు/నెట్‌వర్క్‌లు లేదా భాగస్వాముల దగ్గర ప్రవేశం",
+      value: "Access to Incubators or Networks or Partners"
+    },
+    {
+      label: "Legal Support (e.g., Intellectual Property, contracts) / చట్టపరమైన మద్దతు (ఉదాహరణకు, మేధా సంపత్తి, ఒప్పందాలు)",
+      value: "Legal Support"
+    },
+    {
+      label: "Other (Please specify) / ఇతర (దయచేసి వివరించండి)",
+      value: "Other"
+    }
   ];
-  // console.log(theme,"theme",props?.theme,"props?.theme");
+  
+  // cons
+  // ole.log(theme,"theme",props?.theme,"props?.theme");
   const initiatedBy = formData?.initiated_by;
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
@@ -256,7 +298,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setPrototypeImage(formData?.prototype_image);
     setPrototypeLink(formData?.prototype_link);
   }, [formData]);
-
+console.log(support,"ss");
   useEffect(() => {
     if (formData?.stage) {
       setStage(JSON.parse(formData.stage));
@@ -693,14 +735,29 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       console.error("showChallenges is not a function");
     }
   };
+  // const scroll = () => {
+  //   const section = document.querySelector("#start");
+  //   section.scrollIntoView({ behavior: "smooth", block: "start" });
+  // };
+  // added
   const scroll = () => {
     const section = document.querySelector("#start");
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // Fallback to scroll to top if section is not found
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
+  useEffect(() => {
+    scroll();
+  }, []);
+  // Added
   const handleEdit = () => {
     setIsDisabled(false);
     scroll();
   };
+  
   const comingSoonText = t("dummytext.student_idea_sub");
   // const acceptedParamfileTypes =>
   //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
@@ -709,7 +766,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     ideaDescribe?.length > 0 &&
     title?.length > 0 &&
     solve?.length > 0;
-  console.log("Idea Form Screen");
+  // console.log("Idea Form Screen");
   return (
     <>
       {/* <div className='content'> */}
@@ -768,7 +825,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               : formData?.submitted_at
                               ? " On " +
                                 moment(formData?.submitted_at).format(
-                                  "DD-MM-YYYY HH:MM A"
+                                  "DD-MM-YYYY"
                                 )
                               : ""}
                           </h5>
@@ -826,12 +883,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                                             </>)}
                                                       
                                                     </div> */}
-                    <div className="text-right mb-3">
+                    <div 
+                    className="d-flex flex-nowrap justify-content-end gap-2 mb-3"
+                    // className="text-right mb-3"
+                    >
                       {!isDisabled && (
                         <Button
                           type="button"
                           btnClass="me-3 btn btn-warning"
-                          // backgroundColor="#067DE1"
                           onClick={(e) => handleSubmit(e, "DRAFT")}
                           size="small"
                           label={`${
@@ -843,10 +902,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                         />
                       )}
                       {
-                        //         initiatedBy &&
-                        // initiatedBy ===
-                        //     currentUser?.data[0]
-                        //         ?.user_id &&
+                       
                         formData.status !== "SUBMITTED" && isDisabled && (
                           <>
                             <Button
@@ -855,7 +911,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               onClick={handleEdit}
                               size="small"
                               label={t("teacher_teams.edit_idea")}
-                              style={{ marginRight: "1rem" }}
+                              style={{
+                                marginRight: window.innerWidth > 768 ? "1rem" : "0",
+                              }}
+                              // style={{ marginRight: "1rem" }}
                             />
                             <Button
                               type="button"
@@ -1335,15 +1394,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               disabled={isDisabled}
                               name="support"
                               id="support"
+                              value={support} 
                             >
                               <option value={""}>Please select Dropdown</option>
                               {supportOptions.map((item, i) => (
                                 <option
                                   key={i}
-                                  value={item}
-                                  selected={item === support}
+                                  value={item.value}
+                                  // selected={item === support}
                                 >
-                                  {item}
+                                   {/* {item} */}
+                                  {item.label}
                                 </option>
                               ))}
                             </select>
@@ -1436,7 +1497,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               />
                             </div>
                             {/* </FormGroup> */}
-                            <div className="mx-4">
+                            <div className="mx-1">
                               {immediateLink &&
                                 immediateLink.length > 0 &&
                                 immediateLink.map((item, i) => (

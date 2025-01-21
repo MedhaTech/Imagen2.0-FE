@@ -110,7 +110,7 @@ export const logout = (navigate, t, module, dispatch) => {
             navigate("/state");
             break;
           default:
-            navigate("/");
+            navigate("/login");
         }
       }
     } else if (result.dismiss === Swal.DismissReason.cancel) {

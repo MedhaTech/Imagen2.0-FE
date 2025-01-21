@@ -22,11 +22,11 @@ const Forgotpassword = () => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email(
-          <span style={{ color: "red" }}>Must be a valid email address</span>
+          <span style={{ color: "red" }}>Must be a valid Email Address</span>
         )
         .required(
           <span style={{ color: "red" }}>
-            Please Enter Registered Email ID
+            Please Enter Registered Email Address
           </span>
         )
         .max(255)
@@ -35,17 +35,21 @@ const Forgotpassword = () => {
 
     onSubmit: async (values) => {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+      const loginData = {
+        ...values,
+        role: "STUDENT",
+      };
       await axios
         .put(
           `${URL.putstudentforgotPassword}`,
-          JSON.stringify(values, null, 2),
+          JSON.stringify(loginData, null, 2),
           axiosConfig
         )
         .then((checkOrgRes) => {
           if (checkOrgRes.status == 202) {
             openNotificationWithIcon(
               "success",
-              "Password sent to your registered email address"
+              "Password sent to your Registered Email Address"
             );
             seterrorMsg("");
             setTimeout(() => {
@@ -70,7 +74,7 @@ const Forgotpassword = () => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper forgot-pass-wrap bg-img">
+        <div className="login-wrapper student-forgot-wrap bg-img">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
 //import { Link } from "react-router-dom";
@@ -18,17 +19,20 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { getTeamMemberStatus } from '../store/teams/actions';
 import { openNotificationWithIcon } from "../../helpers/Utils";
 import team from "../../assets/img/icons/team.svg";
+import { RiTeamFill } from "react-icons/ri";
 
 
 
 const TeamsProgDD = ({user}) => {
-  
+//   console.log(user,"user");
+
     //////////////New Code/////////////////////////
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
         (state) => state.teams
     );
+    // console.log(teamsMembersStatus,"team");
     const [teamId, setTeamId] = useState(null);
     const [mentorid, setmentorid] = useState('');
     const [showDefault, setshowDefault] = useState(true);
@@ -43,7 +47,7 @@ const TeamsProgDD = ({user}) => {
     };
     useEffect(() => {
         if (user) {
-            setmentorid(user[0].mentor_id);
+            setmentorid(user[0].college_name);
         }
     }, [user]);
     const [teamsList, setTeamsList] = useState([]);
@@ -57,14 +61,14 @@ const TeamsProgDD = ({user}) => {
     const teamNameandIDsbymentorid = (mentorid) => {
         const teamApi = encryptGlobal(
             JSON.stringify({
-                mentor_id: mentorid
+                college_name: mentorid
             })
         );
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/teams/namebymenterid?Data=${teamApi}`,
+                `/mentors/pilotNameByInstName?Data=${teamApi}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -75,6 +79,7 @@ const TeamsProgDD = ({user}) => {
             .then(function (response) {
                 if (response.status === 200) {
                     setTeamsList(response.data.data);
+                    console.log(response,"Teams List");
                 }
             })
             .catch(function (error) {
@@ -211,8 +216,8 @@ const TeamsProgDD = ({user}) => {
 
     
     const customer = teamsList.map((team) => ({
-        value: team.team_id,
-        label: team.team_name,
+        value: team.student_id,
+        label: team.full_name,
     }));
 
     const handleSelectChange = (selectedOption) => {
@@ -259,13 +264,20 @@ const TeamsProgDD = ({user}) => {
     <div>
         <div className="card table-list-card">
             <div className="card-header d-flex justify-content-between align-items-center">
-                <h4 className="card-title mb-0"> <img src={team} style={{ marginRight:"6px", width: "7%", verticalAlign: "middle"}}/>Team Progress</h4>
-                <button
+                <h4 className="card-title mb-0">
+                     <RiTeamFill size="25"  style={{
+                                        marginRight: "6px",
+                                        verticalAlign: "middle",
+                                         color:"#0e4b99"
+                                      }}/>
+                     {/* <img src={team} style={{ marginRight:"6px", width: "7%", verticalAlign: "middle"}}/> */}
+                     Team Progress</h4>
+                {/* <button
                   className="btn btn-secondary d-flex align-items-center"
                   onClick={handleemailapi}
                 >
                   <Mail className="feather-mail" size={20} style={{marginRight : "5px"}}/> Teams Login&apos;s
-                </button>
+                </button> */}
             </div>
             <div className="card-body">
                 <div className="table-top">
@@ -273,7 +285,7 @@ const TeamsProgDD = ({user}) => {
                         <Select
                         classNamePrefix="react-select"
                         options={customer}
-                        placeholder="Choose a team"
+                        placeholder="Choose a Team"
                         onChange={handleSelectChange}
                         value={customer.find(option => option.value === teamId)}
                         />

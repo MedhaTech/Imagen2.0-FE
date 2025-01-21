@@ -136,7 +136,7 @@ const StuPostSurvey = () => {
                 // console.log(preSurveyRes, "aa");
                 openNotificationWithIcon(
                   "success",
-                  "Post Survey has been submitted successfully..!!",
+                  "Post Survey Submitted Successfully..!!",
                   ""
                 );
     
@@ -509,6 +509,34 @@ return (
                                                 </Label>
                                               </FormGroup>
                                             )}
+                                               {eachQuestion.option_e &&
+                                            eachQuestion.option_e !== "" && (
+                                              <FormGroup
+                                                check
+                                                //   className="mx-1"
+                                              >
+                                                <Label
+                                                  check
+                                                  style={{
+                                                    fontSize: "1rem",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                  }}
+                                                >
+                                                  <Input
+                                                    type="radio"
+                                                    onChange={(e) =>
+                                                      handleChange(e)
+                                                    }
+                                                    name={`${eachQuestion.quiz_survey_question_id}`}
+                                                    disabled={isDisabled}
+                                                    id="radioOption5"
+                                                    value={`${eachQuestion.option_e}`}
+                                                  />{" "}
+                                                  {eachQuestion.option_e}
+                                                </Label>
+                                              </FormGroup>
+                                            )}
                                         </>
                                       )}
                                       {eachQuestion.type === "MCQ" && (
@@ -656,6 +684,43 @@ return (
                                               </Label>
                                             </FormGroup>
                                           )}
+                                           {eachQuestion.option_e !== null && (
+                                            <FormGroup
+                                              check
+                                              //   className="mx-1"
+                                            >
+                                              <Label
+                                                check
+                                                style={{
+                                                  fontSize: "1rem",
+                                                  display: "flex",
+                                                  alignItems: "center",
+                                                }}
+                                              >
+                                                <Input
+                                                  type="checkbox"
+                                                  name={`${eachQuestion.quiz_survey_question_id}`}
+                                                  disabled={isDisabled}
+                                                  checked={
+                                                    filterAnswer(
+                                                      eachQuestion.quiz_survey_question_id
+                                                    ) &&
+                                                    filterAnswer(
+                                                      eachQuestion.quiz_survey_question_id
+                                                    ).includes(
+                                                      eachQuestion.option_e
+                                                    )
+                                                  }
+                                                  id={eachQuestion.option_e}
+                                                  onChange={(e) =>
+                                                    handleChange(e)
+                                                  }
+                                                  value={`${eachQuestion.option_e}`}
+                                                />
+                                                {eachQuestion.option_e}
+                                              </Label>
+                                            </FormGroup>
+                                          )}
                                         </>
                                       )}
                                     </>
@@ -693,7 +758,7 @@ return (
                           </div>
                         </Form>
                       </>
-                    ) : ideastatus == 1 && postSurveyStatus == "COMPLETED" ? (
+                    ) : ideastatus == "SUBMITTED" && postSurveyStatus == "COMPLETED" ? (
                       <div style={{ textAlign: "center" }}>
                         <div>
                           <img

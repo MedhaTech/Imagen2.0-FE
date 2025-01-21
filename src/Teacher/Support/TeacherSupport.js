@@ -401,7 +401,7 @@ const TeacherSupport = () => {
                                         data-bs-dismiss="offcanvas"
                                         onClick={() => formik1.resetForm()}
                                     >
-                                        <ArrowLeft className="me-2" />
+                                        {/* <ArrowLeft className="me-2" /> */}
                                         Back To List
                                     </a>
                                 </div>
@@ -569,7 +569,7 @@ const TeacherSupport = () => {
                                         data-bs-dismiss="offcanvas"
                                         onClick={() => formik.resetForm()}
                                     >
-                                        <ArrowLeft className="me-2" />
+                                        {/* <ArrowLeft className="me-2" /> */}
                                         Back To List
                                     </a>
                                 </div>

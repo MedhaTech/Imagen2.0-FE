@@ -480,7 +480,20 @@ const TeacherProgressDetailed = () => {
         if (response.status === 200) {
         //   console.log(response, "whole");
           const chartTableData = response?.data?.data || [];
-          const totals = chartTableData.reduce(
+          // added for download report //
+          const updatedChartTableData = chartTableData.map(item => {
+            if (item.PrivateCollege_Count === undefined) item.PrivateCollege_Count = 0;
+            if (item.GovtJuniorCollege_Count === undefined) item.GovtJuniorCollege_Count = 0;
+            if (item.GovtPolytechnicCollege_Count === undefined) item.GovtPolytechnicCollege_Count = 0;
+            if (item.GovtDegreeCollege_Count === undefined) item.GovtDegreeCollege_Count = 0;
+            if (item.SocialWelfareCollege_Count === undefined) item.SocialWelfareCollege_Count = 0;
+            if (item.TribalWelfareCollege_Count === undefined) item.TribalWelfareCollege_Count = 0;
+            if (item.GovtITICollege_Count === undefined) item.GovtITICollege_Count = 0;
+            if (item.Other_Count === undefined) item.Other_Count = 0;
+          
+            return item;
+          });
+          const totals = updatedChartTableData.reduce(
             (acc, curr) => {
                 acc.district = "Total";
               (acc.instReg += curr.instReg || 0),
@@ -511,7 +524,7 @@ const TeacherProgressDetailed = () => {
             }
           );
           // console.log(totals,"1");
-          const chartTableDataWithTotals = [...chartTableData, totals];
+          const chartTableDataWithTotals = [...updatedChartTableData, totals];
           setChartTableData(chartTableDataWithTotals);
           setDownloadTableData(chartTableDataWithTotals);
 
@@ -645,7 +658,7 @@ const TeacherProgressDetailed = () => {
                   <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
+                        <div className="card-header d-flex justify-content-between align-items-center"style={{ borderBottom: 'none',paddingBottom: 0 }}>
                           <h4 className="card-title mb-0">
                             District wise Registered Institution Stats
                           </h4>
@@ -672,10 +685,10 @@ const TeacherProgressDetailed = () => {
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">
-                            <table className="table table-borderless recent-transactions">
+                            <table className="table table-striped table-bordered responsive">
                               <thead>
                                 <tr>
-                                  <th style={{ color: "#36A2EB" }}>#</th>
+                                  <th style={{ color: "#36A2EB" }}>No</th>
                                   <th style={{ color: "#36A2EB" }}>
                                     District Name
                                   </th>
@@ -820,7 +833,7 @@ const TeacherProgressDetailed = () => {
                 <CSVLink
                   data={downloadTableData}
                   headers={tableHeaders}
-                  filename={`InstitutionDetailedSummaryReport_${newFormat}.csv`}
+                  filename={`InstitutionRegistrationSummaryReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable}
                 >
@@ -832,7 +845,7 @@ const TeacherProgressDetailed = () => {
                 <CSVLink
                   headers={teacherDetailsHeaders}
                   data={chartTableData1}
-                  filename={`InstitutionProgressDetailedReport_${newFormat}.csv`}
+                  filename={`InstitutionRegistrationDetailedReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
                 >

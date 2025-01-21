@@ -633,6 +633,7 @@ const StudentProgress = () => {
                 ? courseINprogesssItem.studentCourseIN
                 : 0,
               courseNotStarted,
+
             };
           });
           const total = combinedArray.reduce(
@@ -663,7 +664,11 @@ const StudentProgress = () => {
               courseNotStarted: 0,
             }
           );
-         
+          total.coursePercentage = Math.round(
+            (total.courseCompleted /
+              total.totalStudents) *
+            100
+          );
           const newcombinedArray = [...combinedArray, total];
           setCombinedArray(combinedArray);
           setDownloadTableData(newcombinedArray);
@@ -753,7 +758,7 @@ const StudentProgress = () => {
                   <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
+                        <div className="card-header d-flex justify-content-between align-items-center"style={{ borderBottom: 'none',paddingBottom: 0 }}>
                           <h4 className="card-title mb-0">
                             District wise Student Progress Stats
                           </h4>
@@ -780,10 +785,10 @@ const StudentProgress = () => {
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">
-                            <table className="table table-borderless recent-transactions">
+                            <table className="table table-striped table-bordered responsive">
                               <thead>
                                 <tr>
-                                  <th style={{ color: "#36A2EB" }}>#</th>
+                                  <th style={{ color: "#36A2EB" }}>No</th>
                                   <th style={{ color: "#36A2EB" }}>
                                     District Name
                                   </th>
@@ -801,7 +806,7 @@ const StudentProgress = () => {
                                       color: "#36A2EB",
                                     }}
                                   >
-                                    #Students Enrolled
+                                    Students Enrolled
                                   </th>
                                   <th
                                     style={{
@@ -977,7 +982,7 @@ const StudentProgress = () => {
                 <CSVLink
                   data={downloadTableData}
                   headers={tableHeaders}
-                  filename={`StudentDetailedSummaryReport_${newFormat}.csv`}
+                  filename={`StudentSummaryReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable}
                 >
@@ -989,11 +994,11 @@ const StudentProgress = () => {
                 <CSVLink
                   headers={teacherDetailsHeaders}
                   data={studentDetailedReportsData}
-                  filename={`StudentProgressDetailedReport_${newFormat}.csv`}
+                  filename={`StudentDetailedReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
                 >
-                  Download Teacherdetailed CSV
+                   Download Table CSV
                 </CSVLink>
               )}
             </div>

@@ -519,11 +519,11 @@ const InstProgressDetailed = () => {
     team_count: teamCount || 0,
     completed_count: completedCount || 0,
     in_progress_count: inProgressCount || 0,
-    course_not_started: courseNotStartedCount > 0 ? courseNotStartedCount : "Not Started",
+    course_not_started: courseNotStartedCount  || 0 ,
             };
           });
           setmentorDetailedReportsData(newdatalist);
-          if (response.data.count > 0) {
+          if (response.data.data[0]?.summary?.length > 0) {
             openNotificationWithIcon(
               'success',
               "Report Downloaded Successfully"
@@ -712,7 +712,7 @@ const InstProgressDetailed = () => {
                   <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-9 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
+                        <div className="card-header d-flex justify-content-between align-items-center"style={{ borderBottom: 'none',paddingBottom: 0 }}>
                           <h4 className="card-title mb-0">
                             District wise Institution Progress Stats
                           </h4>
@@ -739,10 +739,10 @@ const InstProgressDetailed = () => {
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">
-                            <table className="table table-borderless recent-transactions">
+                            <table className="table table-striped table-bordered responsive">
                               <thead>
                                 <tr>
-                                  <th style={{ color: "#36A2EB" }}>#</th>
+                                  <th style={{ color: "#36A2EB" }}>No</th>
                                   <th style={{ color: "#36A2EB" }}>
                                     District Name
                                   </th>
@@ -815,7 +815,7 @@ const InstProgressDetailed = () => {
                 <CSVLink
                   data={downloadTableData}
                   headers={tableHeaders}
-                  filename={`InstitutionDetailedSummaryReport_${newFormat}.csv`}
+                  filename={`InstitutionProgressSummaryReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable}
                 >

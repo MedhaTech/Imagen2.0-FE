@@ -21,6 +21,8 @@ import "./styles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import Avatar from 'react-string-avatar';
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import axios from "axios";
 
 const Header = () => {
   const route = all_routes;
@@ -32,7 +34,39 @@ const Header = () => {
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };
+  const [data, setData] = useState([]);
+  const user = currentUser.data[0]?.student_id;
+  useEffect(() => {
+    mentorViewApi();
+  }, [user]);
 
+  const mentorViewApi = () => {
+    let supId;
+    if (typeof user !== "string") {
+      supId = encryptGlobal(JSON.stringify(user));
+    } else {
+      supId = encryptGlobal(user);
+    }
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_API_BASE_URL + `/students/${supId}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response, "res");
+          setData(response.data.data[0]);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     const handleMouseover = (e) => {
       e.stopPropagation();
@@ -171,7 +205,7 @@ const Header = () => {
     }
   };
 
-  const fullName = currentUser?.data[0]?.full_name;
+  const fullName = data?.full_name;
   const capitalizeFirstLetter = (string) => {
     if (!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -642,8 +676,8 @@ const Header = () => {
                       src={getProfileImage(currentUser?.data[0]?.gender)}
                       alt="Profile"
                     /> */}
-                    <img src={team} alt="Team" id="blah" />
-          {/* <Avatar initials={currentUser?.data[0]?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar> */}
+                    {/* <img src={team} alt="Team" id="blah" /> */}
+          <Avatar initials={data?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar>
 
                   </span>
                   <span className="user-detail">
@@ -658,8 +692,8 @@ const Header = () => {
                 <div className="profilename">
                   <div className="profileset">
                     <span className="user-img">
-                      <img src={team} alt="Team" id="blah" />
-          {/* <Avatar initials={currentUser?.data[0]?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar> */}
+                      {/* <img src={team} alt="Team" id="blah" /> */}
+          <Avatar initials={data?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar>
 
                       <span className="status online" />
                     </span>
@@ -698,10 +732,20 @@ const Header = () => {
                   alt="img"
                   className="img-fluid"
                 /> */}
-                    <img
+                    {/* <img
                       src={getProfileImage(currentUser?.data[0]?.Gender)}
                       alt="Profile"
-                    />
+                    /> */}
+                    <Avatar
+  initials={data.full_name ? data.full_name.split(' ').map(w => w.charAt(0)).join('') : ''}
+  bgColor="#36adf2"
+  textColor="black"
+  // roundShape="true"
+  pictureResolution={256}
+  height={40}
+  width={40}
+/>
+
                   </span>
                   <span className="user-detail">
                     <span className="user-name"> {capitalizedFullName}</span>
@@ -715,10 +759,20 @@ const Header = () => {
                 <div className="profilename">
                   <div className="profileset">
                     <span className="user-img">
-                      <img
+                      {/* <img
                         src={getProfileImage(currentUser?.data[0]?.Gender)}
                         alt="Profile"
-                      />
+                      /> */}
+         <Avatar
+  initials={data.full_name ? data.full_name.split(' ').map(w => w.charAt(0)).join('') : ''}
+  bgColor="#36adf2"
+  textColor="black"
+  // roundShape="true"
+  pictureResolution={256}
+  height={40}
+  width={40}
+/>
+
                       <span className="status online" />
                     </span>
                     <div className="profilesets">
@@ -739,9 +793,9 @@ const Header = () => {
                       <Link className="dropdown-item" to="/student-profile">
                         <FontAwesomeIcon icon={faUser} /><h6>My Profile</h6>
                       </Link>
-                      <Link className="dropdown-item" to="/student-changePassword">
+                      {/* <Link className="dropdown-item" to="/student-changePassword">
                         <FontAwesomeIcon icon={faKey} /><h6>Change Password</h6>
-                      </Link>
+                      </Link> */}
                     </>
                   ) : null}
                   <hr className="m-0" />
@@ -815,9 +869,9 @@ const Header = () => {
                   <Link className="dropdown-item" to="/student-profile">
                     My Profile
                   </Link>
-                  <Link className="dropdown-item" to="/student-changePassword">
+                  {/* <Link className="dropdown-item" to="/student-changePassword">
                     Change Password
-                  </Link>
+                  </Link> */}
                 </>
               ) : null}
               {/* <Link className="dropdown-item" to="generalsettings">

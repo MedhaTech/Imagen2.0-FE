@@ -23,6 +23,8 @@ import {
   mentorRoutes,
   stateRoutes,
   eadminRoutes,
+  evaluatorRoutes,
+
 } from "./router.link";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -57,8 +59,12 @@ import Crew2Reg from "../RegPage/Crew2Reg";
 import Crew3Reg from "../RegPage/Crew3Reg";
 import InstitutionReg from "../RegPage/InstReg";
 import StudentSidebar from "../InitialPage/Sidebar/StudedentSidebar";
+import ApEmailValidation from "../RegPage/ApEmailValidation";
 // import "../i18n";
+import EvalHeader from "../InitialPage/Sidebar/evalHeader";
+import LoginEvaluator from "../Evaluator/LoginEvaluator";
 
+import EvalSidebar from "../InitialPage/Sidebar/evalSidebar";
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
   const HeaderLayout = () => (
@@ -98,6 +104,16 @@ const AllRoutes = () => {
       <ThemeSettings />
     </div>
   );
+  const EvaluatorHeaderLayout = () => (
+    <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
+      <EvalHeader />
+      <EvalSidebar />
+
+      <Outlet />
+      <ThemeSettings />
+    </div>
+  );
+ 
   const StateHeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       <StateHeader />
@@ -140,6 +156,7 @@ const AllRoutes = () => {
         <Route path="/">
           
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/email" element={<ApEmailValidation/>} />
           <Route path="/institution-registration" element={<InstitutionReg />} />
           <Route path="/atl-success" element={<AtlSucess />} />
           <Route path="/non-atl-success" element={<NonAtlSuccess />} />
@@ -151,6 +168,7 @@ const AllRoutes = () => {
           <Route path="/student" element={<LogInTeam />} />
           <Route path="/student-forgot-psw" element={<StudentPSW />} />
           <Route path="/institution" element={<LogInTeacher />} />
+          <Route path="/evaluator" element={<LoginEvaluator />} />
           {/* student register */}
           <Route path="/registration" element={<RegInstruction />} />
           <Route path="/pilotReg" element={<PilotReg />} />
@@ -227,6 +245,21 @@ const AllRoutes = () => {
               element={
                 route.protected ? (
                   <ProtectedRoute user="STATE">{route.element}</ProtectedRoute>
+                ) : (
+                  route.element
+                )
+              }
+            />
+          ))}
+        </Route>
+        <Route path="/" element={<EvaluatorHeaderLayout />}>
+          {evaluatorRoutes.map((route, id) => (
+            <Route
+              key={id}
+              path={route.path}
+              element={
+                route.protected ? (
+                  <ProtectedRoute user="EVALUATOR">{route.element}</ProtectedRoute>
                 ) : (
                   route.element
                 )

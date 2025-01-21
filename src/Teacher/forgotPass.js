@@ -22,7 +22,7 @@ const Forgotpassword = () => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email(
-          <span style={{ color: "red" }}>Must be a valid email address</span>
+          <span style={{ color: "red" }}>Must be a valid Email Address</span>
         )
         .required(
           <span style={{ color: "red" }}>
@@ -35,10 +35,14 @@ const Forgotpassword = () => {
 
     onSubmit: async (values) => {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+      const loginData = {
+        ...values,
+        role: "MENTOR",
+      };
       await axios
         .put(
           `${URL.putResetPassword}`,
-          JSON.stringify(values, null, 2),
+          JSON.stringify(loginData, null, 2),
           axiosConfig
         )
         .then((checkOrgRes) => {

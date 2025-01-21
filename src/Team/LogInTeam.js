@@ -34,7 +34,7 @@ const LogInTeam = (props) => {
     validationSchema: Yup.object({
       email: Yup.string()
         // .email("Must be a valid email")
-        .required("Please Enter Email Address")
+        .required("Please Enter Your Email Address")
         .max(255)
         .trim(),
       password: Yup.string().required("Please Enter Your Password").trim(),
@@ -95,7 +95,7 @@ const LogInTeam = (props) => {
                    Student Team Journey coming soon ...
                   </h3> */}
                   <h4>
-                    Access the Student panel using your Email and Password.
+                    Access the Student Panel Using Your Email and Password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
@@ -139,7 +139,8 @@ const LogInTeam = (props) => {
                       <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
                     ) : null}
                 </div>
-                <div className="form-login authentication-check">
+                
+                {/* <div className="form-login authentication-check">
                   <div className="row">
                     <div className="col-12 d-flex align-items-center justify-content-between">
                       <div className="custom-control custom-checkbox">
@@ -157,7 +158,7 @@ const LogInTeam = (props) => {
                      
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <button
                     type="submit"

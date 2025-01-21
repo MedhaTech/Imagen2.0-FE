@@ -156,7 +156,7 @@ const Createpopup = () => {
       } catch (error) {
         //console.log(error.response.status);
         if (error.response.status === 420) {
-          openNotificationWithIcon("error", "PopUp for this State & Role already exists");
+          openNotificationWithIcon("error", "PopUp for this Role already exists");
         }
       }
     },

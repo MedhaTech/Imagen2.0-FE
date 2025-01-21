@@ -97,16 +97,16 @@ const AddInstitution = () => {
         <span style={{ color: "red" }}>Please Select District</span>
       ),
       college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
+        <span style={{ color: "red" }}>Please Select College</span>
       ),
       college_type: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college type</span>
+        <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       ),
     }),
 
@@ -143,7 +143,7 @@ const AddInstitution = () => {
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
                 navigate("/institution-users-list");
-                openNotificationWithIcon("success", "Institution adding successfully");
+                openNotificationWithIcon("success", "Institution added successfully");
             }
           })
           .catch((err) => {
@@ -479,14 +479,16 @@ const AddInstitution = () => {
                               !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
                             }
                           >
-                            PROCEED<ArrowRight />
+                            PROCEED
+                            {/* <ArrowRight /> */}
                           </button>
                           <button
                             className="btn btn-warning m-2"
                             type="submit"
                             onClick={() => navigate("/institution-users-list")}
                           >
-                            Back<ArrowRight />
+                            Back
+                            {/* <ArrowRight /> */}
                           </button>
                         </div>
                   </div>

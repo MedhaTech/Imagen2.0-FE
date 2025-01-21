@@ -157,13 +157,13 @@ const StuEdit = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       collegeType: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select collegeType</span>
+        <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
       college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
+        <span style={{ color: "red" }}>Please Select College</span>
       ),
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Roll Number</span>
@@ -172,7 +172,7 @@ const StuEdit = () => {
         <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select year of study</span>
+        <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
     
     }),
@@ -181,7 +181,7 @@ const StuEdit = () => {
       // alert("hii");
       const body ={
         full_name: values.full_name,
-        mobile: String(values.mobile),
+        // mobile: String(values.mobile),
         district: values.district,
         college_type: values.collegeType,
         college_name: values.college === 'Other' ? values.ocn : values.college,
@@ -192,11 +192,14 @@ const StuEdit = () => {
       if (data && data.username_email !== values.email) {
         body['username'] = values.email;
     }
+    if (data && data?.mobile !== values.mobile) {
+      body['mobile'] = values.mobile;
+  }
     // if (data && data.id_number !== values.id_number ) {
     //   body["id_number"] = values.id_number;
     // }
     if (values.id_number !== "") {
-      body["id_number"] = JSON.stringify(values.id_number);
+      body["id_number"] = values.id_number;
     }
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
@@ -213,7 +216,7 @@ const StuEdit = () => {
           if (response.status === 200) {
             openNotificationWithIcon(
               "success",
-              "Student details updated Successfully"
+              "Student Details Updated Successfully"
             );
             navigate("/students");
             // handleView(studentData);
@@ -223,9 +226,9 @@ const StuEdit = () => {
         })
         .catch(function (err) {
           if(err?.response?.data?.status === 400){
-            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email Id is Invalid");
+            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email id is Invalid");
             }else{
-              openNotificationWithIcon("error", "Email Id is Invalid");
+              openNotificationWithIcon("error", "Email id is Invalid");
             }
         });
     },
@@ -453,7 +456,7 @@ const StuEdit = () => {
                           </div>
                           <div className={`col-md-6`}>
                             <label htmlFor="rollnumber" className="form-label">
-                              Roll number provided by the college
+                              Roll Number Provided by the College
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
@@ -552,13 +555,13 @@ const StuEdit = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          Apaar Id
+                          APAAR Id
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="Apaar Id"
+                          placeholder="APAAR Id"
                           // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
@@ -635,7 +638,8 @@ const StuEdit = () => {
                             type="button"
                             onClick={() => navigate("/students")}
                           >
-                            <ArrowLeft />Back
+                            {/* <ArrowLeft /> */}
+                            Back
                             
                           </button>
                         </div>

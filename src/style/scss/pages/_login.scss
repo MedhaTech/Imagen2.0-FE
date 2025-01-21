@@ -23,31 +23,45 @@
       display: flex;
       margin: 80px 0 0 0;
       backdrop-filter: blur(17px);
+      overflow: hidden;
+    }
+    //added //
+    @media screen and (max-width: 768px) {
+      .login-content {
+        height: 540px; /* Reduced height for mobile */
+        width:300px; /* Adjust width for mobile responsiveness */
+        margin: 40px auto; /* Center with reduced margin */
+        overflow: hidden;
+      }
     }
     &.register-wrap {
-      background-image: url(../../../assets/img/plain.jpg);
+      background-image: url(../../../assets/img/instScreen.jpg);
 
       // background-image: url(../../../assets/img/authentication/register-img.jpg);
     }
 
     &.forgot-pass-wrap {
-      background-image: url(../../../assets/img/resetPic.png);
+      background-image: url(../../../assets/img/plain.jpg);
       // background-image: url(../../../assets/img/authentication/forgot-password-img.jpg);
     }
     &.reset-pass-wrap {
-      background-image: url(../../../assets/img/admin.png);
+      background-image: url(../../../assets/img/plain.jpg);
       // background-image: url(../../../assets/img/authentication/reset-password-img.jpg);
     }
     &.login-pass-wrap {
-      background-image: url(../../../assets/img/Teacherlogin1.png);
+      background-image: url(../../../assets/img/plain.jpg);
       // background-image: url(../../../assets/img/authentication/reset-password-img.jpg);
     }
     &.common-pass-wrap {
-      background-image: url(../../../assets/img/admin.png);
+      background-image: url(../../../assets/img/screen1.jpg);
       // background-image: url(../../../assets/img/authentication/reset-password-img.jpg);
     }
     &.email-veri-wrap {
-      background-image: url(../../../assets/img/StudentNew.png);
+      background-image: url(../../../assets/img/logBg.jpg);
+      // background-image: url(../../../assets/img/authentication/email-verification-img.jpg);
+    }
+    &.student-forgot-wrap {
+      background-image: url(../../../assets/img/logBg.jpg);
       // background-image: url(../../../assets/img/authentication/email-verification-img.jpg);
     }
   }

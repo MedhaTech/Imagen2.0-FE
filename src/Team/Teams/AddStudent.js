@@ -85,13 +85,13 @@ const Crew1student = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       collegeType: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select collegeType</span>
+        <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
       college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
+        <span style={{ color: "red" }}>Please Select College</span>
       ),
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Roll Number</span>
@@ -104,10 +104,10 @@ const Crew1student = () => {
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter password</span>
+        <span style={{ color: "red" }}>Please Enter Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter confirmPassword</span>
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       )
     }),
 
@@ -148,7 +148,7 @@ const Crew1student = () => {
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
             navigate("/student-team");
-            openNotificationWithIcon("success", "Crew adding successfully");
+            openNotificationWithIcon("success", "Crew User Added Successfully");
           }
         })
         .catch((err) => {
@@ -157,7 +157,7 @@ const Crew1student = () => {
   
             }else{
   
-              openNotificationWithIcon("error", "Email Id is Invalid");
+              openNotificationWithIcon("error", "Email id is Invalid");
             }
           // openNotificationWithIcon("error", err.response.data?.message);
           // setBtn(false);
@@ -376,7 +376,7 @@ const Crew1student = () => {
                               htmlFor="rollnumber"
                               className="form-label"
                             >
-                              Roll number provided by the college
+                              Roll Number Provided by the College
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
@@ -487,13 +487,13 @@ const Crew1student = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          Apaar Id
+                          APAAR Id
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="Apaar Id"
+                          placeholder="APAAR Id"
                           // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
@@ -619,14 +619,16 @@ const Crew1student = () => {
                               !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
                             }
                           >
-                            PROCEED<ArrowRight />
+                            PROCEED
+                            {/* <ArrowRight /> */}
                           </button>
                           <button
                             className="btn btn-warning m-2"
                             type="submit"
                             onClick={() => navigate("/student-team")}
                           >
-                            Back<ArrowRight />
+                            Back
+                            {/* <ArrowRight /> */}
                           </button>
                         </div>
 

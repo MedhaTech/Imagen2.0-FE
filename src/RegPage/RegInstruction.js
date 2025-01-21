@@ -76,7 +76,7 @@ const RegInstruction = () => {
   <div className="col-md-10 ps-3">
     <span className="mt-5 p">Already have an account?</span>
     <span className="second_text"> 
-      <Link className="hover-a" to={"/login"}>
+      <Link className="hover-a" to={"/login"} style={{color:"blue"}}>
         {" "} Click Here
       </Link>
     </span>
@@ -177,7 +177,7 @@ const RegInstruction = () => {
               Proceed
               <span>
                 {" "}
-                <ArrowRight />
+                {/* <ArrowRight /> */}
               </span>
             </button>
           </div>

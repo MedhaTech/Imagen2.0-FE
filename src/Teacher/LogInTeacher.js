@@ -93,8 +93,8 @@ const LogInTeacher = (props) => {
                 <div className="login-userheading">
                   <h3> Institution Login</h3>
                   <h4>
-                    Access the Institution panel using your registered email and
-                    password.
+                    Access the Institution Panel Using Your Email and
+                    Password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
@@ -148,14 +148,8 @@ const LogInTeacher = (props) => {
                 </div>
                 <div className="form-login authentication-check">
                   <div className="row">
-                    <div className="col-12 d-flex align-items-center justify-content-between">
-                      <div className="custom-control custom-checkbox">
-                        <label className="checkboxs ps-4 mb-0 pb-0 line-height-1">
-                          <input type="checkbox" className="form-control" />
-                          <span className="checkmarks" />
-                          Remember me
-                        </label>
-                      </div>
+                    <div className="col-12 d-flex align-items-center justify-content-end">
+                    
                       <div className="text-end">
                         <Link className="forgot-link" to="/institution-forgot-psw">
                           Forgot Password?

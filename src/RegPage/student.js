@@ -83,13 +83,13 @@ const Crew3Reg = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       collegeType: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select collegeType</span>
+        <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
       college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
+        <span style={{ color: "red" }}>Please Select College</span>
       ),
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Roll Number</span>
@@ -98,13 +98,13 @@ const Crew3Reg = () => {
         <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select yearofstudy</span>
+        <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select password</span>
+        <span style={{ color: "red" }}>Please Select Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select confirmPassword</span>
+        <span style={{ color: "red" }}>Please Select Confirm Password</span>
       )
     }),
 
@@ -230,7 +230,8 @@ const Crew3Reg = () => {
               type="submit"
 
             >
-              LOGIN<ArrowRight />
+              LOGIN
+              <ArrowRight />
             </button>
           </div>
         </div>

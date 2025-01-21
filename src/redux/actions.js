@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const ADMIN_LOGIN_USER = "ADMIN_LOGIN_USER";
 export const ADMIN_LIST_ERROR = 'ADMIN_LIST_ERROR';
 export const ADMIN_LIST_SUCCESS = 'ADMIN_LIST_SUCCESS';
@@ -11,7 +12,14 @@ export const SCHOOL_REGISTRATOION_BULKUPLOAD_LIST_SUCCESS =
 export const SCHOOL_REGISTRATOION_BULKUPLOAD_LIST_ERROR =
     'SCHOOL_REGISTRATOION_BULKUPLOAD_LIST_ERROR';
 
+    export const ADMIN_NOTIFICATIONS_LIST = 'ADMIN_NOTIFICATIONS_LIST';
+    export const ADMIN_NOTIFICATIONS_LIST_SUCCESS =
+        'ADMIN_NOTIFICATIONS_LIST_SUCCESS';
+    export const ADMIN_NOTIFICATIONS_LIST_ERROR = 'ADMIN_NOTIFICATIONS_LIST_ERROR';
 
+    export const ADMIN_EVALUTORS_LIST = 'ADMIN_EVALUTORS_LIST';
+    export const ADMIN_EVALUTORS_LIST_SUCCESS = 'ADMIN_EVALUTORS_LIST_SUCCESS';
+    export const ADMIN_EVALUTORS_LIST_ERROR = 'ADMIN_EVALUTORS_LIST_ERROR';
 export const GET_DISTRICTS_DATA = 'GET_DISTRICTS_DATA';
 export const GET_GLOBAL_LANGUAGE = 'GET_GLOBAL_LANGUAGE';
 
@@ -115,8 +123,12 @@ export const EVALUATOR_ADMIN_LOGIN_USER_ERROR =
 export const UPDATAE_EVALUATOR = "UPDATE_EVALUATOR";
 
 export const GET_TEACHERS = "GET_TEACHERS";
+export const DISCUSSION_GET_CHAT = "DISCUSSION_GET_CHAT";
 export const MENTORS_GET_SUPPORT_TICKETS = "MENTORS_GET_SUPPORT_TICKETS";
-export const MENTORS_GET_SUPPORT_TICKETS_BY_ID =
+
+export const   GET_DISCUSSION_CHAT_BY_ID=
+  "GET_DISCUSSION_CHAT_BY_ID";
+  export const MENTORS_GET_SUPPORT_TICKETS_BY_ID =
   "MENTORS_GET_SUPPORT_TICKETS_BY_ID";
 export const MENTORS_GET_SUPPORT_TICKETS_RESPONSES_BY_ID =
   "MENTORS_GET_SUPPORT_TICKETS_RESPONSES_BY_ID";
@@ -129,6 +141,8 @@ export const MENTORS_CREATE_ERROR = "MENTORS_CREATE_ERROR";
 export const MENTORS_LIST = "MENTORS_LIST";
 export const MENTORS_LIST_SUCCESS = "MENTORS_LIST_SUCCESS";
 export const MENTORS_LIST_ERROR = "MENTORS_LIST_ERROR";
+export const DISCUSSION_LIST_ERROR = "DISCUSSION_LIST_ERROR";
+
 export const MENTORS_DELETE = "MENTORS_DELETE";
 export const MENTORS_DELETE_SUCCESS = "MENTORS_DELETE_SUCCESS";
 export const MENTORS_DELETE_ERROR = "MENTORS_DELETE_ERROR";
@@ -167,4 +181,6 @@ export * from "../Admin/Courses/store/adminCourses/actions";
 export * from "../Teacher/store/courses/actions";
 export * from '../Admin/Courses/store/adminCourses/actions';
 export * from './schoolRegistration/actions';
+export * from '../Admin/store/adminEvalutors/actions';
 
+export * from '../Admin/store/adminNotifications/actions';

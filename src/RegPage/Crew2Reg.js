@@ -97,13 +97,13 @@ const Crew2Reg = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       collegeType: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select collegeType</span>
+        <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select District</span>
       ),
       college: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select college</span>
+        <span style={{ color: "red" }}>Please Select College</span>
       ),
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Roll Number</span>
@@ -113,13 +113,13 @@ const Crew2Reg = () => {
         <span style={{ color: "red" }}>Please Enter Branch Name</span>
       ),
       yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select yearofstudy</span>
+        <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
       password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select password</span>
+        <span style={{ color: "red" }}>Please Select Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select confirmPassword</span>
+        <span style={{ color: "red" }}>Please Select Confirm Password</span>
       )
     }),
 
@@ -160,7 +160,7 @@ const Crew2Reg = () => {
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
             navigate("/crew3Reg");
-            openNotificationWithIcon("success", "Crew-2 Registration successfully");
+            openNotificationWithIcon("success", "Crew User2 Registered Successfully");
           }
         })
         .catch((err) => {
@@ -169,7 +169,7 @@ const Crew2Reg = () => {
   
             }else{
   
-              openNotificationWithIcon("error", "Email Id is Invalid");
+              openNotificationWithIcon("error", "Email id is Invalid");
             }
           // setBtn(false);
           formik.setErrors({
@@ -247,7 +247,7 @@ const Crew2Reg = () => {
   <div className="col-md-10 ps-3">
     <span className="mt-5 p">Already have an account?</span>
     <span className="second_text"> 
-      <Link className="hover-a" to={"/login"}>
+      <Link className="hover-a" to={"/login"} style={{color:"blue"}}>
         {" "} Click Here
       </Link>
     </span>
@@ -456,7 +456,7 @@ const Crew2Reg = () => {
                           htmlFor="rollnumber"
                           className="form-label"
                         >
-                          Roll number provided by the college
+                          Roll Number Provided by the College
                         </label>&nbsp;
                         <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <input
@@ -567,13 +567,13 @@ const Crew2Reg = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          Apaar Id
+                          APAAR Id
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="Apaar Id"
+                          placeholder="APAAR Id"
                           // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
@@ -699,7 +699,8 @@ const Crew2Reg = () => {
                           !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
                         }
                       >
-                        PROCEED<ArrowRight />
+                        PROCEED
+                        {/* <ArrowRight /> */}
                       </button>
                       <button
                         className="btn btn-warning m-2"
@@ -707,7 +708,8 @@ const Crew2Reg = () => {
                         onClick={() => navigate("/regSuccess")}
                         
                       >
-                        SKIP NOW<ArrowRight />
+                        SKIP NOW
+                        {/* <ArrowRight /> */}
                       </button>
                     </div>
 
