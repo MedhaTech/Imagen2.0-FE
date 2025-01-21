@@ -1044,6 +1044,7 @@ useEffect(() => {
                 <RiTeamFill size="25"  style={{
                     marginRight: "6px",
                     verticalAlign: "middle",
+                    color:"#0e4b99"
                   }}/>
                 Team Progress
               </h4>

@@ -793,9 +793,9 @@ const Header = () => {
                       <Link className="dropdown-item" to="/student-profile">
                         <FontAwesomeIcon icon={faUser} /><h6>My Profile</h6>
                       </Link>
-                      <Link className="dropdown-item" to="/student-changePassword">
+                      {/* <Link className="dropdown-item" to="/student-changePassword">
                         <FontAwesomeIcon icon={faKey} /><h6>Change Password</h6>
-                      </Link>
+                      </Link> */}
                     </>
                   ) : null}
                   <hr className="m-0" />
@@ -869,9 +869,9 @@ const Header = () => {
                   <Link className="dropdown-item" to="/student-profile">
                     My Profile
                   </Link>
-                  <Link className="dropdown-item" to="/student-changePassword">
+                  {/* <Link className="dropdown-item" to="/student-changePassword">
                     Change Password
-                  </Link>
+                  </Link> */}
                 </>
               ) : null}
               {/* <Link className="dropdown-item" to="generalsettings">

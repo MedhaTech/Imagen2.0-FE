@@ -268,6 +268,7 @@ const TeamsProgDD = ({user}) => {
                      <RiTeamFill size="25"  style={{
                                         marginRight: "6px",
                                         verticalAlign: "middle",
+                                         color:"#0e4b99"
                                       }}/>
                      {/* <img src={team} style={{ marginRight:"6px", width: "7%", verticalAlign: "middle"}}/> */}
                      Team Progress</h4>

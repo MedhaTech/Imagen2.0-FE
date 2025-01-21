@@ -164,7 +164,7 @@ const TeacherSupport = () => {
             <div className="content">
               <div className="page-header justify-content-between">
                 <div className="page-title">
-                  <h4>Ask Your Query</h4>
+                  <h4>Ask Your Question</h4>
                 </div>
                 <div className="page-btn">
                   <button
@@ -287,7 +287,7 @@ const TeacherSupport = () => {
                             Discard
                           </button>
                           <button type="submit" className="btn btn-save">
-                          Post Your Answer
+                          Post Your Question
                           </button>
                         </div>
                       </div>
