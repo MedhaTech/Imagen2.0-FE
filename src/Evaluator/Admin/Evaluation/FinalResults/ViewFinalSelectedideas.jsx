@@ -194,28 +194,25 @@ const ViewSelectedIdea = () => {
                 width: '8rem'
             },
             {
-                name: 'Udise Code',
-                selector: (row) => row.organization_code,
-                cellExport: (row) => row.organization_code,
-                width: '8rem'
-            },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name,
-                cellExport: (row) => row.team_name,
-                width: '10rem'
-            },
-            {
-                name: 'CID',
+                name: "College Type",
+                selector: (row) => row.college_type,
+                width: "10rem",
+              },
+              {
+                name: "College Name",
+                selector: (row) => row.college_name,
+                width: "10rem",
+              },
+              {
+                name: "CID",
                 selector: (row) => row.challenge_response_id,
-                cellExport: (row) => row.challenge_response_id,
-                width: '5rem'
-            },
-            {
-                name: 'Category',
-                selector: (row) => row.category,
-                width: '8rem'
-            },
+                width: "5rem",
+              },
+            // {
+            //     name: 'Category',
+            //     selector: (row) => row.category,
+            //     width: '8rem'
+            // },
             {
                 name: 'Theme',
                 cellExport: (row) => row.theme,

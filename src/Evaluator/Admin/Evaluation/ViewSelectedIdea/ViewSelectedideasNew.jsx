@@ -273,16 +273,26 @@ const ViewSelectedideasNew = () => {
         selector: (row) => row.district,
         width: "8rem",
       },
+      // {
+      //   name: "Udise Code",
+      //   selector: (row) => row.organization_code,
+      //   cellExport: (row) => row.organization_code,
+      //   width: "9rem",
+      // },
+      // {
+      //   name: "Team Name",
+      //   selector: (row) => row.team_name,
+      //   cellExport: (row) => row.team_name,
+      //   width: "10rem",
+      // },
       {
-        name: "Udise Code",
-        selector: (row) => row.organization_code,
-        cellExport: (row) => row.organization_code,
-        width: "9rem",
+        name: "College Type",
+        selector: (row) => row.college_type,
+        width: "10rem",
       },
       {
-        name: "Team Name",
-        selector: (row) => row.team_name,
-        cellExport: (row) => row.team_name,
+        name: "College Name",
+        selector: (row) => row.college_name,
         width: "10rem",
       },
       {
@@ -291,11 +301,7 @@ const ViewSelectedideasNew = () => {
         cellExport: (row) => row.challenge_response_id,
         width: "5rem",
       },
-      {
-        name: "Category",
-        selector: (row) => row.category,
-        width: "8rem",
-      },
+     
       {
         name: "Theme",
         cellExport: (row) => row.theme,
@@ -309,7 +315,7 @@ const ViewSelectedideasNew = () => {
             {row.theme}
           </div>
         ),
-        width: "10rem",
+        width: "11rem",
       },
       // {
       //     name: 'Problem Statement',
@@ -467,15 +473,13 @@ const ViewSelectedideasNew = () => {
         width: "10rem",
       },
       {
-        name: "Udise Code",
-        selector: (row) => row.organization_code,
-        cellExport: (row) => row.organization_code,
-        width: "9rem",
+        name: "College Type",
+        selector: (row) => row.college_type,
+        width: "10rem",
       },
       {
-        name: "Team Name",
-        selector: (row) => row.team_name,
-        cellExport: (row) => row.team_name,
+        name: "College Name",
+        selector: (row) => row.college_name,
         width: "10rem",
       },
 
@@ -485,11 +489,7 @@ const ViewSelectedideasNew = () => {
         cellExport: (row) => row.challenge_response_id,
         width: "5rem",
       },
-      {
-        name: "Category",
-        selector: (row) => row.category,
-        width: "8rem",
-      },
+     
       {
         name: "Theme",
         cellExport: (row) => row.theme,
@@ -632,20 +632,16 @@ const ViewSelectedideasNew = () => {
       {
         name: "District",
         selector: (row) => row.district,
+        width: "8rem",
+      },
+      {
+        name: "College Type",
+        selector: (row) => row.college_type,
         width: "10rem",
       },
       {
-        name: "Udise Code",
-        selector: (row) => row.organization_code,
-        cellExport: (row) => row.organization_code,
-
-        width: "9rem",
-      },
-      {
-        name: "Team Name",
-        selector: (row) => row.team_name,
-        cellExport: (row) => row.team_name,
-
+        name: "College Name",
+        selector: (row) => row.college_name,
         width: "10rem",
       },
       {
@@ -921,19 +917,16 @@ const ViewSelectedideasNew = () => {
       {
         name: "District",
         selector: (row) => row.district,
+        width: "8rem",
+      },
+      {
+        name: "College Type",
+        selector: (row) => row.college_type,
         width: "10rem",
       },
       {
-        name: "Udise Code",
-        selector: (row) => row.organization_code,
-        cellExport: (row) => row.organization_code,
-        width: "15rem",
-      },
-      {
-        name: "Team Name",
-        selector: (row) => row.team_name,
-        cellExport: (row) => row.team_name,
-
+        name: "College Name",
+        selector: (row) => row.college_name,
         width: "10rem",
       },
 
@@ -944,11 +937,7 @@ const ViewSelectedideasNew = () => {
 
         width: "5rem",
       },
-      {
-        name: "Category",
-        selector: (row) => row.category,
-        width: "8rem",
-      },
+     
       {
         name: "Theme",
         cellExport: (row) => row.theme,

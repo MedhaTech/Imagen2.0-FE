@@ -38,15 +38,15 @@ fullStatesNames.unshift("All Districts");
         //         ? setselectedStates(fullStatesNames)
         //         : setselectedStates(evalID.state.split(','))
         //     : '';
-        if (evalID && evalID.state) {
+        if (evalID && evalID.district) {
             if (
-                evalID.state.split(',').length ===
+                evalID.district.split(',').length ===
                     fullStatesNames.length - 1 &&
-                !evalID.state.includes('All Districts')
+                !evalID.district.includes('All Districts')
             ) {
                 setselectedStates(fullStatesNames);
             } else {
-                setselectedStates(evalID.state.split(','));
+                setselectedStates(evalID.district.split(','));
             }
         }
     }, []);
@@ -73,10 +73,10 @@ fullStatesNames.unshift("All Districts");
     }, [clickedValue]);
 
     async function handleStates(value) {
-        //  handleStates Api where value = state //
-        // where we can update the state //
-        if(value.state===''){
-            value.state = '-';
+        //  handleStates Api where value = district //
+        // where we can update the district //
+        if(value.district===''){
+            value.district = '-';
         }
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const evalid = encryptGlobal(JSON.stringify(evalID.evaluation_process_id));
@@ -102,12 +102,12 @@ fullStatesNames.unshift("All Districts");
 
     const handleclick = async () => {
         // where we can select  the States //
-        const value = { state: '' };
+        const value = { district: '' };
         selectedStates.includes('All Districts')
-            ? (value.state = selectedStates
+            ? (value.district = selectedStates
                   ?.filter((item) => item !== 'All Districts')
                   .toString())
-            : (value.state = selectedStates.toString());
+            : (value.district = selectedStates.toString());
         await handleStates(value);
     };
 

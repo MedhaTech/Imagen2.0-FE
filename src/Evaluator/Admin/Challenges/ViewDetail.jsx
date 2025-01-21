@@ -110,7 +110,7 @@ const ViewDetail = (props) => {
 
   const handleL1Round = (handledText) => {
     const body = JSON.stringify({
-      status: handledText == "accept" ? "SELECTEDROUND1" : "REJECTEDROUND1",
+     status: handledText == "accept" ? "SELECTEDROUND1" : "REJECTEDROUND1",
       rejected_reason: handledText == "reject" ? reason : "",
       rejected_reasonSecond: handledText == "reject" ? reasonSec : "",
     });
@@ -302,7 +302,7 @@ const ViewDetail = (props) => {
                 </div>
                 <div className="col-lg-12 mt-1">
                   <Row className="col-lg-12">
-                    <Col className="md-6">
+                    <Col className="md-12">
                       <Card
                         bg="white"
                         text="dark"
@@ -315,7 +315,7 @@ const ViewDetail = (props) => {
                             className=""
                             style={{ fontSize: "16px" }}
                           >
-                            <b>Organization Details</b>
+                            <b>Details</b>
                           </label>
                           <Card.Text
                             style={{
@@ -323,16 +323,16 @@ const ViewDetail = (props) => {
                               marginBottom: "20px",
                             }}
                           >
-                            <span>Organization Code :</span>
+                            <span>College Type :</span>
                             <span>
                               &nbsp;
-                              {teamResponse.organization_code}
+                              {teamResponse.college_type}
                             </span>
                             <br />
-                            <span>Organization Name :</span>
+                            <span>College Name :</span>
                             <span>
                               &nbsp;
-                              {teamResponse.organization_name}
+                              {teamResponse.college_name}
                             </span>
                             <br />
 
@@ -342,18 +342,19 @@ const ViewDetail = (props) => {
                               {teamResponse.district}
                             </span>
                             <br />
-                            {/* <span>State :</span>
-                                                        <span >
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse.state
-                                                            }
-                                                        </span> */}
+                            <span>Team Members :</span>
+                            <span>
+                              &nbsp;
+                              {teamResponse &&
+                                teamResponse.team_members &&
+                                teamResponse.team_members.join(", ")}
+                            </span>
+                           
                           </Card.Text>
                         </Card.Body>
                       </Card>
                     </Col>
-                    <Col className="md-6">
+                    {/* <Col className="md-6">
                       <Card
                         bg="white"
                         text="dark"
@@ -374,7 +375,6 @@ const ViewDetail = (props) => {
                               marginBottom: "20px",
                             }}
                           >
-                            {/* {regInst} */}
                             <span>Team Name :</span>
                             <span>
                               &nbsp;
@@ -391,7 +391,7 @@ const ViewDetail = (props) => {
                           </Card.Text>
                         </Card.Body>
                       </Card>
-                    </Col>
+                    </Col> */}
                   </Row>
                 </div>
               </div>

@@ -203,7 +203,7 @@ const ViewDetail = (props) => {
                                 </div>
                                 <div className="col-lg-12 mt-1">
                                     <Row className="col-lg-12">
-                                        <Col className="md-6">
+                                        <Col className="md-12">
                                             <Card
                                                 bg="white"
                                                 text="dark"
@@ -211,86 +211,48 @@ const ViewDetail = (props) => {
                                                 style={{ height: '150px' }}
                                             >
                                                   <Card.Body>
-                                                    <label
-                                                        htmlFor="teams"
-                                                        className=""
-                                                        style={{fontSize:"16px"}}
-                                                    >
-                                                          <b>Organization Details</b>
-                                                    </label>
-                                                    <Card.Text
-                                                        style={{
-                                                            // fontSize: '30px',
-                                                            // fontWeight: 'bold',
-                                                            marginTop: '10px',
-                                                            marginBottom: '20px'
-                                                        }}
-                                                    >
-                                                        {/* {regInst} */}
-                                                        <span>
-                                                        Organization Code :
-                                                        </span>
-                                                        <span>
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse.
-                                                                organization_code
-                                                                
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>
-                                                        Organization Name :
-                                                        </span>
-                                                        <span >
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse.
-                                                                organization_name
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        {/* <span>Place :</span> */}
-                                                        {/* <span >
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.place_name
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>Block :</span>
-                                                        <span >
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.block_name
-                                                            }
-                                                        </span>{' '}
-                                                        <br />
-                                                        <span>Taluk :</span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {teamResponse?.taluk_name
-                                                                ? teamResponse?.taluk_name
-                                                                : '-'}
-                                                        </span>{' '}
-                                                        <br /> */}
-                                                        <span>District :</span>
-                                                        <span >
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.district
-                                                            }
-                                                        </span>
-                                                        <br/>
-                                                        {/* <span>State :</span>
-                                                        <span >
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse.state
-                                                            }
-                                                        </span> */}
-                                                    </Card.Text>
-                                                </Card.Body>
+                                                                           <label
+                                                                             htmlFor="teams"
+                                                                             className=""
+                                                                             style={{ fontSize: "16px" }}
+                                                                           >
+                                                                             <b>Details</b>
+                                                                           </label>
+                                                                           <Card.Text
+                                                                             style={{
+                                                                               marginTop: "10px",
+                                                                               marginBottom: "20px",
+                                                                             }}
+                                                                           >
+                                                                             <span>College Type :</span>
+                                                                             <span>
+                                                                               &nbsp;
+                                                                               {teamResponse.college_type}
+                                                                             </span>
+                                                                             <br />
+                                                                             <span>College Name :</span>
+                                                                             <span>
+                                                                               &nbsp;
+                                                                               {teamResponse.college_name}
+                                                                             </span>
+                                                                             <br />
+                                                 
+                                                                             <span>District :</span>
+                                                                             <span>
+                                                                               &nbsp;
+                                                                               {teamResponse.district}
+                                                                             </span>
+                                                                             <br />
+                                                                             <span>Team Members :</span>
+                                                                             <span>
+                                                                               &nbsp;
+                                                                               {teamResponse &&
+                                                                                 teamResponse.team_members &&
+                                                                                 teamResponse.team_members.join(", ")}
+                                                                             </span>
+                                                                            
+                                                                           </Card.Text>
+                                                                         </Card.Body>
                                             </Card>
                                             {/* <h2>
                                                 <span
@@ -306,66 +268,7 @@ const ViewDetail = (props) => {
                                             </span> */}
                                             {/* </h2>  */}
                                         </Col>
-                                        <Col className="md-6">
-                                            <Card
-                                                bg="white"
-                                                text="dark"
-                                                className="mb-2"
-                                                style={{ height: '150px' }}
-                                            >
-                                                 <Card.Body>
-                                                    <label
-                                                        htmlFor="teams"
-                                                        className=""
-                                                        style={{fontSize:"16px"}}
-                                                    >
-                                                        <b>Team Details</b>
-                                                    </label>
-                                                    <Card.Text
-                                                        style={{
-                                                            // fontSize: '30px',
-                                                            // fontWeight: 'bold',
-                                                            marginTop: '10px',
-                                                            marginBottom: '20px'
-                                                        }}
-                                                    >
-                                                        {/* {regInst} */}
-                                                        <span>Team Name :</span>
-                                                        <span >
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.team_name
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>
-                                                            Team Members :
-                                                        </span>
-                                                        <span >
-                                                            &nbsp;
-                                                            {teamResponse &&
-                                                                teamResponse.team_members &&
-                                                                teamResponse.team_members.join(
-                                                                    ', '
-                                                                )}
-                                                        </span>
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
-                                        </Col>
+                                       
                                     </Row>
                                     {/* <Row className="col-lg-12">
                                         <h2>
