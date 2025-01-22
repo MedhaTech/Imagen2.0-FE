@@ -16,6 +16,16 @@ import { Card, Col, Container, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import { KEY, URL } from "../../../constants/defaultValues";
 import { getNormalHeaders } from "../../../helpers/Utils";
+import { GiPodiumWinner } from "react-icons/gi";
+import { GiPodiumSecond } from "react-icons/gi";
+import { FcIdea } from "react-icons/fc";
+import { FcNoIdea } from "react-icons/fc";
+import { FcCheckmark } from "react-icons/fc";
+import { FcCancel } from "react-icons/fc";
+import { FcApproval } from "react-icons/fc";
+import { RiDraftFill } from "react-icons/ri";
+import { FcProcess } from "react-icons/fc";
+import { SiStagetimer } from "react-icons/si";
 const Dashboard = () => {
   const currentUser = getCurrentUser("current_user");
 
@@ -69,10 +79,11 @@ const Dashboard = () => {
                   </div> */}
                   <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/dashboard?status=SUBMITTED">
-                    <div className="dash-widget w-100">
+                    <div className="dash-widget w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                       <div className="dash-widgetimg">
                           <span style={{ fontSize: "1.5rem" }}>
-                              <i className="fas fa-user-check" style={{ color: "rgb(65 105 217)" }}></i>
+                          <FcIdea size={60} style={{color:"yellow"}} />
+                              {/* <i className="fas fa-user-check" style={{ color: "rgb(65 105 217)" }}></i> */}
                           </span>
                       </div>
 
@@ -87,10 +98,11 @@ const Dashboard = () => {
                 {/* <Col md={4}> */}
                   <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/dashboard?status=DRAFT">
-                    <div className="dash-widget w-100">
+                    <div className="dash-widget w-100" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                       <div className="dash-widgetimg">
                         <span style={{ fontSize: "1.5rem" }}>
-                            <i className="fas fa-pencil-alt" style={{ color: "orange" }}></i>
+                            {/* <i className="fas fa-pencil-alt" style={{ color: "orange" }}></i> */}
+                            <RiDraftFill  size={40} style={{color:"#ff8c00"}}  />
                         </span>
                     </div>
 
@@ -105,7 +117,7 @@ const Dashboard = () => {
                 {/* <Col md={4}> */}
                 <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewlist?title=L1 - Yet to Processed&level=L1">
-                    <div className="dash-widget dash2">
+                    <div className="dash-widget dash2" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                     <div className="dash-widgetimg">
                         <span style={{ fontSize: "1.5rem" }}>
                             <i className="fas fa-hourglass-half" style={{ color: "rgb(65 105 217)" }}></i>
@@ -121,10 +133,12 @@ const Dashboard = () => {
                   </div>
                   <div className="col-xl-4 col-sm-6 col-12">
                 <Link to="/eadmin/evaluationStatus/viewlist?evaluation_status=SELECTEDROUND1&title=Accepted&level=L1">
-                    <div className="dash-widget dash2">
+                    <div className="dash-widget dash2" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                       <div className="dash-widgetimg">
                           <span style={{ fontSize: "1.5rem" }}>
-                              <i className="fas fa-thumbs-up" style={{ color: "rgb(65 105 217)" }}></i>
+                              {/* <i className="fas fa-thumbs-up" style={{ color: "rgb(65 105 217)" }}></i> */}
+                              {/* <FcCheckmark size={40} style={{color:"green"}} /> */}
+                              <FcApproval size={40} style={{color:"green"}}/>
                           </span>
                       </div>
                       <div className="dash-widgetcontent">
@@ -138,10 +152,11 @@ const Dashboard = () => {
               {/* </Row> */}
                   <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewlist?evaluation_status=REJECTEDROUND1&title=Rejected&level=L1">
-                    <div className="dash-widget dash2">
+                    <div className="dash-widget dash2" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                     <div className="dash-widgetimg">
                         <span style={{ fontSize: "1.5rem" }}>
-                            <i className="fas fa-thumbs-down" style={{ color: "rgb(65 105 217)" }}></i>
+                          
+                            <i className="fas fa-thumbs-down" style={{color:"rgb(128 0 128)"}}></i>
                         </span>
                     </div>
                     <div className="dash-widgetcontent">
@@ -153,10 +168,11 @@ const Dashboard = () => {
                   </div>
                   <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewlist?title=L2 - Yet to Processed&level=L2">
-                    <div className="dash-widget dash1">
+                    <div className="dash-widget dash1" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                     <div className="dash-widgetimg">
                         <span style={{ fontSize: "1.5rem" }}>
-                            <i className="fas fa-clock" style={{ color: "rgb(32 201 151)" }}></i>
+                            {/* <i className="fas fa-clock" style={{ color: "rgb(32 201 151)" }}></i> */}
+                            <SiStagetimer size={40} style={{color:"#3c1414"}}/>
                         </span>
                     </div>
 
@@ -172,10 +188,11 @@ const Dashboard = () => {
                   </div>
                   <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewlist?title=L2 - Processed&level=L2">
-                    <div className="dash-widget dash1">
+                    <div className="dash-widget dash1" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                     <div className="dash-widgetimg">
                       <span style={{ fontSize: "1.5rem" }}>
-                          <i className="fas fa-tasks" style={{ color: "rgb(32 201 151)" }}></i>
+                          {/* <i className="fas fa-tasks" ></i> */}
+                          <FcProcess size="40" style={{ color: "#682860" }}/>
                       </span>
                   </div>
 
@@ -190,10 +207,11 @@ const Dashboard = () => {
                  
                   <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewfinallist?title=0&level=L2">
-                    <div className="dash-widget dash1">
+                    <div className="dash-widget dash1" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                     <div className="dash-widgetimg">
                         <span style={{ fontSize: "1.5rem" }}>
-                            <i className="fas fa-clipboard-list" style={{ color: "rgb(32 201 151)" }}></i>
+                        <GiPodiumSecond  size="60" style={{ color: "red" }}/>
+                            {/* <i className="fas fa-clipboard-list" style={{ color: "rgb(32 201 151)" }}></i> */}
                         </span>
                     </div>
 
@@ -206,10 +224,11 @@ const Dashboard = () => {
                   </div>
                   <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewfinallist?title=1&level=L2">
-                    <div className="dash-widget dash3">
+                    <div className="dash-widget dash3" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
                     <div className="dash-widgetimg">
                         <span style={{ fontSize: "1.5rem" }}>
-                            <i className="fas fa-flag-checkered" style={{ color: "rgb(128 0 128)" }}></i>
+                            {/* <i className="fas fa-flag-checkered" style={{ color: "rgb(128 0 128)" }}></i> */}
+                            <GiPodiumWinner size="60" style={{ color: "#008000 " }}/>
                         </span>
                     </div>
 
