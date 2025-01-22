@@ -24,7 +24,7 @@ import { Doughnut } from "react-chartjs-2";
 import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt.js";
 // import { categoryValue } from '../../Schools/constentText';
-import { stateList, districtList } from "../../../RegPage/ORGData";
+import { stateList, districtList,collegeType } from "../../../RegPage/ORGData";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
 import * as XLSX from 'xlsx';
 
@@ -47,11 +47,13 @@ const ReportL2 = () => {
     "HS",
     "Non ATL",
   ];
-  useEffect(() => {
-    setRegTeachersdistrict("");
-  }, [RegTeachersState]);
+  // useEffect(() => {
+  //   setRegTeachersdistrict("");
+  // }, [RegTeachersState]);
   const newThemesList = ["All Themes", ...themesList];
   const newstateList = ["All States", ...stateList];
+    const collegeList = ["All Types", ...collegeType];
+  
   const fullStatesNames = newstateList;
   const allDistricts = {
     "All Districts": [...Object.values(districtList).flat()],
@@ -190,44 +192,15 @@ const ReportL2 = () => {
     },
     {
       label: "College Name",
-      key: "organization_name",
+      key: "college_name",
     },
     {
       label: "College Type",
-      key: "category",
+      key: "college_type",
     },
-    // {
-    //   label: "Pin code",
-    //   key: "pin_code",
-    // },
-    // {
-    //   label: "Address",
-    //   key: "address",
-    // },
-    {
-      label: "Teacher Name",
-      key: "full_name",
-    },
-    {
-      label: "Teacher Email",
-      key: "username",
-    },
-    // {
-    //   label: "Teacher Gender",
-    //   key: "gender",
-    // },
-    // {
-    //   label: "Teacher Contact",
-    //   key: "mobile",
-    // },
-    {
-      label: "Team Name",
-      key: "team_name",
-    },
-    {
-      label: "Team Username",
-      key: "team_username",
-    },
+ 
+  
+  
     {
       label: "Student Names",
       key: "names",
@@ -298,14 +271,7 @@ const ReportL2 = () => {
       label: "Idea Submission Status",
       key: "status",
     },
-    // {
-    //   label: "Teacher Verified Status",
-    //   key: "verifiedment",
-    // },
-    // {
-    //   label: "Teacher Verified At",
-    //   key: "verified_at",
-    // },
+
     {
       label: "Novelty",
       key: "novelty",
@@ -365,7 +331,7 @@ const ReportL2 = () => {
     if (!RegTeachersdistrict || !category || !sdg) {
       notification.warning({
         message:
-          "Please select a district,category and Theme type before Downloading Reports.",
+          "Please Select a District,College Type and Theme type before Downloading Reports.",
       });
       return;
     }
@@ -387,7 +353,7 @@ const ReportL2 = () => {
       JSON.stringify({
         // state: RegTeachersState,
         district: RegTeachersdistrict,
-        category: category,
+        college_type: category,
         theme: sdg,
       })
     );
@@ -405,105 +371,31 @@ const ReportL2 = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          const teamDataMap = response.data.data[0].teamData.reduce(
-            (map, item) => {
-              map[item.team_id] = item;
-              return map;
-            },
-            {}
-          );
-          const teamUsernameMap = response.data.data[0].teamUsername.reduce(
-            (map, item) => {
-              map[item.teamuserId] = item.teamUsername;
-              return map;
-            },
-            {}
-          );
-          const mentorMap = response.data.data[0].mentorData.reduce(
-            (map, item) => {
-              map[item.mentor_id] = item;
-              return map;
-            },
-            {}
-          );
-          const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
-            (map, item) => {
-              map[item.user_id] = item.username;
-              return map;
-            },
-            {}
-          );
-
-          const studentNamesMap = response.data.data[0].student_names.reduce(
-            (map, item) => {
-              map[item.team_id] = item.names;
-              return map;
-            },
-            {}
-          );
-          const studentAndteam = response.data.data[0].summary.map((item) => {
-            return {
-              ...item,
-
-              names: studentNamesMap[item.team_id],
-
-              team_name: teamDataMap[item.team_id].team_name,
-              team_email: teamDataMap[item.team_id].team_email,
-              mentor_id: teamDataMap[item.team_id].mentor_id,
-              teamuserId: teamDataMap[item.team_id].teamuserId,
-            };
-          });
-
-          const mentorAndOrg = studentAndteam.map((item) => {
-            return {
-              ...item,
-
-              team_username: teamUsernameMap[item.teamuserId],
-              category: mentorMap[item.mentor_id].category,
-              district: mentorMap[item.mentor_id].district,
-              full_name: mentorMap[item.mentor_id].full_name,
-              gender: mentorMap[item.mentor_id].gender,
-              mobile: mentorMap[item.mentor_id].mobile,
-              organization_code: mentorMap[item.mentor_id].organization_code,
-              unique_code: mentorMap[item.mentor_id].unique_code,
-              organization_name: mentorMap[item.mentor_id].organization_name,
-              state: mentorMap[item.mentor_id].state,
-              // whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
-              mentorUserId: mentorMap[item.mentor_id].mentorUserId,
-              city: mentorMap[item.mentor_id].city,
-              principal_name: mentorMap[item.mentor_id].principal_name,
-              principal_mobile: mentorMap[item.mentor_id].principal_mobile,
-              pin_code: mentorMap[item.mentor_id].pin_code,
-              address: mentorMap[item.mentor_id].address,
-            };
-          });
+          console.log(response, "response");
+          // const mentorAndOrg = response?.data?.data;
+        
           const evaluatorRatingValuesMap =
             response.data.data[0].evaluatorRatingValues.reduce((map, item) => {
               map[item.challenge_response_id] = item;
               return map;
             }, {});
-          const newdatalist = mentorAndOrg.map((item) => {
+         
+                 
+          const newdatalist = response.data.data[0].summary.map((item) => {
             const rating =
-              evaluatorRatingValuesMap[item.challenge_response_id] || {};
-            const formatValue = (value) => {
-              return value ? parseFloat(value).toFixed(1) : null;
-            };
+            evaluatorRatingValuesMap[item.challenge_response_id] || {};
+          const formatValue = (value) => {
+            return value ? parseFloat(value).toFixed(1) : null;
+          };
             return {
-              //  "UDISE CODE":item.organization_code,
-                                                //  State:item.state,
+             
                                                  District:item.district,
                                                  CID:item.challenge_response_id,
-                                                 "College Name":item.organization_name,
-                                   "College Type":item.category,
-                                                //  "Pin code":item.pin_code,
-                                                //  Address:item.address,
-                                                  "Teacher Name":item.full_name,
-                                                  "Teacher Email":mentorUsernameMap[item.mentorUserId],
-                                                  // "Teacher Gender":item.gender,
-                                                  // "Teacher Contact":item.mobile,
-                                                  "Team Name":item.team_name,
-                                                  "Team Username":item.team_username,
-                                                  "Student Names":item.names,
+                                                 "College Name":item.college_name,
+                                   "College Type":item.college_type,
+                                               
+                                                
+                                   "Student Names":item.student_names.join(', '),
                                                   Theme:item.theme,
                                                   "Describe your idea (in one sentence).":item.idea_describe,
                                     "Give a title to your idea.":item.title,
@@ -520,78 +412,18 @@ const ReportL2 = () => {
                                     "Upload images/documents & video links related to your(total size limit : 50 MB)":item.prototype_image,
                                     "Upload images/documents & video links related to your Idea.(total size limit : 50 MB)":item.prototype_link,
                                     "Idea Submission Status":item.status,
-                                                  // "Teacher Verified Status":item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
-                                                  // "Teacher Verified At":item.verified_at ? moment(item.verified_at).format(
-                                                  //   "DD-MM-YYYY"
-                                                  // ) : '',
+                                                
                                                   "Overall Score": formatValue(rating.overall_score),
   "Novelty Score": formatValue(rating.novelty),
   "Usefulness Score": formatValue(rating.useful),
 
   "Feasibility Score": formatValue(rating.feasibility),
-  // "Feasibility": formatValue(rating.feasibility_score),
   "Scalability Score": formatValue(rating.scalability),
-  // "Quality": formatValue(rating.quality_score),
   "Sustainability Score": formatValue(rating.sustainability),
   "Evaluators Count": rating.eval_count,
                                                   "L3 Status":item.final_result === null ? "Not Promoted" : "Promoted",
 
-              // ...item,
-              // overall_score: formatValue(rating.overall_score),
-              // novelty: formatValue(rating.novelty),
-              // feasibility: formatValue(rating.feasibility),
-              // feasibility_score: formatValue(rating.feasibility_score),
-              // scalability: formatValue(rating.scalability),
-              // quality_score: formatValue(rating.quality_score),
-              // sustainability: formatValue(rating.sustainability),
-              // useful: formatValue(rating.useful),
-              // eval_count: rating.eval_count,
-              // finalstatus:
-              //   item.final_result === null ? "Not Promoted" : "Promoted",
-              // verifiedment:
-              //   item.verified_status == null
-              //     ? "Not yet Reviewed"
-              //     : item.verified_status,
-              // username: mentorUsernameMap[item.mentorUserId],
-              // focus_area: item.focus_area
-              //   ? item.focus_area.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // prototype_image: item.prototype_image
-              //   ? item.prototype_image.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // problem_solving: item.problem_solving
-              //   ? item.problem_solving.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // feedback: item.feedback
-              //   ? item.feedback.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // stakeholders: item.stakeholders
-              //   ? item.stakeholders.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // solution: item.solution
-              //   ? item.solution.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // facing: item.facing
-              //   ? item.facing.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // community: item.community
-              //   ? item.community.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // effects: item.effects
-              //   ? item.effects.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // causes: item.causes
-              //   ? item.causes.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // problem_statement: item.problem_statement
-              //   ? item.problem_statement.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // title: item.title
-              //   ? item.title.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // verified_at: item.verified_at
-              //   ? moment(item.verified_at).format("DD-MM-YYYY")
-              //   : "",
+             
             };
           });
           setDownloadData(newdatalist);
@@ -606,12 +438,7 @@ const ReportL2 = () => {
           }
 
           setIsDownloading(false);
-          // csvLinkRef.current.link.click();
-          // openNotificationWithIcon(
-          //     'success',
-          //     `L1 Status Detailed Reports Downloaded Successfully`
-          // );
-          // setIsDownloading(false);
+        
         }
       })
       .catch((error) => {
@@ -659,7 +486,7 @@ const ReportL2 = () => {
           const combinedArray = response?.data?.data || [];
           const total = combinedArray.reduce(
             (acc, item) => {
-              acc.state = "Total";
+              acc.district = "Total";
               (acc.count_1to3 += item.count_1to3),
                 (acc.count_3to5 += item.count_3to5);
               acc.count_5to6 += item.count_5to6;
@@ -911,9 +738,9 @@ const ReportL2 = () => {
                     />
                   ) : (
                     <Select
-                      list={categoryData}
+                      list={collegeList}
                       setValue={setCategory}
-                      placeHolder={"Select Category"}
+                      placeHolder={"Select College Type"}
                       value={category}
                     />
                   )}
@@ -949,7 +776,7 @@ const ReportL2 = () => {
                 <div className="row">
                   <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                     <div className="card flex-fill default-cover w-100 mb-4">
-                      <div className="card-header d-flex justify-content-between align-items-center">
+                      <div className="card-header d-flex justify-content-between align-items-center"  style={{ borderBottom: 'none',paddingBottom: 0 }}>
                         <h4 className="card-title mb-0">
                         L2 Score Type Wise Stats
                         </h4>
@@ -975,7 +802,7 @@ const ReportL2 = () => {
                       </div>
                       <div className="card-body">
                         <div className="table-responsive">
-                          <table className="table table-border recent-transactions">
+                          <table className="table table-striped table-bordered responsive">
                             <thead>
                               <tr>
                                 <th
@@ -985,7 +812,7 @@ const ReportL2 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  #
+                                  S.No
                                 </th>
                                 <th
                                   style={{
@@ -1111,9 +938,9 @@ const ReportL2 = () => {
                 <div className="row">
                   <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                     <div className="card flex-fill default-cover w-100 mb-4">
-                      <div className="card-header d-flex justify-content-between align-items-center">
+                      <div className="card-header d-flex justify-content-between align-items-center"  style={{ borderBottom: 'none',paddingBottom: 0 }}>
                         <h4 className="card-title mb-0">
-                          L2 State wise Overview
+                          L2 District wise Overview
                         </h4>
                         <div className="dropdown">
                           <Link
@@ -1137,7 +964,7 @@ const ReportL2 = () => {
                       </div>
                       <div className="card-body">
                         <div className="table-responsive">
-                          <table className="table table-border recent-transactions">
+                          <table className="table table-striped table-bordered responsive">
                             <thead>
                               <tr>
                                 <th
@@ -1258,7 +1085,7 @@ const ReportL2 = () => {
                 <div className="row">
                   <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
                     <div className="card flex-fill default-cover w-100 mb-4">
-                      <div className="card-header d-flex justify-content-between align-items-center">
+                      <div className="card-header d-flex justify-content-between align-items-center"  style={{ borderBottom: 'none',paddingBottom: 0 }}>
                         <h4 className="card-title mb-0">
                           L2 Evaluator Overview
                         </h4>
@@ -1284,7 +1111,7 @@ const ReportL2 = () => {
                       </div>
                       <div className="card-body">
                         <div className="table-responsive">
-                          <table className="table table-border recent-transactions">
+                          <table className="table table-striped table-bordered responsive">
                             <thead>
                               <tr>
                                 <th

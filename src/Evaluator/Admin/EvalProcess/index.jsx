@@ -78,7 +78,7 @@ const Evalprocess = () => {
             {
                 name: <span style={{ fontWeight: 550 }}>No of Evaluators per idea</span>,
                 selector: (row) => row.no_of_evaluation,
-                width: '15%'
+                width: '23%'
             },
             {
                 name: <span style={{ fontWeight: 550 }}>Status</span>,
@@ -96,7 +96,7 @@ const Evalprocess = () => {
                 name: <span style={{ fontWeight: 550 }}>Actions</span>,
                 selector: 'action',
                 center: true,
-                width: '40%',
+                width: '30%',
                 cell: (record) => [
                     <>
                         <div
