@@ -651,8 +651,10 @@ console.log(support,"ss");
         detail === "" ||
         detail === null ||
         stage === "" ||
+        stage === "[]" || 
         stage === null ||
         unique === "" ||
+        unique === "[]" ||
         unique === null ||
         similar === "" ||
         similar === null ||
@@ -661,6 +663,7 @@ console.log(support,"ss");
         society === "" ||
         society === null ||
         confident === "" ||
+        confident === "[]" ||
         confident === null ||
         support === "" ||
         support == null ||
