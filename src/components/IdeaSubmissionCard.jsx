@@ -4,12 +4,9 @@
 import moment from 'moment/moment';
 import React, { useEffect, useState, useRef } from 'react';
 import { Modal } from 'react-bootstrap';
-// import { Card, CardBody, CardTitle } from 'reactstrap';
 import { Button } from '../stories/Button';
-import { FaDownload } from 'react-icons/fa';
 import { useReactToPrint } from 'react-to-print';
-// import DetailToDownload from '../Admin/Challenges/DetailToDownload';
-// import ViewDetail from '../Admin/Challenges/ViewDetail';
+import Ideapdf from "../Teacher/Dashboard/DetailToDownload";
 
 const LinkComponent = ({ item }) => {
     return (
@@ -43,25 +40,20 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
         setImages(JSON.parse(teamResponse.prototype_image));
       }
     }, [teamResponse]);
-    // const componentRef = useRef();
-   
-
-    // const handlePrint = useReactToPrint({
-    //     content: () => componentRef.current,
-    //     documentTitle: `${
-    //         response[0]?.team_name ? response[0]?.team_name : 'temp'
-    //     }_IdeaSubmission`
-    // });
+  
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current
+  });
+  
     return (
         <div>
-            <div style={{ display: 'none' }}>
-                {/* <DetailToDownload
-                    ref={componentRef}
-                    ideaDetails={response[0]}
-                    teamResponse={teamResponse}
-                    level={'Draft'}
-                /> */}
-            </div>
+           <div style={{ display: 'none' }}>
+        <Ideapdf
+          ref={componentRef}
+          ideaDetails={response}
+        />
+      </div>
             <Modal
                 show={show}
                 size="lg"
@@ -640,11 +632,18 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     onClick={handlePrint} 
                     /> */}
                     <Button
+            size="small"
+            label={"Download"}
+            btnClass="primary text-left"
+            onClick={handlePrint}
+          />
+                    <Button
                         size="small"
                         label={'Close'}
                         btnClass="primary ms-auto"
                         onClick={handleClose}
                     />
+                    
                 </Modal.Footer>
             </Modal>
         </div>
