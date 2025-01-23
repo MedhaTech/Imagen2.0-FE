@@ -20,19 +20,19 @@ const ProtectedRoute = ({ children, user }) => {
 
   if (difference > 1800000) {
     localStorage.clear();
-    if (user.includes("ADMIN")) {
+    if (user === "ADMIN") {
       return <Navigate to="/admin" />;
-    } else if (user.includes("MENTOR")) {
+    } else if (user === "MENTOR") {
       return <Navigate to="/institution" />;
-    } else if (user.includes("EADMIN")) {
+    } else if (user === "EADMIN") {
       return <Navigate to="/eadmin" />;
-    } else if (user.includes("INSTITUTION")) {
-      return <Navigate to="/institution-registration" />;
-    } else if (user.includes("STUDENT")) {
+    } else if (user  === "INSTITUTION") {
+      return <Navigate to="/institution" />;
+    } else if (user === "STUDENT") {
       return <Navigate to="/student" />;
-    } else if (user.includes("TEAM")) {
-      return <Navigate to="/team" />;
-    } else if (user.includes("EVALUATOR")) {
+    // } else if (user.includes("TEAM")) {
+    //   return <Navigate to="/team" />;
+    } else if (user === "EVALUATOR") {
       return <Navigate to="/evaluator" />;
     }
   } else {
