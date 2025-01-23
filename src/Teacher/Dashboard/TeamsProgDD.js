@@ -20,10 +20,12 @@ import { getTeamMemberStatus } from '../store/teams/actions';
 import { openNotificationWithIcon } from "../../helpers/Utils";
 import team from "../../assets/img/icons/team.svg";
 import { RiTeamFill } from "react-icons/ri";
+import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
+
+import { Row, Col } from "reactstrap";
 
 
-
-const TeamsProgDD = ({user}) => {
+const TeamsProgDD = ({user,setIdeaCount}) => {
 //   console.log(user,"user");
 
     //////////////New Code/////////////////////////
@@ -32,16 +34,58 @@ const TeamsProgDD = ({user}) => {
     const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
         (state) => state.teams
     );
+    const [formData, setFormData] = useState({});
+
+  const [noData,setNoData]=useState(false);
+  const [ideaShow, setIdeaShow] = useState(false);
     // console.log(teamsMembersStatus,"team");
     const [teamId, setTeamId] = useState(null);
+
     const [mentorid, setmentorid] = useState('');
     const [showDefault, setshowDefault] = useState(true);
     useEffect(() => {
         if(teamId){
             dispatch(getTeamMemberStatus(teamId, setshowDefault));
-            //dispatch(getStudentChallengeSubmittedResponse(teamId));
+            submittedApi();
         }
     }, [teamId, dispatch]);
+    const submittedApi = () => {
+        const Param = encryptGlobal(
+          JSON.stringify({
+            student_id: teamId
+    
+          })
+        );
+        var configidea = {
+          method: "get",
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/challenge_response/submittedDetails?Data=${Param}`,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${currentUser.data[0]?.token}`,
+          },
+        };
+        axios(configidea)
+          .then(function (response) {
+            if (response.status === 200) {
+              console.log(response,"Cards");
+              if (response.data.data && response.data.data.length > 0) {
+                setFormData(response.data.data[0]);
+                setNoData(false);
+              }
+            }
+          })
+          .catch(function (error) {
+            if (error.response.status === 404) {
+                setNoData(true);
+                // setTheme("");
+            }
+    
+          });
+      };
+   
     const percentageBWNumbers = (a, b) => {
         return (((a - b) / a) * 100).toFixed(2);
     };
@@ -79,7 +123,7 @@ const TeamsProgDD = ({user}) => {
             .then(function (response) {
                 if (response.status === 200) {
                     setTeamsList(response.data.data);
-                    console.log(response,"Teams List");
+                    // console.log(response,"Teams List");
                 }
             })
             .catch(function (error) {
@@ -118,30 +162,7 @@ const TeamsProgDD = ({user}) => {
                         record.topics_completed_count
                     );
                 return (
-                    // <div className="d-flex">
-                    //     <div style={{ width: '80%' }}>
-                    //         <Progress
-                    //             key={'25'}
-                    //             className="progress-height"
-                    //             animated
-                    //             color={
-                    //                 percent
-                    //                     ? percent <= 25
-                    //                         ? 'danger'
-                    //                         : percent > 25 && percent <= 50
-                    //                         ? 'info'
-                    //                         : percent > 50 && percent <= 75
-                    //                         ? 'warning'
-                    //                         : 'sucess'
-                    //                     : 'danger'
-                    //             }
-                    //             value={percent}
-                    //         />
-                    //     </div>
-                    //     <span className="ms-2">
-                    //         {Math.round(percent) ? Math.round(percent) : '0'}%
-                    //     </span>
-                    // </div>
+                   
                 <div className="progress progress-sm progress-custom progress-animate"
                     role="progressbar"
                     aria-valuenow={Math.round(percent) ? Math.round(percent) : '0'}
@@ -270,14 +291,8 @@ const TeamsProgDD = ({user}) => {
                                         verticalAlign: "middle",
                                          color:"#0e4b99"
                                       }}/>
-                     {/* <img src={team} style={{ marginRight:"6px", width: "7%", verticalAlign: "middle"}}/> */}
                      Team Progress</h4>
-                {/* <button
-                  className="btn btn-secondary d-flex align-items-center"
-                  onClick={handleemailapi}
-                >
-                  <Mail className="feather-mail" size={20} style={{marginRight : "5px"}}/> Teams Login&apos;s
-                </button> */}
+              
             </div>
             <div className="card-body">
                 <div className="table-top">
@@ -290,6 +305,36 @@ const TeamsProgDD = ({user}) => {
                         value={customer.find(option => option.value === teamId)}
                         />
                     </div>
+                    {teamId && (
+            <>
+              <Row>
+                <div className="singlediv">
+                    <span className="fw-bold text-info">IDEA STATUS :</span>
+                    <span style={{ paddingLeft: "1rem" }}>
+                      {noData
+          ? <span className="text-warning">NOT STARTED</span>
+          : formData?.verified_status === "ACCEPTED"
+          ? <span className="text-success">ACCEPTED</span>
+          : formData?.verified_status === "REJECTED"
+          ?  <span className="text-danger">REJECTED</span>
+          : formData?.status || <span className="text-warning">NOT STARTED</span>}
+                    </span>
+                </div>
+              </Row>
+              <>
+                <div>
+                  {!noData && (formData?.status === "SUBMITTED" || formData?.status === "DRAFT" ) && (
+                    <button
+                      className="btn btn-primary d-flex align-items-center"
+                     
+                      onClick={() => setIdeaShow(true)}
+                    >View Idea</button>
+                  )}
+                </div>
+                
+              </>
+            </>
+          )}
                 </div>
                 <div className="table-responsive">
                     {showDefault && (
@@ -314,6 +359,16 @@ const TeamsProgDD = ({user}) => {
                     ) : null}
                     
                 </div>
+                {ideaShow && (
+            <IdeaSubmissionCard
+              show={ideaShow}
+              handleClose={() => setIdeaShow(false)}
+              response={formData}
+              setIdeaCount={setIdeaCount}
+              // setApproval={setApproval}
+            />
+          )}
+         
             </div>
         </div>
     </div>

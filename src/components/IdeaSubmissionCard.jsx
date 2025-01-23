@@ -1,12 +1,14 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import moment from 'moment/moment';
 import React, { useEffect, useState, useRef } from 'react';
 import { Modal } from 'react-bootstrap';
-import { Card, CardBody, CardTitle } from 'reactstrap';
+// import { Card, CardBody, CardTitle } from 'reactstrap';
 import { Button } from '../stories/Button';
 import { FaDownload } from 'react-icons/fa';
 import { useReactToPrint } from 'react-to-print';
-import DetailToDownload from '../Admin/Challenges/DetailToDownload';
+// import DetailToDownload from '../Admin/Challenges/DetailToDownload';
 // import ViewDetail from '../Admin/Challenges/ViewDetail';
 
 const LinkComponent = ({ item }) => {
@@ -33,56 +35,32 @@ const LinkComponent = ({ item }) => {
     );
 };
 const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
-    const submittedResponse = response[0]?.response;
-    const componentRef = useRef();
-    const [teamResponse, setTeamResponse] = React.useState([]);
-    const [answers, setAnswers] = useState([]);
-    useEffect(() => {
-        if (submittedResponse && submittedResponse !== {}) {
-            const data = Object.entries(submittedResponse);
-            const answerFormat = data.map((item) => {
-                return {
-                    question_no: item[1].question_no,
-                    question: item[1].question,
-                    answer: item[1]?.selected_option,
-                    type: item[1]?.question_type
-                };
-            });
-            setAnswers(answerFormat);
-        }
-    }, [submittedResponse]);
-    const answersSort = [...answers].sort(
-        (a, b) => a.question_no - b.question_no
-    );
+ console.log(response,"response");
+ const teamResponse = response;
+  const [images, setImages] = useState([]);
+   useEffect(() => {
+      if (teamResponse) {
+        setImages(JSON.parse(teamResponse.prototype_image));
+      }
+    }, [teamResponse]);
+    // const componentRef = useRef();
+   
 
-    React.useEffect(() => {
-        if (submittedResponse) {
-            setTeamResponse(Object.entries(submittedResponse).map((e) => e[1]));
-        }
-    }, [submittedResponse]);
-    React.useEffect(() => {
-        if (props?.ideaDetails?.response) {
-            setTeamResponse(
-                Object.entries(props?.ideaDetails?.response).map((e) => e[1])
-            );
-        }
-    }, [props]);
-
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-        documentTitle: `${
-            response[0]?.team_name ? response[0]?.team_name : 'temp'
-        }_IdeaSubmission`
-    });
+    // const handlePrint = useReactToPrint({
+    //     content: () => componentRef.current,
+    //     documentTitle: `${
+    //         response[0]?.team_name ? response[0]?.team_name : 'temp'
+    //     }_IdeaSubmission`
+    // });
     return (
         <div>
             <div style={{ display: 'none' }}>
-                <DetailToDownload
+                {/* <DetailToDownload
                     ref={componentRef}
                     ideaDetails={response[0]}
                     teamResponse={teamResponse}
                     level={'Draft'}
-                />
+                /> */}
             </div>
             <Modal
                 show={show}
@@ -97,41 +75,560 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         id="contained-modal-title-vcenter"
                         className="w-100 d-block text-center"
                     >
-                        {response[0].sdg}
-                        <p>{response[0].sub_category}</p>
+                        {response.theme}
                     </Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
-                    {answersSort.length > 0 &&
-                        answersSort.map((item, i) => (
-                            <Card key={i} className="p-2 mb-3">
-                                <CardTitle className="fw-bold">
-                                    {item.question}
-                                </CardTitle>
-                                <CardBody>
-                                    {item.type === 'DRAW' ? (
-                                        <LinkComponent item={item.answer} />
-                                    ) : (
-                                        item.answer
-                                    )}
-                                </CardBody>
-                            </Card>
+                <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      1. Which category does your idea belong to?
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.theme}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      2. Describe your idea (in one sentence).
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.idea_describe}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      3. Give a title to your idea.
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.title}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      4. What problem does your idea solve?
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.solve}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      5. Who are your target customers/users?
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.customer}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      6. Explain your idea in detail
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.detail}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      7. What stage is your idea currently at?
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.stage &&
+                        JSON.parse(teamResponse.stage).map((item, index) => (
+                          <span key={index}>
+                            {item}
+                            {index !==
+                              JSON.parse(teamResponse.stage).length - 1 && ", "}
+                          </span>
                         ))}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      8. How unique is your idea compared to existing solutions?
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.unique &&
+                        JSON.parse(teamResponse.unique).map((item, index) => (
+                          <span key={index}>
+                            {item}
+                            {index !==
+                              JSON.parse(teamResponse.unique).length - 1 &&
+                              ", "}
+                          </span>
+                        ))}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      9. Who are your competitors or similar ideas?
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.similar}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      10. How will your idea make revenue or sustain itself?
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      {teamResponse.revenue}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      11. What impact will your idea have on society or the
+                      environment?
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.society}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      12. How confident are you in your ability to implement
+                      your idea with your current skill set?
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.confident &&
+                        JSON.parse(teamResponse.confident).map(
+                          (item, index) => (
+                            <span key={index}>
+                              {item}
+                              {index !==
+                                JSON.parse(teamResponse.confident).length - 1 &&
+                                ", "}
+                            </span>
+                          )
+                        )}
+                    </p>
+                  </div>
+                </div>
+              </div>{" "}
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      13. What additional support and resources would you need
+                      to implement or get started with your idea ?
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    {teamResponse.support}
+                    {/* {files.length > 0 &&
+                                                    files.map((item, i) => (
+                                                        <div key={i}>
+                                                           
+                                                            <a
+                                                                key={i}
+                                                                className="badge mb-2 bg-info p-3 ms-3"
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                                onClick={() =>
+                                                                    downloadFile(
+                                                                        item
+                                                                    )
+                                                                }
+                                                            >
+                                                                {item
+                                                                    .split('/')
+                                                                    .pop()}
+                                                            </a>
+                                                        </div>
+                                                    ))} */}
+                    {/* <p
+                                        style={{
+                                            fontSize: '1.4rem'
+                                        }}
+                                    >
+                                        {teamResponse?.Prototype_file}
+                                    </p> */}
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      14. Upload images/documents & video links related to your
+                      Idea.(total size limit : 50 MB)
+                    </b>
+                  </div>
+                  <p
+                    style={{
+                      fontSize: "1rem",
+                      color: "black",
+                    }}
+                  >
+                    {<LinkComponent item={images} />}
+                  </p>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      <a
+                        href={teamResponse.prototype_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ textDecoration: "none", color: "skyblue" }}
+                      >
+                        {teamResponse.prototype_link}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
                     <div className="common-flex">
-                        <p className="fw-bold me-3">
-                            Initiated By: {response[0]?.initiated_name}
-                        </p>
+                       
 
-                        {/* {submittedResponse === SUBMITTED ? ( */}
-                        {response[0]?.status != 'DRAFT' ? (
+                        {response?.status != 'DRAFT' ? (
                             <p className="fw-bold">
-                                Submitted at:{' '}
-                                {response[0]?.submitted_at
-                                    ? moment(response[0]?.submitted_at).format(
-                                          'DD-MM-YYYY'
-                                      )
-                                    : '-'}
+                                Submitted By:{' '}
+                                {response?.initiated_name
+                                   }
                             </p>
                         ) : (
                             ''
@@ -139,7 +636,9 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <FaDownload size={22} onClick={handlePrint} />
+                    {/* <FaDownload size={22} 
+                    onClick={handlePrint} 
+                    /> */}
                     <Button
                         size="small"
                         label={'Close'}

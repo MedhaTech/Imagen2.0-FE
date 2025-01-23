@@ -612,7 +612,7 @@ const ReportL3 = () => {
     };
     return (
         <div className="page-wrapper">
-        <h4
+        {/* <h4
           className="m-2"
           style={{
             position: "sticky",
@@ -626,13 +626,12 @@ const ReportL3 = () => {
           }}
         >
           Reports
-        </h4>
+        </h4> */}
         <div className="content">
           <div className="page-header">
             <div className="add-item d-flex">
               <div className="page-title">
                 <h4>L3 - Report</h4>
-                {/* <h6>List of Teachers registered and their details</h6> */}
               </div>
             </div>
             <div className="page-btn">
