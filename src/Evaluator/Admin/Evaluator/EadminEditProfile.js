@@ -210,7 +210,7 @@ const EditProfile = (props) => {
                       value={formik.values.name}
                     />
                     {formik.touched.name && formik.errors.name ? (
-                      <small className="error-cls">{formik.errors.name}</small>
+                      <small className="error-cls" style={{color:"red"}}>{formik.errors.name}</small>
                     ) : null}
                   </div>
                 </div>
@@ -233,7 +233,7 @@ const EditProfile = (props) => {
 
                     {formik.touched.email &&
                     formik.errors.email ? (
-                      <small className="error-cls">
+                      <small className="error-cls" style={{color:"red"}}>
                         {formik.errors.email}
                       </small>
                     ) : null}
@@ -263,7 +263,7 @@ const EditProfile = (props) => {
                     />
 
                     {formik.touched.mobile && formik.errors.mobile ? (
-                      <small className="error-cls">
+                      <small className="error-cls" style={{color:"red"}}>
                         {formik.errors.mobile}
                       </small>
                     ) : null}

@@ -293,6 +293,8 @@ const updateStatesList=["All States",...stateList];
     };
 
     const handleStatus = (status, id, type, all) => {
+        console.log(type,"all");
+        const stats= all.user.role === "ADMIN" ?"Admin" :"Eadmin";
         // console.log(all,"all");
         // where we can update the status Active to InActive //
         // where id = student id / mentor id  / admin id / evaluator  id//
@@ -310,16 +312,10 @@ const updateStatesList=["All States",...stateList];
                 title: "<h4>Are you sure?</h4>" ,
                 text: `You are attempting to ${
                     status.toLowerCase() === 'active'
-                        ? 'activate'
-                        : 'inactivate'
+                        ? 'Activate'
+                        : 'Inactivate'
                 } ${
-                    type && type === 'student'
-                        ? 'Student'
-                        : type && type === 'evaluator'
-                        ? 'evaluator'
-                        : type && type === 'admin'
-                        ? 'Admin'
-                        : 'Mentor'
+                   stats
                 }.`,
                 imageUrl: `${logout}`,
                 confirmButtonText: status,
@@ -376,15 +372,9 @@ const updateStatesList=["All States",...stateList];
                     }
                     swalWithBootstrapButtons.fire(
                         `${
-                            type && type === 'student'
-                                ? 'Student'
-                                : type && type === 'evaluator'
-                                ? 'evaluator'
-                                : type && type === 'admin'
-                                ? 'Admin'
-                                : 'Mentor'
+                           stats
                         } Status has been changed!`,
-                        'Successfully updated.',
+                        'Successfully Updated.',
                         'success'
                     );
                 } 

@@ -90,7 +90,7 @@ fullStatesNames.unshift("All Districts");
 
                     openNotificationWithIcon(
                         'success',
-                        'Districts Update Successfully'
+                        'Districts Assigned Successfully'
                     );
                     navigate('/eadmin/evaluator');
                 }

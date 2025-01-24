@@ -528,9 +528,9 @@ const EadmiHeader = () => {
           <User className="me-2" /> My Profile
           </Link>
           <hr className="m-0" />
-          <Link className="dropdown-item" to="/evaluator/change-password">
+          {/* <Link className="dropdown-item" to="/evaluator/change-password">
         <FontAwesomeIcon icon={faKey} /> Change Password
-      </Link>
+      </Link> */}
       <hr className="m-0" />
 
           <Link
@@ -573,9 +573,9 @@ const EadmiHeader = () => {
           </p>
         </div>
       )}
-      <Link className="dropdown-item" to="/evaluator/change-password">
+      {/* <Link className="dropdown-item" to="/evaluator/change-password">
         Change Password
-      </Link>
+      </Link> */}
       <Link className="dropdown-item"  to=""
             onClick={handleLogout}>
         Logout

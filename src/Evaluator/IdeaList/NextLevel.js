@@ -331,7 +331,6 @@ const downloadFile = (item) => {
                                     </div>
                                 </div>
                             </div>{' '}
-                <h4>Section-2: Solution & User Analysis</h4>
 
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
@@ -506,7 +505,7 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Upload images/documents & video links related to your Idea.(total size limit : 50 MB) 
+                                            14. Upload images/documents & video links related to your Idea.(total size limit : 10 MB) 
                                         </b>
                                     </div>
                                     <p

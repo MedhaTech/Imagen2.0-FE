@@ -875,7 +875,7 @@ const SearchCID = () => {
                           marginBottom: "1rem",
                         }}
                       >
-                        14. Upload images/documents & video links related to your Idea.(total size limit : 50 MB) 
+                        14. Upload images/documents & video links related to your Idea.(total size limit : 10 MB) 
                       </b>
                     </div>
                     <p
@@ -920,8 +920,8 @@ const SearchCID = () => {
                 //   position: "relative",
                 // }}
               >
-                {multiOrgData?.verified_status !== "" &&
-                  multiOrgData?.verified_status !== null && (
+                {multiOrgData?.status !== "DRAFT" &&
+                  (
                     <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                       {multiOrgData?.evaluation_status ? (
                         <p
@@ -954,31 +954,7 @@ const SearchCID = () => {
                       ) : (
                         ""
                       )}
-                      {/* {multiOrgData?.evaluator_ratings && (
-  <div className="row mb-1 mt-2">
-    <div className="col-5">
-      <p className="my-0 fw-bold">Evaluated By :</p>
-    </div>
-    <div className="col-7">
-      {multiOrgData.evaluator_ratings.map((rating, i) => (
-        <p className="my-0 text-muted" key={i}>
-          {`${i + 1}: ${rating.rated_evaluated_name}`}
-        </p>
-      ))}
-    </div>
-  </div>
-)} */}
-                      {/* 
-                      {multiOrgData?.evaluator_ratings && (
-  <div className="text-center">
-    <p className="text-bold">Evaluated By:</p>
-    {multiOrgData.evaluator_ratings.map((rating, i) => (
-      <p className="my-0 text-muted" key={i}>
-        {i + 1}: {rating.rated_evaluated_name}
-      </p>
-    ))}
-  </div>
-)} */}
+                     
 
                       {multiOrgData?.evaluation_status == "REJECTEDROUND1" && (
                         <>
@@ -997,8 +973,8 @@ const SearchCID = () => {
                         </>
                       )}
                       {/* Added */}
-                      {multiOrgData?.verified_status !== "" &&
-                        multiOrgData?.verified_status !== null && (
+                      {multiOrgData?.status !== "DRAFT" &&
+                       (
                           <>
                             {/* Check if evaluation_status is null */}
                             {multiOrgData?.evaluation_status == null ? (
@@ -1098,7 +1074,7 @@ const SearchCID = () => {
                   ? teamResponse.initiated_name
                   : "-"}
               </p>
-              <p
+              {/* <p
                 style={{ fontSize: "1rem", margin: "1rem" }}
                 className="fw-bold"
               >
@@ -1106,7 +1082,7 @@ const SearchCID = () => {
                 {teamResponse.submitted_at
                   ? moment(teamResponse.submitted_at).format("DD-MM-YYYY")
                   : "-"}
-              </p>
+              </p> */}
             </div>
             <br />
             <div style={{ display: "flex" }}>
@@ -1119,7 +1095,7 @@ const SearchCID = () => {
                                 ? teamResponse.verified_name
                                 : '-'}
                         </p> */}
-              <p
+              {/* <p
                 style={{ fontSize: "1rem", margin: "1rem" }}
                 className="fw-bold"
               >
@@ -1127,7 +1103,7 @@ const SearchCID = () => {
                 {teamResponse.verified_at
                   ? moment(teamResponse.verified_at).format("DD-MM-YYYY ")
                   : "-"}
-              </p>
+              </p> */}
             </div>
             <div></div>
           </>

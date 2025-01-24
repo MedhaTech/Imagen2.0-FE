@@ -545,7 +545,7 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                                   fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Upload images/documents & video links related to your Idea.(total size limit : 50 MB) 
+                                            14. Upload images/documents & video links related to your Idea.(total size limit : 10 MB) 
                                         </b>
                                     </div>
                                     <p

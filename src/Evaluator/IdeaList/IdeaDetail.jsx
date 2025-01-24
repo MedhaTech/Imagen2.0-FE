@@ -653,7 +653,7 @@ const downloadFile = (item) => {
                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Upload images/documents & video links related to your Idea.(total size limit : 50 MB) 
+                                            14. Upload images/documents & video links related to your Idea.(total size limit : 10 MB) 
                                         </b>
                                     </div>
                                     <p
@@ -873,9 +873,13 @@ const downloadFile = (item) => {
                     </Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
+                <Modal.Body
+                 style={{
+                    maxHeight: window.innerWidth < 768 ? '80vh' : '60vh',
+                    height: window.innerWidth < 768 ? '80vh' : '60vh',    
+                }} >
                     <div className="my-3 text-center">
-                        <h4 className="mb-sm-4 mb-3">
+                        <h4 className="mb-sm-4 mb-2">
                             Please Select the reason for rejection.
                         </h4>
                         <Col>
