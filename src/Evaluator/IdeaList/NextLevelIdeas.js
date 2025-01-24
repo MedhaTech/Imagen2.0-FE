@@ -65,8 +65,8 @@ console.log(allIdeaList,"IDEA",);
                                                 <br />
                                             </div>
                                             <h4 className="my-auto text-center my-4">
-                                                All idea has been processed, no
-                                                more idea to display.
+                                            All Ideas has been Processed, no
+                                            more Ideas to Display.
                                                
                                             </h4>
                                         </div>

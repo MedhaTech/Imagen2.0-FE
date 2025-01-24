@@ -279,7 +279,7 @@ const IdeaReport = () => {
       key: 'support'
     },
     {
-      label: 'Upload images/documents & video links related to your Idea.*  (total size   limit : 50 MB)',
+      label: 'Upload images/documents & video links related to your Idea.*  (total size   limit : 10 MB)',
       key: 'prototype_image'
     },
     {

@@ -157,17 +157,9 @@ fullStatesNames.unshift("All Districts");
                     </Row>
                 </Card>
 
-                <Row>
+                {/* <Row>
                     <Col className="col-xs-12 col-sm-6">
-                        {/* <Button
-                            label="Discard"
-                            btnClass="secondary"
-                            size="small"
-                            onClick={() =>
-                                navigate('/eadmin/evaluationProcess')
-                            }
-
-                        /> */}
+                       
                           <button
                             type="button"
                             onClick={() => navigate('/eadmin/evaluationProcess')}
@@ -187,7 +179,31 @@ fullStatesNames.unshift("All Districts");
                             size="small"
                         />
                     </Col>
-                </Row> 
+                </Row>  */}
+                <Row className="align-items-center">
+    {/* Left Column */}
+    <Col xs={12} sm={6} className="text-left">
+        <button
+            type="button"
+            onClick={() => navigate('/eadmin/evaluationProcess')}
+            className="btn btn-secondary"
+            style={{ marginLeft: '30px' }}
+        >
+            Discard
+        </button>
+    </Col>
+
+    {/* Right Column */}
+    <Col xs={12} sm={6} className="text-right">
+        <Button
+            label="Save"
+            onClick={() => handleclick()}
+            btnClass="primary"
+            size="small"
+        />
+    </Col>
+</Row>
+
             </Container>
         </div>
         </div>

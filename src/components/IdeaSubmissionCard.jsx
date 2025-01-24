@@ -576,7 +576,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                       }}
                     >
                       14. Upload images/documents & video links related to your
-                      Idea.(total size limit : 50 MB)
+                      Idea.(total size limit : 10 MB)
                     </b>
                   </div>
                   <p

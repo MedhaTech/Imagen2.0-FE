@@ -541,7 +541,7 @@
         "probsoljourneyop3" : "We got feedback on our idea and modified it" ,
         "probsoljourneyop4" : "We got feedback on our prototype and modified it" ,
         "feedbackq" : " Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.",
-        "uploadq" : " Upload images/documents & video links related to your Idea.*  (total size   limit : 50 MB) / మీ ఆలోచనతో సంబంధిత చిత్రాలు/పత్రాలు & వీడియో లింకులను అప్‌లోడ్ చేయండి. (మొత్తం పరిమితి: 50 MB)",
+        "uploadq" : " Upload images/documents & video links related to your Idea.*  (total size   limit : 10 MB) / మీ ఆలోచనతో సంబంధిత చిత్రాలు/పత్రాలు & వీడియో లింకులను అప్‌లోడ్ చేయండి. (మొత్తం పరిమితి: 10 MB)",
         "workbookq" : "Did your team complete and submit the workbook to your school Guide teacher?",
         "workbookyes" : "YES" ,
         "workbookno" : "NO",
