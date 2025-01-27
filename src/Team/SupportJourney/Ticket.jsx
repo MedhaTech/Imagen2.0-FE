@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ArrowLeft, PlusCircle } from "react-feather";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
@@ -28,35 +28,72 @@ const TicketsPage = () => {
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [itemsToDisplay, setItemsToDisplay] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
+  const observerRef = useRef(null); 
   useEffect(() => {
     dispatch(getDiscussionList(currentUser?.data[0]));
   }, []);
-
   useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop
-        >= document.documentElement.offsetHeight - 10
-      ) {
-        loadMoreItems();
-      }
-    };
+    if (discussionChats && discussionChats.length > 0) {
+    const initialItems = discussionChats.slice(0, itemsPerPage);
+    setItemsToDisplay(initialItems);
+    }
+  }, [discussionChats]);
+  useEffect(() => {
+    // Set up IntersectionObserver for infinite scrolling
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMoreItems(); 
+        }
+      },
+      { threshold: 1.0 } // Fully visible
+    );
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    if (observerRef.current) {
+      observer.observe(observerRef.current); 
+    }
+
+    return () => {
+      if (observerRef.current) observer.unobserve(observerRef.current); 
+    };
+  }, [observerRef.current, currentPage]);
 
   const loadMoreItems = () => {
-    if (discussionChats.length > currentPage * itemsPerPage) {
-      setCurrentPage(prevPage => prevPage + 1);
+    // Load next batch of items
+    if (currentPage * itemsPerPage < discussionChats.length) {
+      const nextPage = currentPage + 1;
+      const newItems = discussionChats.slice(0, nextPage * itemsPerPage);
+      setItemsToDisplay(newItems);
+      setCurrentPage(nextPage);
     }
   };
+  if (!discussionChats || discussionChats.length === 0) {
+    return <p>No tickets available.</p>;
+  }
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (
+  //       window.innerHeight + document.documentElement.scrollTop
+  //       >= document.documentElement.offsetHeight - 10
+  //     ) {
+  //       loadMoreItems();
+  //     }
+  //   };
 
-  const itemsToDisplay = discussionChats.slice(0, currentPage * itemsPerPage);
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
+
+  // const loadMoreItems = () => {
+  //   if (discussionChats.length > currentPage * itemsPerPage) {
+  //     setCurrentPage(prevPage => prevPage + 1);
+  //   }
+  // };
+
+  // const itemsToDisplay = discussionChats.slice(0, currentPage * itemsPerPage);
 
   return (
     <div className="page-wrapper">
@@ -80,7 +117,8 @@ const TicketsPage = () => {
           </div>
         </div>
         <div className="row">
-          {itemsToDisplay.length > 0 ? (
+          {
+          // itemsToDisplay.length > 0 ? (
             itemsToDisplay.map((discussion,index) => (
               <div key={discussion.discussion_forum_id} className="col-md-12">
                 <div className="card mb-3">
@@ -154,9 +192,16 @@ const TicketsPage = () => {
                 </div>
               </div>
             ))
-          ) : (
-            <p>No discussions available.</p>
-          )}
+          // ) : (
+          //   <p>No discussions available.</p>
+          }
+ {currentPage * itemsPerPage < discussionChats.length && (
+        <div ref={observerRef} style={{ height: "1px" }} />
+      )}
+
+      {currentPage * itemsPerPage >= discussionChats.length && (
+        <p style={{ textAlign: "center", marginTop: "1rem" }}>No more Discussions to display.</p>
+      )}
         </div>
       </div>
     </div>
