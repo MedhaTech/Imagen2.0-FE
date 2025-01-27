@@ -22,6 +22,7 @@ import i19 from "../../assets/img/Themes/theme19.png";
 import i20  from "../../assets/img/Themes/theme20.png";
 
 
+import i21 from "../../assets/img/Themes/theme21.png";
 
 
 export const themesList = [
@@ -45,7 +46,7 @@ export const themesList = [
     "Financial Inclusion and FinTech",
     "Rural Innovation and Development",
     "Public Governance and CivicTech",
-    // "Others"
+    "Others"
 ];
 export const focusareasList = {
     "Smart Automation": [
@@ -340,13 +341,12 @@ export const themes = [
         // focusareas: ["Other area that broadly qualifies for the vision of Viksit Bharat"], 
         desc: "Create technology-driven solutions to improve governance, and civic engagement." 
     },
-    // { 
-    //     id: 18, 
-    //     image: i18, 
-    //     title: 'Others', 
-    //     // focusareas: ["Other area that broadly qualifies for the vision of Viksit Bharat"], 
-    //     desc: "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress." 
-    // }
+    { 
+        id: 21, 
+        image: i21, 
+        title: 'Others',
+        desc:"Others", 
+    }
   ];
 
 export const questions = [
