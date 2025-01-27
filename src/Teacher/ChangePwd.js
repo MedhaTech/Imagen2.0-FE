@@ -83,7 +83,7 @@ const ChangePwd = (props) => {
         };
         axios(config)
           .then(function (response) {
-            SetResponce("Password updated successfully");
+            SetResponce("Password Updated Successfully");
             setTimeout(() => {
               SetResponce("");
               navigate("/institution-dashboard");
@@ -91,6 +91,7 @@ const ChangePwd = (props) => {
           })
           .catch(function (error) {
             SetError(error.response.data.message);
+            
           });
       }
     },
@@ -303,6 +304,8 @@ const ChangePwd = (props) => {
                   </small>
                 ) : null}
               </div>
+              <b style={{ color: "red",textAlign:"center" }}>{error}</b>
+              <b style={{ color: "#3BB143" }}>{responce}</b>
                <div className="form-login" style={formLoginStyle}>
                                 <button
                                   style={buttonStyle}
