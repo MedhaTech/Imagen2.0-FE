@@ -811,7 +811,7 @@ console.log(level,"level");
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Upload images/documents & video links related to your Idea. (total size limit : 50 MB)
+                                            14. Upload images/documents & video links related to your Idea. (total size limit : 10 MB)
                                         </b>
                                     </div>
                                     <p
@@ -1055,7 +1055,7 @@ console.log(level,"level");
                                 ? teamResponse.initiated_name
                                 : '-'}
                         </p>
-                        <p
+                        {/* <p
                             style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"
                         >
@@ -1065,7 +1065,7 @@ console.log(level,"level");
                                       'DD-MM-YYYY'
                                   )
                                 : '-'}
-                        </p>
+                        </p> */}
                     </div>
                     <br />
                     <div style={{ display: 'flex' }}>
@@ -1078,7 +1078,7 @@ console.log(level,"level");
                                 ? teamResponse.verified_name
                                 : '-'}
                         </p> */}
-                        <p
+                        {/* <p
                              style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"
                         >
@@ -1088,7 +1088,7 @@ console.log(level,"level");
                                       'DD-MM-YYYY '
                                   )
                                 : '-'}
-                        </p>
+                        </p> */}
                     </div>
                     <div>
                         <Button

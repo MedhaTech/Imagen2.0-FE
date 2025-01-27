@@ -57,6 +57,7 @@ const Register = (props) => {
 
         onSubmit: async (values) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+            const stats = values.role  === "ADMIN" ? "Admin" : "Eadmin";
 
             values.password = values.username.trim();
             const key = CryptoJS.enc.Hex.parse(
@@ -83,19 +84,17 @@ const Register = (props) => {
                         window.location.reload();
                         openNotificationWithIcon(
                             'success',
-                            evaluatorRegRes?.data?.message
+                            `${stats} Added Successfully`
                         );
                         props.setShow(false);
                     }
                 })
                 .catch((err) => {
-                    openNotificationWithIcon(
-                        'error',
-                        err.response.data?.message
-                    );
-                    formik.setErrors({
-                        check: err.response && err?.response?.data?.message
-                    });
+                    if(err?.response?.data?.status === 400){
+                        openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email id is Invalid");
+                        }else{
+                          openNotificationWithIcon("error", "Email id is Invalid");
+                        }
                     props.setShow(false);
                     return err.response;
                 });

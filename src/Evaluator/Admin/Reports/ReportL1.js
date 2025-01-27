@@ -211,11 +211,11 @@ const ReportL1 = () => {
       key: 'support'
     },
     {
-      label: 'Upload images/documents & video links related to your Idea.(total size limit : 50 MB)',
+      label: 'Upload images/documents & video links related to your Idea.(total size limit : 10 MB)',
       key: 'prototype_image'
     },
     {
-      label: 'Upload images/documents & video links related to your Idea.(total size limit : 50 MB)',
+      label: 'Upload images/documents & video links related to your Idea.(total size limit : 10 MB)',
       key: 'prototype_link'
     },
   
@@ -314,8 +314,8 @@ const ReportL1 = () => {
                                     "What impact will your idea have on society or the environment?":item.society,
                                     "How confident are you in your ability to implement your idea with your current skill set?":item.confident,
                                     "What additional support and resources would you need to implement or get started with your idea ?":item.support,
-                                    "Upload images/documents & video links related to your(total size limit : 50 MB)":item.prototype_image,
-                                    "Upload images/documents & video links related to your Idea.(total size limit : 50 MB)":item.prototype_link,
+                                    "Upload images/documents & video links related to your(total size limit : 10 MB)":item.prototype_image,
+                                    "Upload images/documents & video links related to your Idea.(total size limit : 10 MB)":item.prototype_link,
                                     "Idea Submission Status":item.status,
                                    
                                     "L1 Status":item.evaluation_status === 'SELECTEDROUND1'  ? 'Accepted': 'Rejected',
@@ -461,7 +461,7 @@ const ReportL1 = () => {
 
   return (
     <div className="page-wrapper">
-      <h4
+      {/* <h4
         className="m-2"
         style={{
           position: "sticky",
@@ -475,7 +475,7 @@ const ReportL1 = () => {
         }}
       >
         Reports
-      </h4>
+      </h4> */}
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">

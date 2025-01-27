@@ -205,7 +205,7 @@ const EvaluatedIdea = () => {
                         {row?.title}
                     </div>
                 ),
-                width: '15rem'
+                width: '10rem'
             },
             {
                 name: 'Submitted By',

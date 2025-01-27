@@ -50,9 +50,9 @@ const navigate=useNavigate();
             .trim()
             .min(2, 'Enter Full Name')
             .matches(/^[a-zA-Z\s._-]+$/, 'Not allowed')
-            .required('Required'),
+            .required('Please Enter Full Name'),
         mobile: Yup.string()
-            .required('Required')
+            .required('Please Enter Mobile Number')
             .trim()
             .matches(phoneRegExp, 'Contact number is not valid')
             .min(10, 'Number is less than 10 digits')
@@ -60,7 +60,7 @@ const navigate=useNavigate();
         username: Yup.string()
             .trim()
             .email('Invalid Email Id')
-            .required('Required'),
+            .required('Please Enter Email Address'),
         // district: Yup.string().trim().required('Required')
     });
 
@@ -127,7 +127,7 @@ const navigate=useNavigate();
                         setTimeout(()=>{
                             openNotificationWithIcon(
                                 'success',
-                                evaluatorRegRes?.data?.message
+                                "Evaluator Added Successfully"
                             );
                         navigate("/evaluator/selecting-states",{district:{evaluatorId}});
 
@@ -137,13 +137,18 @@ const navigate=useNavigate();
                     }
                 })
                 .catch((err) => {
-                    openNotificationWithIcon(
-                        'error',
-                        err.response.data?.message
-                    );
-                    formik.setErrors({
-                        check: err.response && err?.response?.data?.message
-                    });
+                     if(err?.response?.data?.status === 400){
+                                openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email id is Invalid");
+                                }else{
+                                  openNotificationWithIcon("error", "Email id is Invalid");
+                                }
+                    // openNotificationWithIcon(
+                    //     'error',
+                    //     err.response.data?.message
+                    // );
+                    // formik.setErrors({
+                    //     check: err.response && err?.response?.data?.message
+                    // });
                     props.setShow(false);
                     return err.response;
                 });
@@ -186,6 +191,7 @@ const navigate=useNavigate();
                             >
                                 <Label className="mb-2" htmlFor="name">
                                     User Full Name
+                                    <span required style={{ marginLeft: '5px' }}>*</span>
                                 </Label>
 
                                 <input
@@ -213,6 +219,7 @@ const navigate=useNavigate();
                             >
                                 <Label className="mb-2" htmlFor="username">
                                     Email Address 
+                                    <span required style={{ marginLeft: '5px' }}>*</span>
                                 </Label>
 
                                 <input
@@ -242,6 +249,7 @@ const navigate=useNavigate();
                             >
                                 <Label className="mb-2" htmlFor="mobile">
                                     Mobile Number & Pwd
+                                    <span required style={{ marginLeft: '5px' }}>*</span>
                                 </Label>
 
                                 <input

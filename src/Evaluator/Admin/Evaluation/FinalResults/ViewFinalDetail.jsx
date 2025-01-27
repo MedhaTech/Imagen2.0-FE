@@ -691,7 +691,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Upload images/documents & video links related to your Idea.(total size limit : 50 MB) 
+                                            14. Upload images/documents & video links related to your Idea.(total size limit : 10 MB) 
                                         </b>
                                     </div>
                                     <p
@@ -838,7 +838,7 @@ const ViewDetail = (props) => {
                                     />
                                 )}
                                  {(teamResponse?.final_result === "0" || teamResponse?.final_result === "1") &&(
-                   <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
+                   <div className="level-status-card card border p-md-5 p-2 me-lg-0 me-md-3">
                       {teamResponse?.final_result ? (
                         <p
                           style={{ fontSize: "1.2rem" }}
@@ -875,7 +875,7 @@ const ViewDetail = (props) => {
                                 ? teamResponse.initiated_name
                                 : '-'}
                         </p>
-                        <p
+                        {/* <p
                             style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"
                         >
@@ -885,7 +885,7 @@ const ViewDetail = (props) => {
                                       'DD-MM-YYYY'
                                   )
                                 : '-'}
-                        </p>
+                        </p> */}
                     </div>
                     <br />
                     <div style={{ display: 'flex' }}>
@@ -898,7 +898,7 @@ const ViewDetail = (props) => {
                                 ? teamResponse.verified_name
                                 : '-'}
                         </p> */}
-                        <p
+                        {/* <p
                             style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"
                         >
@@ -908,7 +908,7 @@ const ViewDetail = (props) => {
                                       'DD-MM-YYYY'
                                   )
                                 : '-'}
-                        </p>
+                        </p> */}
                     </div>
                     <div>
                         <Button

@@ -650,9 +650,19 @@ console.log(support,"ss");
         customer === null ||
         detail === "" ||
         detail === null ||
-        stage === "" ||
-        stage === null ||
-        unique === "" ||
+        !stage || 
+        stage === "" || 
+        stage === "[]" || 
+        (Array.isArray(stage) && stage.length === 0) || 
+        // stage === "" ||
+       
+        // stage === null ||
+        // unique === "" ||
+        // unique === "[]" ||
+        !unique || 
+        unique === "" || 
+        unique === "[]" || 
+        (Array.isArray(unique) && unique.length === 0) || 
         unique === null ||
         similar === "" ||
         similar === null ||
@@ -662,6 +672,10 @@ console.log(support,"ss");
         society === null ||
         confident === "" ||
         confident === null ||
+        !confident || 
+        confident === "" || 
+        confident === "[]" || 
+        (Array.isArray(confident) && confident.length === 0) || 
         support === "" ||
         support == null ||
         prototypeLink === "" ||

@@ -398,35 +398,7 @@ const ViewDetail = (props) => {
             </div>
 
             <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
-              <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                {/* <div
-                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
-                                >
-                                    <div className="question quiz mb-0">
-                                        <b
-                                            style={{
-                                                fontSize: '1rem',marginBottom:"1rem"
-                                            }}
-                                        >
-                                            Idea Submission Language
-                                            
-                                        </b>
-                                    </div>
-                                               
-                                                <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"50px" }}>
-                                        <p
-                                            style={{
-                                                fontSize: '1rem',color:"black",
-                                            }}
-                                        >
-                                            {
-                                                teamResponse.language
-                                            }
-                                        </p>
-                                    </div>
-                                </div> */}
-              </div>
-              {/* <h4>Section-1: Problem Identification</h4> */}
+             
               <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                 <div
                   // key={index}
@@ -931,7 +903,7 @@ const ViewDetail = (props) => {
                       }}
                     >
                       14. Upload images/documents & video links related to your
-                      Idea.(total size limit : 50 MB)
+                      Idea.(total size limit : 10 MB)
                     </b>
                   </div>
                   <p

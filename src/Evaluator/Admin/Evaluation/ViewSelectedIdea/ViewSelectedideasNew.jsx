@@ -348,7 +348,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '15rem'
+        width: '11rem'
     },
 
       // {
@@ -535,7 +535,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '15rem'
+        width: '11rem'
     },
 
       // {
@@ -650,11 +650,11 @@ const ViewSelectedideasNew = () => {
         cellExport: (row) => row.challenge_response_id,
         width: "5rem",
       },
-      {
-        name: "Category",
-        selector: (row) => row.category,
-        width: "8rem",
-      },
+      // {
+      //   name: "Category",
+      //   selector: (row) => row.category,
+      //   width: "8rem",
+      // },
 
       {
         name: "Theme",
@@ -702,7 +702,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '15rem'
+        width: '11rem'
     },
       // {
       //     name: 'District',
@@ -985,7 +985,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '15rem'
+        width: '11rem'
     },
       // {
       //     name: 'District',
