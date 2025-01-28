@@ -32,6 +32,7 @@ import ReactApexChart from "react-apexcharts";
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
 import moment from "moment/moment";
+import * as XLSX from 'xlsx';
 
 const IdeaReport = () => {
   const navigate = useNavigate();
@@ -289,7 +290,13 @@ const IdeaReport = () => {
    
   ];
 
- 
+  const handleExport = () => {
+     const ws = XLSX.utils.json_to_sheet(studentDetailedReportsData);  // Converts the JSON data to a sheet
+     const wb = XLSX.utils.book_new();  // Creates a new workbook
+     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  // Appends the sheet to the workbook
+     XLSX.writeFile(wb, `SubmittedIdeasDetailedReport_${newFormat}.xlsx`);  // Triggers download of the Excel file
+     
+   };
 
   var chartOption = {
     chart: {
@@ -394,7 +401,8 @@ const IdeaReport = () => {
   useEffect(() => {
     if (studentDetailedReportsData.length > 0) {
       console.log("Performing operation with the updated data.");
-      csvLinkRef.current.link.click();
+      handleExport();
+      // csvLinkRef.current.link.click();
     }
   }, [studentDetailedReportsData]);
   const fetchData = () => {
@@ -426,28 +434,29 @@ const IdeaReport = () => {
             return {
               ...item,
           
-              theme: item.theme ? item.theme.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              others: item.others ? item.others.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              idea_describe: item.idea_describe
-              ? item.idea_describe
-              .replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              title: item.title ? item.title.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              solve: item.solve ? item.solve.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              customer: item.customer ? item.customer.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              detail: item.detail ? item.detail.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              stage: item.stage ? item.stage.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              unique: item.unique ? item.unique.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              similar: item.similar ? item.similar.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              revenue: item.revenue ? item.revenue.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              society: item.society ? item.society.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              confident: item.confident ? item.confident.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              support: item.support ? item.support.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-              prototype_image
-: item.prototype_image
-? item.prototype_image
-.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-prototype_link: item.prototype_link ? item.prototype_link.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-
+              District:item.district,
+              CID:item.challenge_response_id,
+              "College Name":item.college_name,
+              "College Type":item.college_type,
+            
+              
+               "Student Name":item.studentfullname,
+               Theme:item.theme,
+               "Describe your idea (in one sentence).":item.idea_describe,
+               "Give a title to your idea.":item.title,
+               "What problem does your idea solve?":item.solve,
+               "Who are your target customers/users?":item.customer,
+               "Explain your idea in detail":item.detail,
+               "What stage is your idea currently at?":item.stage,
+               "How unique is your idea compared to existing solutions?":item.unique,
+               "Who are your competitors or similar ideas?":item.similar,
+               "How will your idea make revenue or sustain itself?":item.revenue,
+               "What impact will your idea have on society or the environment?":item.society,
+               "How confident are you in your ability to implement your idea with your current skill set?":item.confident,
+               "What additional support and resources would you need to implement or get started with your idea ?":item.support,
+               "Upload images/documents & video links related to your(total size limit : 10 MB)":item.prototype_image,
+               "Upload images/documents & video links related to your Idea.(total size limit : 10 MB)":item.prototype_link,
+               "Idea Submission Status":item.status,
              
             };
           });
