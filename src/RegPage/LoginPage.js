@@ -12,7 +12,7 @@ const LoginPage = () => {
   const handleLogoClick = () => {
     navigate('/');
   };
-
+  const currentYear = new Date().getFullYear();
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -28,8 +28,8 @@ const LoginPage = () => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading text-center">
-                  <h3> Youth for Social Impact 2024</h3>
-                  <h4>Login As ?</h4>
+                  {/* <h3> Youth for Social Impact 2024</h3> */}
+                  <h4>Select Your Role to Access Your Account </h4>
                 </div>
                 <div className="form-login mb-3">
                   <div className="form-addons text-center">
@@ -73,7 +73,7 @@ const LoginPage = () => {
                   </h4>
                 </div>
                 <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                    <p>Copyright © {currentYear}  <b>YFSI.</b> All rights reserved</p>
                   </div>
               </div>
             </form>

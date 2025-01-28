@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 const LogInTeam = (props) => {
   const navigate = useNavigate();
-
+  const currentYear = new Date().getFullYear();
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const inputUserId = {
     type: "text",
@@ -140,16 +140,10 @@ const LogInTeam = (props) => {
                     ) : null}
                 </div>
                 
-                {/* <div className="form-login authentication-check">
+                <div className="form-login authentication-check">
                   <div className="row">
-                    <div className="col-12 d-flex align-items-center justify-content-between">
-                      <div className="custom-control custom-checkbox">
-                        <label className="checkboxs ps-4 mb-0 pb-0 line-height-1">
-                          <input type="checkbox" className="form-control" />
-                          <span className="checkmarks" />
-                          Remember me
-                        </label>
-                      </div>
+                    <div className="col-12 d-flex align-items-center justify-content-end">
+                    
                       <div className="text-end">
                         <Link className="forgot-link" to="/student-forgot-psw">
                           Forgot Password?
@@ -158,7 +152,7 @@ const LogInTeam = (props) => {
                      
                     </div>
                   </div>
-                </div> */}
+                </div>
                 <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <button
                     type="submit"
@@ -182,7 +176,8 @@ const LogInTeam = (props) => {
                 
                 
                   <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                  <p>Copyright © {currentYear}  <b>YFSI.</b> All rights reserved</p>
+
                   </div>
                  
               </div>

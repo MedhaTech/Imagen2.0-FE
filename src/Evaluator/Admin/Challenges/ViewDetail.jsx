@@ -302,12 +302,12 @@ const ViewDetail = (props) => {
                 </div>
                 <div className="col-lg-12 mt-1">
                   <Row className="col-lg-12">
-                    <Col className="md-12">
+                    <Col className="md-6">
                       <Card
                         bg="white"
                         text="dark"
                         className="mb-2"
-                        style={{ height: "150px" }}
+                        style={{ height: "120px" }}
                       >
                         <Card.Body>
                           <label
@@ -315,7 +315,7 @@ const ViewDetail = (props) => {
                             className=""
                             style={{ fontSize: "16px" }}
                           >
-                            <b>Details</b>
+                            <b>College Details</b>
                           </label>
                           <Card.Text
                             style={{
@@ -323,43 +323,30 @@ const ViewDetail = (props) => {
                               marginBottom: "20px",
                             }}
                           >
-                            <span>College Type :</span>
+                            <span style={{fontWeight:'bold'}}>College Type :</span>
                             <span>
                               &nbsp;
                               {teamResponse.college_type}
                             </span>
                             <br />
-                            <span>College Name :</span>
+                            <span style={{fontWeight:'bold'}}>College Name :</span>
                             <span>
                               &nbsp;
                               {teamResponse.college_name}
                             </span>
                             <br />
 
-                            <span>District :</span>
-                            <span>
-                              &nbsp;
-                              {teamResponse.district}
-                            </span>
-                            <br />
-                            <span>Team Members :</span>
-                            <span>
-                              &nbsp;
-                              {teamResponse &&
-                                teamResponse.team_members &&
-                                teamResponse.team_members.join(", ")}
-                            </span>
                            
                           </Card.Text>
                         </Card.Body>
                       </Card>
                     </Col>
-                    {/* <Col className="md-6">
+                    <Col className="md-6">
                       <Card
                         bg="white"
                         text="dark"
                         className="mb-2"
-                        style={{ height: "150px" }}
+                        style={{ height: "120px" }}
                       >
                         <Card.Body>
                           <label
@@ -375,23 +362,25 @@ const ViewDetail = (props) => {
                               marginBottom: "20px",
                             }}
                           >
-                            <span>Team Name :</span>
-                            <span>
-                              &nbsp;
-                              {teamResponse.team_name}
-                            </span>
-                            <br />
-                            <span>Team Members :</span>
+                          
+                            <span style={{fontWeight:'bold'}}>Team Members :</span>
                             <span>
                               &nbsp;
                               {teamResponse &&
                                 teamResponse.team_members &&
                                 teamResponse.team_members.join(", ")}
                             </span>
+                            <br />
+
+                            <span style={{fontWeight:'bold'}}>District :</span>
+                            <span>
+                              &nbsp;
+                              {teamResponse.district}
+                            </span>
                           </Card.Text>
                         </Card.Body>
                       </Card>
-                    </Col> */}
+                    </Col>
                   </Row>
                 </div>
               </div>

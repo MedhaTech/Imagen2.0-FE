@@ -13,7 +13,7 @@ import { getNormalHeaders, openNotificationWithIcon } from "../helpers/Utils";
 const Forgotpassword = () => {
   const [errorMsg, seterrorMsg] = useState("");
   const navigate = useNavigate();
-  
+  const currentYear = new Date().getFullYear();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -142,7 +142,8 @@ const Forgotpassword = () => {
                   </h4>
                 </div>
                 <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                <p>Copyright © {currentYear}  <b>YFSI.</b> All rights reserved</p>
+
                   </div>
               </div>
             </form>

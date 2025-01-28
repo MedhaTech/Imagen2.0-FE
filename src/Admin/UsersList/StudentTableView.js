@@ -546,14 +546,14 @@ id_number}</b>
                                         : '-'}
                                 </b>
                             </CardText>
-                            <CardText>
+                            {/* <CardText>
                                 <span className="mx-3">
                                     <b>Earned Badges :</b>
                                 </span>
                                 <b>
                                 {badges}
                                 </b>
-                            </CardText>
+                            </CardText> */}
                         </CardBody>
                     </Card>
                 </Row>
