@@ -369,12 +369,12 @@ const TicketsPage = (props) => {
                     </div>
                     </div>
                     <div className="ticket-data">
-                        <div className="my-2">
+                        <div className="my-2" >
                             <DataTableExtensions
                                 {...evaluatorsData}
                                 exportHeaders
                                 print={false}
-                                export={true}
+                                export={false}
                             >
                                 <DataTable
                                     responsive={true}

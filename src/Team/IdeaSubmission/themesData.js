@@ -345,7 +345,7 @@ export const themes = [
         id: 21, 
         image: i21, 
         title: 'Others',
-        desc:"Others", 
+        desc:"Encourages innovative solutions in any other areas", 
     }
   ];
 
