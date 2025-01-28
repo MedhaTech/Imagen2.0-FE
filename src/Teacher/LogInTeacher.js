@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 const LogInTeacher = (props) => {
   const navigate = useNavigate();
-
+  const currentYear = new Date().getFullYear();
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const inputUserId = {
     type: "email",
@@ -180,7 +180,8 @@ const LogInTeacher = (props) => {
                   </h4>
                 </div>
                 <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                <p>Copyright © {currentYear}  <b>YFSI.</b> All rights reserved</p>
+
                   </div>
                 {/* <div className="form-setlogin or-text">
                   <h4>OR</h4>

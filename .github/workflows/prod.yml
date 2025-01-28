@@ -1,0 +1,73 @@
+
+name: Deployment to Prod
+
+on:
+  push:
+    branches: main
+jobs:
+
+  Build_Prod:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Install NPM
+        run: sudo npm install -g npm@8.15.1
+
+      - name: Set legacy-peer-deps
+        run: sudo npm config set legacy-peer-deps true
+
+      - name: Install dependencies
+        run: |
+          echo Installing source NPM dependencies...
+          sudo npm install --force
+
+
+      - name: Buid the application
+        env:
+          CI: false
+        run: npm run build:prod
+        
+        
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-prod
+          path: build
+      
+  Deploy_Prod:
+    needs: Build_Prod
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-prod
+          path: build       
+      - name: Deploy to Prod
+        if: github.ref == 'refs/heads/main'
+        env:
+          PRIVATE_KEY: ${{ secrets.Imagen_Prod_FE_PRIVATE_KEY }}
+          HOSTNAME: ${{ secrets.Imagen_Prod_FE_HOSTNAME }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
+          scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.Imagen_Prod_FE_HOSTNAME }}:/tmp/imagen_prod_fe_build
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.Imagen_Prod_FE_HOSTNAME }} '
+            sudo rm -rf /var/www/html/Imagen-Fe/build &&
+            sudo mv /tmp/imagen_prod_fe_build /var/www/html/Imagen-Fe/build &&
+            cd /var/www/html/Imagen-Fe &&
+            sudo git fetch origin &&
+            sudo git checkout main &&
+            sudo git pull origin main '
+
+            
+
+      
+  

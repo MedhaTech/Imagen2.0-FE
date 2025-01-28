@@ -17,6 +17,7 @@ import logo from "../assets/img/logo.png";
 import email from "../assets/img/icons/mail.svg";
 const LoginEvaluator = (props) => {
     const navigate = useNavigate();
+    const currentYear = new Date().getFullYear();
     const [password, handlePassword] = useState('password');
     //-for evaluator registration modal
     const [registerModalShow, setRegisterModalShow] = useState(false);
@@ -223,7 +224,7 @@ const LoginEvaluator = (props) => {
                 </button>
               </div>
               <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                  <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                    <p>Copyright © {currentYear}  <b>YFSI.</b> All rights reserved</p>
                 </div>
                 </div>
               </form>

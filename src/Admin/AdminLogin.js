@@ -17,6 +17,7 @@ import { openNotificationWithIcon } from "../helpers/Utils";
 
 const AdminLogin = (props) => {
   const navigate = useNavigate();
+  const currentYear = new Date().getFullYear();
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const inputUserId = {
     type: "email",
@@ -194,7 +195,7 @@ const AdminLogin = (props) => {
                   </button>
                 </div>
                 <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2024 <b>YFSI.</b> All rights reserved</p>
+                <p>Copyright © {currentYear}  <b>YFSI.</b> All rights reserved</p>
                   </div>
               </div>
             </form>

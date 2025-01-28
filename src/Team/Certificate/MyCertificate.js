@@ -201,24 +201,16 @@ const MyCertificate = () => {
       <div className="content">
       <Container className="presuervey mb-50 mt-5 ">
         <Fragment>
-          {showDummypage ? (
+          <h3 className="text-center m-5 p-5">
+          Certificates Coming Soon ....
+          </h3>
+          {/* {showDummypage ? (
             <Row>
               <Row>
-                {/* <div
-                  className="m-4 text-center"
-                  dangerouslySetInnerHTML={{
-                    __html: t("student_course.my_cer_note"),
-                  }}
-                ></div> */}
+              
               </Row>
               <Col className="d-lg-flex justify-content-center">
-                {/* <Certificate
-                  type={"participate"}
-                  currentUser={currentUser}
-                  postSurveyStatus={enablePostSurvey}
-                  ideaDate={ideaSubmissionsSubmittedAt}
-                  language={language}
-                /> */}
+               
                 <Certificate
                   language={language}
                   currentUser={currentUser}
@@ -256,7 +248,7 @@ const MyCertificate = () => {
                 ></div>
               </div>
             </Card>
-          )}
+          )} */}
         </Fragment>
       </Container>
    </div>
