@@ -48,10 +48,7 @@ return (
                             <div className="profile-info department-profile-info" >
                                 
                                     <div className="profile-pic">
-                                    {/* <img
-                                        src={school}
-                                        alt=""
-                                    /> */}
+                                   
                                     <IoStatsChartSharp size="40"  style={{color:"0E4B99"}}/>
                                     </div>
                                     <h4>L1 - Reports Stats</h4>
