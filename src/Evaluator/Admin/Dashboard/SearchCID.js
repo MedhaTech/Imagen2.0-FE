@@ -306,61 +306,87 @@ const SearchCID = () => {
                     </div>
                   </div>
                   <div className="col-lg-12 mt-3">
-                    <Row className="col-lg-12">
-                      <Col className="md-12">
-                        <Card
-                          bg="white"
-                          text="dark"
-                          className="mb-2"
-                          style={{ height: "150px" }}
-                        >
-                           <Card.Body>
-                                                    <label
-                                                      htmlFor="teams"
-                                                      className=""
-                                                      style={{ fontSize: "16px" }}
-                                                    >
-                                                      <b>Details</b>
-                                                    </label>
-                                                    <Card.Text
-                                                      style={{
-                                                        marginTop: "10px",
-                                                        marginBottom: "20px",
-                                                      }}
-                                                    >
-                                                      <span>College Type :</span>
-                                                      <span>
-                                                        &nbsp;
-                                                        {teamResponse.college_type}
-                                                      </span>
-                                                      <br />
-                                                      <span>College Name :</span>
-                                                      <span>
-                                                        &nbsp;
-                                                        {teamResponse.college_name}
-                                                      </span>
-                                                      <br />
+                  <Row className="col-lg-12">
+                    <Col className="md-6">
+                      <Card
+                        bg="white"
+                        text="dark"
+                        className="mb-2"
+                        style={{ height: "120px" }}
+                      >
+                        <Card.Body>
+                          <label
+                            htmlFor="teams"
+                            className=""
+                            style={{ fontSize: "16px" }}
+                          >
+                            <b>College Details</b>
+                          </label>
+                          <Card.Text
+                            style={{
+                              marginTop: "10px",
+                              marginBottom: "20px",
+                            }}
+                          >
+                            <span style={{fontWeight:'bold'}}>College Type :</span>
+                            <span>
+                              &nbsp;
+                              {teamResponse.college_type}
+                            </span>
+                            <br />
+                            <span style={{fontWeight:'bold'}}>College Name :</span>
+                            <span>
+                              &nbsp;
+                              {teamResponse.college_name}
+                            </span>
+                            <br />
+
+                           
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                    <Col className="md-6">
+                      <Card
+                        bg="white"
+                        text="dark"
+                        className="mb-2"
+                        style={{ height: "120px" }}
+                      >
+                        <Card.Body>
+                          <label
+                            htmlFor="teams"
+                            className=""
+                            style={{ fontSize: "16px" }}
+                          >
+                            <b>Team Details</b>
+                          </label>
+                          <Card.Text
+                            style={{
+                              marginTop: "10px",
+                              marginBottom: "20px",
+                            }}
+                          >
                           
-                                                      <span>District :</span>
-                                                      <span>
-                                                        &nbsp;
-                                                        {teamResponse.district}
-                                                      </span>
-                                                      <br />
-                                                      <span>Team Members :</span>
-                                                      <span>
-                                                        &nbsp;
-                                                        {teamResponse &&
-                                                          teamResponse.team_members &&
-                                                          teamResponse.team_members.join(", ")}
-                                                      </span>
-                                                     
-                                                    </Card.Text>
-                                                  </Card.Body>
-                        </Card>
-                      </Col>
-                     
-                    </Row>
+                            <span style={{fontWeight:'bold'}}>Team Members :</span>
+                            <span>
+                              &nbsp;
+                              {teamResponse &&
+                                teamResponse.team_members &&
+                                teamResponse.team_members.join(", ")}
+                            </span>
+                            <br />
+
+                            <span style={{fontWeight:'bold'}}>District :</span>
+                            <span>
+                              &nbsp;
+                              {teamResponse.district}
+                            </span>
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
                   </div>
                 </div>
               </div>
