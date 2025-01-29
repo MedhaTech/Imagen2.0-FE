@@ -538,7 +538,7 @@ useEffect(() => {
                 &nbsp;Hi {currentUser?.data[0]?.full_name}&nbsp;
               </h3>
               
-              <h6> here&apos;s what&apos;s happening with your Youth for Social Impact 2024 today.</h6>
+              <h6> here&apos;s what&apos;s happening with your Youth for Social Impact 2025 today.</h6>
             </div>
             <div className="d-flex align-items-center">
               {/* <div className="dropdown">
