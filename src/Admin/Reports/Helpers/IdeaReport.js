@@ -405,6 +405,7 @@ const IdeaReport = () => {
       // csvLinkRef.current.link.click();
     }
   }, [studentDetailedReportsData]);
+  console.log(studentDetailedReportsData,"data");
   const fetchData = () => {
     const apiRes = encryptGlobal(
       JSON.stringify({
@@ -432,10 +433,10 @@ const IdeaReport = () => {
         
           const newdatalist = IdeaData.map((item) => {
             return {
-              ...item,
+              // ...item,
           
               District:item.district,
-              CID:item.challenge_response_id,
+              // CID:item.challenge_response_id,
               "College Name":item.college_name,
               "College Type":item.college_type,
             
