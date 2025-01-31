@@ -181,7 +181,7 @@ const TeacherProfile = () => {
                       readOnly="readonly" />
                   </div>
                 </div></>)}
-              {data.college_type !== "Other" &&( <div className="col-lg-6 col-sm-12">
+              {data.college_type !== "Other" &&( <div className="col-lg-7 col-sm-12">
                   <div className="input-blocks">
                     <label className="form-label">College Name</label>
                     <input
@@ -192,7 +192,7 @@ const TeacherProfile = () => {
                   </div>
                 </div>)}
               <div  className={`col-lg-${
-    data.college_type !== "Other" ? "6" : "4"
+    data.college_type !== "Other" ? "5" : "4"
   } col-sm-12`}>
                 <div className="input-blocks">
                   <label className="form-label">
