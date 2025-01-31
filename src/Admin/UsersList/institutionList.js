@@ -158,14 +158,14 @@ const TicketsPage = (props) => {
       <div className="content">
         <Container className="ticket-page mb-50 userlist">
           <Row className="mt-0">
-            <h2 className="mb-2">Institution Users List</h2>
-            <Container fluid className="px-0">
+            <h4 className="my-2 mx-0">Institutions List</h4>
+            {/* <Container fluid className="px-0"> */}
               <Row className="align-items-center">
                 <Col md={2}>
                   <Select
                     list={fiterDistData}
                     setValue={setState}
-                    placeHolder={"District"}
+                    placeHolder={"Select District"}
                     value={state}
                     className="form-select"
                   />
@@ -212,7 +212,7 @@ const TicketsPage = (props) => {
                   />
                 </DataTableExtensions>
               </div>
-            </Container>
+            {/* </Container> */}
           </Row>
         </Container>
       </div>

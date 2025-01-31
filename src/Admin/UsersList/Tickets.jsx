@@ -20,15 +20,17 @@ import { URL, KEY } from '../../constants/defaultValues.js';
 
 import { getNormalHeaders } from '../../helpers/Utils';
 import { useNavigate } from 'react-router-dom';
+import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+// import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import logout from '../../assets/img/logout.png';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import Select from './Select.js';
-
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 import { Badge } from 'react-bootstrap';
 import CommonPage from '../../components/CommonPage';
@@ -102,7 +104,7 @@ const [institution,setInstitution]=useState("");
     const [menter, activeMenter] = useState(false);
     const [loading, setLoading] = useState(false);
 const updateStatesList=["All States",...stateList];
-
+ const currentUser = getCurrentUser("current_user");
 const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
     const [evaluater, activeEvaluater] = useState(false);
@@ -269,118 +271,132 @@ const fiterDistData = [...districtList["Telangana"]];
     //             }
     //         });
     // };
-    const handleStatusUpdateInAdmin = async (data, id) => {
-        // where we can update the admin status //
-        // where id = admin id //
-        // where data = status //
-        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const upad = encryptGlobal(JSON.stringify(id));
-        await axios
-            .put(`${URL.updateMentorStatus + '/' + upad}`, data, axiosConfig)
-            .then((user) => console.log(user))
-            .catch((err) => {
-                console.log('error', err);
-            });
-    };
+  
+ console.log(tableData,"table");
+    const handleSelect1 = (record) => {
+        // console.log(record.type,"record.id");
+        if (record.type === 0) {
+          handleDeletePilot(record.student_id);
+        } else {
+          handleDeleteStudent(record.student_id);
+        }
+      };
+    const handleDeleteStudent = (id) => {
+        // alert("Crew");
+// console.log(id,"Crewid");
+// console.log(typeof id.toString(),"Crewid");
 
-    const handleStatus = (status, id, type, all) => {
-        // where we can update the status Active to InActive //
-        // where id = student id / mentor id  / admin id / evaluator  id//
-        // where status = status //
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-submit',
-                cancelButton: 'btn btn-cancel'
-            },
-            buttonsStyling: false
+// let id;
+        const MySwal = withReactContent(Swal);
+        MySwal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          showCancelButton: true,
+          confirmButtonColor: "#00ff00",
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonColor: "#ff0000",
+          cancelButtonText: "Cancel",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            let supId;
+            if(typeof(id) !== "string"){
+          supId = encryptGlobal(
+              JSON.stringify(id)
+            );
+            }else{
+             supId = encryptGlobal(id);
+        
+            }
+            const delparamId = encryptGlobal(supId);
+
+            var config = {
+              method: "delete",
+              url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId,
+              headers: {
+                "Content-Type": "application/json",
+                // Accept: "application/json",
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+              },
+            };
+            axios(config)
+              .then(function (response) {
+                if (response.status === 200) {
+                    handleideaList();
+                  openNotificationWithIcon(
+                    "success",
+                    "Student Deleted Successfully"
+                  );
+                } else {
+                  openNotificationWithIcon("error", "Opps! Something Wrong");
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            MySwal.fire("Cancelled", "Student not Deleted", "error");
+          }
         });
+      };
+      const handleDeletePilot = (id) => {
+        // alert("Pilot");
+// console.log(typeof id.toString(),"Pilotid");
 
-        swalWithBootstrapButtons
-            .fire({
-                title:  "<h4>Are you sure?</h4>" ,
-                text: `You are attempting to ${
-                    status.toLowerCase() === 'active'
-                        ? 'activate'
-                        : 'inactivate'
-                } ${
-                    type && type === 'student'
-                        ? 'Student'
-                        : type && type === 'evaluator'
-                        ? 'evaluator'
-                        : type && type === 'admin'
-                        ? 'Admin'
-                        : 'Mentor'
-                }.`,
-                imageUrl: `${logout}`,
-                confirmButtonText: status,
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                reverseButtons: false
-            })
-            .then(async (result) => {
-                if (result.isConfirmed) {
-                    if (type && type === 'student') {
-                        props.studentStatusUpdate({ status }, id);
-                        setTimeout(() => {
-                            props.getStudentListAction(studentDist);
-                        }, 500);
-                    } else if (type && type === 'evaluator') {
-                        console.warn(status, id, type);
-                        dispatch(
-                            updateEvaluator(
-                                {
-                                    status,
-                                    full_name: all.user.full_name,
-                                    username: all.user.username
-                                },
-                                id
-                            )
-                        );
-                        setTimeout(() => {
-                            props.getEvaluatorListAction();
-                        }, 500);
-                    } else if (type && type === 'admin') {
-                        const obj = {
-                            full_name: all.full_name,
-                            username: all.username,
-                            // mobile: all.mobile,
-                            status
-                        };
-                        await handleStatusUpdateInAdmin({ obj }, id);
+        const MySwal = withReactContent(Swal);
+        MySwal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          showCancelButton: true,
+          confirmButtonColor: "#00ff00",
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonColor: "#ff0000",
+          cancelButtonText: "Cancel",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            let supId;
+            if(typeof(id) !== "string"){
+          supId = encryptGlobal(
+              JSON.stringify(id)
+            );
+            }else{
+             supId = encryptGlobal(id);
 
-                        setTimeout(() => {
-                            props.getAdminListAction();
-                        }, 500);
-                    } else {
-                        const obj = {
-                            full_name: all.full_name,
-                            username: all.username,
-                            // mobile: all.mobile,
-                            status
-                        };
-                        props.mentorStatusUpdate(obj, id);
-                        setTimeout(() => {
-                            props.getAdminMentorsListAction('ALL', mentorDist);
-                        }, 500);
-                    }
-                    swalWithBootstrapButtons.fire(
-                        `${
-                            type && type === 'student'
-                                ? 'Student'
-                                : type && type === 'evaluator'
-                                ? 'evaluator'
-                                : type && type === 'admin'
-                                ? 'Admin'
-                                : 'Mentor'
-                        } Status has been changed!`,
-                        'Successfully updated.',
-                        'success'
-                    );
-                } 
-            });
-    };
+        
+            }
+            console.log(supId,"id");
 
- 
+            const delparamId = encryptGlobal(JSON.stringify(supId));
+            var config = {
+              method: "delete",
+              url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId + "/deleteAllData",
+              headers: {
+                "Content-Type": "application/json",
+                // Accept: "application/json",
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+              },
+            };
+            axios(config)
+              .then(function (response) {
+                if (response.status === 200) {
+                    handleideaList();
+                  openNotificationWithIcon(
+                    "success",
+                    "Student Deleted Successfully"
+                  );
+                } else {
+                  openNotificationWithIcon("error", "Opps! Something Wrong");
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            MySwal.fire("Cancelled", "Student not Deleted", "error");
+          }
+        });
+      };
+     
+//  console.log(tableData,"table");
     const StudentsData = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -406,12 +422,12 @@ const fiterDistData = [...districtList["Telangana"]];
                     </div>
                 ),
                 cellExport: (row) => row?.full_name,
-                width: '9rem'
+                width: '11rem'
             },
             {
                 name: 'Email',
                 selector: (row) => row?.username_email,
-                width: '14rem'
+                width: '13rem'
             },
             {
                 name: 'Mobile No',
@@ -423,7 +439,7 @@ const fiterDistData = [...districtList["Telangana"]];
                 name: 'District',
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
-                width: '8rem'
+                width: '10rem'
             },
 //             {
 //                 name: 'College Type',
@@ -469,15 +485,21 @@ const fiterDistData = [...districtList["Telangana"]];
             {
                 name: 'Actions',
                 sortable: false,
-                width: '10rem',
+                width: '12rem',
                 cell: (record) => [
-                    <div
+                    <><div
                         key={record.id}
                         onClick={() => handleSelect(record, '1')}
                         style={{ marginRight: '10px' }}
                     >
-                        <div className="btn btn-primary  mr-5">View</div>
+                        <div className="btn btn-primary  mr-5"><i data-feather="eye" className="feather-eye" style={{ marginRight: "5px" }} />View</div>
                     </div>
+                    <div
+                        key={record.id}
+                        onClick={() => handleSelect1(record)}
+                    >
+                            <div className="btn text-danger"><i data-feather="trash-2" className="feather-trash-2"style={{ marginRight: "5px",fontSize: "15px" }}  /></div>
+                        </div></>
                     // <div
                     //     key={record.id}
                     //     style={{ marginRight: '10px' }}
@@ -510,18 +532,23 @@ const fiterDistData = [...districtList["Telangana"]];
     return (
         <div className="page-wrapper">
         <div className="content">
+        <div className="page-title">
+                           
+                           <h4 className="mb-3 mx-0">Students List</h4>
+           
+               </div>
             <Container className="ticket-page mb-50 userlist">
                 <Row className="mt-0">
-                    <h2 className='mb-2'>Students List</h2>
-                    <Container fluid className="px-0">
-                                        <Row className="align-items-center">
+                    {/* <h4 className="my-2 mx-0">Students List</h4> */}
+                    {/* <Container fluid className="px-0"> */}
+                                        <Row className="align-items-center" style={{ paddingLeft: '0' }} >
                                             <Col md={2}>
                                                 {/* <div className="my-3 d-md-block d-flex justify-content-center"> */}
                                                     <Select
                                                         list={fiterDistData}
                                                         setValue={setState}
                                                         placeHolder={
-                                                            'District'
+                                                            'Select District'
                                                         }
                                                         value={state}
                                                          className="form-select"
@@ -572,7 +599,7 @@ const fiterDistData = [...districtList["Telangana"]];
                                             />
                                         </DataTableExtensions>
                                     </div>
-                                    </Container>
+                                    {/* </Container> */}
                 </Row>
             </Container>
           

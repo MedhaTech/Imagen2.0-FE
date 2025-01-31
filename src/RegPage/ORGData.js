@@ -960,7 +960,8 @@ export const collegeNameList = {
     "Govt.ITI(B) Nizamabad",
     "Govt.ITI(G) Nizamabad",
     "Govt.ITI(M) Bodhan",
-    "Govt.ITI Kammarpally"
+    "Govt.ITI Kammarpally",
+     "Other"
   ],
   "Govt Polytechnic College": [
     "Government Polytechnic, MasabTank",
@@ -1013,10 +1014,11 @@ export const collegeNameList = {
     "Government Polytechnic, Kosgi",
     "Government Polytechnic, Navipet",
     "G M R Polytechnic, Utnoor",
-    "Government Polytechnic, Nagarjuna  Sagar",
+    "Government Polytechnic, Nagarjuna Sagar",
     "Government Polytechnic, Cherial",
     "Government Polytechnic, Husnabad",
-    "Government Polytechnic for Women, Secunderabad"
+    "Government Polytechnic for Women, Secunderabad",
+     "Other"
   ],
   "Govt Degree College": [
     "GDC Chanchalguda",
@@ -1146,7 +1148,8 @@ export const collegeNameList = {
     "GDC Wanaparthy",
     "GDCW Wanaparthy",
     "GDC Alair",
-    "GDC Ramannapet"
+    "GDC Ramannapet",
+     "Other"
   ],
   "Social Welfare College": [
     "TSWRDCW, Adilabad",
@@ -1178,7 +1181,8 @@ export const collegeNameList = {
     "TSWRDCW, Nagarkurnool",
     "TSWRDCW, Nalgonda",
     "TSWRDCW, Suryapet",
-    "TSWRDCW, Khammam"
+    "TSWRDCW, Khammam",
+     "Other"
   ],
   "Tribal Welfare College": [
     "TTWRDC - Asifabad",
@@ -1202,7 +1206,8 @@ export const collegeNameList = {
     "TTWRDC - Marripeda",
     "TTWRDC - Manuguru",
     "TTWRDC - Sangareddy",
-    "TTWRDC - Nagarkurnool"
+    "TTWRDC - Nagarkurnool",
+     "Other"
   ],
   "Private College": [
     "Other"

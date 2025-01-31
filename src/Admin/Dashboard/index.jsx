@@ -294,7 +294,7 @@ const adminStudentCourseCount = () => {
           <div className="row">
           <div className="page-title">
                            
-                                    <h4 className="m-3">Admin Dashboard</h4>
+                                    <h4>Dashboard</h4>
                                     {/* <h6>Create , Edit , Del User specific Latest News here</h6> */}
                     
                         </div>
