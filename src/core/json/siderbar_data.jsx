@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React,{useState,useEffect} from "react";
-// import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import * as Icon from "react-feather";
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { getCurrentUser } from '../../helpers/Utils';
@@ -9,10 +9,13 @@ import axios from 'axios';
 import FeatherIcon from "feather-icons-react";
 import { FaComments} from "react-icons/fa";
 import { GoCommentDiscussion } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../helpers/Utils";
+
 const SidebarData = () => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
+   const navigate = useNavigate();
   const presurvey = localStorage.getItem("stupresurveystatus") ;
-  // console.log(presurvey,"status");
   const currentUser = getCurrentUser('current_user');
   const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
   const [link, setLink] = useState('/instruction');
@@ -36,7 +39,6 @@ const SidebarData = () => {
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response.data.data);
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
             if (response.data.data[0].status === 'SUBMITTED') {
@@ -59,11 +61,15 @@ const SidebarData = () => {
 useEffect(() => {
     submittedApi();
 }, []);
-
+ const handleLogout1 = (e) => {
+  // alert("hii");
+    logout(navigate, t, "STUDENT");
+    e.preventDefault();
+  };
+  
   return( [
    
     {
-      // label: t("student"),
       label: "Student",
 
       submenuOpen: true,
@@ -73,7 +79,6 @@ useEffect(() => {
       submenuItems: [
         {
           label:"PreSurvey",
-          // label: t("pre_survey"),
 
           link: "/studentpresurvey",
           icon: <Icon.Edit />,
@@ -81,7 +86,7 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label:"Student Dashboard",
+          label:"Dashboard",
           link: "/student-dashboard",
           icon: <Icon.Grid />,
           showSubRoute: false,
@@ -106,7 +111,6 @@ useEffect(() => {
 
         {
           label: "Idea Submission",
-          // link: "/idea",
           link:link,
 
           icon: <Icon.Send />,
@@ -132,7 +136,6 @@ useEffect(() => {
         {
           label: "Discussion Forum",
           link: "/discussion-chat",
-          // icon: <FaComments />,
           icon:<GoCommentDiscussion />,
           showSubRoute: false,
           submenu: false,
@@ -154,6 +157,18 @@ useEffect(() => {
           showSubRoute: false,
           submenu: false,
         },
+        {
+          label:"Logout",
+          onClick: handleLogout1,
+          icon: <Icon.LogOut />,
+          role: "STUDENT",
+          showSubRoute: false,
+          submenu: false,
+          link: "#"
+        },
+       
+        
+        
       ],
     },
   ]

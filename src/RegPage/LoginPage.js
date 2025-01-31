@@ -2,10 +2,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import ImageWithBasePath from "../core/img/imagewithbasebath";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo.png";
-import { Row } from "reactstrap";
+import { Row,Col} from "reactstrap";
 import { ArrowRight } from "feather-icons-react";
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -63,16 +63,42 @@ const LoginPage = () => {
                     </Row>
                   </div>
                 </div>
-                <div className="signinform text-center">
-                  <h4>
+                {/* <div className="signinform text-center">
+                  <h4 className="mt-2 mb-3">
                     Not Yet Registered ?
+                    <br/>
                     <Link className="hover-a" to={"/registration"}>
                       {" "}
-                      Register Here
+                      Student Registration &nbsp;/  
+                    </Link>
+                    <Link className="hover-a" to={"/institution-registration"}>
+                      {" "}
+                      Institution Registration 
                     </Link>
                   </h4>
-                </div>
-                <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
+                </div> */}
+                <div className="signinform text-center">
+  <h4 className="mt-2 mb-3">Not Yet Registered?</h4> {/* First row with text */}
+  <Row className="d-flex justify-content-between">
+  <Col xs="auto">
+    <Link className="hover-a" to={"/registration"}>
+      Student Registration
+    </Link>
+  </Col>
+  <Col>
+    or
+  </Col>
+  <Col xs="auto">
+    <Link className="hover-a" to={"/institution-registration"}>
+      Institution Registration
+    </Link>
+  </Col>
+</Row>
+
+
+</div>
+
+                <div className="my-2 d-flex justify-content-center align-items-center copyright-text">
                     <p>Copyright © {currentYear}  <b>YFSI.</b> All rights reserved</p>
                   </div>
               </div>

@@ -504,13 +504,13 @@ const Crew1student = () => {
                           </div>
                           <div className={`col-md-6`}>
                             <label htmlFor="id_number" className="form-label">
-                              APAAR Id
+                              APAAR ID
                             </label>
                             <input
                               type="text"
                               className="form-control"
                               id="id_number"
-                              placeholder="APAAR Id"
+                              placeholder="APAAR ID"
                               // disabled={areInputsDisabled}
                               name="id_number"
                               onChange={(e) => {

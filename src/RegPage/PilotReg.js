@@ -339,6 +339,17 @@ const PilotReg = () => {
     </span>
   </div>
 </div>
+<div className="row m-2 mb-3 mt-3">
+  <div className="col-md-10 ps-3">
+    <span className="mt-5 p">Register as an Institution</span>
+
+    <span className="second_text"> 
+      <Link className="hover-a" to={"/institution-registration"} style={{color:"blue"}}>
+        {" "}Click Here 
+      </Link>
+    </span>
+  </div>
+</div>
           </div>
           <div className="col-md-8 p-4" style={{ backgroundColor: '#EEEEEE' }}>
             <form action="signin" onSubmit={formik.handleSubmit}>
@@ -665,13 +676,13 @@ const PilotReg = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          APAAR Id
+                          APAAR ID
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="APAAR Id"
+                          placeholder="APAAR ID"
                           disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
