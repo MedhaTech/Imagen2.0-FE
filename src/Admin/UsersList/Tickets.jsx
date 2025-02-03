@@ -282,11 +282,15 @@ const fiterDistData = [...districtList["Telangana"]];
         }
       };
     const handleDeleteStudent = (id) => {
-        // alert("Crew");
-// console.log(id,"Crewid");
-// console.log(typeof id.toString(),"Crewid");
-
-// let id;
+      let supId;
+      if(typeof(id) !== "string"){
+    supId = encryptGlobal(
+        JSON.stringify(id)
+      );
+      }else{
+       supId = encryptGlobal(id);
+  
+      }
         const MySwal = withReactContent(Swal);
         MySwal.fire({
           title: "Are you sure?",
@@ -298,20 +302,11 @@ const fiterDistData = [...districtList["Telangana"]];
           cancelButtonText: "Cancel",
         }).then((result) => {
           if (result.isConfirmed) {
-            let supId;
-            if(typeof(id) !== "string"){
-          supId = encryptGlobal(
-              JSON.stringify(id)
-            );
-            }else{
-             supId = encryptGlobal(id);
-        
-            }
-            const delparamId = encryptGlobal(supId);
+          
 
             var config = {
               method: "delete",
-              url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId,
+              url: process.env.REACT_APP_API_BASE_URL + "/students/" + supId,
               headers: {
                 "Content-Type": "application/json",
                 // Accept: "application/json",
@@ -339,8 +334,16 @@ const fiterDistData = [...districtList["Telangana"]];
         });
       };
       const handleDeletePilot = (id) => {
-        // alert("Pilot");
-// console.log(typeof id.toString(),"Pilotid");
+        let supId;
+            if(typeof(id) !== "string"){
+          supId = encryptGlobal(
+              JSON.stringify(id)
+            );
+            }else{
+             supId = encryptGlobal(id);
+
+        
+            }
 
         const MySwal = withReactContent(Swal);
         MySwal.fire({
@@ -353,22 +356,11 @@ const fiterDistData = [...districtList["Telangana"]];
           cancelButtonText: "Cancel",
         }).then((result) => {
           if (result.isConfirmed) {
-            let supId;
-            if(typeof(id) !== "string"){
-          supId = encryptGlobal(
-              JSON.stringify(id)
-            );
-            }else{
-             supId = encryptGlobal(id);
+           
 
-        
-            }
-            console.log(supId,"id");
-
-            const delparamId = encryptGlobal(JSON.stringify(supId));
             var config = {
               method: "delete",
-              url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId + "/deleteAllData",
+              url: process.env.REACT_APP_API_BASE_URL + "/students/" + supId + "/deleteAllData",
               headers: {
                 "Content-Type": "application/json",
                 // Accept: "application/json",
@@ -427,7 +419,7 @@ const fiterDistData = [...districtList["Telangana"]];
             {
                 name: 'Email',
                 selector: (row) => row?.username_email,
-                width: '13rem'
+                width: '12rem'
             },
             {
                 name: 'Mobile No',
@@ -439,7 +431,7 @@ const fiterDistData = [...districtList["Telangana"]];
                 name: 'District',
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
-                width: '10rem'
+                width: '10em'
             },
 //             {
 //                 name: 'College Type',
@@ -463,7 +455,7 @@ const fiterDistData = [...districtList["Telangana"]];
                 name: 'College Name',
                 selector: (row) => row?.college_name,
                 cellExport: (row) => row?.college_name,
-                width: '13rem'
+                width: '15rem'
             },
             // {
             //     name: 'Roll number',
@@ -485,21 +477,22 @@ const fiterDistData = [...districtList["Telangana"]];
             {
                 name: 'Actions',
                 sortable: false,
-                width: '12rem',
+                width: '14rem',
                 cell: (record) => [
                     <><div
                         key={record.id}
                         onClick={() => handleSelect(record, '1')}
                         style={{ marginRight: '10px' }}
                     >
-                        <div className="btn btn-primary  mr-5"><i data-feather="eye" className="feather-eye" style={{ marginRight: "5px" }} />View</div>
+                        <div className="btn btn-primary"><i data-feather="eye" className="feather-eye" style={{ marginRight: "5px" }} />View</div>
                     </div>
                     <div
                         key={record.id}
                         onClick={() => handleSelect1(record)}
                     >
-                            <div className="btn text-danger"><i data-feather="trash-2" className="feather-trash-2"style={{ marginRight: "5px",fontSize: "15px" }}  /></div>
-                        </div></>
+                            <div className="btn btn-danger"><i data-feather="trash-2" className="feather-trash-2"style={{fontSize: "15px" }}  />Delete</div>
+                        </div>
+                        </>
                     // <div
                     //     key={record.id}
                     //     style={{ marginRight: '10px' }}
@@ -535,6 +528,7 @@ const fiterDistData = [...districtList["Telangana"]];
         <div className="page-title">
                            
                            <h4 className="mb-3 mx-0">Students List</h4>
+                           {/* <h6>Edit,Reset an Students here </h6> */}
            
                </div>
             <Container className="ticket-page mb-50 userlist">

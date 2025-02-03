@@ -899,7 +899,7 @@ const Register = () => {
                         {btnOtp && (
                           <div className="form-login text-center">
                             <button
-                              className="btn btn-login"
+                              className="btn btn-success"
                               type="submit"
                               disabled={
                                 isSubmitting ||

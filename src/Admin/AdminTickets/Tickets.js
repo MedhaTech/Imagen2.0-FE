@@ -221,14 +221,14 @@ const AdminSupport = () => {
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
                 sortable: true,
-                width: '9rem'
+                width: '15rem'
             },
             {
                 name: 'Created By',
                 selector: (row) => row.created_by,
                 cellExport: (row) => row.created_by,
                 sortable: true,
-                width: '9rem'
+                width: '15rem'
             },
 
             {
@@ -236,14 +236,14 @@ const AdminSupport = () => {
                 selector: (row) => row.query_category,
                 cellExport: (row) => row.query_category,
                 sortable: true,
-                width: '6rem'
+                width: '10rem'
             },
             {
                 name: ' Query Details',
                 selector: (row) => row.query_details,
                 cellExport: (row) => row.query_details,
 
-                width: '15rem',
+                width: '20rem',
                 // center: true,
                 cell: (params) => [
                     <Link
@@ -431,7 +431,7 @@ const AdminSupport = () => {
                                     <div className="my-2">
                                         <DataTableExtensions
                                             print={false}
-                                            export={true}
+                                            export={false}
                                             {...allData}
                                             exportHeaders
                                         >

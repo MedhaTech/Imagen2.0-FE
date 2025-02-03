@@ -212,35 +212,35 @@ const navigate = useNavigate();
         localStorage.setItem('mentor', JSON.stringify(item));
     };
 
-    // const handleReset = (item) => {
-    //     const body = JSON.stringify({
-    //         organization_code: item.organization_code,
-    //         otp: false,
-    //         mentor_id: item.mentor_id
-    //     });
-    //     var config = {
-    //         method: 'put',
-    //         url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //         },
-    //         data: body
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 202) {
-    //                 openNotificationWithIcon(
-    //                     'success',
-    //                     'Reset Password Successfully Update!',
-    //                     ''
-    //                 );
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // };
+    const handleReset = (item) => {
+        const body = JSON.stringify({
+            organization_code: item.organization_code,
+            otp: false,
+            mentor_id: item.mentor_id
+        });
+        var config = {
+            method: 'put',
+            url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: body
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 202) {
+                    openNotificationWithIcon(
+                        'success',
+                        'Reset Password Successfully Update!',
+                        ''
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     // const handleDelete = () => {
     //     const swalWithBootstrapButtons = Swal.mixin({
     //         customClass: {
@@ -512,6 +512,7 @@ const navigate = useNavigate();
                     >
                         <div className="btn btn-primary  mr-5">View</div>
                     </div>
+                    
                     // <div
                     //     key={record.id}
                     //     style={{ marginRight: '10px' }}

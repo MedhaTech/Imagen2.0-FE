@@ -314,7 +314,7 @@ const AdminLatestNews = () => {
                 name: 'Role',
                 selector: (row) => row.category,
                 sortable: true,
-                width: '6rem'
+                width: '8rem'
             },
             // {
             //     name: 'State',
@@ -336,11 +336,11 @@ const AdminLatestNews = () => {
             {
                 name: 'Details',
                 selector: (row) => row.details,
-                width: '16rem'
+                width: '23rem'
             },
             {
                 name: 'File',
-                width: '5rem',
+                width: '7rem',
                 cell: (record) => {
                     if (record.file_name === null) {
                         return <p>No file</p>;
@@ -360,7 +360,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'Link',
-                width: '5rem',
+                width: '7rem',
                 cell: (record) => {
                     if (record.url === null || record.url === "") {
                         return <p>No link</p>;
@@ -380,7 +380,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'New Icon',
-                width: '7rem',
+                width: '10rem',
                 cell: (record) => {
                     if (record.new_status === '1') {
                         return ( 
@@ -410,7 +410,7 @@ const AdminLatestNews = () => {
             {
                 name: 'Actions',
                 width: '14rem',
-                center: true,
+                left:true,
                 cell: (record) => [
                     <> 
                         <button
@@ -447,7 +447,7 @@ const AdminLatestNews = () => {
                 name: 'Role',
                 selector: (row) => row.category,
                 sortable: true,
-                width: '6rem'
+                width: '8rem'
             },
             // {
             //     name: 'State',
@@ -459,11 +459,11 @@ const AdminLatestNews = () => {
             {
                 name: 'Details',
                 selector: (row) => row.details,
-                width: '16rem'
+                width: '23rem'
             },
             {
                 name: 'File',
-                width: '5rem',
+                width: '7rem',
                 cell: (record) => {
                     if (record.file_name === null) {
                         return <p>No file</p>;
@@ -485,7 +485,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'Link',
-                width: '5rem',
+                width: '7rem',
                 cell: (record) => {
                     if (record.url === null || record.url === "") {
                         return <p>No link</p>;
@@ -505,7 +505,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'New Icon',
-                width: '7rem',
+                width: '10rem',
                 cell: (record) => {
                     if (record.new_status === '1') {
                         return (
@@ -535,7 +535,8 @@ const AdminLatestNews = () => {
             {
                 name: 'Actions',
                 width: '14rem',
-                center: true,
+                // center: false,
+                left:true,
                 cell: (record) => [
                     <>
                         <button
