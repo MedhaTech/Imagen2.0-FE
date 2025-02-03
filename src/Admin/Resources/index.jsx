@@ -132,7 +132,7 @@ const AdminResources = () => {
             {
                 name: 'Details',
                 selector: (row) => row.description,
-                width: '25rem'
+                width: '30rem'
             },
 
             {
@@ -167,7 +167,7 @@ const AdminResources = () => {
             },
             {
                 name: 'Actions',
-                center: true,
+                left: true,
                 width: '15rem',
                 cell: (record) => [
                     <>

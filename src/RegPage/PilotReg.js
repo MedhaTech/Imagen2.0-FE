@@ -163,6 +163,9 @@ const PilotReg = () => {
               navigate("/crew1Reg");
               sessionStorage.setItem('pilotKey', mentorRegRes?.data?.data[0]?.student_id);
               openNotificationWithIcon("success", "Pilot User Registered Successfully");
+              setTimeout(() => {
+                apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
+              }, 2000);
             }
           })
           .catch((err) => {
@@ -184,6 +187,41 @@ const PilotReg = () => {
       }
     },
   });
+  async function apiCall(mentData) {
+    console.log(mentData,"data");
+    // Dice code list API //
+    // where list = diescode  //
+    const body = {
+      college_name: mentData.college_name,
+      college_type: mentData.college_type,
+
+      district: mentData.district,
+      email: mentData.username,
+      mobile: mentData.mobile,
+    };
+console.log(body,"body");
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: JSON.stringify(body),
+    };
+
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          // setButtonData(response?.data?.data[0]?.data);
+          // navigate("/atl-success");
+          openNotificationWithIcon("success", "Email Sent Successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   useEffect(() => {
     setOtpRes(0);
     setBtnOtp(false);
@@ -818,7 +856,7 @@ const PilotReg = () => {
                     {btnOtp && (
                       <>
                         <div className="Otp-expire text-center">
-                          <p>
+                          <p style={{color:"red"}}>
                             {timer > 0
                               ? `Access Resend OTP in ${timer < 10 ? `0${timer}` : timer} sec`
                               : "Resend OTP enabled"}
@@ -830,12 +868,13 @@ const PilotReg = () => {
                           </div>
                           <div className="login-userset text-center justify-content-center">
                             <div className="login-userheading">
-                              <h3>Verify your Email with OTP</h3>
-                              <h4 className="verfy-mail-content">
+                              <h3 className='mb-2'>Verify your Email with OTP</h3>
+                              <h5 className="verfy-mail-content" style={{marginBottom:"16px"}}>
                                 We sent a verification code to your email.
+                              <br/>
                                 Enter the code from the email in the field
                                 below
-                              </h4>
+                              </h5>
                             </div>
 
                             <div className="wallet-add">
@@ -897,9 +936,9 @@ const PilotReg = () => {
                     )}
 
                     {btnOtp && (
-                      <div className="form-login">
+                      <div className="form-login text-center" style={{marginTop:"2rem"}}>
                         <button
-                          className="btn btn-login"
+                          className="btn btn-success"
                           type="submit"
                           disabled={
                             isSubmitting ||

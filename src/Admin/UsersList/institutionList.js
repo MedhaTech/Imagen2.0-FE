@@ -9,7 +9,7 @@ import { Button } from "../../stories/Button";
 import axios from "axios";
 import { URL, KEY } from "../../constants/defaultValues.js";
 
-import { getNormalHeaders } from "../../helpers/Utils";
+import { getNormalHeaders,getCurrentUser,openNotificationWithIcon } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 
 import "sweetalert2/src/sweetalert2.scss";
@@ -22,13 +22,14 @@ import { PlusCircle } from "feather-icons-react/build/IconComponents";
 import { useDispatch } from "react-redux";
 import { encryptGlobal } from "../../constants/encryptDecrypt.js";
 import { stateList, districtList } from "../../RegPage/ORGData.js";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 const TicketsPage = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tableData, settableData] = React.useState([]);
   const [showspin, setshowspin] = React.useState(false);
-
+ const currentUser = getCurrentUser("current_user");
   const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
   const [state, setState] = useState("");
@@ -74,7 +75,36 @@ const TicketsPage = (props) => {
         setshowspin(false);
       });
   }
- 
+  const handleReset = (item) => {
+    const body = JSON.stringify({
+        email: item.username_email,
+        otp: false,
+        role:"MENTOR",
+        mentor_id: item.mentor_id
+    });
+    var config = {
+        method: 'put',
+        url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+        },
+        data: body
+    };
+    axios(config)
+        .then(function (response) {
+          // console.log(response,"res");
+            if (response.status === 202) {
+                openNotificationWithIcon(
+                    'success',
+                    'Reset Password Successfully Update!',
+                );
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
   const StudentsData = {
     data: tableData && tableData.length > 0 ? tableData : [],
     columns: [
@@ -105,7 +135,7 @@ const TicketsPage = (props) => {
       {
         name: "Email Address",
         selector: (row) => row?.username_email,
-        width: "13rem",
+        width: "10rem",
       },
       {
         name: "Mobile No",
@@ -140,10 +170,24 @@ const TicketsPage = (props) => {
         name: "College Name",
         selector: (row) => row?.college_name,
         cellExport: (row) => row?.college_name,
-        width: "18rem",
+        width: "14rem",
       },
+      {
+        name: 'Actions',
+        sortable: false,
+        width: '10rem',
+        cell: (record) => [
+            <div
+                key={record.id}
+                onClick={() => handleReset(record, '1')}
+                style={{ marginRight: '10px' }}
+            >
+                <div className="btn btn-primary  mr-5"><FontAwesomeIcon icon={faKey} style={{marginRight:"5px"}} />Reset</div>
+            </div>
+        ]
+      }
     
-    ],
+    ]
   };
   const customStyles = {
     head: {
@@ -156,11 +200,17 @@ const TicketsPage = (props) => {
   return (
     <div className="page-wrapper">
       <div className="content">
+      <div className="page-title">
+                           
+                           <h4 className="mb-3 mx-0">Institutions List</h4>
+                           {/* <h6>Create,Reset an Institution User here </h6> */}
+           
+               </div>
         <Container className="ticket-page mb-50 userlist">
           <Row className="mt-0">
-            <h4 className="my-2 mx-0">Institutions List</h4>
+            {/* <h4 className="my-2 mx-0">Institutions List</h4> */}
             {/* <Container fluid className="px-0"> */}
-              <Row className="align-items-center">
+              <Row className="align-items-center" style={{ paddingLeft: '0' }} >
                 <Col md={2}>
                   <Select
                     list={fiterDistData}

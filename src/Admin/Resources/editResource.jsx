@@ -91,7 +91,7 @@ const EditResource = () => {
 
             description: Yup.string()
                 .optional()
-                .required('Details is Required'),
+                .required('Details are Required'),
             type: Yup.string()
                 .optional()
                 .oneOf(['file', 'link']).required('Submission type is Required'),
@@ -420,7 +420,7 @@ const EditResource = () => {
                                                         type="text"
                                                         id="attachments"
                                                         name="attachments"
-                                                        placeholder="Enter link"
+                                                        placeholder="Enter Your link"
                                                         onChange={
                                                             formik.handleChange
                                                         }

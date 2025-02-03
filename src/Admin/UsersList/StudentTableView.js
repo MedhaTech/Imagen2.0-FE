@@ -23,6 +23,8 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import logout from '../../assets/img/logout.png';
 import { studentResetPassword } from '../../Teacher/store/teacher/actions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
 const CommonUserProfile = (props) => {
     const navigate = useNavigate();
@@ -70,9 +72,9 @@ const CommonUserProfile = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response,"table");
+                    // console.log(response,"table");
 
-                    setCourseTable(response.data.data[0]?.scores);
+                    // setCourseTable(response.data.data[0]?.scores);
                 }
             })
             .catch(function (error) {
@@ -271,7 +273,10 @@ const CommonUserProfile = (props) => {
                 if (result.isConfirmed) {
                     dispatch(
                         studentResetPassword({
-                            user_id: StudentsDaTa.user_id.toString()
+                            student_id:StudentsDaTa.student_id,
+                            email:StudentsDaTa.username_email,
+                            role:"STUDENT",
+                            otp:false
                         })
                     );
                 }
@@ -396,6 +401,7 @@ const CommonUserProfile = (props) => {
             }
         ]
     };
+    // console.log(StudentsDaTa,"StudentsDaTa");
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -403,7 +409,8 @@ const CommonUserProfile = (props) => {
                 <Row>
                     <div className="col-6">
                         {/* <BreadcrumbTwo {...headingDetails} /> */}
-                        <h4 className="mt-2"> User List Details</h4>
+                        <h4 className="mt-2"> User Details</h4>
+
                     </div>
                     <div className="col-6 text-end mb-2">
                       
@@ -411,14 +418,14 @@ const CommonUserProfile = (props) => {
                           className='btn btn-info me-2'
                           onClick={handleEdit}
                         >
-                        Edit
+                       <i data-feather="edit" className="feather-edit" /> Edit
                         </button> 
-                        {/* <button
+                        <button
                           className='btn btn-success me-2'
                           onClick={handleReset}
                         >
-                    Reset
-                        </button> */}
+                    <FontAwesomeIcon icon={faKey} style={{marginRight:"5px"}} /> Reset 
+                        </button>
                         <button
                           className='btn btn-secondary'
                             onClick={handleViewBack}
@@ -500,7 +507,8 @@ const CommonUserProfile = (props) => {
                                     <b >APAAR ID :</b>
                                 </span>
                                 <b style={{fontSize:"1rem"}}>{StudentsDaTa?.
-id_number}</b>
+id_number? StudentsDaTa?.
+id_number :"-" }</b>
                             </CardText>
                         </CardBody>
                     </Card>
