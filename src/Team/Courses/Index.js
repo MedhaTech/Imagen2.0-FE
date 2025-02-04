@@ -42,8 +42,8 @@ const Index = () => {
   }}>
         <div className="page-header">
           <div className="page-title">
-            <h4 className='m-2'>Course</h4>
-            <h6 className='m-2'>Join us on this problem solving journey.</h6>
+            <h4>Course</h4>
+            <h6 >Join us on this problem solving journey.</h6>
           </div>
         </div>
         <div className="row align-items-start pos-wrapper pos-design">
