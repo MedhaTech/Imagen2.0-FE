@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, List, Label, Card } from 'reactstrap';
+import { Container, Row, Col, List, Label, Card } from "reactstrap";
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import "react-data-table-component-extensions/dist/index.css";
@@ -18,25 +18,28 @@ import { connect } from "react-redux";
 import "./tables.css";
 import user from "../../assets/img/user.png";
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
-import Avatar from 'react-string-avatar';
+import Avatar from "react-string-avatar";
 
 const Dashboard = (props) => {
   const navigate = useNavigate();
   const [teamsArray, setTeamsArray] = useState([]);
   const currentUser = getCurrentUser("current_user");
-const [hidebutton,setHideButton]=useState("");
+  const [hidebutton, setHideButton] = useState("");
   useEffect(() => {
     teamListbymentorid();
   }, []);
-  const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
+  const TeamId =
+    currentUser?.data[0]?.type_id === 0
+      ? currentUser?.data[0]?.student_id
+      : currentUser?.data[0]?.type_id;
 
   const teamListbymentorid = () => {
-    const queryteam = encryptGlobal(JSON.stringify(
-      {
+    const queryteam = encryptGlobal(
+      JSON.stringify({
         team: true,
-        student_id: TeamId
-      }
-    ));
+        student_id: TeamId,
+      })
+    );
     var config = {
       method: "get",
       url: process.env.REACT_APP_API_BASE_URL + `/students?Data=${queryteam}`,
@@ -51,7 +54,7 @@ const [hidebutton,setHideButton]=useState("");
         if (response.status === 200) {
           setTeamsArray(response.data.data);
           setHideButton(response.data.count);
-          console.log(response,"Single user");
+          console.log(response, "Single user");
         }
       })
       .catch(function (error) {
@@ -67,14 +70,10 @@ const [hidebutton,setHideButton]=useState("");
   // };
 
   const renderEditTooltip = (name) => (
-    <Tooltip id="refresh-tooltip">
-      {`Edit ${name} Details`}
-    </Tooltip>
+    <Tooltip id="refresh-tooltip">{`Edit ${name} Details`}</Tooltip>
   );
   const renderDelTooltip = (name) => (
-    <Tooltip id="refresh-tooltip">
-      {`Delete ${name}`}
-    </Tooltip>
+    <Tooltip id="refresh-tooltip">{`Delete ${name}`}</Tooltip>
   );
   const renderViewTooltip = (name) => (
     <Tooltip id="refresh-tooltip" {...props}>
@@ -145,33 +144,77 @@ const [hidebutton,setHideButton]=useState("");
                 {/* <h6>You can &quot;Create Teams&quot; & then &quot;View&quot; , &quot;Edit&quot; , &quot;Delete&quot; & &quot;Swap&quot; students in teams</h6> */}
               </div>
             </div>
-            {(currentUser?.data[0]?.type_id === 0 && hidebutton < 4 )&& <ul className="table-top-head">
-              <li>
-                <div className="page-btn mb-2">
-                  <Link to="/student-teamAdd" className="btn btn-added btn-primary">
-                    <PlusCircle className="me-2" style={{ color: "white" }} />
-                    Add Crew Member
-                  </Link>
-                </div>
-              </li>
-            </ul>}
-
+            {currentUser?.data[0]?.type_id === 0 && hidebutton < 4 && (
+              <ul className="table-top-head">
+                <li>
+                  <div className="page-btn mb-2">
+                    <Link
+                      to="/student-teamAdd"
+                      className="btn btn-added btn-primary"
+                    >
+                      <PlusCircle className="me-2" style={{ color: "white" }} />
+                      Add Crew Member
+                    </Link>
+                  </div>
+                </li>
+              </ul>
+            )}
           </div>
-          <div className="employee-grid-widget" style={{height:"300px"}}>
+          <div className="employee-grid-widget" style={{ height: "300px" }}>
             <div className="row">
               {teamsArray.map((student, i) => (
                 <div key={i} className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
-                  <div className="employee-grid-profile" style={{ height: "300px" }}>
+                  <div
+                    className="employee-grid-profile"
+                    style={{ height: "300px" }}
+                  >
                     <div className="profile-head">
                       <div className="profile-head-action">
-                      {(currentUser?.data[0]?.type_id === 0) && <OverlayTrigger placement="top" overlay={renderEditTooltip(student.full_name)}>
-                          <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(student.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
-                        </OverlayTrigger>}
-                        {(currentUser?.data[0]?.type_id === 0) && <OverlayTrigger placement="top" overlay={renderDelTooltip(student?.full_name)}>
-                          <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(student?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
-                        </OverlayTrigger>}
-                        <OverlayTrigger placement="top" overlay={renderViewTooltip(student?.full_name)}>
-                          <div className="btn text-dark" onClick={() => viewDetails(student?.student_id)}>{<i data-feather="eye" className="feather-eye" />} </div>
+                        {currentUser?.data[0]?.type_id === 0 && (
+                          <OverlayTrigger
+                            placement="top"
+                            overlay={renderEditTooltip(student.full_name)}
+                          >
+                            <div
+                              className="btn text-info"
+                              style={{ fontSize: "1rem" }}
+                              onClick={() => handleEditData(student.student_id)}
+                            >
+                              {" "}
+                              <i data-feather="edit" className="feather-edit" />
+                            </div>
+                          </OverlayTrigger>
+                        )}
+                        {currentUser?.data[0]?.type_id === 0 && (
+                          <OverlayTrigger
+                            placement="top"
+                            overlay={renderDelTooltip(student?.full_name)}
+                          >
+                            <div
+                              className="btn text-danger"
+                              style={{ fontSize: "1rem" }}
+                              onClick={() =>
+                                handleDeleteStudent(student?.student_id)
+                              }
+                            >
+                              {" "}
+                              <i
+                                data-feather="trash-2"
+                                className="feather-trash-2"
+                              />
+                            </div>
+                          </OverlayTrigger>
+                        )}
+                        <OverlayTrigger
+                          placement="top"
+                          overlay={renderViewTooltip(student?.full_name)}
+                        >
+                          <div
+                            className="btn text-dark"
+                            onClick={() => viewDetails(student?.student_id)}
+                          >
+                            {<i data-feather="eye" className="feather-eye" />}{" "}
+                          </div>
                         </OverlayTrigger>
                       </div>
                     </div>
@@ -182,7 +225,17 @@ const [hidebutton,setHideButton]=useState("");
                           alt="Profile"
                           style={{ width: "64px", height: "64px" }}
                         /> */}
-                        <Avatar initials={student?.full_name.split(' ').map(w => w.charAt(0)).join('')} bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256} width={64}></Avatar>
+                        <Avatar
+                          initials={student?.full_name
+                            .split(" ")
+                            .map((w) => w.charAt(0))
+                            .join("")}
+                          bgColor="#36adf2"
+                          textColor="black"
+                          roundShape="true"
+                          pictureResolution={256}
+                          width={64}
+                        ></Avatar>
                       </div>
                       <h4 style={{ color: "orange" }}>{student.full_name}</h4>
                     </div>
@@ -191,8 +244,16 @@ const [hidebutton,setHideButton]=useState("");
                         Mobile<span>{student.mobile}</span>{" "}
                       </li>
                       <li>
-                        Roll Number<span>{student.roll_number}</span>{" "}
+                        Roll Number
+                        <span>
+                          {student.roll_number.length > 12
+                            ? `${student.roll_number.slice(0, 12)}...`
+                            : student.roll_number}
+                        </span>
                       </li>
+                      {/* <li>
+                        Roll Number<span>{student.roll_number}</span>{" "}
+                      </li> */}
                     </ul>
                   </div>
                 </div>
