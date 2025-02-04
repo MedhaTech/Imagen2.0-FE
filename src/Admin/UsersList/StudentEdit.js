@@ -70,15 +70,67 @@ const StuEdit = () => {
       });
   };
   const [collegeNamesList, setCollegeNamesList] = useState([]);
+   const [selectedCollegeType, setSelectedCollegeType] = useState("");
+  
+  // const handleCollegeTypeChange = (event) => {
+  //   const selectedCollegeType = event.target.value;
+  //   formik.setFieldValue("collegeType", selectedCollegeType); 
+  //   formik.setFieldValue("college", ""); 
+  //   formik.setFieldValue("ocn", "");
+  
+  //   const updatedCollegeNames = collegeNameList[selectedCollegeType] || [];
+  //   setCollegeNamesList(updatedCollegeNames);
+   
+  // };
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
-    formik.setFieldValue("collegeType", selectedCollegeType); 
-    formik.setFieldValue("college", ""); 
+    console.log("Selected College Type:", selectedCollegeType);
+    
+    formik.setFieldValue("collegeType", selectedCollegeType);
+    setSelectedCollegeType(selectedCollegeType);
+    formik.setFieldValue("college", "");
     formik.setFieldValue("ocn", "");
   
-    const updatedCollegeNames = collegeNameList[selectedCollegeType] || [];
-    setCollegeNamesList(updatedCollegeNames);
    
+    const existingColleges = collegeNameList[selectedCollegeType] || [];
+    setCollegeNamesList(existingColleges);
+  
+    AllCollegesApi(selectedCollegeType, existingColleges);
+  };
+  const AllCollegesApi = (item,existingColleges) => {
+    const distParam = encryptGlobal(
+      JSON.stringify({
+        college_type: item,
+      })
+    );
+
+    var config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/CollegeNameForCollegeType?Data=${distParam}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response, "res");
+          const apiData = response.data.data || [];
+          const collegeNames = apiData.map((college) => college.college_name);
+          
+          // setCollegeNamesList([...existingColleges, ...collegeNames]);
+          const mergedColleges = [...existingColleges, ...collegeNames];
+        const uniqueColleges = [...new Set(mergedColleges)];
+
+        setCollegeNamesList(uniqueColleges);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
  
   const formik = useFormik({
