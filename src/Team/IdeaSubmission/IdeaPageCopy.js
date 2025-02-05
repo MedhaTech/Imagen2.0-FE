@@ -986,7 +986,7 @@ console.log(support,"ss");
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.focusareaq")}
+                               {theme !== "Others" ? "" :"2"}. {t("ideaform_questions.focusareaq")}
                               </b>
                             </div>
 
@@ -1013,7 +1013,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              2. {t("ideaform_questions.ideatitleq")}
+                               {theme !== "Others" ? "2" :"3"}. {t("ideaform_questions.ideatitleq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1041,7 +1041,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              3. {t("ideaform_questions.problemstatementq")}
+                               {theme !== "Others" ? "3" :"4"}. {t("ideaform_questions.problemstatementq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1067,7 +1067,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              4. {t("ideaform_questions.causesq")}
+                              {theme !== "Others" ? "4" :"5"}. {t("ideaform_questions.causesq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1093,7 +1093,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              5. {t("ideaform_questions.effectsq")}
+                              {theme !== "Others" ? "5" :"6"}. {t("ideaform_questions.effectsq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1120,7 +1120,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              6. {t("ideaform_questions.explain")}
+                              {theme !== "Others" ? "6" :"7"}. {t("ideaform_questions.explain")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1146,7 +1146,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              7. {t("ideaform_questions.communityq")}
+                              {theme !== "Others" ? "7" :"8"}. {t("ideaform_questions.communityq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column">
@@ -1186,7 +1186,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              8. {t("ideaform_questions.uniqueq")}
+                              {theme !== "Others" ? "8" :"9"}. {t("ideaform_questions.uniqueq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column">
@@ -1225,7 +1225,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              9. {t("ideaform_questions.facingq")}
+                              {theme !== "Others" ? "9" :"10"}. {t("ideaform_questions.facingq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column p-4">
@@ -1269,7 +1269,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              10. {t("ideaform_questions.solutiondetailsq")}
+                              {theme !== "Others" ? "10" :"11"}. {t("ideaform_questions.solutiondetailsq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1296,7 +1296,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              11. {t("ideaform_questions.impactq")}
+                              {theme !== "Others" ? "11" :"12"}. {t("ideaform_questions.impactq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1322,7 +1322,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              12. {t("ideaform_questions.stakeholdersq")}
+                              {theme !== "Others" ? "12" :"13"}. {t("ideaform_questions.stakeholdersq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column">
@@ -1397,7 +1397,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              13. {t("ideaform_questions.additionalq")}
+                              {theme !== "Others" ? "13" :"14"}. {t("ideaform_questions.additionalq")}
                             </b>
                           </div>
 
@@ -1461,7 +1461,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              14. {t("ideaform_questions.uploadq")}
+                              {theme !== "Others" ? "14" :"15"}. {t("ideaform_questions.uploadq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column p-4 pb-0">
