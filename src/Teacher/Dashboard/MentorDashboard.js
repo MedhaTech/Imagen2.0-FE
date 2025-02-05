@@ -721,11 +721,11 @@ poptype={poptype}
                   <div className="dropdown" 
                   // onClick={handleNavigation}
                    >
-                    <Link to="#"  className="view-all d-flex align-items-center">
+                    {/* <Link to="#"  className="view-all d-flex align-items-center"> */}
                       <span className="ps-2 d-flex align-items-center">
                         <FaRoute size={30} />
                       </span>
-                    </Link>
+                    {/* </Link> */}
                   </div>
                 </div>
                 <div className="card-body">
