@@ -78,18 +78,18 @@ const LoginPage = () => {
                   </h4>
                 </div> */}
                 <div className="signinform text-center">
-  <h4 className="mt-2 mb-3">Not Yet Registered?</h4> {/* First row with text */}
+  <h4 className="mt-2 mb-3">Not Yet Registered?</h4>
   <Row className="d-flex justify-content-between">
-  <Col xs="auto">
-    <Link className="hover-a" to={"/registration"}>
+  <Col xs={12} md="auto" className="mb-2 mb-md-0">
+    <Link className="hover-a" to={"/registration"} style={{fontWeight:"bold",color:"blue"}}>
       Student Registration
     </Link>
   </Col>
-  <Col>
+  <Col xs={12} md="auto" className="mb-2 mb-md-0">
     or
   </Col>
-  <Col xs="auto">
-    <Link className="hover-a" to={"/institution-registration"}>
+  <Col xs={12} md="auto" className="mb-2 mb-md-0">
+    <Link className="hover-a" to={"/institution-registration"} style={{fontWeight:"bold",color:"blue"}}>
       Institution Registration
     </Link>
   </Col>
