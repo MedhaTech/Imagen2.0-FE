@@ -311,7 +311,7 @@ const adminStudentCourseCount = () => {
                   <h5>
                     {totalMentorCount}
                   </h5>
-                  <h6>Registered Teachers</h6>
+                  <h6>Registered Institutions</h6>
                 </div>
               </div>
             </div>
