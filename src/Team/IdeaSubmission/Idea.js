@@ -138,6 +138,7 @@ const [statusCode,setStatusCode]= useState(false);
                                 <img
                                   src={theme.image}
                                   alt={theme.id}
+                                  style={{ maxWidth: "50%", height: "auto" }}
                                 />
                                 <span>
 

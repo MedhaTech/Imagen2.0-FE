@@ -325,7 +325,7 @@ export const createDiscussionChats = (data) => async () => {
       });
 
     if (result && result.status === 201) {
-      openNotificationWithIcon("success", "Ticket Created Successfully!", "");
+      openNotificationWithIcon("success", "Forum Created Successfully", "");
     } else {
       openNotificationWithIcon("error", "Something went wrong!", "");
     }
@@ -523,7 +523,7 @@ export const createDiscussionChatResponse = (data) => async () => {
     if (result && result.status === 201) {
       console.log(result,"Chat Reply");
       // history.push('/institution/support-journey');
-      openNotificationWithIcon("success", "Reply submitted successfully!", "");
+      openNotificationWithIcon("success", "Comments Added Successfully", "");
     } else {
       openNotificationWithIcon("error", "Something went wrong!else", "");
     }
