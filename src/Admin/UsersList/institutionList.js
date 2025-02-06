@@ -8,7 +8,8 @@ import { Button } from "../../stories/Button";
 
 import axios from "axios";
 import { URL, KEY } from "../../constants/defaultValues.js";
-
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 import { getNormalHeaders,getCurrentUser,openNotificationWithIcon } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 
@@ -105,6 +106,58 @@ const TicketsPage = (props) => {
             console.log(error);
         });
 };
+const handleDeleteInstitution = (item) => {
+  let supId;
+  if(typeof(item.mentor_id) !== "string"){
+supId = encryptGlobal(
+    JSON.stringify(item.mentor_id)
+  );
+  }else{
+   supId = encryptGlobal(item.mentor_id);
+
+  }
+    const MySwal = withReactContent(Swal);
+    MySwal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonColor: "#00ff00",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonColor: "#ff0000",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+      
+
+        var config = {
+          method: "delete",
+          url: process.env.REACT_APP_API_BASE_URL + "/mentors/" + supId,
+          headers: {
+            "Content-Type": "application/json",
+            // Accept: "application/json",
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+          },
+        };
+        axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+                handleideaList();
+              openNotificationWithIcon(
+                "success",
+                "Institution Deleted Successfully"
+              );
+            } else {
+              openNotificationWithIcon("error", "Opps! Something Wrong");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        MySwal.fire("Cancelled", "Institution not Deleted", "error");
+      }
+    });
+  };
   const StudentsData = {
     data: tableData && tableData.length > 0 ? tableData : [],
     columns: [
@@ -170,20 +223,25 @@ const TicketsPage = (props) => {
         name: "College Name",
         selector: (row) => row?.college_name,
         cellExport: (row) => row?.college_name,
-        width: "14rem",
+        width: "9rem",
       },
       {
         name: 'Actions',
         sortable: false,
-        width: '10rem',
+        width: '14rem',
         cell: (record) => [
-            <div
-                key={record.id}
-                onClick={() => handleReset(record, '1')}
-                style={{ marginRight: '10px' }}
-            >
-                <div className="btn btn-primary  mr-5"><FontAwesomeIcon icon={faKey} style={{marginRight:"5px"}} />Reset</div>
-            </div>
+            <><div
+            key={record.id}
+            onClick={() => handleReset(record, '1')}
+            style={{ marginRight: '10px' }}
+          >
+            <div className="btn btn-primary"><FontAwesomeIcon icon={faKey} style={{ marginRight: "5px" }} />Reset</div>
+          </div><div
+            key={record.id}
+            onClick={() => handleDeleteInstitution(record)}
+          >
+              <div className="btn btn-danger"><i data-feather="trash-2" className="feather-trash-2" style={{ fontSize: "15px" }} /> Delete</div>
+            </div></>
         ]
       }
     

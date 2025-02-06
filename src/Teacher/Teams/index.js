@@ -368,7 +368,7 @@ const Dashboard = (props) => {
         if (response.status === 200) {
           setvalue("");
           teamListbymentorid();
-          openNotificationWithIcon("success", "Successfully shifted student");
+          openNotificationWithIcon("success", "Successfully Shifted Student");
         } else {
           openNotificationWithIcon("error", "Opps! Student shift was unsuccessful");
         }

@@ -89,12 +89,12 @@ const AdminLatestNews = () => {
                     if (value === '0') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Disabled successfully'
+                            'New Status Disabled Successfully'
                         );
                     } else if (value === '1') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Enabled successfully'
+                            'New Status Enabled Successfully'
                         );
                     }
                     teacherList();
@@ -154,7 +154,7 @@ const AdminLatestNews = () => {
                             if (response.status === 200) {
                                 openNotificationWithIcon(
                                     'success',
-                                    'News succesfully deleted'
+                                    'Latest News Deleted Successfully'
                                 );
                                 teacherList();
                             } else {
@@ -218,7 +218,7 @@ const AdminLatestNews = () => {
                             if (response.status === 200) {
                                 openNotificationWithIcon(
                                     'success',
-                                    'News succesfully deleted'
+                                    'Latest News Deleted Successfully'
                                 );
                                 stuList();
                             } else {
@@ -258,12 +258,12 @@ const AdminLatestNews = () => {
                     if (number === '0') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Disabled successfully'
+                            'New Status Disabled Successfully'
                         );
                     } else if (number === '1') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Enabled successfully'
+                            'New Status Enabled Successfully'
                         );
                     }
                     stuList();
@@ -692,7 +692,7 @@ const AdminLatestNews = () => {
                             <div>
                                 <DataTableExtensions
                                     print={false}
-                                    export={true}
+                                    export={false}
                                     {...stuNewsData}
                                     exportHeaders
                                 >

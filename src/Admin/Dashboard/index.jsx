@@ -42,11 +42,11 @@ const Dashboard = () => {
   const currentUser = getCurrentUser('current_user');
   // const route = all_routes;
   useEffect(() => {
+    adminMentorCount();
     adminTeamsCount();
     adminSudentCount();
     adminideasCount();
-    adminMentorCount();
-    adminSudentbygenderCount();
+    // adminSudentbygenderCount();
     adminStudentCourseCount();
 }, []);
 const [totalteamsCount, setTotalteamsCount] = useState('-');

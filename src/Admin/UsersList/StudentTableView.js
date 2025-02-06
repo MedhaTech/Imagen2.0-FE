@@ -46,11 +46,11 @@ const CommonUserProfile = (props) => {
         (state) => state?.studentRegistration.dashboardStatus
     );
     useEffect(()=>{
-        stuQuizCount();
+        // stuQuizCount();
         stuVideosCount();
-        stuBadgesCount();
-        courseApi();
-        QuizScoreApi();
+        // stuBadgesCount();
+        // courseApi();
+        // QuizScoreApi();
     },[]);
     const QuizScoreApi=()=>{
         const stuParam = encryptGlobal(

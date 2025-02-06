@@ -411,7 +411,7 @@ const updateStatesList=["All States",...stateList];
                 name: 'Role',
                 selector: (row) => row?.user?.role,
                 sortable: true,
-                width: '6rem',
+                width: '10rem',
                 cell: (params) => [
                     params.user.role === 'ADMIN' ? (
                         <span className="badge rounded-pill bg-outline-primary">
@@ -446,12 +446,13 @@ const updateStatesList=["All States",...stateList];
                     //     {row.status}
                     // </Badge>
                 ],
-                width: '6rem'
+                width: '8rem'
             },
             {
                 name: 'Actions',
                 sortable: false,
                 width: '13rem',
+                left:true,
                 cell: (record) => [
                     <div
                         className="mr-5"
