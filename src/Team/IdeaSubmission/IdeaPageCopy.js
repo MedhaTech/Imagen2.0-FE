@@ -298,7 +298,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setPrototypeImage(formData?.prototype_image);
     setPrototypeLink(formData?.prototype_link);
   }, [formData]);
-console.log(support,"ss");
+// console.log(support,"ss");
   useEffect(() => {
     if (formData?.stage) {
       setStage(JSON.parse(formData.stage));
@@ -595,7 +595,7 @@ console.log(support,"ss");
       title: title,
       solve: solve,
       status: stats,
-      initiated_by: currentUser?.data[0]?.user_id,
+      // initiated_by: currentUser?.data[0]?.user_id,
     };
 
     if (theme === "Others" && others !== null) {
@@ -780,7 +780,7 @@ console.log(support,"ss");
     ideaDescribe?.length > 0 &&
     title?.length > 0 &&
     solve?.length > 0;
-  // console.log("Idea Form Screen");
+  console.log(typeof formData?.initiated_by,"User",typeof currentUser?.data[0]?.user_id,"Currentuser");
   return (
     <>
       {/* <div className='content'> */}
@@ -793,7 +793,7 @@ console.log(support,"ss");
               <div className="aside p-4">
                 <CardBody>
                   <Form className="form-row row" isSubmitting>
-                    {formData?.verified_status !== null && (
+                    {/* {formData?.verified_status !== null && (
                       <>
                         {formData?.verified_status === "REJECTED" ? (
                           <div className="d-md-flex justify-content-end px-4">
@@ -818,7 +818,7 @@ console.log(support,"ss");
                           ""
                         )}
                       </>
-                    )}
+                    )} */}
 
                     {formData?.status === "SUBMITTED" && (
                       <div className="d-md-flex justify-content-end px-4">
@@ -843,60 +843,11 @@ console.log(support,"ss");
                                 )
                               : ""}
                           </h5>
-                          {/* <h5 className="text-white p-1">
-                            {t("idea_page.review")} :
-                            {formData?.verified_status === null ||
-                            formData?.verified_status === ""
-                              ? " Yet to be Reviewed"
-                              : formData?.verified_status === "ACCEPTED"
-                              ? ` Accepted on ${moment(
-                                  formData?.verified_at
-                                ).format("DD-MM-YYYY HH:MM A")}`
-                              : formData?.verified_status === "REJECTED"
-                              ? ` Rejected on ${moment(
-                                  formData?.verified_at
-                                ).format("DD-MM-YYYY HH:MM A")} - Reason: ${
-                                  formData?.mentor_rejected_reason
-                                }`
-                              : moment(formData?.verified_at).format(
-                                  "DD-MM-YYYY HH:MM A"
-                                )}
-                          </h5> */}
+                        
                         </Card>
                       </div>
                     )}
-                    {/* <div className="text-right">
-                                                        { (
-                                                            <>
-                                                                <Button
-                                                                    type="button"
-                                                                    btnClass="me-3 btn btn-info"
-                                                                    onClick={
-                                                                        handleEdit
-                                                                    }
-                                                                    size="small"
-                                                                    label={t(
-                                                                        'teacher_teams.edit_idea'
-                                                                    )}
-                                                                    style={{ marginRight: '1rem' }}
-                                                                />
-                                                                <Button
-                                                    type="button"
-                                                    btnClass="primary"
-                                                    onClick={(e) =>
-                                                        handleSubmit(
-                                                            e,
-                                                            'SUBMITTED'
-                                                        )
-                                                    }
-                                                    size="small"
-                                                    label={t(
-                                                        'teacher_teams.submit'
-                                                    )}
-                                                />
-                                                            </>)}
-                                                      
-                                                    </div> */}
+                   
                     <div 
                     className="d-flex flex-nowrap justify-content-end gap-2 mb-3"
                     // className="text-right mb-3"
@@ -922,21 +873,26 @@ console.log(support,"ss");
                             <Button
                               type="button"
                               btnClass="me-3 btn btn-info"
+
                               onClick={handleEdit}
                               size="small"
                               label={t("teacher_teams.edit_idea")}
                               style={{
                                 marginRight: window.innerWidth > 768 ? "1rem" : "0",
                               }}
-                              // style={{ marginRight: "1rem" }}
                             />
+                          
                             <Button
                               type="button"
-                              btnClass="primary"
+                               btnClass="me-3 btn btn-primary"
                               onClick={(e) => handleSubmit(e, "SUBMITTED")}
                               size="small"
                               label={t("teacher_teams.submit")}
-                            />
+                              // disabled={
+                              //   !(isDisabled && formData?.initiated_by === currentUser?.data[0]?.user_id)
+                              // } 
+                              disabled={formData?.initiated_by  !== currentUser?.data[0]?.user_id }  
+                            /> 
                           </>
                         )
                       }

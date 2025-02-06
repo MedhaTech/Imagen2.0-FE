@@ -493,7 +493,7 @@ const CommonUserProfile = (props) => {
             <td>{StudentsDaTa?.branch}</td>
           </tr>
           <tr>
-            <td><b>PAAR IDA</b></td>
+            <td><b>APAAR ID</b></td>
             <td>{StudentsDaTa?.id_number ? StudentsDaTa?.id_number : "-"}</td>
           </tr>
         </tbody>
