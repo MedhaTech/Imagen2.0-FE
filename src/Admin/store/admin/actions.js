@@ -84,7 +84,7 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
 
       navigate("/admin-dashboard");
     } else if (result && result.status === 404) {
-      openNotificationWithIcon("error", "Invalid Credentials entered");
+      openNotificationWithIcon("error", "Invalid Credentials Entered");
      
       dispatch(adminLoginUserError(result.statusText));
     }else{
