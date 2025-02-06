@@ -106,6 +106,40 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                   </div>
                 </div>
               </div>
+             {theme === "Others" &&( <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                <div
+                  // key={index}
+                  className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                >
+                  <div className="question quiz mb-0">
+                    <b
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      {theme !== "Others" ? "" :"2"}. Describe the category your idea belongs to
+                    </b>
+                  </div>
+                  <div
+                    className="bg-white p-3 mb-3"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "10px",
+                      height: "auto",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                    >
+                      {teamResponse.others}
+                    </p>
+                  </div>
+                </div>
+              </div>)}
               <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                 <div
                   // key={index}
@@ -118,7 +152,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      2. Describe your idea (in one sentence).
+                      {theme !== "Others" ? "2" :"3"}. Describe your idea (in one sentence).
                     </b>
                   </div>
                   <div
@@ -152,7 +186,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      3. Give a title to your idea.
+                      {theme !== "Others" ? "3" :"4"}. Give a title to your idea.
                     </b>
                   </div>
                   <div
@@ -186,7 +220,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      4. What problem does your idea solve?
+                      {theme !== "Others" ? "4" :"5"}. What problem does your idea solve?
                     </b>
                   </div>
                   <div
@@ -220,7 +254,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      5. Who are your target customers/users?
+                      {theme !== "Others" ? "5" :"6"}. Who are your target customers/users?
                     </b>
                   </div>
                   <div
@@ -254,7 +288,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      6. Explain your idea in detail
+                                                    {theme !== "Others" ? "6" :"7"}. Explain your idea in detail
                     </b>
                   </div>
                   <div
@@ -288,7 +322,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      7. What stage is your idea currently at?
+                     {theme !== "Others" ? "7" :"8"}. What stage is your idea currently at?
                     </b>
                   </div>
                   <div
@@ -329,7 +363,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      8. How unique is your idea compared to existing solutions?
+                      {theme !== "Others" ? "8" :"9"}. How unique is your idea compared to existing solutions?
                     </b>
                   </div>
                   <div
@@ -371,7 +405,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      9. Who are your competitors or similar ideas?
+                      {theme !== "Others" ? "9" :"10"}. Who are your competitors or similar ideas?
                     </b>
                   </div>
                   <div
@@ -405,7 +439,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      10. How will your idea make revenue or sustain itself?
+                      {theme !== "Others" ? "10" :"11"}. How will your idea make revenue or sustain itself?
                     </b>
                   </div>
                   <div
@@ -439,7 +473,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      11. What impact will your idea have on society or the
+                      {theme !== "Others" ? "11" :"12"}. What impact will your idea have on society or the
                       environment?
                     </b>
                   </div>
@@ -474,7 +508,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      12. How confident are you in your ability to implement
+                      {theme !== "Others" ? "12" :"13"}. How confident are you in your ability to implement
                       your idea with your current skill set?
                     </b>
                   </div>
@@ -519,7 +553,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      13. What additional support and resources would you need
+                      {theme !== "Others" ? "13" :"14"}. What additional support and resources would you need
                       to implement or get started with your idea ?
                     </b>
                   </div>
@@ -575,7 +609,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         marginBottom: "1rem",
                       }}
                     >
-                      14. Upload images/documents & video links related to your
+                      {theme !== "Others" ? "14" :"15"}. Upload images/documents & video links related to your
                       Idea.(total size limit : 10 MB)
                     </b>
                   </div>
