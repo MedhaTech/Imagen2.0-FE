@@ -316,7 +316,7 @@ const Crew1student = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>District</option>
+                              <option value={""}>Select District</option>
                               {districtList["Telangana"].map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -550,7 +550,7 @@ const Crew1student = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>Year of Study</option>
+                              <option value={""}>Select Year of Study</option>
                               {yearofstudyList.map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -635,7 +635,7 @@ const Crew1student = () => {
                             type="submit"
                             onClick={() => navigate("/mentorteams")}
                           >
-                            <ArrowLeft />
+                            {/* <ArrowLeft /> */}
                             Back
                           </button>
                           <button

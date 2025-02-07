@@ -179,10 +179,10 @@ const EditLatestNews = (props) => {
   };
   return (
     <div className="page-wrapper">
-       <h4 className="m-2" 
+       {/* <h4 className="m-2" 
         style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
         >Latest News
-        </h4>
+        </h4> */}
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
@@ -213,9 +213,9 @@ const EditLatestNews = (props) => {
                           onBlur={formik.handleBlur}
                           value={formik.values.role}
                         >
-                          <option value="">Select role</option>
-                          <option value="mentor">mentor</option>
-                          <option value="student">student</option>
+                          <option value="">Select Role</option>
+                          <option value="Institution">Institution</option>
+                          <option value="Student">Student</option>
                         </select>
                         {formik.touched.role && formik.errors.role && (
                           <small className="error-cls" style={{ color: "red" }}>
@@ -280,7 +280,7 @@ const EditLatestNews = (props) => {
                         {...inputDICE}
                         id="details"
                         name="details"
-                        placeholder="Please enter details"
+                        placeholder="Please enter the details"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.details}
@@ -401,7 +401,7 @@ const EditLatestNews = (props) => {
                         type="submit"
                         style={buttonStyle}
                       >
-                        Submit details
+                        Submit Details
                       </button>
                       <button
                         type="cancel"

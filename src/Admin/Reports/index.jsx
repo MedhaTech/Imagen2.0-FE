@@ -20,7 +20,7 @@ return (
             <div className="page-header">
                 <div className="add-item d-flex">
                 <div className="page-title">
-                    <h4>YFSI Reports</h4>
+                    <h4>Reports</h4>
                     <h6>Find user data and analytical reports here</h6>
                 </div>
                 </div>

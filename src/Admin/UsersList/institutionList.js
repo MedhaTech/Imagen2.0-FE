@@ -19,7 +19,7 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import Select from "./Select.js";
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
-
+import logout from '../../assets/img/logout.png';
 import { useDispatch } from "react-redux";
 import { encryptGlobal } from "../../constants/encryptDecrypt.js";
 import { stateList, districtList } from "../../RegPage/ORGData.js";
@@ -76,7 +76,35 @@ const TicketsPage = (props) => {
         setshowspin(false);
       });
   }
-  const handleReset = (item) => {
+  const handleReset = () => {
+    // here we can reset password as  user_id //
+    // here data = student_id //
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-submit',
+            cancelButton: 'btn btn-cancel'
+        },
+        buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons
+        .fire({
+            title: "<h4>Are you sure?</h4>",
+            text: 'You are attempting to reset the password',
+            imageUrl: `${logout}`,
+            confirmButtonText: 'Reset Password',
+            showCancelButton: true,
+            cancelButtonText: "Cancel",
+            reverseButtons: false
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+              handleResetApi();
+            }
+        })
+        .catch((err) => console.log(err.response));
+};
+  const handleResetApi = (item) => {
     const body = JSON.stringify({
         email: item.username_email,
         otp: false,

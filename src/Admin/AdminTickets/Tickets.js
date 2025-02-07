@@ -276,7 +276,7 @@ const AdminSupport = () => {
                             Resolved
                         </span>
                     ) : params?.status === 'INVALID' ? (
-                        <span className="badge bg-light text-dark">
+                        <span className="badge bg-danger">
                             Invalid
                         </span>
                     ) : (
@@ -466,7 +466,7 @@ const AdminSupport = () => {
                                     <div className="my-2">
                                         <DataTableExtensions
                                             print={false}
-                                            export={true}
+                                            export={false}
                                             {...allData}
                                             exportHeaders
                                         >
@@ -501,7 +501,7 @@ const AdminSupport = () => {
                                     <div className="my-2">
                                         <DataTableExtensions
                                             print={false}
-                                            export={true}
+                                            export={false}
                                             {...allData}
                                             exportHeaders
                                         >
@@ -536,7 +536,7 @@ const AdminSupport = () => {
                                     <div className="my-2">
                                         <DataTableExtensions
                                             print={false}
-                                            export={true}
+                                            export={false}
                                             {...allData}
                                             exportHeaders
                                         >
@@ -572,7 +572,7 @@ const AdminSupport = () => {
                                     <div className="my-2">
                                         <DataTableExtensions
                                             print={false}
-                                            // export={false}
+                                            export={false}
                                             {...allData}
                                             exportHeaders
                                         >

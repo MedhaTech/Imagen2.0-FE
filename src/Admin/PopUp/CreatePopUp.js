@@ -251,7 +251,7 @@ const Createpopup = () => {
                             onChange={(e) => handleroleChange(e)}
                             onBlur={formik.handleBlur}
                           >
-                            <option value="">Select role</option>
+                            <option value="">Select Role</option>
                             {userList.map((state) => (
                               <option key={state} value={state}>
                                 {state}
@@ -304,7 +304,7 @@ const Createpopup = () => {
                           <select
                             name="type"
                             id="type"
-                            placeholder="Please select submission type"
+                            placeholder="Please Select Submission Type"
                             className="form-select"
                             onChange={(e) => {
                               formik.handleChange(e);
@@ -320,7 +320,7 @@ const Createpopup = () => {
                             }}
                           >
                             <option disabled={true} value="">
-                              Select type
+                              Select Type
                             </option>
                             <option value="file">File</option>
                             <option value="link">Link</option>
@@ -433,7 +433,7 @@ const Createpopup = () => {
                                 name="attachments"
                                 id="attachments"
                                 className="form-control"
-                                placeholder="Please share 'Embedded link' of the video"
+                                placeholder="Please share Embedded link of the Video"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.attachments}
