@@ -507,7 +507,7 @@ const updateStatesList=["All States",...stateList];
                     <div className="add-item d-flex">
                         <div className="page-title">
                             <h4>Admins List</h4>
-                            <h6>Create an Admin User here</h6>
+                            <h6>Create an Admin, Eadmin Users here</h6>
                         </div>
                     </div>
                     <div className="page-btn">

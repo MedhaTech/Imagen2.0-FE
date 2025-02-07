@@ -588,7 +588,10 @@ const AdminResources = () => {
                 <div className="add-item d-flex">
                     <div className="page-title">
                         <h4>PopUp List</h4>
-                        <h6>Create User specific Popups here </h6>
+                        <p style={{ margin: "0", padding: "0" }}><span style={{ fontWeight: "bold",display: "inline" }}> . Only one user-specific popup can be active at a time.</span>To create a new popup, please delete the existing one first.</p><br/>
+                        <p 
+                        style={{ margin: "0", padding: "0" }}><span style={{ fontWeight: "bold" }}> . Newly created popups are disabled by default.</span> Click <span style={{ fontWeight: "bold" }}>Turned Off </span>to enable them.</p>
+
                     </div>
                 </div>
                 <div className="page-btn">
