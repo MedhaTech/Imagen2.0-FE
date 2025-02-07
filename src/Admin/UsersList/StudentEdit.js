@@ -63,6 +63,7 @@ const StuEdit = () => {
       .then(function (response) {
         if (response.status === 200) {
           setData(response.data.data[0]);
+          console.log(response,"res");
         }
       })
       .catch(function (error) {
@@ -302,6 +303,7 @@ const StuEdit = () => {
       });
     }
   }, [data]); 
+  
   useEffect(() => {
     if (data?.college_type) {
       formik.setFieldValue('collegeType', data.college_type);
@@ -319,7 +321,9 @@ const StuEdit = () => {
         data.college_type
         ] || []
     );
+    
    },[data.college_type]);
+   console.log(data.college_name,"coll");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -437,7 +441,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>District</option>
+                              <option value={""}>Select District</option>
                               {districtList["Telangana"].map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -465,7 +469,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={handleCollegeTypeChange}
                             >
-                              <option value={""}>College Type</option>
+                              <option value={""}>Select College Type</option>
                               {collegeType.map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -493,7 +497,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>College Name</option>
+                              <option value={""}>Select College Name</option>
                               {collegeNamesList.map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -652,7 +656,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>Year of Study</option>
+                              <option value={""}>Select Year of Study</option>
                               {yearofstudyList.map((item) => (
                                 <option key={item} value={item}>
                                   {item}

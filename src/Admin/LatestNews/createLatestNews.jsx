@@ -150,10 +150,10 @@ const CreateLatestNews = () => {
     //   };
     return (
         <div className="page-wrapper">
-             <h4 className="m-2" 
+             {/* <h4 className="m-2" 
         style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
         >Latest News
-        </h4>
+        </h4> */}
         <div className="content">
                 <div className="page-header">
                     <div className="add-item d-flex">
@@ -387,7 +387,7 @@ const CreateLatestNews = () => {
                                             className='btn btn-warning'
                                             style={buttonStyle}
                                         >
-                                            Submit details
+                                            Submit Details
                                         </button>
 
                                     

@@ -48,25 +48,50 @@ const AdminResources = () => {
                     }
                 }
             );
-            if (response.status === 200) {
-                console.log(response,"11");
+            // if (response.status === 200) {
+            //     console.log(response,"11");
                 
+            //     setTecList(response.data?.data);
+            //     let studentCount = 0;
+            //     let institutionCount = 0;
+
+            //     response.data?.data.forEach(item => {
+            //         if (item.role === 'Student') studentCount++;
+            //         if (item.role === 'Institution') institutionCount++;
+            //     });
+
+            //     // Show button only if there is either one Student or one Institution
+            //     if ((studentCount === 1 && institutionCount === 0) || (studentCount === 0 && institutionCount === 1)) {
+            //         setShowCreateButton(true);
+            //     } else {
+            //         setShowCreateButton(false);
+            //     }
+            // }
+            if (response.status === 200) {
+                console.log(response, "11");
+            
                 setTecList(response.data?.data);
                 let studentCount = 0;
                 let institutionCount = 0;
-
-                response.data?.data.forEach(item => {
-                    if (item.role === 'Student') studentCount++;
-                    if (item.role === 'Institution') institutionCount++;
-                });
-
-                // Show button only if there is either one Student or one Institution
-                if ((studentCount === 1 && institutionCount === 0) || (studentCount === 0 && institutionCount === 1)) {
+            
+                if (response.data?.data.length === 0) {
+                    // Enable the button if no roles exist
                     setShowCreateButton(true);
                 } else {
-                    setShowCreateButton(false);
+                    response.data?.data.forEach(item => {
+                        if (item.role === 'Student') studentCount++;
+                        if (item.role === 'Institution') institutionCount++;
+                    });
+            
+                    // Show button if there is exactly one Student or one Institution OR no roles at all
+                    if ((studentCount === 1 && institutionCount === 0) || (studentCount === 0 && institutionCount === 1)) {
+                        setShowCreateButton(true);
+                    } else {
+                        setShowCreateButton(false);
+                    }
                 }
             }
+            
         } catch (error) {
             console.log(error);
         }
