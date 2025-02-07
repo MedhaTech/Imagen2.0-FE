@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from "react";
 import { getCurrentUser } from "../../helpers/Utils";
@@ -57,11 +58,11 @@ function LatestNews() {
           Latest News 
         </h4>
         <div className="view-all-link">
-          <Link to="#" className="view-all d-flex align-items-center">
+          {/* <Link to="#" className="view-all d-flex align-items-center"> */}
             <span className="ps-2 d-flex align-items-center">
               <FaNewspaper size={30} />
             </span>
-          </Link>
+          {/* </Link> */}
         </div>
       </div>
       <div className="card-body">

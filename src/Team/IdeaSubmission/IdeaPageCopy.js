@@ -298,7 +298,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setPrototypeImage(formData?.prototype_image);
     setPrototypeLink(formData?.prototype_link);
   }, [formData]);
-console.log(support,"ss");
+// console.log(support,"ss");
   useEffect(() => {
     if (formData?.stage) {
       setStage(JSON.parse(formData.stage));
@@ -595,7 +595,7 @@ console.log(support,"ss");
       title: title,
       solve: solve,
       status: stats,
-      initiated_by: currentUser?.data[0]?.user_id,
+      // initiated_by: currentUser?.data[0]?.user_id,
     };
 
     if (theme === "Others" && others !== null) {
@@ -780,7 +780,7 @@ console.log(support,"ss");
     ideaDescribe?.length > 0 &&
     title?.length > 0 &&
     solve?.length > 0;
-  // console.log("Idea Form Screen");
+  console.log(typeof formData?.initiated_by,"User",typeof currentUser?.data[0]?.user_id,"Currentuser");
   return (
     <>
       {/* <div className='content'> */}
@@ -793,7 +793,7 @@ console.log(support,"ss");
               <div className="aside p-4">
                 <CardBody>
                   <Form className="form-row row" isSubmitting>
-                    {formData?.verified_status !== null && (
+                    {/* {formData?.verified_status !== null && (
                       <>
                         {formData?.verified_status === "REJECTED" ? (
                           <div className="d-md-flex justify-content-end px-4">
@@ -818,7 +818,7 @@ console.log(support,"ss");
                           ""
                         )}
                       </>
-                    )}
+                    )} */}
 
                     {formData?.status === "SUBMITTED" && (
                       <div className="d-md-flex justify-content-end px-4">
@@ -843,60 +843,11 @@ console.log(support,"ss");
                                 )
                               : ""}
                           </h5>
-                          {/* <h5 className="text-white p-1">
-                            {t("idea_page.review")} :
-                            {formData?.verified_status === null ||
-                            formData?.verified_status === ""
-                              ? " Yet to be Reviewed"
-                              : formData?.verified_status === "ACCEPTED"
-                              ? ` Accepted on ${moment(
-                                  formData?.verified_at
-                                ).format("DD-MM-YYYY HH:MM A")}`
-                              : formData?.verified_status === "REJECTED"
-                              ? ` Rejected on ${moment(
-                                  formData?.verified_at
-                                ).format("DD-MM-YYYY HH:MM A")} - Reason: ${
-                                  formData?.mentor_rejected_reason
-                                }`
-                              : moment(formData?.verified_at).format(
-                                  "DD-MM-YYYY HH:MM A"
-                                )}
-                          </h5> */}
+                        
                         </Card>
                       </div>
                     )}
-                    {/* <div className="text-right">
-                                                        { (
-                                                            <>
-                                                                <Button
-                                                                    type="button"
-                                                                    btnClass="me-3 btn btn-info"
-                                                                    onClick={
-                                                                        handleEdit
-                                                                    }
-                                                                    size="small"
-                                                                    label={t(
-                                                                        'teacher_teams.edit_idea'
-                                                                    )}
-                                                                    style={{ marginRight: '1rem' }}
-                                                                />
-                                                                <Button
-                                                    type="button"
-                                                    btnClass="primary"
-                                                    onClick={(e) =>
-                                                        handleSubmit(
-                                                            e,
-                                                            'SUBMITTED'
-                                                        )
-                                                    }
-                                                    size="small"
-                                                    label={t(
-                                                        'teacher_teams.submit'
-                                                    )}
-                                                />
-                                                            </>)}
-                                                      
-                                                    </div> */}
+                   
                     <div 
                     className="d-flex flex-nowrap justify-content-end gap-2 mb-3"
                     // className="text-right mb-3"
@@ -922,21 +873,26 @@ console.log(support,"ss");
                             <Button
                               type="button"
                               btnClass="me-3 btn btn-info"
+
                               onClick={handleEdit}
                               size="small"
                               label={t("teacher_teams.edit_idea")}
                               style={{
                                 marginRight: window.innerWidth > 768 ? "1rem" : "0",
                               }}
-                              // style={{ marginRight: "1rem" }}
                             />
+                          
                             <Button
                               type="button"
-                              btnClass="primary"
+                               btnClass="me-3 btn btn-primary"
                               onClick={(e) => handleSubmit(e, "SUBMITTED")}
                               size="small"
                               label={t("teacher_teams.submit")}
-                            />
+                              // disabled={
+                              //   !(isDisabled && formData?.initiated_by === currentUser?.data[0]?.user_id)
+                              // } 
+                              disabled={formData?.initiated_by  !== currentUser?.data[0]?.user_id }  
+                            /> 
                           </>
                         )
                       }
@@ -986,7 +942,7 @@ console.log(support,"ss");
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.focusareaq")}
+                               {theme !== "Others" ? "" :"2"}. {t("ideaform_questions.focusareaq")}
                               </b>
                             </div>
 
@@ -1013,7 +969,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              2. {t("ideaform_questions.ideatitleq")}
+                               {theme !== "Others" ? "2" :"3"}. {t("ideaform_questions.ideatitleq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1041,7 +997,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              3. {t("ideaform_questions.problemstatementq")}
+                               {theme !== "Others" ? "3" :"4"}. {t("ideaform_questions.problemstatementq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1067,7 +1023,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              4. {t("ideaform_questions.causesq")}
+                              {theme !== "Others" ? "4" :"5"}. {t("ideaform_questions.causesq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1093,7 +1049,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              5. {t("ideaform_questions.effectsq")}
+                              {theme !== "Others" ? "5" :"6"}. {t("ideaform_questions.effectsq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1120,7 +1076,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              6. {t("ideaform_questions.explain")}
+                              {theme !== "Others" ? "6" :"7"}. {t("ideaform_questions.explain")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1146,7 +1102,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              7. {t("ideaform_questions.communityq")}
+                              {theme !== "Others" ? "7" :"8"}. {t("ideaform_questions.communityq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column">
@@ -1186,7 +1142,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              8. {t("ideaform_questions.uniqueq")}
+                              {theme !== "Others" ? "8" :"9"}. {t("ideaform_questions.uniqueq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column">
@@ -1225,7 +1181,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              9. {t("ideaform_questions.facingq")}
+                              {theme !== "Others" ? "9" :"10"}. {t("ideaform_questions.facingq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column p-4">
@@ -1269,7 +1225,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              10. {t("ideaform_questions.solutiondetailsq")}
+                              {theme !== "Others" ? "10" :"11"}. {t("ideaform_questions.solutiondetailsq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1296,7 +1252,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              11. {t("ideaform_questions.impactq")}
+                              {theme !== "Others" ? "11" :"12"}. {t("ideaform_questions.impactq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1322,7 +1278,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              12. {t("ideaform_questions.stakeholdersq")}
+                              {theme !== "Others" ? "12" :"13"}. {t("ideaform_questions.stakeholdersq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column">
@@ -1397,7 +1353,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              13. {t("ideaform_questions.additionalq")}
+                              {theme !== "Others" ? "13" :"14"}. {t("ideaform_questions.additionalq")}
                             </b>
                           </div>
 
@@ -1461,7 +1417,7 @@ console.log(support,"ss");
                                 fontSize: "1rem",
                               }}
                             >
-                              14. {t("ideaform_questions.uploadq")}
+                              {theme !== "Others" ? "14" :"15"}. {t("ideaform_questions.uploadq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column p-4 pb-0">

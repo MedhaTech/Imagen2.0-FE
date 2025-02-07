@@ -541,9 +541,7 @@ useEffect(() => {
               <h6> here&apos;s what&apos;s happening with your Youth for Social Impact 2025 today.</h6>
             </div>
             <div className="d-flex align-items-center">
-              {/* <div className="dropdown">
-                  <LanguageSelectorComp module="student" />
-              </div> */}
+              
             </div>
           </div>
           <div className="row sales-cards">
@@ -556,21 +554,10 @@ useEffect(() => {
                   </CountUp> / 100
                 </h3>
                 <p>Course Completion %</p>
-                <FeatherIcon icon="monitor" />
+                <FeatherIcon icon="monitor"  style={{ pointerEvents: "none", color: "inherit", transform: "none" }}  />
               </div>
             </div>
-            {/* <div className="col-xl-3 col-sm-6 col-12">
-              <div className="card color-info"  style={{background:"#00CFE8"}}>
-                <h3>
-                  {" "}
-                  <CountUp end={quiz} duration={4}>
-                    +
-                  </CountUp> / 5
-                </h3>
-                <p>Quizes Passed</p>
-                <FeatherIcon icon="thumbs-up" />
-              </div>
-            </div> */}
+
             <div className="col-xl-6 col-sm-6 col-12">
               <div className="card color-info bg-secondary mb-4">
                 <h3>
@@ -579,7 +566,7 @@ useEffect(() => {
                   </CountUp> / 25
                 </h3>
                 <p>Course Videos Watched</p>
-                <FeatherIcon icon="video" />
+                <FeatherIcon icon="video"  style={{ pointerEvents: "none", color: "inherit", transform: "none" }}  />
               </div>
             </div>
             {/* <div className="col-xl-4 col-sm-6 col-12">
@@ -598,13 +585,13 @@ useEffect(() => {
           <div className="row">
             {/* Quick links */}
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
-              <div className="card flex-fill default-cover w-100 mb-4">
+              <div className="card flex-fill w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
                   <h4 className="card-title mb-0">YFSI Road Map</h4>
                   <div className="dropdown">
-                    <Link to="#" className="view-all d-flex align-items-center">
+                    <Link to="#" className="view-all d-flex align-items-center" style={{ textDecoration: "none", background: "none", pointerEvents: "none"}}>
                       <span className="ps-2 d-flex align-items-center">
-                        <FaRoute size={30}  /> 
+                        <FaRoute size={30}  style={{ pointerEvents: "none", color: "inherit", transform: "none" }}  /> 
                       </span>
                     </Link>
                   </div>

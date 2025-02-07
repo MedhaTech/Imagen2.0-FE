@@ -160,10 +160,10 @@ const CreateResource = () => {
     //   };
     return (
         <div className="page-wrapper">
-             <h4 className="m-2" 
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+            {/* <h4 className="m-2" 
+        styl e={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
         >Resources
-        </h4>
+        </h4> */}
         <div className="content">
             <div className="page-header">
                     <div className="add-item d-flex">
@@ -173,7 +173,9 @@ const CreateResource = () => {
                         </div>
                     </div>
                 </div>
-            <div className="EditPersonalDetails new-member-page">
+            <div className="EditPersonalDetails new-member-page" 
+            // style={{ backgroundColor: 'white', padding: '20px 0', margin: '20px 0',  borderRadius: '8px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}
+            >
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
                         <div>
@@ -258,7 +260,7 @@ const CreateResource = () => {
                                                 id="description"
                                                 type="text"
                                                 name="description"
-                                                placeholder="Please enter details"
+                                                placeholder="Please Enter Details"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.description}
@@ -280,7 +282,7 @@ const CreateResource = () => {
                                             <select
                                                 name="type"
                                                 id="type"
-                                                placeholder="Please select submission type"
+                                                placeholder="Please Select Submission Type"
                                                 className="form-control custom-dropdown"
                                                 onChange={(e) => {
                                                     formik.handleChange(e);
@@ -398,7 +400,7 @@ const CreateResource = () => {
                                                     type="text"
                                                     name="attachments"
                                                     id="attachments"
-                                                    placeholder="Please enter the link"
+                                                    placeholder="Please enter the Link"
                                                     onChange={
                                                         formik.handleChange
                                                     }
@@ -431,7 +433,7 @@ const CreateResource = () => {
                                             className='btn btn-warning'
                                             style={buttonStyle}
                                         >
-                                            Submit details
+                                            Submit Details
                                         </button>
 
                                     

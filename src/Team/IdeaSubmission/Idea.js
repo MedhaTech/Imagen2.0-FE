@@ -113,6 +113,22 @@ const [statusCode,setStatusCode]= useState(false);
   const challenges = () => {
     showChallenge();
   };
+  const [imgStyle, setImgStyle] = useState({ maxWidth: "40%", height: "auto" });
+
+useEffect(() => {
+  const updateStyle = () => {
+    if (window.innerWidth < 768) {
+      setImgStyle({ maxWidth: "40%", height: "auto" });
+    } else {
+      setImgStyle({ maxWidth: "80%", height: "auto" });
+    }
+  };
+
+  window.addEventListener("resize", updateStyle);
+  updateStyle(); // Initial check
+
+  return () => window.removeEventListener("resize", updateStyle);
+}, []);
   return (
     <div className='page-wrapper'>
       <div className='content'>
@@ -138,15 +154,14 @@ const [statusCode,setStatusCode]= useState(false);
                                 <img
                                   src={theme.image}
                                   alt={theme.id}
+                                  style={imgStyle}
                                 />
                                 <span>
 
                                   <Check className="feather-16" />
                                 </span>
                               </Link>
-                              {/* <h6 className="cat-name">
-                                            <Link to="#">Mobiles</Link>
-                                        </h6> */}
+                             
                               <h6 className="product-name">
                                 <Link to="#">{t(theme.title)}</Link>
                               </h6>

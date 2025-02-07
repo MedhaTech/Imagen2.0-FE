@@ -48,25 +48,50 @@ const AdminResources = () => {
                     }
                 }
             );
-            if (response.status === 200) {
-                console.log(response,"11");
+            // if (response.status === 200) {
+            //     console.log(response,"11");
                 
+            //     setTecList(response.data?.data);
+            //     let studentCount = 0;
+            //     let institutionCount = 0;
+
+            //     response.data?.data.forEach(item => {
+            //         if (item.role === 'Student') studentCount++;
+            //         if (item.role === 'Institution') institutionCount++;
+            //     });
+
+            //     // Show button only if there is either one Student or one Institution
+            //     if ((studentCount === 1 && institutionCount === 0) || (studentCount === 0 && institutionCount === 1)) {
+            //         setShowCreateButton(true);
+            //     } else {
+            //         setShowCreateButton(false);
+            //     }
+            // }
+            if (response.status === 200) {
+                console.log(response, "11");
+            
                 setTecList(response.data?.data);
                 let studentCount = 0;
                 let institutionCount = 0;
-
-                response.data?.data.forEach(item => {
-                    if (item.role === 'Student') studentCount++;
-                    if (item.role === 'Institution') institutionCount++;
-                });
-
-                // Show button only if there is either one Student or one Institution
-                if ((studentCount === 1 && institutionCount === 0) || (studentCount === 0 && institutionCount === 1)) {
+            
+                if (response.data?.data.length === 0) {
+                    // Enable the button if no roles exist
                     setShowCreateButton(true);
                 } else {
-                    setShowCreateButton(false);
+                    response.data?.data.forEach(item => {
+                        if (item.role === 'Student') studentCount++;
+                        if (item.role === 'Institution') institutionCount++;
+                    });
+            
+                    // Show button if there is exactly one Student or one Institution OR no roles at all
+                    if ((studentCount === 1 && institutionCount === 0) || (studentCount === 0 && institutionCount === 1)) {
+                        setShowCreateButton(true);
+                    } else {
+                        setShowCreateButton(false);
+                    }
                 }
             }
+            
         } catch (error) {
             console.log(error);
         }
@@ -563,7 +588,10 @@ const AdminResources = () => {
                 <div className="add-item d-flex">
                     <div className="page-title">
                         <h4>PopUp List</h4>
-                        <h6>Create User specific Popups here </h6>
+                        <p style={{ margin: "0", padding: "0" }}><span style={{ fontWeight: "bold",display: "inline" }}> . Only one user-specific popup can be active at a time.</span>To create a new popup, please delete the existing one first.</p><br/>
+                        <p 
+                        style={{ margin: "0", padding: "0" }}><span style={{ fontWeight: "bold" }}> . Newly created popups are disabled by default.</span> Click <span style={{ fontWeight: "bold" }}>Turned Off </span>to enable them.</p>
+
                     </div>
                 </div>
                 <div className="page-btn">

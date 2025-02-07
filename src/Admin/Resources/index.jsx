@@ -132,7 +132,7 @@ const AdminResources = () => {
             {
                 name: 'Details',
                 selector: (row) => row.description,
-                width: '25rem'
+                width: '30rem'
             },
 
             {
@@ -167,7 +167,7 @@ const AdminResources = () => {
             },
             {
                 name: 'Actions',
-                center: true,
+                left: true,
                 width: '15rem',
                 cell: (record) => [
                     <>
@@ -213,7 +213,7 @@ const AdminResources = () => {
                     <div className="add-item d-flex">
                         <div className="page-title">
                             <h4>Resources</h4>
-                            <h6>Create , Edit , Del State & User specific Resources here</h6>
+                            <h6>Create , Edit , Delete & User specific Resources here</h6>
                         </div>
                     </div>
                     <div className="page-btn">

@@ -60,9 +60,9 @@ function LatestNews() {
           Latest News 
         </h4>
         <div className="view-all-link">
-          <Link to="#" className="view-all d-flex align-items-center">
+          <Link to="#" className="view-all d-flex align-items-center" style={{ textDecoration: "none", background: "none", pointerEvents: "none"}}>
             <span className="ps-2 d-flex align-items-center">
-              <FaNewspaper size={30}  />
+              <FaNewspaper size={30} style={{ pointerEvents: "none", color: "inherit", transform: "none" }}  />
             </span>
           </Link>
         </div>

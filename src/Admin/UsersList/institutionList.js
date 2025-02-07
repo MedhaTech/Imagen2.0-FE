@@ -8,8 +8,9 @@ import { Button } from "../../stories/Button";
 
 import axios from "axios";
 import { URL, KEY } from "../../constants/defaultValues.js";
-
-import { getNormalHeaders } from "../../helpers/Utils";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import { getNormalHeaders,getCurrentUser,openNotificationWithIcon } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 
 import "sweetalert2/src/sweetalert2.scss";
@@ -18,17 +19,18 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import Select from "./Select.js";
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
-
+import logout from '../../assets/img/logout.png';
 import { useDispatch } from "react-redux";
 import { encryptGlobal } from "../../constants/encryptDecrypt.js";
 import { stateList, districtList } from "../../RegPage/ORGData.js";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 const TicketsPage = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tableData, settableData] = React.useState([]);
   const [showspin, setshowspin] = React.useState(false);
-
+ const currentUser = getCurrentUser("current_user");
   const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
   const [state, setState] = useState("");
@@ -74,7 +76,116 @@ const TicketsPage = (props) => {
         setshowspin(false);
       });
   }
- 
+  const handleReset = () => {
+    // here we can reset password as  user_id //
+    // here data = student_id //
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-submit',
+            cancelButton: 'btn btn-cancel'
+        },
+        buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons
+        .fire({
+            title: "<h4>Are you sure?</h4>",
+            text: 'You are attempting to reset the password',
+            imageUrl: `${logout}`,
+            confirmButtonText: 'Reset Password',
+            showCancelButton: true,
+            cancelButtonText: "Cancel",
+            reverseButtons: false
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+              handleResetApi();
+            }
+        })
+        .catch((err) => console.log(err.response));
+};
+  const handleResetApi = (item) => {
+    const body = JSON.stringify({
+        email: item.username_email,
+        otp: false,
+        role:"MENTOR",
+        mentor_id: item.mentor_id
+    });
+    var config = {
+        method: 'put',
+        url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+        },
+        data: body
+    };
+    axios(config)
+        .then(function (response) {
+          // console.log(response,"res");
+            if (response.status === 202) {
+                openNotificationWithIcon(
+                    'success',
+                    'Reset Password Successfully Update!',
+                );
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
+const handleDeleteInstitution = (item) => {
+  let supId;
+  if(typeof(item.mentor_id) !== "string"){
+supId = encryptGlobal(
+    JSON.stringify(item.mentor_id)
+  );
+  }else{
+   supId = encryptGlobal(item.mentor_id);
+
+  }
+    const MySwal = withReactContent(Swal);
+    MySwal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonColor: "#00ff00",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonColor: "#ff0000",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+      
+
+        var config = {
+          method: "delete",
+          url: process.env.REACT_APP_API_BASE_URL + "/mentors/" + supId,
+          headers: {
+            "Content-Type": "application/json",
+            // Accept: "application/json",
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+          },
+        };
+        axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+                handleideaList();
+              openNotificationWithIcon(
+                "success",
+                "Institution Deleted Successfully"
+              );
+            } else {
+              openNotificationWithIcon("error", "Opps! Something Wrong");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        MySwal.fire("Cancelled", "Institution not Deleted", "error");
+      }
+    });
+  };
   const StudentsData = {
     data: tableData && tableData.length > 0 ? tableData : [],
     columns: [
@@ -105,7 +216,7 @@ const TicketsPage = (props) => {
       {
         name: "Email Address",
         selector: (row) => row?.username_email,
-        width: "13rem",
+        width: "10rem",
       },
       {
         name: "Mobile No",
@@ -140,10 +251,29 @@ const TicketsPage = (props) => {
         name: "College Name",
         selector: (row) => row?.college_name,
         cellExport: (row) => row?.college_name,
-        width: "18rem",
+        width: "9rem",
       },
+      {
+        name: 'Actions',
+        sortable: false,
+        width: '14rem',
+        cell: (record) => [
+            <><div
+            key={record.id}
+            onClick={() => handleReset(record, '1')}
+            style={{ marginRight: '10px' }}
+          >
+            <div className="btn btn-primary"><FontAwesomeIcon icon={faKey} style={{ marginRight: "5px" }} />Reset</div>
+          </div><div
+            key={record.id}
+            onClick={() => handleDeleteInstitution(record)}
+          >
+              <div className="btn btn-danger"><i data-feather="trash-2" className="feather-trash-2" style={{ fontSize: "15px" }} /> Delete</div>
+            </div></>
+        ]
+      }
     
-    ],
+    ]
   };
   const customStyles = {
     head: {
@@ -156,16 +286,22 @@ const TicketsPage = (props) => {
   return (
     <div className="page-wrapper">
       <div className="content">
+      <div className="page-title">
+                           
+                           <h4 className="mb-3 mx-0">Institutions List</h4>
+                           {/* <h6>Create,Reset an Institution User here </h6> */}
+           
+               </div>
         <Container className="ticket-page mb-50 userlist">
           <Row className="mt-0">
-            <h2 className="mb-2">Institution Users List</h2>
-            <Container fluid className="px-0">
-              <Row className="align-items-center">
+            {/* <h4 className="my-2 mx-0">Institutions List</h4> */}
+            {/* <Container fluid className="px-0"> */}
+              <Row className="align-items-center" style={{ paddingLeft: '0' }} >
                 <Col md={2}>
                   <Select
                     list={fiterDistData}
                     setValue={setState}
-                    placeHolder={"District"}
+                    placeHolder={"Select District"}
                     value={state}
                     className="form-select"
                   />
@@ -212,7 +348,7 @@ const TicketsPage = (props) => {
                   />
                 </DataTableExtensions>
               </div>
-            </Container>
+            {/* </Container> */}
           </Row>
         </Container>
       </div>

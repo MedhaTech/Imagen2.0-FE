@@ -42,11 +42,11 @@ const Dashboard = () => {
   const currentUser = getCurrentUser('current_user');
   // const route = all_routes;
   useEffect(() => {
+    adminMentorCount();
     adminTeamsCount();
     adminSudentCount();
     adminideasCount();
-    adminMentorCount();
-    adminSudentbygenderCount();
+    // adminSudentbygenderCount();
     adminStudentCourseCount();
 }, []);
 const [totalteamsCount, setTotalteamsCount] = useState('-');
@@ -294,7 +294,7 @@ const adminStudentCourseCount = () => {
           <div className="row">
           <div className="page-title">
                            
-                                    <h4 className="m-3">Admin Dashboard</h4>
+                                    <h4>Dashboard</h4>
                                     {/* <h6>Create , Edit , Del User specific Latest News here</h6> */}
                     
                         </div>
@@ -311,7 +311,7 @@ const adminStudentCourseCount = () => {
                   <h5>
                     {totalMentorCount}
                   </h5>
-                  <h6>Registered Teachers</h6>
+                  <h6>Registered Institutions</h6>
                 </div>
               </div>
             </div>

@@ -23,7 +23,9 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import logout from '../../assets/img/logout.png';
 import { studentResetPassword } from '../../Teacher/store/teacher/actions';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { Table} from "react-bootstrap";
 const CommonUserProfile = (props) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -44,11 +46,11 @@ const CommonUserProfile = (props) => {
         (state) => state?.studentRegistration.dashboardStatus
     );
     useEffect(()=>{
-        stuQuizCount();
+        // stuQuizCount();
         stuVideosCount();
-        stuBadgesCount();
-        courseApi();
-        QuizScoreApi();
+        // stuBadgesCount();
+        // courseApi();
+        // QuizScoreApi();
     },[]);
     const QuizScoreApi=()=>{
         const stuParam = encryptGlobal(
@@ -70,9 +72,9 @@ const CommonUserProfile = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response,"table");
+                    // console.log(response,"table");
 
-                    setCourseTable(response.data.data[0]?.scores);
+                    // setCourseTable(response.data.data[0]?.scores);
                 }
             })
             .catch(function (error) {
@@ -271,7 +273,10 @@ const CommonUserProfile = (props) => {
                 if (result.isConfirmed) {
                     dispatch(
                         studentResetPassword({
-                            user_id: StudentsDaTa.user_id.toString()
+                            student_id:StudentsDaTa.student_id,
+                            email:StudentsDaTa.username_email,
+                            role:"STUDENT",
+                            otp:false
                         })
                     );
                 }
@@ -396,14 +401,18 @@ const CommonUserProfile = (props) => {
             }
         ]
     };
+    // console.log(StudentsDaTa,"StudentsDaTa");
     return (
         <div className="page-wrapper">
         <div className="content">
-            <Container className="dynamic-form">
+            {/* <Container className="dynamic-form"> */}
                 <Row>
                     <div className="col-6">
                         {/* <BreadcrumbTwo {...headingDetails} /> */}
-                        <h4 className="mt-2"> User List Details</h4>
+                        {/* <h4 className="mt-2"> User Details</h4> */}
+                        <h4 className="mt-2">Student Profile - <span style={{color:"#17A2B8"}}>{StudentsDaTa?.full_name}</span></h4>
+
+
                     </div>
                     <div className="col-6 text-end mb-2">
                       
@@ -411,14 +420,14 @@ const CommonUserProfile = (props) => {
                           className='btn btn-info me-2'
                           onClick={handleEdit}
                         >
-                        Edit
+                       <i data-feather="edit" className="feather-edit" /> Edit
                         </button> 
-                        {/* <button
+                        <button
                           className='btn btn-success me-2'
                           onClick={handleReset}
                         >
-                    Reset
-                        </button> */}
+                    <FontAwesomeIcon icon={faKey} style={{marginRight:"5px"}} /> Reset 
+                        </button>
                         <button
                           className='btn btn-secondary'
                             onClick={handleViewBack}
@@ -427,7 +436,102 @@ const CommonUserProfile = (props) => {
                         </button>
                     </div>
                 </Row>
-                <Row>
+
+<Row className="my-2">
+  <Card className="py-2">
+    <CardBody>
+      <h4 className="mb-3">User Details</h4>
+
+      <Table striped bordered >
+        <tbody>
+          <tr>
+            <td className="w-50"><b>Full Name</b></td>
+            <td className="w-50">{StudentsDaTa?.full_name}</td>
+          </tr>
+          <tr>
+            <td><b>Email Address</b></td>
+            <td>{StudentsDaTa?.username_email}</td>
+          </tr>
+          <tr>
+            <td><b>Mobile Number</b></td>
+            <td>{StudentsDaTa?.mobile}</td>
+          </tr>
+          <tr>
+            <td><b>District</b></td>
+            <td>{StudentsDaTa?.district}</td>
+          </tr>
+          <tr>
+            <td><b>College Type</b></td>
+            <td>{StudentsDaTa?.college_type}</td>
+          </tr>
+
+          {/* Conditional Rendering for College Name */}
+          {StudentsDaTa?.college_type !== "Other" ? (
+            <tr>
+              <td><b>College Name</b></td>
+              <td>{StudentsDaTa?.college_name}</td>
+            </tr>
+          ) : (
+            <>
+              <tr>
+                <td><b>College Name</b></td>
+                <td>Other</td>
+              </tr>
+              <tr>
+                <td><b>Other College Name</b></td>
+                <td>{StudentsDaTa?.college_name}</td>
+              </tr>
+            </>
+          )}
+
+          <tr>
+            <td><b>Roll Number Provided by the College</b></td>
+            <td>{StudentsDaTa?.roll_number}</td>
+          </tr>
+          <tr>
+            <td><b>Branch</b></td>
+            <td>{StudentsDaTa?.branch}</td>
+          </tr>
+          <tr>
+            <td><b>APAAR ID</b></td>
+            <td>{StudentsDaTa?.id_number ? StudentsDaTa?.id_number : "-"}</td>
+          </tr>
+        </tbody>
+      </Table>
+    </CardBody>
+  </Card>
+</Row>
+
+<Row className="my-2">
+  <Card className="py-2">
+    <CardBody>
+      <h4 className="mb-3">Course Details</h4>
+
+      <Table striped bordered>
+        <tbody>
+          <tr>
+            <td className="w-50"><b>Completed Videos</b></td>
+            <td className="w-50">{videos}</td>
+          </tr>
+          <tr>
+            <td><b>Course Completion</b></td>
+            <td>
+              {course?.topics_completed_count !== undefined
+                ? `${Math.round(
+                    (course?.topics_completed_count /
+                      course?.all_topics_count) *
+                      100
+                  )}%`
+                : "-"}
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+    </CardBody>
+  </Card>
+</Row>
+
+                {/* <Row>
                     <Card className="py-1 mb-2">
                         <CardBody>
                             <CardText>
@@ -497,16 +601,78 @@ const CommonUserProfile = (props) => {
                             </CardText>
                             <CardText>
                                 <span className="mx-3" style={{fontSize:"1rem"}}>
-                                    <b >APAAR Id :</b>
+                                    <b >APAAR ID :</b>
                                 </span>
                                 <b style={{fontSize:"1rem"}}>{StudentsDaTa?.
-id_number}</b>
+id_number? StudentsDaTa?.
+id_number :"-" }</b>
                             </CardText>
                         </CardBody>
                     </Card>
-                </Row>
+                </Row> */}
+          {/* <Row>
+  <Card className="py-1 mb-2">
+    <CardBody>
+      <Table striped bordered hover>
+        <tbody>
+          <tr>
+            <td className="w-50"><b>Full Name</b></td>
+            <td className="w-50">{StudentsDaTa?.full_name}</td>
+          </tr>
+          <tr>
+            <td><b>Email Address</b></td>
+            <td>{StudentsDaTa?.username_email}</td>
+          </tr>
+          <tr>
+            <td><b>Mobile Number</b></td>
+            <td>{StudentsDaTa?.mobile}</td>
+          </tr>
+          <tr>
+            <td><b>District</b></td>
+            <td>{StudentsDaTa?.district}</td>
+          </tr>
+          <tr>
+            <td><b>College Type</b></td>
+            <td>{StudentsDaTa?.college_type}</td>
+          </tr>
+
+          {StudentsDaTa?.college_type !== "Other" ? (
+            <tr>
+              <td><b>College Name</b></td>
+              <td>{StudentsDaTa?.college_name}</td>
+            </tr>
+          ) : (
+            <>
+              <tr>
+                <td><b>College Name</b></td>
+                <td>Other</td>
+              </tr>
+              <tr>
+                <td><b>Other College Name</b></td>
+                <td>{StudentsDaTa?.college_name}</td>
+              </tr>
+            </>
+          )}
+
+          <tr>
+            <td><b>Roll Number Provided by the College</b></td>
+            <td>{StudentsDaTa?.roll_number}</td>
+          </tr>
+          <tr>
+            <td><b>Branch</b></td>
+            <td>{StudentsDaTa?.branch}</td>
+          </tr>
+          <tr>
+            <td><b>APAAR ID</b></td>
+            <td>{StudentsDaTa?.id_number ? StudentsDaTa?.id_number : "-"}</td>
+          </tr>
+        </tbody>
+      </Table>
+    </CardBody>
+  </Card>
+</Row> */}
           
-                <Row className="my-1">
+                {/* <Row className="my-1">
                     <Card className="py-1">
                         <CardBody>
                             <h4 className="mb-2">Course Details</h4>
@@ -521,14 +687,7 @@ id_number}</b>
                                 </b>
                             </CardText>
 
-                            {/* <CardText>
-                                <span className="mx-3">
-                                    <b>Completed Quiz :</b>
-                                </span>
-                                <b>
-                                {quiz}
-                                </b>
-                            </CardText> */}
+                           
                             <CardText>
                                 <span className="mx-3">
                                     <b>Course Completion :</b>
@@ -546,43 +705,12 @@ id_number}</b>
                                         : '-'}
                                 </b>
                             </CardText>
-                            {/* <CardText>
-                                <span className="mx-3">
-                                    <b>Earned Badges :</b>
-                                </span>
-                                <b>
-                                {badges}
-                                </b>
-                            </CardText> */}
+                           
                         </CardBody>
-                    </Card>
-                </Row>
-              
-                {/* <Row>
-                    <Card className="py-2">
-                        <CardBody>
-                            <h4 className="mb-2">Quiz Details Table Format</h4>
-                        </CardBody>
-                        <div className="my-2">
-                            <DataTableExtensions
-                                {...CourseData}
-                                exportHeaders
-                                print={false}
-                            >
-                                <DataTable
-                                    data={setCourse}
-                                    defaultSortField="id"
-                                    defaultSortAsc={false}
-                                    pagination
-                                    highlightOnHover
-                                    fixedHeader
-                                    subHeaderAlign={Alignment.Center}
-                                />
-                            </DataTableExtensions>
-                        </div>
                     </Card>
                 </Row> */}
-            </Container>
+              
+            {/* </Container> */}
             </div>
             </div>
     );

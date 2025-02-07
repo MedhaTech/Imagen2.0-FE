@@ -42,7 +42,6 @@ const TicketsPage = () => {
     }
   }, [discussionChats]);
   useEffect(() => {
-    // Set up IntersectionObserver for infinite scrolling
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -70,30 +69,10 @@ const TicketsPage = () => {
       setCurrentPage(nextPage);
     }
   };
-  if (!discussionChats || discussionChats.length === 0) {
-    return <p>No tickets available.</p>;
-  }
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (
-  //       window.innerHeight + document.documentElement.scrollTop
-  //       >= document.documentElement.offsetHeight - 10
-  //     ) {
-  //       loadMoreItems();
-  //     }
-  //   };
+  // if (!discussionChats || discussionChats.length === 0) {
+  //   return <p>No tickets available.</p>;
+  // }
 
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
-
-  // const loadMoreItems = () => {
-  //   if (discussionChats.length > currentPage * itemsPerPage) {
-  //     setCurrentPage(prevPage => prevPage + 1);
-  //   }
-  // };
-
-  // const itemsToDisplay = discussionChats.slice(0, currentPage * itemsPerPage);
 
   return (
     <div className="page-wrapper">
@@ -118,15 +97,12 @@ const TicketsPage = () => {
         </div>
         <div className="row">
           {
-          // itemsToDisplay.length > 0 ? (
             itemsToDisplay.map((discussion,index) => (
               <div key={discussion.discussion_forum_id} className="col-md-12">
                 <div className="card mb-3">
                   <div className="card-body">
                     <div className="d-flex"style={{ gap: '0', justifyContent: 'flex-start' }}>
-                    {/* <p className="card-text mb-2 mx-3">
-            <strong>S.No:</strong> {index + 1}
-          </p> */}
+                   
                       <Avatar
                         initials={discussion.created_by
                           ?.split(" ")
@@ -192,12 +168,12 @@ const TicketsPage = () => {
                 </div>
               </div>
             ))
-          // ) : (
-          //   <p>No discussions available.</p>
+         
           }
  {currentPage * itemsPerPage < discussionChats.length && (
         <div ref={observerRef} style={{ height: "1px" }} />
       )}
+
 
       {currentPage * itemsPerPage >= discussionChats.length && (
         <p style={{ textAlign: "center", marginTop: "1rem" }}>No more Discussions to display.</p>

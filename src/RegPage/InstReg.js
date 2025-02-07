@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { decryptGlobal } from "../constants/encryptDecrypt.js";
+import { decryptGlobal, encryptGlobal } from "../constants/encryptDecrypt.js";
 import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
@@ -21,13 +21,15 @@ import play from "../assets/img/playicon.png";
 import copy from "../assets/img/copyrights.png";
 import { ArrowRight } from "feather-icons-react";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
-import { districtList, collegeType, collegeNameList } from './ORGData.js';
+import { districtList, collegeType, collegeNameList } from "./ORGData.js";
 
 const Register = () => {
   const navigate = useNavigate();
   const [otpSent, setOtpSent] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  const [districtData, setDistrictData] = useState(districtList["Telangana"] || []);
+  const [districtData, setDistrictData] = useState(
+    districtList["Telangana"] || []
+  );
   const [stateData, setStateData] = useState();
   const [diesCode, setDiesCode] = useState("");
   const [orgData, setOrgData] = useState({});
@@ -63,16 +65,67 @@ const Register = () => {
   const [multiData, setMultiData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [collegeNamesList, setCollegeNamesList] = useState([]);
+  const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
+  // const handleCollegeTypeChange = (event) => {
+  //   const selectedCollegeType = event.target.value;
+  //   console.log("Selected College Type:", selectedCollegeType);
+  //   formik.setFieldValue("college_type", selectedCollegeType);
+  //   setSelectedCollegeType(event.target.value);
+  //   formik.setFieldValue("college", "");
+  //   formik.setFieldValue("ocn", "");
+  //   AllCollegesApi(selectedCollegeType);
+  // };
   const handleCollegeTypeChange = (event) => {
-    const collegeType = event.target.value;
-    formik.setFieldValue("college_type", collegeType);
-    formik.setFieldValue('college', '');
-    formik.setFieldValue('ocn', '');
-    setCollegeNamesList(collegeNameList[collegeType] || []);
+    const selectedCollegeType = event.target.value;
+    console.log("Selected College Type:", selectedCollegeType);
+    
+    formik.setFieldValue("college_type", selectedCollegeType);
+    setSelectedCollegeType(selectedCollegeType);
+    formik.setFieldValue("college", "");
+    formik.setFieldValue("ocn", "");
+  
+   
+    const existingColleges = collegeNameList[selectedCollegeType] || [];
+    setCollegeNamesList(existingColleges);
+  
+    AllCollegesApi(selectedCollegeType, existingColleges);
   };
+  const AllCollegesApi = (item,existingColleges) => {
+    const distParam = encryptGlobal(
+      JSON.stringify({
+        college_type: item,
+      })
+    );
 
+    var config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/CollegeNameForCollegeType?Data=${distParam}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response, "res");
+          const apiData = response.data.data || [];
+          const collegeNames = apiData.map((college) => college.college_name);
+          
+          // setCollegeNamesList([...existingColleges, ...collegeNames]);
+          const mergedColleges = [...existingColleges, ...collegeNames];
+        const uniqueColleges = [...new Set(mergedColleges)];
 
+        setCollegeNamesList(uniqueColleges);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   const normalizeStateName = (stateName) => {
     return stateName
       .toLowerCase()
@@ -119,7 +172,6 @@ const Register = () => {
   localStorage.setItem("orgData", JSON.stringify(orgData));
   localStorage.setItem("diesCode", JSON.stringify(diesCode));
 
-
   useEffect(() => {
     if (!dropdownbtn) {
       setDesign(true);
@@ -140,7 +192,7 @@ const Register = () => {
       yearofstudy: "",
       password: "",
       confirmPassword: "",
-      ocn: ""
+      ocn: "",
     },
 
     validationSchema: Yup.object({
@@ -209,7 +261,6 @@ const Register = () => {
       if (values.otp.length < 5) {
         setErrorMsg(true);
       } else {
-
         const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
         const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
         const encrypted = CryptoJS.AES.encrypt(values.confirmPassword, key, {
@@ -223,7 +274,8 @@ const Register = () => {
           district: values.district,
           confirmPassword: encrypted,
           college_type: values.college_type,
-          college_name: values.college === 'Other' ? values.ocn : values.college,
+          college_name:
+            values.college === "Other" ? values.ocn : values.college,
         });
         setMentorData(body);
 
@@ -251,13 +303,11 @@ const Register = () => {
             }
           })
           .catch((err) => {
-            if(err?.response?.data?.status === 406){
+            if (err?.response?.data?.status === 406) {
               openNotificationWithIcon("error", err.response.data?.message);
-    
-              }else{
-    
-                openNotificationWithIcon("error", "Email id is Invalid");
-              }
+            } else {
+              openNotificationWithIcon("error", "Email id is Invalid");
+            }
             // openNotificationWithIcon("error", "Email id is Invalid");
 
             // setBtn(false);
@@ -273,13 +323,11 @@ const Register = () => {
     setOtpRes(0);
     setBtnOtp(false);
     formik.setFieldValue("otp", "");
-
   }, [formik.values.mobile]);
   useEffect(() => {
     setOtpRes(0);
     setBtnOtp(false);
     formik.setFieldValue("otp", "");
-
   }, [formik.values.email]);
   async function apiCall(mentData) {
     // Dice code list API //
@@ -430,7 +478,6 @@ const Register = () => {
       formik.values.college_type.length > 0 &&
       formik.values.password.length > 0 &&
       formik.values.confirmPassword.length > 0
-
     ) {
       setDisable(true);
     } else {
@@ -447,37 +494,37 @@ const Register = () => {
     formik.values.confirmPassword,
   ]);
   const handleLogoClick = () => {
-    navigate('/');
+    navigate("/");
   };
   useEffect(() => {
-    document.body.style.overflow = 'auto'; // Enable scrolling
-    document.body.style.overflowY = 'hidden'; // Hide vertical scrollbar
+    document.body.style.overflow = "auto"; // Enable scrolling
+    document.body.style.overflowY = "hidden"; // Hide vertical scrollbar
   }, []);
   //console.log(formik.values.district,"district", );
   // const route = all_routes;
   const style = {
-    overflow: 'auto',
-   
-    scrollbarWidth: 'none', // Hides scrollbar in Firefox
-    msOverflowStyle: 'none', // Hides scrollbar in Internet Explorer
+    overflow: "auto",
+
+    scrollbarWidth: "none", // Hides scrollbar in Firefox
+    msOverflowStyle: "none", // Hides scrollbar in Internet Explorer
   };
   return (
     <div className="main-wrapper">
       <div className="account-content">
         <div className="login-wrapper register-wrap  bg-img">
-          <div className="login-content" style={style} >
+          <div className="login-content" style={style}>
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
-                <div className="login-logo logo-normal" onClick={handleLogoClick}>
+                <div
+                  className="login-logo logo-normal"
+                  onClick={handleLogoClick}
+                >
                   <img src={logo} alt="Logo" />
                 </div>
 
                 {person && (
                   <div className="login-userheading">
-                    <h3>
-                      {" "}
-                      Registration Form Details{" "}
-                    </h3>
+                    <h3> Registration Form Details </h3>
                   </div>
                 )}
 
@@ -487,8 +534,13 @@ const Register = () => {
                       <div className="row g-3 mt-0">
                         <>
                           <div className="col-md-6">
-                            <label className="form-label" htmlFor="full_name">Full Name</label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            <label className="form-label" htmlFor="full_name">
+                              Full Name
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="text"
                               className="form-control"
@@ -503,30 +555,26 @@ const Register = () => {
                                   /[^a-zA-Z\s]/g,
                                   ""
                                 );
-                                formik.setFieldValue(
-                                  "full_name",
-                                  lettersOnly
-                                );
+                                formik.setFieldValue("full_name", lettersOnly);
                               }}
                               onBlur={formik.handleBlur}
                               value={formik.values.full_name}
                             />
                             {formik.touched.full_name &&
-                              formik.errors.full_name ? (
+                            formik.errors.full_name ? (
                               <small className="error-cls">
                                 {formik.errors.full_name}
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="email"
-                              className="form-label"
-                            >
+                          <div className={`col-md-6`}>
+                            <label htmlFor="email" className="form-label">
                               Email
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="email"
                               className="form-control"
@@ -548,13 +596,14 @@ const Register = () => {
                             ) : null}
                           </div>
 
-                          <div className="col-md-6"
-                          >
+                          <div className="col-md-6">
                             <label className="form-label" htmlFor="mobile">
                               Mobile Number
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="text"
                               className="form-control"
@@ -575,22 +624,20 @@ const Register = () => {
                               onBlur={formik.handleBlur}
                               value={formik.values.mobile}
                             />
-
                             {formik.touched.mobile && formik.errors.mobile ? (
                               <small className="error-cls">
                                 {formik.errors.mobile}
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="district"
-                              className="form-label"
-                            >
+                          <div className={`col-md-6`}>
+                            <label htmlFor="district" className="form-label">
                               District
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <select
                               id="district"
                               className="form-select"
@@ -608,23 +655,24 @@ const Register = () => {
                               ))}
                             </select>
                             {formik.touched.district &&
-                              formik.errors.district ? (
+                            formik.errors.district ? (
                               <small className="error-cls">
                                 {formik.errors.district}
                               </small>
                             ) : null}
                           </div>
 
-
-                          <div className={`col-md-6`}
-                          >
+                          <div className={`col-md-6`}>
                             <label
                               htmlFor="college_type"
                               className="form-label"
                             >
                               College Type
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <select
                               id="college_type"
                               className="form-select"
@@ -642,22 +690,21 @@ const Register = () => {
                               ))}
                             </select>
                             {formik.touched.college_type &&
-                              formik.errors.college_type ? (
+                            formik.errors.college_type ? (
                               <small className="error-cls">
                                 {formik.errors.college_type}
                               </small>
                             ) : null}
                           </div>
 
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="college"
-                              className="form-label"
-                            >
+                          <div className={`col-md-6`}>
+                            <label htmlFor="college" className="form-label">
                               College Name
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <select
                               id="college"
                               className="form-select"
@@ -674,24 +721,24 @@ const Register = () => {
                                 </option>
                               ))}
                             </select>
-                            {formik.touched.college &&
-                              formik.errors.college ? (
+                            {formik.touched.college && formik.errors.college ? (
                               <small className="error-cls">
                                 {formik.errors.college}
                               </small>
                             ) : null}
                           </div>
 
-                          {formik.values.college === 'Other' &&
-                            <div className={`col-md-12`}
-                            >
-                              <label
-                                htmlFor="ocn"
-                                className="form-label"
-                              >
+                          {formik.values.college === "Other" && (
+                            <div className={`col-md-12`}>
+                              <label htmlFor="ocn" className="form-label">
                                 Other College Name
-                              </label>&nbsp;
-                              <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                              </label>
+                              &nbsp;
+                              <span
+                                style={{ color: "red", fontWeight: "bold" }}
+                              >
+                                *
+                              </span>
                               <input
                                 type="text"
                                 className="form-control"
@@ -705,10 +752,7 @@ const Register = () => {
                                     /[^a-zA-Z0-9 \s]/g,
                                     ""
                                   );
-                                  formik.setFieldValue(
-                                    "ocn",
-                                    lettersOnly
-                                  );
+                                  formik.setFieldValue("ocn", lettersOnly);
                                 }}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.ocn}
@@ -722,18 +766,16 @@ const Register = () => {
                                 </small>
                               ) : null}
                             </div>
-                          }
+                          )}
 
-
-                          <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="password"
-                              className="form-label"
-                            >
+                          <div className={`col-md-6`}>
+                            <label htmlFor="password" className="form-label">
                               Password
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="text"
                               disabled={areInputsDisabled}
@@ -746,21 +788,23 @@ const Register = () => {
                               value={formik.values.password}
                             />
                             {formik.touched.password &&
-                              formik.errors.password ? (
+                            formik.errors.password ? (
                               <small className="error-cls">
                                 {formik.errors.password}
                               </small>
                             ) : null}
                           </div>
-                          <div className={`col-md-6`}
-                          >
+                          <div className={`col-md-6`}>
                             <label
                               htmlFor="confirmPassword"
                               className="form-label"
                             >
                               Confirm Password
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
                             <input
                               type="text"
                               disabled={areInputsDisabled}
@@ -773,17 +817,20 @@ const Register = () => {
                               value={formik.values.confirmPassword}
                             />
                             {formik.touched.confirmPassword &&
-                              formik.errors.confirmPassword ? (
+                            formik.errors.confirmPassword ? (
                               <small className="error-cls">
                                 {formik.errors.confirmPassword}
                               </small>
                             ) : null}
-                            {
-                              (formik.values.confirmPassword !== '' && !(formik.values.password === formik.values.confirmPassword)) &&
-                              <small className="text-danger">
-                                Confirm Password is not same as Password
-                              </small>
-                            }
+                            {formik.values.confirmPassword !== "" &&
+                              !(
+                                formik.values.password ===
+                                formik.values.confirmPassword
+                              ) && (
+                                <small className="text-danger">
+                                  Confirm Password is not same as Password
+                                </small>
+                              )}
                           </div>
                         </>
                         <div className="col-md-12">
@@ -792,8 +839,15 @@ const Register = () => {
                             className="btn btn-warning m-2"
                             onClick={(e) => handleSendOtp(e)}
                             disabled={
-                              !formik.isValid || !formik.dirty || otpSent || !(formik.values.password === formik.values.confirmPassword) ||
-                              (formik.values.college === 'Other' && !formik.values.ocn) 
+                              !formik.isValid ||
+                              !formik.dirty ||
+                              otpSent ||
+                              !(
+                                formik.values.password ===
+                                formik.values.confirmPassword
+                              ) ||
+                              (formik.values.college === "Other" &&
+                                !formik.values.ocn)
                             }
                           >
                             {otpSent ? `Resend OTP (${timer})` : change}
@@ -805,7 +859,9 @@ const Register = () => {
                             <div className="Otp-expire text-center">
                               <p>
                                 {timer > 0
-                                  ? `Access Resend OTP in ${timer < 10 ? `0${timer}` : timer} sec`
+                                  ? `Access Resend OTP in ${
+                                      timer < 10 ? `0${timer}` : timer
+                                    } sec`
                                   : "Resend OTP enabled"}
                                 {/* {timer > 0
                                     ? `Otp will expire in 00:${
@@ -841,11 +897,13 @@ const Register = () => {
                                 <div className="wallet-add">
                                   <div className="otp-box">
                                     <div className="forms-block text-center">
-                                      <div style={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                      }}>
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "center",
+                                          alignItems: "center",
+                                        }}
+                                      >
                                         <OtpInput
                                           numInputs={6}
                                           isDisabled={false}
@@ -893,13 +951,12 @@ const Register = () => {
                                 </div>
                               )}
                           </>
-
                         )}
 
                         {btnOtp && (
                           <div className="form-login text-center">
                             <button
-                              className="btn btn-login"
+                              className="btn btn-success"
                               type="submit"
                               disabled={
                                 isSubmitting ||
@@ -908,7 +965,6 @@ const Register = () => {
                                   formik.values.otp === otpRes
                                 )
                               }
-
                             >
                               {isSubmitting ? (
                                 <>
@@ -926,7 +982,6 @@ const Register = () => {
                     </div>
                   </div>
                 </div>
-
               </div>
             </form>
           </div>

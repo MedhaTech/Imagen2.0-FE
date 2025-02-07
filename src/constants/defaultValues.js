@@ -72,7 +72,7 @@ export const URL = {
   adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins',
   deleteTempMentor: process.env.REACT_APP_API_BASE_URL + '/mentors/',
   studentResetPwd:
-    process.env.REACT_APP_API_BASE_URL + '/students/resetPassword',
+    process.env.REACT_APP_API_BASE_URL + '/students/forgotPassword ',
   getTeamMemberStatusEndpoint:
     process.env.REACT_APP_API_BASE_URL + "/dashboard/teamStats/",
   getTeacherCousesDetails:

@@ -91,7 +91,7 @@ const EditResource = () => {
 
             description: Yup.string()
                 .optional()
-                .required('Details is Required'),
+                .required('Details are Required'),
             type: Yup.string()
                 .optional()
                 .oneOf(['file', 'link']).required('Submission type is Required'),
@@ -184,10 +184,10 @@ const EditResource = () => {
     //   console.log(formik.values.state,"state");
     return (
         <div className="page-wrapper">
-             <h4 className="m-2" 
+             {/* <h4 className="m-2" 
         style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
         >Resources
-        </h4>
+        </h4> */}
             <div className="content">
                 <div className="page-header">
                     <div className="add-item d-flex">
@@ -267,7 +267,7 @@ const EditResource = () => {
                                                 id="description"
                                                 type="text"
                                                 name="description"
-                                                placeholder="Please enter details"
+                                                placeholder="Please enter the details"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.description}
@@ -420,7 +420,7 @@ const EditResource = () => {
                                                         type="text"
                                                         id="attachments"
                                                         name="attachments"
-                                                        placeholder="Enter link"
+                                                        placeholder="Enter Your Link"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -456,7 +456,7 @@ const EditResource = () => {
     disabled={!formik.dirty || !formik.isValid}
                                                 style={buttonStyle}
                                             >
-                                                Submit details
+                                                Submit Details
                                             </button>
 
                                         

@@ -89,12 +89,12 @@ const AdminLatestNews = () => {
                     if (value === '0') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Disabled successfully'
+                            'New Status Disabled Successfully'
                         );
                     } else if (value === '1') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Enabled successfully'
+                            'New Status Enabled Successfully'
                         );
                     }
                     teacherList();
@@ -154,7 +154,7 @@ const AdminLatestNews = () => {
                             if (response.status === 200) {
                                 openNotificationWithIcon(
                                     'success',
-                                    'News succesfully deleted'
+                                    'Latest News Deleted Successfully'
                                 );
                                 teacherList();
                             } else {
@@ -218,7 +218,7 @@ const AdminLatestNews = () => {
                             if (response.status === 200) {
                                 openNotificationWithIcon(
                                     'success',
-                                    'News succesfully deleted'
+                                    'Latest News Deleted Successfully'
                                 );
                                 stuList();
                             } else {
@@ -258,12 +258,12 @@ const AdminLatestNews = () => {
                     if (number === '0') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Disabled successfully'
+                            'New Status Disabled Successfully'
                         );
                     } else if (number === '1') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Enabled successfully'
+                            'New Status Enabled Successfully'
                         );
                     }
                     stuList();
@@ -314,7 +314,7 @@ const AdminLatestNews = () => {
                 name: 'Role',
                 selector: (row) => row.category,
                 sortable: true,
-                width: '6rem'
+                width: '8rem'
             },
             // {
             //     name: 'State',
@@ -336,11 +336,11 @@ const AdminLatestNews = () => {
             {
                 name: 'Details',
                 selector: (row) => row.details,
-                width: '16rem'
+                width: '23rem'
             },
             {
                 name: 'File',
-                width: '5rem',
+                width: '7rem',
                 cell: (record) => {
                     if (record.file_name === null) {
                         return <p>No file</p>;
@@ -360,7 +360,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'Link',
-                width: '5rem',
+                width: '7rem',
                 cell: (record) => {
                     if (record.url === null || record.url === "") {
                         return <p>No link</p>;
@@ -380,7 +380,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'New Icon',
-                width: '7rem',
+                width: '10rem',
                 cell: (record) => {
                     if (record.new_status === '1') {
                         return ( 
@@ -410,7 +410,7 @@ const AdminLatestNews = () => {
             {
                 name: 'Actions',
                 width: '14rem',
-                center: true,
+                left:true,
                 cell: (record) => [
                     <> 
                         <button
@@ -447,7 +447,7 @@ const AdminLatestNews = () => {
                 name: 'Role',
                 selector: (row) => row.category,
                 sortable: true,
-                width: '6rem'
+                width: '8rem'
             },
             // {
             //     name: 'State',
@@ -459,11 +459,11 @@ const AdminLatestNews = () => {
             {
                 name: 'Details',
                 selector: (row) => row.details,
-                width: '16rem'
+                width: '23rem'
             },
             {
                 name: 'File',
-                width: '5rem',
+                width: '7rem',
                 cell: (record) => {
                     if (record.file_name === null) {
                         return <p>No file</p>;
@@ -485,7 +485,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'Link',
-                width: '5rem',
+                width: '7rem',
                 cell: (record) => {
                     if (record.url === null || record.url === "") {
                         return <p>No link</p>;
@@ -505,7 +505,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'New Icon',
-                width: '7rem',
+                width: '10rem',
                 cell: (record) => {
                     if (record.new_status === '1') {
                         return (
@@ -535,7 +535,8 @@ const AdminLatestNews = () => {
             {
                 name: 'Actions',
                 width: '14rem',
-                center: true,
+                // center: false,
+                left:true,
                 cell: (record) => [
                     <>
                         <button
@@ -691,7 +692,7 @@ const AdminLatestNews = () => {
                             <div>
                                 <DataTableExtensions
                                     print={false}
-                                    export={true}
+                                    export={false}
                                     {...stuNewsData}
                                     exportHeaders
                                 >

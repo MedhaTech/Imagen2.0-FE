@@ -65,17 +65,68 @@ const StuEdit = () => {
       });
   };
   const [collegeNamesList, setCollegeNamesList] = useState([]);
+   const [selectedCollegeType, setSelectedCollegeType] = useState("");
+  
+  // const handleCollegeTypeChange = (event) => {
+  //   const selectedCollegeType = event.target.value;
+  //   formik.setFieldValue("collegeType", selectedCollegeType); 
+  //   formik.setFieldValue("college", ""); 
+  //   formik.setFieldValue("ocn", "");
+  
+  //   const updatedCollegeNames = collegeNameList[selectedCollegeType] || [];
+  //   setCollegeNamesList(updatedCollegeNames);
+   
+  // };
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
-    formik.setFieldValue("collegeType", selectedCollegeType); 
-    formik.setFieldValue("college", ""); 
+    console.log("Selected College Type:", selectedCollegeType);
+    
+    formik.setFieldValue("collegeType", selectedCollegeType);
+    setSelectedCollegeType(selectedCollegeType);
+    formik.setFieldValue("college", "");
     formik.setFieldValue("ocn", "");
   
-    const updatedCollegeNames = collegeNameList[selectedCollegeType] || [];
-    setCollegeNamesList(updatedCollegeNames);
    
+    const existingColleges = collegeNameList[selectedCollegeType] || [];
+    setCollegeNamesList(existingColleges);
+  
+    AllCollegesApi(selectedCollegeType, existingColleges);
   };
- 
+  const AllCollegesApi = (item,existingColleges) => {
+    const distParam = encryptGlobal(
+      JSON.stringify({
+        college_type: item,
+      })
+    );
+
+    var config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/CollegeNameForCollegeType?Data=${distParam}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response, "res");
+          const apiData = response.data.data || [];
+          const collegeNames = apiData.map((college) => college.college_name);
+          
+          // setCollegeNamesList([...existingColleges, ...collegeNames]);
+          const mergedColleges = [...existingColleges, ...collegeNames];
+        const uniqueColleges = [...new Set(mergedColleges)];
+
+        setCollegeNamesList(uniqueColleges);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   const formik = useFormik({
     initialValues: {
       full_name: '',
@@ -377,7 +428,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>District</option>
+                              <option value={""}>Select District</option>
                               {districtList["Telangana"].map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -405,7 +456,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={handleCollegeTypeChange}
                             >
-                              <option value={""}>College Type</option>
+                              <option value={""}>Select College Type</option>
                               {collegeType.map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -433,7 +484,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>College Name</option>
+                              <option value={""}>Select College Name</option>
                               {collegeNamesList.map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -547,13 +598,13 @@ const StuEdit = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          APAAR Id
+                          APAAR ID
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="APAAR Id"
+                          placeholder="APAAR ID"
                           // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
@@ -592,7 +643,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>Year of Study</option>
+                              <option value={""}>Select Year of Study</option>
                               {yearofstudyList.map((item) => (
                                 <option key={item} value={item}>
                                   {item}

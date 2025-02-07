@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import axios from "axios";
-import { decryptGlobal } from "../constants/encryptDecrypt";
+import { decryptGlobal,encryptGlobal } from "../constants/encryptDecrypt";
 import { districtList, collegeType, yearofstudyList, collegeNameList } from './ORGData';
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import OtpInput from "react-otp-input-rc-17";
@@ -25,13 +25,65 @@ const PilotReg = () => {
   const [timer, setTimer] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [collegeNamesList, setCollegeNamesList] = useState([]);
-  const handleCollegeTypeChange = (event) => {
-    const collegeType = event.target.value;
-    formik.setFieldValue("collegeType", collegeType);
-    formik.setFieldValue('college', '');
-    formik.setFieldValue('ocn', '');
-    setCollegeNamesList(collegeNameList[collegeType] || []);
-  };
+   const [selectedCollegeType, setSelectedCollegeType] = useState("");
+  // const handleCollegeTypeChange = (event) => {
+  //   const collegeType = event.target.value;
+  //   formik.setFieldValue("collegeType", collegeType);
+  //   formik.setFieldValue('college', '');
+  //   formik.setFieldValue('ocn', '');
+  //   setCollegeNamesList(collegeNameList[collegeType] || []);
+  // };
+  // Added Code //
+   const handleCollegeTypeChange = (event) => {
+      const selectedCollegeType = event.target.value;
+      console.log("Selected College Type:", selectedCollegeType);
+      
+      formik.setFieldValue("collegeType", selectedCollegeType);
+      setSelectedCollegeType(selectedCollegeType);
+      formik.setFieldValue("college", "");
+      formik.setFieldValue("ocn", "");
+    
+     
+      const existingColleges = collegeNameList[selectedCollegeType] || [];
+      setCollegeNamesList(existingColleges);
+    
+      AllCollegesApi(selectedCollegeType, existingColleges);
+    };
+    const AllCollegesApi = (item,existingColleges) => {
+      const distParam = encryptGlobal(
+        JSON.stringify({
+          college_type: item,
+        })
+      );
+  
+      var config = {
+        method: "get",
+        url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/dashboard/CollegeNameForCollegeType?Data=${distParam}`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          if (response.status === 200) {
+            // console.log(response, "res");
+            const apiData = response.data.data || [];
+            const collegeNames = apiData.map((college) => college.college_name);
+            
+            // setCollegeNamesList([...existingColleges, ...collegeNames]);
+            const mergedColleges = [...existingColleges, ...collegeNames];
+          const uniqueColleges = [...new Set(mergedColleges)];
+  
+          setCollegeNamesList(uniqueColleges);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -163,6 +215,9 @@ const PilotReg = () => {
               navigate("/crew1Reg");
               sessionStorage.setItem('pilotKey', mentorRegRes?.data?.data[0]?.student_id);
               openNotificationWithIcon("success", "Pilot User Registered Successfully");
+              setTimeout(() => {
+                apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
+              }, 2000);
             }
           })
           .catch((err) => {
@@ -184,6 +239,41 @@ const PilotReg = () => {
       }
     },
   });
+  async function apiCall(mentData) {
+    console.log(mentData,"data");
+    // Dice code list API //
+    // where list = diescode  //
+    const body = {
+      college_name: mentData.college_name,
+      college_type: mentData.college_type,
+
+      district: mentData.district,
+      email: mentData.username,
+      mobile: mentData.mobile,
+    };
+console.log(body,"body");
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: JSON.stringify(body),
+    };
+
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          // setButtonData(response?.data?.data[0]?.data);
+          // navigate("/atl-success");
+          openNotificationWithIcon("success", "Email Sent Successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   useEffect(() => {
     setOtpRes(0);
     setBtnOtp(false);
@@ -335,6 +425,17 @@ const PilotReg = () => {
     <span className="second_text"> 
       <Link className="hover-a" to={"/login"} style={{color:"blue"}}>
         {" "} Click Here
+      </Link>
+    </span>
+  </div>
+</div>
+<div className="row m-2 mb-3 mt-3">
+  <div className="col-md-10 ps-3">
+    <span className="mt-5 p">Register as an Institution</span>
+
+    <span className="second_text"> 
+      <Link className="hover-a" to={"/institution-registration"} style={{color:"blue"}}>
+        {" "}Click Here 
       </Link>
     </span>
   </div>
@@ -665,13 +766,13 @@ const PilotReg = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          APAAR Id
+                          APAAR ID
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="APAAR Id"
+                          placeholder="APAAR ID"
                           disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
@@ -807,7 +908,7 @@ const PilotReg = () => {
                     {btnOtp && (
                       <>
                         <div className="Otp-expire text-center">
-                          <p>
+                          <p style={{color:"red"}}>
                             {timer > 0
                               ? `Access Resend OTP in ${timer < 10 ? `0${timer}` : timer} sec`
                               : "Resend OTP enabled"}
@@ -819,12 +920,13 @@ const PilotReg = () => {
                           </div>
                           <div className="login-userset text-center justify-content-center">
                             <div className="login-userheading">
-                              <h3>Verify your Email with OTP</h3>
-                              <h4 className="verfy-mail-content">
+                              <h3 className='mb-2'>Verify your Email with OTP</h3>
+                              <h5 className="verfy-mail-content" style={{marginBottom:"16px"}}>
                                 We sent a verification code to your email.
+                              <br/>
                                 Enter the code from the email in the field
                                 below
-                              </h4>
+                              </h5>
                             </div>
 
                             <div className="wallet-add">
@@ -886,9 +988,9 @@ const PilotReg = () => {
                     )}
 
                     {btnOtp && (
-                      <div className="form-login">
+                      <div className="form-login text-center" style={{marginTop:"2rem"}}>
                         <button
-                          className="btn btn-login"
+                          className="btn btn-success"
                           type="submit"
                           disabled={
                             isSubmitting ||

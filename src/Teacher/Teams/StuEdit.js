@@ -362,7 +362,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>District</option>
+                              <option value={""}>Select District</option>
                               {districtList["Telangana"].map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -532,13 +532,13 @@ const StuEdit = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          APAAR Id
+                          APAAR ID
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="APAAR Id"
+                          placeholder="APAAR ID"
                           // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
@@ -577,7 +577,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>Year of Study</option>
+                              <option value={""}>Select Year of Study</option>
                               {yearofstudyList.map((item) => (
                                 <option key={item} value={item}>
                                   {item}

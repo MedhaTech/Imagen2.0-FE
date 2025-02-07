@@ -82,6 +82,17 @@ const RegInstruction = () => {
     </span>
   </div>
 </div>
+<div className="row m-2 mb-3 mt-3">
+  <div className="col-md-10 ps-3">
+    <span className="mt-5 p">Register as an Institution</span>
+
+    <span className="second_text"> 
+      <Link className="hover-a" to={"/institution-registration"} style={{color:"blue"}}>
+        {" "}Click Here 
+      </Link>
+    </span>
+  </div>
+</div>
 
             {/* <div className="signinform">
                   <h4>

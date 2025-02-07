@@ -14,7 +14,7 @@ const AdminSidebarData = () => {
       submenuHdr: "Inventory",
       submenuItems: [
         {
-          label: "Admin Dashboard",
+          label: "Dashboard",
           link: "/admin-dashboard",
           icon: <Icon.Box />,
           showSubRoute: false,

@@ -411,7 +411,7 @@ const updateStatesList=["All States",...stateList];
                 name: 'Role',
                 selector: (row) => row?.user?.role,
                 sortable: true,
-                width: '6rem',
+                width: '10rem',
                 cell: (params) => [
                     params.user.role === 'ADMIN' ? (
                         <span className="badge rounded-pill bg-outline-primary">
@@ -446,12 +446,13 @@ const updateStatesList=["All States",...stateList];
                     //     {row.status}
                     // </Badge>
                 ],
-                width: '6rem'
+                width: '8rem'
             },
             {
                 name: 'Actions',
                 sortable: false,
                 width: '13rem',
+                left:true,
                 cell: (record) => [
                     <div
                         className="mr-5"
@@ -506,7 +507,7 @@ const updateStatesList=["All States",...stateList];
                     <div className="add-item d-flex">
                         <div className="page-title">
                             <h4>Admins List</h4>
-                            <h6>Create an Admin User here</h6>
+                            <h6>Create an Admin, Eadmin Users here</h6>
                         </div>
                     </div>
                     <div className="page-btn">

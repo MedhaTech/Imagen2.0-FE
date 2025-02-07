@@ -162,7 +162,7 @@ const Crew1student = () => {
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
             navigate("/AddCrew3Stu");
-            openNotificationWithIcon("success", "Crew User2 Created Successfully");
+            openNotificationWithIcon("success", "Crew User Added Successfully");
           }
         })
         .catch((err) => {
@@ -305,7 +305,7 @@ const Crew1student = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>District</option>
+                              <option value={""}>Select District</option>
                               {districtList["Telangana"].map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -500,13 +500,13 @@ const Crew1student = () => {
                           htmlFor="id_number"
                           className="form-label"
                         >
-                          APAAR Id
+                          APAAR ID
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id="id_number"
-                          placeholder="APAAR Id"
+                          placeholder="APAAR ID"
                           name="id_number"
                           onChange={(e) => {
                             const inputValue = e.target.value;
@@ -548,7 +548,7 @@ const Crew1student = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>Year of Study</option>
+                              <option value={""}>Select Year of Study</option>
                               {yearofstudyList.map((item) => (
                                 <option key={item} value={item}>
                                   {item}

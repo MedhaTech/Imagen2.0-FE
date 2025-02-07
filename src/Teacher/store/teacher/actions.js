@@ -151,6 +151,7 @@ export const teacherLoginUserLogOut = (navigate) => async () => {
   }
 };
 export const studentResetPassword = (body) => async () => {
+  // console.log(body,"body");
   try {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       const result = await axios
@@ -159,7 +160,7 @@ export const studentResetPassword = (body) => async () => {
           .catch((err) => {
               return err.response;
           });
-      if (result && result.status === 200) {
+      if (result && result.status === 202) {
           openNotificationWithIcon(
               'success',
               'Password Successfully Updated'

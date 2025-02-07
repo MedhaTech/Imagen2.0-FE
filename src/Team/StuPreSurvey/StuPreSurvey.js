@@ -677,7 +677,7 @@ return (
                               className="btn btn-warning m-2"
                               onClick={(e) => handleOnSubmit(e)}
                             >
-                              SUBMIT
+                              Submit
                             </button>
                           </div>
                         </Form>

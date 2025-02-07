@@ -6,11 +6,11 @@ import { Link, useLocation, } from "react-router-dom";
 import  getStudentSidebarData  from "../../core/json/siderbar_data";
 import HorizontalSidebar from "./horizontalSidebar";
 import CollapsedSidebar from "./collapsedSidebar";
+import { useNavigate } from "react-router-dom";
+
 
 const StudentSidebar = () => {
   const location = useLocation();
-  // console.log(location,"11");
-
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
   const presurvey = localStorage.getItem("stupresurveystatus") ;
@@ -32,7 +32,7 @@ const StudentSidebar = () => {
   };
   // const SidebarData = useMemo(() => getStudentSidebarData(), []);
   const SidebarData = getStudentSidebarData();
-
+ 
   return (
     <div>
       <div className="sidebar " id="sidebar">
@@ -71,10 +71,27 @@ const StudentSidebar = () => {
                               }`}
                             >
                               <Link
+  to={isMenuDisabled ? "#" : title?.link}
+  onClick={(e) => {
+    if (title?.onClick) {
+      title.onClick(e); 
+    } else {
+      toggleSidebar(title?.label); 
+    }
+  }}
+  className={`${subOpen === title?.label ? "subdrop" : ""} ${
+    title?.links?.includes(location.pathname) ? "active" : ""
+  }`}
+>
+  {title?.icon}
+  <span className="custom-active-span">{title?.label}</span>
+  {title?.submenu && <span className="menu-arrow" />}
+</Link>
+
+                              {/* <Link
                                to={isMenuDisabled ? "#" : title?.link}
                                onClick={() => !isMenuDisabled && toggleSidebar(title?.label)}
-                                // to={title?.link}
-                                // onClick={() => toggleSidebar(title?.label)}
+                               
                                 className={`${
                                   subOpen === title?.label ? "subdrop" : ""
                                 } ${
@@ -90,7 +107,7 @@ const StudentSidebar = () => {
                                 {title?.submenu && (
                                   <span className="menu-arrow" />
                                 )}
-                              </Link>
+                              </Link> */}
                               <ul
                                 style={{
                                   display:
