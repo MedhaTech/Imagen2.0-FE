@@ -437,14 +437,7 @@ const updateStatesList=["All States",...stateList];
                     <span key={row.mentor_id} className={`${
                         row.status === 'ACTIVE' ? "badge bg-success" : "badge bg-danger"
                     }`}>{row.status}</span>
-                    // <Badge
-                    //     key={row.mentor_id}
-                    //     bg={`${
-                    //         row.status === 'ACTIVE' ? 'btn btn-soft-success' : 'btn btn-soft-danger'
-                    //     }`}
-                    // >
-                    //     {row.status}
-                    // </Badge>
+                   
                 ],
                 width: '8rem'
             },
@@ -459,7 +452,8 @@ const updateStatesList=["All States",...stateList];
                         key={record?.id}
                         style={{ marginRight: '10px' }}
                     ></div>,
-                    <><div
+                    <>
+                    <div
                         key={record.id}
                         style={{ marginRight: '10px' }}
                         onClick={() => {

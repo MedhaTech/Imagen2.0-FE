@@ -446,7 +446,7 @@ const ReportsRegistration = () => {
                         <div className="reports-data mt-2 mb-2">
                             <Row className="align-items-center mt-3 mb-2">
                                
-                                <Col md={2}>
+                                <Col md={3}>
                                     <div className="my-2 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fiterDistData}
@@ -457,7 +457,7 @@ const ReportsRegistration = () => {
                                     </div>
                                 </Col>
                                
-                                <Col md={2}>
+                                <Col md={3}>
                                     <div className="my-2 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={categoryList}
@@ -469,7 +469,7 @@ const ReportsRegistration = () => {
                                 </Col>
 
                                 <Col
-                                    md={2}
+                                    md={3}
                                     className="d-flex align-items-center justify-content-center"
                                 >
                                     <button
