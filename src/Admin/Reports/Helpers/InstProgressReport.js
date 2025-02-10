@@ -53,6 +53,8 @@ const InstProgressDetailed = () => {
   const csvLinkRef = useRef();
   const csvLinkRefTable = useRef();
   const dispatch = useDispatch();
+  const [isloader, setIsloader] = useState(false);
+
   const [combinedArray, setCombinedArray] = useState([]);
   const [downloadTableData, setDownloadTableData] = useState([]);
   const [newFormat, setNewFormat] = useState("");
@@ -65,11 +67,16 @@ const InstProgressDetailed = () => {
   const [series5, setseries5] = useState([]);
   const [series6, setseries6] = useState([]);
   const [series7, setseries7] = useState([]);
-
+  const [seriesa, setseriesa] = useState([]);
+    const [seriesb, setseriesb] = useState([]);
   const [barChart1Data, setBarChart1Data] = useState({
     labels: [],
     datasets: [],
   });
+  const [barChartNew, setBarChartNew] = useState({
+    labels: [],
+    datasets: [],
+});
   const [barChart3Data, setBarChart3Data] = useState({
     labels: [],
     datasets: [],
@@ -210,8 +217,9 @@ const InstProgressDetailed = () => {
 
   var options = {
     chart: {
-      height: 500,
-      type: "line",
+      height: 700, 
+            width: 1000,
+            type: "bar",
       toolbar: {
         show: false,
       },
@@ -219,7 +227,7 @@ const InstProgressDetailed = () => {
         enabled: false,
       },
     },
-    colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
+    colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)",'rgb(254, 176, 25)',],
     dataLabels: {
       enabled: false,
     },
@@ -228,11 +236,15 @@ const InstProgressDetailed = () => {
     },
     series: [
       {
-        name: "# Teams",
-        data: series1,
+        name: "# Institutions",
+        data: seriesa,
       },
       {
         name: "# Students",
+        data: seriesb,
+      },
+      {
+        name: "# Teams",
         data: series2,
       },
     ],
@@ -250,12 +262,23 @@ const InstProgressDetailed = () => {
     },
 
     xaxis: {
-      categories: barChart1Data.labels,
-      ticks: {
-        maxRotation: 80,
-        autoSkip: false,
-      },
-    },
+      categories: barChartNew.labels,
+      labels: {
+          style: {
+            fontSize: "10px",
+          },
+          formatter: (val) => {
+            // Shorten long labels or wrap them by breaking lines
+            if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+            return val;
+          },
+        },
+        ticks: {
+          maxRotation: 80,
+          minRotation: 45,
+          autoSkip: false,
+        },
+  },
     legend: {
       position: "top",
       horizontalAlign: "center",
@@ -522,6 +545,7 @@ const InstProgressDetailed = () => {
     course_not_started: courseNotStartedCount  || 0 ,
             };
           });
+      
           setmentorDetailedReportsData(newdatalist);
           if (response.data.data[0]?.summary?.length > 0) {
             openNotificationWithIcon(
@@ -562,6 +586,7 @@ const InstProgressDetailed = () => {
       .then((response) => {
         if (response.status === 200) {
           // console.log(response, "whole");
+          setIsloader(true);
           const chartTableData = response?.data?.data || [];
           const totals = chartTableData.reduce(
             (acc, curr) => {
@@ -579,7 +604,56 @@ const InstProgressDetailed = () => {
               studentReg:0,
             }
           );
+        //   const barData = {
+        //     labels: combinedArray.map((item) => item.state),
+        //     datasets: [
+        //         {
+        //             label: 'No.of Students Enrolled',
+        //             data: combinedArray.map(
+        //                 (item) => item.totalStudents
+        //             ),
+        //             backgroundColor: 'rgba(255, 0, 0, 0.6)'
+        //         },
+        //         {
+        //             label: 'No. of Teams created',
+        //             data: combinedArray.map(
+        //                 (item) => item.totalTeams
+        //             ),
+        //             backgroundColor: 'rgba(75, 162, 192, 0.6)'
+        //         }
+        //     ]
+        // };
+        // setseries2(barData.datasets[0].data);
+        // setseries1(barData.datasets[1].data);
+
+        const barDataA = {
+            labels: chartTableData.map((item) => item.district),
+            datasets: [
+                {
+                    label: "No.of Registered Institutions Enrolled",
+                    data: chartTableData.map((item) => item.insReg),
+                    backgroundColor: "rgb(0, 143, 251)",
+                },
+                {
+                    label: "No. of Registered Students Enrolled",
+                    data: chartTableData.map((item) => (item.studentReg)),
+                    backgroundColor: "rgb(0, 227, 150)",
+                },
+                {
+                  label: "No. of Registered Teams Enrolled",
+                  data: chartTableData.map((item) => (item.teamCount)),
+                  backgroundColor: 'rgb(254, 176, 25)',
+              },
+            ],
+        };
+        ["rgb(0, 143, 251)", "rgb(0, 227, 150)",'rgb(254, 176, 25)',],
+        setseriesa(barDataA.datasets[0].data);
+        setseriesb(barDataA.datasets[1].data);
+        setseries2(barDataA.datasets[2].data);
+
           // console.log(totals,"1");
+          // setBarChart1Data(barData);
+                    setBarChartNew(barDataA);
           const chartTableDataWithTotals = [...chartTableData, totals];
           setChartTableData(chartTableDataWithTotals);
           setDownloadTableData(chartTableDataWithTotals);
@@ -653,62 +727,7 @@ const InstProgressDetailed = () => {
             <div className="chart mt-2 mb-2">
               {chartTableData.length > 0 && (
                 <>
-                  <div className="row">
-                    {/* <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                                <div className="card flex-fill default-cover w-100 mb-4">
-                                    <div className="card-header d-flex justify-content-between align-items-center">
-                                        <h4 className="card-title mb-0">Data Analytics</h4>
-                                        <div className="dropdown">
-                                        <Link to="#" className="view-all d-flex align-items-center">
-                                            View All
-                                            <span className="ps-2 d-flex align-items-center">
-                                            <ArrowRight className="feather-16" />
-                                            </span>
-                                        </Link>
-                                        </div>
-                                    </div>
-                                    <div className="card-body">
-                                        <div className="row">
-                                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                                                <p>
-                                                    <b>
-                                                    Students as per Gender{' '}{newFormat}
-                                                    </b>
-                                                </p>
-                                                {doughnutChartData && (
-                                                    <div id="donut-chart" >
-                                                        <ReactApexChart
-                                                        options={chartOption}
-                                                        series={chartOption.series}
-                                                        type="donut"
-                                                        height={330}
-                                                        />
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                                                <p>
-                                                    <b>
-                                                        Teachers Course Status As of{' '}
-                                                        {newFormat}
-                                                    </b>
-                                                </p>
-                                                {totalCount && (
-                                                    <div id="radial-chart" >
-                                                        <ReactApexChart
-                                                        options={radialChart}
-                                                        series={radialChart.series}
-                                                        type="radialBar"
-                                                        height={350}
-                                                        />
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
-                  </div>
+                
                   <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-9 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
@@ -743,7 +762,7 @@ const InstProgressDetailed = () => {
                               <thead>
                                 <tr>
                                   <th style={{ color: "#36A2EB" }}>No</th>
-                                  <th style={{ color: "#36A2EB" }}>
+                                  <th style={{ color: "#36A2EB"}}>
                                     District Name
                                   </th>
                                   <th
@@ -808,6 +827,23 @@ const InstProgressDetailed = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="col-md-12">
+                                    <div className="card">
+                                        <div className="card-header">
+                                            <h5 className="card-title">Institutions & Students & Teams Enrolled As of{' '}
+                                                {newFormat}</h5>
+                                        </div>
+                                        <div className="card-body">
+                                            <div id="s-line-area" />
+                                            <ReactApexChart
+                                                options={options}
+                                                series={options.series}
+                                                type="bar"
+                                                height={400}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                 </>
               )}
 

@@ -61,6 +61,8 @@ const StudentProgress = () => {
   const [series5, setseries5] = useState([]);
   const [series6, setseries6] = useState([]);
   const [series7, setseries7] = useState([]);
+  const [doughnutChartDataBar, setDoughnutChartDataBar] = useState(null);
+  const [isloader, setIsloader] = useState(false);
 
   const [barChart1Data, setBarChart1Data] = useState({
     labels: [],
@@ -209,9 +211,9 @@ const StudentProgress = () => {
       "Not Started Idea Submission",
     ],
     series: [
-      totalCount.maleStudents,
-      totalCount.femaleStudents,
-      totalCount.otherStudents,
+      totalCount.submittedCount,
+      totalCount.draftCount,
+      totalCount.ideaNotStarted,
     ],
     legend: {
       position: "top",
@@ -288,7 +290,8 @@ const StudentProgress = () => {
 
   var sColStacked = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "bar",
       stacked: true,
       toolbar: {
@@ -318,8 +321,19 @@ const StudentProgress = () => {
     ],
     xaxis: {
       categories: barChart2Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -398,44 +412,39 @@ const StudentProgress = () => {
   var radialChart = {
     chart: {
       height: 350,
-      type: "radialBar",
+      type: "donut",
       toolbar: {
         show: false,
       },
     },
-    colors: ["rgb(0, 227, 150)", "rgb(254, 176, 25)", "rgb(255, 69, 96)"],
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          name: {
-            fontSize: "22px",
+    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(0, 128, 0, 0.6)"],
+    labels: [
+      "Not Started ",
+      "In Progress",
+      "Completed",
+    ],
+    series: [
+      totalCount.courseNotStarted,
+      totalCount.courseINprogesss,
+      totalCount.courseCompleted,
+    ],
+    legend: {
+      position: "top",
+      horizontalAlign: "center",
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
           },
-          value: {
-            fontSize: "16px",
-          },
-          total: {
-            show: true,
-            label: "Total",
-            formatter: function () {
-              return totalCount.totalStudents;
-            },
+          legend: {
+            position: "bottom",
           },
         },
       },
-    },
-    series: [
-      Math.round((totalCount.courseCompleted * 100) / totalCount.totalStudents),
-      Math.round(
-        (totalCount.courseINprogesss * 100) / totalCount.totalStudents
-      ),
-      Math.round(
-        ((totalCount.totalStudents -
-          (totalCount.courseCompleted + totalCount.courseINprogesss)) *
-          100) /
-          totalCount.totalStudents
-      ),
     ],
-    labels: ["Completed", "InProgress", "NotStarted"],
   };
 
 
@@ -563,6 +572,7 @@ const StudentProgress = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
+          setIsloader(true);
           // console.log(response,"view");
           const summary = response.data.data[0].summary;
 
@@ -664,21 +674,79 @@ const StudentProgress = () => {
               courseNotStarted: 0,
             }
           );
+        
+          const doughnutData = {
+            labels: ["Draft Ideas", "Submitted Ideas", "Not Started Idea Submission"],
+            datasets: [
+              {
+                data: [total.draftCount, total.submittedCount, total.ideaNotStarted],
+                backgroundColor: ["#8bcaf4", "#ff99af"],
+                hoverBackgroundColor: ["#36A2EB", "#FF6384"],
+              },
+            ],
+          };
+          const doughnutDataGraph = {
+            labels: [
+              "In progress",
+              "Completed",
+              "Not Started ",
+            ],
+            datasets: [
+              {
+                data: [
+                  total.courseINprogesss,
+                  total.courseCompleted,
+                  total.courseNotStarted,
+                ],
+                backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(0, 128, 0, 0.6)"],
+                hoverBackgroundColor: ["#e60026", "#ffae42", "#087830"],
+              },
+            ],
+          };
+          const stackedBarChartData = {
+            labels: combinedArray.map((item) => item.district),
+            datasets: [
+              {
+                label: "No. of Students not started course",
+                data: combinedArray.map((item) => item.courseNotStarted),
+                backgroundColor: "rgba(255, 0, 0, 0.6)",
+              },
+              {
+                label: "No. of Students course IN progress",
+                data: combinedArray.map((item) => item.courseINprogesss),
+                backgroundColor: "rgba(255, 255, 0, 0.6)",
+              },
+              {
+                label: "No. of Students Completed Course",
+                data: combinedArray.map((item) => item.courseCompleted),
+                backgroundColor: "rgba(0, 128, 0, 0.6)",
+              },
+            ],
+          };
+
           total.coursePercentage = Math.round(
             (total.courseCompleted /
               total.totalStudents) *
             100
           );
+          setseries3(stackedBarChartData.datasets[0].data);
+          setseries4(stackedBarChartData.datasets[1].data);
+          setseries5(stackedBarChartData.datasets[2].data);
           const newcombinedArray = [...combinedArray, total];
           setCombinedArray(combinedArray);
           setDownloadTableData(newcombinedArray);
           setTotalCount(total);
+          setDoughnutChartData(doughnutData);
+          setBarChart2Data(stackedBarChartData);
+
+          setDoughnutChartDataBar(doughnutDataGraph);
         }
       })
       .catch((error) => {
         console.log("API error:", error);
       });
   };
+  console.log(doughnutChartData,"chart");
 
   return (
     <div className="page-wrapper">
@@ -751,10 +819,66 @@ const StudentProgress = () => {
                 </button>
               </Col>
             </Row>
+            {isloader ?
             <div className="chart mt-2 mb-2">
               {combinedArray.length > 0 && (
                 <>
-                 
+                  <div className="row">
+                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                      <div className="card flex-fill default-cover w-100 mb-4">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                          <h4 className="card-title mb-0">Data Analytics</h4>
+                          <div className="dropdown">
+                            <Link
+                              to="#"
+                              className="view-all d-flex align-items-center"
+                            >
+                              View All
+                              <span className="ps-2 d-flex align-items-center">
+                                <ArrowRight className="feather-16" />
+                              </span>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="card-body">
+                          <div className="row">
+                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
+                              <p>
+                                <b>
+                                  Idea Submission Status As of {newFormat}
+                                </b>
+                              </p>
+                              {doughnutChartData && (
+                                <div id="donut-chart" >
+                                  <ReactApexChart
+                                    options={chartOption}
+                                    series={chartOption.series}
+                                    type="donut"
+                                    height={330}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
+                              <p>
+                                <b>Students Course Status As of {newFormat}</b>
+                              </p>
+                              {doughnutChartDataBar && (
+                                <div id="radial-chart">
+                                  <ReactApexChart
+                                    options={radialChart}
+                                    series={radialChart.series}
+                                    type="donut"
+                                    height={350}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
@@ -958,7 +1082,7 @@ const StudentProgress = () => {
                 </>
               )}
             
-              {/* <div className="col-md-12">
+              <div className="col-md-12">
                 <div className="card">
                   <div className="card-header">
                     <h5 className="card-title">
@@ -975,9 +1099,13 @@ const StudentProgress = () => {
                     />
                   </div>
                 </div>
-              </div> */}
-            
-
+              </div>
+            </div>
+              :
+            <div className="spinner-border text-info" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          }
               {downloadTableData && (
                 <CSVLink
                   data={downloadTableData}
@@ -1001,7 +1129,7 @@ const StudentProgress = () => {
                    Download Table CSV
                 </CSVLink>
               )}
-            </div>
+            {/* </div> */}
           </div>
         </Container>
       </div>
