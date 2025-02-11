@@ -69,27 +69,11 @@ const GreetingModal = (props) => {
                           className="img-fluid"
                       />
                   )}
-                  {/* <img
-                      src={props.imgUrl}
-                      alt="popup image"
-                      className="img-fluid"
-                  /> */}
+                 
               </figure>
           </Modal.Body>
           <Modal.Footer>
-            {props.state !=null &&   
-            <Link
-              to={props.state}
-              type="button"
-              className="product-img"
-            >
-              <button
-                label={"Navigate"}
-                className="btn btn-warning"
-              >
-                Navigate
-              </button>
-            </Link>}
+          
           </Modal.Footer>
       </Modal>
   );
@@ -157,14 +141,7 @@ const MentorDashboard = () => {
 
                 setPopLink(res?.data?.data[0]?.url);
               setImgUrl(res?.data?.data[0]?.url);
-                setState(res?.data?.data[0]?.navigate);
-
-              // if(res?.data?.data[0]?.type == "link"){
-
-              // }else{
-              //   setImgUrl(res?.data?.data[0]?.url);
-              //   setState(res?.data?.data[0]?.navigate);
-              // }
+             
             }
         })
         .catch(function (error) {
@@ -196,7 +173,7 @@ const MentorDashboard = () => {
         mentorTeamsCount();
         mentorIdeaCount();
         mentorStudentCount();
-        mentorcoursepercentage();
+        // mentorcoursepercentage();
         mentorpostsurvey();
         fetchwhatsapplink();
         scroll();
@@ -524,23 +501,9 @@ poptype={poptype}
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
-                  {teacCourseLoading ? ( 
-                            <Loader />
-                        ) : coursepercentage === 0 ? (
-                      <>
+                 
                         <h5>To know about YFSI</h5>
-                        {/* <a onClick={redirectToCourse} href='#' >
-                          Click here & Start Course
-                        </a> */}
-                      </>
-                    ) : (
-                      <>
-                        <h5>
-                          <CountUp start={0} end={coursepercentage} duration={2} /> %
-                        </h5> 
-                        <h6>Teacher Course</h6>
-                      </>
-                  )}
+                        
                 </div>
               </div>
             </div>

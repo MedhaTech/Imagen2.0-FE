@@ -39,6 +39,7 @@ import { IoHelpOutline } from "react-icons/io5";
 
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 const GreetingModal = (props) => {
+  // console.log(props,"props");
   return (
       <Modal
           show={props.show}
@@ -48,31 +49,33 @@ const GreetingModal = (props) => {
           onHide={props.handleClose}
           backdrop={true}
       >
-          {/* <Modal.Header closeButton></Modal.Header> */}
 
           <Modal.Body>
-              <figure>
-                  <img
-                      src={props.imgUrl}
-                      alt="popup image"
-                      className="img-fluid"
-                  />
+            
+                <figure>
+              {props.poptype === "link" ? (
+                  <div className="modal-body custom-modal-body">
+                                    <div style={{ width: '100%', height: '400px' }}>
+                      <iframe
+                         
+                          src={props.popLink}
+                          title="Video popup"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                      ></iframe>
+                      </div></div>
+                  ) : (
+                      <img
+                          src={props.imgUrl}
+                          alt="popup image"
+                          className="img-fluid"
+                      />
+                  )}
+                 
               </figure>
           </Modal.Body>
           <Modal.Footer>
-            {props.state !=null &&   
-              <Link
-                to={props.state}
-                type="button"
-                className="product-img"
-              >
-                <button
-                  label={"Navigate"}
-                  className="btn btn-warning"
-                >
-                  Navigate
-                </button>
-              </Link>}
+           
           </Modal.Footer>
       </Modal>
   );
@@ -101,6 +104,8 @@ const DBStu = () => {
   const [coursepercentage, setCoursepercentage] = useState();
   const [video , setVideo] = useState("");
   const [show , setShow] = useState(false);
+   const [popLink, setPopLink] = useState('');
+    const [poptype, setPopType] = useState('');
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
 );
@@ -123,7 +128,7 @@ useEffect(() => {
 useEffect(() => {
   const popParam = encryptGlobal(
     JSON.stringify({
-      state:currentUser.data[0]?.state,
+      // state:currentUser.data[0]?.state,
       role:currentUser.data[0]?.role
     })
 );
@@ -141,8 +146,11 @@ useEffect(() => {
           if (res.status === 200 && res.data.data[0]?.on_off === '1') {
             // console.log(res,"res");
               setShowsPopup(true);
+              setPopType(res?.data?.data[0]?.type);
+
+              setPopLink(res?.data?.data[0]?.url);
               setImgUrl(res?.data?.data[0]?.url);
-              setState(res?.data?.data[0]?.navigate);
+              // setState(res?.data?.data[0]?.navigate);
           }
       })
       .catch(function (error) {
@@ -527,7 +535,9 @@ useEffect(() => {
                 handleClose={handleClose}
                 show={showsPopup}
                 imgUrl={imgUrl}
-                state={state}
+                // state={state}
+                popLink={popLink}
+                poptype={poptype}
             ></GreetingModal>
       <div className="page-wrapper" id="start">
         <div className="content">
