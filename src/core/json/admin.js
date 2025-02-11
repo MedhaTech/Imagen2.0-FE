@@ -91,6 +91,13 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
+        // {
+        //   label: "Bulk Email",
+        //   link: "/emailList",
+        //   icon: <Icon.Mail />,
+        //   showSubRoute: false,
+        //   submenu: false,
+        // }
        
       ],
     },
