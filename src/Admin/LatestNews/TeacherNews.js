@@ -379,7 +379,7 @@ const AdminLatestNews = () => {
                 }
             },
             {
-                name: 'New Icon',
+                name: 'Enabled/Disabled',
                 width: '10rem',
                 cell: (record) => {
                     if (record.new_status === '1') {
@@ -504,7 +504,7 @@ const AdminLatestNews = () => {
                 }
             },
             {
-                name: 'New Icon',
+                name: 'Enabled/Disabled',
                 width: '10rem',
                 cell: (record) => {
                     if (record.new_status === '1') {

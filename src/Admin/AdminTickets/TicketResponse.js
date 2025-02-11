@@ -429,7 +429,7 @@ const StateRes = (props) => {
                     </Col>
                   </Row>
                 ) : (
-                  <UncontrolledAlert color="danger" className="mb-2">
+                  <UncontrolledAlert color="danger" className="mb-2 mx-3">
                     Chat window closed. 
                   </UncontrolledAlert>
                 )}

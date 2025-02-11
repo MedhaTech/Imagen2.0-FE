@@ -37,7 +37,8 @@ import AdminPassword from "../Admin/AdminPassword";
 import StateDashboard from "../Coordinators/Dashboard/StateDashboard";
 // import EadminDashboard from "../Evaluator/Admin/Dashboard/EadminDashboard";
 import EadminDashboard from "../Evaluator/Admin/Evaluation/index";
-
+import CreateEmail from "../Admin/BulkEmail/CreatePopUp";
+import ResendEmail from "../Admin/BulkEmail/ResendEmail";
 import MentorPresurvey from "../Teacher/PreSurvey/PreSurvey";
 import MentorPostsurvey from "../Teacher/PostSurvey/PostSurvey";
 import MentorTeams from "../Teacher/Teams/index";
@@ -89,6 +90,7 @@ import Createpopup from "../Admin/PopUp/CreatePopUp";
 import AdminResources from "../Admin/Resources/index";
 import EditResource from "../Admin/Resources/editResource";
 import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDetailed";
+import EmailList from "../Admin/BulkEmail/EmailList";
 
 import CreateResource from "../Admin/Resources/createResource";
 
@@ -465,6 +467,30 @@ export const publicRoutes = [
     path: routes.adminaddinstitution,
     name: "adminaddinstitution",
     element: <AddInst/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 31,
+    path: routes.EmailList,
+    name: "EmailList",
+    element: <EmailList />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 32,
+    path: routes.createemail,
+    name: "createemail",
+    element: <CreateEmail />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 33,
+    path: routes.resendemail,
+    name: "resendemail",
+    element: <ResendEmail />,
     protected: true,
     route: Route,
   },
