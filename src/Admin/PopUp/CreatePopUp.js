@@ -499,7 +499,7 @@ const Createpopup = () => {
                         }`}
                         disabled={!formik.dirty}
                       >
-                        Submit details
+                        Submit Details
                       </button>
                     </Col>
 

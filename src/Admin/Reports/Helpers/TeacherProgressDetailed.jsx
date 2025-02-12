@@ -65,6 +65,7 @@ const TeacherProgressDetailed = () => {
   const [series5, setseries5] = useState([]);
   const [series6, setseries6] = useState([]);
   const [series7, setseries7] = useState([]);
+  const [registeredChartData, setRegisteredChartData] = useState(null);
 
   const [barChart1Data, setBarChart1Data] = useState({
     labels: [],
@@ -165,44 +166,37 @@ const TeacherProgressDetailed = () => {
 
  
 
-  var chartOption = {
-    chart: {
-      height: 330,
-      type: "donut",
-      toolbar: {
-        show: false,
+  const chartOption = {
+    maintainAspectRatio: false,
+    legend: {
+      position: "bottom",
+      labels: {
+        fontColor: "black",
       },
     },
-    colors: ["#36A2EB", "#FF6384", "rgb(254, 176, 25)"],
-    labels: ["Male", "Female", "Others"],
-    series: [
-      totalCount.maleStudents,
-      totalCount.femaleStudents,
-      totalCount.otherStudents,
-    ],
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: "bottom",
+    plugins: {
+      legend: {
+        labels: {
+          generateLabels: function (chart) {
+            return chart.data.labels.map(function (label, i) {
+              const value = chart.data.datasets[0].data[i];
+              const backgroundColor = chart.data.datasets[0].backgroundColor[i];
+              return {
+                text: label + ": " + value,
+                fillStyle: backgroundColor,
+              };
+            });
           },
         },
       },
-    ],
+    },
   };
 
   var options = {
     chart: {
-      height: 500,
-      type: "line",
+      height: 700, 
+      width: 1000,
+      type: "bar",
       toolbar: {
         show: false,
       },
@@ -210,7 +204,7 @@ const TeacherProgressDetailed = () => {
         enabled: false,
       },
     },
-    colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
+    colors: ["#4361ee", "#888ea8"],
     dataLabels: {
       enabled: false,
     },
@@ -219,19 +213,14 @@ const TeacherProgressDetailed = () => {
     },
     series: [
       {
-        name: "# Teams",
+        name: "Registered Schools",
         data: series1,
       },
-      {
-        name: "# Students",
-        data: series2,
-      },
     ],
-
     yaxis: {
       beginAtZero: true,
       ticks: {
-        stepSize: 20,
+        stepSize: 10,
       },
       labels: {
         formatter: (val) => {
@@ -242,14 +231,26 @@ const TeacherProgressDetailed = () => {
 
     xaxis: {
       categories: barChart1Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
+    
     legend: {
       position: "top",
-      horizontalAlign: "center",
+      horizontalAlign: "left",
     },
   };
 
@@ -523,14 +524,82 @@ const TeacherProgressDetailed = () => {
               Other_Count:0,
             }
           );
-          // console.log(totals,"1");
+
           const chartTableDataWithTotals = [...updatedChartTableData, totals];
+          const GraphfilteredData = updatedChartTableData.filter(
+            (item) => item.state !== "Total"
+          );
           setChartTableData(chartTableDataWithTotals);
           setDownloadTableData(chartTableDataWithTotals);
+  const barData = {
+            labels: GraphfilteredData.map((item) => item.district),
+            datasets: [
+             
+              {
+                label: "Registered Schools",
+                data: GraphfilteredData.map((item) => item.instReg),
+                backgroundColor: "#ffa31a",
+              }
 
+            ],
+          };
+       
+          setRegisteredChartData({
+            labels: [
+              "Govt Junior College ",
+              "Govt ITI College ",
+              "Govt Polytechnic College ",
+              "Govt Degree College ",
+              "Social Welfare College ",
+              "Tribal Welfare College ",
+              "Private College",
+              "Other ",
+            ],
+            datasets: [
+              {
+                data: [
+                  totals.GovtJuniorCollege_Count,
+                  totals.GovtITICollege_Count,
+                  totals.GovtPolytechnicCollege_Count,
+                  totals.GovtDegreeCollege_Count,
+                  totals.SocialWelfareCollege_Count,
+                  totals.TribalWelfareCollege_Count,
+                  totals.PrivateCollege_Count,
+                  totals.Other_Count,
+                ],
+                backgroundColor: [
+                  "#85e085",
+                  "#ffcc80",
+                  "#A0522D",
+                  "#8bcaf4",
+                  "#ff99af",
+                  "#ff0000",
+                  "#800000",
+                  "#da9100",
+                  "#800080",
+                ],
+                hoverBackgroundColor: [
+                  "#85e085",
+                  "#ffcc80",
+                  "#A0522D",
+                  "#8bcaf4",
+                  "#ff99af",
+                  "#ff0000",
+                  "#800000",
+                  "#da9100",
+                  "#800080",
+                ],
+              },
+            ],
+          });
+          
+          setBarChart1Data(barData);
+          console.log(barData,"barData");
+          setseries1(barData.datasets[0].data);
+         
           // const newcombinedArray = [...combinedArray,total];
           // setDownloadTableData(newcombinedArray);
-          // setTotalCount(total);
+          setTotalCount(totals);
         }
       })
       .catch((error) => {
@@ -544,8 +613,8 @@ const TeacherProgressDetailed = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4> Institutions</h4>
-              <h6>Registered status Report</h6>
+              <h4>Institutions</h4>
+              <h6>Registration Status Report</h6>
             </div>
           </div>
           <div className="page-btn">
@@ -599,62 +668,7 @@ const TeacherProgressDetailed = () => {
             <div className="chart mt-2 mb-2">
               {chartTableData.length > 0 && (
                 <>
-                  <div className="row">
-                    {/* <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                                <div className="card flex-fill default-cover w-100 mb-4">
-                                    <div className="card-header d-flex justify-content-between align-items-center">
-                                        <h4 className="card-title mb-0">Data Analytics</h4>
-                                        <div className="dropdown">
-                                        <Link to="#" className="view-all d-flex align-items-center">
-                                            View All
-                                            <span className="ps-2 d-flex align-items-center">
-                                            <ArrowRight className="feather-16" />
-                                            </span>
-                                        </Link>
-                                        </div>
-                                    </div>
-                                    <div className="card-body">
-                                        <div className="row">
-                                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                                                <p>
-                                                    <b>
-                                                    Students as per Gender{' '}{newFormat}
-                                                    </b>
-                                                </p>
-                                                {doughnutChartData && (
-                                                    <div id="donut-chart" >
-                                                        <ReactApexChart
-                                                        options={chartOption}
-                                                        series={chartOption.series}
-                                                        type="donut"
-                                                        height={330}
-                                                        />
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                                                <p>
-                                                    <b>
-                                                        Teachers Course Status As of{' '}
-                                                        {newFormat}
-                                                    </b>
-                                                </p>
-                                                {totalCount && (
-                                                    <div id="radial-chart" >
-                                                        <ReactApexChart
-                                                        options={radialChart}
-                                                        series={radialChart.series}
-                                                        type="radialBar"
-                                                        height={350}
-                                                        />
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
-                  </div>
+                 
                   <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
@@ -825,6 +839,67 @@ const TeacherProgressDetailed = () => {
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div className="col-md-12">
+                <div className="card">
+                  <div className="card-header">
+                    <h5 className="card-title">
+                      Registered Schools As of{" "}
+                      {newFormat}
+                    </h5>
+                  </div>
+                  <div className="card-body">
+                    <div id="s-col-stacked" />
+                    <ReactApexChart
+                      options={options}
+                      series={options.series}
+                      type="bar"
+                      // type="area"
+                      height={400}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                  <div className="col-sm-12 col-md-12 col-xl-5 d-flex">
+                    <div className="card flex-fill default-cover w-100 mb-4">
+                      <div className="card-header d-flex justify-content-between align-items-center">
+                        <h4 className="card-title mb-0">Data Analytics</h4>
+                        {/* <div className="dropdown">
+                          <Link
+                            to="#"
+                            className="view-all d-flex align-items-center"
+                          >
+                            View All
+                            <span className="ps-2 d-flex align-items-center">
+                              <ArrowRight className="feather-16" />
+                            </span>
+                          </Link>
+                        </div> */}
+                      </div>
+                      <div className="card-body">
+                        <div className="row">
+                          <div className="col-md-12 text-center mt-3">
+                            <p>
+                              <b>
+                                Overall Category wise Registered Institutions As of{" "}
+                                {newFormat}
+                              </b>
+                            </p>
+                          </div>
+                          <div className="col-md-12 doughnut-chart-container">
+                            {registeredChartData && (
+                              <Doughnut
+                                data={registeredChartData}
+                                options={chartOption}
+                              />
+                            )}
+                          </div>
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   </div>
                 </>
               )}
