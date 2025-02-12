@@ -129,8 +129,7 @@ useEffect(() => {
   const popParam = encryptGlobal(
     JSON.stringify({
       // state:currentUser.data[0]?.state,
-      role:currentUser.data[0]?.role
-    })
+      role:currentUser.data[0]?.role    })
 );
   var config = {
       method: 'get',

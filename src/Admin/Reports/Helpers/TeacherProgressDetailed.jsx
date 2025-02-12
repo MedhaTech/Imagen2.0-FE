@@ -613,8 +613,8 @@ const TeacherProgressDetailed = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4> Institutions</h4>
-              <h6>Registered status Report</h6>
+              <h4>Institutions</h4>
+              <h6>Registration Status Report</h6>
             </div>
           </div>
           <div className="page-btn">
@@ -865,7 +865,7 @@ const TeacherProgressDetailed = () => {
                     <div className="card flex-fill default-cover w-100 mb-4">
                       <div className="card-header d-flex justify-content-between align-items-center">
                         <h4 className="card-title mb-0">Data Analytics</h4>
-                        <div className="dropdown">
+                        {/* <div className="dropdown">
                           <Link
                             to="#"
                             className="view-all d-flex align-items-center"
@@ -875,7 +875,7 @@ const TeacherProgressDetailed = () => {
                               <ArrowRight className="feather-16" />
                             </span>
                           </Link>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="card-body">
                         <div className="row">

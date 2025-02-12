@@ -172,7 +172,7 @@ const EmailList = () => {
                                 <div className="add-item d-flex">
                                     <div className="page-title">
                                         <h4>Bulk Email List</h4>
-                                        <h6>Send Emails to Registered Institutions District wise by Composing the Mail</h6>
+                                        <h6>Send Emails to Registered Students Bsased on Districts</h6>
                                     </div>
                                 </div>
                                 <div className="page-btn">

@@ -828,7 +828,7 @@ const StudentProgress = () => {
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">Data Analytics</h4>
-                          <div className="dropdown">
+                          {/* <div className="dropdown">
                             <Link
                               to="#"
                               className="view-all d-flex align-items-center"
@@ -838,7 +838,7 @@ const StudentProgress = () => {
                                 <ArrowRight className="feather-16" />
                               </span>
                             </Link>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="card-body">
                           <div className="row">

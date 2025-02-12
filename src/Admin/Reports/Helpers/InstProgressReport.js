@@ -240,11 +240,11 @@ const InstProgressDetailed = () => {
         data: seriesa,
       },
       {
-        name: "# Students",
+        name: "# Teams",
         data: seriesb,
       },
       {
-        name: "# Teams",
+        name: "# Students",
         data: series2,
       },
     ],
@@ -634,16 +634,17 @@ const InstProgressDetailed = () => {
                     data: chartTableData.map((item) => item.insReg),
                     backgroundColor: "rgb(0, 143, 251)",
                 },
-                {
-                    label: "No. of Registered Students Enrolled",
-                    data: chartTableData.map((item) => (item.studentReg)),
-                    backgroundColor: "rgb(0, 227, 150)",
-                },
+              
                 {
                   label: "No. of Registered Teams Enrolled",
                   data: chartTableData.map((item) => (item.teamCount)),
                   backgroundColor: 'rgb(254, 176, 25)',
               },
+              {
+                label: "No. of Registered Students Enrolled",
+                data: chartTableData.map((item) => (item.studentReg)),
+                backgroundColor: "rgb(0, 227, 150)",
+            },
             ],
         };
         ["rgb(0, 143, 251)", "rgb(0, 227, 150)",'rgb(254, 176, 25)',],
@@ -673,7 +674,7 @@ const InstProgressDetailed = () => {
           <div className="add-item d-flex">
             <div className="page-title">
               <h4> Institutions</h4>
-              <h6>Progress status Report</h6>
+              <h6>Progress Report</h6>
             </div>
           </div>
           <div className="page-btn">
@@ -729,7 +730,7 @@ const InstProgressDetailed = () => {
                 <>
                 
                   <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-9 d-flex">
+                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center"style={{ borderBottom: 'none',paddingBottom: 0 }}>
                           <h4 className="card-title mb-0">
@@ -779,7 +780,8 @@ const InstProgressDetailed = () => {
                                       color: "#36A2EB",
                                     }}
                                   >
-                                     No of Reg Students
+                                     
+                                     No of Teams Created
                                   </th>
                                   <th
                                     style={{
@@ -787,7 +789,7 @@ const InstProgressDetailed = () => {
                                       color: "#36A2EB",
                                     }}
                                   >
-                                     No of Teams Created
+                                     No of Reg Students
                                   </th>
                                 </tr>
                               </thead>
@@ -808,15 +810,16 @@ const InstProgressDetailed = () => {
                                     </td>
                                     <td>{item.insReg ? item.insReg :"0"}</td>
                                     <td>
-                                      {item.studentReg
-                                        ? item.studentReg
-                                        : "0"}
-                                    </td>
-                                    <td>
                                       {item.teamCount
                                         ? item.teamCount
                                         : "0"}
                                     </td>
+                                    <td>
+                                      {item.studentReg
+                                        ? item.studentReg
+                                        : "0"}
+                                    </td>
+                                   
                                   
                                   </tr>
                                 ))}
@@ -830,7 +833,7 @@ const InstProgressDetailed = () => {
                   <div className="col-md-12">
                                     <div className="card">
                                         <div className="card-header">
-                                            <h5 className="card-title">Institutions & Students & Teams Enrolled As of{' '}
+                                            <h5 className="card-title">Institutions, Teams, Students Enrolled As of{' '}
                                                 {newFormat}</h5>
                                         </div>
                                         <div className="card-body">
