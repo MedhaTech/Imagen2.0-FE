@@ -120,7 +120,7 @@ const MentorDashboard = () => {
     const newListParam = encryptGlobal(
       JSON.stringify({
         // state:currentUser.data[0]?.state,
-        role:currentUser.data[0]?.role
+        role:"Institution"
       })
   );
     var config = {

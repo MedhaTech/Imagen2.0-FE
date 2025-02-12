@@ -300,7 +300,7 @@ const IdeaReport = () => {
 
   var chartOption = {
     chart: {
-      height: 330,
+      height: 400,
       type: "donut",
       toolbar: {
         show: false,
@@ -674,7 +674,7 @@ const IdeaReport = () => {
 
   return (
     <div className="page-wrapper">
-      <h4
+      {/* <h4
         className="m-2"
         style={{
           position: "sticky",
@@ -688,7 +688,7 @@ const IdeaReport = () => {
         }}
       >
         Reports
-      </h4>
+      </h4> */}
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
