@@ -166,31 +166,31 @@ const TeacherProgressDetailed = () => {
 
  
 
-  const chartOption = {
-    maintainAspectRatio: false,
-    legend: {
-      position: "bottom",
-      labels: {
-        fontColor: "black",
-      },
-    },
-    plugins: {
-      legend: {
-        labels: {
-          generateLabels: function (chart) {
-            return chart.data.labels.map(function (label, i) {
-              const value = chart.data.datasets[0].data[i];
-              const backgroundColor = chart.data.datasets[0].backgroundColor[i];
-              return {
-                text: label + ": " + value,
-                fillStyle: backgroundColor,
-              };
-            });
-          },
-        },
-      },
-    },
-  };
+  // const chartOption = {
+  //   maintainAspectRatio: false,
+  //   legend: {
+  //     position: "bottom",
+  //     labels: {
+  //       fontColor: "black",
+  //     },
+  //   },
+  //   plugins: {
+  //     legend: {
+  //       labels: {
+  //         generateLabels: function (chart) {
+  //           return chart.data.labels.map(function (label, i) {
+  //             const value = chart.data.datasets[0].data[i];
+  //             const backgroundColor = chart.data.datasets[0].backgroundColor[i];
+  //             return {
+  //               text: label + ": " + value,
+  //               fillStyle: backgroundColor,
+  //             };
+  //           });
+  //         },
+  //       },
+  //     },
+  //   },
+  // };
 
   var options = {
     chart: {
@@ -606,7 +606,18 @@ const TeacherProgressDetailed = () => {
         console.log("API error:", error);
       });
   };
-
+  const chartOption = {
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+        legend: {
+            display: false // Ensure legend is completely hidden
+        },
+        tooltip: {
+            enabled: true // Tooltips will still work on hover
+        }
+    }
+};
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -844,7 +855,7 @@ const TeacherProgressDetailed = () => {
                 <div className="card">
                   <div className="card-header">
                     <h5 className="card-title">
-                      Registered Schools As of{" "}
+                      Registered Institutions As of{" "}
                       {newFormat}
                     </h5>
                   </div>
@@ -861,23 +872,13 @@ const TeacherProgressDetailed = () => {
                 </div>
               </div>
               <div className="row">
-                  <div className="col-sm-12 col-md-12 col-xl-5 d-flex">
+                  <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                     <div className="card flex-fill default-cover w-100 mb-4">
                       <div className="card-header d-flex justify-content-between align-items-center">
                         <h4 className="card-title mb-0">Data Analytics</h4>
-                        {/* <div className="dropdown">
-                          <Link
-                            to="#"
-                            className="view-all d-flex align-items-center"
-                          >
-                            View All
-                            <span className="ps-2 d-flex align-items-center">
-                              <ArrowRight className="feather-16" />
-                            </span>
-                          </Link>
-                        </div> */}
+                       
                       </div>
-                      <div className="card-body">
+                      {/* <div className="card-body">
                         <div className="row">
                           <div className="col-md-12 text-center mt-3">
                             <p>
@@ -897,6 +898,64 @@ const TeacherProgressDetailed = () => {
                           </div>
                          
                         </div>
+                      </div> */}
+                       <div className="card-body">
+                          <div className="row">
+                              <div className="col-md-12 text-center mt-3">
+                                  <p style={{fontSize:"24px"}}>
+                                      <b>
+                                          Overall Category wise Registered Institutions As of{" "}
+                                          {newFormat}
+                                      </b>
+                                  </p>
+                              </div>
+                      
+                              {/* Labels with counts (Formatted using chart options legend) */}
+                              <div className="col-md-6 d-flex align-items-center justify-content-center">
+                                  {registeredChartData && registeredChartData.labels && (
+                                      <ul className="list-unstyled">
+                                          {registeredChartData.labels.map((label, index) => (
+                                              <li key={index} className="mb-2">
+                                                  <span
+                                                      className="badge"
+                                                      style={{
+                                                          backgroundColor: registeredChartData.datasets[0].backgroundColor[index],
+                                                          color: "#fff",
+                                                          padding: "5px 10px",
+                                                          borderRadius: "5px",
+                                                          marginRight: "10px",
+                                                          minWidth: "100px",
+                                                          display: "inline-block",
+                                                          textAlign: "center",
+                                                          fontSize:"16px"
+                                                          
+                                                      }}
+                                                  >
+                                                      {label}
+                                                  </span>
+                                                  <b style={{fontSize:"16px"}}>: {registeredChartData.datasets[0].data[index]}</b>
+                                              </li>
+                                          ))}
+                                      </ul>
+                                  )}
+                              </div>
+                      
+                              {/* Doughnut Chart */}
+                              <div className="col-md-6 doughnut-chart-container">
+                                  {registeredChartData && (
+                              //         <Doughnut
+                              //             data={registeredChartData}
+                              //             height={300}
+                              //             width={300}
+                              // options={chartOption}
+                      
+                              //         />
+                              <div style={{ width: "400px", height: "400px" }}> 
+                              <Doughnut data={registeredChartData} options={chartOption} />
+                          </div>
+                                  )}
+                              </div>
+                          </div>
                       </div>
                     </div>
                   </div>

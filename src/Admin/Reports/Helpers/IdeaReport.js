@@ -15,6 +15,7 @@ import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
+
 // import '../reports.scss';
 import { Doughnut } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
@@ -298,89 +299,113 @@ const IdeaReport = () => {
     XLSX.writeFile(wb, `SubmittedIdeasDetailedReport_${newFormat}.xlsx`); // Triggers download of the Excel file
   };
 
-  var chartOption = {
-    chart: {
-      height: 400,
-      type: "donut",
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: [
-      "#36A2EB",
-      "#FF6384",
-      "#ff6666",
-      "#954535",
-      "#a6d608",
-      "#b2ffff",
-      "#4169e1",
-      "#dda0dd",
-    ],
-    labels: [
-      "Smart Automation",
-      "Fitness and Sports",
-      "Heritage and Culture",
-      "MedTech or BioTech or HealthTech",
-      "Agriculture, and Rural Development",
-      "Smart Vehicles",
-      "Transportation and Logistics",
-      "Robotics and Drones",
-      "Clean and Green Technology",
-      "Tourism",
-      "Renewable and sustainable Energy",
-      "Blockchain and Cybersecurity",
-      "Smart Education",
-      "Disaster Management",
-      "Toys and Games",
-      "Miscellaneous",
-      "Space Technology",
-      "Financial Inclusion and FinTech",
-      "Rural Innovation and Development",
-      "Public Governance and CivicTech",
-      "Others"
-    ],
-    series: [
-      totalCount.SmartAutomation,
-      totalCount.FitnessandSports,
-      totalCount.HeritageandCulture,
-      totalCount.MedTechorBioTechorHealthTech,
-      totalCount.AgricultureandRuralDevelopment,
-      totalCount.SmartVehicles,
-      totalCount.TransportationandLogistics,
-      totalCount.RoboticsandDrones,
-      totalCount.CleanandGreenTechnology,
-      totalCount.Tourism,
-      totalCount.RenewableandsustainableEnergy,
-      totalCount.BlockchainandCybersecurity,
-      totalCount.SmartEducation,
-      totalCount.DisasterManagement,
-      totalCount.ToysandGames,
-      totalCount.Miscellaneous,
-      totalCount.SpaceTechnology,
-      totalCount.FinancialInclusionandFinTech,
-      totalCount.RuralInnovationandDevelopment,
-      totalCount.PublicGovernanceandCivicTech,
-      totalCount.OTHERS,
-    ],
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: "bottom",
-          },
+  // var chartOption = {
+  //   chart: {
+  //     height: 500,
+  //     type: "donut",
+  //     toolbar: {
+  //       show: false,
+  //     },
+  //   },
+  //   colors: [
+  //     "#dc143c",
+  //     "#ff99af",
+  //     "#ff0000",
+  //     "#800000",
+  //     "#648c11",
+  //     "#00ffff",
+  //     "#0000ff",
+  //     "#800080",
+  //     "#ffa07a",
+  //     "#ffff00",
+  //     "#e8f48c",
+  //     "#08e8de",
+  //     "#002147",
+  //     "#1d2951",
+  //     "#997a8d",
+  //     "#4f3a3c",
+  //     "#843f5b",
+  //     "#ff004f ",
+  //     "#da9100",
+  //     "#fbab60",
+  //     "#592720",
+  //   ],
+  //   labels: [
+  //     "Smart Automation",
+  //     "Fitness and Sports",
+  //     "Heritage and Culture",
+  //     "MedTech or BioTech or HealthTech",
+  //     "Agriculture, and Rural Development",
+  //     "Smart Vehicles",
+  //     "Transportation and Logistics",
+  //     "Robotics and Drones",
+  //     "Clean and Green Technology",
+  //     "Tourism",
+  //     "Renewable and sustainable Energy",
+  //     "Blockchain and Cybersecurity",
+  //     "Smart Education",
+  //     "Disaster Management",
+  //     "Toys and Games",
+  //     "Miscellaneous",
+  //     "Space Technology",
+  //     "Financial Inclusion and FinTech",
+  //     "Rural Innovation and Development",
+  //     "Public Governance and CivicTech",
+  //     "Others",
+  //   ],
+  //   series: [
+  //     totalCount.SmartAutomation,
+  //     totalCount.FitnessandSports,
+  //     totalCount.HeritageandCulture,
+  //     totalCount.MedTechorBioTechorHealthTech,
+  //     totalCount.AgricultureandRuralDevelopment,
+  //     totalCount.SmartVehicles,
+  //     totalCount.TransportationandLogistics,
+  //     totalCount.RoboticsandDrones,
+  //     totalCount.CleanandGreenTechnology,
+  //     totalCount.Tourism,
+  //     totalCount.RenewableandsustainableEnergy,
+  //     totalCount.BlockchainandCybersecurity,
+  //     totalCount.SmartEducation,
+  //     totalCount.DisasterManagement,
+  //     totalCount.ToysandGames,
+  //     totalCount.Miscellaneous,
+  //     totalCount.SpaceTechnology,
+  //     totalCount.FinancialInclusionandFinTech,
+  //     totalCount.RuralInnovationandDevelopment,
+  //     totalCount.PublicGovernanceandCivicTech,
+  //     totalCount.OTHERS,
+  //   ],
+  //   legend: {
+  //     position: "top",
+  //     horizontalAlign: "center",
+  //   },
+  //   responsive: [
+  //     {
+  //       breakpoint: 480,
+  //       options: {
+  //         chart: {
+  //           width: 200,
+  //         },
+  //         legend: {
+  //           position: "bottom",
+  //         },
+  //       },
+  //     },
+  //   ],
+  // };
+  const chartOption = {
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+        legend: {
+            display: false // Ensure legend is completely hidden
         },
-      },
-    ],
-  };
-
+        tooltip: {
+            enabled: true // Tooltips will still work on hover
+        }
+    }
+};
   const handleDownload = () => {
     if (!district || !category || !sdg) {
       notification.warning({
@@ -426,7 +451,6 @@ const IdeaReport = () => {
 
           const newdatalist = IdeaData.map((item) => {
             return {
-
               District: item.district,
               "College Name": item.college_name,
               "College Type": item.college_type,
@@ -442,7 +466,7 @@ const IdeaReport = () => {
               "What stage is your idea currently at?": item.stage,
               "How unique is your idea compared to existing solutions?":
                 item.unique,
-               
+
               "Who are your competitors or similar ideas?": item.similar,
               "How will your idea make revenue or sustain itself?":
                 item.revenue,
@@ -580,7 +604,7 @@ const IdeaReport = () => {
               "Financial Inclusion and FinTech",
               "Rural Innovation and Development",
               "Public Governance and CivicTech",
-              "Others"
+              "Others",
             ],
             datasets: [
               {
@@ -605,55 +629,54 @@ const IdeaReport = () => {
                   total.FinancialInclusionandFinTech,
                   total.RuralInnovationandDevelopment,
                   total.PublicGovernanceandCivicTech,
-                  total.Others,
+                  total.OTHERS,
                 ],
+                // "#ff9999",
                 backgroundColor: [
-                  "#8bcaf4",
+                  "#fa8072",
                   "#ff99af",
-                  "#ff0000",
-                  "#800000",
+                  "#ff7f50",
+                  "#dea5a4",
                   "#648c11",
-                  "#00ffff",
-                  "#0000ff",
+                  "#d1bea8",
+                  "#b768a2",
                   "#800080",
                   "#ffa07a",
-                  "#ffff00",
-                  "#e8f48c",
-                  "#08e8de",
+                  "#9ab973 ",
+                  "#72a0c1",
+                  "#c08081",
                   "#002147",
-                  "#1d2951",
+                  "#b38b6d",
                   "#997a8d",
-                  "#4f3a3c",
+                  "#ff9999",
                   "#843f5b",
-                  "#4b0082",
+                  "#ff004f ",
                   "#da9100",
                   "#fbab60",
-                  "#592720",
-                  "#592720",
+                  "#bf4f51",
                 ],
                 hoverBackgroundColor: [
-                  "#8bcaf4",
+                  "#fa8072",
                   "#ff99af",
-                  "#ff0000",
-                  "#800000",
+                  "#ff7f50",
+                  "#dea5a4",
                   "#648c11",
-                  "#00ffff",
-                  "#0000ff",
+                  "#d1bea8",
+                  "#b768a2",
                   "#800080",
                   "#ffa07a",
-                  "#ffff00",
-                  "#e8f48c",
-                  "#08e8de",
+                  "#9ab973 ",
+                  "#72a0c1",
+                  "#c08081",
                   "#002147",
-                  "#1d2951",
+                  "#b38b6d",
                   "#997a8d",
-                  "#4f3a3c",
+                  "#ff9999",
                   "#843f5b",
-                  "#4b0082",
+                  "#ff004f ",
                   "#da9100",
                   "#fbab60",
-                  "#592720",
-                  "#592720",
+                  "#bf4f51",
                 ],
               },
             ],
@@ -695,7 +718,7 @@ const IdeaReport = () => {
             <div className="page-title">
               <h4>Submitted Ideas Detailed Report</h4>
               <h6>
-                Idea Details - Theme, Focusarea, Problem, Solution, Feedback,
+                Idea Details - Theme,Title,
                 Prototype Info & Attachments
               </h6>
             </div>
@@ -1131,51 +1154,121 @@ const IdeaReport = () => {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-sm-12 col-md-6 col-xl-6 d-flex">
+                      <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                         <div
-                          className="card flex-fill default-cover w-100 mb-2"
-                          style={{ height: "500px" }}
+                          className="card flex-fill default-cover w-100 mb-4"
                         >
-                          {/* <div className="card-header d-flex justify-content-between align-items-center"> */}
-                          {/* <h4 className="card-title mb-0">Data Analytics</h4> */}
-                          {/* <div className="dropdown">
-                            <Link
-                              to="#"
-                              className="view-all d-flex align-items-center"
-                            >
-                              View All
-                              <span className="ps-2 d-flex align-items-center">
-                                <ArrowRight className="feather-16" />
-                              </span>
-                            </Link>
-                          </div> */}
+                           <div className="card-header d-flex justify-content-between align-items-center">
+                                                    <h4 className="card-title mb-0">Data Analytics</h4>
+                                                  
+                                                </div>
                           {/* </div> */}
-                          <div className="card-body">
+                          {/* <div className="card-body">
                             <div className="row">
                               <div className="col-sm-12 text-center ">
                                 <h4 className="card-title mb-2">
-                                  {/* <b> */}
                                   Theme-Wise Ideas Submissions as of {newFormat}
-                                  {/* </b> */}
                                 </h4>
                                 {doughnutChartData && (
                                   <div id="donut-chart">
-                                    <ReactApexChart
+                                    <Doughnut
+                                    data={doughnutChartData}
                                       options={chartOption}
-                                      series={chartOption.series}
-                                      type="donut"
+                                      // series={chartOption.series}
+                                      // type="donut"
                                       // height={330}
                                     />
                                   </div>
                                 )}
                               </div>
                             </div>
+                          </div> */}
+                             
+                                                                          <div className="card-body">
+                              <div className="row">
+                                  <div className="col-md-12 text-center mt-3 mb-2">
+                                      <p style={{fontSize:"24px"}}>
+                                          <b>
+                                              Overall Theme-Wise  Submitted Ideas As of{" "}
+                                              {newFormat}
+                                          </b>
+                                      </p>
+                                  </div>
+                          
+                                  {/* Labels with counts (Formatted using chart options legend) */}
+                                  <div className="col-md-6 d-flex align-items-center justify-content-center">
+                                      {/* {doughnutChartData && doughnutChartData.labels && (
+                                          <ul className="list-unstyled">
+                                              {doughnutChartData.labels.map((label, index) => (
+                                                  <li key={index} className="mb-2">
+                                                      <span
+                                                          className="badge"
+                                                          style={{
+                                                              backgroundColor: doughnutChartData.datasets[0].backgroundColor[index],
+                                                              color: "#fff",
+                                                              padding: "5px 10px",
+                                                              borderRadius: "5px",
+                                                              marginRight: "10px",
+                                                              minWidth: "100px",
+                                                              display: "inline-block",
+                                                              textAlign: "center",
+                                                              fontSize:"16px"
+                                                              
+                                                          }}
+                                                      >
+                                                          {label}
+                                                      </span>
+                                                      <b style={{fontSize:"16px"}}>: {doughnutChartData.datasets[0].data[index]}</b>
+                                                  </li>
+                                              ))}
+                                          </ul>
+                                      )} */}
+                                      {doughnutChartData && doughnutChartData.labels && (
+  <ul className="list-unstyled d-flex flex-wrap">
+    {doughnutChartData.labels.map((label, index) => (
+      <li key={index} 
+          className="mb-2 d-flex align-items-center" 
+          style={{ width: "50%" }}> 
+        <span
+          className="badge"
+          style={{
+            backgroundColor: doughnutChartData.datasets[0].backgroundColor[index],
+            color: "#fff",
+            padding: "5px 10px",
+            borderRadius: "5px",
+            marginRight: "10px",
+            minWidth: "100px",
+            display: "inline-block",
+            textAlign: "center",
+            fontSize: "12px"
+          }}
+        >
+          {label}
+        </span>
+        <b style={{ fontSize: "12px" }}>: {doughnutChartData.datasets[0].data[index]}</b>
+      </li>
+    ))}
+  </ul>
+)}
+
+                                  </div>
+                          
+                                  {/* Doughnut Chart */}
+                                  <div className="col-md-6 doughnut-chart-container">
+                                      {doughnutChartData && (
+                                  <div style={{ width: "400px", height: "400px" }}> 
+                                  <Doughnut data={doughnutChartData} options={chartOption} />
+                              </div>
+                                      )}
+                                  </div>
+                              </div>
                           </div>
-                          {/* </div> */}
+                          </div>
                         </div>
+                        
                       </div>
                     </div>
-                  </div>
+                  // </div>
                 )}
 
                 {downloadTableData && (
