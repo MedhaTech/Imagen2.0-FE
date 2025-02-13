@@ -20,13 +20,7 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        // {
-        //   label:"Institution",
-        //   link: "/institution-registration",
-        //   icon: <Icon.Home />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+       
         {
           label:"PopUp",
           link: "/popup",
@@ -55,13 +49,7 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        // {
-        //   label:"Mentors",
-        //   link: "/mentors",
-        //   icon: <Icon.Users />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+       
         {
           label:"Students",
           link: "/students",
@@ -91,13 +79,13 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        {
-          label: "Bulk Email",
-          link: "/emailList",
-          icon: <Icon.Mail />,
-          showSubRoute: false,
-          submenu: false,
-        }
+        // {
+        //   label: "Bulk Email",
+        //   link: "/emailList",
+        //   icon: <Icon.Mail />,
+        //   showSubRoute: false,
+        //   submenu: false,
+        // }
        
       ],
     },

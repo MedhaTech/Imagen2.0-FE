@@ -587,6 +587,7 @@ const AdminResources = () => {
       },
     },
   };
+
   return (
     <div className="page-wrapper">
       <div className="content">
