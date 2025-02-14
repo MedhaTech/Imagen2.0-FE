@@ -258,12 +258,12 @@ const AdminLatestNews = () => {
                     if (number === '0') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Disabled Successfully'
+                            'New Icon Status Disabled Successfully'
                         );
                     } else if (number === '1') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Enabled Successfully'
+                            'New Icon Status Enabled Successfully'
                         );
                     }
                     stuList();

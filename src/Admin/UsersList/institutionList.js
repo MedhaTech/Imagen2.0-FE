@@ -211,18 +211,18 @@ supId = encryptGlobal(
           </div>
         ),
         cellExport: (row) => row?.full_name,
-        width: "9rem",
+        width: "12rem",
       },
       {
         name: "Email Address",
         selector: (row) => row?.username_email,
-        width: "10rem",
+        width: "14rem",
       },
       {
         name: "Mobile No",
         selector: (row) => row?.mobile,
         cellExport: (row) => row?.mobile,
-        width: "10rem",
+        width: "9rem",
       },
       {
         name: "District",
@@ -244,14 +244,14 @@ supId = encryptGlobal(
         ),
         selector: (row) => row?.college_type,
         cellExport: (row) => row?.college_type,
-        width: "10rem",
+        width: "12rem",
       },
 
       {
         name: "College Name",
         selector: (row) => row?.college_name,
         cellExport: (row) => row?.college_name,
-        width: "9rem",
+        width: "16rem",
       },
       {
         name: 'Actions',
