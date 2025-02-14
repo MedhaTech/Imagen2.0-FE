@@ -174,8 +174,8 @@ const MentorDashboard = () => {
         mentorIdeaCount();
         mentorStudentCount();
         // mentorcoursepercentage();
-        mentorpostsurvey();
-        fetchwhatsapplink();
+        // mentorpostsurvey();
+        // fetchwhatsapplink();
         scroll();
        
     }

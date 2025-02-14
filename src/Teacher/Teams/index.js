@@ -41,10 +41,10 @@ const Dashboard = (props) => {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [stuList, setStuList] = useState("");
   const [selectedstudent, setselectedstudent] = useState();
-  const [IdeaStatus, setIdeaStatus] = useState("No Idea");
   const [teamchangeobj, setteamchangeObj] = useState({});
   const [value, setvalue] = useState("");
   const [ViewedTeam, setViewedTeam] = useState();
+  const [IdeaStatus, setIdeaStatus] = useState("No Idea");
 
   useEffect(() => {
     teamListbymentorid();
@@ -147,9 +147,22 @@ const Dashboard = (props) => {
           <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.full_name)}>
             <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
-          <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.full_name)}>
+          {/* <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeletePilot(row.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
-          </OverlayTrigger>
+          </OverlayTrigger> */}
+       {row.ideaStatus === null && (
+  <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.full_name)}>
+    <div
+      className="btn text-danger"
+      style={{ fontSize: "1rem", cursor: "pointer" }}
+      onClick={() => handleDeletePilot(row.student_id)}
+    >
+      <i data-feather="trash-2" className="feather-trash-2" />
+    </div>
+  </OverlayTrigger>
+)}
+
+
           <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.full_name)}>
             <div className="btn text-dark" style={{ fontSize: '1rem' }} onClick={() => viewDetails(row.student_id)}>{<i data-feather="eye" className="feather-eye" />} </div>
           </OverlayTrigger>
@@ -166,12 +179,16 @@ const Dashboard = (props) => {
           <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[0]?.full_name)}>
             <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row?.crewMembers[0]?.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
+          {row.ideaStatus === null && (
           <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
             <div className="btn text-dark" style={{ fontSize: '1rem' }} onClick={() => handleSwitchTeam(row?.crewMembers[0]?.student_id, row?.full_name)}> <i data-feather="user" className="feather-user" /></div>
           </OverlayTrigger>
+          )}
+          {row.ideaStatus === null && (
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.crewMembers[0]?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(row?.crewMembers[0]?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
           </OverlayTrigger>
+          )}
           <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.crewMembers[0]?.
             full_name)}>
             <div className="btn text-dark" style={{ fontSize: '1rem' }} onClick={() => viewDetails(row?.crewMembers[0]?.student_id
@@ -195,12 +212,15 @@ const Dashboard = (props) => {
           <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[1]?.full_name)}>
             <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row?.crewMembers[1]?.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
+          {row.ideaStatus === null && (
           <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
             <div className="btn text-dark" style={{ fontSize: '1rem' }} onClick={() => handleSwitchTeam(row?.crewMembers[1]?.student_id, row?.full_name)}> <i data-feather="user" className="feather-user" /></div>
-          </OverlayTrigger>
+          </OverlayTrigger>)}
+          {row.ideaStatus === null && (
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.crewMembers[1]?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(row?.crewMembers[1]?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
           </OverlayTrigger>
+          )}
           <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.crewMembers[1]?.
             full_name)}>
             <div className="btn text-dark" onClick={() => viewDetails(row?.crewMembers[1]?.student_id
@@ -224,12 +244,14 @@ const Dashboard = (props) => {
           <OverlayTrigger placement="top" overlay={renderEditTooltip(row?.crewMembers[2]?.full_name)}>
             <div className="btn text-info" style={{ fontSize: '1rem' }} onClick={() => handleEditData(row?.crewMembers[2]?.student_id)}> <i data-feather="edit" className="feather-edit" /></div>
           </OverlayTrigger>
+          {row.ideaStatus === null && (
           <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
             <div className="btn text-dark" style={{ fontSize: '1rem' }} onClick={() => handleSwitchTeam(row?.crewMembers[2]?.student_id, row?.full_name)}> <i data-feather="user" className="feather-user" /></div>
-          </OverlayTrigger>
+          </OverlayTrigger>)}
+          {row.ideaStatus === null && (
           <OverlayTrigger placement="top" overlay={renderDelTooltip(row?.crewMembers[2]?.full_name)}>
             <div className="btn text-danger" style={{ fontSize: '1rem' }} onClick={() => handleDeleteStudent(row?.crewMembers[2]?.student_id)}> <i data-feather="trash-2" className="feather-trash-2" /></div>
-          </OverlayTrigger>
+          </OverlayTrigger>)}
           <OverlayTrigger placement="top" overlay={renderViewTooltip(row?.crewMembers[2]?.
             full_name)}>
             <div className="btn text-dark" onClick={() => viewDetails(row?.crewMembers[2]?.student_id
