@@ -89,10 +89,10 @@ const StudentSidebar = () => {
 </Link> */}
 
 <Link
-  to={isMenuDisabled ? "#" : title?.link}  // Prevent navigation when disabled
+  to={isMenuDisabled ? "#" : title?.link}  
   onClick={(e) => {
     if (isMenuDisabled) {
-      e.preventDefault(); // Stop navigation
+      e.preventDefault(); 
     } else if (title?.onClick) {
       title.onClick(e); 
     } else {
@@ -105,7 +105,7 @@ const StudentSidebar = () => {
   style={{
     cursor: isMenuDisabled ? "not-allowed" : "pointer",
     opacity: isMenuDisabled ? 0.5 : 1,
-    pointerEvents: isMenuDisabled ? "none" : "auto", // Fully disable interactions
+    pointerEvents: isMenuDisabled ? "none" : "auto", 
   }}
 >
   {title?.icon}
