@@ -216,7 +216,7 @@ supId = encryptGlobal(
       {
         name: "Email Address",
         selector: (row) => row?.username_email,
-        width: "14rem",
+        width: "16rem",
       },
       {
         name: "Mobile No",
