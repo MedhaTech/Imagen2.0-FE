@@ -211,7 +211,7 @@ supId = encryptGlobal(
           </div>
         ),
         cellExport: (row) => row?.full_name,
-        width: "9rem",
+        width: "12rem",
       },
       {
         name: "Email Address",
@@ -244,14 +244,14 @@ supId = encryptGlobal(
         ),
         selector: (row) => row?.college_type,
         cellExport: (row) => row?.college_type,
-        width: "9rem",
+        width: "12rem",
       },
 
       {
         name: "College Name",
         selector: (row) => row?.college_name,
         cellExport: (row) => row?.college_name,
-        width: "9rem",
+        width: "16rem",
       },
       {
         name: 'Actions',

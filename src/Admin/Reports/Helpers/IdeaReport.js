@@ -1187,7 +1187,7 @@ const IdeaReport = () => {
                                                                           <div className="card-body">
                               <div className="row">
                                   <div className="col-md-12 text-center mt-3 mb-2">
-                                      <p style={{fontSize:"24px"}}>
+                                      <p style={{fontSize:"20px"}}>
                                           <b>
                                               Overall Theme-Wise  Submitted Ideas As of{" "}
                                               {newFormat}
