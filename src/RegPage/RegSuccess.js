@@ -82,7 +82,8 @@ const RegSuccess = () => {
             <h4 className="text-success mb-2"style={{fontSize:"1.7rem"}}>REGISTRATION SUCCESS</h4>
             <h6 className="mb-2 mt-2"style={{fontSize:"1.5rem"}}>Congratulations, Your Account has been Successfully Created.</h6>
             <button
-              className="btn btn-warning m-2"
+              // className="btn btn-warning m-2"
+               className="btn btn-warning m-4 p-3 px-5"
               type="submit"
               onClick={() => navigate("/login")}
             >

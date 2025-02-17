@@ -283,7 +283,7 @@ const InstEdit = () => {
   useEffect(() => {
     setCollegeNamesList(collegeNameList[data.college_type] || []);
   }, [data.college_type]);
-  //  console.log(data.college_name,"coll");
+  //  console.log(formik.values.college,"coll");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -486,21 +486,9 @@ const InstEdit = () => {
                           ) : null}
                         </div>
 
-                        {(formik.values.collegeType.trim() === "Other" ||
-                          formik.values.collegeType.trim() ===
-                            "Govt Junior College" ||
-                          formik.values.collegeType.trim() ===
-                            "Govt Polytechnic College" ||
-                          formik.values.collegeType.trim() ===
-                            "Govt Degree College" ||
-                          formik.values.collegeType.trim() ===
-                            "Govt ITI College" ||
-                          formik.values.collegeType.trim() ===
-                            "Social Welfare College" ||
-                          formik.values.collegeType.trim() ===
-                            "Tribal Welfare College" ||
-                          formik.values.collegeType.trim() ===
-                            "Private College") && (
+                        {(formik.values.college === "Other" 
+                       
+                          ) && (
                           <div className={`col-md-12`}>
                             <label htmlFor="ocn" className="form-label">
                               Other College Name

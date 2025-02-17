@@ -555,11 +555,7 @@ const StuEdit = () => {
                             </small>
                           ) : null}
                         </div>
-                        {(formik.values.collegeType.trim() === "Other" ||
-                          formik.values.collegeType.trim() ===
-                            "Govt Junior College" ||
-                          formik.values.collegeType.trim() ===
-                            "Private College") && (
+                        {(formik.values.college === "Other") && (
                           <div className={`col-md-12`}>
                             <label htmlFor="ocn" className="form-label">
                               Other College Name
