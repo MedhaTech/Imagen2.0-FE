@@ -58,7 +58,11 @@ const GreetingModal = (props) => {
                                     <div style={{ width: '100%', height: '400px' }}>
                       <iframe
                          
-                          src={props.popLink.replace("youtu.be/", "www.youtube.com/embed/")}
+                          // src={props.popLink.replace("youtu.be/", "www.youtube.com/embed/")}
+                          src={props.popLink
+                            .replace("youtu.be/", "www.youtube.com/embed/")
+                            .replace("watch?v=", "embed/")
+                            .split("&")[0]}
                           title="Video popup"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
