@@ -272,9 +272,8 @@ const fiterDistData = [...districtList["Telangana"]];
     //         });
     // };
   
- console.log(tableData,"table");
+//  console.log(tableData,"table");
     const handleSelect1 = (record) => {
-        // console.log(record.type,"record.id");
         if (record.type === 0) {
           handleDeletePilot(record.student_id);
         } else {

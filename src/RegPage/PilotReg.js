@@ -164,9 +164,16 @@ const PilotReg = () => {
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
-      password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Password</span>
-      ),
+      // password: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Enter Password</span>
+      // ),
+        password: Yup.string()
+            .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
+            .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
+            .matches(/[A-Z]/, () => <span style={{ color: "red" }}>Password must contain at least one uppercase letter</span>)
+            .matches(/\d/, () => <span style={{ color: "red" }}>Password must contain at least one number</span>)
+            .matches(/[@$!%*?&]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&)</span>)
+            .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       ),
@@ -240,18 +247,18 @@ const PilotReg = () => {
     },
   });
   async function apiCall(mentData) {
-    console.log(mentData,"data");
+    // console.log(mentData,"data");
     // Dice code list API //
     // where list = diescode  //
     const body = {
       college_name: mentData.college_name,
       college_type: mentData.college_type,
-
+      student_id :mentData.student_id,
       district: mentData.district,
       email: mentData.username,
       mobile: mentData.mobile,
     };
-console.log(body,"body");
+// console.log(body,"body");
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",

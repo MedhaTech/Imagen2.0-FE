@@ -58,7 +58,7 @@ const TicketsPage = (props) => {
       .get(`${URL.getMentors}?Data=${resparam}`, axiosConfig)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "11");
+          // console.log(response, "11");
           const updatedWithKey =
             response.data &&
             response.data.data[0] &&
@@ -133,6 +133,22 @@ const TicketsPage = (props) => {
         .catch(function (error) {
             console.log(error);
         });
+};
+const handleSelect = (item, num) => {
+  // where item = student id / mentor id //
+  localStorage.removeItem('dist');
+  localStorage.removeItem('num');
+  if (num == '1') {
+      navigate("/Institution-view",{state:{ data: item,
+          // dist:studentDist,
+          num: num}}
+         
+      );
+     
+      localStorage.setItem('studentId', item.user_id);
+      localStorage.setItem('studentData', JSON.stringify(item));
+  } 
+     
 };
 const handleDeleteInstitution = (item) => {
   let supId;
@@ -258,13 +274,22 @@ supId = encryptGlobal(
         sortable: false,
         width: '14rem',
         cell: (record) => [
-            <><div
+            <>
+            {/* <div
             key={record.id}
             onClick={() => handleReset(record, '1')}
             style={{ marginRight: '10px' }}
           >
             <div className="btn btn-primary"><FontAwesomeIcon icon={faKey} style={{ marginRight: "5px" }} />Reset</div>
-          </div><div
+          </div> */}
+          <div
+                        key={record.id}
+                        onClick={() => handleSelect(record, '1')}
+                        style={{ marginRight: '10px' }}
+                    >
+                        <div className="btn btn-primary"><i data-feather="eye" className="feather-eye" style={{ marginRight: "5px" }} />View</div>
+                    </div>
+          <div
             key={record.id}
             onClick={() => handleDeleteInstitution(record)}
           >

@@ -2,68 +2,46 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Form, Label, FormGroup } from "reactstrap";
+import { Form, Row, Col, Label } from "reactstrap";
 
 import {
   getCurrentUser,
   setCurrentUser,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
-
+import {
+  getAdminTeamMembersList,
+  // studentResetPassword
+} from "../../redux/actions";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { ArrowRight } from "react-feather";
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import { encryptGlobal } from "../../constants/encryptDecrypt";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeft, ArrowRight } from "react-feather";
 import {
   districtList,
   collegeType,
   yearofstudyList,
   collegeNameList,
 } from "../../RegPage/ORGData.js";
-import { string } from "prop-types";
-
-const StuEdit = () => {
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { useNavigate } from "react-router-dom";
+import female from "../../assets/img/Female_Profile.png";
+import male from "../../assets/img/Male_Profile.png";
+import user from "../../assets/img/user.png";
+import { isString } from "antd/es/button";
+const InstEdit = () => {
   const location = useLocation();
   const studentData = location.state || {};
+  const { mentor_id, studentsData } = location.state || {};
+
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    mentorViewApi();
-  }, [studentData.student_id]);
-  // console.log(currentUser?.data[0]?.type_id,"tt");
-  const mentorViewApi = () => {
-    let supId;
-    if (typeof studentData.student_id !== "string") {
-      supId = encryptGlobal(JSON.stringify(studentData.student_id));
-    } else {
-      supId = encryptGlobal(studentData.student_id);
-    }
-    var config = {
-      method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + `/students/${supId}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          setData(response.data.data[0]);
-          // console.log(response, "11");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  const [data, setData] = useState(studentsData);
+  // console.log(data, "data");
+
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
@@ -134,6 +112,7 @@ const StuEdit = () => {
         console.log(error);
       });
   };
+
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -141,13 +120,25 @@ const StuEdit = () => {
       mobile: "",
       district: "",
       college: "",
-      rollnumber: "",
-      branch: "",
-      yearofstudy: "",
+     
       collegeType: "",
       ocn: "",
-      id_number: "",
     },
+    // initialValues: {
+    //   full_name: data?.full_name || '',
+    //   email: data.username_email,
+    //   mobile: data?.mobile,
+    //   district: data?.district,
+    //   college: data?.college_name,
+    //   rollnumber: data?.roll_number,
+    //   branch: data?.branch,
+    //   yearofstudy: data?.
+    //   year_of_study
+    //   ,
+    //   collegeType: data?.college_type,
+    //   ocn: data?.college_name,
+    // },
+
     validationSchema: Yup.object({
       full_name: Yup.string()
         .trim()
@@ -171,8 +162,6 @@ const StuEdit = () => {
           "Email Must be VALID"
         )
         .max(255),
-      id_number: Yup.string().optional(),
-
       mobile: Yup.string()
         .required(
           <span style={{ color: "red" }}>Please Enter Mobile Number</span>
@@ -203,64 +192,47 @@ const StuEdit = () => {
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
       ),
-
-      // ocn: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Enter College Name</span>
-      // ),
-
-      rollnumber: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Roll Number</span>
-      ),
-      branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Branch Name</span>
-      ),
-
-      yearofstudy: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Year of Study</span>
-      ),
+    
     }),
-    //  (values.college === 'Other' || values.college === 'Govt Junior College' || values.college === 'Private College')
+
     onSubmit: (values) => {
+      // alert("hii");
       const body = {
         full_name: values.full_name,
         // mobile: String(values.mobile),
         district: values.district,
         college_type: values.collegeType,
         college_name: values.college === "Other" ? values.ocn : values.college,
-        roll_number: values.rollnumber,
-        branch: values.branch,
-        year_of_study: values.yearofstudy,
-        id_number: values.id_number,
+       
       };
-      if (data && data?.username_email !== values.email) {
+      if (data && data.username_email !== values.email) {
         body["username"] = values.email;
       }
       if (data && data?.mobile !== values.mobile) {
         body["mobile"] = values.mobile;
       }
-      const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
+      // if (data && data.id_number !== values.id_number ) {
+      //   body["id_number"] = values.id_number;
+      // }
+     
+      const teamparamId = encryptGlobal(JSON.stringify(data?.mentor_id));
       var config = {
         method: "put",
-        url: process.env.REACT_APP_API_BASE_URL + "/students/" + teamparamId,
+        url: process.env.REACT_APP_API_BASE_URL + "/mentors/" + teamparamId,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${currentUser?.data[0]?.token}`,
         },
         data: JSON.stringify(body),
       };
-      // console.log(body,"body");
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            if (studentData.student_id === currentUser?.data[0]?.student_id) {
-              currentUser.data[0].full_name = values.full_name;
-              setCurrentUser(currentUser);
-            }
             openNotificationWithIcon(
               "success",
-              "Student Details Updated Successfully "
+              "Student Details Updated Successfully"
             );
-            navigate("/student-team");
+            navigate("/institution-users-list");
             // handleView(studentData);
           } else {
             openNotificationWithIcon("error", "Opps! Something Wrong");
@@ -288,22 +260,15 @@ const StuEdit = () => {
         mobile: data.mobile || "",
         district: data.district || "",
         college: data.college_name || "",
-        rollnumber: data.roll_number || "",
-        branch: data.branch || "",
-        yearofstudy: data.year_of_study || "",
+        // rollnumber: data.roll_number || '',
+        // branch: data.branch || '',
+        // yearofstudy: data.year_of_study || '',
         collegeType: data.college_type || "",
-        // ocn: data.college_name || '',
-        ocn:
-          data.college_type === "Other" ||
-          data.college_type === "Private College" ||
-          data.college_type === "Govt Junior College"
-            ? data.college_name
-            : "",
-        id_number: data.id_number || "",
+        ocn: data.college_type === "Other" ? data.college_name : "",
+        // id_number: data.id_number || '',
       });
     }
   }, [data]);
-  // console.log(data,"cc");
 
   useEffect(() => {
     if (data?.college_type) {
@@ -318,12 +283,12 @@ const StuEdit = () => {
   useEffect(() => {
     setCollegeNamesList(collegeNameList[data.college_type] || []);
   }, [data.college_type]);
-  // console.log(formik.values.collegeType, "clg", formik.values.ocn, "other");
+  //  console.log(data.college_name,"coll");
   return (
     <div className="page-wrapper">
       <div className="content">
         <div className="login-userheading">
-          <h4>Edit Student</h4>
+          <h4>Edit Institution</h4>
         </div>
         <div className="d-flex justify-content-center align-items-center">
           <div className="card container m-4">
@@ -397,7 +362,7 @@ const StuEdit = () => {
                           ) : null}
                         </div>
 
-                        <div className="col-md-4">
+                        <div className="col-md-6">
                           <label className="form-label" htmlFor="mobile">
                             Mobile Number
                           </label>
@@ -430,7 +395,7 @@ const StuEdit = () => {
                             </small>
                           ) : null}
                         </div>
-                        <div className={`col-md-4`}>
+                        <div className={`col-md-6`}>
                           <label htmlFor="district" className="form-label">
                             District
                           </label>
@@ -520,44 +485,20 @@ const StuEdit = () => {
                             </small>
                           ) : null}
                         </div>
-                        <div className={`col-md-6`}>
-                          <label htmlFor="rollnumber" className="form-label">
-                            Roll Number Provided by the College
-                          </label>
-                          &nbsp;
-                          <span style={{ color: "red", fontWeight: "bold" }}>
-                            *
-                          </span>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="rollnumber"
-                            placeholder="Roll Number"
-                            name="rollnumber"
-                            onChange={(e) => {
-                              const inputValue = e.target.value;
-                              const lettersOnly = inputValue.replace(
-                                /[^a-zA-Z0-9 \s]/g,
-                                ""
-                              );
-                              formik.setFieldValue("rollnumber", lettersOnly);
-                            }}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.rollnumber || ""}
-                          />
-                          {formik.touched.rollnumber &&
-                          formik.errors.rollnumber ? (
-                            <small
-                              className="error-cls"
-                              style={{ color: "red" }}
-                            >
-                              {formik.errors.rollnumber}
-                            </small>
-                          ) : null}
-                        </div>
+
                         {(formik.values.collegeType.trim() === "Other" ||
                           formik.values.collegeType.trim() ===
                             "Govt Junior College" ||
+                          formik.values.collegeType.trim() ===
+                            "Govt Polytechnic College" ||
+                          formik.values.collegeType.trim() ===
+                            "Govt Degree College" ||
+                          formik.values.collegeType.trim() ===
+                            "Govt ITI College" ||
+                          formik.values.collegeType.trim() ===
+                            "Social Welfare College" ||
+                          formik.values.collegeType.trim() ===
+                            "Tribal Welfare College" ||
                           formik.values.collegeType.trim() ===
                             "Private College") && (
                           <div className={`col-md-12`}>
@@ -595,128 +536,28 @@ const StuEdit = () => {
                             ) : null}
                           </div>
                         )}
-
-                        <div className="col-md-4">
-                          <label className="form-label" htmlFor="branch">
-                            Branch
-                          </label>
-                          &nbsp;
-                          <span style={{ color: "red", fontWeight: "bold" }}>
-                            *
-                          </span>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Branch"
-                            id="branch"
-                            name="branch"
-                            // onChange={formik.handleChange}
-                            onChange={(e) => {
-                              const inputValue = e.target.value;
-                              const lettersOnly = inputValue.replace(
-                                /[^a-zA-Z0-9 \s]/g,
-                                ""
-                              );
-                              formik.setFieldValue("branch", lettersOnly);
-                            }}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.branch || ""}
-                          />
-                          {formik.touched.branch && formik.errors.branch ? (
-                            <small className="error-cls">
-                              {formik.errors.branch}
-                            </small>
-                          ) : null}
-                        </div>
-                        <div className={`col-md-4`}>
-                          <label htmlFor="id_number" className="form-label">
-                            APAAR ID
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="id_number"
-                            placeholder="APAAR ID"
-                            // disabled={areInputsDisabled}
-                            name="id_number"
-                            onChange={(e) => {
-                              const inputValue = e.target.value;
-                              const lettersOnly = inputValue.replace(
-                                /[^a-zA-Z0-9 \s]/g,
-                                ""
-                              );
-                              formik.setFieldValue("id_number", lettersOnly);
-                            }}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.id_number}
-                          />
-                          {formik.touched.id_number &&
-                          formik.errors.id_number ? (
-                            <small
-                              className="error-cls"
-                              style={{ color: "red" }}
-                            >
-                              {formik.errors.id_number}
-                            </small>
-                          ) : null}
-                        </div>
-                        <div className={`col-md-4`}>
-                          <label htmlFor="yearofstudy" className="form-label">
-                            Year of Study
-                          </label>
-                          &nbsp;
-                          <span style={{ color: "red", fontWeight: "bold" }}>
-                            *
-                          </span>
-                          <select
-                            id="yearofstudy"
-                            className="form-select"
-                            name="yearofstudy"
-                            value={formik.values.yearofstudy}
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                          >
-                            <option value={""}>Select Year of Study</option>
-                            {yearofstudyList.map((item) => (
-                              <option key={item} value={item}>
-                                {item}
-                              </option>
-                            ))}
-                          </select>
-                          {formik.touched.yearofstudy &&
-                          formik.errors.yearofstudy ? (
-                            <small className="error-cls">
-                              {formik.errors.yearofstudy}
-                            </small>
-                          ) : null}
-                        </div>
                       </>
 
                       <div className="form-login d-flex justify-content-between">
                         <button
-                          className={`btn btn-warning m-2 ${
-                            !formik.dirty || !formik.isValid
-                              ? "default"
-                              : "primary"
-                          }`}
+                          //                         type="submit"
+                          // className={`btn btn-warning m-2 ${
+                          //   !formik.dirty || !formik.isValid ? "default" : "primary"
+                          // }`}
+                          className="btn btn-warning m-2"
                           type="submit"
-                          disabled={
-                            !formik.dirty ||
-                            !formik.isValid ||
-                            (formik.values.collegeType === "Other" &&
-                              !formik.values.ocn)
-                          }
+                          disabled={!formik.isValid || !formik.dirty}
+                          // disabled={!formik.dirty || !formik.isValid}
                         >
                           Submit
-                          {/* <ArrowRight /> */}
                         </button>
                         <button
                           className="btn btn-warning m-2"
                           type="button"
-                          onClick={() => navigate("/student-team")}
+                          onClick={() => navigate("/institution-users-list")}
                         >
-                          Back
-                          {/* <ArrowRight /> */}
+                          {/* <ArrowLeft /> */}
+                          Discard
                         </button>
                       </div>
                     </div>
@@ -732,4 +573,4 @@ const StuEdit = () => {
   );
 };
 
-export default StuEdit;
+export default InstEdit;
