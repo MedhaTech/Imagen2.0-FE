@@ -99,7 +99,11 @@ import StudentProgressReport from "../Admin/Reports/Helpers/StudentProgressRepor
 import MentorView from "../Admin/UsersList/MentorView";
 import MentorEdit from "../Admin/UsersList/MentorEdit";
 import StudentTableView from "../Admin/UsersList/StudentTableView";
+import InstTableView from "../Admin/UsersList/InstView";
+
 import StuEdit from "../Admin/UsersList/StudentEdit";
+import InstEdit from "../Admin/UsersList/InstEdit";
+
 import AdminRes from "../Admin/AdminTickets/TicketResponse";
 
 import AdminSupport from "../Admin/AdminTickets/Tickets";
@@ -491,6 +495,22 @@ export const publicRoutes = [
     path: routes.resendemail,
     name: "resendemail",
     element: <ResendEmail />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 34,
+    path: routes.insttableview,
+    name: "insttableview",
+    element: <InstTableView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 35,
+    path: routes.instedit,
+    name: "instedit",
+    element: <InstEdit />,
     protected: true,
     route: Route,
   },

@@ -21,7 +21,11 @@ export const all_routes = {
   studentreport:"Student-Report",
   mentorEdit:"/admin-mentor-edit",
   studenttableview:"/student-view",
-  stuedit:"student-edit",
+  insttableview:"/Institution-view",
+
+  stuedit:"/student-edit",
+  instedit:"/Institution-edit",
+
   instruction:"/instruction",
   adminsupport:"/admin-support",
   studentsupport: "/student-support",

@@ -63,7 +63,7 @@ const StuEdit = () => {
       .then(function (response) {
         if (response.status === 200) {
           setData(response.data.data[0]);
-          console.log(response,"res");
+          // console.log(response,"res");
         }
       })
       .catch(function (error) {
@@ -83,6 +83,14 @@ const StuEdit = () => {
   //   setCollegeNamesList(updatedCollegeNames);
    
   // };
+  useEffect(() => {
+  if (data?.college_type) {
+    const existingColleges = collegeNameList[data.college_type] || [];
+    setCollegeNamesList(existingColleges);
+    
+    AllCollegesApi(data.college_type, existingColleges);
+  }
+}, [data?.college_type]);
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
     console.log("Selected College Type:", selectedCollegeType);
@@ -323,7 +331,7 @@ const StuEdit = () => {
     );
     
    },[data.college_type]);
-   console.log(data.college_name,"coll");
+  //  console.log(data.college_name,"coll");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -542,7 +550,11 @@ const StuEdit = () => {
                               </small>
                             ) : null}
                           </div>
-                          {formik.values.collegeType === "Other" && (
+                          {(formik.values.collegeType.trim() === "Other" ||
+                                                    formik.values.collegeType.trim() ===
+                                                      "Govt Junior College" ||
+                                                    formik.values.collegeType.trim() ===
+                                                      "Private College")&& (
                             <div className={`col-md-12`}>
                               <label htmlFor="ocn" className="form-label">
                                 Other College Name
@@ -695,7 +707,7 @@ const StuEdit = () => {
                             onClick={() => navigate("/students")}
                           >
                             {/* <ArrowLeft /> */}
-                            Back
+                            Discard
                             
                           </button>
                         </div>
