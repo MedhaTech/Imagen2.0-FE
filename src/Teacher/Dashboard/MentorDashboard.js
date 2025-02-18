@@ -180,7 +180,7 @@ const MentorDashboard = () => {
         // mentorcoursepercentage();
         // mentorpostsurvey();
         // fetchwhatsapplink();
-        scroll();
+        // scroll();
        
     }
   }, [currentUser?.data[0]?.user_id]);
