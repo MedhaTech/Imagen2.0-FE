@@ -163,7 +163,7 @@ export const studentResetPassword = (body) => async () => {
       if (result && result.status === 202) {
           openNotificationWithIcon(
               'success',
-              'Password Successfully Updated'
+              'Password Updated to Mobile Number Successfully'
           );
       } else {
           openNotificationWithIcon('error', 'Something went wrong');

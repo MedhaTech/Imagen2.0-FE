@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, List, Label, Card } from "reactstrap";
 
@@ -25,6 +25,7 @@ const Dashboard = (props) => {
   const [teamsArray, setTeamsArray] = useState([]);
   const currentUser = getCurrentUser("current_user");
   const [hidebutton, setHideButton] = useState("");
+  const [ideaStatus,setIdeaStatus]=useState("");
   useEffect(() => {
     teamListbymentorid();
   }, []);
@@ -54,7 +55,7 @@ const Dashboard = (props) => {
         if (response.status === 200) {
           setTeamsArray(response.data.data);
           setHideButton(response.data.count);
-          console.log(response, "Single user");
+          // console.log(response, "Single user");
         }
       })
       .catch(function (error) {
@@ -88,7 +89,41 @@ const Dashboard = (props) => {
   const handleEditData = (student_id) => {
     navigate(`/student-teamEdit`, { state: { student_id: student_id } });
   };
+useEffect(()=>{
+  stuIdeaSubStatus();
+},[]);
+  const stuIdeaSubStatus = () => {
+    const ideaSubApi = encryptGlobal(
+      JSON.stringify({
+        student_id: currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id
+      })
+    );
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/challenge_response/submittedDetails?Data=${ideaSubApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json', 
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response, "ideaSubApi");
+          setIdeaStatus(response.data.data[0].status);
+        }
+      })
+      .catch(function (error) {
+        // console.log(error,"error");
+        if (error.response.data.status === 404) {
+          // setStuIdeaSub("Not Started");
+        }
 
+      });
+  };
   const handleDeleteStudent = (id) => {
     const MySwal = withReactContent(Swal);
     MySwal.fire({
@@ -185,7 +220,7 @@ const Dashboard = (props) => {
                             </div>
                           </OverlayTrigger>
                         )}
-                        {currentUser?.data[0]?.type_id === 0 && (
+                        {currentUser?.data[0]?.type_id === 0 && student.type !== 0 && ideaStatus !== "SUBMITTED" && (
                           <OverlayTrigger
                             placement="top"
                             overlay={renderDelTooltip(student?.full_name)}
@@ -193,6 +228,7 @@ const Dashboard = (props) => {
                             <div
                               className="btn text-danger"
                               style={{ fontSize: "1rem" }}
+                              
                               onClick={() =>
                                 handleDeleteStudent(student?.student_id)
                               }
