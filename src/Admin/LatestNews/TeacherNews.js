@@ -89,12 +89,12 @@ const AdminLatestNews = () => {
                     if (value === '0') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Disabled Successfully'
+                            'New Icon Status Disabled Successfully'
                         );
                     } else if (value === '1') {
                         openNotificationWithIcon(
                             'success',
-                            'New Status Enabled Successfully'
+                            'New Icon Status Enabled Successfully'
                         );
                     }
                     teacherList();

@@ -97,7 +97,7 @@ const InstProfile = (props) => {
                 if (response.status === 202) {
                     openNotificationWithIcon(
                         'success',
-                        'Reset Password Successfully Update!',
+                        'Password Updated to Mobile Number Successfully'
                     );
                 }
             })

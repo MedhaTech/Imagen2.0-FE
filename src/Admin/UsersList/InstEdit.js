@@ -425,7 +425,7 @@ const InstEdit = () => {
                           ) : null}
                         </div>
 
-                        <div className={`col-md-4`}>
+                        <div className={`col-md-6`}>
                           <label htmlFor="collegeType" className="form-label">
                             College Type
                           </label>

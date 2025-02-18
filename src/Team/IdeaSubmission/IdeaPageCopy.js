@@ -780,7 +780,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     ideaDescribe?.length > 0 &&
     title?.length > 0 &&
     solve?.length > 0;
-  console.log(typeof formData?.initiated_by,"User",typeof currentUser?.data[0]?.user_id,"Currentuser");
+  // console.log(typeof formData?.initiated_by,"User",typeof currentUser?.data[0]?.user_id,"Currentuser");
   return (
     <>
       {/* <div className='content'> */}
