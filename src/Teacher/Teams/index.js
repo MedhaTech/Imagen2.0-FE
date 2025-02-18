@@ -79,7 +79,7 @@ const Dashboard = (props) => {
     var teamlist = [];
     teamsList.map((teams, index) => {
       var key = index + 1;
-      if (teams.crewCount < 3 && teams.ideaStatus !== "SUBMITTED") {
+      if (teams.crewCount < 3 && teams.ideaStatus === null) {
         teamObj[teams.full_name] = teams.student_id;
         teamlist.push(teams.full_name);
       }
