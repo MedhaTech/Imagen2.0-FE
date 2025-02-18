@@ -337,9 +337,9 @@ const AdminResources = () => {
       .then(function (response) {
         if (response.status === 200) {
           if (value === "0") {
-            openNotificationWithIcon("success",  'New Icon Status Disabled Successfully');
+            openNotificationWithIcon("success",  'PopUp Disabled Successfully');
           } else if (value === "1") {
-            openNotificationWithIcon("success",  'New Icon Status Enabled Successfully');
+            openNotificationWithIcon("success",  'PopUp Enabled Successfully');
           }
           // openNotificationWithIcon(
           //     'success',

@@ -341,7 +341,7 @@ const AdminSupport = () => {
     <div className="content">            
             <div className="card">
             <div className="card-header d-flex align-items-center flex-wrap justify-content-between">
-                    <div className="card-title">Support Queries Raised by students</div>
+                    <div className="card-title">Support Queries</div>
                     <div>
                         <ul
                             className="nav nav-pills justify-content-end nav-style-2"
