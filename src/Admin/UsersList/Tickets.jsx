@@ -433,30 +433,12 @@ const fiterDistData = [...districtList["Telangana"]];
                 // left:true,
                 width: '14em'
             },
-//             {
-//                 name: 'College Type',
-//                 cell: (row) => (
-//                     <div
-//                         style={{
-//                             whiteSpace: 'pre-wrap',
-//                             wordWrap: 'break-word'
-//                         }}
-//                     >
-//                         {row?.college_type
-// }
-//                     </div>
-//                 ),
-//                 selector: (row) => row?.college_type,
-//                 cellExport: (row) => row?.college_type,
-//                 width: '10rem'
-//             },
 
             {
-                name: 'College Name',
+                name:'College Name',
                 selector: (row) => row?.college_name,
                 cellExport: (row) => row?.college_name,
-                width: '11rem',
-                // left:true,
+                width: '16rem',
             },
             // {
             //     name: 'Roll number',
@@ -479,7 +461,7 @@ const fiterDistData = [...districtList["Telangana"]];
                 name: 'Actions',
                 sortable: false,
                 width: '14rem',
-                left:true,
+                // left:true,
                 cell: (record) => [
                     <><div
                         key={record.id}
