@@ -230,7 +230,7 @@ const InstEdit = () => {
           if (response.status === 200) {
             openNotificationWithIcon(
               "success",
-              "Student Details Updated Successfully"
+              "Institution Details Updated Successfully"
             );
             navigate("/institution-users-list");
             // handleView(studentData);

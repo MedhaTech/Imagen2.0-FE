@@ -164,6 +164,9 @@ const CommonUserProfile = (props) => {
             if (response.status === 200) {
               // console.log(response);
               setVideos(response.data.data[0].videos_completed_count);
+              setCourse(response.data.data[0]
+              );
+
             }
           })
           .catch(function (error) {
@@ -516,10 +519,10 @@ const CommonUserProfile = (props) => {
           <tr>
             <td><b>Course Completion</b></td>
             <td>
-              {course?.topics_completed_count !== undefined
+              {course?.videos_completed_count !== undefined
                 ? `${Math.round(
-                    (course?.topics_completed_count /
-                      course?.all_topics_count) *
+                    (course?.videos_completed_count /
+                      course?.all_videos_count) *
                       100
                   )}%`
                 : "-"}
