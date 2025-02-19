@@ -16,6 +16,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
+import DoughnutChart from '../../Teacher/Dashboard/TeamsProgDD';
+
 // import {
 //     getStudentDashboardStatus,
 //     getStudentDashboardTeamProgressStatus
@@ -37,7 +39,12 @@ const InstProfile = (props) => {
     const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
     // console.log(StudentsDaTa,"111");
   
- 
+    var teamId = [];
+    teamId.push({
+        mentor_id: StudentsDaTa.mentor_id,
+        user_id: StudentsDaTa.user_id,
+        college_name:StudentsDaTa.college_name
+    });
  
     
   
@@ -173,13 +180,14 @@ const InstProfile = (props) => {
                         <button
                           className='btn btn-secondary'
                             onClick={handleViewBack}
+                            // onClick={() => navigate(-1)}
                         >
                         Back
                         </button>
                     </div>
                 </Row>
 
-<Row className="my-2">
+<Row className="mx-3 my-2">
   <Card className="py-2">
     <CardBody>
       <h4 className="mb-3">User Details</h4>
@@ -244,7 +252,16 @@ const InstProfile = (props) => {
 </Row>
 
 
-
+<Row>
+                            <Col>
+                                <div >
+                                    <DoughnutChart
+                                        user={teamId}
+                                        dashBoard={'Admin'}
+                                    />
+                                </div>
+                            </Col>
+                    </Row>
                
           
               

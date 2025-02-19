@@ -48,11 +48,11 @@ const Index = () => {
         </div>
         <div className="row align-items-start pos-wrapper pos-design">
           <div className="col-md-12 col-lg-8">
-            <div className="pos-categories tabs_wrapper">
+            <div className="pos-categories tabs_wrapper" style={{ backgroundColor: 'transparent' }}>
               <div className="pos-products">
                 <div className="tabs_container">
                   <div className="tab_content active">
-                    <div className="row">
+                    <div className="row" style={{ display: 'flex', gap: '100px' }}>
                       {studentD >= 1 && (<div className="col-sm-2 col-md-6 col-lg-6 col-xl-3 pe-2">
                         <div className="product-info default-cover card"  style={{ width: '250px', height: '200px', padding: '20px' }}>
                           <Link className="img-bg" to='/studentcourse/VTJGc2RHVmtYMThUMXFCOXBiWTZReGN3dXdSU3JzSlJYM3NwblpZSVlSZz0='>
@@ -73,27 +73,26 @@ const Index = () => {
                           >
                             <Link to='/studentcourse/VTJGc2RHVmtYMThUMXFCOXBiWTZReGN3dXdSU3JzSlJYM3NwblpZSVlSZz0='>Course 1</Link>
                           </h6>
-                          {/* <div className="d-flex align-items-center justify-content-between price">
-                              <span>{t('home.ideafocus')}</span>
-                              {theme.id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{theme.focusareas.length - 1}</p>)}
-                            </div> */}
+                          
                         </div>
                       </div>)}
 
                       {studentD >= 2 && (<div className="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-                        <div className="product-info default-cover card">
+                        <div className="product-info default-cover card" style={{ width: '250px', height: '200px', padding: '20px' }}>
                           <Link className="img-bg" to='/studentcourse/VTJGc2RHVmtYMStuTlpBam9KZUVUeTNpMmMwc0k3QnVQTnd0aXBkUHg0QT0='>
                             <img
                               src={C2}
                               alt={'course2'}
+                              style={{ width: '2500px', height: '100%', objectFit: 'cover' }}
                             />
                             <span>
 
                               <Check className="feather-16" />
                             </span>
                           </Link>
-                          <h6 className="product-name">
-                            <Link to='/studentcourse/VTJGc2RHVmtYMStuTlpBam9KZUVUeTNpMmMwc0k3QnVQTnd0aXBkUHg0QT0='>Course2</Link>
+                          <h6 className="product-name col-sm-6 col-md-6 col-lg-3 col-xl-6" 
+                          style={{ fontSize: '1.2rem', marginTop: '1rem', textAlign:"center"}}>
+                            <Link to='/studentcourse/VTJGc2RHVmtYMStuTlpBam9KZUVUeTNpMmMwc0k3QnVQTnd0aXBkUHg0QT0='>Course 2</Link>
                           </h6>
                         </div>
                       </div>)}
