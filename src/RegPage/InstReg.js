@@ -66,7 +66,6 @@ const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
-
   // const handleCollegeTypeChange = (event) => {
   //   const selectedCollegeType = event.target.value;
   //   console.log("Selected College Type:", selectedCollegeType);
@@ -248,12 +247,23 @@ const Register = () => {
       college_type: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College Type</span>
       ),
-      password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Password</span>
-      ),
-      confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
-      ),
+      // password: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Enter Password</span>
+      // ),
+      // confirmPassword: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Enter Confirm Password</span>
+      // ),
+      password: Yup.string()
+      .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
+      .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
+      .matches(/[A-Z]/, () => <span style={{ color: "red" }}>Password must contain at least one uppercase letter</span>)
+      .matches(/\d/, () => <span style={{ color: "red" }}>Password must contain at least one number</span>)
+      .matches(/[@$!%*?&]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&)</span>)
+      .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
+    
+  
+    confirmPassword: Yup.string()
+      .required(<span style={{ color: "red" }}>Please Enter Confirm Password</span>),
     }),
 
     onSubmit: async (values) => {

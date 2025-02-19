@@ -44,7 +44,7 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>District wise Students Reg Status</h4>
+                                    <h4>District-wise Students Reg Status</h4>
                             </div>
                         </Link>
                        
@@ -66,7 +66,7 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>District wise Institutions Reg Status</h4>
+                                    <h4>District-wise Institutions Reg Status</h4>
                             </div>
                         </Link>
                        
@@ -91,7 +91,7 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>Institution Individuals status</h4>
+                                    <h4>District-wise Institution Overview</h4>
                             </div>
                         </Link>
                        
@@ -115,7 +115,7 @@ return (
                                     <FcPositiveDynamic size="50"/>
 
                                     </div>
-                                    <h4>Individuals status</h4>
+                                    <h4>District-wise Students Overview</h4>
                             </div>
                         </Link>
                        
@@ -125,7 +125,7 @@ return (
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
-                                <h5 className="active">Ideas Submitted</h5>
+                                <h5 className="active">Submitted Ideas</h5>
                             </div>
                         </div>
                         <Link  to="/idea-submission-report ">
@@ -138,7 +138,7 @@ return (
                                     />
 
                                     </div>
-                                    <h4>Innovations</h4>
+                                    <h4>District-wise Submitted Ideas Overview</h4>
                             </div>
                         </Link>
                        

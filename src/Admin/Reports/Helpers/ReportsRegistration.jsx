@@ -670,8 +670,9 @@ const ReportsRegistration = () => {
                                                                 <th style={{ color: "#36A2EB" }}>District <br />Name</th>
                                                                 <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>No of <br />Students <br />Reg</th>
                                                                 <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Govt <br />Junior <br /> College</th>
-                                                                <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Govt <br />Polytechnic<br /> College</th>
                                                                 <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Govt <br />ITI <br />College</th>
+
+                                                                <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Govt <br />Polytechnic<br /> College</th>
                                                                 <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Govt <br />Degree <br />College</th>
                                                                 <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Social <br />Welfare <br />College</th>
                                                                 <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Tribal <br />Welfare <br />College</th>
@@ -699,11 +700,12 @@ const ReportsRegistration = () => {
                                                                         {item.GovtJuniorCollege_Count ? item.GovtJuniorCollege_Count : "0"}
                                                                     </td>
                                                                     <td>
-                                                                        {item.GovtPolytechnicCollege_Count ? item.GovtPolytechnicCollege_Count : "0"}
-                                                                    </td>
-                                                                    <td>
                                                                         {item.GovtITICollege_Count ? item.GovtITICollege_Count : "0"}
                                                                     </td>
+                                                                    <td>
+                                                                        {item.GovtPolytechnicCollege_Count ? item.GovtPolytechnicCollege_Count : "0"}
+                                                                    </td>
+                                                                   
 
                                                                     <td>
                                                                         {item.GovtDegreeCollege_Count ? item.GovtDegreeCollege_Count : "0"}
@@ -746,7 +748,7 @@ const ReportsRegistration = () => {
                                             </div>
                                         </div>
                                     </div><div className="row">
-                                        <div className="col-sm-12 col-md-12 col-xl-7 d-flex">
+                                        <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                                             <div className="card flex-fill default-cover w-100 mb-4">
                                                 <div className="card-header d-flex justify-content-between align-items-center">
                                                     <h4 className="card-title mb-0">Data Analytics</h4>
@@ -778,7 +780,7 @@ const ReportsRegistration = () => {
                                                 <div className="card-body">
     <div className="row">
         <div className="col-md-12 text-center mt-3">
-            <p>
+            <p style={{fontSize:"24px"}}>
                 <b>
                     Overall Category wise Registered Students As of{" "}
                     {newFormat}
@@ -787,7 +789,7 @@ const ReportsRegistration = () => {
         </div>
 
         {/* Labels with counts (Formatted using chart options legend) */}
-        <div className="col-md-4 d-flex align-items-center justify-content-center">
+        <div className="col-md-6 d-flex align-items-center justify-content-center">
             {registeredChartData && registeredChartData.labels && (
                 <ul className="list-unstyled">
                     {registeredChartData.labels.map((label, index) => (
@@ -802,12 +804,14 @@ const ReportsRegistration = () => {
                                     marginRight: "10px",
                                     minWidth: "100px",
                                     display: "inline-block",
-                                    textAlign: "center"
+                                    textAlign: "center",
+                                    fontSize:"16px"
+                                    
                                 }}
                             >
                                 {label}
                             </span>
-                            <b>: {registeredChartData.datasets[0].data[index]}</b>
+                            <b style={{fontSize:"16px"}}>: {registeredChartData.datasets[0].data[index]}</b>
                         </li>
                     ))}
                 </ul>
@@ -815,7 +819,7 @@ const ReportsRegistration = () => {
         </div>
 
         {/* Doughnut Chart */}
-        <div className="col-md-4 doughnut-chart-container">
+        <div className="col-md-6 doughnut-chart-container">
             {registeredChartData && (
         //         <Doughnut
         //             data={registeredChartData}
@@ -824,7 +828,7 @@ const ReportsRegistration = () => {
         // options={chartOption}
 
         //         />
-        <div style={{ width: "300px", height: "300px" }}> 
+        <div style={{ width: "400px", height: "400px" }}> 
         <Doughnut data={registeredChartData} options={chartOption} />
     </div>
             )}
