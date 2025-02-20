@@ -76,6 +76,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -110,6 +116,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -144,6 +156,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -178,6 +196,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -212,6 +236,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -246,6 +276,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -280,6 +316,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -314,6 +356,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -355,6 +403,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -397,6 +451,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -431,6 +491,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -465,6 +531,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -500,6 +572,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -545,6 +623,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
@@ -601,6 +685,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <div
                   // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
+                  style={{ 
+                    borderTop: "1px solid #ccc", 
+                    borderRight: "1px solid #ccc", 
+                    borderBottom: "1px solid #ccc",
+                    borderLeft: "none" 
+                  }}
                 >
                   <div className="question quiz mb-0">
                     <b
