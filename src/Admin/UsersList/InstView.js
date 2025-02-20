@@ -187,7 +187,7 @@ const InstProfile = (props) => {
                     </div>
                 </Row>
 
-<Row className="mx-3 my-2">
+<Row className="mx-1 my-2">
   <Card className="py-2">
     <CardBody>
       <h4 className="mb-3">User Details</h4>

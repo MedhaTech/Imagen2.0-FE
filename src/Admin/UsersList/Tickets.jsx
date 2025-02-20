@@ -396,12 +396,14 @@ const fiterDistData = [...districtList["Telangana"]];
                 // selector: (row) => row.id,
                 selector: (row, key) => key + 1,
                 cellExport: (row) => row.index,
+                center:true,
                 width: '4rem'
             },
 
             {
                 name: 'Full Name',
                 selector: (row) => row?.full_name,
+                center:true,
                 cell: (row) => (
                     <div
                         style={{
@@ -417,17 +419,20 @@ const fiterDistData = [...districtList["Telangana"]];
             },
             {
                 name: 'Email',
+                center:true,
                 selector: (row) => row?.username_email,
                 width: '12rem'
             },
             {
                 name: 'Mobile No',
+                center:true,
                 selector: (row) => row?.mobile,
                 cellExport: (row) => row?.mobile,
                 width: '10rem'
             },
             {
                 name: 'District',
+                center:true,
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
                 // left:true,
@@ -437,6 +442,7 @@ const fiterDistData = [...districtList["Telangana"]];
               name: 'Student Type',
               selector: (row) => row?.type,
               width: '10rem',
+              center:true,
               cell: (row) => [
                   row.type === 0 ? (
                       <span className="badge rounded-pill bg-outline-success" style={{fontSize:"13px"}}>
@@ -452,6 +458,7 @@ const fiterDistData = [...districtList["Telangana"]];
           },
             {
                 name:'College Name',
+                center:true,
                 selector: (row) => row?.college_name,
                 cellExport: (row) => row?.college_name,
                 width: '16rem',
@@ -479,6 +486,7 @@ const fiterDistData = [...districtList["Telangana"]];
                 sortable: false,
                 width: '14rem',
                 // left:true,
+                center:true,
                 cell: (record) => [
                     <><div
                         key={record.id}
