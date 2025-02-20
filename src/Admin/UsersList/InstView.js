@@ -214,8 +214,11 @@ const InstProfile = (props) => {
             <td><b>College Type</b></td>
             <td>{StudentsDaTa?.college_type}</td>
           </tr>
-
-          {StudentsDaTa?.college_type !== "Other" ? (
+          <tr>
+                <td><b>College Name</b></td>
+                <td>{StudentsDaTa?.college_name}</td>
+              </tr>
+          {/* {StudentsDaTa?.college_type !== "Other" ? (
             <tr>
               <td><b>College Name</b></td>
               <td>{StudentsDaTa?.college_name}</td>
@@ -231,7 +234,7 @@ const InstProfile = (props) => {
                 <td>{StudentsDaTa?.college_name}</td>
               </tr>
             </>
-          )}
+          )} */}
 
           {/* <tr>
             <td><b>Roll Number Provided by the College</b></td>
