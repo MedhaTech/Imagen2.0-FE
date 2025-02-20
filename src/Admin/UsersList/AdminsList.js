@@ -390,18 +390,22 @@ const updateStatesList=["All States",...stateList];
                 // selector: (row) => row.id,
                 selector: (row, key) => key + 1,
                 sortable: true,
+                center:true,
                 cellExport: (row) => row.index,
                 width: '5rem'
             },
             {
                 name: 'Admin Name',
                 selector: (row) => row?.user?.full_name,
+                center:true,
                 cellExport: (row) => row?.user?.full_name,
                 sortable: true,
                 width: '13rem'
             },
             {
                 name: 'Email & Password',
+                center:true,
+
                 selector: (row) => row?.user?.username,
                 cellExport: (row) => row?.user?.username,
                 sortable: true,
@@ -409,6 +413,7 @@ const updateStatesList=["All States",...stateList];
             },
             {
                 name: 'Role',
+                center:true,
                 selector: (row) => row?.user?.role,
                 sortable: true,
                 width: '10rem',
@@ -432,6 +437,7 @@ const updateStatesList=["All States",...stateList];
             },
             {
                 name: 'Status',
+                center:true,
                 sortable: true,
                 cell: (row) => [
                     <span key={row.mentor_id} className={`${
@@ -443,14 +449,15 @@ const updateStatesList=["All States",...stateList];
             },
             {
                 name: 'Actions',
+                center:true,
                 sortable: false,
                 width: '13rem',
-                left:true,
+                // left:true,
                 cell: (record) => [
                     <div
-                        className="mr-5"
+                        // className="mr-5"
                         key={record?.id}
-                        style={{ marginRight: '10px' }}
+                        // style={{ marginRight: '10px' }}
                     ></div>,
                     <>
                     <div

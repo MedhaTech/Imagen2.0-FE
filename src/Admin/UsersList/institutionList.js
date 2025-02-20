@@ -209,12 +209,14 @@ supId = encryptGlobal(
         name: "No",
         // selector: (row) => row.id,
         selector: (row, key) => key + 1,
+        center:true,
         cellExport: (row) => row.index,
         width: "4rem",
       },
 
       {
         name: "Full Name",
+        center:true,
         selector: (row) => row?.full_name,
         cell: (row) => (
           <div
@@ -231,23 +233,27 @@ supId = encryptGlobal(
       },
       {
         name: "Email Address",
+        center:true,
         selector: (row) => row?.username_email,
         width: "16rem",
       },
       {
         name: "Mobile No",
+        center:true,
         selector: (row) => row?.mobile,
         cellExport: (row) => row?.mobile,
         width: "9rem",
       },
       {
         name: "District",
+        center:true,
         selector: (row) => row.district,
         cellExport: (row) => row.district,
         width: "8rem",
       },
       {
         name: "College Type",
+        center:true,
         cell: (row) => (
           <div
             style={{
@@ -265,12 +271,14 @@ supId = encryptGlobal(
 
       {
         name: "College Name",
+        center:true,
         selector: (row) => row?.college_name,
         cellExport: (row) => row?.college_name,
         width: "16rem",
       },
       {
         name: 'Actions',
+        center:true,
         sortable: false,
         width: '14rem',
         cell: (record) => [
