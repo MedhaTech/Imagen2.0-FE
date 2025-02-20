@@ -12,6 +12,8 @@ import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
+import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
+
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -45,9 +47,16 @@ const CommonUserProfile = (props) => {
     const dashboardStatus = useSelector(
         (state) => state?.studentRegistration.dashboardStatus
     );
+     const [ideaShow, setIdeaShow] = useState(false);
+      const [noData,setNoData]=useState(false);
+    const [ideaDetails,setIdeaDetails]=useState([]);
+  const TeamId = StudentsDaTa?.type === 0 ? StudentsDaTa?.student_id : StudentsDaTa?.type;
+//  console.log(StudentsDaTa?.type,"Type_id",StudentsDaTa?.student_id,"Student_id");
     useEffect(()=>{
         // stuQuizCount();
         stuVideosCount();
+    submittedApi();
+
         // stuBadgesCount();
         // courseApi();
         // QuizScoreApi();
@@ -81,6 +90,47 @@ const CommonUserProfile = (props) => {
                 console.log(error);
             });
     };
+    const submittedApi = () => {
+      const Param = encryptGlobal(
+        JSON.stringify({
+          student_id: TeamId
+  
+        })
+      );
+      var configidea = {
+        method: "get",
+        url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/challenge_response/submittedDetails?Data=${Param}`,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${currentUser.data[0]?.token}`,
+        },
+      };
+      axios(configidea)
+        .then(function (response) {
+          if (response.status === 200) {
+            if (response.data.data && response.data.data.length > 0) {
+              const data = response.data.data[0];
+              setIdeaDetails(response.data.data[0]);
+              console.log(data, "data");
+              setNoData(false);
+              // setInitiate(response.data.data[0].initiate_by);
+  
+  
+            }
+          }
+        })
+        .catch(function (error) {
+          if (error.response.status === 404) {
+            //   seterror4( true);
+            setNoData(true);
+          }
+  
+        });
+    };
+  
     const courseApi=()=>{
         const stuParam = encryptGlobal(
             JSON.stringify({
@@ -409,15 +459,20 @@ const CommonUserProfile = (props) => {
         <div className="page-wrapper">
         <div className="content">
             {/* <Container className="dynamic-form"> */}
-                <Row>
-                    <div className="col-6">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
-                        {/* <h4 className="mt-2"> User Details</h4> */}
+                {/* <Row>
+                    <div className="col-4">
+                      
                         <h4 className="mt-2">Student Profile - <span style={{color:"#17A2B8"}}>{StudentsDaTa?.full_name}</span></h4>
 
 
                     </div>
-                    <div className="col-6 text-end mb-2">
+                    <div className="col- 8text-end mb-2">
+                    <button
+                          className='btn btn-info me-2'
+                          // onClick={handleEdit}
+                        >
+                       <i data-feather="edit" className="feather-edit" />View Idea
+                        </button>
                       
                          <button
                           className='btn btn-info me-2'
@@ -438,7 +493,48 @@ const CommonUserProfile = (props) => {
                         Back
                         </button>
                     </div>
-                </Row>
+                </Row> */}
+                <Row className="d-flex align-items-center justify-content-between mb-2">
+  <div className="col-auto">
+    <h4 className="mt-2">
+      Student Profile - <span style={{ color: "#17A2B8" }}>{StudentsDaTa?.full_name} </span>  <span style={{ color: "#ffa800" }}>
+    {StudentsDaTa?.type === 0 ? " (Pilot Member)" : " (Crew Member)"}
+  </span>
+    </h4>
+  </div>
+
+  <div className="col-auto d-flex align-items-center">
+  <span className="fw-bold text-info">IDEA STATUS :</span>
+    <span className="ms-1">
+      {noData  ? (
+        <span className="text-warning m-2">NOT STARTED</span>
+      ) : ideaDetails?.status === "DRAFT" ? (
+        <span className="text-success m-2">DRAFT</span>
+      ) : ideaDetails?.status === "SUBMITTED" ? (
+        <span className="text-success m-2">SUBMITTED</span>
+      ) : (
+        <span className="text-danger m-2">NOT STARTED</span>
+      )}
+    </span>
+   { !noData && (ideaDetails?.status === "SUBMITTED" && ( 
+    <button className="btn me-2" style={{ backgroundColor: "#ffa800", borderColor: "#ffa800", color: "white" }}  onClick={() => setIdeaShow(true)}>
+      View Idea
+    </button>
+))}
+    <button className="btn btn-info me-2" onClick={handleEdit}>
+      <i data-feather="edit" className="feather-edit me-1"></i> Edit
+    </button>
+
+    <button className="btn btn-success me-2" onClick={handleReset}>
+      <FontAwesomeIcon icon={faKey} className="me-1" /> Reset
+    </button>
+
+    <button className="btn btn-secondary" onClick={handleViewBack}>
+      Back
+    </button>
+  </div>
+</Row>
+
 
 <Row className="my-2">
   <Card className="py-2">
@@ -533,6 +629,15 @@ const CommonUserProfile = (props) => {
     </CardBody>
   </Card>
 </Row>
+{ideaShow && (
+            <IdeaSubmissionCard
+              show={ideaShow}
+              handleClose={() => setIdeaShow(false)}
+              response={ideaDetails}
+              // setIdeaCount={setIdeaCount}
+              // setApproval={setApproval}
+            />
+          )}
 
                 {/* <Row>
                     <Card className="py-1 mb-2">

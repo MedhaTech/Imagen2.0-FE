@@ -433,13 +433,30 @@ const fiterDistData = [...districtList["Telangana"]];
                 // left:true,
                 width: '14em'
             },
-
+            {
+              name: 'Student Type',
+              selector: (row) => row?.type,
+              width: '10rem',
+              cell: (row) => [
+                  row.type === 0 ? (
+                      <span className="badge rounded-pill bg-outline-success" style={{fontSize:"13px"}}>
+                          Pilot
+                      </span>
+                  ) : (
+                      <span className="badge rounded-pill bg-outline-secondary" style={{fontSize:"13px"}}>
+                          Crew
+                      </span>
+                 
+                  )
+              ]
+          },
             {
                 name:'College Name',
                 selector: (row) => row?.college_name,
                 cellExport: (row) => row?.college_name,
                 width: '16rem',
             },
+           
             // {
             //     name: 'Roll number',
             //     selector: (row) => row?.roll_number,
