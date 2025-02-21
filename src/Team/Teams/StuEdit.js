@@ -9,6 +9,7 @@ import {
   setCurrentUser,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
+import Select from "react-select";
 
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -134,6 +135,11 @@ const StuEdit = () => {
         console.log(error);
       });
   };
+  const collegeOptions = collegeNamesList.map((item) => ({
+    value: item,
+    label: item,
+  }));
+  // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -499,7 +505,7 @@ const StuEdit = () => {
                           <span style={{ color: "red", fontWeight: "bold" }}>
                             *
                           </span>
-                          <select
+                          {/* <select
                             id="college"
                             className="form-select"
                             name="college"
@@ -513,7 +519,15 @@ const StuEdit = () => {
                                 {item}
                               </option>
                             ))}
-                          </select>
+                          </select> */}
+                            <Select
+        classNamePrefix="react-select"
+        options={collegeOptions}
+        placeholder="College Name"
+        value={collegeOptions.find(option => option.value === formik.values.college)}
+        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
+        onBlur={formik.handleBlur}
+      />
                           {formik.touched.college && formik.errors.college ? (
                             <small className="error-cls">
                               {formik.errors.college}

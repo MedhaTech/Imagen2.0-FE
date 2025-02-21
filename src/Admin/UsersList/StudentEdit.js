@@ -31,6 +31,8 @@ import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
 import { isString } from "antd/es/button";
+import Select from "react-select";
+
 const StuEdit = () => {
   const location = useLocation();
   const studentData = location.state || {};
@@ -141,7 +143,11 @@ const StuEdit = () => {
         console.log(error);
       });
   };
- 
+  const collegeOptions = collegeNamesList.map((item) => ({
+    value: item,
+    label: item,
+  }));
+  // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
       full_name: '',
@@ -497,7 +503,7 @@ const StuEdit = () => {
                               College Name
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <select
+                            {/* <select
                               id="college"
                               className="form-select"
                               name="college"
@@ -511,7 +517,15 @@ const StuEdit = () => {
                                   {item}
                                 </option>
                               ))}
-                            </select>
+                            </select> */}
+                              <Select
+        classNamePrefix="react-select"
+        options={collegeOptions}
+        placeholder="College Name"
+        value={collegeOptions.find(option => option.value === formik.values.college)}
+        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
+        onBlur={formik.handleBlur}
+      />
                             {formik.touched.college && formik.errors.college ? (
                               <small className="error-cls">
                                 {formik.errors.college}

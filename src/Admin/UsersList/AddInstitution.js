@@ -18,6 +18,7 @@ import { openNotificationWithIcon } from "../../helpers/Utils.js";
 import { districtList, collegeType, collegeNameList } from '../../RegPage/ORGData.js';
 import { ArrowRight } from 'react-feather';
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+import Select from "react-select";
 
 const AddInstitution = () => {
   const navigate = useNavigate();
@@ -85,6 +86,11 @@ const AddInstitution = () => {
         console.log(error);
       });
   };
+  const collegeOptions = collegeNamesList.map((item) => ({
+    value: item,
+    label: item,
+  }));
+  // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -405,7 +411,7 @@ const AddInstitution = () => {
                               College Name
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <select
+                            {/* <select
                               id="college"
                               className="form-select"
                               name="college"
@@ -419,7 +425,15 @@ const AddInstitution = () => {
                                   {item}
                                 </option>
                               ))}
-                            </select>
+                            </select> */}
+                              <Select
+        classNamePrefix="react-select"
+        options={collegeOptions}
+        placeholder="College Name"
+        value={collegeOptions.find(option => option.value === formik.values.college)}
+        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
+        onBlur={formik.handleBlur}
+      />
                             {formik.touched.college &&
                               formik.errors.college ? (
                               <small className="error-cls">
