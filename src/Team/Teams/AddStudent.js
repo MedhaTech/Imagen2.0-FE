@@ -11,6 +11,7 @@ import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils.js
 import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+import Select from "react-select";
 
 const Crew1student = () => {
   const navigate = useNavigate();
@@ -75,6 +76,10 @@ const Crew1student = () => {
         console.log(error);
       });
   };
+  const collegeOptions = collegeNamesList.map((item) => ({
+    value: item,
+    label: item,
+  }));
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -407,7 +412,7 @@ const Crew1student = () => {
                               College Name
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <select
+                            {/* <select
                               id="college"
                               className="form-select"
                               name="college"
@@ -421,7 +426,15 @@ const Crew1student = () => {
                                   {item}
                                 </option>
                               ))}
-                            </select>
+                            </select> */}
+                             <Select
+        classNamePrefix="react-select"
+        options={collegeOptions}
+        placeholder="College Name"
+        value={collegeOptions.find(option => option.value === formik.values.college)}
+        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
+        onBlur={formik.handleBlur}
+      />
                             {formik.touched.college &&
                               formik.errors.college ? (
                               <small className="error-cls">

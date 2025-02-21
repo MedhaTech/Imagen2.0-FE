@@ -13,6 +13,7 @@ import { openNotificationWithIcon } from "../helpers/Utils.js";
 import OtpInput from "react-otp-input-rc-17";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import Select from "react-select";
 
 
 const PilotReg = () => {
@@ -84,6 +85,11 @@ const PilotReg = () => {
           console.log(error);
         });
     };
+    const collegeOptions = collegeNamesList.map((item) => ({
+      value: item,
+      label: item,
+    }));
+    // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -630,7 +636,7 @@ const PilotReg = () => {
                           College Name
                         </label>&nbsp;
                         <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                        <select
+                        {/* <select
                           id="college"
                           className="form-select"
                           disabled={areInputsDisabled}
@@ -645,7 +651,16 @@ const PilotReg = () => {
                               {item}
                             </option>
                           ))}
-                        </select>
+                        </select> */}
+                          <Select
+        classNamePrefix="react-select"
+        options={collegeOptions}
+        placeholder="College Name"
+        isDisabled={areInputsDisabled}
+        value={collegeOptions.find(option => option.value === formik.values.college)}
+        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
+        onBlur={formik.handleBlur}
+      />
                         {formik.touched.college &&
                           formik.errors.college ? (
                           <small className="error-cls">
