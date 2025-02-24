@@ -524,10 +524,10 @@ const EadmiHeader = () => {
             </div>
           </div>
           <hr className="m-0" />
-          <Link className="dropdown-item m-0" to="/evaluator-profile">
+          {/* <Link className="dropdown-item m-0" to="/evaluator-profile">
           <User className="me-2" /> My Profile
           </Link>
-          <hr className="m-0" />
+          <hr className="m-0" /> */}
           {/* <Link className="dropdown-item" to="/evaluator/change-password">
         <FontAwesomeIcon icon={faKey} /> Change Password
       </Link> */}
