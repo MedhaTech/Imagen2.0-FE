@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React,{useEffect} from 'react';
 import './Styles.css';
 import logo from "../assets/img/logo.png";
 import { ArrowRight } from 'react-feather';
@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const RegSuccess = () => {
   const navigate = useNavigate();
+ 
 
   return (
     <div className='d-flex justify-content-center align-items-center'>
