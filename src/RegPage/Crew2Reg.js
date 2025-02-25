@@ -21,7 +21,7 @@ const Crew2Reg = () => {
    const location = useLocation();
   const navigate = useNavigate();
   const mentData = location.state || {};
-  console.log(mentData,"store");
+  // console.log(mentData,"store");
   var pilotStudentId = sessionStorage.getItem("pilotKey");
   window.onbeforeunload = function () {
     sessionStorage.clear();
@@ -107,10 +107,10 @@ const Crew2Reg = () => {
       college_type: mentData.college_type,
       student_id :mentData.student_id,
       district: mentData.district,
-      email: mentData.username,
+      email: mentData?.email,
       mobile: mentData.mobile,
     };
-console.log(body,"body");
+// console.log(body,"body");
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
