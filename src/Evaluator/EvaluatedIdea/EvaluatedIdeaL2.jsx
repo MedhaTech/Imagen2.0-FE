@@ -160,7 +160,7 @@ const EvaluatedIdea = () => {
                         {row?.theme}
                     </div>
                 ),
-                width: '11rem'
+                width: '15rem'
             },
 
             // {
@@ -200,16 +200,16 @@ const EvaluatedIdea = () => {
                 selector: (row) => row.initiated_name,
                 width: '8rem'
             },
-            {
-                name: 'Evaluated At',
-                selector: (row) =>
-                    row?.evaluator_ratings[0]?.created_at
-                        ? moment(row?.evaluator_ratings[0]?.created_at).format(
-                              'DD-MM-YY h:mm:ss a'
-                          )
-                        : row?.evaluator_ratings[0]?.created_at,
-                width: '10rem'
-            },
+            // {
+            //     name: 'Evaluated At',
+            //     selector: (row) =>
+            //         row?.evaluator_ratings[0]?.created_at
+            //             ? moment(row?.evaluator_ratings[0]?.created_at).format(
+            //                   'DD-MM-YY h:mm:ss a'
+            //               )
+            //             : row?.evaluator_ratings[0]?.created_at,
+            //     width: '10rem'
+            // },
             {
                 name: 'Overall',
 
