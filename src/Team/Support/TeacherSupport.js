@@ -40,7 +40,7 @@ const TeacherSupport = () => {
 console.log(supportTickets,"supportTickets");
 
   const ticketOptions = [
-    // { value: "", label: "Select Category", display: true, disabled: true },
+    // { value: "", label: "Select Category", disabled: true },
     { value: "General", label: "General query" },
     { value: "Technical", label: "Technical query" },
     { value: "Suggestion", label: "Suggestion" },

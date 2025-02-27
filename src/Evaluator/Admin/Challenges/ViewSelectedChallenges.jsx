@@ -143,12 +143,12 @@ const ViewSelectedIdea = () => {
       {
         name: "District",
         selector: (row) => row.district,
-        width: "8rem",
+        width: "10rem",
       },
       {
         name: "College Type",
         selector: (row) => row.college_type,
-        width: "10rem",
+        width: "13rem",
       },
       {
         name: "College Name",
@@ -203,7 +203,7 @@ const ViewSelectedIdea = () => {
             {row?.theme}
           </div>
         ),
-        width: "11rem",
+        width: "14rem",
       },
       // {
       //     name: 'Problem Statement',
@@ -234,7 +234,7 @@ const ViewSelectedIdea = () => {
             {row?.title}
           </div>
         ),
-        width: "11rem",
+        width: "8rem",
       },
 
       // {
@@ -290,7 +290,7 @@ const ViewSelectedIdea = () => {
             </div>,
           ];
         },
-        width: "9rem",
+        width: "7rem",
         center: true,
         // left: true
       },
@@ -321,7 +321,7 @@ const ViewSelectedIdea = () => {
   const [pdfIdeaDetails, setPdfIdeaDetails] = useState("");
   const [pdfTeamResponse, setpdfTeamResponse] = useState("");
   const handleDownpdf = (params) => {
-    console.log(params, "222");
+    // console.log(params, "222");
     setPdfIdeaDetails(params);
     setpdfTeamResponse(params);
     // if (params) {

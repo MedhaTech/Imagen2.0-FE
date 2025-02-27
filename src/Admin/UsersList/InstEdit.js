@@ -547,7 +547,7 @@ const InstEdit = () => {
                           // }`}
                           className="btn btn-warning m-2"
                           type="submit"
-                          disabled={!formik.isValid || !formik.dirty}
+                          disabled={!formik.isValid || !formik.dirty ||(formik.values.college === 'Other' && !formik.values.ocn)}
                           // disabled={!formik.dirty || !formik.isValid}
                         >
                           Submit
