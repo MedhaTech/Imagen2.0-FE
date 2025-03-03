@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import { Fragment, useLayoutEffect, useRef } from "react";
+import { Fragment, useLayoutEffect, useRef ,useEffect, useState} from "react";
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
 // import { Button } from '../../../stories/Button';
 // import Layout from "../../Layout";
@@ -10,6 +10,8 @@ import courseCompletionCertificate from "../../assets/img/Certificates/student_p
 import ideaSubmissionCertificate from "../../assets/img/Certificates/student_idea.jpg";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+import axios from 'axios';
 import {
   getStudentChallengeSubmittedResponse,
   getStudentDashboardStatus,
@@ -156,6 +158,7 @@ const MyCertificate = () => {
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
   );
+  const [enable,setEnable]=useState("");
   const postSurveyStatusGl = useSelector(
     (state) => state?.studentRegistration?.postSurveyStatusGl
   );
@@ -194,16 +197,84 @@ const MyCertificate = () => {
       );
     if (!postSurveyStatusGl) dispatch(studentPostSurveyCertificate(language));
   }, [language]);
+   useEffect(() => {
+      if (currentUser?.data[0]?.user_id) {
+        stuCoursePercent();
+      }
+    }, [currentUser?.data[0]?.user_id]);
   const enablePostSurvey =
     ideaSubmissionStatus === "SUBMITTED" && postSurveyStatusGl === "COMPLETED";
+    const stuCoursePercent = () => {
+      const corseApi = encryptGlobal(
+          JSON.stringify({
+              user_id: currentUser?.data[0]?.user_id
+          })
+      );
+      var config = {
+          method: 'get',
+          url:
+              process.env.REACT_APP_API_BASE_URL +
+              `/dashboard/stuCourseStats?Data=${corseApi}`,
+          headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+      };
+      axios(config)
+          .then(function (response) {
+              if (response.status === 200) {
+                console.log(response);
+                setEnable(response.data.data[0]);
+                  const per = Math.round(
+                      (response.data.data[0].topics_completed_count /
+                          response.data.data[0].all_topics_count) *
+                          100
+                  );
+                  // console.log(per);
+                  // setCoursepercentage(per);
+                  // setStuCourseLoading(false);
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+    };
   return (
     <div className="page-wrapper">
       <div className="content">
       <Container className="presuervey mb-50 mt-5 ">
         <Fragment>
-          <h3 className="text-center m-5 p-5">
+          {/* <h3 className="text-center m-5 p-5">
           Certificates Coming Soon ....
-          </h3>
+          </h3> */}
+          {/* <div className="text-center vh-70">
+ {(enable.all_topics_count === enable.topics_completed_count) &&  
+ <h2 className="text-center m-2 p-2">
+    Congratulations on completing your course! 🎉
+  </h2>}
+  <p className="text-center m-1 p-1" style={{fontSize:"16px"}}>We appreciate your effort! Your certificate is being processed and will be available soon. Stay tuned!</p>
+</div> */}
+
+<div className="d-flex flex-column justify-content-center align-items-center" style={{height:"350px"}}>
+  <Row className="justify-content-center text-center w-100">
+    <Col md={12}>
+      {(enable.all_topics_count === enable.topics_completed_count) &&  
+        <h2 className="m-2 p-2">
+          Congratulations on completing your course! 🎉
+        </h2>
+      }
+    </Col>
+  </Row>
+  <Row className="justify-content-center text-center w-100">
+    <Col md={12}>
+      <p className="m-1 p-1" style={{ fontSize: "20px" ,fontWeight:"bold",color:"#1B2850"}}>
+        We appreciate your effort! Your certificate is being processed and will be available soon. Stay tuned!
+      </p>
+    </Col>
+  </Row>
+</div>
+
           {/* {showDummypage ? (
             <Row>
               <Row>
