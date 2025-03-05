@@ -22,7 +22,7 @@ const Crew1Reg = () => {
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   var pilotStudentId = sessionStorage.getItem("pilotKey");
   const mentData = location.state || {};
-console.log(mentData,"store");
+// console.log(mentData,"store");
  const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
   window.onbeforeunload = function () {
@@ -97,7 +97,7 @@ console.log(mentData,"store");
     label: item,
   }));
   async function apiCall() {
-    alert("hii");
+    // alert("hii");
     // console.log(mentData,"data");
     // Dice code list API //
     // where list = diescode  //
@@ -109,7 +109,7 @@ console.log(mentData,"store");
       email: mentData?.email,
       mobile: mentData.mobile,
     };
-console.log(body,"body");
+// console.log(body,"body");
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
