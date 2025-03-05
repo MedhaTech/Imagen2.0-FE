@@ -80,7 +80,7 @@ const Register = (props) => {
                             // handleideaList();
                         dispatch(getAdmin());
 
-                        }, 500);
+                        }, 1000);
                         openNotificationWithIcon(
                             'success',
                             `${stats} Added Successfully`
