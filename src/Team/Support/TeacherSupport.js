@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
@@ -37,7 +38,7 @@ const TeacherSupport = () => {
   useEffect(() => {
     dispatch(getSupportTickets(currentUser?.data[0]));
   }, []);
-console.log(supportTickets,"supportTickets");
+// console.log(supportTickets,"supportTickets");
 
   const ticketOptions = [
     // { value: "", label: "Select Category", disabled: true },
@@ -171,12 +172,11 @@ console.log(supportTickets,"supportTickets");
 
   const formik1 = useFormik({
     initialValues: {
-      ticket: "",
+      ticket: null,
       ticketDetails: "",
       file_name: "",
       url: "",
     },
-
     validationSchema: Yup.object({
       ticket: Yup.string().required("Required"),
       ticketDetails: Yup.string().required("Required"),
@@ -330,7 +330,13 @@ console.log(supportTickets,"supportTickets");
   const handleChat = (id) => {
     dispatch(getSupportTicketById(id, language));
   };
-
+ 
+ 
+  
+  const handleOpenOffcanvas = () => {
+    console.log("Initial Values:", formik1.initialValues); 
+    formik1.resetForm({ values: formik1.initialValues }); 
+  };
   return (
     <>
       <div className="page-wrapper">
@@ -349,6 +355,7 @@ console.log(supportTickets,"supportTickets");
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasRight-add"
                 aria-controls="offcanvasRight-add"
+                onClick={handleOpenOffcanvas}
               >
                 <PlusCircle className="me-2" />
                 Ask Your Query
@@ -417,7 +424,7 @@ console.log(supportTickets,"supportTickets");
                           <label className="form-label">
                             Select Query Category <span>*</span>
                           </label>
-                          <Select
+                          {/* <Select
                             name="ticket"
                             id="ticket"
                             classNamePrefix="react-select"
@@ -435,7 +442,21 @@ console.log(supportTickets,"supportTickets");
                             <small className="error-cls text-danger">
                               {formik1.errors.ticket}
                             </small>
-                          ) : null}
+                          ) : null} */}
+                           <Select
+        classNamePrefix="react-select"
+        options={ticketOptions}
+        placeholder="Select Category"
+        value={ticketOptions.find(option => option.value === formik1.values.ticket) || null}
+        onChange={(selectedOption) => formik1.setFieldValue("ticket", selectedOption?.value) || null}
+        onBlur={formik1.handleBlur}
+      />
+                        {formik1.touched.ticket &&
+                          formik1.errors.ticket ? (
+                          <small className="error-cls">
+                            {formik1.errors.ticket}
+                          </small>
+                        ) : null}
                         </div>
                       </div>
                       <div className="mb-3">

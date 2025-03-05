@@ -27,7 +27,7 @@ const Crew3Reg = () => {
   
   var pilotStudentId = sessionStorage.getItem("pilotKey");
   const mentData = location.state || {};
-  // console.log(mentData,"store");
+  console.log(mentData,"store");
   window.onbeforeunload = function () {
     sessionStorage.clear();
   };
@@ -103,7 +103,7 @@ const Crew3Reg = () => {
     label: item,
   }));
   async function apiCall() {
-    // alert("hii");
+    alert("hii");
     // console.log(mentData,"data");
     // Dice code list API //
     // where list = diescode  //
@@ -115,7 +115,7 @@ const Crew3Reg = () => {
       email: mentData?.email,
       mobile: mentData.mobile,
     };
-// console.log(body,"body");
+console.log(body,"body");
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",

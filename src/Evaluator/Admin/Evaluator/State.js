@@ -143,22 +143,19 @@ fullStatesNames.unshift("All Districts");
                         />
                     </Row>
                 </Card>
-                <Row>
-                    <Col className="col-xs-12 col-sm-6">
+                <Row className="align-items-center">
+                    <Col xs={12} sm={6} className="text-left">
                     <button
           type="button"
           onClick={handleDiscard}
-        //   onClick={() => {
-        //     localStorage.removeItem('eavlId');
-        //     navigate('/eadmin/evaluator');
-        //   }}
+          style={{ marginLeft: '30px' }}
           className="btn btn-secondary"
         >
           Discard
         </button>
                          
                     </Col>
-                    <Col className="submit-btn col-xs-12 col-sm-6 text-right">
+                    <Col xs={12} sm={6} className="text-right">
                         <Button
                             label="Save"
                             onClick={() => handleclick()}

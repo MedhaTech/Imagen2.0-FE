@@ -39,10 +39,24 @@ const EadmiHeader = () => {
 
     setDiesCode(trimmedValue);
   };
+  // const handleKeyDown = (e) => {
+  //   if (e.key === "Enter" && diesCode) {
+  //     e.preventDefault(); // Prevent form submission
+  //     handleSearch(diesCode);
+  //   }
+  // };
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && diesCode) {
-      e.preventDefault(); // Prevent form submission
-      handleSearch(diesCode);
+    if (e.key === "Enter") {
+      if (!diesCode.trim()) {
+        e.preventDefault(); 
+        openNotificationWithIcon(
+          "error",
+          "Please Enter CID"
+        );
+      } else {
+        e.preventDefault();
+        handleSearch(diesCode);
+      }
     }
   };
   const isElementVisible = (element) => {
