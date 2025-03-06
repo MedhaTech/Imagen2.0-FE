@@ -50,8 +50,8 @@ const LoginEvaluator = (props) => {
         },
 
         validationSchema: Yup.object({
-            email: Yup.string().required('Required').email("Must be a valid email"),
-            password: Yup.string().required('Required')
+            email: Yup.string().required('Please Enter Your Email Address').email("Must be a valid email"),
+            password: Yup.string().required('Please Enter Your Password')
         }),
         // EVALUATOR ROLE
         onSubmit: (values) => {

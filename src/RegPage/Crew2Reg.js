@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import { decryptGlobal,encryptGlobal } from "../constants/encryptDecrypt";
+import { useLocation } from "react-router-dom";
 
 import { districtList, collegeType, yearofstudyList, collegeNameList } from './ORGData';
 import { openNotificationWithIcon } from "../helpers/Utils.js";
@@ -17,7 +18,10 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 
 const Crew2Reg = () => {
+   const location = useLocation();
   const navigate = useNavigate();
+  const mentData = location.state || {};
+  // console.log(mentData,"store");
   var pilotStudentId = sessionStorage.getItem("pilotKey");
   window.onbeforeunload = function () {
     sessionStorage.clear();
@@ -93,6 +97,42 @@ const Crew2Reg = () => {
     value: item,
     label: item,
   }));
+  async function apiCall() {
+    // alert("hii");
+    // console.log(mentData,"data");
+    // Dice code list API //
+    // where list = diescode  //
+    const body = {
+      college_name: mentData.college_name,
+      college_type: mentData.college_type,
+      student_id :mentData.student_id,
+      district: mentData.district,
+      email: mentData?.email,
+      mobile: mentData.mobile,
+    };
+// console.log(body,"body");
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: JSON.stringify(body),
+    };
+
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          // setButtonData(response?.data?.data[0]?.data);
+          // navigate("/atl-success");
+          openNotificationWithIcon("success", "Email Sent Successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
@@ -225,8 +265,20 @@ const Crew2Reg = () => {
       await axios(config)
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
-            navigate("/crew3Reg");
+            navigate("/crew3Reg"
+              , {
+                state: {
+                  college_name: mentData.college_name,
+                  college_type: mentData.college_type,
+                  student_id: mentData.student_id,
+                  district: mentData.district,
+                  email: mentData.email,
+                  mobile: mentData.mobile,
+                },
+              }
+            );
             openNotificationWithIcon("success", "Crew User2 Registered Successfully");
+            // apiCall();
           }
         })
         .catch((err) => {
@@ -245,6 +297,11 @@ const Crew2Reg = () => {
         });
     },
   });
+  const handleSkip=()=>{
+    apiCall();
+    
+    navigate("/regSuccess");
+      };
   return (
     <div className='d-flex justify-content-center align-items-center'>
       <div className="card container m-4">
@@ -792,7 +849,8 @@ const Crew2Reg = () => {
                       <button
                         className="btn btn-warning m-2"
                         type="submit"
-                        onClick={() => navigate("/regSuccess")}
+                        onClick={handleSkip}
+                        // onClick={() => navigate("/regSuccess")}
                         
                       >
                         SKIP NOW

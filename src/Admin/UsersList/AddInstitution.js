@@ -207,7 +207,7 @@ const AddInstitution = () => {
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
                 navigate("/institution-users-list");
-                openNotificationWithIcon("success", "Institution added successfully");
+                openNotificationWithIcon("success", "Institution Added Successfully");
             }
           })
           .catch((err) => {
@@ -548,7 +548,7 @@ const AddInstitution = () => {
                             className="btn btn-warning m-2"
                             type="submit"
                             disabled={
-                              !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
+                              !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword) ||(formik.values.college === 'Other' && !formik.values.ocn)
                             }
                           >
                             Proceed

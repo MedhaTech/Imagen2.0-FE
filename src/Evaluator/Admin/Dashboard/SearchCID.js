@@ -1091,7 +1091,7 @@ const SearchCID = () => {
                    
             </div>
             <div style={{ display: "flex" }}>
-              <p
+             {teamResponse.status !== "DRAFT" && ( <p
                 style={{ fontSize: "1rem", margin: "1rem" }}
                 className="fw-bold"
               >
@@ -1100,15 +1100,7 @@ const SearchCID = () => {
                   ? teamResponse.initiated_name
                   : "-"}
               </p>
-              {/* <p
-                style={{ fontSize: "1rem", margin: "1rem" }}
-                className="fw-bold"
-              >
-                Submitted At :{" "}
-                {teamResponse.submitted_at
-                  ? moment(teamResponse.submitted_at).format("DD-MM-YYYY")
-                  : "-"}
-              </p> */}
+            )}
             </div>
             <br />
             <div style={{ display: "flex" }}>
@@ -1168,13 +1160,17 @@ const SearchCID = () => {
             </Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
+          <Modal.Body
+           style={{
+            maxHeight: window.innerWidth < 768 ? '80vh' : '60vh',
+            height: window.innerWidth < 768 ? '80vh' : '60vh',    
+        }} >
             <div className="my-3 text-center">
-              <h4 className="mb-sm-4 mb-1">
+              <h4 className="mb-sm-4 mb-2">
                 Please Select the reason for rejection.
               </h4>
               <Col>
-                <Col className="m-3">
+                <Col className="m-5">
                   <p style={{ textAlign: "left" }}>
                     <b>1. Novelty & Usefulness</b>
                   </p>
@@ -1185,7 +1181,7 @@ const SearchCID = () => {
                     value={reason}
                   />
                 </Col>
-                <Col className="m-3">
+                <Col className="m-5">
                   <p style={{ textAlign: "left" }}>
                     <b>
                       2. Does the submission show any evidence of efforts put in

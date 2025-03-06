@@ -9,7 +9,7 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import { districtList, collegeType, yearofstudyList, collegeNameList } from './ORGData';
 import { decryptGlobal,encryptGlobal } from "../constants/encryptDecrypt";
-
+import { useLocation } from "react-router-dom";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
@@ -17,9 +17,12 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 
 const Crew1Reg = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   var pilotStudentId = sessionStorage.getItem("pilotKey");
+  const mentData = location.state || {};
+// console.log(mentData,"store");
  const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
   window.onbeforeunload = function () {
@@ -93,6 +96,42 @@ const Crew1Reg = () => {
     value: item,
     label: item,
   }));
+  async function apiCall() {
+    // alert("hii");
+    // console.log(mentData,"data");
+    // Dice code list API //
+    // where list = diescode  //
+    const body = {
+      college_name: mentData.college_name,
+      college_type: mentData.college_type,
+      student_id :mentData.student_id,
+      district: mentData.district,
+      email: mentData?.email,
+      mobile: mentData.mobile,
+    };
+// console.log(body,"body");
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: JSON.stringify(body),
+    };
+
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          // setButtonData(response?.data?.data[0]?.data);
+          // navigate("/atl-success");
+          openNotificationWithIcon("success", "Email Sent Successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
@@ -225,8 +264,20 @@ const Crew1Reg = () => {
       await axios(config)
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
-            navigate("/crew2Reg");
+            navigate("/crew2Reg"
+              , {
+                state: {
+                  college_name: mentData.college_name,
+                  college_type: mentData.college_type,
+                  student_id: mentData.student_id,
+                  district: mentData.district,
+                  email: mentData.email,
+                  mobile: mentData.mobile,
+                },
+              }
+            );
             openNotificationWithIcon("success", "Crew User1 Registered Successfully");
+            // apiCall();
           }
         })
         .catch((err) => {
@@ -245,6 +296,11 @@ const Crew1Reg = () => {
         });
     },
   });
+  const handleSkip=()=>{
+apiCall();
+
+navigate("/regSuccess");
+  };
   return (
     <div className='d-flex justify-content-center align-items-center'>
       <div className="card container m-4">
@@ -789,11 +845,11 @@ const Crew1Reg = () => {
                       <button
                         className="btn btn-warning m-2"
                         type="submit"
-                        onClick={() => navigate("/regSuccess")}
+                        onClick={handleSkip}
+                        // onClick={() => navigate("/regSuccess")}
 
                       >
                         SKIP NOW
-                        {/* <ArrowRight /> */}
                       </button>
                     </div>
 
