@@ -204,7 +204,7 @@ const Crew1Reg = () => {
         <span style={{ color: "red" }}>Please Select CollegeType</span>
       ),
       district: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select District</span>
+        <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
@@ -530,7 +530,7 @@ navigate("/regSuccess");
                           htmlFor="district"
                           className="form-label"
                         >
-                         District
+                         Institution District
                         </label>&nbsp;
                         <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <select
@@ -541,7 +541,7 @@ navigate("/regSuccess");
                           onBlur={formik.handleBlur}
                           onChange={formik.handleChange}
                         >
-                          <option value={""}>District</option>
+                          <option value={""}>Select Your Institution District</option>
                           {districtList["Telangana"].map((item) => (
                             <option key={item} value={item}>
                               {item}
@@ -740,12 +740,12 @@ navigate("/regSuccess");
 
 
                       <div className="col-md-4">
-                        <label className="form-label" htmlFor="branch"> Branch/Group/Stream/Group/Stream</label>&nbsp;
+                        <label className="form-label" htmlFor="branch"> Branch/Group/Stream</label>&nbsp;
                         <span style={{color:"red",fontWeight:"bold"}}>*</span>
                         <input
                           type="text"
                           className="form-control"
-                          placeholder=" Branch/Group/Stream/Group/Stream"
+                          placeholder=" Branch/Group/Stream"
                           id="branch"
                           name="branch"
                           // onChange={formik.handleChange}

@@ -211,7 +211,7 @@ const Crew3Reg = () => {
         <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       district: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select District</span>
+        <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
@@ -542,7 +542,7 @@ const Crew3Reg = () => {
                       </div>
                       <div className={`col-md-4`}>
                         <label htmlFor="district" className="form-label">
-                         District
+                        Institution District
                         </label>
                         &nbsp;
                         <span style={{ color: "red", fontWeight: "bold" }}>
@@ -556,7 +556,7 @@ const Crew3Reg = () => {
                           onBlur={formik.handleBlur}
                           onChange={formik.handleChange}
                         >
-                          <option value={""}> District</option>
+                          <option value={""}>Select Your Institution District</option>
                           {districtList["Telangana"].map((item) => (
                             <option key={item} value={item}>
                               {item}
