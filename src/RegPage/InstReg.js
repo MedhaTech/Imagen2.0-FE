@@ -245,7 +245,7 @@ const Register = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       district: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select District</span>
+        <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
@@ -648,7 +648,7 @@ const Register = () => {
                           </div>
                           <div className={`col-md-6`}>
                             <label htmlFor="district" className="form-label">
-                              District
+                            District
                             </label>
                             &nbsp;
                             <span style={{ color: "red", fontWeight: "bold" }}>

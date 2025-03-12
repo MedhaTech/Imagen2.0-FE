@@ -151,7 +151,7 @@ const AddInstitution = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       district: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select District</span>
+        <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
@@ -354,7 +354,7 @@ const AddInstitution = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>Select District</option>
+                              <option value={""}>Select Your Institution District</option>
                               {districtData.map((item) => (
                                 <option key={item} value={item}>
                                   {item}

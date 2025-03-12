@@ -148,7 +148,7 @@ const StuEdit = () => {
       //   <span style={{ color: "red" }}>Please Select collegeType</span>
       // ),
       district: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select District</span>
+        <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
       // college: Yup.string().required(
       //   <span style={{ color: "red" }}>Please Select college</span>
@@ -390,7 +390,7 @@ const StuEdit = () => {
                           </div>
                           <div className={`col-md-6`}>
                             <label htmlFor="district" className="form-label">
-                              District
+                            Institution District
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
@@ -401,7 +401,7 @@ const StuEdit = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>Select District</option>
+                              <option value={""}>Select Your Institution District</option>
                               {districtList["Telangana"].map((item) => (
                                 <option key={item} value={item}>
                                   {item}
