@@ -26,6 +26,14 @@ const TeacherProfile = () => {
   useEffect(() => {
     mentorViewApi();
   }, [user]);
+  const handleEditData = () => {
+    navigate("/studentProfileEdit", {
+      state: {
+        gender: data.gender,
+        college_town: data.college_town,
+      },
+    });
+  };
 
   const mentorViewApi = () => {
     let supId;
@@ -77,7 +85,16 @@ const TeacherProfile = () => {
         <div className="card">
           <div className="card-body">
             <div className="profile-set">
-              <div className="profile-head"></div>
+              <div className="profile-head text-end">
+              <div
+                              className="btn text-success"
+                              style={{ fontSize: "1.5rem"}}
+                              onClick={() => handleEditData()}
+                            >
+                              {" "}
+                              <i data-feather="edit" className="feather-edit" />
+                            </div>
+              </div>
               <div className="profile-top">
                 <div className="profile-content">
                   <div className="profile-contentimg">
@@ -101,7 +118,7 @@ const TeacherProfile = () => {
                       <img src={female} alt="Female" id="blah" />
                     ) : ( */}
                     {/* )} */}
-                    <div className="profileupload"></div>
+                  <div className="profileupload"></div> 
                   </div>
                   <div className="profile-contentname">
                     <h2>{data?.full_name}</h2>
@@ -172,7 +189,7 @@ const TeacherProfile = () => {
                   <input
                     type="email"
                     className="form-control"
-                    defaultValue={data.college_town ? data.college_town :" -"}
+                    defaultValue={data.college_town !== null && data.college_town !== '' ? data.college_town : "-"}
                     readOnly="readonly"
                   />
                 </div>

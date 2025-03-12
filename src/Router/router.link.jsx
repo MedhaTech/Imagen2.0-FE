@@ -141,6 +141,7 @@ import ChangeEval from "../Evaluator/ChangePSWModal";
 import EvaluateL1 from "../Evaluator/EvaluatedIdea/EvaluatedIdea";
 import EvaluateL2 from "../Evaluator/EvaluatedIdea/EvaluatedIdeaL2";
 import EvaluatorProfile from "../Evaluator/EvaluatorProfile";
+import StuProfileEdit from "../Team/StuProfileEdit";
 export const evaluatorRoutes = [
   {
     id: 1,
@@ -688,6 +689,14 @@ export const teamRoutes = [
     path: routes.discussionChatResponse,
     name: "discussionChatResponse",
     element: <StudentNewChatResponse />,
+    route: Route,
+  },
+  {
+    id: 22,
+    path: routes.studentProfileEdit,
+    name: "studentProfileEdit",
+    element: <StuProfileEdit />,
+    // protected: true,
     route: Route,
   },
 ];
