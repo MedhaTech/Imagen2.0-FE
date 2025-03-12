@@ -740,7 +740,7 @@ const Register = () => {
                               <Select
         classNamePrefix="react-select"
         options={collegeOptions}
-         placeholder="Select Your College Name"
+         placeholder=" Type / Select Your College Name"
         isDisabled={areInputsDisabled}
         value={collegeOptions.find(option => option.value === formik.values.college)}
         onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
