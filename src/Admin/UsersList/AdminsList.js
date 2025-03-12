@@ -19,7 +19,6 @@ import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
 import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
 import { getNormalHeaders } from '../../helpers/Utils';
-
 // import { useHistory } from 'react-router-dom';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -39,6 +38,7 @@ import dist from 'react-data-table-component-extensions';
 // import ClipLoader from 'react-spinners/ClipLoader';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
 import { stateList } from '../../RegPage/ORGData.js';
+import { MaskedEmail } from '../../RegPage/MaskedData.js';
 // const { TabPane } = Tabs;
 
 // const SelectDists = ({
@@ -406,7 +406,7 @@ const updateStatesList=["All States",...stateList];
                 name: 'Email & Password',
                 center:true,
 
-                selector: (row) => row?.user?.username,
+                selector: (row) =><MaskedEmail email={row?.user?.username} />,
                 cellExport: (row) => row?.user?.username,
                 sortable: true,
                 width: '14rem'

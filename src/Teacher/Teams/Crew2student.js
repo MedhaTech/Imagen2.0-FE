@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import axios from "axios";
-import { districtList, collegeType, yearofstudyList, collegeNameList } from '../../RegPage/ORGData.js';
+import { districtList, collegeType, yearofstudyList, collegeNameList,genderList } from '../../RegPage/ORGData.js';
 import { openNotificationWithIcon,getCurrentUser } from "../../helpers/Utils.js";
 import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
@@ -46,6 +46,8 @@ const Crew1student = () => {
       yearofstudy: "",
       password: "",
       confirmPassword: "",
+      gender: "",
+      college_town: "",
       // collegeType: "",
       // ocn: "",
        id_number:""
@@ -76,6 +78,10 @@ const Crew1student = () => {
           "Email Must be VALID"
         )
         .max(255),
+         college_town: Yup.string().optional(),
+                          gender: Yup.string().required(
+                                 <span style={{ color: "red" }}>Please Select Gender</span>
+                               ),
       mobile: Yup.string()
         .required(
           <span style={{ color: "red" }}>Please Enter Mobile Number</span>
@@ -101,7 +107,7 @@ const Crew1student = () => {
       //   <span style={{ color: "red" }}>Please Select collegeType</span>
       // ),
       district: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select District</span>
+        <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
       // college: Yup.string().required(
       //   <span style={{ color: "red" }}>Please Select college</span>
@@ -110,7 +116,7 @@ const Crew1student = () => {
         <span style={{ color: "red" }}>Please Enter Roll Number</span>
       ),
       branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Branch Name</span>
+        <span style={{ color: "red" }}>Please Enter  Branch/Group/Stream Name</span>
       ),
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
@@ -144,6 +150,8 @@ const Crew1student = () => {
         district: values.district,
         college_type: currentUser?.data[0]?.college_type,
         college_name: currentUser?.data[0]?.college_name,
+        gender:values.gender,
+        college_town: values.college_town,
         // college_type: values.collegeType,
         // college_name: values.college === 'Other' ? values.ocn : values.college,
         roll_number: values.rollnumber,
@@ -233,6 +241,33 @@ const Crew1student = () => {
                               </small>
                             ) : null}
                           </div>
+                           <div className={`col-md-6`}
+                                                    >
+                                                     <label htmlFor="gender" className="form-label">
+                                                                          Gender
+                                                                        </label>&nbsp;
+                                                      <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                                                      <select
+                                                                                                     id="gender"
+                                                                                                     className="form-select"
+                                                                                                     name="gender"
+                                                                                                     value={formik.values.gender}
+                                                                                                     onChange={formik.handleChange}
+                                                                                                     onBlur={formik.handleBlur}
+                                                                                                   >
+                                                                                                     <option value={""}>Gender</option>
+                                                                                                     {genderList.map((item) => (
+                                                                                                       <option key={item} value={item}>
+                                                                                                         {item}
+                                                                                                       </option>
+                                                                                                     ))}
+                                                                                                   </select>
+                                                                                                   {formik.touched.gender && formik.errors.gender ? (
+                                                                                                     <small className="error-cls" style={{ color: "red" }}>
+                                                                                                       {formik.errors.gender}
+                                                                                                     </small>
+                                                                                                   ) : null}
+                                                    </div>
                           <div className={`col-md-6`}
                           >
                             <label
@@ -301,7 +336,7 @@ const Crew1student = () => {
                               htmlFor="district"
                               className="form-label"
                             >
-                              District
+                             Institution District
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <select
@@ -312,7 +347,7 @@ const Crew1student = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>Select District</option>
+                              <option value={""}>Select Your Institution District</option>
                               {districtList["Telangana"].map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -326,7 +361,39 @@ const Crew1student = () => {
                               </small>
                             ) : null}
                           </div>
-
+                          <div className="col-md-6">
+                        <label className="form-label" htmlFor="branch">
+                          College Town
+                        </label>
+                        &nbsp;
+                        {/* <span style={{ color: "red", fontWeight: "bold" }}>
+                          *
+                        </span> */}
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="College Town"
+                          id="college_town"
+                          name="college_town"
+                          // onChange={formik.handleChange}
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const lettersOnly = inputValue.replace(
+                              /[^a-zA-Z0-9 \s]/g,
+                              ""
+                            );
+                            formik.setFieldValue("college_town", lettersOnly);
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.college_town}
+                        />
+                        {formik.touched.college_town &&
+                        formik.errors.college_town ? (
+                          <small className="error-cls">
+                            {formik.errors.college_town}
+                          </small>
+                        ) : null}
+                      </div>
                           {/* <div className={`col-md-4`}
                           >
                             <label
@@ -471,12 +538,12 @@ const Crew1student = () => {
 
 
                           <div className="col-md-6">
-                            <label className="form-label" htmlFor="branch">Branch</label>&nbsp;
+                            <label className="form-label" htmlFor="branch"> Branch/Group/Stream</label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="Branch"
+                              placeholder=" Branch/Group/Stream"
                               id="branch"
                               name="branch"
                               // onChange={formik.handleChange}

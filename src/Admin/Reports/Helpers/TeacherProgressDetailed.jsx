@@ -40,8 +40,9 @@ const TeacherProgressDetailed = () => {
   const categoryList = ["All Types", ...collegeType];
   const [chartTableData, setChartTableData] = useState([]);
   const [chartTableData1, setChartTableData1] = useState([]);
+  const [filterType, setFilterType] = useState("");
 
-
+  const filterOptions = ["Registered", "Not Registered"];
   const newstateList = ["All States", ...stateList];
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -66,7 +67,11 @@ const TeacherProgressDetailed = () => {
   const [series6, setseries6] = useState([]);
   const [series7, setseries7] = useState([]);
   const [registeredChartData, setRegisteredChartData] = useState(null);
+  const [downloadData, setDownloadData] = useState(null);
+  const csvLinkRefNotRegistered = useRef();
 
+  const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
+    useState(null);
   const [barChart1Data, setBarChart1Data] = useState({
     labels: [],
     datasets: [],
@@ -93,7 +98,8 @@ const TeacherProgressDetailed = () => {
     setNewFormat(formattedDate);
   }, [selectstate]);
   const [totalCount, setTotalCount] = useState([]);
-
+  const [filteredData, setFilteredData] = useState([]);
+  const [filteresData, setFilteresData] = useState([]);
   const tableHeaders = [
     {
       label: "District Name",
@@ -164,7 +170,29 @@ const TeacherProgressDetailed = () => {
    
   ];
 
- 
+  const notRegHeaders = [
+   
+  
+  {
+    label: "District",
+      key: "district",
+  },
+  {
+      label: 'College Type',
+      key: 'college_type'
+  },
+  {
+      label: 'College Name',
+      key: 'college_name'
+  },
+    {
+      label: 'College Town',
+      key: 'college_town'    },
+    {
+      label: "No of Students Registered",
+      key: "studentRegCount",
+    },
+  ];
 
   // const chartOption = {
   //   maintainAspectRatio: false,
@@ -406,28 +434,40 @@ const TeacherProgressDetailed = () => {
 
  
   const handleDownload = () => {
-    if (!district || !category) {
+    if (!district || !category   || !filterType ) {
       notification.warning({
         message:
-           'Please select District and College Type before Downloading Reports.'
+           'Please select District, FilterType and College Type before Downloading Reports.'
       });
       return;
     }
     setIsDownload(true);
-    fetchData();
+    fetchData(filterType);
   };
-  const fetchData = () => {
+  const fetchData = (item) => {
     const apiRes = encryptGlobal(
       JSON.stringify({
         district: district,
         college_type: category,
       })
     );
+    const apiNotReg = encryptGlobal(
+      JSON.stringify({
+        district: district,
+        college_type: category,
+      })
+    );
+    const url =
+      item === "Registered"
+        ? `/reports/instRegList?Data=${apiRes}`
+        : item === "Not Registered"
+        ? `/reports/instNonRegList?Data=${apiNotReg}`
+        : "";
     const config = {
       method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/reports/instRegList?Data=${apiRes}`,
+        url,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -436,20 +476,45 @@ const TeacherProgressDetailed = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+          if (item === "Registered") {
+            setFilteredData(response?.data?.data || []);
+            setDownloadData(response?.data?.data || []);
+            if (response?.data.count > 0) {
+              openNotificationWithIcon(
+                "success",
+                `${filterType} Report Downloaded Successfully`
+              );
+            } else {
+              openNotificationWithIcon("error", "No Data Found");
+            }
+            // csvLinkRef.current.link.click();
+          } else if (item === "Not Registered") {
+            setFilteresData(response?.data?.data || []);
+            setDownloadNotRegisteredData(response?.data?.data || []);
+            if (response?.data.count > 0) {
+              openNotificationWithIcon(
+                "success",
+                `${filterType} Report Downloaded Successfully`
+              );
+            } else {
+              openNotificationWithIcon("error", "No Data Found");
+            }
+            // csvLinkRefNotRegistered.current.link.click();
+          }
           // console.log(response, "22");
 
-          const chartTable = response?.data?.data || [];
+          // const chartTable = response?.data?.data || [];
         
-          setChartTableData1(chartTable);
-          // console.log(chartTableData1,"data");
-          if (response.data.count > 0) {
-            openNotificationWithIcon(
-              'success',
-              "Report Downloaded Successfully"
-            );
-          } else {
-            openNotificationWithIcon('error', 'No Data Found');
-          }
+          // setChartTableData1(chartTable);
+          // // console.log(chartTableData1,"data");
+          // if (response.data.count > 0) {
+          //   openNotificationWithIcon(
+          //     'success',
+          //     "Report Downloaded Successfully"
+          //   );
+          // } else {
+          //   openNotificationWithIcon('error', 'No Data Found');
+          // }
           // csvLinkRef.current.link.click();
           setIsDownload(false);
         }
@@ -459,13 +524,24 @@ const TeacherProgressDetailed = () => {
         setIsDownload(false);
       });
   };
-  useEffect(() => {
-    if (chartTableData1.length > 0) {
-      console.log("Performing operation with the updated data.");
-      csvLinkRef.current.link.click();
+  // useEffect(() => {
+  //   if (chartTableData1.length > 0) {
+  //     console.log("Performing operation with the updated data.");
+  //     csvLinkRef.current.link.click();
 
+  //   }
+  // }, [chartTableData1]);
+  useEffect(() => {
+    if (filteredData.length > 0) {
+      setDownloadData(filteredData);
+      csvLinkRef.current.link.click();
     }
-  }, [chartTableData1]);
+    if (filteresData.length > 0) {
+      setDownloadNotRegisteredData(filteresData);
+      csvLinkRefNotRegistered.current.link.click();
+      console.log("Performing operation with the updated data.");
+    }
+  }, [filteredData, filteresData]);
   const fetchChartTableData = () => {
     const config = {
       method: "get",
@@ -659,6 +735,16 @@ const TeacherProgressDetailed = () => {
                     setValue={setCategory}
                     placeHolder={"Select College Type"}
                     value={category}
+                  />
+                </div>
+              </Col>
+              <Col md={3}>
+                <div className="my-2 d-md-block d-flex justify-content-center">
+                  <Select
+                    list={filterOptions}
+                    setValue={setFilterType}
+                    placeHolder={"Select Filter"}
+                    value={filterType}
                   />
                 </div>
               </Col>
@@ -975,7 +1061,37 @@ const TeacherProgressDetailed = () => {
                 </CSVLink>
               )}
 
-              {chartTableData1 && (
+{downloadData && (
+                <CSVLink
+                  data={downloadData}
+                  headers={teacherDetailsHeaders}
+                  filename={`Institution_${filterType}Report_${newFormat}.csv`}
+                  className="hidden"
+                  ref={csvLinkRef}
+                  // onDownloaded={() => {
+                  //     setIsDownloading(false);
+                  //     setDownloadComplete(true);
+                  // }}
+                >
+                  Download CSV
+                </CSVLink>
+              )}
+              {downloadNotRegisteredData && (
+                <CSVLink
+                  data={downloadNotRegisteredData}
+                  headers={notRegHeaders}
+                  filename={`Institution_${filterType}Report_${newFormat}.csv`}
+                  className="hidden"
+                  ref={csvLinkRefNotRegistered}
+                  // onDownloaded={() => {
+                  //     setIsDownloading(false);
+                  //     setDownloadComplete(true);
+                  // }}
+                >
+                  Download Not Registered CSV
+                </CSVLink>
+              )}
+              {/* {chartTableData1 && (
                 <CSVLink
                   headers={teacherDetailsHeaders}
                   data={chartTableData1}
@@ -985,7 +1101,7 @@ const TeacherProgressDetailed = () => {
                 >
                   Download Teacherdetailed CSV
                 </CSVLink>
-              )}
+              )} */}
             </div>
           </div>
         </Container>

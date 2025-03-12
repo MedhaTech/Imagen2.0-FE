@@ -28,6 +28,16 @@ const TeacherProfile = () => {
       },
     });
   };
+  const maskEmail = (email) => {
+    if (!email || !email.includes('@')) return email; 
+    const [username, domain] = email.split('@');
+    const maskedUsername = username.slice(0, 3) + '****'; 
+    return `${maskedUsername}@${domain}`;
+  };
+  const maskMobileNumber = (mobile) => {
+    if (!mobile || mobile.length < 10) return mobile; 
+    return mobile.slice(0, -3).replace(/\d/g, '*') + mobile.slice(-3);
+  };
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -91,7 +101,8 @@ const TeacherProfile = () => {
                   <input
                     type="email"
                     className="form-control"
-                    defaultValue={currentUser?.data[0]?.team_email}
+                    // defaultValue={currentUser?.data[0]?.team_email}
+                    defaultValue={maskEmail(currentUser?.data[0]?.team_email)}
                     readOnly="readonly"
                   />
                 </div>

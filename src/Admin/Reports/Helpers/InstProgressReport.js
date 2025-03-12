@@ -41,7 +41,7 @@ const InstProgressDetailed = () => {
   const [chartTableData, setChartTableData] = useState([]);
   const [chartTableData1, setChartTableData1] = useState([]);
 
-
+  // const filterOptions = ["Registered", "Not Registered"];
   const newstateList = ["All States", ...stateList];
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -69,6 +69,8 @@ const InstProgressDetailed = () => {
   const [series7, setseries7] = useState([]);
   const [seriesa, setseriesa] = useState([]);
     const [seriesb, setseriesb] = useState([]);
+  const [filterType, setFilterType] = useState("");
+
   const [barChart1Data, setBarChart1Data] = useState({
     labels: [],
     datasets: [],
@@ -711,6 +713,16 @@ const InstProgressDetailed = () => {
                   />
                 </div>
               </Col>
+              {/* <Col md={3}>
+                <div className="my-2 d-md-block d-flex justify-content-center">
+                  <Select
+                    list={filterOptions}
+                    setValue={setFilterType}
+                    placeHolder={"Select Filter"}
+                    value={filterType}
+                  />
+                </div>
+              </Col> */}
               <Col
                 md={3}
                 className="d-flex align-items-center justify-content-center"

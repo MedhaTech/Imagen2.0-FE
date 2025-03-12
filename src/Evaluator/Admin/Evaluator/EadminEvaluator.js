@@ -34,6 +34,7 @@ import Register from '../../../Evaluator/Register';
 import dist from 'react-data-table-component-extensions';
 // import AddADmins from './AddAdmins';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { MaskedEmail ,MaskedMobile} from '../../../RegPage/MaskedData.js';
 
 const TicketsPage = (props) => {
     const dispatch = useDispatch();
@@ -205,14 +206,14 @@ const TicketsPage = (props) => {
             },
             {
                 name: 'Email Id',
-                selector: (row) => row.user.username,
+                selector: (row) =><MaskedEmail email={row?.user?.username} />,
                 cellExport: (row) => row.user.username,
                 // selector: (row) => row.user.username,
                 width: '14rem'
             },
             {
                 name: 'Mobile No & Pwd',
-                selector: (row) => row.mobile,
+                selector: (row) =>  <MaskedMobile mobile={row?.mobile} />,
                 cellExport: (row) => row.mobile,
                 // selector: (row) => row.mobile,
                 width: '10rem'

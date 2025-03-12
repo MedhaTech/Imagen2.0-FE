@@ -241,7 +241,7 @@ const EditProfile = (props) => {
                 </div>
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label>mobile</label>
+                    <label>Mobile</label>
                     <input
                       type="text"
                       className="form-control"
