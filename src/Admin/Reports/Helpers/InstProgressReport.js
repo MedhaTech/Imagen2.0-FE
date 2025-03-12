@@ -41,7 +41,7 @@ const InstProgressDetailed = () => {
   const [chartTableData, setChartTableData] = useState([]);
   const [chartTableData1, setChartTableData1] = useState([]);
 
-  const filterOptions = ["Registered", "Not Registered"];
+  // const filterOptions = ["Registered", "Not Registered"];
   const newstateList = ["All States", ...stateList];
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -713,7 +713,7 @@ const InstProgressDetailed = () => {
                   />
                 </div>
               </Col>
-              <Col md={3}>
+              {/* <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
                     list={filterOptions}
@@ -722,7 +722,7 @@ const InstProgressDetailed = () => {
                     value={filterType}
                   />
                 </div>
-              </Col>
+              </Col> */}
               <Col
                 md={3}
                 className="d-flex align-items-center justify-content-center"
