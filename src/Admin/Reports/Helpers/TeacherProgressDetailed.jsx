@@ -174,8 +174,8 @@ const TeacherProgressDetailed = () => {
    
   
   {
-      label: 'College Town',
-      key: 'college_town'
+    label: "District",
+      key: "district",
   },
   {
       label: 'College Type',
@@ -186,9 +186,8 @@ const TeacherProgressDetailed = () => {
       key: 'college_name'
   },
     {
-      label: "District",
-      key: "district",
-    },
+      label: 'College Town',
+      key: 'college_town'    },
     {
       label: "No of Students Registered",
       key: "studentRegCount",
