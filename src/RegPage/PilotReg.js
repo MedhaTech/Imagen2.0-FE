@@ -526,7 +526,7 @@ const PilotReg = () => {
                 <div className="login-userheading">
                   <h4>
                     Hello <i className="fas fa-hand-spock text-warning"></i>
-                    {`, Let's create Imagen
+                    {`, Let's create YFSI
                    account for you !`}
                   </h4>
                 </div>
