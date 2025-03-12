@@ -779,7 +779,7 @@ const PilotReg = () => {
                         <Select
                           classNamePrefix="react-select"
                           options={collegeOptions}
-                          placeholder=" Type / Select Your College Name"
+                          placeholder=" Type here to Select Your College Name"
                           isDisabled={areInputsDisabled}
                           value={collegeOptions.find(
                             (option) => option.value === formik.values.college
