@@ -28,6 +28,7 @@ import { studentResetPassword } from '../../Teacher/store/teacher/actions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { Table} from "react-bootstrap";
+import { MaskedEmail,MaskedMobile } from '../../RegPage/MaskedData';
 const InstProfile = (props) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -200,11 +201,12 @@ const InstProfile = (props) => {
           </tr>
           <tr>
             <td><b>Email Address</b></td>
-            <td>{StudentsDaTa?.username_email}</td>
+            <td> <MaskedEmail email={StudentsDaTa?.username_email} /></td>
+           
           </tr>
           <tr>
             <td><b>Mobile Number</b></td>
-            <td>{StudentsDaTa?.mobile}</td>
+            <td> <MaskedMobile mobile={StudentsDaTa?.mobile} /></td>
           </tr>
           <tr>
             <td><b>District</b></td>
@@ -241,7 +243,7 @@ const InstProfile = (props) => {
             <td>{StudentsDaTa?.roll_number}</td>
           </tr>
           <tr>
-            <td><b>Branch</b></td>
+            <td><b> Branch/Group/Stream</b></td>
             <td>{StudentsDaTa?.branch}</td>
           </tr>
           <tr>

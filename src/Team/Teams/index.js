@@ -19,6 +19,7 @@ import "./tables.css";
 import user from "../../assets/img/user.png";
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
 import Avatar from "react-string-avatar";
+import { MaskedMobile } from "../../RegPage/MaskedData";
 
 const Dashboard = (props) => {
   const navigate = useNavigate();
@@ -277,7 +278,7 @@ useEffect(()=>{
                     </div>
                     <ul className="department">
                       <li>
-                        Mobile<span>{student.mobile}</span>{" "}
+                        Mobile<span> <MaskedMobile mobile={student?.mobile} />,</span>{" "}
                       </li>
                       <li>
                         Roll Number

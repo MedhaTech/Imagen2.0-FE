@@ -25,6 +25,7 @@ import { encryptGlobal } from "../../constants/encryptDecrypt.js";
 import { stateList, districtList } from "../../RegPage/ORGData.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { MaskedEmail ,MaskedMobile} from "../../RegPage/MaskedData.js";
 const TicketsPage = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -234,13 +235,14 @@ supId = encryptGlobal(
       {
         name: "Email Address",
         center:true,
-        selector: (row) => row?.username_email,
+        selector: (row) =>  <MaskedEmail email={row?.username_email} />,
+       
         width: "16rem",
       },
       {
         name: "Mobile No",
         center:true,
-        selector: (row) => row?.mobile,
+        selector: (row) =>  <MaskedMobile mobile={row?.mobile} />,
         cellExport: (row) => row?.mobile,
         width: "9rem",
       },

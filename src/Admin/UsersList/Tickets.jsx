@@ -17,6 +17,7 @@ import {
 } from '../../redux/actions';
 import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
+import { MaskedEmail ,MaskedMobile} from "../../RegPage/MaskedData.js";
 
 import { getNormalHeaders } from '../../helpers/Utils';
 import { useNavigate } from 'react-router-dom';
@@ -420,13 +421,13 @@ const fiterDistData = [...districtList["Telangana"]];
             {
                 name: 'Email',
                 center:true,
-                selector: (row) => row?.username_email,
+                selector: (row) =>  <MaskedEmail email={row?.username_email} />,
                 width: '12rem'
             },
             {
                 name: 'Mobile No',
                 center:true,
-                selector: (row) => row?.mobile,
+                selector: (row) => <MaskedMobile mobile={row?.mobile} />,
                 cellExport: (row) => row?.mobile,
                 width: '10rem'
             },
@@ -471,7 +472,7 @@ const fiterDistData = [...districtList["Telangana"]];
             // },
 
             // {
-            //     name: 'Branch',
+            //     name: ' Branch/Group/Stream',
             //     selector: (row) => row?.branch,
             //     width: '6rem'
             // },

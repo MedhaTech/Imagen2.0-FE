@@ -13,6 +13,7 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
+import { MaskedEmail,MaskedMobile } from '../../RegPage/MaskedData';
 
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -548,16 +549,24 @@ const CommonUserProfile = (props) => {
             <td className="w-50">{StudentsDaTa?.full_name}</td>
           </tr>
           <tr>
+            <td className="w-50"><b>Gender</b></td>
+            <td className="w-50">{StudentsDaTa?.gender ? StudentsDaTa?.gender :"-"}</td>
+          </tr>
+          <tr>
             <td><b>Email Address</b></td>
-            <td>{StudentsDaTa?.username_email}</td>
+            <td><MaskedEmail email={StudentsDaTa?.username_email} /></td>
           </tr>
           <tr>
             <td><b>Mobile Number</b></td>
-            <td>{StudentsDaTa?.mobile}</td>
+            <td><MaskedMobile mobile={StudentsDaTa?.mobile} /></td>
           </tr>
           <tr>
             <td><b>District</b></td>
             <td>{StudentsDaTa?.district}</td>
+          </tr>
+          <tr>
+            <td className="w-50"><b>College Town</b></td>
+            <td className="w-50">{StudentsDaTa?.college_town ? StudentsDaTa?.college_town :"-"}</td>
           </tr>
           <tr>
             <td><b>College Type</b></td>
@@ -588,7 +597,7 @@ const CommonUserProfile = (props) => {
             <td>{StudentsDaTa?.roll_number}</td>
           </tr>
           <tr>
-            <td><b>Branch</b></td>
+            <td><b> Branch/Group/Stream</b></td>
             <td>{StudentsDaTa?.branch}</td>
           </tr>
           <tr>
@@ -703,7 +712,7 @@ const CommonUserProfile = (props) => {
                             </CardText>
                             <CardText>
                                 <span className="mx-3" style={{fontSize:"1rem"}}>
-                                    <b >Branch :</b>
+                                    <b > Branch/Group/Stream :</b>
                                 </span>
                                 <b style={{fontSize:"1rem"}}>{StudentsDaTa?.branch}</b>
                             </CardText>
@@ -767,7 +776,7 @@ id_number :"-" }</b>
             <td>{StudentsDaTa?.roll_number}</td>
           </tr>
           <tr>
-            <td><b>Branch</b></td>
+            <td><b> Branch/Group/Stream</b></td>
             <td>{StudentsDaTa?.branch}</td>
           </tr>
           <tr>
