@@ -1223,3 +1223,9 @@ export const yearofstudyList = [
   "4th Year",
   "5th Year"
 ];
+export const genderList = [
+  "Female",
+  "Male",
+  "Other",
+  "Prefer Not to Say"
+];

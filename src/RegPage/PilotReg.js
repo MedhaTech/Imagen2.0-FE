@@ -13,6 +13,7 @@ import {
   collegeType,
   yearofstudyList,
   collegeNameList,
+  genderList,
 } from "./ORGData";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import OtpInput from "react-otp-input-rc-17";
@@ -108,6 +109,8 @@ const PilotReg = () => {
       collegeType: "",
       ocn: "",
       id_number: "",
+      gender: "",
+      college_town: "",
     },
 
     validationSchema: Yup.object({
@@ -163,13 +166,17 @@ const PilotReg = () => {
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
       ),
+      gender: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Gender</span>
+      ),
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Roll Number</span>
       ),
       id_number: Yup.string().optional(),
       branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Branch Name</span>
+        <span style={{ color: "red" }}>Please Enter  Branch/Group/Stream Name</span>
       ),
+      college_town: Yup.string().optional(),
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
@@ -233,6 +240,8 @@ const PilotReg = () => {
           branch: values.branch,
           year_of_study: values.yearofstudy,
           confirmPassword: encrypted,
+          gender:values.gender,
+      college_town: values.college_town
         };
         if (values.id_number !== "") {
           body["id_number"] = values.id_number;
@@ -261,8 +270,7 @@ const PilotReg = () => {
                   email: mentData.username,
                   mobile: mentData.mobile,
                 },
-              }
-            );
+              });
               sessionStorage.setItem(
                 "pilotKey",
                 mentorRegRes?.data?.data[0]?.student_id
@@ -560,6 +568,36 @@ const PilotReg = () => {
                         ) : null}
                       </div>
                       <div className={`col-md-6`}>
+                        <label htmlFor="gender" className="form-label">
+                          Gender
+                        </label>
+                        &nbsp;
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          *
+                        </span>
+                        <select
+                          id="gender"
+                          className="form-select"
+                          disabled={areInputsDisabled}
+                          name="gender"
+                          value={formik.values.gender}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
+                        >
+                          <option value={""}>Gender</option>
+                          {genderList.map((item) => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                        {formik.touched.gender && formik.errors.gender ? (
+                          <small className="error-cls" style={{ color: "red" }}>
+                            {formik.errors.gender}
+                          </small>
+                        ) : null}
+                      </div>
+                      <div className={`col-md-6`}>
                         <label htmlFor="email" className="form-label">
                           Email
                         </label>
@@ -575,6 +613,7 @@ const PilotReg = () => {
                           disabled={areInputsDisabled}
                           name="email"
                           onChange={formik.handleChange}
+                          
                           onBlur={formik.handleBlur}
                           value={formik.values.email}
                         />
@@ -585,7 +624,7 @@ const PilotReg = () => {
                         ) : null}
                       </div>
 
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <label className="form-label" htmlFor="mobile">
                           Mobile Number
                         </label>
@@ -616,6 +655,7 @@ const PilotReg = () => {
                           </small>
                         ) : null}
                       </div>
+                      <br />
                       <div className={`col-md-4`}>
                         <label htmlFor="district" className="form-label">
                           District
@@ -633,7 +673,7 @@ const PilotReg = () => {
                           onBlur={formik.handleBlur}
                           onChange={formik.handleChange}
                         >
-                          <option value={""}>District</option>
+                          <option value={""}>Select District</option>
                           {districtList["Telangana"].map((item) => (
                             <option key={item} value={item}>
                               {item}
@@ -646,7 +686,40 @@ const PilotReg = () => {
                           </small>
                         ) : null}
                       </div>
-
+                      <div className="col-md-4">
+                        <label className="form-label" htmlFor="branch">
+                          College Town
+                        </label>
+                        &nbsp;
+                        {/* <span style={{ color: "red", fontWeight: "bold" }}>
+                          *
+                        </span> */}
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="College Town"
+                          id="college_town"
+                          disabled={areInputsDisabled}
+                          name="college_town"
+                          // onChange={formik.handleChange}
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const lettersOnly = inputValue.replace(
+                              /[^a-zA-Z0-9 \s]/g,
+                              ""
+                            );
+                            formik.setFieldValue("college_town", lettersOnly);
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.college_town}
+                        />
+                        {formik.touched.college_town &&
+                        formik.errors.college_town ? (
+                          <small className="error-cls">
+                            {formik.errors.college_town}
+                          </small>
+                        ) : null}
+                      </div>
                       <div className={`col-md-4`}>
                         <label htmlFor="collegeType" className="form-label">
                           College Type
@@ -706,7 +779,7 @@ const PilotReg = () => {
                         <Select
                           classNamePrefix="react-select"
                           options={collegeOptions}
-                          placeholder="College Name"
+                          placeholder="Select Your College Name"
                           isDisabled={areInputsDisabled}
                           value={collegeOptions.find(
                             (option) => option.value === formik.values.college
@@ -798,7 +871,7 @@ const PilotReg = () => {
 
                       <div className="col-md-4">
                         <label className="form-label" htmlFor="branch">
-                          Branch
+                           Branch/Group/Stream
                         </label>
                         &nbsp;
                         <span style={{ color: "red", fontWeight: "bold" }}>
@@ -807,7 +880,7 @@ const PilotReg = () => {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Branch"
+                          placeholder=" Branch/Group/Stream"
                           id="branch"
                           disabled={areInputsDisabled}
                           name="branch"
@@ -888,7 +961,7 @@ const PilotReg = () => {
                           </small>
                         ) : null}
                       </div>
-
+                      <br />
                       <div className={`col-md-6`}>
                         <label htmlFor="password" className="form-label">
                           Password
