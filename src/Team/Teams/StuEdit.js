@@ -251,7 +251,7 @@ const StuEdit = () => {
         gender:values.gender,
         college_town: values.college_town
       };
-     if (data && data?.username_email !== values.email && values.email) {
+      if (data && data?.username_email !== values.email && values.email) {
         body["username"] = values.email;
       }
       if (data && data?.mobile !== values.mobile && values.mobile) {
