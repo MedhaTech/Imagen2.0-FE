@@ -268,12 +268,19 @@ const StuEdit = () => {
         gender:values.gender,
         college_town: values.college_town
       };
-      if (data && data.username_email !== values.email) {
-        body['username'] = values.email;
-    }
-    if (data && data?.mobile !== values.mobile) {
-      body['mobile'] = values.mobile;
-  }
+  //     if (data && data.username_email !== values.email) {
+  //       body['username'] = values.email;
+  //   }
+  //   if (data && data?.mobile !== values.mobile) {
+  //     body['mobile'] = values.mobile;
+  // }
+  if (data && data.username_email !== values.email && values.email) {
+    body["username"] = values.email;
+}
+
+if (data && data.mobile !== values.mobile && values.mobile) {
+    body["mobile"] = values.mobile;
+}
     // if (data && data.id_number !== values.id_number ) {
     //   body["id_number"] = values.id_number;
     // }
