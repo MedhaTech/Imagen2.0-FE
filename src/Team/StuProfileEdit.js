@@ -124,7 +124,7 @@ const StuProfileEdit = () => {
                             </small>
                           ) : null}
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-6">
                           <label className="form-label" htmlFor="branch">
                             College Town
                           </label>

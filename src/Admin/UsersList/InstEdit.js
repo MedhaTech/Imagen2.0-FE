@@ -32,6 +32,7 @@ import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
 import { isString } from "antd/es/button";
+import { MaskedEmail, MaskedMobile } from "../../RegPage/MaskedData.js";
 const InstEdit = () => {
   const location = useLocation();
   const studentData = location.state || {};
@@ -41,7 +42,7 @@ const InstEdit = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState(studentsData);
-  // console.log(data, "data");
+  console.log(data, "data");
 
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
@@ -159,18 +160,20 @@ const InstEdit = () => {
         .email(
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
-        .required(
-          <span style={{ color: "red" }}>Please Enter Email Address</span>
-        )
+        .optional()
+        // .required(
+        //   <span style={{ color: "red" }}>Please Enter Email Address</span>
+        // )
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
           "Email Must be VALID"
         )
         .max(255),
       mobile: Yup.string()
-        .required(
-          <span style={{ color: "red" }}>Please Enter Mobile Number</span>
-        )
+      .optional()
+        // .required(
+        //   <span style={{ color: "red" }}>Please Enter Mobile Number</span>
+        // )
         .trim()
         .matches(
           /^\d+$/,
@@ -210,12 +213,13 @@ const InstEdit = () => {
         college_name: values.college === "Other" ? values.ocn : values.college,
        
       };
-      if (data && data.username_email !== values.email) {
+      if (data && data.username_email !== values.email && values.email) {
         body["username"] = values.email;
-      }
-      if (data && data?.mobile !== values.mobile) {
+    }
+    
+    if (data && data.mobile !== values.mobile && values.mobile) {
         body["mobile"] = values.mobile;
-      }
+    }
       // if (data && data.id_number !== values.id_number ) {
       //   body["id_number"] = values.id_number;
       // }
@@ -261,16 +265,13 @@ const InstEdit = () => {
     if (data) {
       formik.setValues({
         full_name: data.full_name || "",
-        email: data.username_email || "",
-        mobile: data.mobile || "",
+        // email: data.username_email || "",
+        // mobile: data.mobile || "",
         district: data.district || "",
         college: data.college_name || "",
-        // rollnumber: data.roll_number || '',
-        // branch: data.branch || '',
-        // yearofstudy: data.year_of_study || '',
+       
         collegeType: data.college_type || "",
         ocn: data.college_type === "Other" ? data.college_name : "",
-        // id_number: data.id_number || '',
       });
     }
   }, [data]);
@@ -288,7 +289,7 @@ const InstEdit = () => {
   useEffect(() => {
     setCollegeNamesList(collegeNameList[data.college_type] || []);
   }, [data.college_type]);
-  //  console.log(formik.values.college,"coll");
+ 
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -340,13 +341,12 @@ const InstEdit = () => {
                           ) : null}
                         </div>
                         <div className={`col-md-6`}>
-                          <label htmlFor="email" className="form-label">
-                            Email
-                          </label>
+                          <label htmlFor="email" className="form-label d-flex align-items-center">
+                            Email :  &nbsp;<MaskedEmail email={data?.username_email}/>
+                          
                           &nbsp;
-                          <span style={{ color: "red", fontWeight: "bold" }}>
-                            *
-                          </span>
+                         
+                          </label>
                           <input
                             type="email"
                             className="form-control"
@@ -368,13 +368,12 @@ const InstEdit = () => {
                         </div>
 
                         <div className="col-md-6">
-                          <label className="form-label" htmlFor="mobile">
-                            Mobile Number
-                          </label>
+                        <label htmlFor="email" className="form-label d-flex align-items-center">
+                            Mobile Number :  &nbsp;<MaskedMobile mobile={data?.mobile}/>
+                          
                           &nbsp;
-                          <span style={{ color: "red", fontWeight: "bold" }}>
-                            *
-                          </span>
+                          
+                          </label>
                           <input
                             type="text"
                             className="form-control"
