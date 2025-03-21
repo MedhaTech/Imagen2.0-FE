@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 // import male from "../../../assets/img/admin.jpg";
 import { useLocation } from "react-router-dom";
 import male from "../../../assets/img/imazenlogo1.jpg";
+import { MaskedEmail, MaskedMobile } from "../../../RegPage/MaskedData.js";
 
 // import { InputBox } from '../../../stories/InputBox/InputBox';
 import * as Yup from "yup";
@@ -39,7 +40,6 @@ const EditProfile = (props) => {
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
   const mentorData = location.state || {};
-  console.log(mentorData, "mentorData");
 
   const inputPassword = {
     placeholder: "Enter Password",
@@ -59,11 +59,13 @@ const EditProfile = (props) => {
         .min(2, "Please Enter a Full Name")
         .required("Please Enter Full Name"),
       email: Yup.string()
-        .required("Please Enter Email Id")
+        // .required("Please Enter Email Id")
+        .optional()
         .trim()
         .email("Please Enter Valid Email Id"),
       mobile: Yup.string()
-        .required("Please Enter Mobile Number")
+        // .required("Please Enter Mobile Number")
+        .optional()
         .trim()
         .min(10, "Number is less than 10 digits")
         .max(10, "Please Enter Valid Number"),
@@ -90,8 +92,10 @@ const EditProfile = (props) => {
   const getInitialValues = (data) => {
     const commonInitialValues = {
       name: mentorData?.full_name || mentorData?.user?.full_name,
-      email: mentorData?.username || mentorData?.user?.username,
-      mobile: mentorData?.mobile || mentorData?.user?.mobile,
+      email: "",
+      mobile: "",
+      // email: mentorData?.username || mentorData?.user?.username,
+      // mobile: mentorData?.mobile || mentorData?.user?.mobile,
     };
     
     return commonInitialValues;
@@ -104,17 +108,25 @@ const EditProfile = (props) => {
     
       const full_name = values.name;
       const email = values.email;
-      // const mobile = values.mobile;
+      const mobile = values.mobile;
 
       const evlId = encryptGlobal(JSON.stringify(mentorData.evaluator_id));
       const body = {
         full_name: full_name,
-        username: email,
       };
 
-      if (mentorData?.mobile !== values.mobile) {
+      // if (mentorData?.mobile !== values.mobile) {
+      //   body["mobile"] = values.mobile;
+      // }
+      // if (mentorData?.user?.username !== email) {
+      //   body["username"] = email;
+      // }
+      if (values.mobile && mentorData?.mobile !== values.mobile) {
         body["mobile"] = values.mobile;
-      }
+    }
+    if (email && mentorData?.user?.username !== email) {
+        body["username"] = email;
+    }
 
       const url = process.env.REACT_APP_API_BASE_URL + `/evaluators/${evlId}`;
 
@@ -149,6 +161,7 @@ const EditProfile = (props) => {
         });
     },
   });
+  // console.log(mentorData.user.username,formik.values.email ,"mentorData");
 
   const formLoginStyle = {
     display: "flex",
@@ -183,7 +196,7 @@ const EditProfile = (props) => {
                       <img src={male} alt="Female" id="blah" />
                     </div>
                     <div className="profile-contentname">
-                      <h2>{mentorData?.full_name}</h2>
+                      <h2>{mentorData?.user.full_name || mentorData?.full_name }</h2>
                     </div>
                   </div>
                 </div>
@@ -220,7 +233,14 @@ const EditProfile = (props) => {
 
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label>Email Address</label>
+                    <label
+                                               htmlFor="email"
+                                               className="form-label d-flex align-items-center"
+                                             >
+                                               Email : &nbsp;
+                                               <MaskedEmail email={mentorData?.user.username} />
+                                               &nbsp;
+                                             </label>
                     <input
                       type="text"
                       className="form-control"
@@ -241,7 +261,14 @@ const EditProfile = (props) => {
                 </div>
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label>Mobile</label>
+                   <label
+                                               htmlFor="email"
+                                               className="form-label d-flex align-items-center"
+                                             >
+                                               Mobile Number : &nbsp;
+                                               <MaskedMobile mobile={mentorData?.mobile} />
+                                               &nbsp;
+                                             </label>
                     <input
                       type="text"
                       className="form-control"

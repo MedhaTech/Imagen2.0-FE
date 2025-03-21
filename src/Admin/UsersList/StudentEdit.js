@@ -33,6 +33,7 @@ import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
 import { isString } from "antd/es/button";
 import Select from "react-select";
+import { MaskedEmail, MaskedMobile } from "../../RegPage/MaskedData.js";
 
 const StuEdit = () => {
   const location = useLocation();
@@ -196,12 +197,13 @@ const StuEdit = () => {
         .email(
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
-        .required(
-          <span style={{ color: "red" }}>Please Enter Email Address</span>
-        )
+        .optional()
+        // .required(
+        //   <span style={{ color: "red" }}>Please Enter Email Address</span>
+        // )
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-          "Email Must be VALID"
+          "Email Must be Valid"
         )
         .max(255),
           college_town: Yup.string().optional(),
@@ -210,9 +212,10 @@ const StuEdit = () => {
                                ),
         id_number: Yup.string().optional(),
       mobile: Yup.string()
-        .required(
-          <span style={{ color: "red" }}>Please Enter Mobile Number</span>
-        )
+      .optional()
+        // .required(
+        //   <span style={{ color: "red" }}>Please Enter Mobile Number</span>
+        // )
         .trim()
         .matches(
           /^\d+$/,
@@ -313,8 +316,8 @@ const StuEdit = () => {
     if (data) {
       formik.setValues({
         full_name: data.full_name || '',
-        email: data.username_email || '',
-        mobile: data.mobile || '',
+        // email: data.username_email || '',
+        // mobile: data.mobile || '',
         district: data.district || '',
         college: data.college_name || '',
         rollnumber: data.roll_number || '',
@@ -426,10 +429,12 @@ const StuEdit = () => {
                                               ) : null}
                                             </div>
                           <div className={`col-md-6`}>
-                            <label htmlFor="email" className="form-label">
-                              Email
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                           <label htmlFor="email" className="form-label d-flex align-items-center">
+                                                       Email :  &nbsp;<MaskedEmail email={data?.username_email}/>
+                                                     
+                                                     &nbsp;
+                                                    
+                                                     </label>
                             <input
                               type="email"
                               className="form-control"
@@ -451,10 +456,12 @@ const StuEdit = () => {
                           </div>
 
                           <div className="col-md-6">
-                            <label className="form-label" htmlFor="mobile">
-                              Mobile Number
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
+                             <label htmlFor="email" className="form-label d-flex align-items-center">
+                                                        Mobile Number :  &nbsp;<MaskedMobile mobile={data?.mobile}/>
+                                                      
+                                                      &nbsp;
+                                                      
+                                                      </label>
 
                             <input
                               type="text"
@@ -775,7 +782,12 @@ const StuEdit = () => {
     // className={`btn btn-warning m-2 ${
     //   !formik.dirty || !formik.isValid ? "default" : "primary"
     // }`}
-    className="btn btn-warning m-2"
+    className={`btn btn-warning m-2 ${
+      !formik.dirty || !formik.isValid
+        ? "default"
+        : "primary"
+    }`}
+    // className="btn btn-warning m-2"
     type="submit"
     disabled={
       !formik.isValid || !formik.dirty
