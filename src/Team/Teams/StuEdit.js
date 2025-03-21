@@ -256,7 +256,7 @@ const StuEdit = () => {
       }
       if (data && data?.mobile !== values.mobile && values.mobile) {
         body["mobile"] = values.mobile;
-      }
+}
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
         method: "put",
