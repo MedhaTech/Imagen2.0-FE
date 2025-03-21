@@ -213,12 +213,13 @@ const InstEdit = () => {
         college_name: values.college === "Other" ? values.ocn : values.college,
        
       };
-      if (data && data.username_email !== values.email) {
+      if (data && data.username_email !== values.email && values.email) {
         body["username"] = values.email;
-      }
-      if (data && data?.mobile !== values.mobile) {
+    }
+    
+    if (data && data.mobile !== values.mobile && values.mobile) {
         body["mobile"] = values.mobile;
-      }
+    }
       // if (data && data.id_number !== values.id_number ) {
       //   body["id_number"] = values.id_number;
       // }
