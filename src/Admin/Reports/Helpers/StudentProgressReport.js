@@ -139,6 +139,10 @@ const StudentProgress = () => {
       label: 'Student Full Name',
       key: 'studentfullname'
   },
+  {
+    label: 'Gender',
+    key: 'gender'
+},
   // {
   //     label: 'Email Address',
   //     key: 'username'
@@ -148,6 +152,10 @@ const StudentProgress = () => {
       key: 'mobile'
   },
   {
+    label: 'College Town',
+    key: 'college_town'
+},
+  {
       label: 'College Type',
       key: 'college_type'
   },
@@ -155,14 +163,14 @@ const StudentProgress = () => {
       label: 'College Name',
       key: 'college_name'
   },
-    {
-      label: "District",
-      key: "district",
-    },
-    {
-      label: 'Branch',
-      key: 'branch'
-  },
+  {
+    label: 'Institution District',
+    key: 'district'
+},
+{
+  label: 'Branch/Group/Stream',
+  key: 'branch'
+},
   {
       label: 'Roll Number',
       key: 'roll_number'

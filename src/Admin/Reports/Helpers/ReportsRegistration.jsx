@@ -145,6 +145,11 @@ const ReportsRegistration = () => {
             key: 'full_name'
         },
         {
+            label: 'Gender',
+            key: 'gender'
+        },
+       
+        {
             label: 'Email Address',
             key: 'username'
         },
@@ -153,19 +158,24 @@ const ReportsRegistration = () => {
             key: 'mobile'
         },
         {
+            label: 'College Town',
+            key: 'college_town'
+        },
+        {
             label: 'College Type',
             key: 'college_type'
         },
+       
         {
             label: 'College Name',
             key: 'college_name'
         },
         {
-            label: 'District',
+            label: 'Institution District',
             key: 'district'
         },
         {
-            label: 'Branch',
+            label: 'Branch/Group/Stream',
             key: 'branch'
         },
         {
