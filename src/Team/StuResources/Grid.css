@@ -1,9 +1,8 @@
-.card {
-    background-color: #f8f9fa;  /* Initial background color */
-    transition: background-color 0.3s ease; /* Smooth transition */
-  }
-  
-  .card:hover {
-    background-color: #e0e0e0; /* Background color on hover */
-  }
-   
+.myComponent .card {
+  background-color: #f8f9fa;  
+  transition: background-color 0.3s ease; 
+}
+
+.myComponent .card:hover {
+  background-color: #e0e0e0;  
+}

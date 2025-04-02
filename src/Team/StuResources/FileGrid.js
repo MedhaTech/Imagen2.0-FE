@@ -67,7 +67,7 @@ const FileGrid = ({ resList }) => {
   };
 
   return (
- 
+    <div className="myComponent">
     <div className="row g-3" style={{ rowGap: "20px" }}>
   {resList.map((record, index) => (
     <div key={index} className="col-xl-2 col-lg-2 col-md-6 mb-3">
@@ -144,6 +144,8 @@ const FileGrid = ({ resList }) => {
     </div>
   ))}
 </div>
+</div>
+
 
 
   );
