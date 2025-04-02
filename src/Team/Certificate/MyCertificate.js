@@ -39,16 +39,16 @@ const Instructions = () => {
   const currentUser = getCurrentUser("current_user");
 
   const handleCertificateDownload = () => {
-    // alert("hii");
-    // const badge = "the_finisher";
-    // dispatch(updateStudentCertificate(currentUser?.data[0]?.user_id));
+    
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = data?.college_name;
+    const finalCollegeName = data?.college_name.length > 34
+    ? data?.college_name.slice(0, 34) + "..."
+    : data?.college_name;
     const doc = new jsPDF("l", "mm", [298, 211]);
-const type= CourseCertificate;
     doc.addImage(CourseCertificate, "JPEG", 0, 0, 298, 211);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
+    doc.setFontSize(13);
     doc.setTextColor("white");
 
    
@@ -60,40 +60,41 @@ const type= CourseCertificate;
     const collegeNameWidth =
     (doc.getStringUnitWidth(collegeName) * doc.getFontSize()) / doc.internal.scaleFactor;
   const collegeNameY = y + 12; 
-  doc.text(collegeName, x - collegeNameWidth / 2, collegeNameY);
+  const leftMargin = 100;
+  doc.text(finalCollegeName, leftMargin, collegeNameY);
+  // doc.text(collegeName, x - collegeNameWidth / 2, collegeNameY);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
-    if (type)
-      dispatch(updateStudentCertificate(currentUser?.data[0]?.user_id));
+    cerificateData();
    
   };
   const handleCertificateDownload1 = () => {
     const content = pdfRef.current;
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = data?.college_name;
+    const finalCollegeName = data?.college_name.length > 44
+      ? data?.college_name.slice(0, 44) + "..."
+      : data?.college_name;
     const doc = new jsPDF("l", "mm", [298, 211]);
 
     doc.addImage(IdeaCertificate, "JPEG", 0, 0, 298, 211);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
+    doc.setFontSize(13);
     doc.setTextColor("white");
 
-    // const textWidth =
-    //   (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
-    //   doc.internal.scaleFactor;
-    // const x = 298 / 2-20;
-    // const y = 105;
-    // (doc.getStringUnitWidth(fullName) * doc.getFontSize()) / doc.internal.scaleFactor;
+    
     const fullNameWidth = (doc.getStringUnitWidth(fullName) * doc.getFontSize()) / doc.internal.scaleFactor;
     const x = (298 - fullNameWidth) / 2;
     const y = 105;  
     doc.text(fullName, x, y);
 
     const collegeNameWidth =
-    (doc.getStringUnitWidth(collegeName) * doc.getFontSize()) / doc.internal.scaleFactor;
+    (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) / doc.internal.scaleFactor;
   const collegeNameY = y + 12; 
-  doc.text(collegeName, x - collegeNameWidth / 2, collegeNameY);
+  const leftMargin = 100;
+  doc.text(finalCollegeName, leftMargin, collegeNameY);
+  // doc.text(finalCollegeName, x - collegeNameWidth / 2, collegeNameY);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
@@ -103,10 +104,12 @@ const type= CourseCertificate;
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = data?.college_name;
     const doc = new jsPDF("l", "mm", [298, 211]);
-
+    const finalCollegeName = data?.college_name.length > 34
+    ? data?.college_name.slice(0, 34) + "..."
+    : data?.college_name;
     doc.addImage(L2Certificate, "JPEG", 0, 0, 298, 211);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
+    doc.setFontSize(13);
     doc.setTextColor("white");
 
     // const textWidth =
@@ -123,7 +126,10 @@ const type= CourseCertificate;
     const collegeNameWidth =
     (doc.getStringUnitWidth(collegeName) * doc.getFontSize()) / doc.internal.scaleFactor;
   const collegeNameY = y + 12; 
-  doc.text(collegeName, x - collegeNameWidth / 2, collegeNameY);
+  const leftMargin = 100;
+  doc.text(finalCollegeName, leftMargin, collegeNameY);
+  
+  // doc.text(collegeName, x - collegeNameWidth / 2, collegeNameY);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
@@ -213,6 +219,33 @@ const type= CourseCertificate;
       })
       .catch((err) => {
         return err.response;
+      });
+  };
+  const cerificateData = () => {
+   
+    let enParamData = encryptGlobal(
+      JSON.stringify(
+      currentUser?.data[0]?.user_id,
+      )
+    );
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_API_BASE_URL + `/students/${enParamData}/studentCertificate`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          console.log(response, "res");
+          // setData(response?.data?.data[0]);
+          }
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   };
   const certificateApi = () => {
@@ -324,7 +357,7 @@ const type= CourseCertificate;
   const Ideas = async (resList) => {
     const corseApi1 = encryptGlobal(
       JSON.stringify({
-        team_id: currentUser?.data[0]?.team_id,
+        student_id: TeamId
       })
     );
     var config = {
