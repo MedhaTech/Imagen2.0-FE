@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import DataTableExtensions from "react-data-table-component-extensions";
 import DataTable, { Alignment } from "react-data-table-component";
 import axios from "axios";
+import FileGrid from "../../Team/StuResources/FileGrid";
 const TecResource = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
@@ -110,10 +111,13 @@ const TecResource = () => {
         <div className="page-header">
           <div className="page-title">
             <h4>Resources</h4>
-            <h6>List of YFSI program resources</h6>
+            <h6>List of  program resources</h6>
           </div>
         </div>
-        <div className="card table-list-card my-2">
+        <div>
+          <FileGrid resList={resList} />
+        </div>
+        {/* <div className="card table-list-card my-2">
           <DataTableExtensions
             data={rows}
             print={false}
@@ -131,7 +135,7 @@ const TecResource = () => {
               subHeaderAlign={Alignment.Center}
             />
           </DataTableExtensions>
-        </div>
+        </div> */}
       </div>
     </div>
   );
