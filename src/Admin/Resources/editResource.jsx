@@ -204,7 +204,7 @@ const EditResource = () => {
                                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                                     <div className="create-ticket register-block">
                                         <Row className="mb-3 modal-body-table search-modal-header">
-                                            <Col md={4}>
+                                            <Col md={6}>
                                                 <Label className="mb-2" htmlFor="role">
                                                     Role
                                                     <span required>*</span>
@@ -253,7 +253,7 @@ const EditResource = () => {
                             </small>
                           ) : null}
                         </Col> */}
-                                            <Col md={4}>
+                                            <Col md={6}>
 
                                             <Label
                                                 className="mb-2"
