@@ -3,6 +3,8 @@ import React from "react";
 import "./Grid.css"; 
 import pdfIcon from "../../assets/img/pdfn3.png";
 import wordIcon from "../../assets/img/docume.jpg";
+import urlIcon from "../../assets/img/URL.jpg";
+import { FaLink } from "react-icons/fa";
 
 import { FaYoutube } from "react-icons/fa6";
 import { FaImage } from "react-icons/fa6";
@@ -46,8 +48,10 @@ const FileGrid = ({ resList }) => {
     } else if (url.match(/\.(jpeg|jpg|png|gif)$/)) {
       return <FaImage size={20} color="orange" />;
     } else if (url.includes("youtube.com") || url.includes("youtu.be")) {
-      return <FaYoutube  size={20} color="red" />;
-    } 
+      return <FaYoutube size={20} color="red" />;
+    } else {
+      return <FaLink size={20} color="sky blue" />; // Default file icon for unknown file types
+    }
   };
   
   
@@ -111,34 +115,77 @@ const FileGrid = ({ resList }) => {
           </div>
 
         ) : (
+         
           <div>
-            {isValidUrl(record.attachments) 
-            
-             ? (
-              <>
-                <a href={record.attachments} target="_blank" rel="noopener noreferrer">
-                  <img
-                    src={`https://img.youtube.com/vi/${getYouTubeVideoId(record.attachments)}/hqdefault.jpg`}
-                    alt="YouTube Thumbnail"
-                    className="img-fluid mb-1"
-                    style={{ maxHeight: "160px", objectFit: "cover" }}
-                  />
-                </a>
-                <div className="d-grid">
-                <a
-                  href={record.attachments}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-sm btn-outline-primary mt-1"
-                >
-                  <i className="fas fa-external-link-alt"></i> Watch Video
-                </a>
-                </div>
-              </>
-            ) : (
-              <p>Invalid video URL</p>
-            )}
-          </div>
+  {record.attachments && isValidUrl(record.attachments) ? (
+    record.attachments.includes("youtube.com") || record.attachments.includes("youtu.be") ? (
+      <>
+        <a href={record.attachments} target="_blank" rel="noopener noreferrer">
+          <img
+            src={`https://img.youtube.com/vi/${getYouTubeVideoId(record.attachments)}/hqdefault.jpg`}
+            alt="YouTube Thumbnail"
+            className="img-fluid mb-1"
+            style={{ maxHeight: "160px", objectFit: "cover" }}
+          />
+        </a>
+        <div className="d-grid">
+          <a
+            href={record.attachments}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-sm btn-outline-primary mt-1"
+          >
+            <i className="fas fa-external-link-alt"></i> Watch Video
+          </a>
+        </div>
+      </>
+    ) : (
+      <>
+        <a href={record.attachments} target="_blank" rel="noopener noreferrer">
+          <img
+            src={urlIcon}
+            alt="File Preview"
+            className="img-fluid mb-1"
+            style={{ maxHeight: "120px", objectFit: "cover" }}
+          />
+        </a>
+        <div className="d-grid">
+          <a
+            href={record.attachments}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-sm btn-outline-secondary mt-1"
+          >
+            <i className="fas fa-external-link-alt"></i> Open File
+          </a>
+        </div>
+      </>
+    )
+  ) : (
+    <>
+    <a href={record.attachments} target="_blank" rel="noopener noreferrer">
+      <img
+        src={urlIcon}
+        alt="File Preview"
+        className="img-fluid mb-1"
+        style={{ maxHeight: "120px", objectFit: "cover" }}
+      />
+    </a>
+    <div className="d-grid">
+      <a
+        href={record.attachments}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn btn-sm btn-outline-secondary mt-1"
+      >
+        <i className="fas fa-external-link-alt"></i> Open File
+      </a>
+    </div>
+  </>
+    // <p>Invalid URL</p>
+  )}
+</div>
+
         )}
       </div>
     </div>
