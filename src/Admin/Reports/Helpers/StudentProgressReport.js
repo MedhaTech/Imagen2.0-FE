@@ -143,10 +143,10 @@ const StudentProgress = () => {
     label: 'Gender',
     key: 'gender'
 },
-  // {
-  //     label: 'Email Address',
-  //     key: 'username'
-  // },
+  {
+      label: 'Email Address',
+      key: 'email'
+  },
   {
       label: 'Mobile Number',
       key: 'mobile'
