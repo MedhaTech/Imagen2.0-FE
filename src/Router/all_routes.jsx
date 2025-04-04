@@ -13,6 +13,7 @@ export const all_routes = {
   adminlist:"/admins",
   mentortableview:"/mentor-view",
   popup:"/popup",
+  InstOption:"/instOption",
   EmailList:"/emailList",
   createemail:"/create-email",
   resendemail:"/resend-email",
