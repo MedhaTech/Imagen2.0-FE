@@ -86,6 +86,7 @@ import TeamsList from "../Admin/UsersList/TeamsList";
 import AdminsList from "../Admin/UsersList/AdminsList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
+import InstOption from "../Admin/InstEdit/index";
 import Createpopup from "../Admin/PopUp/CreatePopUp";
 import AdminResources from "../Admin/Resources/index";
 import EditResource from "../Admin/Resources/editResource";
@@ -344,6 +345,14 @@ export const publicRoutes = [
     path: routes.popup,
     name: "popup",
     element: <PopUp/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 16,
+    path: routes.InstOption,
+    name: "InstOption",
+    element: <InstOption/>,
     protected: true,
     route: Route,
   },
