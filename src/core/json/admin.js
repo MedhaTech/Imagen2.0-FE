@@ -20,7 +20,13 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-       
+        {
+          label: "Institution Edit",
+          link: "/instOption",
+          icon: <Icon.Home />,
+          showSubRoute: false,
+          submenu: false,
+        },
         {
           label:"PopUp",
           link: "/popup",
