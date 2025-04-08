@@ -15,7 +15,7 @@ import { useReactToPrint } from "react-to-print";
 import jsPDF from "jspdf";
 import CourseCertificate from "../../assets/img/finalCourse1.jpg";
 import IdeaCertificate from "../../assets/img/FinalIdea1.jpg";
-import L2Certificate from "../../assets/img/L2new.jpg";
+import L2Certificate from "../../assets/img/FinalL11.jpg";
 
 import users from "../../assets/img/bronze.jpg";
 import user1 from "../../assets/img/silver1.jpg";
@@ -118,8 +118,8 @@ const Instructions = () => {
 
     const collegeNameWidth =
     (doc.getStringUnitWidth(collegeName) * doc.getFontSize()) / doc.internal.scaleFactor;
-  const collegeNameY = y + 9; 
-  const leftMargin = 95;
+  const collegeNameY = y + 15; 
+  const leftMargin = 85;
   doc.text(finalCollegeName, leftMargin, collegeNameY);
   
 
