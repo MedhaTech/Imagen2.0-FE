@@ -474,12 +474,12 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                       className="btn btn-lg text-bold"
                       style={{
                         // backgroundColor: "#007e33",
-                        backgroundColor: !isEligible ? "#007e33" : "#aaa",
+                        backgroundColor: isEligible ? "#007e33" : "#aaa",
                         color: "#fff",
                         padding: "1rem",
                         borderRadius: "20px",
                       }}
-                      onClick={!isEligible ? handleCertificateDownload2 : (e) => e.preventDefault()}
+                      onClick={isEligible ? handleCertificateDownload2 : (e) => e.preventDefault()}
                     >
                       👉 DOWNLOAD CERTIFICATE
                     </Link>
