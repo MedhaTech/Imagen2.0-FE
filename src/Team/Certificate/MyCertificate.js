@@ -49,7 +49,7 @@ const Instructions = () => {
     doc.addImage(CourseCertificate, "JPEG", 0, 0, 298, 211);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
-    doc.setTextColor("white");
+    doc.setTextColor("#FFD700");
 
    
     const fullNameWidth = (doc.getStringUnitWidth(fullName) * doc.getFontSize()) / doc.internal.scaleFactor;
@@ -80,7 +80,7 @@ const Instructions = () => {
     doc.addImage(IdeaCertificate, "JPEG", 0, 0, 298, 211);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
-    doc.setTextColor("white");
+    doc.setTextColor("#FFD700");
 
     
     const fullNameWidth = (doc.getStringUnitWidth(fullName) * doc.getFontSize()) / doc.internal.scaleFactor;
