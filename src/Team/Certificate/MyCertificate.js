@@ -21,7 +21,7 @@ import users from "../../assets/img/Silver.png";
 import user1 from "../../assets/img/bronze.png";
 import user2 from "../../assets/img/Gold.png";
 import { useTranslation } from "react-i18next";
-
+import { MdOutlineFileDownload } from "react-icons/md";
 import {
    
     updateStudentBadges,
@@ -420,7 +420,7 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                     //   onClick={handleCertificateDownload}
                       onClick={course === true ? handleCertificateDownload : (e) => e.preventDefault()}
                     >
-                      👉 DOWNLOAD CERTIFICATE
+                      <MdOutlineFileDownload size="27"/> DOWNLOAD CERTIFICATE
                     </Link>
                   </div>
                 </div>
@@ -453,7 +453,7 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                     //   onClick={handleCertificateDownload1}
                       onClick={ideaStatus === "SUBMITTED" ? handleCertificateDownload1 : (e) => e.preventDefault()}
                     >
-                      👉 DOWNLOAD CERTIFICATE
+                      <MdOutlineFileDownload size="27"/> DOWNLOAD CERTIFICATE
                     </Link>
                   </div>
                 </div>
@@ -484,7 +484,7 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                       }}
                       onClick={isEligible ? handleCertificateDownload2 : (e) => e.preventDefault()}
                     >
-                      👉 DOWNLOAD CERTIFICATE
+                      <MdOutlineFileDownload size="27"/> DOWNLOAD CERTIFICATE
                     </Link>
                   </div>
                 </div>
