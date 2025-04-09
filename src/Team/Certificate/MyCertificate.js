@@ -42,9 +42,10 @@ const Instructions = () => {
     
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = data?.college_name;
-    const finalCollegeName = data?.college_name.length > 34
-    ? data?.college_name.slice(0, 34) + "..."
-    : data?.college_name;
+    // const finalCollegeName = data?.college_name.length > 34
+    // ? data?.college_name.slice(0, 34) + "..."
+    // : data?.college_name;
+     const finalCollegeName = data?.college_name ;
     const doc = new jsPDF("l", "mm", [298, 211]);
     doc.addImage(CourseCertificate, "JPEG", 0, 0, 298, 211);
     doc.setFont("helvetica", "bold");
@@ -72,9 +73,8 @@ const Instructions = () => {
     const content = pdfRef.current;
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = data?.college_name;
-    const finalCollegeName = data?.college_name.length > 44
-      ? data?.college_name.slice(0, 44) + "..."
-      : data?.college_name;
+   
+    const finalCollegeName = data?.college_name ;
     const doc = new jsPDF("l", "mm", [298, 211]);
 
     doc.addImage(IdeaCertificate, "JPEG", 0, 0, 298, 211);
@@ -102,9 +102,7 @@ const Instructions = () => {
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = data?.college_name;
     const doc = new jsPDF("l", "mm", [298, 211]);
-    const finalCollegeName = data?.college_name.length > 34
-    ? data?.college_name.slice(0, 34) + "..."
-    : data?.college_name;
+    const finalCollegeName = data?.college_name ;
     doc.addImage(L2Certificate, "JPEG", 0, 0, 298, 211);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
