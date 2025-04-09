@@ -17,11 +17,11 @@ import CourseCertificate from "../../assets/img/finalCourse1.jpg";
 import IdeaCertificate from "../../assets/img/FinalIdea1.jpg";
 import L2Certificate from "../../assets/img/FinalL11.jpg";
 
-import users from "../../assets/img/bronze.jpg";
-import user1 from "../../assets/img/silver1.jpg";
-import user2 from "../../assets/img/wed.jpg";
+import users from "../../assets/img/Silver.png";
+import user1 from "../../assets/img/bronze.png";
+import user2 from "../../assets/img/Gold.png";
 import { useTranslation } from "react-i18next";
-
+import { MdOutlineFileDownload } from "react-icons/md";
 import {
    
     updateStudentBadges,
@@ -42,14 +42,15 @@ const Instructions = () => {
     
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = data?.college_name;
-    const finalCollegeName = data?.college_name.length > 34
-    ? data?.college_name.slice(0, 34) + "..."
-    : data?.college_name;
+    // const finalCollegeName = data?.college_name.length > 34
+    // ? data?.college_name.slice(0, 34) + "..."
+    // : data?.college_name;
+     const finalCollegeName = data?.college_name ;
     const doc = new jsPDF("l", "mm", [298, 211]);
     doc.addImage(CourseCertificate, "JPEG", 0, 0, 298, 211);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
-    doc.setTextColor("white");
+    doc.setTextColor("#FFD700");
 
    
     const fullNameWidth = (doc.getStringUnitWidth(fullName) * doc.getFontSize()) / doc.internal.scaleFactor;
@@ -72,15 +73,14 @@ const Instructions = () => {
     const content = pdfRef.current;
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = data?.college_name;
-    const finalCollegeName = data?.college_name.length > 44
-      ? data?.college_name.slice(0, 44) + "..."
-      : data?.college_name;
+   
+    const finalCollegeName = data?.college_name ;
     const doc = new jsPDF("l", "mm", [298, 211]);
 
     doc.addImage(IdeaCertificate, "JPEG", 0, 0, 298, 211);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
-    doc.setTextColor("white");
+    doc.setTextColor("#FFD700");
 
     
     const fullNameWidth = (doc.getStringUnitWidth(fullName) * doc.getFontSize()) / doc.internal.scaleFactor;
@@ -102,13 +102,11 @@ const Instructions = () => {
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = data?.college_name;
     const doc = new jsPDF("l", "mm", [298, 211]);
-    const finalCollegeName = data?.college_name.length > 34
-    ? data?.college_name.slice(0, 34) + "..."
-    : data?.college_name;
+    const finalCollegeName = data?.college_name ;
     doc.addImage(L2Certificate, "JPEG", 0, 0, 298, 211);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
-    doc.setTextColor("white");
+    doc.setTextColor("#FFD700");
 
    
     const fullNameWidth = (doc.getStringUnitWidth(fullName) * doc.getFontSize()) / doc.internal.scaleFactor;
@@ -402,9 +400,10 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                   <img
                     src={users}
                     alt="Profile"
-                    style={{ width: "100px", height: "150px" }}
+                    style={{ width: "150px", height: "150px" }}
                   />
-                  <div style={{ textAlign: "left", marginTop: "2rem" }}>
+                     <h5>For Course Completion</h5>
+                  <div style={{ textAlign: "left", marginTop: "1rem" }}>
                     <Link
                       to="#"
                       className="btn btn-lg text-bold"
@@ -419,7 +418,7 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                     //   onClick={handleCertificateDownload}
                       onClick={course === true ? handleCertificateDownload : (e) => e.preventDefault()}
                     >
-                      👉 DOWNLOAD CERTIFICATE
+                      <MdOutlineFileDownload size="27"/> DOWNLOAD CERTIFICATE
                     </Link>
                   </div>
                 </div>
@@ -434,9 +433,10 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                   <img
                     src={user1}
                     alt="Profile"
-                    style={{ width: "100px", height: "150px" }}
+                    style={{ width: "150px", height: "150px" }}
                   />
-                  <div style={{ textAlign: "left", marginTop: "2rem" }}>
+                  <h5>For Successful Idea Submission</h5>
+                  <div style={{ textAlign: "left", marginTop: "1rem" }}>
                     <Link
                       to="#"
                       className="btn btn-lg text-bold"
@@ -451,7 +451,7 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                     //   onClick={handleCertificateDownload1}
                       onClick={ideaStatus === "SUBMITTED" ? handleCertificateDownload1 : (e) => e.preventDefault()}
                     >
-                      👉 DOWNLOAD CERTIFICATE
+                      <MdOutlineFileDownload size="27"/> DOWNLOAD CERTIFICATE
                     </Link>
                   </div>
                 </div>
@@ -466,9 +466,10 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                   <img
                     src={user2}
                     alt="Profile"
-                    style={{ width: "100px", height: "150px" }}
+                    style={{ width: "150px", height: "150px" }}
                   />
-                  <div style={{ textAlign: "left", marginTop: "2rem" }}>
+                  <h5>For Being Selected For Phase 2</h5>
+                  <div style={{ textAlign: "left", marginTop: "1rem" }}>
                     <Link
                       to="#"
                       className="btn btn-lg text-bold"
@@ -481,7 +482,7 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                       }}
                       onClick={isEligible ? handleCertificateDownload2 : (e) => e.preventDefault()}
                     >
-                      👉 DOWNLOAD CERTIFICATE
+                      <MdOutlineFileDownload size="27"/> DOWNLOAD CERTIFICATE
                     </Link>
                   </div>
                 </div>
