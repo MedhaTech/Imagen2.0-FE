@@ -448,14 +448,18 @@ const IdeaReport = () => {
         if (response.status === 200) {
           // console.log(response,"filter");
           const IdeaData = response.data.data[0].summary || [];
-
+    
           const newdatalist = IdeaData.map((item) => {
             return {
               District: item.district,
               "College Name": item.college_name,
               "College Type": item.college_type,
-
-              "Student Name": item.studentfullname,
+              //"Student Name": item.studentfullname,
+              "Pilot":item.Pilot,
+              "Crew-1":item.teamMembers === null ? '':item.teamMembers[0],
+              "Crew-2":item.teamMembers === null ? '':item.teamMembers[1] === null ? '':item.teamMembers[1],
+              "Crew-3":item.teamMembers === null ? '':item.teamMembers[2] === null ? '':item.teamMembers[2],
+              "Initiated Name":item.initiatedName,
               Theme: item.theme,
               // "Describe the category your idea belongs to":item.others !== undefined ? item.others : "",
               "Describe your idea (in one sentence).": item.idea_describe,
