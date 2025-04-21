@@ -811,19 +811,15 @@ const StuEdit = () => {
 
                       <div className="form-login d-flex justify-content-between">
                         <button
-                          //                         type="submit"
+                          
                           // className={`btn btn-warning m-2 ${
-                          //   !formik.dirty || !formik.isValid ? "default" : "primary"
+                          //   !formik.dirty || !formik.isValid
+                          //     ? "default"
+                          //     : "primary"
                           // }`}
-                          className={`btn btn-warning m-2 ${
-                            !formik.dirty || !formik.isValid
-                              ? "default"
-                              : "primary"
-                          }`}
-                          // className="btn btn-warning m-2"
+                           className="btn btn-warning m-2"
                           type="submit"
-                          disabled={!formik.isValid || !formik.dirty}
-                          // disabled={!formik.dirty || !formik.isValid}
+                          // disabled={!formik.isValid || !formik.dirty}
                         >
                           Submit
                         </button>
