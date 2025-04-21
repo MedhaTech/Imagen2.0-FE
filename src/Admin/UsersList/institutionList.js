@@ -235,14 +235,14 @@ supId = encryptGlobal(
       {
         name: "Email Address",
         center:true,
-        selector: (row) =>  <MaskedEmail email={row?.username_email} />,
+        selector: (row) =>  row?.username_email,
        
         width: "16rem",
       },
       {
         name: "Mobile No",
         center:true,
-        selector: (row) =>  <MaskedMobile mobile={row?.mobile} />,
+        selector: (row) =>  row?.mobile,
         cellExport: (row) => row?.mobile,
         width: "9rem",
       },

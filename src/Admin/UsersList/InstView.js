@@ -201,12 +201,12 @@ const InstProfile = (props) => {
           </tr>
           <tr>
             <td><b>Email Address</b></td>
-            <td> <MaskedEmail email={StudentsDaTa?.username_email} /></td>
+            <td> {StudentsDaTa?.username_email}</td>
            
           </tr>
           <tr>
             <td><b>Mobile Number</b></td>
-            <td> <MaskedMobile mobile={StudentsDaTa?.mobile} /></td>
+            <td>{StudentsDaTa?.mobile}</td>
           </tr>
           <tr>
             <td><b>District</b></td>
