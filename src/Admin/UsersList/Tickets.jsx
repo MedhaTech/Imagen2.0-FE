@@ -421,13 +421,16 @@ const fiterDistData = [...districtList["Telangana"]];
             {
                 name: 'Email',
                 center:true,
-                selector: (row) =>  <MaskedEmail email={row?.username_email} />,
+                // selector: (row) =>  <MaskedEmail email={row?.username_email} />,
+                selector: (row) => row?.username_email,
+
                 width: '12rem'
             },
             {
                 name: 'Mobile No',
                 center:true,
-                selector: (row) => <MaskedMobile mobile={row?.mobile} />,
+                // selector: (row) => <MaskedMobile mobile={row?.mobile} />,
+                selector: (row) => row?.mobile,
                 cellExport: (row) => row?.mobile,
                 width: '10rem'
             },
