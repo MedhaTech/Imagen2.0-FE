@@ -160,20 +160,20 @@ const InstEdit = () => {
         .email(
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
-        .optional()
-        // .required(
-        //   <span style={{ color: "red" }}>Please Enter Email Address</span>
-        // )
+        // .optional()
+        .required(
+          <span style={{ color: "red" }}>Please Enter Email Address</span>
+        )
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
           "Email Must be VALID"
         )
         .max(255),
       mobile: Yup.string()
-      .optional()
-        // .required(
-        //   <span style={{ color: "red" }}>Please Enter Mobile Number</span>
-        // )
+      // .optional()
+        .required(
+          <span style={{ color: "red" }}>Please Enter Mobile Number</span>
+        )
         .trim()
         .matches(
           /^\d+$/,
@@ -265,8 +265,8 @@ const InstEdit = () => {
     if (data) {
       formik.setValues({
         full_name: data.full_name || "",
-        // email: data.username_email || "",
-        // mobile: data.mobile || "",
+        email: data.username_email || "",
+        mobile: data.mobile || "",
         district: data.district || "",
         college: data.college_name || "",
        
@@ -342,10 +342,7 @@ const InstEdit = () => {
                         </div>
                         <div className={`col-md-6`}>
                           <label htmlFor="email" className="form-label d-flex align-items-center">
-                            Email :  &nbsp;<MaskedEmail email={data?.username_email}/>
-                          
-                          &nbsp;
-                         
+                            Email 
                           </label>
                           <input
                             type="email"
@@ -369,10 +366,7 @@ const InstEdit = () => {
 
                         <div className="col-md-6">
                         <label htmlFor="email" className="form-label d-flex align-items-center">
-                            Mobile Number :  &nbsp;<MaskedMobile mobile={data?.mobile}/>
-                          
-                          &nbsp;
-                          
+                            Mobile Number 
                           </label>
                           <input
                             type="text"
