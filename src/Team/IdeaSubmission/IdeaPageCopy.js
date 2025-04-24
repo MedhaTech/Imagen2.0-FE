@@ -75,9 +75,7 @@ const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
           target="_blank"
           rel="noreferrer"
         >
-           <span className="file-name">
-                                {fileName}
-                            </span>
+          <span className="file-name">{fileName}</span>
           {/* {a_link[count]} */}
         </a>
       )}
@@ -110,7 +108,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [loading, setLoading] = useState(initialLoadingStatus);
   const currentUser = getCurrentUser("current_user");
 
-  const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
+  const TeamId =
+    currentUser?.data[0]?.type_id === 0
+      ? currentUser?.data[0]?.student_id
+      : currentUser?.data[0]?.type_id;
 
   const [currentSection, setCurrentSection] = useState(1);
   const goToNext = () => setCurrentSection(currentSection + 1);
@@ -228,38 +229,41 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const supportOptions = [
     {
       label: "Funding or Investment / నిధులు/రూపాయాల పెట్టుబడులు",
-      value: "Funding or Investment"
+      value: "Funding or Investment",
     },
     {
       label: "Mentorship and Guidance / మార్గదర్శకత్వం మరియు సహాయం",
-      value: "Mentorship and Guidance"
+      value: "Mentorship and Guidance",
     },
     {
       label: "Access to Technology or Tools / టెక్నాలజీ/సాధనాలకు ప్రవేశం",
-      value: "Access to Technology or Tools"
+      value: "Access to Technology or Tools",
     },
     {
-      label: "Marketing & Branding Support / మార్కెటింగ్ మరియు బ్రాండింగ్ మద్దతు",
-      value: "Marketing & Branding Support"
+      label:
+        "Marketing & Branding Support / మార్కెటింగ్ మరియు బ్రాండింగ్ మద్దతు",
+      value: "Marketing & Branding Support",
     },
     {
       label: "Product Development Assistance / ఉత్పత్తి అభివృద్ధి సహాయం",
-      value: "Product Development Assistance"
+      value: "Product Development Assistance",
     },
     {
-      label: "Access to Incubators or Networks or Partners / ఇంక్యుబేటర్లు/నెట్‌వర్క్‌లు లేదా భాగస్వాముల దగ్గర ప్రవేశం",
-      value: "Access to Incubators or Networks or Partners"
+      label:
+        "Access to Incubators or Networks or Partners / ఇంక్యుబేటర్లు/నెట్‌వర్క్‌లు లేదా భాగస్వాముల దగ్గర ప్రవేశం",
+      value: "Access to Incubators or Networks or Partners",
     },
     {
-      label: "Legal Support (e.g., Intellectual Property, contracts) / చట్టపరమైన మద్దతు (ఉదాహరణకు, మేధా సంపత్తి, ఒప్పందాలు)",
-      value: "Legal Support"
+      label:
+        "Legal Support (e.g., Intellectual Property, contracts) / చట్టపరమైన మద్దతు (ఉదాహరణకు, మేధా సంపత్తి, ఒప్పందాలు)",
+      value: "Legal Support",
     },
     {
       label: "Other (Please specify) / ఇతర (దయచేసి వివరించండి)",
-      value: "Other"
-    }
+      value: "Other",
+    },
   ];
-  
+
   // cons
   // ole.log(theme,"theme",props?.theme,"props?.theme");
   const initiatedBy = formData?.initiated_by;
@@ -298,7 +302,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setPrototypeImage(formData?.prototype_image);
     setPrototypeLink(formData?.prototype_link);
   }, [formData]);
-// console.log(support,"ss");
+  // console.log(support,"ss");
   useEffect(() => {
     if (formData?.stage) {
       setStage(JSON.parse(formData.stage));
@@ -511,7 +515,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     axios(config)
       .then(async function (response) {
         if (response.status == 200) {
-          setIdeaInitiation(response?.data?.data[0]?.initiated_by);
+          setIdeaInitiation(response?.data?.data[0]?.initiated_name);
           openNotificationWithIcon("success", t("home.ideaInitPop"));
           submittedApi();
           seterror4(false);
@@ -650,19 +654,19 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         customer === null ||
         detail === "" ||
         detail === null ||
-        !stage || 
-        stage === "" || 
-        stage === "[]" || 
-        (Array.isArray(stage) && stage.length === 0) || 
+        !stage ||
+        stage === "" ||
+        stage === "[]" ||
+        (Array.isArray(stage) && stage.length === 0) ||
         // stage === "" ||
-       
+
         // stage === null ||
         // unique === "" ||
         // unique === "[]" ||
-        !unique || 
-        unique === "" || 
-        unique === "[]" || 
-        (Array.isArray(unique) && unique.length === 0) || 
+        !unique ||
+        unique === "" ||
+        unique === "[]" ||
+        (Array.isArray(unique) && unique.length === 0) ||
         unique === null ||
         similar === "" ||
         similar === null ||
@@ -672,10 +676,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         society === null ||
         confident === "" ||
         confident === null ||
-        !confident || 
-        confident === "" || 
-        confident === "[]" || 
-        (Array.isArray(confident) && confident.length === 0) || 
+        !confident ||
+        confident === "" ||
+        confident === "[]" ||
+        (Array.isArray(confident) && confident.length === 0) ||
         support === "" ||
         support == null ||
         prototypeLink === "" ||
@@ -771,7 +775,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setIsDisabled(false);
     scroll();
   };
-  
+
   const comingSoonText = t("dummytext.student_idea_sub");
   // const acceptedParamfileTypes =>
   //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
@@ -819,7 +823,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                         )}
                       </>
                     )} */}
-
                     {formData?.status === "SUBMITTED" && (
                       <div className="d-md-flex justify-content-end px-4">
                         <Card className="p-3 card-bg-info">
@@ -843,14 +846,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 )
                               : ""}
                           </h5>
-                        
                         </Card>
                       </div>
                     )}
-                   
-                    <div 
-                    className="d-flex flex-nowrap justify-content-end gap-2 mb-3"
-                    // className="text-right mb-3"
+
+                    <div
+                      className="d-flex flex-nowrap justify-content-end gap-2 mb-3"
+                      // className="text-right mb-3"
                     >
                       {!isDisabled && (
                         <Button
@@ -866,38 +868,58 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                           disabled={!enableSaveBtn}
                         />
                       )}
-                      {
-                       
-                        formData.status !== "SUBMITTED" && isDisabled && (
-                          <>
-                            <Button
-                              type="button"
-                              btnClass="me-3 btn btn-info"
+                      {formData.status !== "SUBMITTED" && isDisabled && (
+                        <>
+                          <Button
+                            type="button"
+                            btnClass="me-3 btn btn-info"
+                            onClick={handleEdit}
+                            size="small"
+                            label={t("teacher_teams.edit_idea")}
+                            style={{
+                              marginRight:
+                                window.innerWidth > 768 ? "1rem" : "0",
+                            }}
+                          />
 
-                              onClick={handleEdit}
-                              size="small"
-                              label={t("teacher_teams.edit_idea")}
-                              style={{
-                                marginRight: window.innerWidth > 768 ? "1rem" : "0",
-                              }}
-                            />
-                          
-                            <Button
-                              type="button"
-                               btnClass="me-3 btn btn-primary"
-                              onClick={(e) => handleSubmit(e, "SUBMITTED")}
-                              size="small"
-                              label={t("teacher_teams.submit")}
-                              // disabled={
-                              //   !(isDisabled && formData?.initiated_by === currentUser?.data[0]?.user_id)
-                              // } 
-                              disabled={formData?.initiated_by  !== currentUser?.data[0]?.user_id }  
-                            /> 
-                          </>
-                        )
-                      }
+                          <Button
+                            type="button"
+                            btnClass="me-3 btn btn-primary"
+                            onClick={(e) => handleSubmit(e, "SUBMITTED")}
+                            size="small"
+                            label={t("teacher_teams.submit")}
+                            // disabled={
+                            //   !(isDisabled && formData?.initiated_by === currentUser?.data[0]?.user_id)
+                            // }
+                            disabled={
+                              formData?.initiated_by !==
+                              currentUser?.data[0]?.user_id
+                            }
+                          />
+                        </>
+                      )}
                     </div>
                     {/* {currentSection === 1 && ( */}
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <p style={{ marginRight: "1rem" ,marginBottom:"1rem"}}>
+                        <span style={{ color: "red" }}>Note : </span>
+                        The person who initiates the Idea can only have the
+                        access to submit the idea
+                      </p>
+                      {ideaInitiation  || formData?.initiated_name && (
+                          <p style={{ marginRight: "1rem" ,marginBottom:"1rem"}}>
+                            <span
+                              style={{ color: "black", fontWeight: "bold" }}
+                            >
+                              Initiated By :{" "}
+                            </span>
+                            {formData?.initiated_name
+                              ? formData?.initiated_name
+                              : "-"}
+                          </p>
+                        )}
+                    </div>
+
                     <div className="d-md-flex justify-content-end px-0">
                       <Row>
                         <div className="card comment-card">
@@ -942,7 +964,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   fontSize: "1rem",
                                 }}
                               >
-                               {theme !== "Others" ? "" :"2"}. {t("ideaform_questions.focusareaq")}
+                                {theme !== "Others" ? "" : "2"}.{" "}
+                                {t("ideaform_questions.focusareaq")}
                               </b>
                             </div>
 
@@ -969,7 +992,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                               {theme !== "Others" ? "2" :"3"}. {t("ideaform_questions.ideatitleq")}
+                              {theme !== "Others" ? "2" : "3"}.{" "}
+                              {t("ideaform_questions.ideatitleq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -997,7 +1021,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                               {theme !== "Others" ? "3" :"4"}. {t("ideaform_questions.problemstatementq")}
+                              {theme !== "Others" ? "3" : "4"}.{" "}
+                              {t("ideaform_questions.problemstatementq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1023,7 +1048,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "4" :"5"}. {t("ideaform_questions.causesq")}
+                              {theme !== "Others" ? "4" : "5"}.{" "}
+                              {t("ideaform_questions.causesq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1049,7 +1075,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "5" :"6"}. {t("ideaform_questions.effectsq")}
+                              {theme !== "Others" ? "5" : "6"}.{" "}
+                              {t("ideaform_questions.effectsq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1076,7 +1103,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "6" :"7"}. {t("ideaform_questions.explain")}
+                              {theme !== "Others" ? "6" : "7"}.{" "}
+                              {t("ideaform_questions.explain")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1102,7 +1130,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "7" :"8"}. {t("ideaform_questions.communityq")}
+                              {theme !== "Others" ? "7" : "8"}.{" "}
+                              {t("ideaform_questions.communityq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column">
@@ -1142,7 +1171,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "8" :"9"}. {t("ideaform_questions.uniqueq")}
+                              {theme !== "Others" ? "8" : "9"}.{" "}
+                              {t("ideaform_questions.uniqueq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column">
@@ -1181,7 +1211,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "9" :"10"}. {t("ideaform_questions.facingq")}
+                              {theme !== "Others" ? "9" : "10"}.{" "}
+                              {t("ideaform_questions.facingq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column p-4">
@@ -1225,7 +1256,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "10" :"11"}. {t("ideaform_questions.solutiondetailsq")}
+                              {theme !== "Others" ? "10" : "11"}.{" "}
+                              {t("ideaform_questions.solutiondetailsq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1252,7 +1284,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "11" :"12"}. {t("ideaform_questions.impactq")}
+                              {theme !== "Others" ? "11" : "12"}.{" "}
+                              {t("ideaform_questions.impactq")}
                             </b>
                           </div>
                           <div className="answers row flex-column p-4">
@@ -1278,7 +1311,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "12" :"13"}. {t("ideaform_questions.stakeholdersq")}
+                              {theme !== "Others" ? "12" : "13"}.{" "}
+                              {t("ideaform_questions.stakeholdersq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column">
@@ -1353,7 +1387,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "13" :"14"}. {t("ideaform_questions.additionalq")}
+                              {theme !== "Others" ? "13" : "14"}.{" "}
+                              {t("ideaform_questions.additionalq")}
                             </b>
                           </div>
 
@@ -1364,7 +1399,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               disabled={isDisabled}
                               name="support"
                               id="support"
-                              value={support} 
+                              value={support}
                             >
                               <option value={""}>Please select Dropdown</option>
                               {supportOptions.map((item, i) => (
@@ -1373,7 +1408,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   value={item.value}
                                   // selected={item === support}
                                 >
-                                   {/* {item} */}
+                                  {/* {item} */}
                                   {item.label}
                                 </option>
                               ))}
@@ -1417,7 +1452,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 fontSize: "1rem",
                               }}
                             >
-                              {theme !== "Others" ? "14" :"15"}. {t("ideaform_questions.uploadq")}
+                              {theme !== "Others" ? "14" : "15"}.{" "}
+                              {t("ideaform_questions.uploadq")}
                             </b>
                           </div>
                           <div className=" answers row flex-column p-4 pb-0">
