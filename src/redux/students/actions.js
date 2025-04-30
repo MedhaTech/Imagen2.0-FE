@@ -25,7 +25,7 @@ export const loginUserError = (message) => async (dispatch) => {
   });
 };
 
-export const loginUser = (data, navigate, module) => async (dispatch) => {
+export const loginUser = (data, navigate, module, singlesigin) => async (dispatch) => {
   try {
     const loginData = {
       ...data,
@@ -85,7 +85,17 @@ export const loginUser = (data, navigate, module) => async (dispatch) => {
       navigate("/student-dashboard");
     } else {
       dispatch(loginUserError(result.statusText));
-      openNotificationWithIcon("error", "Invalid Email Address or Password");
+      if(result.statusText === 'Unauthorized'){
+        openNotificationWithIcon("error", "User is Inactive");
+      }else if (result.statusText === 'Not Found'){
+        if(singlesigin){
+          return result.statusText;
+        }else{
+          openNotificationWithIcon("error", "Invalid Email Address or Password");
+        }
+      }else{
+        openNotificationWithIcon("error", "Invalid Email Address or Password");
+      }
     }
   } catch (error) {
     dispatch(loginUserError({}));
