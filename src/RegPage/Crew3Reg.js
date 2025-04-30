@@ -12,16 +12,23 @@ import {
   collegeType,
   yearofstudyList,
   collegeNameList,
+  genderList
 } from "./ORGData";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import { ArrowRight } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { decryptGlobal,encryptGlobal } from "../constants/encryptDecrypt";
+import Select from "react-select";
+import { useLocation } from "react-router-dom";
 
 const Crew3Reg = () => {
   const navigate = useNavigate();
+    const location = useLocation();
+  
   var pilotStudentId = sessionStorage.getItem("pilotKey");
+  const mentData = location.state || {};
+  // console.log(mentData,"store");
   window.onbeforeunload = function () {
     sessionStorage.clear();
   };
@@ -92,6 +99,47 @@ const Crew3Reg = () => {
         console.log(error);
       });
   };
+  const collegeOptions = collegeNamesList.map((item) => ({
+    value: item,
+    label: item,
+  }));
+  async function apiCall() {
+    // alert("hii");
+    // console.log(mentData,"data");
+    // Dice code list API //
+    // where list = diescode  //
+    const body = {
+      college_name: mentData.college_name,
+      college_type: mentData.college_type,
+      student_id :mentData.student_id,
+      district: mentData.district,
+      email: mentData?.email,
+      mobile: mentData.mobile,
+    };
+// console.log(body,"body");
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: JSON.stringify(body),
+    };
+
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          // setButtonData(response?.data?.data[0]?.data);
+          // navigate("/atl-success");
+          openNotificationWithIcon("success", "Email Sent Successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -107,6 +155,8 @@ const Crew3Reg = () => {
       collegeType: "",
       ocn: "",
       id_number: "",
+      gender: "",
+      college_town: "",
     },
 
     validationSchema: Yup.object({
@@ -132,6 +182,10 @@ const Crew3Reg = () => {
           "Email Must be VALID"
         )
         .max(255),
+          college_town: Yup.string().optional(),
+                  gender: Yup.string().required(
+                         <span style={{ color: "red" }}>Please Select Gender</span>
+                       ),
       mobile: Yup.string()
         .required(
           <span style={{ color: "red" }}>Please Enter Mobile Number</span>
@@ -157,7 +211,7 @@ const Crew3Reg = () => {
         <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       district: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select District</span>
+        <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
@@ -167,14 +221,21 @@ const Crew3Reg = () => {
       ),
       id_number: Yup.string().optional(),
       branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Branch Name</span>
+        <span style={{ color: "red" }}>Please Enter  Branch/Group/Stream Name</span>
       ),
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
-      password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Password</span>
-      ),
+      // password: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Select Password</span>
+      // ),
+        password: Yup.string()
+            .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
+            .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
+            .matches(/[A-Z]/, () => <span style={{ color: "red" }}>Password must contain at least one uppercase letter</span>)
+            .matches(/\d/, () => <span style={{ color: "red" }}>Password must contain at least one number</span>)
+            .matches(/[@$!%*?&]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&)</span>)
+            .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Confirm Password</span>
       ),
@@ -199,6 +260,8 @@ const Crew3Reg = () => {
         year_of_study: values.yearofstudy,
         confirmPassword: encrypted,
         type: pilotStudentId,
+        gender:values.gender,
+        college_town: values.college_town
       };
       if (values.id_number !== "") {
         body["id_number"] = values.id_number;
@@ -221,6 +284,7 @@ const Crew3Reg = () => {
               "success",
               "Crew User3 Registered Successfully"
             );
+            apiCall();
           }
         })
         .catch((err) => {
@@ -238,6 +302,11 @@ const Crew3Reg = () => {
         });
     },
   });
+  const handleSkip=()=>{
+    apiCall();
+    
+    navigate("/regSuccess");
+      };
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="card container m-4">
@@ -387,6 +456,35 @@ const Crew3Reg = () => {
                           </small>
                         ) : null}
                       </div>
+                       <div className={`col-md-6`}>
+                                                                    <label htmlFor="gender" className="form-label">
+                                                                      Gender
+                                                                    </label>
+                                                                    &nbsp;
+                                                                    <span style={{ color: "red", fontWeight: "bold" }}>
+                                                                      *
+                                                                    </span>
+                                                                    <select
+                                                                      id="gender"
+                                                                      className="form-select"
+                                                                      name="gender"
+                                                                      value={formik.values.gender}
+                                                                      onBlur={formik.handleBlur}
+                                                                      onChange={formik.handleChange}
+                                                                    >
+                                                                      <option value={""}>Gender</option>
+                                                                      {genderList.map((item) => (
+                                                                        <option key={item} value={item}>
+                                                                          {item}
+                                                                        </option>
+                                                                      ))}
+                                                                    </select>
+                                                                    {formik.touched.gender && formik.errors.gender ? (
+                                                                      <small className="error-cls" style={{ color: "red" }}>
+                                                                        {formik.errors.gender}
+                                                                      </small>
+                                                                    ) : null}
+                                                                  </div>
                       <div className={`col-md-6`}>
                         <label htmlFor="email" className="form-label">
                           Email
@@ -412,7 +510,7 @@ const Crew3Reg = () => {
                         ) : null}
                       </div>
 
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <label className="form-label" htmlFor="mobile">
                           Mobile Number
                         </label>
@@ -444,7 +542,7 @@ const Crew3Reg = () => {
                       </div>
                       <div className={`col-md-4`}>
                         <label htmlFor="district" className="form-label">
-                          District
+                        Institution District
                         </label>
                         &nbsp;
                         <span style={{ color: "red", fontWeight: "bold" }}>
@@ -458,7 +556,7 @@ const Crew3Reg = () => {
                           onBlur={formik.handleBlur}
                           onChange={formik.handleChange}
                         >
-                          <option value={""}>District</option>
+                          <option value={""}>Select Your Institution District</option>
                           {districtList["Telangana"].map((item) => (
                             <option key={item} value={item}>
                               {item}
@@ -471,7 +569,39 @@ const Crew3Reg = () => {
                           </small>
                         ) : null}
                       </div>
-
+                      <div className="col-md-4">
+                        <label className="form-label" htmlFor="branch">
+                          College Town
+                        </label>
+                        &nbsp;
+                        {/* <span style={{ color: "red", fontWeight: "bold" }}>
+                          *
+                        </span> */}
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="College Town"
+                          id="college_town"
+                          name="college_town"
+                          // onChange={formik.handleChange}
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const lettersOnly = inputValue.replace(
+                              /[^a-zA-Z0-9 \s]/g,
+                              ""
+                            );
+                            formik.setFieldValue("college_town", lettersOnly);
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.college_town}
+                        />
+                        {formik.touched.college_town &&
+                        formik.errors.college_town ? (
+                          <small className="error-cls">
+                            {formik.errors.college_town}
+                          </small>
+                        ) : null}
+                      </div>
                       <div className={`col-md-4`}>
                         <label htmlFor="collegeType" className="form-label">
                           College Type
@@ -511,7 +641,7 @@ const Crew3Reg = () => {
                         <span style={{ color: "red", fontWeight: "bold" }}>
                           *
                         </span>
-                        <select
+                        {/* <select
                           id="college"
                           className="form-select"
                           name="college"
@@ -525,7 +655,16 @@ const Crew3Reg = () => {
                               {item}
                             </option>
                           ))}
-                        </select>
+                        </select> */}
+                          <Select
+        classNamePrefix="react-select"
+        options={collegeOptions}
+        placeholder=" Type here to Select Your College Name"
+        value={collegeOptions.find(option => option.value === formik.values.college)}
+        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
+        onBlur={formik.handleBlur}
+      />
+
                         {formik.touched.college && formik.errors.college ? (
                           <small className="error-cls">
                             {formik.errors.college}
@@ -603,7 +742,7 @@ const Crew3Reg = () => {
 
                       <div className="col-md-4">
                         <label className="form-label" htmlFor="branch">
-                          Branch
+                           Branch/Group/Stream
                         </label>
                         &nbsp;
                         <span style={{ color: "red", fontWeight: "bold" }}>
@@ -612,7 +751,7 @@ const Crew3Reg = () => {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Branch"
+                          placeholder=" Branch/Group/Stream"
                           id="branch"
                           name="branch"
                           // onChange={formik.handleChange}
@@ -773,7 +912,8 @@ const Crew3Reg = () => {
                       <button
                         className="btn btn-warning m-2"
                         type="submit"
-                        onClick={() => navigate("/regSuccess")}
+                        onClick={handleSkip}
+                        // onClick={() => navigate("/regSuccess")}
                       >
                         SKIP NOW
                         {/* <ArrowRight /> */}

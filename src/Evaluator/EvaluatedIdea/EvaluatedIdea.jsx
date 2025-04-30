@@ -147,7 +147,7 @@ const EvaluatedIdea = () => {
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '8rem'
+                width: '10rem'
             },
             // {
             //     name: "College Type",
@@ -188,7 +188,7 @@ const EvaluatedIdea = () => {
                         {row?.theme}
                     </div>
                 ),
-                width: '11rem'
+                width: '15rem'
             },
             {
                 name: 'Idea Name',
@@ -212,14 +212,14 @@ const EvaluatedIdea = () => {
                 selector: (row) => row.initiated_name,
                 width: '8rem'
             },
-            {
-                name: 'Evaluated At',
-                selector: (row) =>
-                    row.evaluated_at
-                        ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
-                        : row.evaluated_at,
-                width: '8rem'
-            },
+            // {
+            //     name: 'Evaluated At',
+            //     selector: (row) =>
+            //         row.evaluated_at
+            //             ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
+            //             : row.evaluated_at,
+            //     width: '8rem'
+            // },
             {
                 name: 'Status',
                 cell: (row) => {

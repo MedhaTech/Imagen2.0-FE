@@ -19,7 +19,6 @@ import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
 import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
 import { getNormalHeaders } from '../../helpers/Utils';
-
 // import { useHistory } from 'react-router-dom';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -39,6 +38,7 @@ import dist from 'react-data-table-component-extensions';
 // import ClipLoader from 'react-spinners/ClipLoader';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
 import { stateList } from '../../RegPage/ORGData.js';
+import { MaskedEmail } from '../../RegPage/MaskedData.js';
 // const { TabPane } = Tabs;
 
 // const SelectDists = ({
@@ -390,25 +390,30 @@ const updateStatesList=["All States",...stateList];
                 // selector: (row) => row.id,
                 selector: (row, key) => key + 1,
                 sortable: true,
+                center:true,
                 cellExport: (row) => row.index,
                 width: '5rem'
             },
             {
                 name: 'Admin Name',
                 selector: (row) => row?.user?.full_name,
+                center:true,
                 cellExport: (row) => row?.user?.full_name,
                 sortable: true,
                 width: '13rem'
             },
             {
                 name: 'Email & Password',
-                selector: (row) => row?.user?.username,
+                center:true,
+
+                selector: (row) =><MaskedEmail email={row?.user?.username} />,
                 cellExport: (row) => row?.user?.username,
                 sortable: true,
                 width: '14rem'
             },
             {
                 name: 'Role',
+                center:true,
                 selector: (row) => row?.user?.role,
                 sortable: true,
                 width: '10rem',
@@ -432,34 +437,30 @@ const updateStatesList=["All States",...stateList];
             },
             {
                 name: 'Status',
+                center:true,
                 sortable: true,
                 cell: (row) => [
                     <span key={row.mentor_id} className={`${
                         row.status === 'ACTIVE' ? "badge bg-success" : "badge bg-danger"
                     }`}>{row.status}</span>
-                    // <Badge
-                    //     key={row.mentor_id}
-                    //     bg={`${
-                    //         row.status === 'ACTIVE' ? 'btn btn-soft-success' : 'btn btn-soft-danger'
-                    //     }`}
-                    // >
-                    //     {row.status}
-                    // </Badge>
+                   
                 ],
                 width: '8rem'
             },
             {
                 name: 'Actions',
+                center:true,
                 sortable: false,
                 width: '13rem',
-                left:true,
+                // left:true,
                 cell: (record) => [
                     <div
-                        className="mr-5"
+                        // className="mr-5"
                         key={record?.id}
-                        style={{ marginRight: '10px' }}
+                        // style={{ marginRight: '10px' }}
                     ></div>,
-                    <><div
+                    <>
+                    <div
                         key={record.id}
                         style={{ marginRight: '10px' }}
                         onClick={() => {

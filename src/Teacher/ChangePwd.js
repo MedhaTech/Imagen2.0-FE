@@ -8,7 +8,7 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getCurrentUser } from "../helpers/Utils";
+import { getCurrentUser,openNotificationWithIcon } from "../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import "sweetalert2/src/sweetalert2.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -83,14 +83,30 @@ const ChangePwd = (props) => {
         };
         axios(config)
           .then(function (response) {
-            SetResponce("Password Updated Successfully");
+            openNotificationWithIcon(
+              "success",
+              "Password Updated Successfully" 
+               
+            );
+            // SetResponce("Password Updated Successfully");
             setTimeout(() => {
               SetResponce("");
               navigate("/institution-dashboard");
             }, 2000);
           })
           .catch(function (error) {
-            SetError(error.response.data.message);
+             if (error?.response?.data?.status === 404) {
+                        openNotificationWithIcon(
+                          "error",
+                          error.response.data?.message 
+                           
+                        );
+                      }
+                      else{
+openNotificationWithIcon("error", error.response.data?.message);
+                      }
+            // openNotificationWithIcon("success", "Updated Successfully");
+            // SetError(error.response.data.message);
             
           });
       }
@@ -224,7 +240,7 @@ const ChangePwd = (props) => {
                     ></div>
                 </div>
                 {formik.touched.oldPassword && formik.errors.oldPassword ? (
-                  <small className="error-cls">
+                  <small className=" -cls">
                     {formik.errors.oldPassword}
                   </small>
                 ) : null}

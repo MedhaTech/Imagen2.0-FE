@@ -60,6 +60,19 @@ const TeacherProfile = () => {
         console.log(error);
       });
   };
+  console.log(data,"id",
+    data?.college_town,"town"
+  );
+  const maskEmail = (email) => {
+    if (!email || !email.includes('@')) return email; 
+    const [username, domain] = email.split('@');
+    const maskedUsername = username.slice(0, 3) + '****'; 
+    return `${maskedUsername}@${domain}`;
+  };
+  const maskMobileNumber = (mobile) => {
+    if (!mobile || mobile.length < 10) return mobile; 
+    return mobile.slice(0, -3).replace(/\d/g, '*') + mobile.slice(-3);
+  };
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -118,22 +131,33 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Email</label>
+                  <label className="form-label">Gender</label>
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={data.username_email}
+                    defaultValue={data.gender}
                     readOnly="readonly"
                   />
                 </div>
               </div>
-              <div className="col-lg-4 col-sm-12">
+              <div className="col-lg-6 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Email</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={maskEmail(data?.username_email)}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">Mobile Number</label>
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={data.mobile}
+                    defaultValue={maskMobileNumber(data?.mobile)}
                     readOnly="readonly"
                   />
                 </div>
@@ -149,7 +173,17 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div>
-
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label>College Town</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={data?.college_town ? data?.college_town :"-"}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
               <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
                   <label>College Type</label>
@@ -207,7 +241,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Branch</label>
+                  <label className="form-label"> Branch/Group/Stream</label>
                   <input
                     type="text"
                     className="form-control"
@@ -222,7 +256,8 @@ const TeacherProfile = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={data.id_number? data.id_number : "-"}
+                    value={data?.id_number ? data.id_number : "-"}
+                    // defaultValue={data?.id_number ? data?.id_number : "-"}
                     readOnly="readonly"
                   />
                 </div>

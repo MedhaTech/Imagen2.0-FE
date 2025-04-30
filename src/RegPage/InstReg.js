@@ -22,6 +22,7 @@ import copy from "../assets/img/copyrights.png";
 import { ArrowRight } from "feather-icons-react";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import { districtList, collegeType, collegeNameList } from "./ORGData.js";
+import Select from "react-select";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -66,7 +67,6 @@ const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
-
   // const handleCollegeTypeChange = (event) => {
   //   const selectedCollegeType = event.target.value;
   //   console.log("Selected College Type:", selectedCollegeType);
@@ -126,6 +126,11 @@ const Register = () => {
         console.log(error);
       });
   };
+  const collegeOptions = collegeNamesList.map((item) => ({
+    value: item,
+    label: item,
+  }));
+  // console.log(collegeNamesList,"options");
   const normalizeStateName = (stateName) => {
     return stateName
       .toLowerCase()
@@ -240,7 +245,7 @@ const Register = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       district: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select District</span>
+        <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
@@ -248,12 +253,23 @@ const Register = () => {
       college_type: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College Type</span>
       ),
-      password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Password</span>
-      ),
-      confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
-      ),
+      // password: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Enter Password</span>
+      // ),
+      // confirmPassword: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Enter Confirm Password</span>
+      // ),
+      password: Yup.string()
+      .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
+      .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
+      .matches(/[A-Z]/, () => <span style={{ color: "red" }}>Password must contain at least one uppercase letter</span>)
+      .matches(/\d/, () => <span style={{ color: "red" }}>Password must contain at least one number</span>)
+      .matches(/[@$!%*?&]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&)</span>)
+      .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
+    
+  
+    confirmPassword: Yup.string()
+      .required(<span style={{ color: "red" }}>Please Enter Confirm Password</span>),
     }),
 
     onSubmit: async (values) => {
@@ -632,7 +648,7 @@ const Register = () => {
                           </div>
                           <div className={`col-md-6`}>
                             <label htmlFor="district" className="form-label">
-                              District
+                            District
                             </label>
                             &nbsp;
                             <span style={{ color: "red", fontWeight: "bold" }}>
@@ -705,7 +721,7 @@ const Register = () => {
                             <span style={{ color: "red", fontWeight: "bold" }}>
                               *
                             </span>
-                            <select
+                            {/* <select
                               id="college"
                               className="form-select"
                               disabled={areInputsDisabled}
@@ -720,7 +736,16 @@ const Register = () => {
                                   {item}
                                 </option>
                               ))}
-                            </select>
+                            </select> */}
+                              <Select
+        classNamePrefix="react-select"
+        options={collegeOptions}
+         placeholder=" Type here to Select Your College Name"
+        isDisabled={areInputsDisabled}
+        value={collegeOptions.find(option => option.value === formik.values.college)}
+        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
+        onBlur={formik.handleBlur}
+      />
                             {formik.touched.college && formik.errors.college ? (
                               <small className="error-cls">
                                 {formik.errors.college}

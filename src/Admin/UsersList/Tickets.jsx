@@ -17,6 +17,7 @@ import {
 } from '../../redux/actions';
 import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
+import { MaskedEmail ,MaskedMobile} from "../../RegPage/MaskedData.js";
 
 import { getNormalHeaders } from '../../helpers/Utils';
 import { useNavigate } from 'react-router-dom';
@@ -272,9 +273,8 @@ const fiterDistData = [...districtList["Telangana"]];
     //         });
     // };
   
- console.log(tableData,"table");
+//  console.log(tableData,"table");
     const handleSelect1 = (record) => {
-        // console.log(record.type,"record.id");
         if (record.type === 0) {
           handleDeletePilot(record.student_id);
         } else {
@@ -397,12 +397,14 @@ const fiterDistData = [...districtList["Telangana"]];
                 // selector: (row) => row.id,
                 selector: (row, key) => key + 1,
                 cellExport: (row) => row.index,
+                center:true,
                 width: '4rem'
             },
 
             {
                 name: 'Full Name',
                 selector: (row) => row?.full_name,
+                center:true,
                 cell: (row) => (
                     <div
                         style={{
@@ -418,47 +420,54 @@ const fiterDistData = [...districtList["Telangana"]];
             },
             {
                 name: 'Email',
+                center:true,
+                // selector: (row) =>  <MaskedEmail email={row?.username_email} />,
                 selector: (row) => row?.username_email,
+
                 width: '12rem'
             },
             {
                 name: 'Mobile No',
+                center:true,
+                // selector: (row) => <MaskedMobile mobile={row?.mobile} />,
                 selector: (row) => row?.mobile,
                 cellExport: (row) => row?.mobile,
                 width: '10rem'
             },
             {
                 name: 'District',
+                center:true,
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
                 // left:true,
                 width: '14em'
             },
-//             {
-//                 name: 'College Type',
-//                 cell: (row) => (
-//                     <div
-//                         style={{
-//                             whiteSpace: 'pre-wrap',
-//                             wordWrap: 'break-word'
-//                         }}
-//                     >
-//                         {row?.college_type
-// }
-//                     </div>
-//                 ),
-//                 selector: (row) => row?.college_type,
-//                 cellExport: (row) => row?.college_type,
-//                 width: '10rem'
-//             },
-
             {
-                name: 'College Name',
+              name: 'Student Type',
+              selector: (row) => row?.type,
+              width: '10rem',
+              center:true,
+              cell: (row) => [
+                  row.type === 0 ? (
+                      <span className="badge rounded-pill bg-outline-success" style={{fontSize:"13px"}}>
+                          Pilot
+                      </span>
+                  ) : (
+                      <span className="badge rounded-pill bg-outline-secondary" style={{fontSize:"13px"}}>
+                          Crew
+                      </span>
+                 
+                  )
+              ]
+          },
+            {
+                name:'College Name',
+                center:true,
                 selector: (row) => row?.college_name,
                 cellExport: (row) => row?.college_name,
-                width: '11rem',
-                // left:true,
+                width: '16rem',
             },
+           
             // {
             //     name: 'Roll number',
             //     selector: (row) => row?.roll_number,
@@ -466,7 +475,7 @@ const fiterDistData = [...districtList["Telangana"]];
             // },
 
             // {
-            //     name: 'Branch',
+            //     name: ' Branch/Group/Stream',
             //     selector: (row) => row?.branch,
             //     width: '6rem'
             // },
@@ -480,7 +489,8 @@ const fiterDistData = [...districtList["Telangana"]];
                 name: 'Actions',
                 sortable: false,
                 width: '14rem',
-                left:true,
+                // left:true,
+                center:true,
                 cell: (record) => [
                     <><div
                         key={record.id}

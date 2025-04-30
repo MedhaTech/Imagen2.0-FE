@@ -1333,9 +1333,13 @@ const ViewDetail = (props) => {
           </Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
+        <Modal.Body
+         style={{
+          maxHeight: window.innerWidth < 768 ? '80vh' : '60vh',
+          height: window.innerWidth < 768 ? '80vh' : '60vh',    
+      }} >
           <div className="my-3 text-center">
-            <h3 className="mb-sm-4 mb-3">
+            <h3 className="mb-sm-4 mb-2">
               Please Select the reason for rejection.
             </h3>
             <Col>

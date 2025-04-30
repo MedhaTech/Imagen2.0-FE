@@ -2,13 +2,14 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
+import { Row, Col, Form, Label, FormGroup } from "reactstrap";
 
 import {
   getCurrentUser,
   setCurrentUser,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
+import Select from "react-select";
 
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -23,7 +24,10 @@ import {
   collegeType,
   yearofstudyList,
   collegeNameList,
+  genderList
 } from "../../RegPage/ORGData.js";
+import { MaskedEmail, MaskedMobile } from "../../RegPage/MaskedData.js";
+
 import { string } from "prop-types";
 
 const StuEdit = () => {
@@ -57,7 +61,7 @@ const StuEdit = () => {
       .then(function (response) {
         if (response.status === 200) {
           setData(response.data.data[0]);
-          console.log(response,"11");
+          // console.log(response, "11");
         }
       })
       .catch(function (error) {
@@ -65,34 +69,41 @@ const StuEdit = () => {
       });
   };
   const [collegeNamesList, setCollegeNamesList] = useState([]);
-   const [selectedCollegeType, setSelectedCollegeType] = useState("");
-  
+  const [selectedCollegeType, setSelectedCollegeType] = useState("");
+
   // const handleCollegeTypeChange = (event) => {
   //   const selectedCollegeType = event.target.value;
-  //   formik.setFieldValue("collegeType", selectedCollegeType); 
-  //   formik.setFieldValue("college", ""); 
+  //   formik.setFieldValue("collegeType", selectedCollegeType);
+  //   formik.setFieldValue("college", "");
   //   formik.setFieldValue("ocn", "");
-  
+
   //   const updatedCollegeNames = collegeNameList[selectedCollegeType] || [];
   //   setCollegeNamesList(updatedCollegeNames);
-   
+
   // };
+  useEffect(() => {
+    if (data?.college_type) {
+      const existingColleges = collegeNameList[data.college_type] || [];
+      setCollegeNamesList(existingColleges);
+
+      AllCollegesApi(data.college_type, existingColleges);
+    }
+  }, [data?.college_type]);
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
     console.log("Selected College Type:", selectedCollegeType);
-    
+
     formik.setFieldValue("collegeType", selectedCollegeType);
     setSelectedCollegeType(selectedCollegeType);
     formik.setFieldValue("college", "");
     formik.setFieldValue("ocn", "");
-  
-   
+
     const existingColleges = collegeNameList[selectedCollegeType] || [];
     setCollegeNamesList(existingColleges);
-  
+
     AllCollegesApi(selectedCollegeType, existingColleges);
   };
-  const AllCollegesApi = (item,existingColleges) => {
+  const AllCollegesApi = (item, existingColleges) => {
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
@@ -115,31 +126,38 @@ const StuEdit = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          
+
           // setCollegeNamesList([...existingColleges, ...collegeNames]);
           const mergedColleges = [...existingColleges, ...collegeNames];
-        const uniqueColleges = [...new Set(mergedColleges)];
+          const uniqueColleges = [...new Set(mergedColleges)];
 
-        setCollegeNamesList(uniqueColleges);
+          setCollegeNamesList(uniqueColleges);
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+  const collegeOptions = collegeNamesList.map((item) => ({
+    value: item,
+    label: item,
+  }));
+  // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
-      full_name: '',
-      email: '',
-      mobile: '',
-      district: '',
-      college: '',
-      rollnumber: '',
-      branch: '',
-      yearofstudy: '',
-      collegeType: '',
-      ocn: '',
-      id_number:"",
+      full_name: "",
+      email: "",
+      mobile: "",
+      district: "",
+      college: "",
+      rollnumber: "",
+      branch: "",
+      yearofstudy: "",
+      collegeType: "",
+      ocn: "",
+      id_number: "",
+      gender: "",
+      college_town: "",
     },
     validationSchema: Yup.object({
       full_name: Yup.string()
@@ -156,20 +174,26 @@ const StuEdit = () => {
         .email(
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
-        .required(
-          <span style={{ color: "red" }}>Please Enter Email Address</span>
-        )
+        .optional()
+        // .required(
+        //   <span style={{ color: "red" }}>Please Enter Email Address</span>
+        // )
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
           "Email Must be VALID"
         )
         .max(255),
-        id_number: Yup.string().optional(),
+          college_town: Yup.string().optional(),
+                  gender: Yup.string().required(
+                         <span style={{ color: "red" }}>Please Select Gender</span>
+                       ),
+      id_number: Yup.string().optional(),
 
       mobile: Yup.string()
-        .required(
-          <span style={{ color: "red" }}>Please Enter Mobile Number</span>
-        )
+        // .required(
+        //   <span style={{ color: "red" }}>Please Enter Mobile Number</span>
+        // )
+        .optional()
         .trim()
         .matches(
           /^\d+$/,
@@ -191,47 +215,52 @@ const StuEdit = () => {
         <span style={{ color: "red" }}>Please Select College Type</span>
       ),
       district: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select District</span>
+        <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
       ),
-    
+
       // ocn: Yup.string().required(
       //   <span style={{ color: "red" }}>Please Enter College Name</span>
       // ),
-     
+
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Roll Number</span>
       ),
       branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Branch Name</span>
+        <span style={{ color: "red" }}>Please Enter  Branch/Group/Stream Name</span>
       ),
-     
+
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
-    
     }),
-//  (values.college === 'Other' || values.college === 'Govt Junior College' || values.college === 'Private College')
+    //  (values.college === 'Other' || values.college === 'Govt Junior College' || values.college === 'Private College')
     onSubmit: (values) => {
-      const body ={
+      const body = {
         full_name: values.full_name,
         // mobile: String(values.mobile),
         district: values.district,
         college_type: values.collegeType,
-        college_name: values.college === 'Other' ? values.ocn : values.college,
+        college_name: values.college === "Other" ? values.ocn : values.college,
         roll_number: values.rollnumber,
         branch: values.branch,
         year_of_study: values.yearofstudy,
-        id_number:values.id_number
+        id_number: values.id_number,
+        gender:values.gender,
+        college_town: values.college_town
       };
-      if (data && data?.username_email !== values.email) {
-        body['username'] = values.email;
-    }
-    if (data && data?.mobile !== values.mobile) {
-      body['mobile'] = values.mobile;
-  }
+
+      if (data && data?.username_email !== values.email && values.email) {
+
+        body["username"] = values.email;
+      }
+      if (data && data?.mobile !== values.mobile && values.mobile) {
+        body["mobile"] = values.mobile;
+
+}
+
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
         method: "put",
@@ -246,11 +275,9 @@ const StuEdit = () => {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            if (studentData.student_id === currentUser?.data[0]?.student_id){
-             
+            if (studentData.student_id === currentUser?.data[0]?.student_id) {
               currentUser.data[0].full_name = values.full_name;
               setCurrentUser(currentUser);
-
             }
             openNotificationWithIcon(
               "success",
@@ -263,59 +290,69 @@ const StuEdit = () => {
           }
         })
         .catch(function (err) {
-          if(err?.response?.data?.status === 400){
-            openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email id is Invalid");
-            }else{
-              openNotificationWithIcon("error", "Email id is Invalid");
-            }
+          if (err?.response?.data?.status === 400) {
+            openNotificationWithIcon(
+              "error",
+              err.response.data?.message !== "Bad Request"
+                ? err.response.data?.message
+                : "Email id is Invalid"
+            );
+          } else {
+            openNotificationWithIcon("error", "Email id is Invalid");
+          }
         });
     },
   });
   useEffect(() => {
     if (data) {
       formik.setValues({
-        full_name: data.full_name || '',
-        email: data.username_email || '',
-        mobile: data.mobile || '',
-        district: data.district || '',
-        college: data.college_name || '',
-        rollnumber: data.roll_number || '',
-        branch: data.branch || '',
-        yearofstudy: data.year_of_study || '',
-        collegeType: data.college_type || '',
-        // ocn: data.college_name || '',
-        ocn: (data.college_type === 'Other' || data.college_type === 'Private College' || data.college_type === 'Govt Junior College') ? data.college_name : '',
-        id_number: data.id_number || '',
+        full_name: data.full_name || "",
+        // email: data.username_email || "",
+        // mobile: data.mobile || "",
+        district: data.district || "",
+        college: data.college_name || "",
+        rollnumber: data.roll_number || "",
+        branch: data.branch || "",
+        yearofstudy: data.year_of_study || "",
+        collegeType: data.college_type || "",
+        college_town: data.college_town || '',
+        gender: data.gender || '',
+
+        ocn:
+          data.college_type === "Other" ||
+          data.college_type === "Private College" ||
+          data.college_type === "Govt Junior College"
+            ? data.college_name
+            : "",
+        id_number: data.id_number || "",
       });
     }
-  }, [data]); 
+  }, [data]);
   // console.log(data,"cc");
 
   useEffect(() => {
     if (data?.college_type) {
-      formik.setFieldValue('collegeType', data.college_type);
+      formik.setFieldValue("collegeType", data.college_type);
     }
- 
   }, [data?.college_type]);
   useEffect(() => {
     if (data.college_name) {
-      formik.setFieldValue('college', data.college_name);
+      formik.setFieldValue("college", data.college_name);
     }
   }, [data.college_name]);
-  useEffect(()=>{
-    setCollegeNamesList(
-      collegeNameList[
-            
-        data.college_type
-        ] || []
-    );
-   },[data.college_type]);
-   console.log( formik.values.collegeType,"clg",formik.values.ocn,"other");
+  useEffect(() => {
+    setCollegeNamesList(collegeNameList[data.college_type] || []);
+  }, [data.college_type]);
+  // console.log(formik.values.collegeType, "clg", formik.values.ocn, "other");
   return (
     <div className="page-wrapper">
       <div className="content">
         <div className="login-userheading">
           <h4>Edit Student</h4>
+          <p className="mt-2">
+  <span style={{ fontWeight: "bold" ,color:"red"}}>Note :</span> The College Name field is non-editable.
+</p>
+
         </div>
         <div className="d-flex justify-content-center align-items-center">
           <div className="card container m-4">
@@ -324,366 +361,446 @@ const StuEdit = () => {
                 className="col-md-12 p-4"
                 style={{ backgroundColor: "#EEEEEE" }}
               >
-                <form  onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                   {/* <div className="login-userset"> */}
-                    <div className="col-xl-12">
-                      <div className="row g-3 mt-0">
-                        <>
-                          <div className="col-md-6">
-                            <label className="form-label" htmlFor="full_name">
-                              Full Name
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Full Name"
-                              id="full_name"
-                              name="full_name"
-                              onChange={(e) => {
-                                const inputValue = e.target.value;
-                                const lettersOnly = inputValue.replace(
-                                  /[^a-zA-Z\s]/g,
-                                  ""
-                                );
-                                formik.setFieldValue("full_name", lettersOnly);
-                              }}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.full_name || ""}
-                            />
-                            {formik.touched.full_name &&
-                            formik.errors.full_name ? (
-                              <small className="error-cls">
-                                {formik.errors.full_name}
-                              </small>
-                            ) : null}
-                          </div>
-                          <div className={`col-md-6`}>
-                            <label htmlFor="email" className="form-label">
-                              Email
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <input
-                              type="email"
-                              className="form-control"
-                              id="email"
-                              placeholder="Email"
-                              name="email"
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.email || ""}
-                            />
-                            {formik.touched.email && formik.errors.email ? (
-                              <small
-                                className="error-cls"
-                                style={{ color: "red" }}
-                              >
-                                {formik.errors.email}
-                              </small>
-                            ) : null}
-                          </div>
-
-                          <div className="col-md-4">
-                            <label className="form-label" htmlFor="mobile">
-                              Mobile Number
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="mobile"
-                              placeholder="Mobile"
-                              name="mobile"
-                              onChange={(e) => {
-                                const inputValue = e.target.value;
-                                const numericValue = inputValue.replace(
-                                  /\D/g,
-                                  ""
-                                );
-                                formik.setFieldValue("mobile", numericValue);
-                              }}
-                              maxLength={10}
-                              minLength={10}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.mobile || ""}
-                            />
-
-                            {formik.touched.mobile && formik.errors.mobile ? (
-                              <small className="error-cls">
-                                {formik.errors.mobile}
-                              </small>
-                            ) : null}
-                          </div>
-                          <div className={`col-md-4`}>
-                            <label htmlFor="district" className="form-label">
-                              District
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <select
-                              id="district"
-                              className="form-select"
-                              name="district"
-                              value={formik.values.district || ""}
-                              onBlur={formik.handleBlur}
-                              onChange={formik.handleChange}
+                  <div className="col-xl-12">
+                    <div className="row g-3 mt-0">
+                      <>
+                        <div className="col-md-6">
+                          <label className="form-label" htmlFor="full_name">
+                            Full Name
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Full Name"
+                            id="full_name"
+                            name="full_name"
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              const lettersOnly = inputValue.replace(
+                                /[^a-zA-Z\s]/g,
+                                ""
+                              );
+                              formik.setFieldValue("full_name", lettersOnly);
+                            }}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.full_name || ""}
+                          />
+                          {formik.touched.full_name &&
+                          formik.errors.full_name ? (
+                            <small className="error-cls">
+                              {formik.errors.full_name}
+                            </small>
+                          ) : null}
+                        </div>
+                        <div className={`col-md-6`}>
+                                              <label htmlFor="gender" className="form-label">
+                                                Gender
+                                              </label>
+                                              &nbsp;
+                                              <span style={{ color: "red", fontWeight: "bold" }}>
+                                                *
+                                              </span>
+                                              <select
+                                                id="gender"
+                                                className="form-select"
+                                                name="gender"
+                                                value={formik.values.gender}
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                              >
+                                                <option value={""}>Gender</option>
+                                                {genderList.map((item) => (
+                                                  <option key={item} value={item}>
+                                                    {item}
+                                                  </option>
+                                                ))}
+                                              </select>
+                                              {formik.touched.gender && formik.errors.gender ? (
+                                                <small className="error-cls" style={{ color: "red" }}>
+                                                  {formik.errors.gender}
+                                                </small>
+                                              ) : null}
+                                            </div>
+                        <div className={`col-md-6`}>
+                         <label htmlFor="email" className="form-label d-flex align-items-center">
+                                                                                Email :  &nbsp;<MaskedEmail email={data?.username_email}/>
+                                                                              
+                                                                              &nbsp;
+                                                                             
+                                                                              </label>
+                          <input
+                            type="email"
+                            className="form-control"
+                            id="email"
+                            placeholder="Email"
+                            name="email"
+                            
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.email || ""}
+                          />
+                          {formik.touched.email && formik.errors.email ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
                             >
-                              <option value={""}>Select District</option>
-                              {districtList["Telangana"].map((item) => (
-                                <option key={item} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                            </select>
-                            {formik.touched.district &&
-                            formik.errors.district ? (
-                              <small className="error-cls">
-                                {formik.errors.district}
-                              </small>
-                            ) : null}
-                          </div>
+                              {formik.errors.email}
+                            </small>
+                          ) : null}
+                        </div>
 
-                          <div className={`col-md-4`}>
-                            <label htmlFor="collegeType" className="form-label">
-                              College Type
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <select
-                              id="collegeType"
-                              className="form-select"
-                              name="collegeType"
-                              value={formik.values.collegeType || ""}
-                              onBlur={formik.handleBlur}
-                              onChange={handleCollegeTypeChange}
-                            >
-                              <option value={""}>Select College Type</option>
-                              {collegeType.map((item) => (
-                                <option key={item} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                            </select>
-                            {formik.touched.collegeType &&
-                            formik.errors.collegeType ? (
-                              <small className="error-cls">
-                                {formik.errors.collegeType}
-                              </small>
-                            ) : null}
-                          </div>
-
-                          <div className={`col-md-6`}>
-                            <label htmlFor="college" className="form-label">
-                              College Name
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <select
-                              id="college"
-                              className="form-select"
-                              name="college"
-                              value={formik.values.college || ""}
-                              onBlur={formik.handleBlur}
-                              onChange={formik.handleChange}
-                            >
-                              <option value={""}>Select College Name</option>
-                              {collegeNamesList.map((item) => (
-                                <option key={item} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                            </select>
-                            {formik.touched.college && formik.errors.college ? (
-                              <small className="error-cls">
-                                {formik.errors.college}
-                              </small>
-                            ) : null}
-                          </div>
-                          <div className={`col-md-6`}>
-                            <label htmlFor="rollnumber" className="form-label">
-                              Roll Number Provided by the College
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="rollnumber"
-                              placeholder="Roll Number"
-                              name="rollnumber"
-                              onChange={(e) => {
-                                const inputValue = e.target.value;
-                                const lettersOnly = inputValue.replace(
-                                  /[^a-zA-Z0-9 \s]/g,
-                                  ""
-                                );
-                                formik.setFieldValue("rollnumber", lettersOnly);
-                              }}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.rollnumber || ""}
-                            />
-                            {formik.touched.rollnumber &&
-                            formik.errors.rollnumber ? (
-                              <small
-                                className="error-cls"
-                                style={{ color: "red" }}
-                              >
-                                {formik.errors.rollnumber}
-                              </small>
-                            ) : null}
-                          </div>
-                          {(formik.values.collegeType.trim() === "Other" || formik.values.collegeType.trim() === "Govt Junior College" || formik.values.collegeType.trim() === "Private College" )&& (
-                            <div className={`col-md-12`}>
-                              <label htmlFor="ocn" className="form-label">
-                                Other College Name
-                              </label>&nbsp;
-                              <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                              <input
-                                type="text"
-                                className="form-control"
-                                id="ocn"
-                                placeholder="Other College Name"
-                                name="ocn"
-                                onChange={(e) => {
-                                  const inputValue = e.target.value;
-                                  const lettersOnly = inputValue.replace(
-                                    /[^a-zA-Z0-9 \s]/g,
-                                    ""
-                                  );
-                                  formik.setFieldValue("ocn", lettersOnly);
-                                }}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.ocn || ""}
-                              />
-                              {formik.touched.ocn && formik.errors.ocn ? (
-                                <small
-                                  className="error-cls"
-                                  style={{ color: "red" }}
-                                >
-                                  {formik.errors.ocn}
-                                </small>
-                              ) : null}
-                            </div>
-                          )}
-
-                          <div className="col-md-4">
-                            <label className="form-label" htmlFor="branch">
-                              Branch
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Branch"
-                              id="branch"
-                              name="branch"
-                              // onChange={formik.handleChange}
-                              onChange={(e) => {
-                                const inputValue = e.target.value;
-                                const lettersOnly = inputValue.replace(
-                                  /[^a-zA-Z0-9 \s]/g,
-                                  ""
-                                );
-                                formik.setFieldValue("branch", lettersOnly);
-                              }}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.branch || ""}
-                            />
-                            {formik.touched.branch && formik.errors.branch ? (
-                              <small className="error-cls">
-                                {formik.errors.branch}
-                              </small>
-                            ) : null}
-                          </div>
-                          <div className={`col-md-4`}
-                      >
-                        <label
-                          htmlFor="id_number"
-                          className="form-label"
-                        >
-                          APAAR ID
+                        <div className="col-md-6">
+                         <label htmlFor="email" className="form-label d-flex align-items-center">
+                                                                                 Mobile Number :  &nbsp;<MaskedMobile mobile={data?.mobile}/>
+                                                                               
+                                                                               &nbsp;
+                                                                               
+                                                                               </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="mobile"
+                            placeholder="Mobile"
+                            name="mobile"
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              const numericValue = inputValue.replace(
+                                /\D/g,
+                                ""
+                              );
+                              formik.setFieldValue("mobile", numericValue);
+                            }}
+                            maxLength={10}
+                            minLength={10}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.mobile || ""}
+                          />
+                          {formik.touched.mobile && formik.errors.mobile ? (
+                            <small className="error-cls">
+                              {formik.errors.mobile}
+                            </small>
+                          ) : null}
+                        </div>
+                        <div className={`col-md-4`}>
+                          <label htmlFor="district" className="form-label">
+                          Institution District
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <select
+                            id="district"
+                            className="form-select"
+                            name="district"
+                            value={formik.values.district || ""}
+                            onBlur={formik.handleBlur}
+                            onChange={formik.handleChange}
+                          >
+                            <option value={""}>Select Your Institution District</option>
+                            {districtList["Telangana"].map((item) => (
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                          {formik.touched.district && formik.errors.district ? (
+                            <small className="error-cls">
+                              {formik.errors.district}
+                            </small>
+                          ) : null}
+                        </div>
+                        <div className="col-md-4">
+                        <label className="form-label" htmlFor="branch">
+                          College Town
                         </label>
+                        &nbsp;
+                        {/* <span style={{ color: "red", fontWeight: "bold" }}>
+                          *
+                        </span> */}
                         <input
                           type="text"
                           className="form-control"
-                          id="id_number"
-                          placeholder="APAAR ID"
-                          // disabled={areInputsDisabled}
-                          name="id_number"
+                          placeholder="College Town"
+                          id="college_town"
+                          name="college_town"
+                          // onChange={formik.handleChange}
                           onChange={(e) => {
                             const inputValue = e.target.value;
                             const lettersOnly = inputValue.replace(
                               /[^a-zA-Z0-9 \s]/g,
                               ""
                             );
-                            formik.setFieldValue(
-                              "id_number",
-                              lettersOnly
-                            );
+                            formik.setFieldValue("college_town", lettersOnly);
                           }}
                           onBlur={formik.handleBlur}
-                          value={formik.values.id_number}
+                          value={formik.values.college_town}
                         />
-                        {formik.touched.id_number && formik.errors.id_number ? (
-                          <small
-                            className="error-cls"
-                            style={{ color: "red" }}
-                          >
-                            {formik.errors.id_number}
+                        {formik.touched.college_town &&
+                        formik.errors.college_town ? (
+                          <small className="error-cls">
+                            {formik.errors.college_town}
                           </small>
                         ) : null}
                       </div>
-                          <div className={`col-md-4`}>
-                            <label htmlFor="yearofstudy" className="form-label">
-                              Year of Study
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <select
-                              id="yearofstudy"
-                              className="form-select"
-                              name="yearofstudy"
-                              value={formik.values.yearofstudy}
-                              onBlur={formik.handleBlur}
-                              onChange={formik.handleChange}
+                        <div className={`col-md-4`}>
+                          <label htmlFor="collegeType" className="form-label">
+                            College Type
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <select
+                            id="collegeType"
+                            className="form-select"
+                            name="collegeType"
+                            value={formik.values.collegeType || ""}
+                            onBlur={formik.handleBlur}
+                            onChange={handleCollegeTypeChange}
+                          >
+                            <option value={""}>Select College Type</option>
+                            {collegeType.map((item) => (
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                          {formik.touched.collegeType &&
+                          formik.errors.collegeType ? (
+                            <small className="error-cls">
+                              {formik.errors.collegeType}
+                            </small>
+                          ) : null}
+                        </div>
+
+                        <div className={`col-md-6`}>
+                          <label htmlFor="college" className="form-label">
+                            College Name
+                          </label>
+                          &nbsp;
+                          {/* <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span> */}
+                         
+                            <Select
+        classNamePrefix="react-select"
+        options={collegeOptions}
+       placeholder=" Type here to Select Your College Name"
+        value={collegeOptions.find(option => option.value === formik.values.college)}
+        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
+        onBlur={formik.handleBlur}
+        isDisabled={true} 
+      />
+                          {formik.touched.college && formik.errors.college ? (
+                            <small className="error-cls">
+                              {formik.errors.college}
+                            </small>
+                          ) : null}
+                        </div>
+                        <div className={`col-md-6`}>
+                          <label htmlFor="rollnumber" className="form-label">
+                            Roll Number Provided by the College
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="rollnumber"
+                            placeholder="Roll Number"
+                            name="rollnumber"
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              const lettersOnly = inputValue.replace(
+                                /[^a-zA-Z0-9 \s]/g,
+                                ""
+                              );
+                              formik.setFieldValue("rollnumber", lettersOnly);
+                            }}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.rollnumber || ""}
+                          />
+                          {formik.touched.rollnumber &&
+                          formik.errors.rollnumber ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
                             >
-                              <option value={""}>Select Year of Study</option>
-                              {yearofstudyList.map((item) => (
-                                <option key={item} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                            </select>
-                            {formik.touched.yearofstudy &&
-                            formik.errors.yearofstudy ? (
-                              <small className="error-cls">
-                                {formik.errors.yearofstudy}
+                              {formik.errors.rollnumber}
+                            </small>
+                          ) : null}
+                        </div>
+                        {(formik.values.college === "Other") && (
+                          <div className={`col-md-12`}>
+                            <label htmlFor="ocn" className="form-label">
+                              Other College Name
+                            </label>
+                            &nbsp;
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              *
+                            </span>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="ocn"
+                              placeholder="Other College Name"
+                              name="ocn"
+                              onChange={(e) => {
+                                const inputValue = e.target.value;
+                                const lettersOnly = inputValue.replace(
+                                  /[^a-zA-Z0-9 \s]/g,
+                                  ""
+                                );
+                                formik.setFieldValue("ocn", lettersOnly);
+                              }}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.ocn || ""}
+                            />
+                            {formik.touched.ocn && formik.errors.ocn ? (
+                              <small
+                                className="error-cls"
+                                style={{ color: "red" }}
+                              >
+                                {formik.errors.ocn}
                               </small>
                             ) : null}
                           </div>
+                        )}
 
-                        
-                        </>
-
-                        <div className="form-login d-flex justify-content-between">
-                          <button
-    className={`btn btn-warning m-2 ${
-      !formik.dirty || !formik.isValid  ? "default" : "primary"
-    }`}
-    type="submit"
-    disabled={!formik.dirty || !formik.isValid ||  (formik.values.collegeType === "Other" && !formik.values.ocn)}
-                          >
-                            Submit
-                            {/* <ArrowRight /> */}
-
-                          </button>
-                          <button
-                            className="btn btn-warning m-2"
-                            type="button"
-                            onClick={() => navigate("/student-team")}
-                          >
-                            Back
-                            {/* <ArrowRight /> */}
-                          </button>
+                        <div className="col-md-4">
+                          <label className="form-label" htmlFor="branch">
+                             Branch/Group/Stream
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder=" Branch/Group/Stream"
+                            id="branch"
+                            name="branch"
+                            // onChange={formik.handleChange}
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              const lettersOnly = inputValue.replace(
+                                /[^a-zA-Z0-9 \s]/g,
+                                ""
+                              );
+                              formik.setFieldValue("branch", lettersOnly);
+                            }}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.branch || ""}
+                          />
+                          {formik.touched.branch && formik.errors.branch ? (
+                            <small className="error-cls">
+                              {formik.errors.branch}
+                            </small>
+                          ) : null}
                         </div>
+                        <div className={`col-md-4`}>
+                          <label htmlFor="id_number" className="form-label">
+                            APAAR ID
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="id_number"
+                            placeholder="APAAR ID"
+                            // disabled={areInputsDisabled}
+                            name="id_number"
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              const lettersOnly = inputValue.replace(
+                                /[^a-zA-Z0-9 \s]/g,
+                                ""
+                              );
+                              formik.setFieldValue("id_number", lettersOnly);
+                            }}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.id_number}
+                          />
+                          {formik.touched.id_number &&
+                          formik.errors.id_number ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.id_number}
+                            </small>
+                          ) : null}
+                        </div>
+                        <div className={`col-md-4`}>
+                          <label htmlFor="yearofstudy" className="form-label">
+                            Year of Study
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <select
+                            id="yearofstudy"
+                            className="form-select"
+                            name="yearofstudy"
+                            value={formik.values.yearofstudy}
+                            onBlur={formik.handleBlur}
+                            onChange={formik.handleChange}
+                          >
+                            <option value={""}>Select Year of Study</option>
+                            {yearofstudyList.map((item) => (
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                          {formik.touched.yearofstudy &&
+                          formik.errors.yearofstudy ? (
+                            <small className="error-cls">
+                              {formik.errors.yearofstudy}
+                            </small>
+                          ) : null}
+                        </div>
+                      </>
+
+                      <div className="form-login d-flex justify-content-between">
+                        <button
+                          className={`btn btn-warning m-2 ${
+                            !formik.dirty || !formik.isValid
+                              ? "default"
+                              : "primary"
+                          }`}
+                          type="submit"
+                          disabled={
+                            !formik.dirty ||
+                            !formik.isValid ||
+                            (formik.values.collegeType === "Other" &&
+                              !formik.values.ocn)
+                          }
+                        >
+                          Submit
+                          {/* <ArrowRight /> */}
+                        </button>
+                        <button
+                          className="btn btn-warning m-2"
+                          type="button"
+                          onClick={() => navigate("/student-team")}
+                        >
+                          Back
+                          {/* <ArrowRight /> */}
+                        </button>
                       </div>
                     </div>
+                  </div>
                   {/* </div> */}
                 </form>
               </div>

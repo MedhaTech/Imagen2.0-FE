@@ -154,7 +154,7 @@ const EditLatestNews = (props) => {
           navigate("/latest-news");
           openNotificationWithIcon(
             "success",
-            "LatestNews Updated Successfully"
+            "Latest News Updated Successfully"
           );
         } else {
           openNotificationWithIcon("error", "Opps! Something Wrong");

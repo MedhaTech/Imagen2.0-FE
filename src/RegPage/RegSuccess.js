@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React,{useEffect} from 'react';
 import './Styles.css';
 import logo from "../assets/img/logo.png";
 import { ArrowRight } from 'react-feather';
@@ -8,11 +8,14 @@ import { useNavigate } from 'react-router-dom';
 
 const RegSuccess = () => {
   const navigate = useNavigate();
+ 
 
   return (
     <div className='d-flex justify-content-center align-items-center'>
       <div className="card container m-4">
-        <div className="row">
+        <div className="row" 
+        style={{height:"600px"}}
+        >
           <div className="col-md-4">
             <div className="text-center mt-5" >
               <img src={logo} alt="Logo" style={{ width: '9rem' }} />
@@ -77,15 +80,15 @@ const RegSuccess = () => {
           </div>
           <div className="col-md-8 p-4 d-flex flex-column justify-content-center align-items-center" style={{ backgroundColor: '#EEEEEE' }}>
             <i className="fa fa-check-circle fa-5x text-success mb-3"></i>
-            <h4 className="text-success">REGISTRATION SUCCESS</h4>
-            <h6 className="mb-2">Congratulations, Your Account has been Successfully Created.</h6>
+            <h4 className="text-success mb-2"style={{fontSize:"1.7rem"}}>REGISTRATION SUCCESS</h4>
+            <h6 className="mb-2 mt-2"style={{fontSize:"1.5rem"}}>Congratulations, Your Account has been Successfully Created.</h6>
             <button
-              className="btn btn-warning m-2"
+              // className="btn btn-warning m-2"
+               className="btn btn-warning m-4 p-3 px-5"
               type="submit"
               onClick={() => navigate("/login")}
             >
               LOGIN
-              {/* <ArrowRight /> */}
             </button>
           </div>
         </div>

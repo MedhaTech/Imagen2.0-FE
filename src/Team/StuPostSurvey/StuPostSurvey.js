@@ -759,7 +759,14 @@ return (
                         </Form>
                       </>
                     ) : ideastatus == "SUBMITTED" && postSurveyStatus == "COMPLETED" ? (
-                      <div style={{ textAlign: "center" }}>
+                      <div style={{ 
+                        display: "flex", 
+                        flexDirection: "column", 
+                        justifyContent: "center", 
+                        alignItems: "center", 
+                        height: "50vh", 
+                        textAlign: "center"
+                      }}>
                         <div>
                           <img
                             className="img-fluid imgWidthSize"
@@ -768,7 +775,10 @@ return (
                         </div>
                         <div>
                           <h4>
-                          {t('home.presucess')}<br/> {t('home.precong')}
+                          {t('home.presucess')}<br/>
+                          </h4>
+                          <h4 style={{marginTop:"25px"}}>
+                          {t('home.precong')}
                           </h4>
                         </div>
                       </div>

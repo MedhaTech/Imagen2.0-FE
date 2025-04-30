@@ -433,7 +433,7 @@ const Createpopup = () => {
                                 name="attachments"
                                 id="attachments"
                                 className="form-control"
-                                placeholder="Please share Embedded link of the Video"
+                                placeholder="Please Provide YouTube Link"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.attachments}
@@ -499,7 +499,7 @@ const Createpopup = () => {
                         }`}
                         disabled={!formik.dirty}
                       >
-                        Submit details
+                        Submit Details
                       </button>
                     </Col>
 

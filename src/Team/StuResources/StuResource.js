@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import DataTableExtensions from "react-data-table-component-extensions";
 import DataTable, { Alignment } from "react-data-table-component";
 import axios from "axios";
+import FileGrid from "./FileGrid";
 const StuResource = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
@@ -58,18 +59,13 @@ const StuResource = () => {
         selector: (row) => row.description,
         width: "65%",
       },
-      // {
-      //     name: 'Type',
-      //     selector: (row) => row.type,
-      //     width: '25%'
-      // },
+    
       {
         name: "File / Link",
         width: "20%",
         cell: (record) => {
           if (record.type === "file") {
             return (
-              // <button className="btn btn-outline-warning btn-sm mx-2">
                 <a
                   href={record.attachments}
                   target="_blank"
@@ -78,7 +74,6 @@ const StuResource = () => {
                 >
                   <i className="fas fa-file-lines"></i> Navigate
                 </a>
-              // </button>
             );
           } else if (record.type === "link") {
             return (
@@ -100,7 +95,7 @@ const StuResource = () => {
   const customStyles = {
     head: {
       style: {
-        fontSize: "1em", // Adjust as needed
+        fontSize: "1em", 
       },
     },
   };
@@ -117,7 +112,10 @@ return (
             <h6>List of program related resources</h6>
           </div>
         </div>
-        <div className="card table-list-card my-2">
+        <div>
+          <FileGrid resList={resList} />
+        </div>
+        {/* <div className="card table-list-card my-2">
           <DataTableExtensions
             data={rows}
             print={false}
@@ -135,7 +133,8 @@ return (
               subHeaderAlign={Alignment.Center}
             />
           </DataTableExtensions>
-        </div>
+        </div> */}
+        
       </div>
     </div>
   );

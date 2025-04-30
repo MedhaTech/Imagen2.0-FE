@@ -36,13 +36,13 @@ const Register = (props) => {
     const validationForAdmin = Yup.object({
         full_name: Yup.string()
             .trim()
-            .min(2, 'Enter Name')
+            .min(2, 'Enter Full Name')
             .matches(/^[aA-zZ\s]+$/, 'Only allow alpha characters')
-            .required('Required'),
+            .required('Please Enter Full Name'),
         username: Yup.string()
             .trim()
-            .email('Invalid username format')
-            .required('Required')
+            .email('Invalid Email Address')
+            .required('Please Enter Email Address')
     });
 
     const formik = useFormik({
@@ -80,20 +80,20 @@ const Register = (props) => {
                             // handleideaList();
                         dispatch(getAdmin());
 
-                        }, 500);
-                        window.location.reload();
+                        }, 1000);
                         openNotificationWithIcon(
                             'success',
                             `${stats} Added Successfully`
                         );
+                        window.location.reload();
                         props.setShow(false);
                     }
                 })
                 .catch((err) => {
                     if(err?.response?.data?.status === 400){
-                        openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email id is Invalid");
+                        openNotificationWithIcon("error", err.response.data?.message !== "Bad Request" ?  err.response.data?.message :"Email Address is Invalid");
                         }else{
-                          openNotificationWithIcon("error", "Email id is Invalid");
+                          openNotificationWithIcon("error", "Email Address is Invalid");
                         }
                     props.setShow(false);
                     return err.response;

@@ -1163,13 +1163,17 @@ console.log(level,"level");
                     </Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
+                <Modal.Body
+                 style={{
+                    maxHeight: window.innerWidth < 768 ? '80vh' : '60vh',
+                    height: window.innerWidth < 768 ? '80vh' : '60vh',    
+                }} >
                     <div className="my-3 text-center">
-                        <h4 className="mb-sm-4 mb-1">
+                        <h4 className="mb-sm-4 mb-2">
                             Please Select the reason for rejection.
                         </h4>
                         <Col>
-                            <Col className="m-3">
+                            <Col className="m-5">
                                 <p style={{ textAlign: 'left' }}>
                                     <b>1. Novelty & Usefulness</b> <span required style={{color:"red"}}>*</span>
                                 </p>
@@ -1180,7 +1184,7 @@ console.log(level,"level");
                                     value={reason}
                                 />
                             </Col>
-                            <Col className="m-3">
+                            <Col className="m-5">
                                 <p style={{ textAlign: 'left' }}>
                                     <b>
                                         2. Does the submission show any evidence

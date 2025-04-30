@@ -25,6 +25,7 @@ import { encryptGlobal } from "../../constants/encryptDecrypt.js";
 import { stateList, districtList } from "../../RegPage/ORGData.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { MaskedEmail ,MaskedMobile} from "../../RegPage/MaskedData.js";
 const TicketsPage = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const TicketsPage = (props) => {
       .get(`${URL.getMentors}?Data=${resparam}`, axiosConfig)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "11");
+          // console.log(response, "11");
           const updatedWithKey =
             response.data &&
             response.data.data[0] &&
@@ -134,6 +135,22 @@ const TicketsPage = (props) => {
             console.log(error);
         });
 };
+const handleSelect = (item, num) => {
+  // where item = student id / mentor id //
+  localStorage.removeItem('dist');
+  localStorage.removeItem('num');
+  if (num == '1') {
+      navigate("/Institution-view",{state:{ data: item,
+          // dist:studentDist,
+          num: num}}
+         
+      );
+     
+      localStorage.setItem('studentId', item.user_id);
+      localStorage.setItem('studentData', JSON.stringify(item));
+  } 
+     
+};
 const handleDeleteInstitution = (item) => {
   let supId;
   if(typeof(item.mentor_id) !== "string"){
@@ -193,12 +210,14 @@ supId = encryptGlobal(
         name: "No",
         // selector: (row) => row.id,
         selector: (row, key) => key + 1,
+        center:true,
         cellExport: (row) => row.index,
         width: "4rem",
       },
 
       {
         name: "Full Name",
+        center:true,
         selector: (row) => row?.full_name,
         cell: (row) => (
           <div
@@ -211,27 +230,32 @@ supId = encryptGlobal(
           </div>
         ),
         cellExport: (row) => row?.full_name,
-        width: "9rem",
+        width: "12rem",
       },
       {
         name: "Email Address",
-        selector: (row) => row?.username_email,
-        width: "10rem",
+        center:true,
+        selector: (row) =>  row?.username_email,
+       
+        width: "16rem",
       },
       {
         name: "Mobile No",
-        selector: (row) => row?.mobile,
+        center:true,
+        selector: (row) =>  row?.mobile,
         cellExport: (row) => row?.mobile,
-        width: "10rem",
+        width: "9rem",
       },
       {
         name: "District",
+        center:true,
         selector: (row) => row.district,
         cellExport: (row) => row.district,
         width: "8rem",
       },
       {
         name: "College Type",
+        center:true,
         cell: (row) => (
           <div
             style={{
@@ -244,27 +268,38 @@ supId = encryptGlobal(
         ),
         selector: (row) => row?.college_type,
         cellExport: (row) => row?.college_type,
-        width: "10rem",
+        width: "12rem",
       },
 
       {
         name: "College Name",
+        center:true,
         selector: (row) => row?.college_name,
         cellExport: (row) => row?.college_name,
-        width: "9rem",
+        width: "16rem",
       },
       {
         name: 'Actions',
+        center:true,
         sortable: false,
         width: '14rem',
         cell: (record) => [
-            <><div
+            <>
+            {/* <div
             key={record.id}
             onClick={() => handleReset(record, '1')}
             style={{ marginRight: '10px' }}
           >
             <div className="btn btn-primary"><FontAwesomeIcon icon={faKey} style={{ marginRight: "5px" }} />Reset</div>
-          </div><div
+          </div> */}
+          <div
+                        key={record.id}
+                        onClick={() => handleSelect(record, '1')}
+                        style={{ marginRight: '10px' }}
+                    >
+                        <div className="btn btn-primary"><i data-feather="eye" className="feather-eye" style={{ marginRight: "5px" }} />View</div>
+                    </div>
+          <div
             key={record.id}
             onClick={() => handleDeleteInstitution(record)}
           >
