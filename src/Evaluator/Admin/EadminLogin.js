@@ -50,8 +50,8 @@ const StateLogin = (props) => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().email("Please Enter a Valid Email Address").required("Required"),
-      password: Yup.string().required("Required"),
+      email: Yup.string().email("Please Enter a Valid Email Address").required("Please Enter Your Email Address"),
+      password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: (values) => {
       localStorage.clear();

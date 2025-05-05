@@ -134,7 +134,7 @@ const CreateResource = () => {
                     navigate('/adminresources');
                     openNotificationWithIcon(
                         'success',
-                        'Resource Updated Successfully'
+                        'Resource Created Successfully'
                     );
                 } else {
                     openNotificationWithIcon('error', 'Opps! Something Wrong');

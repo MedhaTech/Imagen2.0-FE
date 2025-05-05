@@ -70,7 +70,7 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
         axios(configidea)
           .then(function (response) {
             if (response.status === 200) {
-              console.log(response,"Cards");
+            //   console.log(response,"Cards");
               if (response.data.data && response.data.data.length > 0) {
                 setFormData(response.data.data[0]);
                 setNoData(false);
@@ -245,9 +245,9 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
         setTeamId(selectedOption ? selectedOption.value : '');
     };
 
-    const handleemailapi=()=>{
-        emailTeamCredentials();
-    };
+    // const handleemailapi=()=>{
+    //     emailTeamCredentials();
+    // };
 
       ////////Email Team Credentisl////////////
     const emailTeamCredentials = () => {

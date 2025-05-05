@@ -34,6 +34,7 @@ import LoginPage from "../RegPage/LoginPage";
 import LogInTeacher from "../Teacher/LogInTeacher";
 import AtlPage from "../RegPage/AtlPage";
 import Studentpage from "../RegPage/student";
+import Naipunyam from "../SingleLogin/Naipunyam";
 import AdminLogin from "../Admin/AdminLogin";
 import StateLogin from "../Coordinators/LogInNew";
 import "../i18n";
@@ -176,6 +177,7 @@ const AllRoutes = () => {
           <Route path="/crew2Reg" element={<Crew2Reg />} />
           <Route path="/crew3Reg" element={<Crew3Reg />} />
           <Route path="/regSuccess" element={<RegSuccess />} />
+          <Route path="/naipunyam" element={<Naipunyam />} />
         </Route>
         <Route path="/" element={<HeaderLayout />}>
           {publicRoutes.map((route, id) => (

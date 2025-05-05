@@ -37,7 +37,8 @@ import AdminPassword from "../Admin/AdminPassword";
 import StateDashboard from "../Coordinators/Dashboard/StateDashboard";
 // import EadminDashboard from "../Evaluator/Admin/Dashboard/EadminDashboard";
 import EadminDashboard from "../Evaluator/Admin/Evaluation/index";
-
+import CreateEmail from "../Admin/BulkEmail/CreatePopUp";
+import ResendEmail from "../Admin/BulkEmail/ResendEmail";
 import MentorPresurvey from "../Teacher/PreSurvey/PreSurvey";
 import MentorPostsurvey from "../Teacher/PostSurvey/PostSurvey";
 import MentorTeams from "../Teacher/Teams/index";
@@ -85,10 +86,12 @@ import TeamsList from "../Admin/UsersList/TeamsList";
 import AdminsList from "../Admin/UsersList/AdminsList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
+import InstOption from "../Admin/InstEdit/index";
 import Createpopup from "../Admin/PopUp/CreatePopUp";
 import AdminResources from "../Admin/Resources/index";
 import EditResource from "../Admin/Resources/editResource";
 import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDetailed";
+import EmailList from "../Admin/BulkEmail/EmailList";
 
 import CreateResource from "../Admin/Resources/createResource";
 
@@ -97,7 +100,11 @@ import StudentProgressReport from "../Admin/Reports/Helpers/StudentProgressRepor
 import MentorView from "../Admin/UsersList/MentorView";
 import MentorEdit from "../Admin/UsersList/MentorEdit";
 import StudentTableView from "../Admin/UsersList/StudentTableView";
+import InstTableView from "../Admin/UsersList/InstView";
+
 import StuEdit from "../Admin/UsersList/StudentEdit";
+import InstEdit from "../Admin/UsersList/InstEdit";
+
 import AdminRes from "../Admin/AdminTickets/TicketResponse";
 
 import AdminSupport from "../Admin/AdminTickets/Tickets";
@@ -135,6 +142,7 @@ import ChangeEval from "../Evaluator/ChangePSWModal";
 import EvaluateL1 from "../Evaluator/EvaluatedIdea/EvaluatedIdea";
 import EvaluateL2 from "../Evaluator/EvaluatedIdea/EvaluatedIdeaL2";
 import EvaluatorProfile from "../Evaluator/EvaluatorProfile";
+import StuProfileEdit from "../Team/StuProfileEdit";
 export const evaluatorRoutes = [
   {
     id: 1,
@@ -342,6 +350,14 @@ export const publicRoutes = [
   },
   {
     id: 16,
+    path: routes.InstOption,
+    name: "InstOption",
+    element: <InstOption/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 16,
     path: routes.createpopup,
     name: "createpopup",
     element: <Createpopup/>,
@@ -465,6 +481,46 @@ export const publicRoutes = [
     path: routes.adminaddinstitution,
     name: "adminaddinstitution",
     element: <AddInst/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 31,
+    path: routes.EmailList,
+    name: "EmailList",
+    element: <EmailList />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 32,
+    path: routes.createemail,
+    name: "createemail",
+    element: <CreateEmail />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 33,
+    path: routes.resendemail,
+    name: "resendemail",
+    element: <ResendEmail />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 34,
+    path: routes.insttableview,
+    name: "insttableview",
+    element: <InstTableView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 35,
+    path: routes.instedit,
+    name: "instedit",
+    element: <InstEdit />,
     protected: true,
     route: Route,
   },
@@ -642,6 +698,14 @@ export const teamRoutes = [
     path: routes.discussionChatResponse,
     name: "discussionChatResponse",
     element: <StudentNewChatResponse />,
+    route: Route,
+  },
+  {
+    id: 22,
+    path: routes.studentProfileEdit,
+    name: "studentProfileEdit",
+    element: <StuProfileEdit />,
+    // protected: true,
     route: Route,
   },
 ];

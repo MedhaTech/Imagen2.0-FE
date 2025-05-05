@@ -126,7 +126,7 @@ export const evaluatorAdminLoginUser =
 
         navigate("/eadmin/evaluationStatus");
       } else if (result && result.status === 404) {
-        openNotificationWithIcon("error", "Invalid Credentials entered");
+        openNotificationWithIcon("error", "Invalid Credentials Entered");
        
         dispatch(evaluatorAdminLoginUserError(result.statusText));
       }else{

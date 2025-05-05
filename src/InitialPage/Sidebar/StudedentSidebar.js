@@ -70,7 +70,7 @@ const StudentSidebar = () => {
                                   : ""
                               }`}
                             >
-                              <Link
+                              {/* <Link
   to={isMenuDisabled ? "#" : title?.link}
   onClick={(e) => {
     if (title?.onClick) {
@@ -86,28 +86,33 @@ const StudentSidebar = () => {
   {title?.icon}
   <span className="custom-active-span">{title?.label}</span>
   {title?.submenu && <span className="menu-arrow" />}
-</Link>
+</Link> */}
 
-                              {/* <Link
-                               to={isMenuDisabled ? "#" : title?.link}
-                               onClick={() => !isMenuDisabled && toggleSidebar(title?.label)}
-                               
-                                className={`${
-                                  subOpen === title?.label ? "subdrop" : ""
-                                } ${
-                                  title?.links?.includes(location.pathname)
-                                    ? "active"
-                                    : ""
-                                }`}
-                              >
-                                {title?.icon}
-                                <span className="custom-active-span">
-                                  {title?.label}
-                                </span>
-                                {title?.submenu && (
-                                  <span className="menu-arrow" />
-                                )}
-                              </Link> */}
+<Link
+  to={isMenuDisabled ? "#" : title?.link}  
+  onClick={(e) => {
+    if (isMenuDisabled) {
+      e.preventDefault(); 
+    } else if (title?.onClick) {
+      title.onClick(e); 
+    } else {
+      toggleSidebar(title?.label); 
+    }
+  }}
+  className={`${subOpen === title?.label ? "subdrop" : ""} ${
+    title?.links?.includes(location.pathname) ? "active" : ""
+  }`}
+  style={{
+    cursor: isMenuDisabled ? "not-allowed" : "pointer",
+    opacity: isMenuDisabled ? 0.5 : 1,
+    pointerEvents: isMenuDisabled ? "none" : "auto", 
+  }}
+>
+  {title?.icon}
+  <span className="custom-active-span">{title?.label}</span>
+  {title?.submenu && <span className="menu-arrow" />}
+</Link>
+                        
                               <ul
                                 style={{
                                   display:

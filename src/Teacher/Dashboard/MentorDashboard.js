@@ -55,8 +55,12 @@ const GreetingModal = (props) => {
                   <div className="modal-body custom-modal-body">
                                     <div style={{ width: '100%', height: '400px' }}>
                       <iframe
-                         
-                          src={props.popLink}
+                          // src={props.popLink.replace("youtu.be/", "www.youtube.com/embed/")}
+                          // src={props.popLink.replace("youtu.be/", "www.youtube.com/embed/").split("?")[0]}
+                          src={props.popLink
+                            .replace("youtu.be/", "www.youtube.com/embed/")
+                            .replace("watch?v=", "embed/")
+                            .split("&")[0]}
                           title="Video popup"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
@@ -69,27 +73,11 @@ const GreetingModal = (props) => {
                           className="img-fluid"
                       />
                   )}
-                  {/* <img
-                      src={props.imgUrl}
-                      alt="popup image"
-                      className="img-fluid"
-                  /> */}
+                 
               </figure>
           </Modal.Body>
           <Modal.Footer>
-            {props.state !=null &&   
-            <Link
-              to={props.state}
-              type="button"
-              className="product-img"
-            >
-              <button
-                label={"Navigate"}
-                className="btn btn-warning"
-              >
-                Navigate
-              </button>
-            </Link>}
+          
           </Modal.Footer>
       </Modal>
   );
@@ -136,7 +124,7 @@ const MentorDashboard = () => {
     const newListParam = encryptGlobal(
       JSON.stringify({
         // state:currentUser.data[0]?.state,
-        role:currentUser.data[0]?.role
+        role:"Institution"
       })
   );
     var config = {
@@ -157,14 +145,7 @@ const MentorDashboard = () => {
 
                 setPopLink(res?.data?.data[0]?.url);
               setImgUrl(res?.data?.data[0]?.url);
-                setState(res?.data?.data[0]?.navigate);
-
-              // if(res?.data?.data[0]?.type == "link"){
-
-              // }else{
-              //   setImgUrl(res?.data?.data[0]?.url);
-              //   setState(res?.data?.data[0]?.navigate);
-              // }
+             
             }
         })
         .catch(function (error) {
@@ -196,10 +177,10 @@ const MentorDashboard = () => {
         mentorTeamsCount();
         mentorIdeaCount();
         mentorStudentCount();
-        mentorcoursepercentage();
-        mentorpostsurvey();
-        fetchwhatsapplink();
-        scroll();
+        // mentorcoursepercentage();
+        // mentorpostsurvey();
+        // fetchwhatsapplink();
+        // scroll();
        
     }
   }, [currentUser?.data[0]?.user_id]);
@@ -524,23 +505,9 @@ poptype={poptype}
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
-                  {teacCourseLoading ? ( 
-                            <Loader />
-                        ) : coursepercentage === 0 ? (
-                      <>
+                 
                         <h5>To know about YFSI</h5>
-                        {/* <a onClick={redirectToCourse} href='#' >
-                          Click here & Start Course
-                        </a> */}
-                      </>
-                    ) : (
-                      <>
-                        <h5>
-                          <CountUp start={0} end={coursepercentage} duration={2} /> %
-                        </h5> 
-                        <h6>Teacher Course</h6>
-                      </>
-                  )}
+                        
                 </div>
               </div>
             </div>

@@ -34,6 +34,16 @@ const [data,setData]=useState({});
         dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
     }
 }, [currentUser?.data[0]?.mentor_id]);
+const maskEmail = (email) => {
+  if (!email || !email.includes('@')) return email; 
+  const [username, domain] = email.split('@');
+  const maskedUsername = username.slice(0, 3) + '****'; 
+  return `${maskedUsername}@${domain}`;
+};
+const maskMobileNumber = (mobile) => {
+  if (!mobile || mobile.length < 10) return mobile; 
+  return mobile.slice(0, -3).replace(/\d/g, '*') + mobile.slice(-3);
+};
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -98,9 +108,7 @@ const [data,setData]=useState({});
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={
-                      teacher.username_email
-                    }
+                    defaultValue={maskEmail(teacher?.username_email)}
                     readOnly="readonly"
                   />
                 </div>
@@ -111,9 +119,7 @@ const [data,setData]=useState({});
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={
-                      teacher?.mobile
-                    }
+                    defaultValue={maskMobileNumber(teacher?.mobile)}
                     readOnly="readonly"
                   />
                 </div>

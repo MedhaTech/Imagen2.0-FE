@@ -125,7 +125,7 @@ const CreateLatestNews = () => {
                     navigate('/latest-news');
                     openNotificationWithIcon(
                         'success',
-                        'LatestNews Updated Successfully'
+                        'Latest News Created Successfully'
                     );
                 } else {
                     openNotificationWithIcon('error', 'Opps! Something Wrong');

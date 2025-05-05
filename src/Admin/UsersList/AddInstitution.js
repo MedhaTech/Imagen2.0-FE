@@ -18,6 +18,7 @@ import { openNotificationWithIcon } from "../../helpers/Utils.js";
 import { districtList, collegeType, collegeNameList } from '../../RegPage/ORGData.js';
 import { ArrowRight } from 'react-feather';
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+import Select from "react-select";
 
 const AddInstitution = () => {
   const navigate = useNavigate();
@@ -85,6 +86,11 @@ const AddInstitution = () => {
         console.log(error);
       });
   };
+  const collegeOptions = collegeNamesList.map((item) => ({
+    value: item,
+    label: item,
+  }));
+  // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -145,7 +151,7 @@ const AddInstitution = () => {
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
       district: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select District</span>
+        <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
@@ -153,9 +159,16 @@ const AddInstitution = () => {
       college_type: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College Type</span>
       ),
-      password: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter Password</span>
-      ),
+      // password: Yup.string().required(
+      //   <span style={{ color: "red" }}>Please Enter Password</span>
+      // ),
+        password: Yup.string()
+            .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
+            .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
+            .matches(/[A-Z]/, () => <span style={{ color: "red" }}>Password must contain at least one uppercase letter</span>)
+            .matches(/\d/, () => <span style={{ color: "red" }}>Password must contain at least one number</span>)
+            .matches(/[@$!%*?&]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&)</span>)
+            .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       ),
@@ -194,7 +207,7 @@ const AddInstitution = () => {
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
                 navigate("/institution-users-list");
-                openNotificationWithIcon("success", "Institution added successfully");
+                openNotificationWithIcon("success", "Institution Added Successfully");
             }
           })
           .catch((err) => {
@@ -341,7 +354,7 @@ const AddInstitution = () => {
                               onBlur={formik.handleBlur}
                               onChange={formik.handleChange}
                             >
-                              <option value={""}>Select District</option>
+                              <option value={""}>Select Your Institution District</option>
                               {districtData.map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -398,7 +411,7 @@ const AddInstitution = () => {
                               College Name
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <select
+                            {/* <select
                               id="college"
                               className="form-select"
                               name="college"
@@ -412,7 +425,15 @@ const AddInstitution = () => {
                                   {item}
                                 </option>
                               ))}
-                            </select>
+                            </select> */}
+                              <Select
+        classNamePrefix="react-select"
+        options={collegeOptions}
+        placeholder=" Type here to Select Your College Name"
+        value={collegeOptions.find(option => option.value === formik.values.college)}
+        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
+        onBlur={formik.handleBlur}
+      />
                             {formik.touched.college &&
                               formik.errors.college ? (
                               <small className="error-cls">
@@ -527,7 +548,7 @@ const AddInstitution = () => {
                             className="btn btn-warning m-2"
                             type="submit"
                             disabled={
-                              !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword)
+                              !formik.isValid || !formik.dirty || !(formik.values.password === formik.values.confirmPassword) ||(formik.values.college === 'Other' && !formik.values.ocn)
                             }
                           >
                             Proceed
