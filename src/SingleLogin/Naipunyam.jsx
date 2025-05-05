@@ -49,6 +49,7 @@ const Naipunyam = () => {
             logintype: 'SINGLESIGIN'
         };
         const loginresult = await dispatch(loginUser(body, navigate, "STUDENT", true));
+        console.log(loginresult,"loginresult");
         if (loginresult === 'Not Found') {
             regfuc();
         }
