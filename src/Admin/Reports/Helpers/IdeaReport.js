@@ -485,7 +485,7 @@ const IdeaReport = () => {
               "Upload images/documents & video links related to your Idea.(total size limit : 10 MB)":
                 item.prototype_link,
               "Idea Submission Status": item.status,
-              "Idea Submission Date": item?.submitted_at
+              "Idea Submission Submitted Date": item?.submitted_at
                 ? new Date(
                     item?.submitted_at
                   ).toLocaleDateString("en-GB")
