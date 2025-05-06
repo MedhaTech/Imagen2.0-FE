@@ -49,7 +49,6 @@ const Naipunyam = () => {
             logintype: 'SINGLESIGIN'
         };
         const loginresult = await dispatch(loginUser(body, navigate, "STUDENT", true));
-        console.log(loginresult,"loginresult");
         if (loginresult === 'User not found') {
             regfuc();
         }
@@ -75,7 +74,7 @@ const Naipunyam = () => {
             college_town: collegetown,
             confirmPassword: encrypted,
             id_number: apaarid,
-            email:email
+            email: email
         };
         var config = {
             method: "post",
@@ -116,7 +115,7 @@ const Naipunyam = () => {
                                 <img src={logo} alt="Logo" />
                             </div>
                             <h1>
-                                Please wait until auto login is complete.
+                                Authenticating your session, just a moment…
                             </h1>
                             <div className="my-2 d-flex justify-content-center align-items-center copyright-text">
                                 <p>Copyright © {currentYear}  <b>YFSI.</b> All rights reserved</p>
