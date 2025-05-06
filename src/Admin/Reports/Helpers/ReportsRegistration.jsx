@@ -186,6 +186,10 @@ const ReportsRegistration = () => {
             label: 'Year of Study',
             key: 'year_of_study'
         },
+        {
+            label: 'Date of Registration',
+            key: 'created_at'
+        },
        
     ];
  
@@ -386,8 +390,15 @@ const ReportsRegistration = () => {
                 if (response.status === 200) {
                     // console.log(response,"22");
                     const Data = response?.data?.data || [];
-                    setFilteredData(response?.data?.data || []);
-            setDownloadData(response?.data?.data || []);
+                    const formattedData = Data.map(item => ({
+                        ...item,
+                        created_at: new Date(item.created_at).toLocaleDateString('en-GB')
+                      }));
+                      
+                      setFilteredData(formattedData);
+                      setDownloadData(formattedData);
+                    // setFilteredData(response?.data?.data || []);
+            // setDownloadData(response?.data?.data || []);
             if (response?.data.count > 0) {
                 openNotificationWithIcon(
                   "success",
