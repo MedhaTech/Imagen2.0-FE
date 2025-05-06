@@ -572,20 +572,26 @@ const StudentProgress = () => {
 
                 Idea_status: item.type === 0 ?
                 ideaStatusDataMap[item.student_id]?.status || "Not Initiated" : ideaStatusDataMap[item.type]?.status || "Not Initiated",
-              submitted_at: ideaStatusDataMap[item.student_id]?.submitted_at
-                ? new Date(
-                    ideaStatusDataMap[item.student_id].submitted_at
-                  ).toLocaleDateString("en-GB")
-                : null,
+            
+  
+  submitted_at:
+  item.type === 0
+    ? ideaStatusDataMap[item.student_id]?.submitted_at
+      ? new Date(ideaStatusDataMap[item.student_id].submitted_at).toLocaleDateString("en-GB")
+      : null
+    : ideaStatusDataMap[item.type]?.submitted_at
+      ? new Date(ideaStatusDataMap[item.type].submitted_at).toLocaleDateString("en-GB")
+      : null,
+
                 course_created_at: userTopicDataMap[item.user_id]?.created_at
                 ? new Date(
                   userTopicDataMap[item.user_id].created_at
                   ).toLocaleDateString("en-GB")
                 : null,
               user_count:
-                userTopicDataMap[item.user_id] === undefined
+                userTopicDataMap[item.user_id].user_count === undefined
                   ? "Not Started"
-                  : userTopicDataMap[item.user_id] === 26
+                  : userTopicDataMap[item.user_id].user_count === 26
                   ? "Completed"
                   : "In Progress",
               course_per:
