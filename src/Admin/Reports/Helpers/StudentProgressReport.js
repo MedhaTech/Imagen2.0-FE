@@ -570,9 +570,8 @@ const StudentProgress = () => {
                   ).toLocaleDateString("en-GB")
                 : null,
 
-              Idea_status:
-                ideaStatusDataMap[item.student_id]?.status || "Not Initiated",
-
+                Idea_status: item.type === 0 ?
+                ideaStatusDataMap[item.student_id]?.status || "Not Initiated" : ideaStatusDataMap[item.type]?.status || "Not Initiated",
               submitted_at: ideaStatusDataMap[item.student_id]?.submitted_at
                 ? new Date(
                     ideaStatusDataMap[item.student_id].submitted_at
@@ -591,9 +590,9 @@ const StudentProgress = () => {
                   : "In Progress",
               course_per:
                 userTopicDataMap[item.user_id] &&
-                typeof userTopicDataMap[item.user_id] === "number"
+                typeof userTopicDataMap[item.user_id].user_count === "number"
                   ? `${Math.round(
-                      (userTopicDataMap[item.user_id] / 26) * 100
+                      (userTopicDataMap[item.user_id].user_count / 26) * 100
                     )}%`
                   : `0%`,
             };
