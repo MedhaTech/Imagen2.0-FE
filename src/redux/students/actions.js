@@ -85,12 +85,11 @@ export const loginUser = (data, navigate, module, singlesigin) => async (dispatc
       navigate("/student-dashboard");
     } else {
       dispatch(loginUserError(result.statusText));
-      console.log(result,result);
-      if(result.statusText === 'Unauthorized'){
+      if(result.data.message === 'Unauthorized Access!'){
         openNotificationWithIcon("error", "User is Inactive");
-      }else if (result.statusText === 'Not Found'){
+      }else if (result.data.message === 'User not found'){
         if(singlesigin){
-          return result;
+          return result.data.message;
         }else{
           openNotificationWithIcon("error", "Invalid Email Address or Password");
         }

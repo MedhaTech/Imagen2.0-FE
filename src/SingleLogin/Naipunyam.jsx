@@ -50,7 +50,7 @@ const Naipunyam = () => {
         };
         const loginresult = await dispatch(loginUser(body, navigate, "STUDENT", true));
         console.log(loginresult,"loginresult");
-        if (loginresult.statusText === 'Not Found') {
+        if (loginresult === 'User not found') {
             regfuc();
         }
     };
