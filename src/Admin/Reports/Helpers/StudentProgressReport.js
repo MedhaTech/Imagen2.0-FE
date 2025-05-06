@@ -589,16 +589,16 @@ const StudentProgress = () => {
                   ).toLocaleDateString("en-GB")
                 : null,
               user_count:
-                userTopicDataMap[item.user_id].user_count === undefined
+                userTopicDataMap[item.user_id]?.user_count === undefined
                   ? "Not Started"
-                  : userTopicDataMap[item.user_id].user_count === 26
+                  : userTopicDataMap[item.user_id]?.user_count === 26
                   ? "Completed"
                   : "In Progress",
               course_per:
                 userTopicDataMap[item.user_id] &&
-                typeof userTopicDataMap[item.user_id].user_count === "number"
+                typeof userTopicDataMap[item.user_id]?.user_count === "number"
                   ? `${Math.round(
-                      (userTopicDataMap[item.user_id].user_count / 26) * 100
+                      (userTopicDataMap[item.user_id]?.user_count / 26) * 100
                     )}%`
                   : `0%`,
             };
