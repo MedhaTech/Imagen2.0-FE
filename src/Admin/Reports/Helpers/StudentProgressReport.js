@@ -191,6 +191,10 @@ const StudentProgress = () => {
       key: "course_per",
     },
     {
+      label: "Course Completion Date",
+      key: "course_created_at",
+    },
+    {
       label: "Course Status",
       key: "user_count",
     },
@@ -211,7 +215,6 @@ const StudentProgress = () => {
       key: "post_created_at",
     },
   ];
-
   var chartOption = {
     chart: {
       height: 330,
@@ -500,15 +503,7 @@ const StudentProgress = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "filter");
-
-          // const preSurveyMap = response.data.data[0].preSurvey.reduce(
-          //   (map, item) => {
-          //     map[item.user_id] = item.pre_survey_status;
-          //     return map;
-          //   },
-          //   {}
-          // );
+         
           const preSurveyMap = response.data.data[0].preSurvey.reduce(
             (map, item) => {
               map[item.user_id] = {
@@ -520,13 +515,7 @@ const StudentProgress = () => {
             {}
           );
 
-          // const postSurveyMap = response.data.data[0].postSurvey.reduce(
-          //   (map, item) => {
-          //     map[item.user_id] = item.post_survey_status;
-          //     return map;
-          //   },
-          //   {}
-          // );
+          
           const postSurveyMap = response.data.data[0].postSurvey.reduce(
             (map, item) => {
               map[item.user_id] = {
@@ -538,13 +527,7 @@ const StudentProgress = () => {
             {}
           );
 
-          // const ideaStatusDataMap = response.data.data[0].ideaStatusData.reduce(
-          //   (map, item) => {
-          //     map[item.student_id] = item.status;
-          //     return map;
-          //   },
-          //   {}
-          // );
+        
           const ideaStatusDataMap = response.data.data[0].ideaStatusData.reduce(
             (map, item) => {
               map[item.student_id] = {
@@ -558,16 +541,19 @@ const StudentProgress = () => {
 
           const userTopicDataMap = response.data.data[0].userTopicData.reduce(
             (map, item) => {
-              map[item.user_id] = item.user_count;
+              map[item.user_id] = {
+                user_count: item.user_count,
+                created_at: item.created_at,
+              };
               return map;
             },
+           
             {}
           );
 
           const newdatalist = response.data.data[0].summary.map((item) => {
             return {
               ...item,
-              // pre_survey_status: preSurveyMap[item.user_id] || "Not started",
               pre_survey_status:
                 preSurveyMap[item.user_id]?.pre_survey_status || "Not started",
               created_at: preSurveyMap[item.user_id]?.created_at
@@ -590,6 +576,11 @@ const StudentProgress = () => {
               submitted_at: ideaStatusDataMap[item.student_id]?.submitted_at
                 ? new Date(
                     ideaStatusDataMap[item.student_id].submitted_at
+                  ).toLocaleDateString("en-GB")
+                : null,
+                course_created_at: userTopicDataMap[item.user_id]?.created_at
+                ? new Date(
+                  userTopicDataMap[item.user_id].created_at
                   ).toLocaleDateString("en-GB")
                 : null,
               user_count:
