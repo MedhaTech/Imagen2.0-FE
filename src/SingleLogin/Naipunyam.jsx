@@ -74,7 +74,8 @@ const Naipunyam = () => {
             college_town: collegetown,
             confirmPassword: encrypted,
             id_number: apaarid,
-            email: email
+            email: email,
+            reg_type: "naipunyam"
         };
         var config = {
             method: "post",
