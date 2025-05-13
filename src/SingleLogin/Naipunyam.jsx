@@ -79,7 +79,7 @@ const Naipunyam = () => {
         };
         var config = {
             method: "post",
-            url: process.env.REACT_APP_API_BASE_URL + "/students/register",
+            url: process.env.REACT_APP_API_BASE_URL + "/students/registerNaipunyam",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
@@ -90,7 +90,7 @@ const Naipunyam = () => {
         await axios(config)
             .then((pilotstudent) => {
                 if (pilotstudent?.data?.status == 201) {
-                    openNotificationWithIcon("success", "registration Successfully");
+                    openNotificationWithIcon("success", "Registration Successfully");
                     loginfuc();
                 }
             })
