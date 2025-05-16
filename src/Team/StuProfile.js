@@ -1,16 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../helpers/Utils";
-import edit from "../assets/img/icons/edit-set.svg";
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useNavigate } from "react-router-dom";
-import female from "../assets/img/Female_Profile.png";
-import male from "../assets/img/Male_Profile.png";
-import team1 from "../assets/img/icons/team.svg";
-import users from "../assets/img/user.png";
+
 import { useLocation } from "react-router-dom";
 import { encryptGlobal } from "../constants/encryptDecrypt";
 import axios from "axios";
@@ -54,7 +48,6 @@ const TeacherProfile = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "res");
           setData(response.data.data[0]);
         }
       })
@@ -78,10 +71,8 @@ const TeacherProfile = () => {
         <div className="page-header">
           <div className="page-title">
             <h4>My Profile</h4>
-            {/* <h6>User Profile</h6> */}
           </div>
         </div>
-        {/* /product list */}
         <div className="card">
           <div className="card-body">
             <div className="profile-set">
@@ -98,26 +89,10 @@ const TeacherProfile = () => {
               <div className="profile-top">
                 <div className="profile-content">
                   <div className="profile-contentimg">
-                  {/* <img src={users} alt="user" id="blah" /> */}
-                  {/* initials={data?.full_name.split(' ').map(w => w.charAt(0)).join('')} */}
+                  
                   <Avatar  initials={(data?.full_name?.split(' ').map(w => w.charAt(0)).join('')) || 'NN'}  bgColor="#36adf2" textColor="black" roundShape="true" pictureResolution={256}  height={100}  width={110}></Avatar>
 
-                    {/* {currentUser?.data[0]?.role === "TEAM" ? ( */}
-                      {/* <img
-                        src={team1}
-                        alt="Team"
-                        id="blah"
-                        style={{ background: "white" }}
-                      />
-                    ) : currentUser?.data[0]?.role === "STUDENT" &&
-                      (currentUser?.data[0]?.Gender === "Male" ||
-                        currentUser?.data[0]?.Gender === "MALE") ? (
-                      <img src={male} alt="Male" id="blah" />
-                    ) : currentUser?.data[0]?.Gender === "Female" ||
-                      currentUser?.data[0]?.Gender === "FEMALE" ? (
-                      <img src={female} alt="Female" id="blah" />
-                    ) : ( */}
-                    {/* )} */}
+                  
                   <div className="profileupload"></div> 
                   </div>
                   <div className="profile-contentname">
@@ -154,7 +129,6 @@ const TeacherProfile = () => {
                   <label className="form-label">Email</label>
                   <input
                     type="text"
-                    // defaultValue={currentUser?.data[0]?.name}
                     defaultValue={maskEmail(currentUser?.data[0]?.name)}
                     readOnly="readonly"
                   />
@@ -267,7 +241,6 @@ const TeacherProfile = () => {
                   <input
                     type="text"
                     className="form-control"
-                    // defaultValue={data.id_number ? data.id_number :"-"}
                     value={data?.id_number ? data.id_number : "-"}
                     readOnly="readonly"
                   />
@@ -284,35 +257,10 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div>
-              {/* <div className="col-lg-6 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label">Password</label>
-                  <div className="pass-group">
-                    <input
-                      type={isPasswordVisible ? "text" : "password"}
-                      className="pass-input form-control"
-                    />
-                    <span
-                      className={`fas toggle-password ${
-                        isPasswordVisible ? "fa-eye" : "fa-eye-slash"
-                      }`}
-                      onClick={togglePasswordVisibility}
-                    ></span>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="col-12">
-                <Link to={"/institution-dashboard"} className="btn btn-submit me-2">
-                  Submit
-                </Link>
-                <Link className="btn btn-cancel" to={"/institution-dashboard"}>
-                  Cancel
-                </Link>
-              </div> */}
+             
             </div>
           </div>
         </div>
-        {/* /product list */}
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Label, Card, CardBody, Input } from 'reactstrap';
 import { useDispatch, useSelector } from "react-redux";
 import {
-    ArrowLeft,
     PlusCircle,
 } from "react-feather";
 import axios from 'axios';
@@ -26,15 +25,12 @@ import { FaUserCircle } from 'react-icons/fa';
 import { FaRegClock } from 'react-icons/fa';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
-import { Link } from "react-router-dom";
-import FeatherIcon from "feather-icons-react";
 
 const TeacherSupport = () => {
     const { supportTickets } = useSelector((state) => state.mentors);
     const { supportTicket } = useSelector((state) => state.mentors);
     const language = useSelector((state) => state?.mentors.mentorLanguage);
     const { t } = useTranslation();
-    //const [id, setId] = useState();
     useEffect(() => {
         dispatch(getSupportTickets(currentUser?.data[0]));
     }, []);
@@ -354,7 +350,6 @@ const TeacherSupport = () => {
                             </button>
                         </div>
                     </div>
-                    {/* /product list */}
                     <div className="card table-list-card">
                         <div className="card-body">
                             <div className="table-responsive">
@@ -365,7 +360,6 @@ const TeacherSupport = () => {
                                     print={false}
                                 >
                                     <DataTable
-                                        // data={rows}
                                         defaultSortField="id"
                                         defaultSortAsc={false}
                                         pagination
@@ -377,11 +371,9 @@ const TeacherSupport = () => {
                             </div>
                         </div>
                     </div>
-                    {/* /product list */}
                 </div>
             </div>
 
-            {/* Add Ticket start */}
             <div
                 className="offcanvas offcanvas-end em-payrol-add"
                 tabIndex={-1}
@@ -401,7 +393,6 @@ const TeacherSupport = () => {
                                         data-bs-dismiss="offcanvas"
                                         onClick={() => formik1.resetForm()}
                                     >
-                                        {/* <ArrowLeft className="me-2" /> */}
                                         Back To List
                                     </a>
                                 </div>
@@ -542,14 +533,11 @@ const TeacherSupport = () => {
                                     </form>
                                 </div>
                             </div>
-                            {/* /add */}
                         </div>
                     </div>
                 </div>
             </div>
-            {/* /Add Ticket end */}
 
-            {/* Chat start */}
             <div
                 className="offcanvas offcanvas-end em-payrol-add"
                 tabIndex={-1}
@@ -569,12 +557,10 @@ const TeacherSupport = () => {
                                         data-bs-dismiss="offcanvas"
                                         onClick={() => formik.resetForm()}
                                     >
-                                        {/* <ArrowLeft className="me-2" /> */}
                                         Back To List
                                     </a>
                                 </div>
                             </div>
-                            {/* /add */}
 
                             <form onSubmit={formik.handleSubmit}>
                                 <Card className="aside ">
@@ -613,7 +599,6 @@ const TeacherSupport = () => {
                                                     {moment(
                                                         supportTicket.created_at
                                                     ).format(
-                                                        // 'Do MMM, YYYY HH:mm',
                                                         'LLL'
                                                     )}
                                                 </span>
@@ -662,7 +647,6 @@ const TeacherSupport = () => {
                                                                     {moment(
                                                                         data.created_at
                                                                     ).format(
-                                                                        // 'Do MMM, YYYY HH:mm',
                                                                         'LLL'
                                                                     )}
                                                                 </span>
@@ -861,7 +845,6 @@ const TeacherSupport = () => {
                                     </Row>
                                 </div>
                             </form>
-                            {/* /add */}
                         </div>
                     </div>
                 </div>

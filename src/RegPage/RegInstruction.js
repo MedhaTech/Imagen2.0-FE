@@ -3,7 +3,6 @@
 import React from 'react';
 import './Styles.css';
 import logo from "../assets/img/logo.png";
-import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
@@ -94,15 +93,7 @@ const RegInstruction = () => {
   </div>
 </div>
 
-            {/* <div className="signinform">
-                  <h4>
-                  Already have an account?
-                    <Link className="hover-a" to={"/registration"}>
-                      {" "}
-                      Click Here
-                    </Link>
-                  </h4>
-                </div>  */}
+           
           </div>
           <div className="col-md-8 p-4" style={{ backgroundColor: '#EEEEEE' }}>
             <div className="mn-ht-600">
@@ -163,22 +154,7 @@ const RegInstruction = () => {
               <p className='mt-2'> Join now and unlock your potential in innovation and entrepreneurship! 💡
               </p>
 
-              {/* <ul style={{ paddingLeft: '3rem', listStyle: 'disc' }}>
-                <li>Youth for Social Impact requires a team of 2 to 4 participants.</li>
-                <li>The person who is registering is called as the “Pilot”, who will act as the point of
-                  contact for the team and the other team members are called as the “Crew”</li>
-                <li>The pilot will first enter their personal information required for registration and then
-                  enter a unique team name and setup a team password.</li>
-                <li>Then the pilot will have to enter the details of the crew members. </li>
-                <li>A team should have a minimum of 2 members and can have maximum of 4 members.</li>
-                <li>After team registration, every participant can individually login to their account with
-                  their registered email address and team password which will act as default password.
-                </li>
-                <li>Team members can reset and set up their individual password anytime.</li>
-                <li>The pilot will have the access to change the details of crew members or add new members
-                  until they start the course.</li>
-                <li>For any other concerns, you can contact us or visit our FAQs.</li>
-              </ul> */}
+             
             </div>
             <button
               type="button"
@@ -188,7 +164,6 @@ const RegInstruction = () => {
               Proceed
               <span>
                 {" "}
-                {/* <ArrowRight /> */}
               </span>
             </button>
           </div>

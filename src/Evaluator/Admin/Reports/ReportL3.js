@@ -2,9 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from 'react';
-// import Layout from '../Pages/Layout';
 import { Container, Row, Col, Table } from 'reactstrap';
-// import { Button } from '../../../stories/Button';
 import { CSVLink } from 'react-csv';
 import { useNavigate, Link } from "react-router-dom";
 
@@ -12,42 +10,32 @@ import {
     openNotificationWithIcon,
     getCurrentUser
 } from '../../../helpers/Utils';
-import moment from "moment/moment";
 
 import { useDispatch, useSelector } from 'react-redux';
 import Select from '../../../Admin/Reports/Helpers/Select.jsx';
-import { Bar } from 'react-chartjs-2';
-// import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
+
 
 import axios from 'axios';
 import '../../../Admin/Reports/reports.scss';
-import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 import * as XLSX from 'xlsx';
 
 import { encryptGlobal } from '../../../constants/encryptDecrypt.js';
-// import { categoryValue } from '../../Schools/constentText';
 import { stateList, districtList,collegeType } from "../../../RegPage/ORGData";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
 const ReportL3 = () => {
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [RegTeachersState, setRegTeachersState] = React.useState('');
-    const [totalCount, setTotalCount] = useState([]);
     const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
       []
     );
   
     const [sdg, setsdg] = React.useState('');
-    const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
-    const [filteredData, setFilteredData] = useState([]);
-    const categoryData = ["All Categories", "ATL", "Non ATL"];
    
 
     const [downloadData, setDownloadData] = useState(null);
-    // console.log(downloadData, '1');
-    const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
-        useState(null);
+   
     const [chartTableData, setChartTableData] = useState([]);
     const [chartTableData2, setChartTableData2] = useState([]);
 
@@ -59,38 +47,23 @@ const ReportL3 = () => {
     "HS",
       "Non ATL",
       ];
-      // useEffect(() => {
-      //   setRegTeachersdistrict("");
-       
-      // }, [RegTeachersState]);
+     
       const newThemesList = ["All Themes", ...themesList];
-      const newstateList = ["All States", ...stateList];
           const collegeList = ["All Types", ...collegeType];
       
-      const fullStatesNames = newstateList;
-
-      const allDistricts = {
-        "All Districts": [...Object.values(districtList).flat()],
-        ...districtList,
-      };
+     
     const fiterDistData = [...districtList["Telangana"]];
          fiterDistData.unshift("All Districts");
 
     const csvLinkRef = useRef();
-    const csvLinkRefNotRegistered = useRef();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const currentUser = getCurrentUser('current_user');
-    const [registeredGenderChartData, setRegisteredGenderChartData] =
-        useState(null);
-    const [registeredChartData, setRegisteredChartData] = useState(null);
+  
     const [isDownloading, setIsDownloading] = useState(false);
     const [downloadComplete, setDownloadComplete] = useState(false);
     const [newFormat, setNewFormat] = useState('');
-    const [barChart1Data, setBarChart1Data] = useState({
-        labels: [],
-        datasets: []
-    });
+   
     
     const [downloadTableData, setDownloadTableData] = useState(null);
     const [downloadTableData2, setDownloadTableData2] = useState(null);
@@ -149,14 +122,7 @@ const ReportL3 = () => {
         }
     ];
     const teacherDetailsHeaders = [
-      // {
-      //   label: "UDISE CODE",
-      //   key: "organization_code",
-      // },
-      // {
-      //   label: "State",
-      //   key: "state",
-      // },
+    
       {
         label: "District",
         key: "district",
@@ -243,14 +209,7 @@ const ReportL3 = () => {
         label: "Idea Submission Status",
         key: "status",
       },
-      // {
-      //   label: "Teacher Verified Status",
-      //   key: "verifiedment",
-      // },
-      // {
-      //   label: "Teacher Verified At",
-      //   key: "verified_at",
-      // },
+     
       {
         label: "Novelty",
         key: "novelty",
@@ -287,10 +246,7 @@ const ReportL3 = () => {
         label: "Status",
         key: "finalstatus",
       },
-      // {
-      //   label: "Evaluator Count",
-      //   key: "eval_count",
-      // },
+     
     ];
  const handleExport = () => {
       const ws = XLSX.utils.json_to_sheet(studentDetailedReportsData);  // Converts the JSON data to a sheet
@@ -307,15 +263,11 @@ const ReportL3 = () => {
     }, []);
     useEffect(() => {
       if (studentDetailedReportsData.length > 0) {
-        console.log("Performing operation with the updated data.");
         handleExport();
-        // csvLinkRef.current.link.click();
       }
     }, [studentDetailedReportsData]);
     const handleDownload = () => {
-      // alert('hii');
       if (
-          // !RegTeachersState ||
           !RegTeachersdistrict ||
           !category ||
           !sdg
@@ -332,11 +284,9 @@ const ReportL3 = () => {
     
 
     const fetchData = () => {
-        // const distApi =
-        //     RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
+       
         const variables = encryptGlobal(
             JSON.stringify({
-                // state: RegTeachersState,
                 district: RegTeachersdistrict,
                 college_type: category,
                 theme: sdg,
@@ -391,10 +341,7 @@ const ReportL3 = () => {
                                     "Upload images/documents & video links related to your(total size limit : 10 MB)":item.prototype_image,
                                     "Upload images/documents & video links related to your Idea.(total size limit : 10 MB)":item.prototype_link,
                                     "Idea Submission Status":item.status,
-                                                                            // "Teacher Verified Status":item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
-                                                                            // "Teacher Verified At":item.verified_at ? moment(item.verified_at).format(
-                                                                            //   "DD-MM-YYYY"
-                                                                            // ) : '',
+                                                                           
                                                                             "Overall Score": formatValue(rating.overall_score),
                             "Novelty Score": formatValue(rating.novelty),
                             "Usefulness Score": formatValue(rating.useful),
@@ -421,12 +368,7 @@ const ReportL3 = () => {
                       }
                      
                       setIsDownloading(false);
-                            // csvLinkRef.current.link.click();
-                            // openNotificationWithIcon(
-                            //     'success',
-                            //     `L1 Status Detailed Reports Downloaded Successfully`
-                            // );
-                            // setIsDownloading(false);
+                          
             }
             })
             .catch((error) => {
@@ -437,20 +379,14 @@ const ReportL3 = () => {
 
  
 
-    // useEffect(() => {
-    //     if (filteredData.length > 0) {
-    //         setDownloadData(filteredData);
-    //     }
-    // }, [filteredData, downloadNotRegisteredData]);
+   
 
     useEffect(() => {
         if (downloadComplete) {
             setDownloadComplete(false);
-            // setRegTeachersState('');
 
             setRegTeachersdistrict('');
 
-            // setFilterType('');
             setsdg('');
         }
         const newDate = new Date();
@@ -473,7 +409,6 @@ const ReportL3 = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(res, '6');
 
                     const countData = {
                         overall: {
@@ -584,14 +519,12 @@ const ReportL3 = () => {
                     const total = chartTableData2.reduce(
                         (acc, item) => {
                             (acc.shortedlisted += item.shortedlisted),
-                                // (acc.state += item.state);
                                 (acc.winners += item.winners),
                                 (acc.runners += item.runners);
 
                             return acc;
                         },
                         {
-                            // state: 0,
                             shortedlisted: 0,
                             winners: 0,
                             runners: 0
@@ -602,7 +535,6 @@ const ReportL3 = () => {
                     array.push({ district: 'Total Count', ...total });
                     setChartTableData2(array);
 
-                    // setChartTableData2(chartTableData2);
                     setDownloadTableData2(chartTableData2);
                 }
             })
@@ -612,21 +544,7 @@ const ReportL3 = () => {
     };
     return (
         <div className="page-wrapper">
-        {/* <h4
-          className="m-2"
-          style={{
-            position: "sticky",
-            top: "70px",
-            zIndex: 1000,
-            padding: "10px",
-            backgroundColor: "white",
-            display: "inline-block",
-            color: "#fe9f43",
-            fontSize: "16px",
-          }}
-        >
-          Reports
-        </h4> */}
+      
         <div className="content">
           <div className="page-header">
             <div className="add-item d-flex">
@@ -647,16 +565,7 @@ const ReportL3 = () => {
           <Container className="RegReports userlist">
             <div className="reports-data mt-2 mb-2">
               <Row className="align-items-center mt-3 mb-2">
-                {/* <Col md={2}>
-                  <div className="my-2 d-md-block d-flex justify-content-center">
-                    <Select
-                      list={fullStatesNames}
-                      setValue={setRegTeachersState}
-                      placeHolder={"Select State"}
-                      value={RegTeachersState}
-                    />
-                  </div>
-                </Col> */}
+               
                 <Col md={2}>
                   <div className="my-2 d-md-block d-flex justify-content-center">
                     <Select
@@ -667,16 +576,7 @@ const ReportL3 = () => {
                     />
                   </div>
                 </Col>
-                {/* <Col md={2}>
-                  <div className="my-2 d-md-block d-flex justify-content-center">
-                    <Select
-                      list={filterOptions}
-                      setValue={setFilterType}
-                      placeHolder={"Select Filter"}
-                      value={filterType}
-                    />
-                  </div>
-                </Col> */}
+               
                 <Col md={2}>
                   <div className="my-2 d-md-block d-flex justify-content-center">
                     {RegTeachersState === "Tamil Nadu" ? (
@@ -907,19 +807,7 @@ const ReportL3 = () => {
                                                                                 ]
                                                                             }
                                                                         </td>
-                                    {/* <td
-                                      style={{
-                                        maxWidth: "150px",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                        color: "crimson",
-                                      }}
-                                    >
-                                      {item.state}
-                                    </td>
-                                    <td> {item.totalSubmited}</td>
-                                    <td>{item.accepted}</td>
-                                    <td>{item.rejected}</td> */}
+
                                    
                                   </tr>
                                 ))}

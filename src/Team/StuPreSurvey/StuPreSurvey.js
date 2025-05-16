@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-//import "./style.scss";
 import {
   Container,
   Row,
@@ -13,8 +12,6 @@ import {
   Input,
   Label,
 } from "reactstrap";
-// import { Button } from "../../stories/Button";
-import { useFormik } from "formik";
 import { URL, KEY } from "../../constants/defaultValues";
 import { logout } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
@@ -28,7 +25,6 @@ import getStart from "../../assets/img/survey1.png";
 import { useNavigate } from "react-router-dom";
 import Congo from "../../assets/img/chek.png";
 import { useDispatch, useSelector } from "react-redux";
-import { UncontrolledAlert } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 
@@ -44,9 +40,7 @@ const StuPreSurvey = () => {
     const [preSurveyStatus, setPreSurveyStatus] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const [answerResponses, setAnswerResponses] = useState([]);
-    //console.log(currentUser , "current user");
     const userID = currentUser?.data[0]?.user_id;
-    // console.log(userID , " user");
     const filterAnswers = (questionId) => {
         const data =
           answerResponses &&
@@ -58,10 +52,7 @@ const StuPreSurvey = () => {
           ? data[0].selected_option
           : "";
       };
-    // const handleStart = () => {
-    //     setShow(true);
-    //     scroll();
-    // };
+ 
     const handleStart = () => {
       setShow(true);
       const startElement = document.getElementById('start');
@@ -118,7 +109,6 @@ const StuPreSurvey = () => {
       };
 
       const handleOnSubmit = async (e) => {
-        //alert("hii");
         e.preventDefault();
     
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -142,7 +132,6 @@ const StuPreSurvey = () => {
           );
         } else {
           const quizSurveyIdParam = encryptGlobal(JSON.stringify(quizSurveyId));
-          //console.log(quizSurveyIdParam , "pre check");
           return await axios
             .post(
               `${URL.getPostSurveyList}/${quizSurveyIdParam}/responses?Data=${enParamDatas}`,
@@ -151,7 +140,6 @@ const StuPreSurvey = () => {
             )
             .then((preSurveyRes) => {
               if (preSurveyRes?.status == 200) {
-                // console.log(preSurveyRes, "aaaaa");
                 openNotificationWithIcon(
                   "success",
                   "Pre Survey Submitted Successfully..!!",
@@ -160,10 +148,8 @@ const StuPreSurvey = () => {
     
                 setCount(count + 1);
                 localStorage.setItem("stupresurveystatus", "COMPLETED");
-                // currentUser.data.data[0]=
                 navigate("/student-dashboard");
-                //window.location.reload();
-                // formik.resetForm();
+                
               }
             })
             .catch((err) => {
@@ -652,22 +638,7 @@ return (
                           <div >
                             <button
                               type="submit"
-                              // btnClass={
-                              //     !(
-                              //         formik.dirty &&
-                              //         formik.isValid
-                              //     )
-                              //         ? 'default'
-                              //         : 'primary'
-                              // }
-                              // disabled={
-                              //     !(
-                              //         formik.dirty &&
-                              //         formik.isValid
-                              //     )
-                              // }
-                              //   size="small"
-                              //   label="Submit"
+                             
                               className="btn btn-warning m-2"
                               onClick={(e) => handleOnSubmit(e)}
                             >

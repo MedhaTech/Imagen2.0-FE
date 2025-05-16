@@ -2,10 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge } from 'reactstrap';
-// import Layout from '../../Admin/Layout';
-import { BsPlusLg } from 'react-icons/bs';
-import { Button } from '../../stories/Button';
-// import { useHistory } from 'react-router-dom';
+
 import { getSchoolRegistationBulkUploadList } from '../../redux/actions';
 import { connect } from 'react-redux';
 import DataTable, { Alignment } from 'react-data-table-component';
@@ -46,7 +43,6 @@ const TicketsPage = (props) => {
         return () => clearTimeout(timeout);
     }, []);
 
-    // const history = useHistory();
     useEffect(() => {
         props.getSchoolRegistationBulkUploadActions('i');
         
@@ -279,7 +275,6 @@ const TicketsPage = (props) => {
             setarray([...dataarray]);
         }
     }, [props.schoolsRegistrationList]);
-    // console.log( props.schoolsRegistrationList," props.schoolsRegistrationList");
     const SchoolsData = {
         data: array,
         columns: [
@@ -324,12 +319,7 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.category,
                 width: '6rem'
             },
-            // {
-            //     name: 'Principal Name',
-            //     selector: 'principal_name',
-            //     cellExport: (row) => row.principal_name,
-            //     width: '15rem'
-            // },
+          
             {
                 name: 'Status',
                 cellExport: (row) => row.status,
@@ -359,7 +349,6 @@ const TicketsPage = (props) => {
                         >
                             <div className="btn btn-info  mx-2">Edit</div>
                         </div>
-                        {/* {disableBtn === false ? setDisableBtn(false) */}
                         <div
                             key={record}
                             onClick={() =>
@@ -370,7 +359,6 @@ const TicketsPage = (props) => {
                         >
                             <div className="btn btn-success ">Test</div>
                         </div>
-                        {/* : setDisableBtn(true)} */}
                         <div
                             key={record}
                             onClick={() =>
@@ -392,7 +380,6 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row, key) => key + 1,
-                // sortable: true,
                 width: '4rem'
             },
             {
@@ -427,12 +414,7 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.category,
                 width: '6rem'
             },
-            // {
-            //     name: 'Principal Name',
-            //     selector: 'principal_name',
-            //     cellExport: (row) => row.principal_name,
-            //     width: '15rem'
-            // },
+          
             {
                 name: 'Status',
                 cell: (row) => [
@@ -520,12 +502,7 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.category,
                 width: '6rem'
             },
-            // {
-            //     name: 'Principal Name',
-            //     selector: 'principal_name',
-            //     cellExport: (row) => row.principal_name,
-            //     width: '15rem'
-            // },
+         
             {
                 name: 'Status',
                 cell: (row) => [

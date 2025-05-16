@@ -2,33 +2,23 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
-// import Layout from '../../Admin/Layout';
 import { useNavigate} from 'react-router-dom';
 import { Container, Row, Card, CardBody, CardText, Col } from 'reactstrap';
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import { Button } from '../../stories/Button';
 import { useDispatch } from 'react-redux';
-import DataTable, { Alignment } from 'react-data-table-component';
-import DataTableExtensions from 'react-data-table-component-extensions';
+
 import 'react-data-table-component-extensions/dist/index.css';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import DoughnutChart from '../../Teacher/Dashboard/TeamsProgDD';
 
-// import {
-//     getStudentDashboardStatus,
-//     getStudentDashboardTeamProgressStatus
-// } from '../../redux/studentRegistration/actions';
+
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import logout from '../../assets/img/logout.png';
-import { studentResetPassword } from '../../Teacher/store/teacher/actions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { Table} from "react-bootstrap";
-import { MaskedEmail,MaskedMobile } from '../../RegPage/MaskedData';
 const InstProfile = (props) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -38,7 +28,6 @@ const InstProfile = (props) => {
     const dispatch = useDispatch();
    
     const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
-    // console.log(StudentsDaTa,"111");
   
     var teamId = [];
     teamId.push({
@@ -101,7 +90,6 @@ const InstProfile = (props) => {
         };
         axios(config)
             .then(function (response) {
-              // console.log(response,"res");
                 if (response.status === 202) {
                     openNotificationWithIcon(
                         'success',
@@ -114,38 +102,7 @@ const InstProfile = (props) => {
             });
     };
    
-    const mentorsData = () => {
-        const mentorsParam = encryptGlobal(
-            JSON.stringify({
-                team_id: StudentsDaTa.team.team_id
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/teams/teamMentor?Data=${mentorsParam}`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                   
-                    setData(response?.data?.data[0]);
-                    setButton(response.data.data[0].moc_name);
-                    // if (response.data.data[0].moc_name !== null) {
-                    //     setshowMentorCard(true);
-                    // }
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
+  
    
 
     const handleEdit = () => {
@@ -157,7 +114,6 @@ const InstProfile = (props) => {
     return (
         <div className="page-wrapper">
         <div className="content">
-            {/* <Container className="dynamic-form"> */}
                 <Row>
                     <div className="col-6">
                         <h4 className="mt-2">Institution Profile - <span style={{color:"#17A2B8"}}>{StudentsDaTa?.full_name}</span></h4>
@@ -181,7 +137,6 @@ const InstProfile = (props) => {
                         <button
                           className='btn btn-secondary'
                             onClick={handleViewBack}
-                            // onClick={() => navigate(-1)}
                         >
                         Back
                         </button>
@@ -220,36 +175,7 @@ const InstProfile = (props) => {
                 <td><b>College Name</b></td>
                 <td>{StudentsDaTa?.college_name}</td>
               </tr>
-          {/* {StudentsDaTa?.college_type !== "Other" ? (
-            <tr>
-              <td><b>College Name</b></td>
-              <td>{StudentsDaTa?.college_name}</td>
-            </tr>
-          ) : (
-            <>
-              <tr>
-                <td><b>College Name</b></td>
-                <td>Other</td>
-              </tr>
-              <tr>
-                <td><b>Other College Name</b></td>
-                <td>{StudentsDaTa?.college_name}</td>
-              </tr>
-            </>
-          )} */}
-
-          {/* <tr>
-            <td><b>Roll Number Provided by the College</b></td>
-            <td>{StudentsDaTa?.roll_number}</td>
-          </tr>
-          <tr>
-            <td><b> Branch/Group/Stream</b></td>
-            <td>{StudentsDaTa?.branch}</td>
-          </tr>
-          <tr>
-            <td><b>APAAR ID</b></td>
-            <td>{StudentsDaTa?.id_number ? StudentsDaTa?.id_number : "-"}</td>
-          </tr> */}
+         
         </tbody>
       </Table>
     </CardBody>
@@ -271,7 +197,6 @@ const InstProfile = (props) => {
           
               
               
-            {/* </Container> */}
             </div>
             </div>
     );

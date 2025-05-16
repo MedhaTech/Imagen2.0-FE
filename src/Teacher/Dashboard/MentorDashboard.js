@@ -2,9 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect , useRef, useState } from 'react';
 import CountUp from "react-countup";
-import {
-  RotateCcw,
-} from "feather-icons-react/build/IconComponents";
+
 import { Link } from "react-router-dom";
 import VideoModal from '../../HelpVideo/VideoModal';
 import { getCurrentUser } from '../../helpers/Utils';
@@ -16,25 +14,16 @@ import { FaUserGraduate } from 'react-icons/fa';
 import { FaPaperPlane } from 'react-icons/fa';
 import { FaChalkboardTeacher } from 'react-icons/fa'; 
 import { FaRoute } from 'react-icons/fa';
-import { CheckCircle } from "react-feather";
-import { FaPlay } from 'react-icons/fa';
 import LatestNews from './LatestNews';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Tooltip } from "react-bootstrap";
 import { Eye } from "react-feather";
 import { FaBook } from 'react-icons/fa';
 import { FaLifeRing } from 'react-icons/fa';
-import { FaPoll } from 'react-icons/fa';
-import { FaCheckCircle } from 'react-icons/fa';
-import { FaWhatsapp } from 'react-icons/fa';
 import TeamsProgDD from './TeamsProgDD';
-import { GiAchievement } from 'react-icons/gi';
 import { useReactToPrint } from 'react-to-print';
 import TCertificate from '../Certificate/TCertificate';
-import SchoolTeamPDF from './SchoolTeamPDF';
 import { Modal } from 'react-bootstrap';
-import Swal from 'sweetalert2/dist/sweetalert2';
-import logout from '../../assets/img/support.png';
 
 const GreetingModal = (props) => {
   
@@ -47,7 +36,6 @@ const GreetingModal = (props) => {
           onHide={props.handleClose}
           backdrop={true}
       >
-          {/* <Modal.Header closeButton></Modal.Header> */}
 
           <Modal.Body>
               <figure>
@@ -55,8 +43,7 @@ const GreetingModal = (props) => {
                   <div className="modal-body custom-modal-body">
                                     <div style={{ width: '100%', height: '400px' }}>
                       <iframe
-                          // src={props.popLink.replace("youtu.be/", "www.youtube.com/embed/")}
-                          // src={props.popLink.replace("youtu.be/", "www.youtube.com/embed/").split("?")[0]}
+                         
                           src={props.popLink
                             .replace("youtu.be/", "www.youtube.com/embed/")
                             .replace("watch?v=", "embed/")
@@ -91,39 +78,28 @@ const MentorDashboard = () => {
 
 
   const[state,setState]=useState("");
-  // console.log(state,"sss");
 
 /////////////////NEW CODE//////////////////////////////////
 
-  const renderRefreshTooltip = (props) => (
-    <Tooltip id="refresh-tooltip" {...props}>
-      Refresh
-    </Tooltip>
-  );
+ 
   const renderViewTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
       Redirect
     </Tooltip>
   );
-  const handleRefresh = () => {
-    window.location.reload();
-  };
+ 
 
   const navigate = useNavigate();
   const [teamCountLoading, setTeamCountLoading] = useState(true);
   const [stuCountLoading, setStuCountLoading] = useState(true);
   const [ideaCountLoading, setIdeaCountLoading] = useState(true);
-  const [teacCourseLoading, setTeacCourseLoading] = useState(true);
-  const [teacPostSLoading, setTeacPostSLoading] = useState(true);
-  const [whatsappLink, setWhatsappLink] = useState('');
+ 
 
-  const [message, setMessage] = useState('');
   
   useEffect(() => {
     
     const newListParam = encryptGlobal(
       JSON.stringify({
-        // state:currentUser.data[0]?.state,
         role:"Institution"
       })
   );
@@ -139,7 +115,6 @@ const MentorDashboard = () => {
     axios(config)
         .then(function (res) {
             if (res.status === 200 && res.data.data[0]?.on_off === '1') {
-              console.log(res,"res");
               setShowsPopup(true);
               setPopType(res?.data?.data[0]?.type);
 
@@ -162,13 +137,7 @@ const MentorDashboard = () => {
   const redirectToTeams = () => {
     navigate(`/mentorteams`);
   };
-  const redirectToCourse = () => {
-    navigate(`/mentorcourse/1`);
-  };
-  const redirectToPost = () => {
-    navigate(`/mentorpostsurvey`);
-  };
-  
+ 
   const currentUser = getCurrentUser('current_user');
 
 
@@ -177,10 +146,7 @@ const MentorDashboard = () => {
         mentorTeamsCount();
         mentorIdeaCount();
         mentorStudentCount();
-        // mentorcoursepercentage();
-        // mentorpostsurvey();
-        // fetchwhatsapplink();
-        // scroll();
+       
        
     }
   }, [currentUser?.data[0]?.user_id]);
@@ -240,7 +206,6 @@ const MentorDashboard = () => {
       axios(config)
           .then(function (response) {
               if (response.status === 200) {
-                // console.log(response, 'idea count');
 
                   setIdeaCount(response.data.data[0].idea_count);
                   setIdeaCountLoading(false);
@@ -278,117 +243,12 @@ const MentorDashboard = () => {
               console.log(error);
           });
   };
-  const mentorcoursepercentage = () => {
-      const corseApi = encryptGlobal(
-          JSON.stringify({
-              user_id: currentUser?.data[0]?.user_id
-          })
-      );
-      var config = {
-          method: 'get',
-          url:
-              process.env.REACT_APP_API_BASE_URL +
-              `/dashboard/mentorpercentage?Data=${corseApi}`,
-          headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-              Authorization: `Bearer ${currentUser.data[0]?.token}`
-          }
-      };
-      axios(config)
-          .then(function (response) {
-              if (response.status === 200) {
-                  const per = Math.round(
-                      (response.data.data[0].currentProgress /
-                          response.data.data[0].totalProgress) *
-                          100
-                  );
-                  setCoursepercentage(per);
-                  setTeacCourseLoading(false);
-              }
-          })
-          .catch(function (error) {
-              console.log(error);
-          });
-  };
-  const mentorpostsurvey = () => {
-    const postsurveyApi = encryptGlobal(
-        JSON.stringify({
-            user_id: currentUser?.data[0]?.user_id
-        })
-    );
-    var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/mentorSurveyStatus?Data=${postsurveyApi}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
-    };
-    axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-                // console.log(response);
-                const po = (response.data.data[0].postSurvey);
-                setTeacPostSurvey(po);
-                setTeacPostSLoading(false);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    };
-    //////whatsapp///// 
-    const fetchwhatsapplink = () => {
-      // Function to fetch the WhatsApp link from the API
-      const statenameApi = encryptGlobal(
-        JSON.stringify({
-          state_name : currentUser?.data[0]?.state 
-        })
-      );
-      var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/whatappLink?Data=${statenameApi}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
-        };
-        axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-                // console.log(response);
-                setWhatsappLink(response.data.data[0].whatapp_link);
-                setMessage(response.data.data[0].mentor_note);
-                // console.log(response.data.data[0].mentor_note,"message");
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        }
-      );
-    };
-      
+ 
     /////////videoModal////////////////////
     const [video , setVideo] = useState("");
-    //const [videoName , setVideoName] = useState("");
     const [show , setShow] = useState(false);
 
-    const renderTooltip = (props) => (
-      <Tooltip id="pdf-tooltip" {...props} >
-        Watch Demo
-      </Tooltip>
-    );
-    const handleShow = (i) => {
-      setVideo(vimeoId[i]);
-      setShow(true);
-    };
+  
     const vimeoId = ["https://www.youtube.com/embed/sT3I44RzZAI?si=W92OEckd0iS7rHvZ",
         "https://www.youtube.com/embed/dWpG-TMyMrQ?si=J2NcbBCjxeelG2Us",
         "https://www.youtube.com/embed/siaE-HPVvk0?si=GnJZoZgwLjGMmco7",
@@ -399,20 +259,9 @@ const MentorDashboard = () => {
 
 
 
-  const handleCertificateDownload = () =>{
-    handlePrintCertificate();
-  };
+ 
 
-  // const handleNavigation = () => {
-  //   navigate("/instructions", { state: { instruction: message } });
-  // };
-
-  const scroll = () => {
-        const section = document.querySelector('#start');
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-  
-// console.log(message,"m");
+ 
     
   const componentRef = useRef();
   const handlePrintCertificate = useReactToPrint({
@@ -422,22 +271,7 @@ const MentorDashboard = () => {
     setShowsPopup(false);
 };
 
-const handleWhatsapp = () => {
-  const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-          confirmButton: 'btn btn-submit',
-      },
-      buttonsStyling: false
-  });
 
-  swalWithBootstrapButtons
-      .fire({
-          title: "<h4>Looking for Support?</h4>",
-          text: "Pls contact your State Program Officer.",
-          imageUrl: `${logout}`,
-          confirmButtonText: 'Ok',
-      });
-  };
 
 
 
@@ -473,29 +307,9 @@ poptype={poptype}
               <h6>here&apos;s what&apos;s happening with your Youth for Social Impact 2025 journey.</h6>
             </div>
             <div className="d-flex align-items-center">
-              {/* <div className="action-table-data">
-                <div className="edit-delete-action">
-                  <OverlayTrigger placement="top" overlay={renderTooltip}>
-                    <Link
-                        to="#"
-                        className="me-2 p-2"
-                        onClick={() => handleShow(5)}
-                        {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                        
-                    >
-                      <FaPlay  style={{color:"red"}} />
-                    </Link>
-                  </OverlayTrigger>
-                </div>
-              </div> */}
-              {/* <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
-                <Link data-bs-toggle="tooltip" data-bs-placement="top" onClick={handleRefresh} >
-                  <RotateCcw className="feather feather-rotate-ccw feather-16" />
-                </Link>
-              </OverlayTrigger> */}
+             
             </div>
           </div>
-          {/* Teacher dashboard stats */}
           <div className="row">
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash2 w-100">
@@ -593,106 +407,20 @@ poptype={poptype}
                 </div>
               </div>
             </div>
-            {/* Row two other features */}
-            {/* <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-count" onClick={redirectToPost} >
-                  <div className="dash-widgetcontent">
-                    {teacPostSLoading ? ( 
-                        <Loader />
-                      ) : ideaCount != teamsCount ? (
-                        <>
-                          <h5>All teams yet to submit ideas for Post-Survey to enable</h5>
-                        </>
-                      ) : (teacPostSurvey === "COMPLETED"? (
-                        <>
-                          
-                          <h4>Post Survey</h4>
-                          <h5>Submitted <CheckCircle size={15} color="white" /></h5>
-                        </>
-                      ):(
-                        <>
-                          <h4>Post Survey</h4>
-                          <h5>Click here to complete</h5>
-                        </>
-                      ))}
-                  </div>
-                <div className="dash-imgs" >
-                  <FaPoll />
-                </div>
-              </div>
-            </div> */}
-            {/* <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              <div className="dash-count das1">
-                      {teacPostSurvey != "COMPLETED" ? (
-                          <>
-                          <div className="dash-counts">
-                            <h4>Get Certificate</h4>
-                            <h5>After taking Post survey</h5>
-                          </div>
-                          <div className="dash-imgs" >
-                              <GiAchievement size={30} />
-                          </div>
-                          </>
-                        ):(
-                          <>
-                            <div className="dash-counts">
-                              <h4>Congrats</h4>
-                              <h5>Certificate enables soon</h5>
-                            </div>
-                            <div className="dash-imgs" 
-                            >
-                                <GiAchievement size={30} />
-                            </div>
-                          </>
-                        )}
-                  
-              </div>
-            </div> */}
-            {/* <div className="col-xl-6 col-sm-6 col-12 d-flex">
-              <div className="dash-count das2">
-                <div className="dash-counts">
-                  <h4>Teams Progress</h4>
-                  <h5>& login&apos;s - check here</h5>
-                </div>
-                <SchoolTeamPDF />
-              </div>
-            </div>
-            <div className="col-xl-6 col-sm-6 col-12 d-flex">
-              <div className="dash-count das3">
-                <div className="dash-counts">
-                  <h4>Join Whatsapp</h4>
-                  <h5>Support here</h5>
-                </div>
-                <div className="dash-imgs" >
-                {whatsappLink === null ? (
-                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" >
-                    <FaWhatsapp onClick={handleWhatsapp} style={{color:"white"}}/>
-                  </a>
-                ):
-                (
-                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer" >
-                      <FaWhatsapp style={{color:"white"}}/>
-                    </a>
-                )}
-                </div>
-              </div>
-            </div> */}
+           
+          
+           
           </div>
-          {/* Quicklinks , Latest News */}
           <div className="row">
-            {/* Quick links */}
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
                   <h4 className="card-title mb-0">YFSI Road Map </h4>
                   <div className="dropdown" 
-                  // onClick={handleNavigation}
                    >
-                    {/* <Link to="#"  className="view-all d-flex align-items-center"> */}
                       <span className="ps-2 d-flex align-items-center">
                         <FaRoute size={30} />
                       </span>
-                    {/* </Link> */}
                   </div>
                 </div>
                 <div className="card-body">
@@ -716,23 +444,7 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          {/* <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(0)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td> */}
+                        
                           <td>
                             {teamCountLoading ? ( 
                                 <Loader />
@@ -767,153 +479,9 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
+
+                        
                         </tr>
-                        {/* <tr>
-                          <td>
-                            <div className="product-info">
-                              <Link
-                                to={"/mentorcourse/1"}
-                                className="product-img"
-                              >
-                                <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"#0e4b99"}} />
-                              </Link>
-                              <div className="info">
-                                <Link to={"/mentorcourse/1"}>
-                                  <h4>Teacher Course</h4>
-                                </Link>
-                                <p className="dull-text">Know more about your role</p>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(1)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            {teacCourseLoading ? ( 
-                                <Loader />
-                              ) : ((coursepercentage === 0) ?  (
-                              <>
-                                <span
-                                  className={"badge badge-linedangered"}
-                                  onClick={redirectToCourse}
-                                >
-                                  Not Started
-                                </span>
-                              </>
-                            ) : ((coursepercentage != 100) ? (
-                              <>
-                                <span
-                                  className={"badge badge-bgdanger"}
-                                  onClick={redirectToCourse}
-                                >
-                                  InProgress
-                                </span>
-                              </>
-                            ):(
-                              <>
-                                <span
-                                  className={"badge badge-linesuccess"}
-                                >
-                                  Completed
-                                </span>
-                              </>
-                            )))}
-                          </td>
-                          <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/mentorcourse/1"} >
-                                    <Eye className="feather-view" />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td>
-                        </tr> */}
-                        <tr>
-                          {/* <td>
-                            <div className="product-info">
-                              <Link
-                                to={"/mentorpostsurvey"}
-                                className="product-img"
-                              >
-                                <FaPoll size={30} style={{marginRight : "10px", color:"black"}} />
-                              </Link>
-                              <div className="info">
-                                <Link to={"/mentorpostsurvey"}>
-                                  <h4>Post Survey</h4>
-                                </Link>
-                                <p className="dull-text">Complete survey & Get Certificate</p>
-                              </div>
-                            </div>
-                          </td> */}
-                          {/* <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(2)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td> */}
-                          {/* <td>
-                            {teacPostSLoading ? ( 
-                                <Loader />
-                              ) : teacPostSurvey != "COMPLETED" ?  (
-                              <>
-                                <span
-                                  className={"badge badge-linedangered"}
-                                  onClick={redirectToPost}
-                                >
-                                  Pending
-                                </span>
-                              </>
-                            ) : (
-                              <>
-                                <span
-                                  className={"badge badge-linesuccess"}
-                                >
-                                  Completed
-                                </span>
-                              </>
-                            )}
-                          </td> */}
-                          {/* <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/mentorpostsurvey"} >
-                                    <Eye className="feather-view" />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td> */}
-                        </tr>
-                        {/* <hr/> */}
                         <tr>
                           <td>
                             <div className="product-info">
@@ -931,23 +499,7 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          {/* <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(3)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td> */}
+                         
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
@@ -984,23 +536,7 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          {/* <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(4)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td> */}
+                        
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
@@ -1027,12 +563,10 @@ poptype={poptype}
                 </div>
               </div>
             </div>
-            {/* Latest News */}
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <LatestNews />
             </div>
           </div>
-          {/* Teams Progress */}
           <div>
             <TeamsProgDD  user={currentUser?.data}  setIdeaCount={setIdeaCount}/>
           </div>

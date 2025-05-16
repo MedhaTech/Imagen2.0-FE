@@ -1,24 +1,16 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
-import { Descriptions, Input } from 'antd';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-// import { Col, Row } from 'reactstrap';
 import { Button } from '../../stories/Button';
-// import Layout from '../Layout';
-// import {
-//     deleteTempMentorById,
-//     teacherResetPassword
-// } from '../store/admin/actions';
+
 import { Col, Container, Row, CardBody, CardText } from 'reactstrap';
-// import './dashboard.scss';
-// import { useHistory } from 'react-router-dom';
+
 import jsPDF from 'jspdf';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import { URL, KEY } from '../../constants/defaultValues';
-import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import logout from '../../assets/img/logout.png';
@@ -33,7 +25,6 @@ import {
     getNormalHeaders,
     openNotificationWithIcon
 } from '../../helpers/Utils';
-import { Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
@@ -41,10 +32,7 @@ const Dashboard = () => {
     // const history = useHistory();
     const dispatch = useDispatch();
     const pdfRef = React.useRef(null);
-    const inputField = {
-        type: 'text',
-        className: 'defaultInput'
-    };
+   
     const navigate = useNavigate();
     const Mentor = JSON.parse(localStorage.getItem('mentor'));
 
@@ -58,18 +46,9 @@ const Dashboard = () => {
     const [mentorTeam, setMentorTeam] = useState([]);
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
-    const [isideadisable, setIsideadisable] = useState(false);
     
 
-    const handleOnChange = (e) => {
-        // we can give diescode as input //
-        //where organization_code = diescode //
-        localStorage.removeItem('organization_code');
-        setCount(0);
-        setDiesCode(e.target.value);
-        setOrgData({});
-        setError('');
-    };
+ 
     useEffect( () => {
         // where list = diescode //
         //where organization_code = diescode //
@@ -116,45 +95,7 @@ const Dashboard = () => {
             });
     }
 
-    const handleSearch = (e) => {
-        //where we can search through diescode //
-        // we can see Registration Details & Mentor Details //
-
-        const body = JSON.stringify({
-            organization_code: diesCode
-        });
-        var config = {
-            method: 'post',
-            url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-            },
-            data: body
-        };
-
-        axios(config)
-            .then(async function (response) {
-                if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
-                    setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                    setError('');
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
-                    }
-                }
-            })
-            .catch(function (error) {
-                if (error?.response?.data?.status === 404) {
-                    setError('Entered Invalid Unique Code');
-                }
-                setOrgData({});
-            });
-        e.preventDefault();
-    };
+  
 
     async function getMentorIdApi(id) {
         // Mentor Id  Api//
@@ -210,7 +151,6 @@ const Dashboard = () => {
             }
         });
     };
-// console.log(orgData,"org");
     const handleresetpassword = (data) => {
         //  here we can reset the password as disecode //
         const swalWithBootstrapButtons = Swal.mixin({
@@ -258,38 +198,11 @@ const Dashboard = () => {
     const viewDetails = () => {
         // where we can see all details //
         // where orgData = orgnization details , Mentor details //
-        // history.push({
-        //     pathname: '/admin/institution/View-More-details',
-        //     data: orgData
-        // });
+       
         navigate("/mentor-details");
         localStorage.setItem('orgData', JSON.stringify(orgData));
     };
-    // useEffect(() => {
-    //     const popParam = encryptGlobal('2');
-    //     var config = {
-    //         method: 'get',
-    //         url: process.env.REACT_APP_API_BASE_URL + `/popup/${popParam}`,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Accept: 'application/json',
-    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
-    //         }
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 200) {
-    //                 if (response.data.data[0]?.on_off === '1') {
-    //                     setIsideadisable(true);
-    //                 } else {
-    //                     setIsideadisable(false);
-    //                 }
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }, []);
+   
     const MentorsData = {
         data: mentorTeam,
         columns: [
@@ -311,81 +224,10 @@ const Dashboard = () => {
                 center: true,
                 width: '20%'
             },
-            // {
-            //     name: 'Idea Sub Status',
-            //     selector: (row) => row.ideaStatus,
-            //     center: true,
-            //     width: '25%'
-            // }
-            // {
-            //     name: 'Actions',
-            //     cell: (params) => {
-            //         return [
-            //             <>
-            //                 {params.ideaStatus == 'SUBMITTED' && params.evaluation_status === null && (
-            //                     <Button
-            //                         key={params}
-            //                         className={
-            //                             isideadisable
-            //                                 ? `btn btn-success btn-lg mr-5 mx-2`
-            //                                 : `btn btn-lg mr-5 mx-2`
-            //                         }
-            //                         label={'REVOKE'}
-            //                         size="small"
-            //                         shape="btn-square"
-            //                         onClick={() =>
-            //                             handleRevoke(
-            //                                 params.challenge_response_id,
-            //                                 params.ideaStatus
-            //                             )
-            //                         }
-            //                         disabled={!isideadisable}
-            //                     />
-            //                 )}
-            //             </>
-            //         ];
-            //     },
-            //     width: '20%',
-            //     center: true
-            // }
+
         ]
     };
-    const handleRevoke = async (id, type) => {
-        // where id = challenge response id //
-        // here we  can see the Revoke button when ever idea is submitted //
-        // where type = ideaStatus //
-        let submitData = {
-            status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
-        };
-        const handleRevPram = encryptGlobal(JSON.stringify(id));
-
-        var config = {
-            method: 'put',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                '/challenge_response/updateEntry/' +
-                handleRevPram,
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`
-            },
-            data: submitData
-        };
-        axios(config)
-            .then(async function (response) {
-                if (response.status === 200) {
-                    openNotificationWithIcon(
-                        'success',
-                        'Idea Submission Status Successfully Update!',
-                        ''
-                    );
-                    await getMentorIdApi(mentorId);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
+  
 
     const handleAlert = (id) => {
         // where id = mentor.userid //
@@ -443,59 +285,13 @@ const Dashboard = () => {
                                 style={{ flex: 1, overflow: 'auto' }}
                                 className="bg-white rounded col-lg-12 disc-card-search col-12"
                             >
-                                {/* <h2 className="mt-3">
-                                    Search Registration Details
-                                </h2> */}
-                                {/* <Row className="text-center justify-content-md-center my-4">
-                                    <Col md={9} lg={12}>
-                                        <Row>
-                                            <Col md={9} className="my-auto">
-                                                <Input
-                                                    {...inputField}
-                                                    id="organization_code"
-                                                    onChange={(e) =>
-                                                        handleOnChange(e)
-                                                    }
-                                                    value={diesCode}
-                                                    name="organization_code"
-                                                    placeholder="Enter Unique Code"
-                                                    className="w-100 mb-3 mb-md-0"
-                                                    style={{
-                                                        borderRadius: '60px',
-                                                        padding: '9px 11px'
-                                                    }}
-                                                />
-                                            </Col>
-                                            <Col md={3} className="partner-btn">
-                                                <Button
-                                                    label={'Search'}
-                                                    btnClass="primary tex-center my-0 py-0 mx-3 px-3"
-                                                    style={{
-                                                        fontSize: '15px',
-                                                        height: '35px'
-                                                    }}
-                                                    size="small"
-                                                    onClick={(e) =>
-                                                        handleSearch(e)
-                                                    }
-                                                />
-                                            </Col>
-                                        </Row>
-                                    </Col>
-                                </Row> */}
-
+                               
+                              
                                 {orgData &&
                                 orgData?.organization_name &&
                                 orgData?.mentor !== null ? (
                                     <>
-                                        {/* <div className="mb-5 p-3" >  */}
-                                        {/* <div
-                                                className="container-fluid card shadow border" ref={pdfRef}
-                                                // style={{
-                                                //     width: '300px',
-                                                //     height: '300px'
-                                                // }}
-                                            > */}
+                                       
                                         <div ref={pdfRef}>
                                             <div className="row">
                                                 <div className="col">
@@ -507,54 +303,7 @@ const Dashboard = () => {
                                             </div>
                                             <div className="row ">
                                                 <div className="col">
-                                                    {/* <ul className="p-0">
-                                                            <li className="d-flex justify-content-between">
-                                                                School:
-                                                                <p>
-                                                                    {
-                                                                        orgData.organization_name
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                City:{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData.city
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                District:{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData.district
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                Mentor Name:{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.full_name
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                Mentor Mobile No
-                                                                :{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.user
-                                                                            ?.username
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                        </ul> */}
+                                                   
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
@@ -828,8 +577,7 @@ const Dashboard = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* </div> */}
-                                        {/* <div className="d-flex justify-content-between"> */}
+                                      
                                         <div className="d-flex justify-content-between flex-column flex-md-row">
                                             <button
                                                 className="btn  rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
@@ -837,7 +585,6 @@ const Dashboard = () => {
                                                     backgroundColor: '#ffcb34'
                                                 }}
                                                 onClick={handleEdit}
-                                                //className="btn btn-warning btn-lg  px-4"
                                             >
                                                 Edit
                                             </button>
@@ -887,8 +634,7 @@ const Dashboard = () => {
                                             </button>
                                         </div>
 
-                                        {/* <div className="mb-5 p-3"> */}
-                                        {/* <div className="container-fluid card shadow border"> */}
+                                      
                                         <div>
                                             <div className="row">
                                                 <div className="col">
@@ -913,7 +659,6 @@ const Dashboard = () => {
                                                 </DataTableExtensions>
                                             </div>
                                         </div>
-                                        {/* </div> */}
                                     </>
                                 ) : (
                                     count != 0 && (

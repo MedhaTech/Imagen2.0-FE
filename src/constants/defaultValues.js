@@ -22,7 +22,6 @@ export const URL = {
   getAdminEvaluator: process.env.REACT_APP_API_BASE_URL + '/evaluators',
   getNotificationsList:
   process.env.REACT_APP_API_BASE_URL + '/notifications/tome',
-  // getStudentById: process.env.REACT_APP_API_BASE_URL + '/students/',
   updateStudentStatus: process.env.REACT_APP_API_BASE_URL + "/students",
   getChallengeQuestions: process.env.REACT_APP_API_BASE_URL + "/challenge",
   getChallengeSubmittedResponse:
@@ -44,8 +43,7 @@ export const URL = {
   uploadFile:
     process.env.REACT_APP_API_BASE_URL + "/challenge_response/fileUpload",
   getStudentBadges: process.env.REACT_APP_API_BASE_URL + "/students/",
-  // getStudentDashboardStatusCommonById:
-  // process.env.REACT_APP_API_BASE_URL + '/dashboard/studentStats/',
+ 
   getPostSurveyList: `${process.env.REACT_APP_API_BASE_URL}/quizSurveys`,
   getStudentPreSurveyList: `${process.env.REACT_APP_API_BASE_URL}/quizSurveys/2`,
   getStatesOnly: process.env.REACT_APP_API_BASE_URL + "/organizations/states",
@@ -109,7 +107,6 @@ export const URL = {
     process.env.REACT_APP_API_BASE_URL + "/discussionForums/",
   getMentorSupportTicketResponsesById:
     process.env.REACT_APP_API_BASE_URL + "/supportTicketsReply",
-  // getPostSurveyList: `${process.env.REACT_APP_API_BASE_URL}/quizSurveys`,
   createMultiStudent:
     process.env.REACT_APP_API_BASE_URL + "/students/bulkCreateStudent",
   adminLogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",

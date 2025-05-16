@@ -11,13 +11,10 @@ import { FaNewspaper } from "react-icons/fa";
 import { FaLink } from "react-icons/fa";
 import { FaDownload } from "react-icons/fa";
 
-// import ImageWithBasePath from "../../core/img/imagewithbasebath";
 
 function LatestNews() {
   const currentUser = getCurrentUser("current_user");
-  //const [newsRes, setNewRes] = useState({});
   const [news, setNews] = useState([]);
-  // const containerRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
   const togglePause = () => {
     setIsPaused(!isPaused);
@@ -98,10 +95,8 @@ function LatestNews() {
                     >
                       {item?.details}
                     </span>
-                    {/* {item?.details} */}
                     {item?.new_status != 0 && item?.new_status != "" ? (
                       <img
-                        // className="m-2 p-2"
                         src={newIcon}
                         style={{
                           width: "40px",
@@ -119,9 +114,7 @@ function LatestNews() {
                         rel="noopener noreferrer"
                       >
                         <FaDownload size={20} style={{ color: "orange" }} />
-                        {/* <button className="btn btn-warning p-2 ">
-                                                    File
-                                                </button> */}
+                      
                       </a>
                     ) : (
                       ""
@@ -135,9 +128,7 @@ function LatestNews() {
                         target="_blank"
                       >
                         <FaLink size={20} style={{ color: "green" }} />
-                        {/* <button className="btn btn-success  ">
-                                                        Url
-                                                </button> */}
+                       
                       </a>
                     ) : (
                       ""

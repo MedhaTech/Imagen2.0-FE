@@ -2,32 +2,18 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../../redux/studentRegistration/actions";
-import { ArrowRight } from "feather-icons-react/build/IconComponents";
+
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
-// import '../reports.scss';
 import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-import { categoryValue } from "../../Schools/constentText";
 import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList, collegeType } from "../../../RegPage/ORGData";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMale,
-  faFemale,
-  faChalkboardTeacher,
-} from "@fortawesome/free-solid-svg-icons";
+
 import ReactApexChart from "react-apexcharts";
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 
@@ -39,33 +25,20 @@ const TeacherProgressDetailed = () => {
   const [isDownload, setIsDownload] = useState(false);
   const categoryList = ["All Types", ...collegeType];
   const [chartTableData, setChartTableData] = useState([]);
-  const [chartTableData1, setChartTableData1] = useState([]);
   const [filterType, setFilterType] = useState("");
 
   const filterOptions = ["Registered", "Not Registered"];
-  const newstateList = ["All States", ...stateList];
-  // const categoryData =
-  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
-  const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
-    []
-  );
-  const [doughnutChartData, setDoughnutChartData] = useState(null);
+ 
+ 
   const currentUser = getCurrentUser("current_user");
   const csvLinkRef = useRef();
   const csvLinkRefTable = useRef();
   const dispatch = useDispatch();
-  const [combinedArray, setCombinedArray] = useState([]);
   const [downloadTableData, setDownloadTableData] = useState([]);
   const [newFormat, setNewFormat] = useState("");
-  const [atl, setAtl] = useState("");
-  const [nonAtl, setNonAtl] = useState("");
+ 
   const [series1, setseries1] = useState([]);
-  const [series2, setseries2] = useState([]);
-  const [series3, setseries3] = useState([]);
-  const [series4, setseries4] = useState([]);
-  const [series5, setseries5] = useState([]);
-  const [series6, setseries6] = useState([]);
-  const [series7, setseries7] = useState([]);
+ 
   const [registeredChartData, setRegisteredChartData] = useState(null);
   const [downloadData, setDownloadData] = useState(null);
   const csvLinkRefNotRegistered = useRef();
@@ -76,16 +49,7 @@ const TeacherProgressDetailed = () => {
     labels: [],
     datasets: [],
   });
-  const [barChart3Data, setBarChart3Data] = useState({
-    labels: [],
-    datasets: [],
-  });
-  const [barChart2Data, setBarChart2Data] = useState({
-    labels: [],
-    datasets: [],
-  });
-  const fullStatesNames = newstateList;
-  // const fiterDistData = districtList["Telangana"];
+ 
   const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
 
@@ -197,31 +161,7 @@ const TeacherProgressDetailed = () => {
    
   ];
 
-  // const chartOption = {
-  //   maintainAspectRatio: false,
-  //   legend: {
-  //     position: "bottom",
-  //     labels: {
-  //       fontColor: "black",
-  //     },
-  //   },
-  //   plugins: {
-  //     legend: {
-  //       labels: {
-  //         generateLabels: function (chart) {
-  //           return chart.data.labels.map(function (label, i) {
-  //             const value = chart.data.datasets[0].data[i];
-  //             const backgroundColor = chart.data.datasets[0].backgroundColor[i];
-  //             return {
-  //               text: label + ": " + value,
-  //               fillStyle: backgroundColor,
-  //             };
-  //           });
-  //         },
-  //       },
-  //     },
-  //   },
-  // };
+ 
 
   var options = {
     chart: {
@@ -285,155 +225,9 @@ const TeacherProgressDetailed = () => {
     },
   };
 
-  var sColStacked = {
-    chart: {
-      height: 500,
-      type: "bar",
-      stacked: true,
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ["rgb(255, 69, 96)", "rgb(254, 176, 25)", "rgb(0, 227, 150)"],
 
-    plotOptions: {
-      bar: {
-        horizontal: false,
-      },
-    },
-    series: [
-      {
-        name: "#Not started",
-        data: series3,
-      },
-      {
-        name: "#InProgress",
-        data: series4,
-      },
-      {
-        name: "#Completed",
-        data: series5,
-      },
-    ],
-    xaxis: {
-      categories: barChart2Data.labels,
-      ticks: {
-        maxRotation: 80,
-        autoSkip: false,
-      },
-    },
-    yaxis: {
-      beginAtZero: true,
-      ticks: {
-        stepSize: 20,
-      },
-      labels: {
-        formatter: (val) => {
-          return val / 1;
-        },
-      },
-    },
-
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    fill: {
-      opacity: 1,
-    },
-  };
-
-  var optionsStudent = {
-    chart: {
-      height: 500,
-      type: "line",
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    series: [
-      {
-        name: "#NonATL Students",
-        type: "column",
-        data: series6,
-      },
-      {
-        name: "#ATL Students",
-        type: "line",
-        data: series7,
-      },
-    ],
-    stroke: {
-      width: [0, 4],
-    },
-
-    xaxis: {
-      categories: barChart3Data.labels,
-      ticks: {
-        maxRotation: 80,
-        autoSkip: false,
-      },
-    },
-    yaxis: [
-      {
-        title: {
-          text: "NonATL Student",
-        },
-      },
-      {
-        opposite: true,
-        title: {
-          text: "ATL Student",
-        },
-      },
-    ],
-  };
-
-  var radialChart = {
-    chart: {
-      height: 350,
-      type: "radialBar",
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ["rgb(0, 227, 150)", "rgb(254, 176, 25)", "rgb(255, 69, 96)"],
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          name: {
-            fontSize: "22px",
-          },
-          value: {
-            fontSize: "16px",
-          },
-          total: {
-            show: true,
-            label: "Total",
-            formatter: function () {
-              return totalCount.totalReg;
-            },
-          },
-        },
-      },
-    },
-    series: [
-      Math.round((totalCount.courseCompleted * 100) / totalCount.totalReg),
-      Math.round((totalCount.courseINcompleted * 100) / totalCount.totalReg),
-      Math.round(
-        ((totalCount.totalReg -
-          (totalCount.courseCompleted + totalCount.courseINcompleted)) *
-          100) /
-          totalCount.totalReg
-      ),
-    ],
-    labels: ["Completed", "InProgress", "NotStarted"],
-  };
+ 
+ 
 
   const handleDownload = () => {
     if (!district || !category || !filterType) {
@@ -494,7 +288,6 @@ const TeacherProgressDetailed = () => {
             } else {
               openNotificationWithIcon("error", "No Data Found");
             }
-            // csvLinkRef.current.link.click();
           } else if (item === "Not Registered") {
            
             setFilteresData(response?.data?.data || []);
@@ -507,23 +300,8 @@ const TeacherProgressDetailed = () => {
             } else {
               openNotificationWithIcon("error", "No Data Found");
             }
-            // csvLinkRefNotRegistered.current.link.click();
           }
-          // console.log(response, "22");
-
-          // const chartTable = response?.data?.data || [];
-
-          // setChartTableData1(chartTable);
-          // // console.log(chartTableData1,"data");
-          // if (response.data.count > 0) {
-          //   openNotificationWithIcon(
-          //     'success',
-          //     "Report Downloaded Successfully"
-          //   );
-          // } else {
-          //   openNotificationWithIcon('error', 'No Data Found');
-          // }
-          // csvLinkRef.current.link.click();
+         
           setIsDownload(false);
         }
       })
@@ -532,13 +310,7 @@ const TeacherProgressDetailed = () => {
         setIsDownload(false);
       });
   };
-  // useEffect(() => {
-  //   if (chartTableData1.length > 0) {
-  //     console.log("Performing operation with the updated data.");
-  //     csvLinkRef.current.link.click();
 
-  //   }
-  // }, [chartTableData1]);
   useEffect(() => {
     if (filteredData.length > 0) {
       setDownloadData(filteredData);
@@ -547,7 +319,6 @@ const TeacherProgressDetailed = () => {
     if (filteresData.length > 0) {
       setDownloadNotRegisteredData(filteresData);
       csvLinkRefNotRegistered.current.link.click();
-      console.log("Performing operation with the updated data.");
     }
   }, [filteredData, filteresData]);
   const fetchChartTableData = () => {
@@ -563,7 +334,6 @@ const TeacherProgressDetailed = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          //   console.log(response, "whole");
           const chartTableData = response?.data?.data || [];
           // added for download report //
           const updatedChartTableData = chartTableData.map((item) => {
@@ -686,11 +456,9 @@ const TeacherProgressDetailed = () => {
           });
 
           setBarChart1Data(barData);
-          console.log(barData, "barData");
           setseries1(barData.datasets[0].data);
 
-          // const newcombinedArray = [...combinedArray,total];
-          // setDownloadTableData(newcombinedArray);
+        
           setTotalCount(totals);
         }
       })
@@ -985,27 +753,7 @@ const TeacherProgressDetailed = () => {
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">Data Analytics</h4>
                         </div>
-                        {/* <div className="card-body">
-                        <div className="row">
-                          <div className="col-md-12 text-center mt-3">
-                            <p>
-                              <b>
-                                Overall Category wise Registered Institutions As of{" "}
-                                {newFormat}
-                              </b>
-                            </p>
-                          </div>
-                          <div className="col-md-12 doughnut-chart-container">
-                            {registeredChartData && (
-                              <Doughnut
-                                data={registeredChartData}
-                                options={chartOption}
-                              />
-                            )}
-                          </div>
-                         
-                        </div>
-                      </div> */}
+                      
                         <div className="card-body">
                           <div className="row">
                             <div className="col-md-12 text-center mt-3">
@@ -1017,7 +765,6 @@ const TeacherProgressDetailed = () => {
                               </p>
                             </div>
 
-                            {/* Labels with counts (Formatted using chart options legend) */}
                             <div className="col-md-6 d-flex align-items-center justify-content-center">
                               {registeredChartData &&
                                 registeredChartData.labels && (
@@ -1057,16 +804,9 @@ const TeacherProgressDetailed = () => {
                                 )}
                             </div>
 
-                            {/* Doughnut Chart */}
                             <div className="col-md-6 doughnut-chart-container">
                               {registeredChartData && (
-                                //         <Doughnut
-                                //             data={registeredChartData}
-                                //             height={300}
-                                //             width={300}
-                                // options={chartOption}
-
-                                //         />
+                               
                                 <div
                                   style={{ width: "400px", height: "400px" }}
                                 >
@@ -1104,10 +844,7 @@ const TeacherProgressDetailed = () => {
                   filename={`Institution_${filterType}Report_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
-                  // onDownloaded={() => {
-                  //     setIsDownloading(false);
-                  //     setDownloadComplete(true);
-                  // }}
+                 
                 >
                   Download CSV
                 </CSVLink>
@@ -1119,25 +856,12 @@ const TeacherProgressDetailed = () => {
                   filename={`Institution_${filterType}Report_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefNotRegistered}
-                  // onDownloaded={() => {
-                  //     setIsDownloading(false);
-                  //     setDownloadComplete(true);
-                  // }}
+                 
                 >
                   Download Not Registered CSV
                 </CSVLink>
               )}
-              {/* {chartTableData1 && (
-                <CSVLink
-                  headers={teacherDetailsHeaders}
-                  data={chartTableData1}
-                  filename={`InstitutionRegistrationDetailedReport_${newFormat}.csv`}
-                  className="hidden"
-                  ref={csvLinkRef}
-                >
-                  Download Teacherdetailed CSV
-                </CSVLink>
-              )} */}
+             
             </div>
           </div>
         </Container>

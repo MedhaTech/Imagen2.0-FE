@@ -109,7 +109,6 @@ const TeacherPlayVideo = (props) => {
   const [courseData, setCourseData] = useState(null);
   const [isquizcompleted, setisquizcompleted] = useState(false);
   const [finalPage, setFinalPage] = useState(false);
-  console.log(finalPage,"pp");
   const scrollRef = React.createRef();
   const [quizStart, setQuizStart] = useState(false);
 
@@ -219,9 +218,7 @@ const TeacherPlayVideo = (props) => {
         console.log(error);
       });
   }
-  // useEffect(() => {
-  //   getisquizcompleted();
-  // }, []);
+ 
   async function getisquizcompleted() {
     let quizParamData = encryptGlobal(
       JSON.stringify({
@@ -292,7 +289,6 @@ const TeacherPlayVideo = (props) => {
         if (response.status === 201) {
           setUpdateModuleResponce(response.data && response.data.data[0]);
           props.getTeacherCourseDetailsActions(course_id);
-          // console.log(response,"AAAAAA");
         }
       })
       .catch(function (error) {
@@ -301,7 +297,6 @@ const TeacherPlayVideo = (props) => {
   }
 
   const handlePause = (event) => {
-    // console.log(event.seconds, "see");
     // here we can pause the video //
     setPaused(event.target.checked);
   };
@@ -351,12 +346,7 @@ const TeacherPlayVideo = (props) => {
     // console.log("428 event fired: ", event);
   };
 
-  // const handleTimeUpdate = (event) => {
-  //   // console.log("432event fired: ", event);
-  //   if (event.seconds > "11.62") {
-  //     // setModalShow(true);
-  //   }
-  // };
+ 
 
   const handleTimeUpdate = (event) => {
     const videoLength = event.duration; //500
@@ -413,16 +403,13 @@ const TeacherPlayVideo = (props) => {
   };
 
   const videoStatus = (type, status) => {
-    // console.log(type, "type", status, "status");
     // here we can see the videoStatus //
 
-    // type = video ,attachment ,quiz, certificates  //
-    //  where status = completed /incomplete //
+   
     const done = <FeatherIcon className="mx-2 done" icon="play-circle" style={{ color: '#4bae4f' }} />;
     const notDone = <FeatherIcon className="mx-2" icon="play-circle" style={{ color: '#c0c0c0' }} />;
 
-    // const done = <IoCheckmarkDoneCircleSharp className="done" />;
-    // const notDone = <IoCheckmarkDoneCircleSharp />;
+   
     if (type === "VIDEO" && status === "COMPLETED") {
       return done;
     } else if (type === "VIDEO" && status === "INCOMPLETE") {
@@ -433,11 +420,7 @@ const TeacherPlayVideo = (props) => {
     } else if (type === "ATTACHMENT" && status === "INCOMPLETE") {
       return notDone;
     }
-    // if (type === "QUIZ" && status === "COMPLETED") {
-    //   return done;
-    // } else if (type === "QUIZ" && status === "INCOMPLETE") {
-    //   return notDone;
-    // }
+    
     if (type === "CERTIFICATE" && status === "COMPLETED") {
       return done;
     } else if (type === "CERTIFICATE" && status === "INCOMPLETE") {
@@ -592,7 +575,6 @@ const TeacherPlayVideo = (props) => {
       },
     });
   };
-  // console.log(teacherCourseDetails,"qq");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -777,117 +759,7 @@ const TeacherPlayVideo = (props) => {
 
               <Col xl={8} className="course-video mb-5 order-1 order-xl-2">
                 {
-                  // item === "QUIZ" && !showQuiz ? (
-                  //   <div
-                  //     size="lg"
-                  //     className="modal-popup text-screen text-center  modal-popup"
-                  //   >
-                  //     <div className="modal-content">
-                  //       {quizStart ? (
-                  //         <Modal.Header>
-                  //           <Modal.Title className="w-100 d-block mb-2">
-                  //             Ready for a quick test?
-                  //           </Modal.Title>
-                  //           <div className="w-100 d-block text-left">
-                  //             <p
-                  //               className="text-center"
-                  //               style={{
-                  //                 fontSize: "1.5rem",
-                  //               }}
-                  //             >
-                  //               Here is a short quiz (15 Questions) to check for
-                  //               understanding about the program and teachers role.
-                  //             </p>
-                  //             <b>Instructions:</b>
-                  //             <ol>
-                  //               <li>
-                  //                 Read the Teacher Handbook completely before
-                  //                 taking the quiz.
-                  //               </li>
-                  //               <li>
-                  //                 Quiz will consist of 15 questions and will take
-                  //                 5-10 minutes to complete.
-                  //               </li>
-                  //               <li>
-                  //                 Score will be displayed at the end of the quiz
-                  //                 for your reference.
-                  //               </li>
-                  //               <li>You can attempt the quiz only once.</li>
-                  //             </ol>
-                  //           </div>
-                  //         </Modal.Header>
-                  //       ) : isquizcompleted ? (
-                  //         <Modal.Header>
-                  //           <Modal.Title className="w-100 d-block mb-2">
-                  //             Quick test Completed successfully
-                  //           </Modal.Title>
-                  //           <p className="w-100 d-block">Check your score.</p>
-                  //         </Modal.Header>
-                  //       ) : (
-                  //         <Modal.Header>
-                  //           <Modal.Title className="w-100 d-block mb-2">
-                  //             Continue your quick test
-                  //           </Modal.Title>
-                  //           <div className="w-100 d-block text-left">
-                  //             <p
-                  //               className="text-center"
-                  //               style={{
-                  //                 fontSize: "1.5rem",
-                  //               }}
-                  //             >
-                  //               Here is a short quiz (15 Questions) to check for
-                  //               understanding about the program and teachers role.
-                  //             </p>
-                  //             <b>Instructions:</b>
-                  //             <ol>
-                  //               <li>
-                  //                 Read the Teacher Handbook completely before
-                  //                 taking the quiz.
-                  //               </li>
-                  //               <li>
-                  //                 Quiz will consist of 15 questions and will take
-                  //                 5-10 minutes to complete.
-                  //               </li>
-                  //               <li>
-                  //                 Score will be displayed at the end of the quiz
-                  //                 for your reference.
-                  //               </li>
-                  //               <li>You can attempt the quiz only once.</li>
-                  //             </ol>
-                  //           </div>
-                  //         </Modal.Header>
-                  //       )}
-
-                  //       <Modal.Body>
-                  //         <figure>
-                  //           <img
-                  //             // src={ModuleAssesmentImg}
-                  //             alt="test"
-                  //             className="img-fluid w-50"
-                  //           />
-                  //         </figure>
-                  //         {/* <Button
-                  //               label={
-                  //                 quizStart
-                  //                   ? "Let's Start"
-                  //                   : isquizcompleted
-                  //                   ? "See Score"
-                  //                   : "Resume Quiz"
-                  //               }
-                  //               btnclassName="primary mt-4"
-                  //               size="small"
-                  //               onClick={() => setHideQuiz(true)}
-                  //             /> */}
-                  //         <button
-                  //           className="btn btn-warning"
-                  //           onClick={() => setHideQuiz(true)}
-                  //         >
-                  //           Let's Start
-                  //         </button>
-                  //       </Modal.Body>
-                  //     </div>
-                  //   </div>
-                  // ) :
+                 
                   item === "ATTACHMENT" &&
                     !instructions &&
                     handbook &&
@@ -940,22 +812,10 @@ const TeacherPlayVideo = (props) => {
                             <p>
                             Students can go through the Themes document, select a theme and a focus area, identify a problem around the focus area, and submit an idea for it. Students will also be able to download & access document in the course/resource section in their profile  
 
-                              {/* <b>
-                                                        The resource section
-                                                        will have the Teacher
-                                                        Handbook and the Student
-                                                        workbook.
-                                                    </b>
-                                                    The students will also be
-                                                    able to access the Student
-                                                    workbook in their own
-                                                    profiles. */}
+                             
                             </p>
 
-                            {/* <p>
-                            To know that you are ready to support the students in this program, you will be required to take a quiz.  Don’t worry, the quiz is not a test, it is designed to help you recall the things you have to keep in mind while doing the program. All the best! 
-
-                            </p> */}
+                           
                           </CardBody>
                           <div className="text-left mb-2">
                             <div>
@@ -968,12 +828,7 @@ const TeacherPlayVideo = (props) => {
                                     }}
                                     key={i}
                                     className="btn btn-secondary"
-                                    // label={`Download ${item
-                                    //   .split("/")
-                                    //   [item.split("/").length - 1].split(".")[0]
-                                    //   .replace("_", " ")}`}
-                                    // btnclassName="secondary mx-2"
-                                    // size="small"
+                                  
                                     onClick={() => handleDownload(item)}
                                   >
                                     {`Download ${item
@@ -986,7 +841,6 @@ const TeacherPlayVideo = (props) => {
                           </div>
                           <Col className="text-right">
                             <button
-                              // label={"Continue"}
                               onClick={() => handlenextend()}
                               className="btn btn-warning"
                             >
@@ -1206,43 +1060,7 @@ const TeacherPlayVideo = (props) => {
                       </Card>
                     </Fragment>
                   )}
-                {/* {item === "CERTIFICATE" && certificate && (
-                  <Fragment>
-                    <Card className="course-sec-basic p-5">
-                      <CardBody>
-                        <CardTitle className=" text-left pt-4 pb-4" tag="h2">
-                          Certificate
-                        </CardTitle>
-                        {worksheetResponce.response === null && (
-                          <p>Please Download Certificate...</p>
-                        )}
-                        <div ref={pdfRef} style={{ position: "relative" }}>
-                          <span
-                            className="text-capitalize"
-                            style={{
-                              position: "absolute",
-                              top: "19%",
-                              left: "16%",
-                              fontSize: "inherit",
-                            }}
-                          >
-                            {currentUser?.data[0]?.full_name}
-                          </span>
-                          <img
-                            alt="certificate"
-                            style={{
-                              width: "297px",
-                              height: "209px",
-                            }}
-                          />
-                        </div>
-                        <div className="text-right">
-                         
-                        </div>
-                      </CardBody>
-                    </Card>
-                  </Fragment>
-                )} */}
+              
               </Col>
             </Row>
           </div>

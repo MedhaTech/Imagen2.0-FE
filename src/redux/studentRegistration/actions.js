@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import axios from "axios";
 
@@ -97,7 +98,6 @@ export const getStudentRegistationData = (studentType) => async (dispatch) => {
       const data = result.data?.data[0]?.dataValues || [];
       let datamodify =
         data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
-      console.log(datamodify);
       dispatch(getStudentListSuccess(data));
     } else {
       dispatch(getStudentListError(result.statusText));
@@ -164,7 +164,6 @@ export const getAtlCodeData = (item) => async (dispatch) => {
         ATLlistObj[code.organization_code] = code.organization_name;
         return code.organization_code;
       });
-      console.log(ATLCodeslist, "1");
       dispatch(getAtlCodesSuccess(data));
     } else {
       dispatch(getAtlCodesSuccess([]));
@@ -231,7 +230,6 @@ export const getFetchDistData = (item) => async (dispatch) => {
         return err.response;
       });
     if (result && result.status === 200) {
-      // console.log(result, '1');
       const data = result.data.data.length > 0 ? result.data.data : [];
       dispatch(getFetchDistsSuccess(data));
     } else {

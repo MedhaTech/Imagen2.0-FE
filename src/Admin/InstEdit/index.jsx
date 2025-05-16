@@ -44,16 +44,7 @@ const InstOption = () => {
   }));
   const [oldCollegeName, setOldCollegeName] = useState(null);
   const [newcolleheName, setNewcolleheName] = useState('');
-  // const handleOldCollegeName = (e) => {
-  //   console.log(e);
-  //   if (e !== '' && e !== null) {
-  //     setOldCollegeName(e.value);
-  //   }
-  //   else {
-  //     setOldCollegeName('');
-  //   }
-
-  // };
+ 
   const handleOldCollegeName = (oldCollegeName) => {
     setOldCollegeName(oldCollegeName);
   };
@@ -144,7 +135,6 @@ const InstOption = () => {
                     onChange={(e) => {
                       handleNewCollegeName(e);
                     }}
-                  //value={formik.values.ocn || ""}
                   />
 
                 </div>

@@ -7,12 +7,10 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
 import { Button } from '../../stories/Button';
 import { useHistory } from 'react-router-dom';
-// import { ReactDOM } from 'react-dom';
-// import * as ReactDOM from 'react-dom';
+
 import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
@@ -95,32 +93,7 @@ const AdminLatestNews = () => {
         localStorage.setItem('newsID', JSON.stringify(item));
     };
 
-    // const handleDelete = async (item) => {
-    //     const newsID = item.latest_news_id;
-    //     const confirmed = window.confirm(
-    //         'Are you sure you want to delete this news?'
-    //     );
-    //     if (!confirmed) {
-    //         return;
-    //     }
-    //     try {
-    //         const response = await axios.delete(
-    //             `${process.env.REACT_APP_API_BASE_URL}/latest_news/${newsID}`,
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //                 }
-    //             }
-    //         );
-    //         if (response.status === 200) {
-    //             openNotificationWithIcon('success', 'News succesfully deleted');
-    //             handleResList();
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+   
 
     const handleDelete = (item) => {
         // here we can delete the team //
@@ -155,7 +128,6 @@ const AdminLatestNews = () => {
                             newsId,
                         headers: {
                             'Content-Type': 'application/json',
-                            // Accept: "application/json",
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };

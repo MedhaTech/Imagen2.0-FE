@@ -2,51 +2,30 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import {
-  Container,
   Row,
   Col,
   Card,
   CardBody,
   Form,
-  FormGroup,
-  Input,
-  Label,
 } from "reactstrap";
 import { Button } from "../../stories/Button";
-// import { TextArea } from '../../../stories/TextArea/TextArea';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-// import Layout from '../../Layout';
-import { useSelector } from "react-redux";
-import {
-  getStudentChallengeQuestions,
-  getStudentChallengeSubmittedResponse,
-  updateStudentBadges,
-} from "../../redux/studentRegistration/actions";
-import { useDispatch } from "react-redux";
+
 import { getCurrentUser } from "../../helpers/Utils";
 import {
-  getNormalHeaders,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import axios from "axios";
 import { KEY, URL } from "../../constants/defaultValues";
 import CommonPage from "../../components/CommonPage";
 import { useTranslation } from "react-i18next";
-import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import logout from "../../assets/img/logout.svg";
-// import { cardData, subCategoryData } from './SDGData';
 import moment from "moment";
-// import { getLanguage } from "../../constants/languageOptions";
 import "./idea.css";
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
-import { use } from "i18next";
-import { initiateIdea } from "../../redux/studentRegistration/actions";
-import { setIn } from "formik";
-import { getLanguage } from "../../constants/languageOptions";
 
 const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
   let a_link;
@@ -76,7 +55,6 @@ const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
           rel="noreferrer"
         >
           <span className="file-name">{fileName}</span>
-          {/* {a_link[count]} */}
         </a>
       )}
     </>
@@ -86,23 +64,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
-  const initialSizeData = {
-    data: formData,
-  };
-
-  // dispatch(
-  //     initiateIdea(
-  //         currentUser?.data[0]?.team_id,
-  //         language,
-  //         initialSizeData,
-  //         // setShowChallenges,
-  //         t
-  //     )
-  // );
   const showPage = false;
-  //   const language = useSelector(
-  //     (state) => state?.studentRegistration?.studentLanguage
-  // );
+ 
   const [isDisabled, setIsDisabled] = useState(false);
   const initialLoadingStatus = { draft: false, submit: false };
   const [loading, setLoading] = useState(initialLoadingStatus);
@@ -114,9 +77,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       : currentUser?.data[0]?.type_id;
 
   const [currentSection, setCurrentSection] = useState(1);
-  const goToNext = () => setCurrentSection(currentSection + 1);
-  const goToBack = () => setCurrentSection(currentSection - 1);
-  // Add on
+
   const [theme, setTheme] = useState(
     props?.theme !== "" && props?.theme !== undefined
       ? props?.theme
@@ -139,32 +100,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
 
   const [files, setFiles] = useState([]);
 
-  const [problemStatement, setProblemStatement] = useState(
-    formData?.problemStatement
-  );
-  const [causes, setCauses] = useState(formData?.causes);
-  const [community, setCommunity] = useState(formData?.community);
-  const [facing, setFacing] = useState(formData?.facing);
-  const [solution, setSolution] = useState(formData?.solution);
-  const [stakeholders, setStakeholders] = useState(formData?.stakeholders);
-  const [problemSolving, setProblemSolving] = useState(
-    formData?.problemSolving || []
-  );
+ 
+ 
   const [error4, seterror4] = useState(false);
   const [ideaInitiation, setIdeaInitiation] = useState("");
-  const [feedback, setFeedback] = useState(formData?.feedback);
   const [prototypeImage, setPrototypeImage] = useState(
     formData.prototype_image || []
   );
-  const [focus, setFocus] = useState([]);
   const [id, setId] = useState("");
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototype_link);
-  const [workbook, setWorkbook] = useState(formData?.workbook);
 
-  const submit = [
-    { value: "YES", label: t("ideaform_questions.workbookyes") },
-    { value: "NO", label: t("ideaform_questions.workbookno") },
-  ];
+
   const people = [
     { value: "Not confident", label: t("ideaform_questions.stakeholdersop1") },
     {
@@ -174,24 +120,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     { value: "Confident", label: t("ideaform_questions.stakeholdersop3") },
     { value: "Very confident", label: t("ideaform_questions.stakeholdersop4") },
   ];
-  const journey = [
-    {
-      value: "We did the full problem solving journey by ourselves.",
-      label: t("ideaform_questions.probsoljourneyop1"),
-    },
-    {
-      value: "We got feedback on our problem and modified it",
-      label: t("ideaform_questions.probsoljourneyop2"),
-    },
-    {
-      value: "We got feedback on our idea and modified it",
-      label: t("ideaform_questions.probsoljourneyop3"),
-    },
-    {
-      value: "We got feedback on our prototype and modified it",
-      label: t("ideaform_questions.probsoljourneyop4"),
-    },
-  ];
+ 
   const place = [
     { value: "Idea stage", label: t("ideaform_questions.communityop1") },
     { value: "Prototype ready", label: t("ideaform_questions.communityop2") },
@@ -216,16 +145,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       label: t("ideaform_questions.uniqueop3"),
     },
   ];
-  // const supportOptions = [
-  //   "Funding or Investment / నిధులు/రూపాయాల పెట్టుబడులు",
-  //   "Mentorship and Guidance / మార్గదర్శకత్వం మరియు సహాయం",
-  //   "Access to Technology or Tools/ టెక్నాలజీ/సాధనలకు ప్రవేశం",
-  //   "Marketing & Branding Support / మార్కెటింగ్ మరియు బ్రాండింగ్ మద్దతు",
-  //   "Product Development Assistance/ ఉత్పత్తి అభివృద్ధి సహాయం",
-  //   "Access to Incubators or Networks or Partners / ఇంక్యుబేటర్లు/నెట్‌వర్క్‌లు లేదా భాగస్వాముల దగ్గర ప్రవేశం",
-  //   "Legal Support (e.g., Intellectual Property, contracts) / చట్టపరమైన మద్దతు (ఉదాహరణకు, మేధా సంపత్తి, ఒప్పందాలు)",
-  //   "Other (Please specify) / ఇతర (దయచేసి వివరించండి)",
-  // ];
+ 
   const supportOptions = [
     {
       label: "Funding or Investment / నిధులు/రూపాయాల పెట్టుబడులు",
@@ -264,9 +184,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     },
   ];
 
-  // cons
-  // ole.log(theme,"theme",props?.theme,"props?.theme");
-  const initiatedBy = formData?.initiated_by;
+
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
@@ -276,13 +194,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setSupport(selectedSupport);
   };
 
-  // useEffect(() => {
-  //   const activeTheme =
-  //     props?.theme !== "" && props?.theme !== undefined
-  //       ? props?.theme
-  //       : formData?.theme;
-
-  // }, [formData.theme]);
+  
   useEffect(() => {
     setTheme(
       props?.theme !== "" && props?.theme !== undefined
@@ -302,7 +214,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setPrototypeImage(formData?.prototype_image);
     setPrototypeLink(formData?.prototype_link);
   }, [formData]);
-  // console.log(support,"ss");
   useEffect(() => {
     if (formData?.stage) {
       setStage(JSON.parse(formData.stage));
@@ -316,9 +227,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     }
     if (formData?.confident) {
       const parsedConfident = JSON.parse(formData.confident);
-      // console.log("Parsed Confident from formData:", parsedConfident);
       setConfident(parsedConfident);
-      // setConfident(JSON.parse(formData.confident));
     } else {
       setConfident([]);
     }
@@ -334,7 +243,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     formData?.unique,
     formData?.confident,
   ]);
-  // console.log(formData?.confident,"con");
   const handleStageCheckboxChange = (item) => {
     if (Array.isArray(stage) && stage.includes(item)) {
       setStage(stage.filter((i) => i !== item));
@@ -375,7 +283,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   let maxFileSize = 10000000;
   const fileHandler = (e) => {
     let choosenFiles = Array.prototype.slice.call(e.target.files);
-    // e.target.files = null;
     let pattern = /^[a-zA-Z0-9_-\s]{0,}$/;
     const checkPat = choosenFiles.filter((item) => {
       let pat = item.name.split(".");
@@ -429,7 +336,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"IdeaPageCopy");
 
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
@@ -462,9 +368,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       state: "Telangana",
       district: currentUser?.data[0]?.district,
     };
-    // if (others !== "") {
-    //   body["others"] = others;
-    // }
+   
     if (theme === "Others" && others !== null) {
       body["others"] = others;
     }
@@ -519,12 +423,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           openNotificationWithIcon("success", t("home.ideaInitPop"));
           submittedApi();
           seterror4(false);
-          // console.log("200");
         }
       })
       .catch(function (error) {
         openNotificationWithIcon("error", t("home.firstfour"));
-        // console.log("errors");
         console.log(error);
       });
   };
@@ -547,7 +449,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         }
 
         for (let [key, value] of formsData.entries()) {
-          console.log(`${key}:`, value);
+          // console.log(`${key}:`, value);
         }
 
         const axiosConfig = {
@@ -570,7 +472,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         if (result && result.status === 200) {
           setImmediateLink(result.data?.data[0]?.attachments);
           setPrototypeImage(result.data?.data[0]?.attachments);
-          // setLoading(initialLoadingStatus);
           handleSubmitAll(item, stats, result.data?.data[0]?.attachments);
         } else {
           openNotificationWithIcon("error", `${result?.data?.message}`);
@@ -585,7 +486,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   };
 
   const handleSubmitAll = async (item, stats, file) => {
-    // alert("hii");
     setLoading(initialLoadingStatus);
 
     let attachmentsList = "";
@@ -599,7 +499,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       title: title,
       solve: solve,
       status: stats,
-      // initiated_by: currentUser?.data[0]?.user_id,
     };
 
     if (theme === "Others" && others !== null) {
@@ -658,11 +557,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         stage === "" ||
         stage === "[]" ||
         (Array.isArray(stage) && stage.length === 0) ||
-        // stage === "" ||
-
-        // stage === null ||
-        // unique === "" ||
-        // unique === "[]" ||
+       
         !unique ||
         unique === "" ||
         unique === "[]" ||
@@ -724,7 +619,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
               setTimeout(function () {
                 window.location.reload();
               }, 500);
-              // window.location.reload();
 
               localStorage.setItem("ideaSubStatus", 1);
               onclick();
@@ -736,10 +630,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           }
         })
         .catch(function (error) {
-          // openNotificationWithIcon(
-          //     'error',
-          //     error?.response?.data?.message
-          // );
+         
           console.log(error);
         });
     } else {
@@ -753,41 +644,32 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       console.error("showChallenges is not a function");
     }
   };
-  // const scroll = () => {
-  //   const section = document.querySelector("#start");
-  //   section.scrollIntoView({ behavior: "smooth", block: "start" });
-  // };
-  // added
+ 
   const scroll = () => {
     const section = document.querySelector("#start");
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
-      // Fallback to scroll to top if section is not found
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
   useEffect(() => {
     scroll();
   }, []);
-  // Added
   const handleEdit = () => {
     setIsDisabled(false);
     scroll();
   };
 
   const comingSoonText = t("dummytext.student_idea_sub");
-  // const acceptedParamfileTypes =>
-  //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
+ 
   const enableSaveBtn =
     theme?.length > 0 &&
     ideaDescribe?.length > 0 &&
     title?.length > 0 &&
     solve?.length > 0;
-  // console.log(typeof formData?.initiated_by,"User",typeof currentUser?.data[0]?.user_id,"Currentuser");
   return (
     <>
-      {/* <div className='content'> */}
       {showPage ? (
         <CommonPage text={comingSoonText} showButton={true} />
       ) : (
@@ -797,32 +679,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
               <div className="aside p-4">
                 <CardBody>
                   <Form className="form-row row" isSubmitting>
-                    {/* {formData?.verified_status !== null && (
-                      <>
-                        {formData?.verified_status === "REJECTED" ? (
-                          <div className="d-md-flex justify-content-end px-4">
-                            <Card className="p-3 card-bg-warning">
-                              <h5 className="text-white p-1">
-                                {t("idea_page.modified")} :{" "}
-                                {formData?.initiated_name}{" "}
-                              </h5>
-                              <h5 className="text-white p-1">
-                                {t("idea_page.date")} :{" "}
-                                {moment(formData?.verified_at).format(
-                                  "DD-MM-YYYY"
-                                )}{" "}
-                              </h5>
-                              <h5 className="text-white p-1">
-                                {t("idea_page.reject")} :{" "}
-                                {formData?.mentor_rejected_reason}{" "}
-                              </h5>
-                            </Card>
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                      </>
-                    )} */}
+                   
                     {formData?.status === "SUBMITTED" && (
                       <div className="d-md-flex justify-content-end px-4">
                         <Card className="p-3 card-bg-info">
@@ -852,7 +709,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
 
                     <div
                       className="d-flex flex-nowrap justify-content-end gap-2 mb-3"
-                      // className="text-right mb-3"
                     >
                       {!isDisabled && (
                         <Button
@@ -888,9 +744,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             onClick={(e) => handleSubmit(e, "SUBMITTED")}
                             size="small"
                             label={t("teacher_teams.submit")}
-                            // disabled={
-                            //   !(isDisabled && formData?.initiated_by === currentUser?.data[0]?.user_id)
-                            // }
+                           
                             disabled={
                               formData?.initiated_by !==
                               currentUser?.data[0]?.user_id
@@ -899,7 +753,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                         </>
                       )}
                     </div>
-                    {/* {currentSection === 1 && ( */}
+                    {formData?.status !== "SUBMITTED" && (
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <p style={{ marginRight: "1rem" ,marginBottom:"1rem"}}>
                         <span style={{ color: "red" }}>Note : </span>
@@ -919,7 +773,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                           </p>
                         )}
                     </div>
-
+)}
                     <div className="d-md-flex justify-content-end px-0">
                       <Row>
                         <div className="card comment-card">
@@ -1001,7 +855,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               className="form-control"
                               disabled={isDisabled}
                               placeholder={t("home.ideatit")}
-                              // {t("student_course.chars")}
                               value={ideaDescribe}
                               rows={4}
                               maxLength={500}
@@ -1095,7 +948,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                         </div>
-                        {/* //addon // */}
                         <div className="card comment-card">
                           <div className="question quiz mb-0">
                             <b
@@ -1163,7 +1015,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                         </div>
-                        {/* Add On  */}
                         <div className="card comment-card">
                           <div className="question quiz mb-0">
                             <b
@@ -1231,22 +1082,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                         </div>
-                        {/* <div>
-                            <Col className="d-flex justify-content-end">
-                              <button
-                                className="btn btn-secondary"
-                                onClick={goToNext}
-                              >
-                               
-                                {t("idea_page.next")}
-                              </button>
-                            </Col>
-                          </div> */}
+                       
                       </Row>
                     </div>
-                    {/* // )} */}
-
-                    {/* {currentSection === 2 && ( */}
+                   
                     <div className="d-md-flex justify-content-end px-0">
                       <Row>
                         <div className="card comment-card">
@@ -1276,7 +1115,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                         </div>
-                        {/* Add On */}
                         <div className="card comment-card">
                           <div className="question quiz mb-0">
                             <b
@@ -1346,38 +1184,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                         </div>
-                        {/* Add On */}
-
-                        {/* <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                {t("ideaform_questions.feedbackq")}
-                              </b>
-                            </div>
-                            <div className=" answers row flex-column p-4">
-                              <textarea
-                                className="form-control"
-                                disabled={isDisabled}
-                                rows={6}
-                                placeholder={t("home.ideaFee")}
-                                value={feedback}
-                                maxLength={500}
-                                onChange={(e) => setFeedback(e.target.value)}
-                              />
-                              <div className="text-end">
-                                {t("student_course.chars")} :
-                                {500 - (feedback ? feedback.length : 0)}
-                              </div>
-                            </div>
-                          </div> */}
+                       
                       </Row>
                     </div>
-                    {/* // )} */}
-                    {/* {currentSection === 3 && ( */}
+                   
                     <div className="d-md-flex justify-content-end px-0">
                       <Row>
                         <div className="card comment-card">
@@ -1406,44 +1216,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 <option
                                   key={i}
                                   value={item.value}
-                                  // selected={item === support}
                                 >
-                                  {/* {item} */}
                                   {item.label}
                                 </option>
                               ))}
                             </select>
                           </div>
-                          {/* <div className=" answers row flex-column">
-                             
-                             <div>
-                               {journey.map((item, i) => (
-                                 <div key={i}>
-                                   <label
-                                     style={{
-                                       margin: "1rem",
-                                       fontSize: "1rem",
-                                     }}
-                                   >
-                                     <input
-                                       type="checkbox"
-                                       value={item.value} 
-                                       checked={
-                                         Array.isArray(problemSolving) &&
-                                         problemSolving.includes(item.value)
-                                       }
-                                       disabled={isDisabled}
-                                       onChange={() =>
-                                         handleCheckboxChange(item.value)
-                                       } 
-                                     />{" "}
-                                     {item.label}
-                                   </label>
-                                   <br />
-                                 </div>
-                               ))}
-                             </div>
-                           </div> */}
+                       
                         </div>
                         <div className="card comment-card">
                           <div className="question quiz mb-0">
@@ -1457,26 +1236,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </b>
                           </div>
                           <div className=" answers row flex-column p-4 pb-0">
-                            {/* <FormGroup check className="answers"> */}
                             <div className="wrapper my-3 common-flex">
-                              {/* {!isDisabled && (
-                                                                                                    <Button
-                                                                                                        type="button"
-                                                                                                        btnClass={`${
-                                                                                                            isDisabled
-                                                                                                                ? 'secondary'
-                                                                                                                : 'primary'
-                                                                                                        } me-3 pointer `}
-                                                                                                        size="small"
-                                                                                                        label={t(
-                                                                                                            'student.upload_file'
-                                                                                                        )}
-                                                                                                    />
-                                                                                                )} */}
+                             
                               {!isDisabled && (
                                 <Button
                                   label={t("home.ideaFi")}
-                                  // btnClass="primary"
                                   btnClass={`${
                                     isDisabled ? "secondary" : "primary"
                                   } me-3 pointer `}
@@ -1497,12 +1261,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 disabled={isDisabled}
                                 accept="image/jpeg,image/jpg,image/png,application/pdf"
                                 multiple
-                                // className="hidden"
-                                // style='display: none'
+                               
                                 onChange={(e) => fileHandler(e)}
                               />
                             </div>
-                            {/* </FormGroup> */}
                             <div className="mx-1">
                               {immediateLink &&
                                 immediateLink.length > 0 &&
@@ -1552,63 +1314,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                         </div>
-                        {/* <div className="card comment-card">
-                            <div className="question quiz mb-0">
-                              <b
-                                style={{
-                                  fontSize: "1rem",
-                                }}
-                              >
-                                {t("ideaform_questions.workbookq")}
-                              </b>
-                            </div>
-                            <div className=" answers row flex-column">
-                             
-                              <div>
-                                {submit.map((item,i) => (
-                                  <div key={i}>
-                                  <label
-                                    style={{
-                                      margin: "1rem",
-                                      fontSize: "1rem",
-                                    }}
-                                  >
-                                    <input
-                                      type="radio"
-                                      value={item.value}
-                                      disabled={isDisabled}
-                                      checked={item.value === workbook}
-                                      onChange={(e) =>
-                                        setWorkbook(e.target.value)
-                                      }
-                                    />
-                                      {item.label}
-                                    </label>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </div> */}
+                       
                       </Row>
                     </div>
-                    {/* )} */}
                   </Form>
-                  {/* <div className="d-flex justify-content-start">
-                    {!isDisabled && (
-                      <Button
-                        type="button"
-                        btnClass="me-3 btn btn-warning"
-                        // backgroundColor="#067DE1"
-                        onClick={(e) => handleSubmit(e, "DRAFT")}
-                        size="small"
-                        label={`${loading.draft
-                          ? t("teacher_teams.loading")
-                          : t("teacher_teams.draft")
-                          }`}
-                        disabled={!enableSaveBtn}
-                      />
-                    )}
-                  </div> */}
+                 
                 </CardBody>
               </div>
             </div>

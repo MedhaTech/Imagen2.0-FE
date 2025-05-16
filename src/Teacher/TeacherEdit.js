@@ -7,7 +7,6 @@ import {
   setCurrentUser,
   openNotificationWithIcon,
 } from "../helpers/Utils";
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
@@ -26,13 +25,7 @@ const TeacherEditProfile = () => {
   const getValidationSchema = () => {
     // where data = mentorData //
     const adminValidation = Yup.object({
-      //   whatapp_mobile: Yup.string()
-      //     .required("required")
-      //     .trim()
-      //     .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
-      //     .min(10, "Please enter valid number")
-      //     .max(10, "Please enter valid number"),
-      //   gender: Yup.string().required("Please select valid gender"),
+     
       title: Yup.string().required(
         <span style={{ color: "red" }}>Please select Title</span>
       ),
@@ -40,19 +33,12 @@ const TeacherEditProfile = () => {
         <span style={{ color: "red" }}>Please select Gender</span>
       ),
       full_name: Yup.string()
-        // .matches(/^[A-Za-z]*$/, 'Invalid name ')
-        // .min(2, 'Enter a valid name')
-        // .required('Name is Required'),
+       
         .trim()
         .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
         .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
         .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
-      //   phone: Yup.string()
-      //     .trim()
-      //     .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
-      //     .min(10, "Enter a valid mobile number")
-      //     .max(10, "Mobile number must be 10 Digit")
-      //     .required("Mobile Number is Required"),
+    
     });
     return adminValidation;
   };
@@ -60,9 +46,7 @@ const TeacherEditProfile = () => {
     const commonInitialValues = {
       full_name: mentorData?.full_name,
 
-      //   email: mentorData.name,
       title: mentorData.title,
-      //   whatapp_mobile: mentorData.whatapp_mobile,
         gender: mentorData.gender,
     };
     return commonInitialValues;
@@ -72,18 +56,12 @@ const TeacherEditProfile = () => {
     validationSchema: getValidationSchema(),
     onSubmit: (values) => {
       const full_name = values.full_name;
-      // const mobile = values.phone;
       const title = values.title;
-      //   const whatapp_mobile = values.whatapp_mobile;
         const gender = values.gender;
-      //   const mobile = values.phone;
       const body = JSON.stringify({
         full_name: full_name,
-        // mobile: mobile,
         title: title,
-        // whatapp_mobile: whatapp_mobile,
         gender: gender,
-        // mobile: mobile,
         username: mentorData.username,
       });
       const ment = encryptGlobal(JSON.stringify(mentorData.mentor_id));
@@ -146,7 +124,6 @@ const TeacherEditProfile = () => {
                 <div className="profile-top">
                   <div className="profile-content">
                     <div className="profile-contentimg">
-                    {/* currentUser?.data[0]?.gender === "Male" */}
                     {currentUser?.data[0]?.gender === "Male" || currentUser?.data[0]?.gender === "MALE" ? (
                       <img src={male} alt="Male" id="blah" />
                     ) : ((currentUser?.data[0]?.gender === "Female" || currentUser?.data[0]?.gender === "FEMALE")?(
@@ -194,7 +171,6 @@ const TeacherEditProfile = () => {
                       className="form-control"
                       id="full_name"
                       name="full_name"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         const lettersOnly = inputValue.replace(
@@ -254,7 +230,6 @@ const TeacherEditProfile = () => {
             </div>
           </div>
         </form>
-        {/* /product list */}
       </div>
     </div>
   );

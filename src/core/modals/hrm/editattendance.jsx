@@ -18,7 +18,6 @@ const EditAttendance = () => {
         { value: 'Russell Belle', label: 'Russell Belle' },
     ];
     const onChange = () => {
-        // console.log(time, timeString, "timepicker");
       };
     return (
         <div>

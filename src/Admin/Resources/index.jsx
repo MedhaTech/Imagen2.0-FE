@@ -6,10 +6,8 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
-// import { ReactDOM } from 'react-dom';
-// import * as ReactDOM from 'react-dom';
+
 import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { useNavigate } from 'react-router-dom';
@@ -85,7 +83,6 @@ const AdminResources = () => {
                             delParam,
                         headers: {
                             'Content-Type': 'application/json',
-                            // Accept: "application/json",
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
@@ -113,21 +110,18 @@ const AdminResources = () => {
 
     const resData = {
         data: resList && resList.length > 0 ? resList : [],
-        // data: staticData,
         columns: [
             {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
                 width: '5rem'
-                // center: true,
             },
 
             {
                 name: 'Role',
                 selector: (row) => row.role,
                 width: '7rem'
-                // center: true,
             },
             {
                 name: 'Details',

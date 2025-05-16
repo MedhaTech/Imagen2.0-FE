@@ -2,7 +2,6 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 import React, { useState, useLayoutEffect } from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
@@ -10,7 +9,6 @@ import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo.png";
-// import email from "../assets/img/icons/mail.svg";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { coordinatorLoginUser } from "../Coordinators/store/Coordinator/actions";
 
@@ -95,13 +93,9 @@ const StateLogin = (props) => {
                   <img
                     src={logo}
                     alt="Logo"
-                    // className="logo-image"
                   />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+               
                 <div className="login-userheading">
                   <h3>State Coordinator Login</h3>
                 </div>
@@ -119,11 +113,7 @@ const StateLogin = (props) => {
                     {formik.touched.district && formik.errors.district ? (
                       <small className="error-cls">Required</small>
                     ) : null}
-                    {/* <ImageWithBasePath
-                      src="assets/img/icons/mail.svg"
-                      alt="img"
-                    /> */}
-                    {/* <img src={email} alt="Email" /> */}
+                   
                   </div>
                 </div>
                 <div className="form-login mb-3">
@@ -133,7 +123,6 @@ const StateLogin = (props) => {
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
                       placeholder="Please Enter password"
-                      // className="pass-input form-control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -166,25 +155,13 @@ const StateLogin = (props) => {
                   </div>
                 </div>
                 <div className="form-login">
-                  {/* <Link
-                    className="btn btn-login"
-                    type="submit"
-                    btnClass={
-                      !(formik.dirty && formik.isValid) ? "default" : "primary"
-                    }
-                    disabled={!(formik.dirty && formik.isValid)}
-                  >
-                    Sign In
-                  </Link> */}
+                
                   <button
-                    // className="btn btn-login"
                     type="submit"
                     className={`btn btn-login ${
                       !(formik.dirty && formik.isValid) ? "default" : "primary"
                     }`}
-                    // btnClass={
-                    //   !(formik.dirty && formik.isValid) ? "default" : "primary"
-                    // }
+                    
                     disabled={!(formik.dirty && formik.isValid)}
                   >
                     Sign In

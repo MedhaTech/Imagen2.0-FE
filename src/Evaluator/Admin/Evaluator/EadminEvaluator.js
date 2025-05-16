@@ -4,20 +4,14 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'reactstrap';
-import { Tabs } from 'antd';
-// import Layout from '../Pages/Layout';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { BsUpload } from 'react-icons/bs';
 import { Button } from '../../../stories/Button';
 import { connect } from 'react-redux';
 import { getAdminEvalutorsList } from '../../../redux/actions';
-import axios from 'axios';
-import { URL, KEY } from '../../../constants/defaultValues.js';
 import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
 
-import { getNormalHeaders } from '../../../helpers/Utils';
-import { useHistory } from 'react-router-dom';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -26,47 +20,24 @@ import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 
-import { Badge } from 'react-bootstrap';
-import CommonPage from '../../../components/CommonPage';
 import { updateEvaluator } from '../../../redux/actions';
 import { useDispatch } from 'react-redux';
 import Register from '../../../Evaluator/Register';
-import dist from 'react-data-table-component-extensions';
-// import AddADmins from './AddAdmins';
-import ClipLoader from 'react-spinners/ClipLoader';
 import { MaskedEmail ,MaskedMobile} from '../../../RegPage/MaskedData.js';
 
 const TicketsPage = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const district = localStorage.getItem('dist');
-    const [menter, activeMenter] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    const [evaluater, activeEvaluater] = useState(false);
-    const [tab, setTab] = useState('1');
-    const [studentDist, setstudentDist] = useState(district ? district : '');
-    const [mentorDist, setmentorDist] = useState('');
-    const [newDist, setNewDists] = useState('');
+   
     const [registerModalShow, setRegisterModalShow] = useState(false);
-    const [fetchData, setFetchData] = useState(false);
-    // useEffect(() => {
-
-    //         props.getEvaluatorListAction();
-    //         // } else if (tab === 4) {
-    //         //     props.getAdminListAction();
-    //     }
-    // }, []);
+   
     useEffect(() => {
         props.getEvaluatorListAction();
     }, []);
 
-    const [rows, setRows] = React.useState([]);
-    const [mentorRows, setMentorRows] = React.useState([]);
-// console.log(props.evalutorsList,"ss");
+  
     const handleEdit = (item) => {
-    //    alert("hii"); 
         navigate("/edit-evaluator", {
             state:item});
         localStorage.setItem('mentor', JSON.stringify(item));
@@ -138,37 +109,10 @@ const TicketsPage = (props) => {
                             'Successfully updated.',
                             'success'
                         );
-                        // if (type && type === 'student') {
-                        //     props.studentStatusUpdate({ status }, id);
-                        //     setTimeout(() => {
-                        //         props.getStudentListAction(studentDist);
-                        //     }, 500);
+                       
                     }
 
-                    // } else if (type && type === 'admin') {
-                    //     const obj = {
-                    //         full_name: all.full_name,
-                    //         username: all.username,
-                    //         // mobile: all.mobile,
-                    //         status
-                    //     };
-                    //     await handleStatusUpdateInAdmin({ obj }, id);
-
-                    //     setTimeout(() => {
-                    //         props.getAdminListAction();
-                    //     }, 500);
-                    // } else {
-                    //     const obj = {
-                    //         full_name: all.full_name,
-                    //         username: all.username,
-                    //         // mobile: all.mobile,
-                    //         status
-                    //     };
-                    //     props.mentorStatusUpdate(obj, id);
-                    //     setTimeout(() => {
-                    //         props.getAdminMentorsListAction('ALL', mentorDist);
-                    //     }, 500);
-                    // }
+                   
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         'Cancelled',
@@ -182,9 +126,7 @@ const TicketsPage = (props) => {
         // where we can select district //
         // where item = district //
         navigate("/evaluator/selecting-states");
-        // history.push({
-        //     pathname: '/eadmin/selectingDistricts-evaluationProcess'
-        // });
+       
         localStorage.setItem('eavlId', JSON.stringify(item));
     };
     const evaluatorsData = {
@@ -193,7 +135,6 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row) => row.id,
-                // selector: (row) => row.index,
                 cellExport: (row) => row.index,
                 width: '6rem'
             },
@@ -201,21 +142,18 @@ const TicketsPage = (props) => {
                 name: 'Evaluator Name',
                 selector: (row) => row.user.full_name,
                 cellExport: (row) => row.user.full_name,
-                // selector: (row) => row.user.full_name,
                 width: '12rem'
             },
             {
                 name: 'Email Id',
                 selector: (row) =><MaskedEmail email={row?.user?.username} />,
                 cellExport: (row) => row.user.username,
-                // selector: (row) => row.user.username,
                 width: '14rem'
             },
             {
                 name: 'Mobile No & Pwd',
                 selector: (row) =>  <MaskedMobile mobile={row?.mobile} />,
                 cellExport: (row) => row.mobile,
-                // selector: (row) => row.mobile,
                 width: '10rem'
             },
             {
@@ -229,14 +167,7 @@ const TicketsPage = (props) => {
                 name: 'Status',
                 cellExport: (row) => row.status,
                 cell: (row) => [
-                    // <Badge
-                    //     key={row.mentor_id}
-                    //     bg={`${
-                    //         row.status === 'ACTIVE' ? 'success' : 'danger'
-                    //     }`}
-                    // >
-                    //     {row.status}
-                    // </Badge>
+                   
                     <span key={row.evaluator_id} className={`${
                         row.status === 'ACTIVE' ? "badge bg-success" : "badge bg-danger"
                     }`}>{row.status}</span>
@@ -250,18 +181,9 @@ const TicketsPage = (props) => {
                 width: '25rem',
                 cellExport: (row) => {},
                 cell: (record) => [
-                    // <div
-                    //     key={record.id}
-                    
-                    //     onClick={() => handleSelect(record)}
-                    //     style={{ marginRight: '10px' }}
-                    // >
-                    //     <div className="btn btn-primary mr-5">View</div>
-                    // </div>,
+                  
                     <div
-                    // exact="true"
                     key={record.id}
-                    // className="mr-5"
                     onClick={() => {
                         let status =
                             record?.status === 'ACTIVE'
@@ -302,23 +224,7 @@ const TicketsPage = (props) => {
                           Districts
                       </div>
                   </div>
-                    // <div
-                    //     key={record.id}
-                    //     className="mr-5"
-                    //     onClick={() => {
-                    //         let status =
-                    //             record?.status === 'ACTIVE'
-                    //                 ? 'INACTIVE'
-                    //                 : 'ACTIVE';
-                    //         handleStatus(status, record?.evaluator_id, record);
-                    //     }}
-                    // >
-                    //     {record?.status === 'ACTIVE' ? (
-                    //         <div className="btn btn-danger ">INACTIVE</div>
-                    //     ) : (
-                    //         <div className="btn btn-warning ">ACTIVE</div>
-                    //     )}
-                    // </div>
+                  
                 ]
             }
         ]
@@ -352,7 +258,6 @@ const TicketsPage = (props) => {
                     
                     <div className="page-btn text-right">
                         <Button
-                            // label={'Add New Evaluator'}
                             label={
                                 <>
                                   <PlusCircle className="me-2" style={{ color: "white" }} />
@@ -410,29 +315,17 @@ const TicketsPage = (props) => {
 
 const mapStateToProps = ({
     adminEvalutors
-    // adminMentors,
-    // studentRegistration,
-    // admin
+   
 }) => {
     const { evalutorsList } = adminEvalutors;
-    // const { adminData } = admin;
-    // const { mentorsList, totalItems } = adminMentors;
-    // const { studentList, dists } = studentRegistration;
+   
     return {
         evalutorsList
-        // adminData,
-        // mentorsList,
-        // totalItems,
-        // studentList,
-        // dists
+       
     };
 };
 export default connect(mapStateToProps, {
-    // getAdminMentorsListAction: getAdminMentorsList,
-    // getStudentListAction: getStudentRegistationData,
-    // getDistrictsListAction: getDistrictData,
+  
     getEvaluatorListAction: getAdminEvalutorsList
-    // getAdminListAction: getAdmin,
-    // mentorStatusUpdate: updateMentorStatus,
-    // studentStatusUpdate: updateStudentStatus
+   
 })(TicketsPage);

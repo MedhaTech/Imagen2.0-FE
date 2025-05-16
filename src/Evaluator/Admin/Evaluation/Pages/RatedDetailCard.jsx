@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom';
 const RatedDetailCard = (props) => {
     const { search } = useLocation();
     const level = new URLSearchParams(search).get('level');
-    console.warn(props);
     const [overAll, setOverAll] = React.useState('');
     const [novelity, setNovelity] = React.useState(0);
     const [usefulness, setUsefulness] = React.useState(0);
@@ -34,7 +33,6 @@ const RatedDetailCard = (props) => {
             );
         }
     }, [props]);
-    console.log(props?.details?.final_result,"final_result");
     return (
         <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
             <div className="row">
@@ -180,23 +178,12 @@ const RatedDetailCard = (props) => {
             </div>
             <hr />
             
-            {/* {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && ( */}
   <div className="row mb-1 mt-2">
     <div className="col-5">
       <p className="my-0 ">Evaluated By :</p>
     </div>
     <div className="col-7">
-      {/* {props?.details?.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
-        <p className="my-0"style={{ fontSize: '14px'}} key={i}>
-          {`${i + 1}: ${item}`}
-        </p>
-      ))} */}
-       {/* {Array.isArray(props?.details?.evaluator_ratings[0]?.rated_evaluated_name) &&
-      props.details.evaluator_ratings[0].rated_evaluated_name.map((item, i) => (
-        <p className="my-0" style={{ fontSize: '14px' }} key={i}>
-          {`${i + 1}: ${item}`}
-        </p>
-      ))} */}
+     
        {Array.isArray(props?.details?.evaluator_ratings[0]?.rated_evaluated_name) ? (
       props.details.evaluator_ratings[0].rated_evaluated_name.map((item, i) => (
         <p className="my-0" style={{ fontSize: '14px' }} key={i}>

@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo.png";
@@ -19,11 +18,8 @@ const FirstPage = () => {
               <div className="login-userset">
                 <div className="login-logo logo-normal">
                   <img src={logo} alt="Logo" />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+                
                 <div className="login-userheading text-center">
                   <h3> School Registration</h3>
                   <h4>Select your school type</h4>
@@ -43,22 +39,7 @@ const FirstPage = () => {
                             <ArrowRight />
                           </span>
                         </button>
-                        {/* <button
-                          type="button"
-                          className="btn btn-warning m-2"
-                          onClick={() => navigate("/atl-register")}
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            width: "300px",
-                          }}
-                        >
-                          <span className="text-center">ATL School</span>
-                          <span style={{ marginLeft: "auto" }}>
-                            <ArrowRight />
-                          </span>
-                        </button> */}
+                       
                       </Row>
                       <Row>
                         <button
@@ -72,22 +53,7 @@ const FirstPage = () => {
                             <ArrowRight />
                           </span>
                         </button>
-                        {/* <button
-                          type="button"
-                          className="btn btn-warning m-2"
-                          onClick={() => navigate("/non-atl-register")}
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            width: "200px",
-                          }}
-                        >
-                          <span> Non-ATL School</span>
-                          <span style={{ marginLeft: "auto" }}>
-                            <ArrowRight />
-                          </span>
-                        </button> */}
+                       
                       </Row>
                     </Row>
                   </div>

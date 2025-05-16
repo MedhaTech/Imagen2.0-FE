@@ -5,28 +5,13 @@ import { Row, Col, Label, Card, CardBody, Input } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { ArrowLeft, PlusCircle } from "react-feather";
 import axios from "axios";
-import Select from "react-select";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import { createDiscussionChats } from "../../Teacher/store/mentors/actions";
 import { getDiscussionList } from "../../redux/actions";
-import { FaComments, FaFile, FaLink } from "react-icons/fa";
-import DataTableExtensions from "react-data-table-component-extensions";
-import DataTable, { Alignment } from "react-data-table-component";
-import {
-  createSupportTicketResponse,
-  getSupportTicketById,
-  SupportTicketStatusChange,
-} from "../../Teacher/store/mentors/actions";
-import { UncontrolledAlert } from "reactstrap";
 
-import { FaUserCircle } from "react-icons/fa";
-import { FaRegClock } from "react-icons/fa";
-import moment from "moment";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import FeatherIcon from "feather-icons-react";
 import { useNavigate } from "react-router-dom";
 
 const TeacherSupport = () => {
@@ -34,12 +19,7 @@ const TeacherSupport = () => {
       const navigate = useNavigate();
   
  
-  const ticketOptions = [
-    { value: "", label: "Select Category", display: true },
-    { value: "General", label: "General query" },
-    { value: "Technical", label: "Technical query" },
-    { value: "Suggestion", label: "Suggestion" },
-  ];
+ 
 
  
 
@@ -94,14 +74,12 @@ const TeacherSupport = () => {
 
   const formik1 = useFormik({
     initialValues: {
-      // ticket: "",
       ticketDetails: "",
       file_name: "",
       url: "",
     },
 
     validationSchema: Yup.object({
-      // ticket: Yup.string().required("Required"),
       ticketDetails: Yup.string().required("Required"),
       file_name: Yup.mixed(),
       url: Yup.string(),
@@ -126,7 +104,6 @@ const TeacherSupport = () => {
           values.file_name = response?.data?.data[0].attachments[0].toString();
         }
         const body = {
-          // query_category: values.ticket,
           query_details: values.ticketDetails,
           district: currentUser?.data[0]?.district
         };
@@ -158,7 +135,6 @@ const TeacherSupport = () => {
     <>
      
 
-      {/* Add Ticket start */}
      
           <div className="page-wrapper">
             <div className="content">
@@ -175,12 +151,10 @@ const TeacherSupport = () => {
                         )
                     }
                   >
-                    {/* <ArrowLeft className="me-2" /> */}
                     Back To List
                   </button>
                 </div>
               </div>
-              {/* /add */}
               <div className="card">
                 <div className="card-body">
                   <form onSubmit={formik1.handleSubmit}>
@@ -277,7 +251,6 @@ const TeacherSupport = () => {
                             id="discard"
                             type="button"
                             className="btn btn-reset me-2"
-                            // data-bs-dismiss="offcanvas"
                             onClick={() =>
                               navigate(
                                     '/discussion-chat'

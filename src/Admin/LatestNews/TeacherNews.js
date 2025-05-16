@@ -2,18 +2,13 @@
 /* eslint-disable indent */
 import { useState } from 'react';
 import React, { useEffect } from 'react';
-// import Layout from '../Layout';
 import { Container, Row, Col } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
-// import { Button } from '../../stories/Button';
-// import { useHistory } from 'react-router-dom';
-// import { ReactDOM } from 'react-dom';
-// import * as ReactDOM from 'react-dom';
+
 import Swal from 'sweetalert2/dist/sweetalert2';
 import { useNavigate } from "react-router-dom";
 
@@ -21,10 +16,8 @@ import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import 'sweetalert2/src/sweetalert2.scss';
 import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
-import ToggleButton from './Toggles'; 
 
 const AdminLatestNews = () => {
-    // const history = useHistory();
     const navigate = useNavigate();
     const [resList, setResList] = useState([]);
     const [studentList, setStudentList] = useState([]);
@@ -145,7 +138,6 @@ const AdminLatestNews = () => {
                             delteId,
                         headers: {
                             'Content-Type': 'application/json',
-                            // Accept: "application/json",
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
@@ -171,7 +163,6 @@ const AdminLatestNews = () => {
             });
     };
     const handleStudentList = async (e) => {
-        // alert('hii');
         // here we can see  list of inActive institutions //
         await stuList();
     };
@@ -209,7 +200,6 @@ const AdminLatestNews = () => {
                             tecId,
                         headers: {
                             'Content-Type': 'application/json',
-                            // Accept: "application/json",
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
@@ -316,22 +306,7 @@ const AdminLatestNews = () => {
                 sortable: true,
                 width: '8rem'
             },
-            // {
-            //     name: 'State',
-            //     selector: (row) => row.state,
-            //     sortable: true,
-            //     width: '10rem'
-            // },
-            // {
-            //     name: 'Enable/Disable',
-            //     width: '12rem',
-            //     cell: (record) => (
-            //       <ToggleButton
-            //         isEnabled={record.new_status === "1"}
-            //         onToggle={(newStatus) => handleNewStuStatus(record,"0" ,newStatus.toString())}
-            //       />
-            //     )
-            //   },
+          
             
             {
                 name: 'Details',
@@ -449,12 +424,7 @@ const AdminLatestNews = () => {
                 sortable: true,
                 width: '8rem'
             },
-            // {
-            //     name: 'State',
-            //     selector: (row) => row.state,
-            //     sortable: true,
-            //     width: '10rem'
-            // },
+            
             
             {
                 name: 'Details',
@@ -555,25 +525,7 @@ const AdminLatestNews = () => {
                               Delete
                         </button>
 
-                        {/* <div
-                            key={record}
-                            onClick={() => handleEdit(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-primary mx-2">
-                                Edit
-                            </div>
-                        </div> */}
-
-                        {/* <div
-                            key={record}
-                            onClick={() => handleDelete(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-primary mx-2">
-                                Delete
-                            </div>
-                        </div> */}
+                       
                     </>
                 ]
             }
@@ -649,45 +601,7 @@ const AdminLatestNews = () => {
                 </div>
                 <Container className="ticket-page mb-50">
                     <Row className="pt-3">
-                        {/* <Col className="col-auto">
-                            {reqList ? (
-                                <h2>Student Latest News</h2>
-                            ) : (
-                                <h2>Teacher Latest News</h2>
-                            )}
-                        </Col> */}
 
-                        {/* <Col className="ticket-btn col ml-auto ">
-                            {reqList ? (
-                                <div className="d-flex justify-content-end">
-                                    <button
-                                        className='btn btn-secondary'
-                                            onClick={(e) => handleBack(e)}
-                                        >
-                                        Back
-                                        </button>
-                                </div>
-                            ) : (
-                                <div className="d-flex justify-content-end">
-                                    <button
-                                    className='btn btn-warning me-2'
-                                        onClick={(e) => handleStudentList(e)}
-                                    >
-                                        Student Latest News
-                                    </button>
-                                    <button
-                                    className='btn btn-info'
-                                        onClick={() =>
-                                            navigate(
-                                                '/create-news'
-                                            )
-                                        }
-                                    >
-    Create LatestNews
-                                </button>
-                                </div>
-                            )}
-                        </Col> */}
                         {reqList ? (
                             <div>
                                 <DataTableExtensions
@@ -697,7 +611,6 @@ const AdminLatestNews = () => {
                                     exportHeaders
                                 >
                                     <DataTable
-                                        // data={SRows}
                                         defaultSortField="id"
                                         defaultSortAsc={false}
                                         customStyles={customStyles}
@@ -718,8 +631,7 @@ const AdminLatestNews = () => {
                                     exportHeaders
                                 >
                                     <DataTable
-                                        // data={setResList}
-                                        // noHeader
+                                      
                                         defaultSortField="id"
                                         customStyles={customStyles}
 

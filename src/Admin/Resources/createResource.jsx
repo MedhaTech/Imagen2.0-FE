@@ -8,14 +8,12 @@ import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import { stateList } from "../../RegPage/ORGData";
 
 
 const CreateResource = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const currentUser = getCurrentUser('current_user');
-//   const allData = ["All States", ...stateList];
 
     const inputDICE = {
         type: 'text',
@@ -65,7 +63,6 @@ const CreateResource = () => {
             role: '',
             description: '',
             type: '',
-            // state: "",
             attachments: ''
         },
         validationSchema: Yup.object({
@@ -75,7 +72,6 @@ const CreateResource = () => {
             description: Yup.string()
                 .optional()
                 .required('Details is Required'),
-    //   state: Yup.string().required("Please Select State"),
 
             type: Yup.string()
                 .optional()
@@ -100,20 +96,12 @@ const CreateResource = () => {
                     );
                     values.attachments =
                         response?.data?.data[0].attachments[0].toString();
-                    // if (response.status === 200) {
-                    //     openNotificationWithIcon(
-                    //       'success',
-                    //       'File Uploaded Successfully'
-                    //     );
-                    //   } else {
-                    //     openNotificationWithIcon('error', 'Opps! Something Wrong');
-                    //   }
+                  
                 }
 
                 const body = {
                     role: values.role,
                     type: values.type,
-                    // state: values.state,
 
                     description: values.description,
                     attachments: values.attachments
@@ -154,16 +142,10 @@ const CreateResource = () => {
       const buttonStyle = {
         marginRight: '10px',
       };
-    //   const handleStateChange = (event) => {
-    //     const state = event.target.value;
-    //     formik.setFieldValue("state", state);
-    //   };
+   
     return (
         <div className="page-wrapper">
-            {/* <h4 className="m-2" 
-        styl e={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
-        >Resources
-        </h4> */}
+          
         <div className="content">
             <div className="page-header">
                     <div className="add-item d-flex">
@@ -174,7 +156,6 @@ const CreateResource = () => {
                     </div>
                 </div>
             <div className="EditPersonalDetails new-member-page" 
-            // style={{ backgroundColor: 'white', padding: '20px 0', margin: '20px 0',  borderRadius: '8px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}
             >
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
@@ -220,33 +201,7 @@ const CreateResource = () => {
                                                     </small>
                                                 )}
                                         </Col>
-                                        {/* <Col md={4}>
-                          <Label className="form-label" htmlFor="state">
-                            State
-                            <span required>*</span> 
-                          </Label>
-                          <select
-                            id="inputState"
-                            className="form-select"
-                            onChange={(e) => handleStateChange(e)}
-                          >
-                            <option value="">Select State</option>
-                            {allData.map((state) => (
-                              <option key={state} value={state}>
-                                {state}
-                              </option>
-                            ))}
-                          </select>
-
-                          {formik.touched.state && formik.errors.state ? (
-                            <small
-                              className="error-cls"
-                              style={{ color: "red" }}
-                            >
-                              {formik.errors.state}
-                            </small>
-                          ) : null}
-                        </Col> */}
+                                       
                                         <Col  md={6}>
                                             <Label
                                                 className="mb-2"

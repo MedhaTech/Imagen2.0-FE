@@ -3,7 +3,6 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card } from "reactstrap";
-// import { Tabs } from 'antd';
 import { Button } from "../../stories/Button";
 
 import axios from "axios";
@@ -19,13 +18,9 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import Select from "./Select.js";
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
-import logout from '../../assets/img/logout.png';
 import { useDispatch } from "react-redux";
 import { encryptGlobal } from "../../constants/encryptDecrypt.js";
 import { stateList, districtList } from "../../RegPage/ORGData.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
-import { MaskedEmail ,MaskedMobile} from "../../RegPage/MaskedData.js";
 const TicketsPage = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,7 +54,6 @@ const TicketsPage = (props) => {
       .get(`${URL.getMentors}?Data=${resparam}`, axiosConfig)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "11");
           const updatedWithKey =
             response.data &&
             response.data.data[0] &&
@@ -77,71 +71,14 @@ const TicketsPage = (props) => {
         setshowspin(false);
       });
   }
-  const handleReset = () => {
-    // here we can reset password as  user_id //
-    // here data = student_id //
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-submit',
-            cancelButton: 'btn btn-cancel'
-        },
-        buttonsStyling: false
-    });
-
-    swalWithBootstrapButtons
-        .fire({
-            title: "<h4>Are you sure?</h4>",
-            text: 'You are attempting to reset the password',
-            imageUrl: `${logout}`,
-            confirmButtonText: 'Reset Password',
-            showCancelButton: true,
-            cancelButtonText: "Cancel",
-            reverseButtons: false
-        })
-        .then((result) => {
-            if (result.isConfirmed) {
-              handleResetApi();
-            }
-        })
-        .catch((err) => console.log(err.response));
-};
-  const handleResetApi = (item) => {
-    const body = JSON.stringify({
-        email: item.username_email,
-        otp: false,
-        role:"MENTOR",
-        mentor_id: item.mentor_id
-    });
-    var config = {
-        method: 'put',
-        url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${currentUser?.data[0]?.token}`
-        },
-        data: body
-    };
-    axios(config)
-        .then(function (response) {
-          // console.log(response,"res");
-            if (response.status === 202) {
-                openNotificationWithIcon(
-                    'success',
-                    'Reset Password Successfully Update!',
-                );
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-};
+ 
+  
 const handleSelect = (item, num) => {
   // where item = student id / mentor id //
   localStorage.removeItem('dist');
   localStorage.removeItem('num');
   if (num == '1') {
       navigate("/Institution-view",{state:{ data: item,
-          // dist:studentDist,
           num: num}}
          
       );
@@ -179,7 +116,6 @@ supId = encryptGlobal(
           url: process.env.REACT_APP_API_BASE_URL + "/mentors/" + supId,
           headers: {
             "Content-Type": "application/json",
-            // Accept: "application/json",
             Authorization: `Bearer ${currentUser?.data[0]?.token}`,
           },
         };
@@ -208,7 +144,6 @@ supId = encryptGlobal(
     columns: [
       {
         name: "No",
-        // selector: (row) => row.id,
         selector: (row, key) => key + 1,
         center:true,
         cellExport: (row) => row.index,
@@ -285,13 +220,7 @@ supId = encryptGlobal(
         width: '14rem',
         cell: (record) => [
             <>
-            {/* <div
-            key={record.id}
-            onClick={() => handleReset(record, '1')}
-            style={{ marginRight: '10px' }}
-          >
-            <div className="btn btn-primary"><FontAwesomeIcon icon={faKey} style={{ marginRight: "5px" }} />Reset</div>
-          </div> */}
+           
           <div
                         key={record.id}
                         onClick={() => handleSelect(record, '1')}
@@ -324,13 +253,11 @@ supId = encryptGlobal(
       <div className="page-title">
                            
                            <h4 className="mb-3 mx-0">Institutions List</h4>
-                           {/* <h6>Create,Reset an Institution User here </h6> */}
            
                </div>
         <Container className="ticket-page mb-50 userlist">
           <Row className="mt-0">
-            {/* <h4 className="my-2 mx-0">Institutions List</h4> */}
-            {/* <Container fluid className="px-0"> */}
+           
               <Row className="align-items-center" style={{ paddingLeft: '0' }} >
                 <Col md={2}>
                   <Select
@@ -383,7 +310,6 @@ supId = encryptGlobal(
                   />
                 </DataTableExtensions>
               </div>
-            {/* </Container> */}
           </Row>
         </Container>
       </div>

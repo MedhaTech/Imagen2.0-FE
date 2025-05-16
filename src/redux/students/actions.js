@@ -68,7 +68,6 @@ export const loginUser = (data, navigate, module) => async (dispatch) => {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            // console.log(response,"pre");
             const pre = (response.data.data[0].pre_survey_completed_date);
             if (pre === null) {
               localStorage.setItem("stupresurveystatus", "INCOMPLETED");
@@ -89,11 +88,7 @@ export const loginUser = (data, navigate, module) => async (dispatch) => {
     }
   } catch (error) {
     dispatch(loginUserError({}));
-    // NotificationManager.error(
-    //   "Server down! Please try again later.",
-    //   "Error",
-    //   3000
-    // );
+    
   }
 };
 

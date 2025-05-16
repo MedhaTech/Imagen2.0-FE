@@ -8,7 +8,6 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import { districtList, collegeType, yearofstudyList, collegeNameList ,genderList} from '../../RegPage/ORGData.js';
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils.js";
-import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import Select from "react-select";
@@ -19,16 +18,8 @@ const Crew1student = () => {
   const [collegeNamesList, setCollegeNamesList] = useState([]);
    const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
-  // const handleCollegeTypeChange = (event) => {
-  //   const collegeType = event.target.value;
-  //   formik.setFieldValue("collegeType", collegeType);
-  //   formik.setFieldValue('college', '');
-  //   formik.setFieldValue('ocn', '');
-  //   setCollegeNamesList(collegeNameList[collegeType] || []);
-  // };
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
-    console.log("Selected College Type:", selectedCollegeType);
     
     formik.setFieldValue("collegeType", selectedCollegeType);
     setSelectedCollegeType(selectedCollegeType);
@@ -61,11 +52,9 @@ const Crew1student = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
           
-          // setCollegeNamesList([...existingColleges, ...collegeNames]);
           const mergedColleges = [...existingColleges, ...collegeNames];
         const uniqueColleges = [...new Set(mergedColleges)];
 
@@ -166,9 +155,7 @@ const Crew1student = () => {
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
-      // password: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Enter Password</span>
-      // ),
+     
         password: Yup.string()
             .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
             .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
@@ -231,8 +218,7 @@ const Crew1student = () => {
   
               openNotificationWithIcon("error", "Email id is Invalid");
             }
-          // openNotificationWithIcon("error", err.response.data?.message);
-          // setBtn(false);
+          
           formik.setErrors({
             check: err.response && err?.response?.data?.message,
           });
@@ -410,16 +396,13 @@ const Crew1student = () => {
                           College Town
                         </label>
                         &nbsp;
-                        {/* <span style={{ color: "red", fontWeight: "bold" }}>
-                          *
-                        </span> */}
+                       
                         <input
                           type="text"
                           className="form-control"
                           placeholder="College Town"
                           id="college_town"
                           name="college_town"
-                          // onChange={formik.handleChange}
                           onChange={(e) => {
                             const inputValue = e.target.value;
                             const lettersOnly = inputValue.replace(
@@ -479,21 +462,7 @@ const Crew1student = () => {
                               College Name
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            {/* <select
-                              id="college"
-                              className="form-select"
-                              name="college"
-                              value={formik.values.college}
-                              onBlur={formik.handleBlur}
-                              onChange={formik.handleChange}
-                            >
-                              <option value={""}>Select College Name</option>
-                              {collegeNamesList.map((item) => (
-                                <option key={item} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                            </select> */}
+                           
                              <Select
         classNamePrefix="react-select"
         options={collegeOptions}
@@ -598,7 +567,6 @@ const Crew1student = () => {
                               placeholder=" Branch/Group/Stream"
                               id="branch"
                               name="branch"
-                              // onChange={formik.handleChange}
                               onChange={(e) => {
                                 const inputValue = e.target.value;
                                 const lettersOnly = inputValue.replace(
@@ -633,7 +601,6 @@ const Crew1student = () => {
                           className="form-control"
                           id="id_number"
                           placeholder="APAAR ID"
-                          // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
                             const inputValue = e.target.value;
@@ -759,7 +726,6 @@ const Crew1student = () => {
                             }
                           >
                             PROCEED
-                            {/* <ArrowRight /> */}
                           </button>
                           <button
                             className="btn btn-warning m-2"
@@ -767,7 +733,6 @@ const Crew1student = () => {
                             onClick={() => navigate("/student-team")}
                           >
                             Back
-                            {/* <ArrowRight /> */}
                           </button>
                         </div>
 

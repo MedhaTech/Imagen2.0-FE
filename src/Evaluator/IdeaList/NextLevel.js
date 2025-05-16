@@ -20,38 +20,7 @@ const NextLevel = (props) => {
             
         }
     }, [props]);
-    const files = teamResponse?.prototype_image
-    ? teamResponse?.prototype_image.split(',')
-    : [];
-const downloadFile = (item) => {
-    // const link = document.createElement('a');
-    // link.href = item;
-    // link.download = 'upload.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-    fetch(item)
-        .then((response) => {
-            // Convert the response to a blob
-            return response.blob();
-        })
-        .then((blob) => {
-            // Create a download link
-            const url = window.URL.createObjectURL(new Blob([blob]));
-            const link = document.createElement('a');
-            link.href = url;
-            const parts = item.split('/');
-            link.setAttribute('download', parts[parts.length - 1]);
-            document.body.appendChild(link);
-            link.click();
-            link.parentNode.removeChild(link);
-        })
-        .catch((error) => {
-            console.error('Error downloading file:', error);
-        });
-};
-
-// const problemSolvingArray = teamResponse?.problem_solving;
+  
     return (
         <>
             {teamResponse ? (
@@ -146,8 +115,7 @@ const downloadFile = (item) => {
                                             }}
                                         >
                                            2. Describe your idea (in one sentence).
-                                            {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                           
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -459,38 +427,9 @@ const downloadFile = (item) => {
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                            {/* {
-                        <LinkComponent item={images} />
-                      } */}
+                                           
                        {teamResponse.support}
-                                                {/* {files.length > 0 &&
-                                                    files.map((item, i) => (
-                                                        <div key={i}>
-                                                          
-                                                            <a
-                                                                key={i}
-                                                                className="badge mb-2 bg-info p-3 ms-3"
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                onClick={() =>
-                                                                    downloadFile(
-                                                                        item
-                                                                    )
-                                                                }
-                                                            >
-                                                                {item
-                                                                    .split('/')
-                                                                    .pop()}
-                                                            </a>
-                                                        </div>
-                                                    ))} */}
-                                                {/* <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.Prototype_file}
-                                    </p> */}
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -535,59 +474,7 @@ const downloadFile = (item) => {
                                 </div>
                             </div>
                            
-                            {/* {teamResponse?.map((item, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                                    >
-                                        <div className="question quiz mb-0">
-                                            <b
-                                                style={{
-                                                    fontSize: '1.6rem'
-                                                }}
-                                            >
-                                                {item?.question_no || ''}.{' '}
-                                                {item?.question || ''}
-                                            </b>
-                                        </div>
-                                        <div className="bg-light rounded p-5">
-                                            <p
-                                                style={{
-                                                    fontSize: '1.4rem'
-                                                }}
-                                            >
-                                                {item?.question_type ===
-                                                'MCQ' ? (
-                                                    item?.selected_option?.map(
-                                                        (data, i) => {
-                                                            return (
-                                                                <div key={i}>
-                                                                    {data || ''}
-                                                                </div>
-                                                            );
-                                                        }
-                                                    )
-                                                ) : item?.question_type ===
-                                                      'TEXT' ||
-                                                  item?.question_type ===
-                                                      'MRQ' ? (
-                                                    item?.selected_option
-                                                ) : item?.question_type ===
-                                                  'DRAW' ? (
-                                                    <LinkComponent
-                                                        item={
-                                                            item.selected_option
-                                                        }
-                                                    />
-                                                ) : (
-                                                    ''
-                                                )}
-                                            </p>
-                                        </div>
-                                    </div>
-                                );
-                            })} */}
+
                         </div>
                     </div>
 

@@ -6,8 +6,7 @@ import * as Icon from "react-feather";
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-import FeatherIcon from "feather-icons-react";
-import { FaComments} from "react-icons/fa";
+
 import { GoCommentDiscussion } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../helpers/Utils";
@@ -15,7 +14,6 @@ import { logout } from "../../helpers/Utils";
 const SidebarData = () => {
   const { t } = useTranslation();
    const navigate = useNavigate();
-  const presurvey = localStorage.getItem("stupresurveystatus") ;
   const currentUser = getCurrentUser('current_user');
   const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
   const [link, setLink] = useState('/instruction');
@@ -43,7 +41,6 @@ const SidebarData = () => {
             const data = response.data.data[0];
             if (response.data.data[0].status === 'SUBMITTED') {
               setLink('/idea');
-              console.log("headerData",response.data.data[0].status);
             } else {
               setLink('/instruction');
             } 
@@ -62,7 +59,6 @@ useEffect(() => {
     submittedApi();
 }, []);
  const handleLogout1 = (e) => {
-  // alert("hii");
     logout(navigate, t, "STUDENT");
     e.preventDefault();
   };

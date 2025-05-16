@@ -81,109 +81,7 @@ const NonAtlPage = () => {
     handleRegister();
   }, []);
 
-  // const fullStatesNames = useSelector(
-  //   (state) => state?.studentRegistration?.regstate
-  // );
-
-  // useEffect(() => {
-  //   dispatch(getStateData());
-  // }, []);
-
-  // useEffect(() => {
-  //   if (stateData !== "") {
-  //     dispatch(getFetchDistData(stateData));
-  //   }
-  //   setdistrict("");
-  // }, [stateData]);
-  // const fiterDistData = useSelector(
-  //   (state) => state?.studentRegistration?.fetchdist
-  // );
-  // useEffect(() => {
-  //   stateApi();
-  // }, []);
-  const stateApi = () => {
-    var config = {
-      method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + `/organizations/states`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          setFullStatesNames(response.data.data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  // useEffect(() => {
-  //   if (stateData !== "") {
-  //     districtApi(stateData);
-  //   }
-  //   // setdistrict("");
-  // }, [stateData]);
-  // const districtApi = (item) => {
-  //   const distParam = encryptGlobal(
-  //     JSON.stringify({
-  //       state: item,
-  //     })
-  //   );
-
-  //   var config = {
-  //     method: "get",
-  //     url:
-  //       process.env.REACT_APP_API_BASE_URL +
-  //       `/organizations/districts?Data=${distParam}`,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-  //     },
-  //   };
-  //   axios(config)
-  //     .then(function (response) {
-  //       if (response.status === 200) {
-  //         setFullDistrictsNames(response.data.data);
-  //       }
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // };
-  const handleOnChange = (e) => {
-    const numericValue = e.target.value.replace(/\D/g, "");
-    const trimmedValue = numericValue.trim();
-
-    setDiesCode(trimmedValue);
-
-    if (trimmedValue.length === 11 && checkBox1) {
-      setIsButtonEnabled(true);
-    } else {
-      setIsButtonEnabled(false);
-    }
-
-    setOrgData();
-    setError("");
-  };
-
-  const handleCheckbox1 = (e, click) => {
-    if (click) {
-      setCheckBox1(true);
-      if (diesCode.length === 11) {
-        setIsButtonEnabled(true);
-      }
-      //formik.setFieldValue("whatapp_mobile", formik.values.mobile);
-      //setWtsNum(formik.values.mobile);
-    } else {
-      setCheckBox1(false);
-      setIsButtonEnabled(false);
-      //formik.setFieldValue("whatapp_mobile", "");
-    }
-  };
+ 
 
   const handleRegister = (e) => {
     const body = JSON.stringify({
@@ -201,28 +99,7 @@ const NonAtlPage = () => {
     };
     axios(config)
       .then(function (response) {
-        // if (response?.status == 200) {
-        //   //console.log(response,"eivnir");
-        //   setError("Another Teacher is already registered in given School");
-        //   setDiceBtn(true);
-        //   setBtn(false);
-        // }
-        // if(response?.status == 200) {
-        //   console.log(response,"eivnir");
-        //   if (Object.keys(response?.data?.data[0]).length && response?.data?.data[0].category === "Non ATL") {
-        //     setOrgData(response?.data?.data[0]);
-        //       formik.setFieldValue(
-        //         "organization_code",
-        //         response?.data?.data[0].organization_code
-        //       );
-        //       setDiceBtn(false);
-        //       setSchoolBtn(true);
-        //     //setBtn(true);
-        //     //setDiceBtn(false);
-        //     setBtn(false);
-        //     //setSchoolBtn(true);
-        //   }
-        // }
+       
         if (response?.status == 200) {
           if (
             response?.data?.data[0] &&
@@ -234,20 +111,12 @@ const NonAtlPage = () => {
                   response?.data?.data[0].mentor !== null
               )
             ) {
-              // setOrgData(response?.data?.data[0]);
               setSecondUser(true);
               formik.setFieldValue(
                 "organization_code",
                 response?.data?.data[0].organization_code
               );
-              // setTextData(response?.data?.data[0].address);
-              // setPinCode(response?.data?.data[0].pin_code);
-              // setSchoolname(response?.data?.data[0].organization_name);
-              // setDiesCode(response?.data?.data[0].organization_code);
-              // setStateData(response?.data?.data[0].state);
-              // setdistrict(response?.data?.data[0].district);
-
-              // setDiceBtn(false);
+             
               setSchoolBtn(true);
             } else {
               setError(
@@ -260,12 +129,10 @@ const NonAtlPage = () => {
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
           setBtn(true);
-          // setDiceBtn(false);
           setCondition(true);
         }
       });
 
-    // e.preventDefault();
   };
   useEffect(() => {
     if (diesCodes.length > 0) {
@@ -322,7 +189,6 @@ const NonAtlPage = () => {
       category: "Non ATL",
       organization_code: diesCodes,
       organization_name: schoolname,
-      //new_district: newDistrict,
       address: textData,
     };
     setOrgData(body);
@@ -345,7 +211,6 @@ const NonAtlPage = () => {
     initialValues: {
       full_name: "",
       organization_code: diesCodes,
-      // username: '',
       mobile: "",
       whatapp_mobile: "",
       role: "MENTOR",
@@ -376,9 +241,7 @@ const NonAtlPage = () => {
         .matches(
           /^\d+$/,
           "Please enter a valid email address"
-          // <span style={{ color: "red" }}>
-          //   Mobile number is not valid (Enter only digits)
-          // </span>
+         
         )
         .max(
           10,
@@ -400,7 +263,6 @@ const NonAtlPage = () => {
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
           "Email Must be VALID"
-          //<span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
         .max(255),
       whatapp_mobile: Yup.string()
@@ -517,7 +379,6 @@ const NonAtlPage = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          // console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "OTP sent to Email Id");
           setBtnOtp(true);
@@ -525,7 +386,6 @@ const NonAtlPage = () => {
           setTimeout(() => {
             setOtpSent("Resend OTP");
             setDisable(true);
-            // setHoldKey(false);
             setTimer(0);
           }, 60000);
         }
@@ -537,11 +397,7 @@ const NonAtlPage = () => {
           setDisable(true);
           setAreInputsDisabled(false);
           setTimer(0);
-          // setTimeout(() => {
-          //   setDisable(true);
-          //   setHoldKey(false);
-          //   setTimer(0);
-          // }, 1000);
+         
         }
       });
     e.preventDefault();
@@ -589,27 +445,7 @@ const NonAtlPage = () => {
       mentorregdata["organization_code"] = diesCodes;
       handelMentorReg(mentorregdata);
     }
-    // var config = {
-    //   method: "post",
-    //   url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-    //   },
-    //   data: body,
-    // };
-    // axios(config)
-    //   .then(function (response) {
-    //     if (response?.status == 201) {
-    //       mentorregdata["organization_code"] =
-    //         response.data.data[0].organization_code;
-    //       handelMentorReg(mentorregdata);
-    //     }
-    //   })
-
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+   
   };
   const handelMentorReg = async (body) => {
     var config = {
@@ -631,12 +467,10 @@ const NonAtlPage = () => {
             apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
           }, 3000);
 
-          // setMentorData(mentorRegRes?.data);
         }
       })
       .catch((err) => {
         openNotificationWithIcon("error", err.response.data?.message);
-        // setBtn(false);
         formik.setErrors({
           check: err.response && err?.response?.data?.message,
         });
@@ -661,7 +495,6 @@ const NonAtlPage = () => {
     const body = JSON.stringify({
       school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
-      // atl_code: mentorDaTa.organization_code,
       district: orgData.district,
       state: orgData.state,
       pin_code: orgData.pin_code,
@@ -691,17 +524,7 @@ const NonAtlPage = () => {
         console.log(error);
       });
   }
-  // useEffect(() => {
-  //   if (timer > 0) {
-  //     const intervalId = setInterval(() => {
-  //       setTimer((prevTimer) => prevTimer - 1);
-  //     }, 1000);
-  //     return () => clearInterval(intervalId);
-  //   } else if (timer === 0 && otpSent) {
-  //     setAreInputsDisabled(false);
-  //     setOtpSent(false);
-  //   }
-  // }, [timer, otpSent]);
+ 
   useEffect(() => {
     if (timer > 0) {
       const intervalId = setInterval(() => {
@@ -755,148 +578,12 @@ const NonAtlPage = () => {
               <div className="login-userset">
                 <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
-                {/* <div className="login-userheading">
-                  <h3 className="icon-container ">
-                    {" "}
-                    Non-ATL School Teacher Registration{" "}
-                    <a
-                      href="https://www.youtube.com/watch?v=q40BSRm_cJM" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={handleIconClick}
-                    >
-                      <img
-                        src={play}
-                        className="icon"
-                        alt="play"
-                        style={{ verticalAlign: "middle", width: "7%" }}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                      />{" "}
-                    </a>
-                    {isTooltipVisible && (
-                      <div className="tooltip">Watch Demo</div>
-                    )}
-                    {isModalVisible && (
-                      <div className="modal-overlay" onClick={handleCloseModal}>
-                        <div
-                          className="modal"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <span
-                            className="close-button"
-                            onClick={handleCloseModal}
-                          >
-                            &times;
-                          </span>
-                          <iframe
-                            width="560"
-                            height="315"
-                            src="https://www.youtube.com/watch?v=q40BSRm_cJM" // Replace with the desired video URL
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            title="YouTube video"
-                          ></iframe>
-                        </div>
-                      </div>
-                    )}
-                  </h3>
-                  <h4>Register New Teacher account</h4>
-                </div> */}
-                {/* {diceBtn && ( */}
-                {/* <div className="form-login mb-3"> */}
-                {/* <label className="form-label">School UDISE Code</label> */}
-                {/* <div className="form-addons">
-                      <input
-                        type="text"
-                        className="form-control mb-3"
-                        id="organization_code"
-                        onChange={(e) => handleOnChange(e)}
-                        value={diesCode}
-                        maxLength={11}
-                        minLength={11}
-                        name="organization_code"
-                        placeholder="Enter 11 digit UDISE Code"
-                      />
-                      <img src={user} alt="user" />
-                    </div> */}
 
-                {/* {error ? (
-                      <p
-                        style={{
-                          color: "red",
-                        }}
-                      >
-                        {error}
-                      </p>
-                    ) : null} */}
+               
 
-                {/* <div className="form-login authentication-check">
-                      <div className="row">
-                        <div className="col-12 d-flex align-items-center justify-content-between">
-                          <div className="custom-control custom-checkbox">
-                            <label className="checkboxs ps-4 mb-0 pb-0 line-height-1">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                name="click"
-                                disabled={
-                                  9999999999 <
-                                  formik.values.diesCode <
-                                  99999999999
-                                    ? false
-                                    : true
-                                }
-                                checked={checkBox1}
-                                onClick={(e) => handleCheckbox1(e, !checkBox1)}
-                              />
-                              <span className="checkmarks" />I agree to the
-                              Terms & Privacy
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </div> */}
-
-                {/* {diceBtn && (
-                      <div className="form-login">
-                        <button
-                          type="button"
-                          className="btn btn-login mb-3"
-                          onClick={(e) => handleRegister(e)}
-                          disabled={!isButtonEnabled}
-                        >
-                          {" "}
-                          Proceed
-                        </button>
-                        <p className="form-login mb-3">
-                          Already have an account ?
-                          <b>
-                            <Link className="hover-a" to={"/login"}>
-                              {"  "} Login Instead
-                            </Link>
-                          </b>
-                        </p>
-                      </div>
-                    )} */}
-                {/* <br /> */}
-                {/* <p className="text-center">
-                      Copyright{" "}
-                      <img
-                        src={copy}
-                        className="copy"
-                        alt="copy"
-                        style={{ verticalAlign: "middle", width: "5%" }}
-                      />{" "}
-                      YFSI 2024. All rights reserved
-                    </p> */}
-                {/* </div> */}
-                {/* )} */}
+              
+              
                 {btn && (
                   <>
                     <div className="col-xl-12">
@@ -974,21 +661,7 @@ const NonAtlPage = () => {
                             className="form-control"
                           />
                         </div>
-                        {/* <div className="col-md-6">
-                          <label className="form-label">
-                            {" "}
-                            New District Name (if applicable)
-                          </label>
-                          <input
-                            id="new_district"
-                            onChange={(e) => handleOnChangeNewDistrict(e)}
-                            value={newDistrict}
-                            name="new_district"
-                            placeholder="Enter New District"
-                            type="text"
-                            className="form-control"
-                          />
-                        </div> */}
+                      
                         <div className="form-login">
                           <button
                             type="button"
@@ -1016,16 +689,13 @@ const NonAtlPage = () => {
                           School Name : {""}
                           {orgData?.organization_name}
                           <br />
-                          {/* City Name : {""}
-                          {orgData?.city ? orgData?.city : " N/A"} <br /> */}
+                         
                           District Name :{" "}
                           {orgData?.district ? orgData?.district : " N/A"}
                           <br />
                           State Name :{" "}
                           {orgData?.state ? orgData?.state : " N/A"} <br />
-                          {/* PinCode :{" "}
-                          {orgData?.pin_code ? orgData?.pin_code : " N/A"}{" "}
-                          <br /> */}
+                          
                         </div>
                       </div>
                     </div>
@@ -1033,7 +703,6 @@ const NonAtlPage = () => {
                     <div className="card">
                       <div className="card-body">
                         <div className="row g-3 mt-0">
-                          {/* {person && ( */}
                           <>
                             <div className="col-md-3">
                               <label
@@ -1045,7 +714,6 @@ const NonAtlPage = () => {
                               <select
                                 id="inputState"
                                 className="form-select"
-                                // disabled={holdKey ? true : false}
                                 disabled={areInputsDisabled}
                                 name="title"
                                 value={formik.values.title}
@@ -1073,7 +741,6 @@ const NonAtlPage = () => {
                                 id="full_name"
                                 disabled={areInputsDisabled}
                                 name="full_name"
-                                // onChange={formik.handleChange}
                                 onChange={(e) => {
                                   const inputValue = e.target.value;
                                   const lettersOnly = inputValue.replace(
@@ -1160,11 +827,9 @@ const NonAtlPage = () => {
                               <input
                                 type="text"
                                 disabled={true}
-                                // isDisabled={true}
                                 name="password"
                                 id="password"
                                 defaultValue="readonly"
-                                // readOnly="readonly"
                                 className="form-control"
                                 value={formik.values.password}
                               />
@@ -1272,8 +937,7 @@ const NonAtlPage = () => {
                               ) : null}
                             </div>
                           </>
-                          {/* )} */}
-                          {/* {person && ( */}
+                         
                           <div className="col-md-12">
                             <button
                               type="button"
@@ -1291,11 +955,7 @@ const NonAtlPage = () => {
                             <>
                               <div className="Otp-expire text-center">
                                 <p>
-                                  {/* {timer > 0
-                                    ? `Otp will expire in 00:${
-                                        timer < 10 ? `0${timer}` : timer
-                                      } seconds`
-                                    : "Otp expired"} */}
+                                 
                                   {timer > 0
                                     ? `Access Resend OTP in ${timer < 10 ? `0${timer}` : timer} sec`
                                     : "Resend OTP enabled"}
@@ -1323,7 +983,6 @@ const NonAtlPage = () => {
                                         }}>
                                           <OtpInput
                                             numInputs={6}
-                                            // isDisabled={false}
                                             disabled={false}
                                             errorStyle="error"
                                             onChange={handleOtpChange}
@@ -1391,7 +1050,6 @@ const NonAtlPage = () => {
             ) : (
               "Verify My Account"
             )}
-                                {/* Verify My Account */}
                               </button>
                             </div>
                           )}

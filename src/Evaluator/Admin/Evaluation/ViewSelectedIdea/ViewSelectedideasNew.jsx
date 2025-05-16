@@ -3,10 +3,8 @@
 /* eslint-disable indent */
 import React, { useEffect, useRef, useState } from "react";
 import "./ViewSelectedideas.scss";
-// import Layout from '../../Pages/Layout';
 import DataTable, { Alignment } from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
-import moment from "moment";
 import ViewDetail from "./ViewDetail.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,12 +12,8 @@ import { KEY, URL } from "../../../../constants/defaultValues.js";
 import { Button } from "../../../../stories/Button.jsx";
 import Select from "../Pages/Select.jsx";
 import { Col, Container, Row } from "reactstrap";
-// import { cardData } from '../../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from "react-redux";
-// import {
-//     getDistrictData,
-//     getStateData
-// } from '../../../../redux/studentRegistration/actions';
+
 import { useDispatch } from "react-redux";
 import {
   ReasonsOptions,
@@ -29,15 +23,10 @@ import { getCurrentUser, getNormalHeaders } from "../../../../helpers/Utils.js";
 import { getAdminEvalutorsList } from "../../../../Admin/store/adminEvalutors/actions.js";
 import { getAdminList } from "../../../../Admin/store/admin/actions.js";
 import { Spinner } from "react-bootstrap";
-import jsPDF from "jspdf";
 import Swal from "sweetalert2/dist/sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import logout from "../../../../assets/img/logout.png";
-import { FaDownload, FaHourglassHalf } from "react-icons/fa";
-import html2canvas from "html2canvas";
-import TableDetailPdf from "./TableDetailPdf.jsx";
 import { useReactToPrint } from "react-to-print";
-import DetailToDownload from "./DetailToDownload.jsx";
 import { encryptGlobal } from "../../../../constants/encryptDecrypt.js";
 import { stateList, districtList } from "../../../../RegPage/ORGData.js";
 import { themesList } from "../../../../Team/IdeaSubmission/themesData.js";
@@ -66,34 +55,11 @@ const ViewSelectedideasNew = () => {
   const [tablePage, setTablePage] = React.useState(1);
   const [showspin, setshowspin] = React.useState(false);
   const newThemesList = ["All Themes", ...themesList];
-  const newstateList = ["All States", ...stateList];
-  const fullStatesNames = newstateList;
-
-  const allDistricts = {
-    "All Districts": [...Object.values(districtList).flat()],
-    ...districtList,
-  };
-  // const fiterDistData =
-  //   selectstate === "All States"
-  //     ? []
-  //     : ["All Districts", ...(allDistricts[selectstate] || [])];
+ 
+ 
       const fiterDistData = [...districtList["Telangana"]];
           fiterDistData.unshift("All Districts");
-  // useEffect(() => {
-  //     setdistrict(""); 
-  //     console.log(selectstate,"state");
-  // }, [selectstate]);
-  // const SDGDate = cardData.map((i) => {
-  //     return i.goal_title;
-  // });
-  // SDGDate.unshift('All Themes');
 
-  // const fullStatesNames = useSelector(
-  //     (state) => state?.studentRegistration?.regstate
-  // );
-  // const fullDistrictsNames = useSelector(
-  //     (state) => state?.studentRegistration?.dists
-  // );
 
   const evallist = useSelector((state) => state?.adminEvalutors?.evalutorsList);
   const adminlist = useSelector((state) => state?.admin?.adminList);
@@ -109,7 +75,6 @@ const ViewSelectedideasNew = () => {
   });
   const newQuery = {
     level: level,
-    // state: selectstate !== "All States" ? selectstate : "",
     district: district !== "All Districts" ? district : "",
 
     theme: sdg !== "All Themes" ? sdg : "",
@@ -118,15 +83,12 @@ const ViewSelectedideasNew = () => {
     evaluator_id: Allevalobj[evalname],
   };
   useEffect(() => {
-    // dispatch(getDistrictData());
-    // dispatch(getStateData());
+   
     dispatch(getAdminEvalutorsList());
     dispatch(getAdminList());
   }, []);
 
-  // const handlePromotel2processed = async (item) => {
-  //   await promoteapi(item.challenge_response_id);
-  // };
+ 
   const handlePromotel2processed = async (item) => {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -215,18 +177,10 @@ const ViewSelectedideasNew = () => {
       )
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "res");
-          // const val1 =
-          //     response?.data?.data[0]?.dataValues[0]
-          //         ?.evaluator_ratings[0]?.param_1;
-          // const sum = val1.reduce((acc, value) => acc + value, 0);
-          // const average = sum / val1.length;
-
-          // console.log('Average:', average);
+        
 
           const updatedWithKey =
-            // response.data &&
-            // response.data.data[0] &&
+           
             response?.data?.data[0]?.dataValues.map((item, i) => {
               const upd = { ...item };
               upd["key"] = i + 1;
@@ -253,38 +207,13 @@ const ViewSelectedideasNew = () => {
         width: "6rem",
       },
 
-      // {
-      //   name: "State",
-      //   cellExport: (row) => row.state,
-      //   cell: (row) => (
-      //     <div
-      //       style={{
-      //         whiteSpace: "pre-wrap",
-      //         wordWrap: "break-word",
-      //       }}
-      //     >
-      //       {row.state}
-      //     </div>
-      //   ),
-      //   width: "9rem",
-      // },
+     
       {
         name: "District",
         selector: (row) => row.district,
         width: "8rem",
       },
-      // {
-      //   name: "Udise Code",
-      //   selector: (row) => row.organization_code,
-      //   cellExport: (row) => row.organization_code,
-      //   width: "9rem",
-      // },
-      // {
-      //   name: "Team Name",
-      //   selector: (row) => row.team_name,
-      //   cellExport: (row) => row.team_name,
-      //   width: "10rem",
-      // },
+     
       {
         name: "College Type",
         selector: (row) => row.college_type,
@@ -317,29 +246,13 @@ const ViewSelectedideasNew = () => {
         ),
         width: "11rem",
       },
-      // {
-      //     name: 'Problem Statement',
-      //     cellExport: (row) => row.sub_category,
-
-      //     cell: (row) => (
-      //         <div
-      //             style={{
-      //                 whiteSpace: 'pre-wrap',
-      //                 wordWrap: 'break-word'
-      //             }}
-      //         >
-      //             {row.sub_category}
-      //         </div>
-      //     ),
-      //     width: '25rem'
-      // },
+     
       {
         name: 'Idea Name',
         cell: (row) => (
             <div
                 style={{
-                    // whiteSpace: 'pre-wrap',
-                    // wordWrap: 'break-word'
+                  
                     whiteSpace: 'nowrap',       
                     overflow: 'hidden',         
                     textOverflow: 'ellipsis',
@@ -351,36 +264,7 @@ const ViewSelectedideasNew = () => {
         width: '11rem'
     },
 
-      // {
-      //     name: 'District',
-      //     selector: (row) => row.district,
-      //     width: '15rem'
-      // },
-      // {
-      //     name: 'SDG',
-      //     selector: (row) => row.sdg,
-      //     width: '15%'
-      // },
-      // {
-      //     name: 'Submitted By',
-      //     selector: (row) => row.initiated_name,
-      //     width: '15%'
-      // },
-      // {
-      //     name: 'Evaluated By',
-      //     cell: (row) => {
-      //         return [row.evaluated_name ? row.evaluated_name : ''];
-      //     },
-      //     width: '15%'
-      // },
-      // {
-      //     name: 'Evaluated At',
-      //     selector: (row) =>
-      //         row.evaluated_at
-      //             ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
-      //             : row.evaluated_at,
-      //     width: '15%'
-      // },
+
 
       {
         name: "Status",
@@ -428,12 +312,7 @@ const ViewSelectedideasNew = () => {
                   View
                 </div>
               </div>
-              {/* <FaDownload
-                                size={22}
-                                onClick={() => {
-                                    handleDownpdf(params);
-                                }}
-                            /> */}
+            
             </>,
           ];
         },
@@ -452,21 +331,7 @@ const ViewSelectedideasNew = () => {
         sortable: true,
         width: "6rem",
       },
-      // {
-      //   name: "State",
-      //   cellExport: (row) => row.state,
-      //   cell: (row) => (
-      //     <div
-      //       style={{
-      //         whiteSpace: "pre-wrap",
-      //         wordWrap: "break-word",
-      //       }}
-      //     >
-      //       {row.state}
-      //     </div>
-      //   ),
-      //   width: "10rem",
-      // },
+    
       {
         name: "District",
         selector: (row) => row.district,
@@ -505,28 +370,13 @@ const ViewSelectedideasNew = () => {
         ),
         width: "10rem",
       },
-      // {
-      //     name: 'Problem Statement',
-      //     cellExport: (row) => row.sub_category,
-      //     cell: (row) => (
-      //         <div
-      //             style={{
-      //                 whiteSpace: 'pre-wrap',
-      //                 wordWrap: 'break-word'
-      //             }}
-      //         >
-      //             {row.sub_category}
-      //         </div>
-      //     ),
-      //     width: '25rem'
-      // },
+     
       {
         name: 'Idea Name',
         cell: (row) => (
             <div
                 style={{
-                    // whiteSpace: 'pre-wrap',
-                    // wordWrap: 'break-word'
+                   
                     whiteSpace: 'nowrap',       
                     overflow: 'hidden',         
                     textOverflow: 'ellipsis',
@@ -538,26 +388,7 @@ const ViewSelectedideasNew = () => {
         width: '11rem'
     },
 
-      // {
-      //     name: 'District',
-      //     selector: (row) => row.district,
-      //     width: '15rem'
-      // },
-      // {
-      //     name: 'CID',
-      //     selector: (row) => row.challenge_response_id,
-      //     width: '10%'
-      // },
-      // {
-      //     name: 'SDG',
-      //     selector: (row) => row.sdg,
-      //     width: '30%'
-      // },
-      // {
-      //     name: 'Submitted By',
-      //     selector: (row) => row.initiated_name,
-      //     width: '20%'
-      // },
+    
       {
         name: "Actions",
         cellExport: (row) => "",
@@ -583,12 +414,7 @@ const ViewSelectedideasNew = () => {
               >
                 View
               </div>
-              {/* <FaDownload
-                                size={22}
-                                onClick={() => {
-                                    handleDownpdf(params);
-                                }}
-                            /> */}
+            
             </div>,
           ];
         },
@@ -598,12 +424,7 @@ const ViewSelectedideasNew = () => {
     ],
   };
 
-  const [pdfLoader, setPdfLoader] = React.useState(false);
-  const [teamResponse, setTeamResponse] = React.useState([]);
-  const [details, setDetails] = React.useState();
-  const downloadPDF = async (params) => {
-  };
-  // console.log(tableData, 'Data');
+ 
   const evaluatedIdeaL2 = {
     data: tableData && tableData.length > 0 ? tableData : [],
     columns: [
@@ -614,21 +435,7 @@ const ViewSelectedideasNew = () => {
         sortable: true,
         width: "6rem",
       },
-      // {
-      //   name: "State",
-      //   cellExport: (row) => row.state,
-      //   cell: (row) => (
-      //     <div
-      //       style={{
-      //         whiteSpace: "pre-wrap",
-      //         wordWrap: "break-word",
-      //       }}
-      //     >
-      //       {row.state}
-      //     </div>
-      //   ),
-      //   width: "10rem",
-      // },
+     
       {
         name: "District",
         selector: (row) => row.district,
@@ -650,11 +457,7 @@ const ViewSelectedideasNew = () => {
         cellExport: (row) => row.challenge_response_id,
         width: "5rem",
       },
-      // {
-      //   name: "Category",
-      //   selector: (row) => row.category,
-      //   width: "8rem",
-      // },
+     
 
       {
         name: "Theme",
@@ -671,29 +474,13 @@ const ViewSelectedideasNew = () => {
         ),
         width: "10rem",
       },
-      // {
-      //     name: 'Problem Statement',
-      //     cellExport: (row) => row.sub_category,
-
-      //     cell: (row) => (
-      //         <div
-      //             style={{
-      //                 whiteSpace: 'pre-wrap',
-      //                 wordWrap: 'break-word'
-      //             }}
-      //         >
-      //             {row.sub_category}
-      //         </div>
-      //     ),
-      //     width: '25rem'
-      // },
+     
       {
         name: 'Idea Name',
         cell: (row) => (
             <div
                 style={{
-                    // whiteSpace: 'pre-wrap',
-                    // wordWrap: 'break-word'
+                   
                     whiteSpace: 'nowrap',       
                     overflow: 'hidden',         
                     textOverflow: 'ellipsis',
@@ -704,39 +491,19 @@ const ViewSelectedideasNew = () => {
         ),
         width: '11rem'
     },
-      // {
-      //     name: 'District',
-      //     selector: (row) => row.district,
-      //     width: '15rem'
-      // },
+    
       {
         name: "Quality Score",
-        // cellExport: (row) => row?.response[1]?.selected_option || '',
         selector: (row) => {
-        //   return [
-        //     (
-        //       ((row.evaluator_ratings[0]?.param_1[0] +
-        //         row.evaluator_ratings[0]?.param_1[1] +
-        //         row.evaluator_ratings[0]?.param_1[2]) /
-        //         3 +
-        //         (row.evaluator_ratings[0]?.param_2[0] +
-        //           row.evaluator_ratings[0]?.param_2[1] +
-        //           row.evaluator_ratings[0]?.param_2[2]) /
-        //           3) /
-        //       2
-        //     ).toFixed(2),
-
-        //   ];
+       
         return [
             (
                 ((row.evaluator_ratings[0]?.param_1[0] +
                     row.evaluator_ratings[0]?.param_1[1] 
-                    // row.evaluator_ratings[0]?.param_1[2]
                 ) /
                     3 +
                     (row.evaluator_ratings[0]?.param_2[0] +
                         row.evaluator_ratings[0]?.param_2[1]
-                        // row.evaluator_ratings[0]?.param_2[2]
                     ) /
                         3) /
                 2
@@ -745,7 +512,6 @@ const ViewSelectedideasNew = () => {
         },
         sortable: true,
 
-        // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
         width: "12rem",
       },
       {
@@ -755,17 +521,14 @@ const ViewSelectedideasNew = () => {
             (
               ((row.evaluator_ratings[0]?.param_3[0] +
                 row.evaluator_ratings[0]?.param_3[1]
-                // row.evaluator_ratings[0]?.param_3[2]
             ) /
                 3 +
                 (row.evaluator_ratings[0]?.param_4[0] +
                   row.evaluator_ratings[0]?.param_4[1]
-                //   row.evaluator_ratings[0]?.param_4[2]
                 ) /
                   3 +
                 (row.evaluator_ratings[0]?.param_5[0] +
                   row.evaluator_ratings[0]?.param_5[1]
-                //   row.evaluator_ratings[0]?.param_5[2]
                 ) /
                   3) /
               3
@@ -774,31 +537,10 @@ const ViewSelectedideasNew = () => {
         },
         sortable: true,
 
-        // id: 'feasibility',
-        // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
+       
         width: "12rem",
       },
-      // {
-      //     name: 'CID',
-      //     selector: (row) => row.challenge_response_id,
-      //     width: '10%'
-      // },
-      // {
-      //     name: 'Team Name',
-      //     selector: (row) => row.team_name || '',
-      //     sortable: true,
-      //     width: '17%'
-      // },
-      // {
-      //     name: 'SDG',
-      //     selector: (row) => row.sdg,
-      //     wi '13%'
-      // },
-      // {
-      //     name: 'Submitted By',
-      //     selector: (row) => row.initiated_name,
-      //     width: '22%'
-      // },
+     
       {
         name: "Overall",
 
@@ -839,27 +581,9 @@ const ViewSelectedideasNew = () => {
               </div>
               <div className="mx-2 pointer d-flex align-items-center">
                
-                {/* <FaDownload
-                                    size={22}
-                                    onClick={() => {
-                                        handleDownpdf(params);
-                                    }}
-                                /> */}
+              
               </div>
-              {/* {!params.final_result && (
-                                <div
-                                    //exact="true"
-                                    // key={record}
-                                    onClick={() =>
-                                        handlePromotel2processed(params)
-                                    }
-                                    style={{ marginRight: '12px' }}
-                                >
-                                    <div className="btn btn-info btn-lg mx-2">
-                                        Promote
-                                    </div>
-                                </div>
-                            )} */}
+            
             </>,
           ];
         },
@@ -873,8 +597,7 @@ const ViewSelectedideasNew = () => {
             <>
               {!params.final_result && (
                 <div
-                  //exact="true"
-                  // key={record}
+                  
                   onClick={() => handlePromotel2processed(params)}
                   style={{ marginRight: "12px" }}
                 >
@@ -899,21 +622,7 @@ const ViewSelectedideasNew = () => {
         sortable: true,
         width: "6rem",
       },
-      // {
-      //   name: "State",
-      //   cellExport: (row) => row.state,
-      //   cell: (row) => (
-      //     <div
-      //       style={{
-      //         whiteSpace: "pre-wrap",
-      //         wordWrap: "break-word",
-      //       }}
-      //     >
-      //       {row.state}
-      //     </div>
-      //   ),
-      //   width: "10rem",
-      // },
+     
       {
         name: "District",
         selector: (row) => row.district,
@@ -954,29 +663,13 @@ const ViewSelectedideasNew = () => {
         ),
         width: "10rem",
       },
-      // {
-      //     name: 'Problem Statement',
-      //     cellExport: (row) => row.sub_category,
-
-      //     cell: (row) => (
-      //         <div
-      //             style={{
-      //                 whiteSpace: 'pre-wrap',
-      //                 wordWrap: 'break-word'
-      //             }}
-      //         >
-      //             {row.sub_category}
-      //         </div>
-      //     ),
-      //     width: '25rem'
-      // },
+     
       {
         name: 'Idea Name',
         cell: (row) => (
             <div
                 style={{
-                    // whiteSpace: 'pre-wrap',
-                    // wordWrap: 'break-word'
+                    
                     whiteSpace: 'nowrap',       
                     overflow: 'hidden',         
                     textOverflow: 'ellipsis',
@@ -987,17 +680,7 @@ const ViewSelectedideasNew = () => {
         ),
         width: '11rem'
     },
-      // {
-      //     name: 'District',
-      //     selector: (row) => row.district,
-      //     width: '15%'
-      // },
-
-      // {
-      //     name: 'Submitted By',
-      //     selector: (row) => row.initiated_name,
-      //     width: '20%'
-      // },
+    
       {
         name: "Actions",
         cellExport: (row) => "",
@@ -1027,12 +710,7 @@ const ViewSelectedideasNew = () => {
               </div>
               <div className="mx-2 pointer d-flex align-items-center">
               
-                {/* <FaDownload
-                                    size={22}
-                                    onClick={() => {
-                                        handleDownpdf(params);
-                                    }}
-                                /> */}
+              
               </div>
             </>,
           ];
@@ -1042,7 +720,6 @@ const ViewSelectedideasNew = () => {
       },
     ],
   };
-  // console.log(tableData, '1');
   const [sortid, setsortid] = useState();
   const handlesortid = (e) => {
     setsortid(e.id);
@@ -1075,28 +752,7 @@ const ViewSelectedideasNew = () => {
   };
 
   ////////////////pdf////////////////
-  const componentRef = useRef();
-  const [pdfIdeaDetails, setPdfIdeaDetails] = useState("");
-  const [pdfTeamResponse, setpdfTeamResponse] = useState("");
-  const handleDownpdf = (params) => {
-    console.log(params,"222");
-    setPdfIdeaDetails(params);
-    setpdfTeamResponse(params);
-   
-};
-console.log("titile",title);
-
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    documentTitle: `${
-      pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : "temp"
-    }_IdeaSubmission`,
-  });
-  useEffect(() => {
-    if (pdfIdeaDetails !== "" && pdfTeamResponse !== "") {
-      handlePrint();
-    }
-  }, [pdfIdeaDetails, pdfTeamResponse]);
+ 
 
   /////////////////
   const customStyles = {
@@ -1119,22 +775,9 @@ console.log("titile",title);
   return (
     <div className="page-wrapper">
       <div className="content">
-        {/* <div style={{ display: "none" }}>
-          <DetailToDownload
-                    ref={componentRef}
-                    ideaDetails={pdfIdeaDetails}
-                    teamResponse={pdfTeamResponse}
-                    level={'Draft'}
-                />
-        </div> */}
+       
         <div className="container evaluated_idea_wrapper pt-2">
-          {/* <div id="pdfIdd" style={{ display: 'none' }}>
-                        <TableDetailPdf
-                            ideaDetails={details}
-                            teamResponse={teamResponse}
-                            level={level}
-                        />
-                    </div> */}
+         
           <div className="row">
             <div className="col-12 p-0">
               {!isDetail && (
@@ -1143,16 +786,7 @@ console.log("titile",title);
 
                   <Container fluid className="px-0">
                     <Row className="align-items-center">
-                      {/* <Col md={2}>
-                        <div className="d-flex justify-content-center">
-                          <Select
-                            list={fullStatesNames}
-                            setValue={setSelectState}
-                            placeHolder={"Select State"}
-                            value={selectstate}
-                          />
-                        </div>
-                      </Col> */}
+                     
                       <Col md={2}>
                         <div className="my-2 d-md-block d-flex justify-content-center">
                           <Select
@@ -1240,9 +874,7 @@ console.log("titile",title);
                             btnClass="primary"
                             size="small"
                             label="Back"
-                            // onClick={() =>
-                            //     navigate.goBack()
-                            // }
+                           
                             onClick={() => navigate(-1)}
                           />
                         </div>
@@ -1264,7 +896,6 @@ console.log("titile",title);
                         data={tableData || []}
                         defaultSortFieldId={sortid}
                         customStyles={customStyles}
-                        //defaultSortField='ID'
                         defaultSortAsc={false}
                         pagination
                         highlightOnHover

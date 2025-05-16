@@ -22,7 +22,6 @@ const Crew1Reg = () => {
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   var pilotStudentId = sessionStorage.getItem("pilotKey");
   const mentData = location.state || {};
-// console.log(mentData,"store");
  const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
   window.onbeforeunload = function () {
@@ -35,13 +34,7 @@ const Crew1Reg = () => {
     }
   }, [pilotStudentId]);
 
-  // const handleCollegeTypeChange = (event) => {
-  //   const collegeType = event.target.value;
-  //   formik.setFieldValue("collegeType", collegeType);
-  //   formik.setFieldValue('college', '');
-  //   formik.setFieldValue('ocn', '');
-  //   setCollegeNamesList(collegeNameList[collegeType] || []);
-  // };
+  
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
     console.log("Selected College Type:", selectedCollegeType);
@@ -77,11 +70,9 @@ const Crew1Reg = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
           
-          // setCollegeNamesList([...existingColleges, ...collegeNames]);
           const mergedColleges = [...existingColleges, ...collegeNames];
         const uniqueColleges = [...new Set(mergedColleges)];
 
@@ -97,10 +88,7 @@ const Crew1Reg = () => {
     label: item,
   }));
   async function apiCall() {
-    // alert("hii");
-    // console.log(mentData,"data");
-    // Dice code list API //
-    // where list = diescode  //
+   
     const body = {
       college_name: mentData.college_name,
       college_type: mentData.college_type,
@@ -109,7 +97,6 @@ const Crew1Reg = () => {
       email: mentData?.email,
       mobile: mentData.mobile,
     };
-// console.log(body,"body");
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
@@ -123,8 +110,7 @@ const Crew1Reg = () => {
     await axios(config)
       .then(async function (response) {
         if (response.status == 200) {
-          // setButtonData(response?.data?.data[0]?.data);
-          // navigate("/atl-success");
+         
           openNotificationWithIcon("success", "Email Sent Successfully");
         }
       })
@@ -132,7 +118,6 @@ const Crew1Reg = () => {
         console.log(error);
       });
   }
-  // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -219,9 +204,7 @@ const Crew1Reg = () => {
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
-      // password: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Enter Password</span>
-      // ),
+   
         password: Yup.string()
             .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
             .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
@@ -285,7 +268,6 @@ const Crew1Reg = () => {
               }
             );
             openNotificationWithIcon("success", "Crew User1 Registered Successfully");
-            // apiCall();
           }
         })
         .catch((err) => {
@@ -296,7 +278,6 @@ const Crew1Reg = () => {
   
               openNotificationWithIcon("error", "Email id is Invalid");
             }
-          // setBtn(false);
           formik.setErrors({
             check: err.response && err?.response?.data?.message,
           });
@@ -560,16 +541,13 @@ navigate("/regSuccess");
                           College Town
                         </label>
                         &nbsp;
-                        {/* <span style={{ color: "red", fontWeight: "bold" }}>
-                          *
-                        </span> */}
+                       
                         <input
                           type="text"
                           className="form-control"
                           placeholder="College Town"
                           id="college_town"
                           name="college_town"
-                          // onChange={formik.handleChange}
                           onChange={(e) => {
                             const inputValue = e.target.value;
                             const lettersOnly = inputValue.replace(
@@ -629,21 +607,7 @@ navigate("/regSuccess");
                           College Name
                         </label>&nbsp;
                         <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                        {/* <select
-                          id="college"
-                          className="form-select"
-                          name="college"
-                          value={formik.values.college}
-                          onBlur={formik.handleBlur}
-                          onChange={formik.handleChange}
-                        >
-                          <option value={""}>College Name</option>
-                          {collegeNamesList.map((item) => (
-                            <option key={item} value={item}>
-                              {item}
-                            </option>
-                          ))}
-                        </select> */}
+                       
                          <Select
         classNamePrefix="react-select"
         options={collegeOptions}
@@ -748,7 +712,6 @@ navigate("/regSuccess");
                           placeholder=" Branch/Group/Stream"
                           id="branch"
                           name="branch"
-                          // onChange={formik.handleChange}
                           onChange={(e) => {
                             const inputValue = e.target.value;
                             const lettersOnly = inputValue.replace(
@@ -783,7 +746,6 @@ navigate("/regSuccess");
                           className="form-control"
                           id="id_number"
                           placeholder="APAAR ID"
-                          // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
                             const inputValue = e.target.value;
@@ -909,13 +871,11 @@ navigate("/regSuccess");
                         }
                       >
                         PROCEED
-                        {/* <ArrowRight /> */}
                       </button>
                       <button
                         className="btn btn-warning m-2"
                         type="submit"
                         onClick={handleSkip}
-                        // onClick={() => navigate("/regSuccess")}
 
                       >
                         SKIP NOW

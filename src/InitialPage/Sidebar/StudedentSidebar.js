@@ -14,7 +14,6 @@ const StudentSidebar = () => {
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
   const presurvey = localStorage.getItem("stupresurveystatus") ;
-  // console.log(presurvey,"status");
   const toggleSidebar = (title) => {
     if (title == subOpen) {
       setSubopen("");
@@ -30,7 +29,6 @@ const StudentSidebar = () => {
       setSubsidebar(subitem);
     }
   };
-  // const SidebarData = useMemo(() => getStudentSidebarData(), []);
   const SidebarData = getStudentSidebarData();
  
   return (
@@ -70,24 +68,7 @@ const StudentSidebar = () => {
                                   : ""
                               }`}
                             >
-                              {/* <Link
-  to={isMenuDisabled ? "#" : title?.link}
-  onClick={(e) => {
-    if (title?.onClick) {
-      title.onClick(e); 
-    } else {
-      toggleSidebar(title?.label); 
-    }
-  }}
-  className={`${subOpen === title?.label ? "subdrop" : ""} ${
-    title?.links?.includes(location.pathname) ? "active" : ""
-  }`}
->
-  {title?.icon}
-  <span className="custom-active-span">{title?.label}</span>
-  {title?.submenu && <span className="menu-arrow" />}
-</Link> */}
-
+                             
 <Link
   to={isMenuDisabled ? "#" : title?.link}  
   onClick={(e) => {

@@ -75,7 +75,6 @@ export const getAdminTeamMembersListError = (message) => async (dispatch) => {
 };
 
 export const getAdminTeamMembersList = (teamId) => async (dispatch) => {
-  console.log(teamId, "idd");
   try {
     dispatch({ type: ADMIN_TEAMS_MEMBERS_LIST });
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -96,9 +95,7 @@ export const getAdminTeamMembersList = (teamId) => async (dispatch) => {
       });
     if (result && result.status === 200) {
       const data = result.data && result.data.data;
-      //   console.log(data, "teams");
       dispatch(getAdminTeamMembersListSuccess(data));
-      // history.push("/teams");
     } else {
       dispatch(getAdminTeamMembersListError(result.statusText));
     }
@@ -133,7 +130,6 @@ export const getTeamMemberStatus =
           });
         if (result && result.status === 200) {
           const data = result.data && result.data.data;
-          // console.log(data,"data");
           if (data.length > 0) {
             dispatch(getTeamMemberStatusSuccess(data));
           } else {

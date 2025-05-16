@@ -78,7 +78,6 @@ export const teacherLoginUser =
         setCurrentUser(item);
         localStorage.setItem("module", module);
         localStorage.setItem("layoutStyling", "modern");
-        // localStorage.setItem("layoutStyling", "	horizontal");
 
         localStorage.setItem("time", new Date().toString());
         dispatch(teacherLoginUserSuccess(result));
@@ -97,11 +96,7 @@ export const teacherLoginUser =
       }
     } catch (error) {
       dispatch(teacherLoginUserError({}));
-      // NotificationManager.error(
-      //   "Server down! Please try again later.",
-      //   "Error",
-      //   3000
-      // );
+     
     }
   };
 
@@ -109,7 +104,6 @@ export const teacherLoginUser =
 
 export const teacherCreateMultipleStudent =
   (data, navigate, setIsClicked) => async () => {
-    // console.log(data, "multi");
     try {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       const result = await axios
@@ -143,7 +137,6 @@ export const teacherLoginUserLogOut = (navigate) => async () => {
       });
     if (result && result.status === 200) {
       setCurrentUser();
-      // localStorage.removeItem('headerOption');
       navigate("/institution");
     }
   } catch (error) {
@@ -151,7 +144,6 @@ export const teacherLoginUserLogOut = (navigate) => async () => {
   }
 };
 export const studentResetPassword = (body) => async () => {
-  // console.log(body,"body");
   try {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       const result = await axios

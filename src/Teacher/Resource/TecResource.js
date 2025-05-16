@@ -1,20 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 import { useNavigate } from "react-router-dom";
-import DataTableExtensions from "react-data-table-component-extensions";
-import DataTable, { Alignment } from "react-data-table-component";
 import axios from "axios";
 import FileGrid from "../../Team/StuResources/FileGrid";
 const TecResource = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
   const [resList, setResList] = useState([]);
-  const [rows, setRows] = React.useState([]);
 
   useEffect(() => {
     fetchResourceList();
@@ -59,18 +55,13 @@ const TecResource = () => {
         selector: (row) => row.description,
         width: "65%",
       },
-      // {
-      //     name: 'Type',
-      //     selector: (row) => row.type,
-      //     width: '25%'
-      // },
+     
       {
         name: "File / Link",
         width: "20%",
         cell: (record) => {
           if (record.type === "file") {
             return (
-              // <button className="btn btn-outline-warning btn-sm mx-2">
                 <a
                   href={record.attachments}
                   target="_blank"
@@ -79,7 +70,6 @@ const TecResource = () => {
                 >
                   <i className="fas fa-file-lines"></i> Navigate
                 </a>
-              // </button>
             );
           } else if (record.type === "link") {
             return (
@@ -98,13 +88,7 @@ const TecResource = () => {
       },
     ],
   };
-  const customStyles = {
-    head: {
-      style: {
-        fontSize: "1em", // Adjust as needed
-      },
-    },
-  };
+ 
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -117,25 +101,7 @@ const TecResource = () => {
         <div>
           <FileGrid resList={resList} />
         </div>
-        {/* <div className="card table-list-card my-2">
-          <DataTableExtensions
-            data={rows}
-            print={false}
-            export={false}
-            {...resData}
-            exportHeaders
-          >
-            <DataTable
-              defaultSortField="id"
-              defaultSortAsc={false}
-              customStyles={customStyles}
-              pagination
-              highlightOnHover
-              fixedHeader
-              subHeaderAlign={Alignment.Center}
-            />
-          </DataTableExtensions>
-        </div> */}
+       
       </div>
     </div>
   );

@@ -8,47 +8,35 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import {
   districtList,
-  collegeType,
   yearofstudyList,
-  collegeNameList,
   genderList
 } from "../../RegPage/ORGData.js";
 import {
   openNotificationWithIcon,
   getCurrentUser,
 } from "../../helpers/Utils.js";
-import { ArrowRight, ArrowLeft } from "react-feather";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Crew1student = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // const [collegeNamesList, setCollegeNamesList] = useState([]);
   const currentUser = getCurrentUser("current_user");
 
   const studentId = location.state.student_id || "";
 
-  // const handleCollegeTypeChange = (event) => {
-  //   const collegeType = event.target.value;
-  //   formik.setFieldValue("collegeType", collegeType);
-  //   formik.setFieldValue('college', '');
-  //   formik.setFieldValue('ocn', '');
-  //   setCollegeNamesList(collegeNameList[collegeType] || []);
-  // };
+ 
   const formik = useFormik({
     initialValues: {
       full_name: "",
       email: "",
       mobile: "",
       district: "",
-      // college: "",
       rollnumber: "",
       branch: "",
       yearofstudy: "",
       password: "",
       confirmPassword: "",
-      // collegeType: "",
-      // ocn: "",
+     
       id_number: "",
       gender: "",
       college_town: "",
@@ -104,15 +92,11 @@ const Crew1student = () => {
         ),
       id_number: Yup.string().optional(),
 
-      // collegeType: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Select collegeType</span>
-      // ),
+     
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
-      // college: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Select college</span>
-      // ),
+    
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Roll Number</span>
       ),
@@ -155,9 +139,7 @@ const Crew1student = () => {
       if (values.id_number !== "" ) {
         body["id_number"] = values.id_number;
       }
-      // if (values.id_number !== "") {
-      //   body["id_number"] = JSON.stringify(values.id_number);
-      // }
+    
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
@@ -168,7 +150,6 @@ const Crew1student = () => {
 
         data: JSON.stringify(body),
       };
-      console.log(body, "bb");
       await axios(config)
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
@@ -185,12 +166,10 @@ const Crew1student = () => {
                 : "Email id is Invalid"
             );
 
-            // openNotificationWithIcon("error", err.response.data?.message);
           } else {
             openNotificationWithIcon("error", "Email id is Invalid");
           }
-          // openNotificationWithIcon("error", err.response.data?.message);
-          // setBtn(false);
+         
           formik.setErrors({
             check: err.response && err?.response?.data?.message,
           });
@@ -371,16 +350,13 @@ const Crew1student = () => {
                           College Town
                         </label>
                         &nbsp;
-                        {/* <span style={{ color: "red", fontWeight: "bold" }}>
-                          *
-                        </span> */}
+                       
                         <input
                           type="text"
                           className="form-control"
                           placeholder="College Town"
                           id="college_town"
                           name="college_town"
-                          // onChange={formik.handleChange}
                           onChange={(e) => {
                             const inputValue = e.target.value;
                             const lettersOnly = inputValue.replace(
@@ -399,69 +375,9 @@ const Crew1student = () => {
                           </small>
                         ) : null}
                       </div>
-                          {/* <div className={`col-md-4`}
-                          >
-                            <label
-                              htmlFor="collegeType"
-                              className="form-label"
-                            >
-                              College Type
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <select
-                              id="collegeType"
-                              className="form-select"
-                              name="collegeType"
-                              value={formik.values.collegeType}
-                              onBlur={formik.handleBlur}
-                              onChange={handleCollegeTypeChange}
-                            >
-                              <option value={""}>College Type</option>
-                              {collegeType.map((item) => (
-                                <option key={item} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                            </select>
-                            {formik.touched.collegeType &&
-                              formik.errors.collegeType ? (
-                              <small className="error-cls">
-                                {formik.errors.collegeType}
-                              </small>
-                            ) : null}
-                          </div> */}
+                        
 
-                          {/* <div className={`col-md-6`}
-                          >
-                            <label
-                              htmlFor="college"
-                              className="form-label"
-                            >
-                              College Name
-                            </label>&nbsp;
-                            <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            <select
-                              id="college"
-                              className="form-select"
-                              name="college"
-                              value={formik.values.college}
-                              onBlur={formik.handleBlur}
-                              onChange={formik.handleChange}
-                            >
-                              <option value={""}>College Name</option>
-                              {collegeNamesList.map((item) => (
-                                <option key={item} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                            </select>
-                            {formik.touched.college &&
-                              formik.errors.college ? (
-                              <small className="error-cls">
-                                {formik.errors.college}
-                              </small>
-                            ) : null}
-                          </div> */}
+                        
                           <div className={`col-md-6`}>
                             <label htmlFor="rollnumber" className="form-label">
                               Roll Number Provided by the College
@@ -497,46 +413,7 @@ const Crew1student = () => {
                               </small>
                             ) : null}
                           </div>
-                          {/* {formik.values.college === 'Other' &&
-                            <div className={`col-md-12`}
-                            >
-                              <label
-                                htmlFor="ocn"
-                                className="form-label"
-                              >
-                                Other College Name
-                              </label>&nbsp;
-                              <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                              <input
-                                type="text"
-                                className="form-control"
-                                id="ocn"
-                                placeholder="Other College Name"
-                                name="ocn"
-                                onChange={(e) => {
-                                  const inputValue = e.target.value;
-                                  const lettersOnly = inputValue.replace(
-                                    /[^a-zA-Z0-9 \s]/g,
-                                    ""
-                                  );
-                                  formik.setFieldValue(
-                                    "ocn",
-                                    lettersOnly
-                                  );
-                                }}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.ocn}
-                              />
-                              {formik.touched.ocn && formik.errors.ocn ? (
-                                <small
-                                  className="error-cls"
-                                  style={{ color: "red" }}
-                                >
-                                  {formik.errors.ocn}
-                                </small>
-                              ) : null}
-                            </div>
-                          } */}
+                       
 
                           <div className="col-md-6">
                             <label className="form-label" htmlFor="branch">
@@ -552,7 +429,6 @@ const Crew1student = () => {
                               placeholder=" Branch/Group/Stream"
                               id="branch"
                               name="branch"
-                              // onChange={formik.handleChange}
                               onChange={(e) => {
                                 const inputValue = e.target.value;
                                 const lettersOnly = inputValue.replace(
@@ -579,7 +455,6 @@ const Crew1student = () => {
                               className="form-control"
                               id="id_number"
                               placeholder="APAAR ID"
-                              // disabled={areInputsDisabled}
                               name="id_number"
                               onChange={(e) => {
                                 const inputValue = e.target.value;
@@ -703,7 +578,6 @@ const Crew1student = () => {
                             type="submit"
                             onClick={() => navigate("/mentorteams")}
                           >
-                            {/* <ArrowLeft /> */}
                             Back
                           </button>
                           <button
@@ -719,7 +593,6 @@ const Crew1student = () => {
                             }
                           >
                             PROCEED
-                            {/* <ArrowRight /> */}
                           </button>
                         </div>
                       </div>

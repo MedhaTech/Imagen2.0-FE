@@ -54,7 +54,6 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
   };
 
   const handleButtonClick = (position) => {
-    console.log(formData);
     displayAlert(position);
     };
 
@@ -129,34 +128,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                     ))}
                   </select>
                 )}
-                {/* <p> {questions[1].title} </p><br />
-                <select name="focusArea" value={formData.focusArea} onChange={handleInputChange} className='form-select'>
-                  {themes.map((theme , index) => (
-                    <option key={index} value={theme.focusareas[index]}>{theme.focusareas[index]}</option>
-                  ))}
-                </select> */}
-                {/* <div>
-                  <div className='form-check'>
-                    <label className='form-check-label'>
-                      <input type="radio" name="focusArea" value="Area 1" onChange={handleInputChange} className='form-check-input' /> Area 1
-                    </label>
-                  </div>
-                  <div className='form-check'>
-                    <label className='form-check-label'>
-                      <input type="radio" name="focusArea" value="Area 2" onChange={handleInputChange} className='form-check-input' /> Area 2
-                    </label>
-                  </div>
-                  <div className='form-check'>
-                    <label className='form-check-label'>
-                      <input type="radio" name="focusArea" value="Area 3" onChange={handleInputChange} className='form-check-input' /> Area 3
-                    </label>
-                  </div>
-                  <div className='form-check'>
-                    <label className='form-check-label'>
-                      <input type="radio" name="focusArea" value="Area 4" onChange={handleInputChange} className='form-check-input' /> Area 4
-                    </label>
-                  </div>
-                </div> */}
+               
                 {currentStep === step && (
                   <><br />
                     <div className='view-btn'>
@@ -165,7 +137,6 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                         className="btn btn-soft-light rounded-pill"
                         onClick={handleNext}
                       >
-                        {/* <ArrowLeft className="me-2" /> */}
                         {" "}Next
                       </a>
                     </div>
@@ -315,7 +286,6 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                         className="btn btn-soft-light rounded-pill"
                         onClick={handleNext}
                       >
-                        {/* <ArrowLeft className="me-2" /> */}
                         {" "}Next
                       </a>
                     </div>

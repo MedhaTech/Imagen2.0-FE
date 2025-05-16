@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import IdeaPageCopy from './IdeaPageCopy';
 import { Link } from 'react-router-dom';
-import ImageWithBasePath from '../../core/img/imagewithbasebath';
 import { Check } from 'react-feather';
 import FeatherIcon from "feather-icons-react";
 import { themes, themesList } from "./themesData";
@@ -58,12 +57,8 @@ const { t } = useTranslation();
   const [theme, setTheme] = useState(null);
   const currentUser = getCurrentUser('current_user');
   const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
-  const [themeInt, setThemeInt] = useState("");
-  const [error4, seterror4] = useState(false);
 const [statusCode,setStatusCode]= useState(false);
   const [data, setData] = useState(0);
-  // console.log(data,"data");
-  const formRef = useRef(null);
   const [initiate, setInitiate] = useState("");
   const submittedApi = () => {
     const Param = encryptGlobal(
@@ -87,11 +82,9 @@ const [statusCode,setStatusCode]= useState(false);
       .then(function (response) {
         if (response.status === 200) {
           setStatusCode(false);
-          // console.log(response,"Cards");
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
             setInitiate(response.data.data[0].initiate_by);
-            // console.log(data.initiated_by, "init");
             idea();
           }
         }
@@ -99,7 +92,6 @@ const [statusCode,setStatusCode]= useState(false);
       .catch(function (error) {
         if (error.response.status === 404) {
             setStatusCode( true);
-            // setTheme("");
         }
 
       });
@@ -109,7 +101,6 @@ const [statusCode,setStatusCode]= useState(false);
   }, []);
 
 
-// console.log(statusCode,"status");
   const challenges = () => {
     showChallenge();
   };
@@ -183,7 +174,6 @@ useEffect(() => {
                 <aside className="product-order-list">
                   <div className="head d-flex align-items-center justify-content-between w-100">
                     <div className="">
-                    {/* <h5>{t('home.select')}</h5> */}
                       <h5>{t('home.select')}</h5> 
                       <span>{t('home.selectv')}</span>
                     </div>
@@ -202,14 +192,9 @@ useEffect(() => {
                 
                   <div className="btn-row d-sm-flex align-items-center justify-content-between"
                     onClick={() => {setTheme(themes[data - 1].title);setStatusCode(false);}}
-                  //   onClick={() =>
-                  //     handleSelect(
-                  //       (themes[data - 1].title)
-                  //     )
-                  // }
+                 
                   >
                     <Link
-                      // to="#"
                       className="btn btn-info btn-icon flex-fill"
                     >
                       <span className="me-1 d-flex align-items-center">

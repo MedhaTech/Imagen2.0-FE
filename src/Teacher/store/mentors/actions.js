@@ -241,7 +241,6 @@ export const getDiscussionList = (user) => async (dispatch) => {
         return err.response;
       });
     if (result && result.status === 200) {
-      console.log(result,"Discussion List");
       const data =
         result.data.data[0].dataValues.length > 0
           ? result.data.data[0].dataValues.map((item, i) => {
@@ -350,9 +349,7 @@ export const getDiscussionChatByIdSuccess = (tickets) => async (dispatch) => {
 export const getSupportTicketById = (id) => async (dispatch) => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    // const supId = encryptGlobal(
-    //   JSON.stringify(id)
-    // );
+  
     let supId;
     if(typeof(id) !== "string"){
   supId = encryptGlobal(
@@ -362,7 +359,6 @@ export const getSupportTicketById = (id) => async (dispatch) => {
      supId = encryptGlobal(id);
 
     }
-    // console.log(typeof(id),"id");
     const lang = "locale=en";
     const final = lang.split("=");
     let enParamData = encryptGlobal(
@@ -393,9 +389,7 @@ export const getSupportTicketById = (id) => async (dispatch) => {
 export const getDiscussionChatById = (id) => async (dispatch) => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    // const supId = encryptGlobal(
-    //   JSON.stringify(id)
-    // );
+  
     let supId;
     if(typeof(id) !== "string"){
   supId = encryptGlobal(
@@ -405,7 +399,6 @@ export const getDiscussionChatById = (id) => async (dispatch) => {
      supId = encryptGlobal(id);
 
     }
-    // console.log(typeof(id),"id");
     const lang = "locale=en";
     const final = lang.split("=");
     let enParamData = encryptGlobal(
@@ -424,7 +417,6 @@ export const getDiscussionChatById = (id) => async (dispatch) => {
       });
 
     if (result && result.status === 200) {
-      console.log(result,"id");
       const data = result.data.data[0];
       dispatch(getDiscussionChatByIdSuccess(data));
     } else {
@@ -467,7 +459,6 @@ export const getTeacherPresurveyStatusSuccess = (data) => async (dispatch) => {
     type: GET_TEACHERS_PRESURVEY_STATUS,
     payload: data,
   });
-  console.log(data, "pree");
 };
 
 export const getTeacherPresurveyStatus = () => async (dispatch) => {
@@ -480,7 +471,6 @@ export const getTeacherPresurveyStatus = () => async (dispatch) => {
         return err.response;
       });
     if (result && result.status === 200) {
-      console.log(result, "1111");
       dispatch(getTeacherPresurveyStatusSuccess(result));
     } else {
       dispatch(getTeacherPresurveyStatusSuccess(null));
@@ -501,7 +491,6 @@ export const createSupportTicketResponse = (data) => async () => {
       });
 
     if (result && result.status === 201) {
-      // history.push('/institution/support-journey');
       openNotificationWithIcon("success", "Reply submitted successfully!", "");
     } else {
       openNotificationWithIcon("error", "Something went wrong!else", "");
@@ -521,8 +510,6 @@ export const createDiscussionChatResponse = (data) => async () => {
       });
 
     if (result && result.status === 201) {
-      console.log(result,"Chat Reply");
-      // history.push('/institution/support-journey');
       openNotificationWithIcon("success", "Comments Added Successfully", "");
     } else {
       openNotificationWithIcon("error", "Something went wrong!else", "");
@@ -553,13 +540,7 @@ export const SupportTicketStatusChange = (id, data) => async (dispatch) => {
       .catch((err) => {
         return err.response;
       });
-    // if (result && result.status === 200) {
-    //     // const data = result.data.text;
-    //     // dispatch(mentorsEditSuccess(data));
-
-    // } else {
-    //     dispatch(SupportTicketStatus(result.statusText));
-    // }
+   
   } catch (error) {
     dispatch(mentorsEditError({}));
   }

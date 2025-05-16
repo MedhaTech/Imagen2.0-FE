@@ -32,17 +32,9 @@ const PilotReg = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
-  // const handleCollegeTypeChange = (event) => {
-  //   const collegeType = event.target.value;
-  //   formik.setFieldValue("collegeType", collegeType);
-  //   formik.setFieldValue('college', '');
-  //   formik.setFieldValue('ocn', '');
-  //   setCollegeNamesList(collegeNameList[collegeType] || []);
-  // };
-  // Added Code //
+ 
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
-    console.log("Selected College Type:", selectedCollegeType);
 
     formik.setFieldValue("collegeType", selectedCollegeType);
     setSelectedCollegeType(selectedCollegeType);
@@ -74,11 +66,9 @@ const PilotReg = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
 
-          // setCollegeNamesList([...existingColleges, ...collegeNames]);
           const mergedColleges = [...existingColleges, ...collegeNames];
           const uniqueColleges = [...new Set(mergedColleges)];
 
@@ -93,7 +83,6 @@ const PilotReg = () => {
     value: item,
     label: item,
   }));
-  // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -180,9 +169,7 @@ const PilotReg = () => {
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
-      // password: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Enter Password</span>
-      // ),
+    
       password: Yup.string()
         .min(8, () => (
           <span style={{ color: "red" }}>
@@ -256,7 +243,6 @@ const PilotReg = () => {
 
           data: JSON.stringify(body),
         };
-        // console.log(body,"body");
         await axios(config)
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
@@ -279,9 +265,7 @@ const PilotReg = () => {
                 "success",
                 "Pilot User Registered Successfully"
               );
-              // setTimeout(() => {
-              //   apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
-              // }, 2000);
+             
             }
           })
           .catch((err) => {
@@ -290,9 +274,7 @@ const PilotReg = () => {
             } else {
               openNotificationWithIcon("error", "Email id is Invalid");
             }
-            // setIsSubmitting(false);
-
-            // setBtn(false);
+           
             formik.setErrors({
               check: err.response && err?.response?.data?.message,
             });
@@ -301,41 +283,7 @@ const PilotReg = () => {
       }
     },
   });
-  async function apiCall(mentData) {
-    // console.log(mentData,"data");
-    // Dice code list API //
-    // where list = diescode  //
-    const body = {
-      college_name: mentData.college_name,
-      college_type: mentData.college_type,
-      student_id: mentData.student_id,
-      district: mentData.district,
-      email: mentData.username,
-      mobile: mentData.mobile,
-    };
-    // console.log(body,"body");
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-      },
-      data: JSON.stringify(body),
-    };
-
-    await axios(config)
-      .then(async function (response) {
-        if (response.status == 200) {
-          // setButtonData(response?.data?.data[0]?.data);
-          // navigate("/atl-success");
-          openNotificationWithIcon("success", "Email Sent Successfully");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+ 
   useEffect(() => {
     setOtpRes(0);
     setBtnOtp(false);
@@ -372,7 +320,6 @@ const PilotReg = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          // console.log(UNhashedPassword,"otp");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "OTP Sent to Given Email Id");
           setBtnOtp(true);
@@ -549,7 +496,6 @@ const PilotReg = () => {
                           id="full_name"
                           disabled={areInputsDisabled}
                           name="full_name"
-                          // onChange={formik.handleChange}
                           onChange={(e) => {
                             const inputValue = e.target.value;
                             const lettersOnly = inputValue.replace(
@@ -691,9 +637,7 @@ const PilotReg = () => {
                           College Town
                         </label>
                         &nbsp;
-                        {/* <span style={{ color: "red", fontWeight: "bold" }}>
-                          *
-                        </span> */}
+                       
                         <input
                           type="text"
                           className="form-control"
@@ -701,7 +645,6 @@ const PilotReg = () => {
                           id="college_town"
                           disabled={areInputsDisabled}
                           name="college_town"
-                          // onChange={formik.handleChange}
                           onChange={(e) => {
                             const inputValue = e.target.value;
                             const lettersOnly = inputValue.replace(
@@ -760,22 +703,7 @@ const PilotReg = () => {
                         <span style={{ color: "red", fontWeight: "bold" }}>
                           *
                         </span>
-                        {/* <select
-                          id="college"
-                          className="form-select"
-                          disabled={areInputsDisabled}
-                          name="college"
-                          value={formik.values.college}
-                          onBlur={formik.handleBlur}
-                          onChange={formik.handleChange}
-                        >
-                          <option value={""}>College Name</option>
-                          {collegeNamesList.map((item) => (
-                            <option key={item} value={item}>
-                              {item}
-                            </option>
-                          ))}
-                        </select> */}
+                    
                         <Select
                           classNamePrefix="react-select"
                           options={collegeOptions}
@@ -884,7 +812,6 @@ const PilotReg = () => {
                           id="branch"
                           disabled={areInputsDisabled}
                           name="branch"
-                          // onChange={formik.handleChange}
                           onChange={(e) => {
                             const inputValue = e.target.value;
                             const lettersOnly = inputValue.replace(

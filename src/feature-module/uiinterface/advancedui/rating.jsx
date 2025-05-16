@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
 import ReactStarsRating from "react-awesome-stars-rating";
@@ -21,7 +22,6 @@ const Rating = () => {
       setIsLoading(false);
 
       // You can perform other actions here after the rating is submitted
-      console.log('Rating submitted:', newRating);
     }, 2000); // Simulated delay of 2000 milliseconds (2 seconds)
   };
   const handleStarHover = () => {
@@ -78,7 +78,6 @@ const Rating = () => {
                     Show Some <span className="text-danger">❤</span> with rating
                     :
                   </p>
-                  {/* <div id="rater-basic" /> */}
 
                   <ReactStarsRating
                     value={rating2}
@@ -98,7 +97,6 @@ const Rating = () => {
                   <p className="fs-14 mb-0 fw-semibold">
                     Dont forget to rate the product :
                   </p>
-                  {/* <div id="rater-steps" /> */}
                   <ReactStarsRating
                     value={rating1}
                     onChange={handleRatingChange1}
@@ -117,7 +115,6 @@ const Rating = () => {
                   <p className="fs-14 mb-0 fw-semibold">
                     Your rating is much appreciated👏 :
                   </p>
-                  {/* <div id="custom-messages" /> */}
                   <ReactStarsRating  value={rating5}
                     onChange={handleRatingChange5}/>
                 </div>
@@ -134,7 +131,6 @@ const Rating = () => {
               <div className="card-body">
                 <div className="d-flex flex-wrap align-items-center justify-content-between">
                   <p className="fs-14 mb-0 fw-semibold">Thanks for rating :</p>
-                  {/* <div id="stars-unlimited" /> */}
                   <ReactStarsRating value={6} count={10} />
                 </div>
               </div>
@@ -150,12 +146,11 @@ const Rating = () => {
               <div className="card-body">
                 <div className="d-flex flex-wrap align-items-center justify-content-between">
                   <p className="fs-14 mb-0 fw-semibold">Thanks for rating :</p>
-                  {/* Conditionally render loading indicator */}
             {isLoading ? (
               <div>Loading...</div>
             ) : (
               <ReactStarsRating
-                onChange={handleRatingChange} // Call handleRatingChange when rating changes
+                onChange={handleRatingChange} 
               />
             )}
                 </div>

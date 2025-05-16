@@ -5,32 +5,20 @@ import React, { useEffect ,useState} from 'react';
 import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
 import './style.scss';
 
-// import Layout from '../../Admin/Layout';
 
-// import { Button } from '../../stories/Button';
 
 import axios from 'axios';
-import Select from './Select';
 import { getCurrentUser } from '../../helpers/Utils';
 
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { stateList,districtList } from '../../RegPage/ORGData';
-import { URL, KEY } from '../../constants/defaultValues';
 import {
-    getNormalHeaders,
     openNotificationWithIcon
 } from '../../helpers/Utils';
 import { useDispatch } from 'react-redux';
-import {
-    // getDistrictData,
-    getStateData,
-    getFetchDistData
-} from '../../redux/studentRegistration/actions';
+
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 const EditSchool = (props) => {
     const currentUser = getCurrentUser('current_user');
@@ -42,17 +30,10 @@ const EditSchool = (props) => {
         history.location.item &&
         history.location.item) ||
     listID;
-    // console.log(listId.district,"e");
-    // useEffect(() => {
-    //     if (listID) {
-    //       formik.setFieldValue('state', listID.state);
-    //       formik.setFieldValue('district', listID.district);
-    //     }
-    //   }, [listID]);
+  
     const dispatch = useDispatch();
     const [districts, setDistricts] = useState([]);
 
-    // where  listID = orgnization details //
 
    useEffect(()=>{
     setDistricts(
@@ -106,14 +87,12 @@ const EditSchool = (props) => {
                 .min(6,"please enter valid pin code")
                  .optional(),
             district: Yup.string()
-                // .matches(/^[aA-zZ\s]+$/, 'Invalid district')
                 .required('District is Required'),
             category: Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid category')
                 .required('category is Required'),
             state: Yup.string().required('State is required'),
-            // .optional()
-            // .matches(/^[aA-zZ\s]+$/, 'Invalid State'),
+           
            
             city: Yup.string().matches(
                 /^[aA-zZ\s/^.*$/]+$/,
@@ -173,18 +152,7 @@ const EditSchool = (props) => {
         }
     });
 
-//  console.log( formik.values
-//     .district,"dist");
-    // const handleStateChange = (event) => {
-    //     const state = event.target.value;
-    //     formik.setFieldValue("state", state);
-    //     formik.setFieldValue("district", ""); 
-    //     setDistricts(districtList[state] || []);
-    //   };
-    
-    //   const handleDistrictChange = (event) => {
-    //     formik.setFieldValue("district", event.target.value);
-    //   };
+
       const buttonContainerStyle = {
         display: 'flex',
         justifyContent: 'space-between',
@@ -200,7 +168,6 @@ const EditSchool = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
                         <h3 className="mb-5">Edit Institutions Details</h3>
 
                         <div>
@@ -270,11 +237,7 @@ const EditSchool = (props) => {
                                                                 'state',
                                                                 selectedState
                                                             );
-                                                            // formik.setFieldValue(
-                                                            //     'district',
-                                                            //     ''
-                                                            // ); 
-                                                        // {console.log(selectedState)};
+                                                          
 
                                                             setDistricts(
                                                                 districtList[
@@ -314,7 +277,6 @@ const EditSchool = (props) => {
                                                     District
                                                     <span required>*</span>
                                                 </Label>
-                                                {/* <Col md={3}> */}
                                                 <select
                                                        
                                                         name="district"
@@ -367,14 +329,12 @@ const EditSchool = (props) => {
                                         <Row className="mb-3 modal-body-table search-modal-header">
                                         <Col md={4}>
                                                 <Label
-                                                    // className="mb-2"
                                                    className="form-label"
                                                     htmlFor="category"
                                                 >
                                                     category
                                                     <span required>*</span>
                                                 </Label>
-                                                {/* <Col md={3}> */}
                                                     {' '}
                                                     <select
                             id="inputState"
@@ -406,7 +366,6 @@ const EditSchool = (props) => {
                                                 <Label
                                                     className="form-label"
                                                     htmlFor="organization_name"
-                                                    // style={{ fontSize: 15 }}
                                                 >
                                                     Institute/School Name
                                                     <span required>*</span>
@@ -445,7 +404,6 @@ const EditSchool = (props) => {
                                                     htmlFor="address"
                                                 >
                                                     Address
-                                                    {/* <span required>*</span> */}
                                                 </Label>
                                                 <input
                                                     {...inputDICE}
@@ -474,10 +432,8 @@ const EditSchool = (props) => {
                                                 <Label
                                                    className="form-label"
                                                     htmlFor="pin_code"
-                                                    // style={{ fontSize: 15 }}
                                                 >
                                                     PinCode
-                                                    {/* <span required>*</span> */}
                                                 </Label>
                                                 <input
                                                     {...inputDICE}
@@ -503,10 +459,8 @@ const EditSchool = (props) => {
                                                 <Label
                                                    className="form-label"
                                                     htmlFor="unique_code"
-                                                    // style={{ fontSize: 15 }}
                                                 >
                                                     ATL Code
-                                                    {/* <span required>*</span> */}
                                                 </Label>
                                                 <input
                                                     {...inputDICE}
@@ -522,7 +476,6 @@ const EditSchool = (props) => {
                                                         formik.values
                                                             .unique_code
                                                     }
-                                                    // isDisabled={holdKey ? true : false}
                                                 />
                                                 {formik.touched.unique_code &&
                                                 formik.errors.unique_code ? (

@@ -5,8 +5,6 @@ import React,{useEffect} from 'react';
 import './EvaluatedIdea.scss';
 import { Button } from '../../stories/Button';
 import LinkComponent from '../IdeaList/LinkComponent';
-import moment from 'moment';
-// import { getCurrentUser } from '../../helpers/Utils';
 import RatedDetailCard from './RatedDetailCard';
 import { Row, Col, Form, Label } from 'reactstrap';
 
@@ -15,7 +13,6 @@ const EvaluatedIdeaDetail = (props) => {
     const [teamResponse, setTeamResponse] = React.useState([]);
      const [images,setImages] = React.useState([]);
     
-    // const currentUser = getCurrentUser('current_user');
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
@@ -23,44 +20,8 @@ const EvaluatedIdeaDetail = (props) => {
 
         }
     }, [props]);
-    // const [levelName, setLevelName] = React.useState('');
-    // React.useEffect(() => {
-    //     if (currentUser) {
-    //         setLevelName(currentUser?.data[0]?.level_name);
-    //     }
-    // }, [currentUser]);
-    const files = teamResponse?.prototype_image
-    ? teamResponse?.prototype_image.split(',')
-    : [];
-const downloadFile = (item) => {
-    // const link = document.createElement('a');
-    // link.href = item;
-    // link.download = 'upload.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-    fetch(item)
-        .then((response) => {
-            // Convert the response to a blob
-            return response.blob();
-        })
-        .then((blob) => {
-            // Create a download link
-            const url = window.URL.createObjectURL(new Blob([blob]));
-            const link = document.createElement('a');
-            link.href = url;
-            const parts = item.split('/');
-            link.setAttribute('download', parts[parts.length - 1]);
-            document.body.appendChild(link);
-            link.click();
-            link.parentNode.removeChild(link);
-        })
-        .catch((error) => {
-            console.error('Error downloading file:', error);
-        });
-};
-const problemSolvingArray = teamResponse?.problem_solving;
-// console.log("VIEW PAGE OF L2",teamResponse.length);
+  
+
 
     return (
         <div>
@@ -90,13 +51,7 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                                 </h4>
                                         </Col>
                                     </Row>
-                                {/* <h4 className="mb-md-4 mb-3">
-                                                Theme : 
-                                                <span className="text-capitalize">
-                                                {props?.ideaDetails?.theme?.toLowerCase() ||
-                                                        ''}
-                                                </span>
-                                            </h4> */}
+                              
                                 </div>
                                 <div className="col-lg-6 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
@@ -185,8 +140,7 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                             }}
                                         >
                                            2. Describe your idea (in one sentence).
-                                            {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                            
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -442,7 +396,6 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                             }}
                                         >
                                              {teamResponse.society}
-                                           {/* {problemSolvingArray} */}
                                         </p>
                                     </div>
                                 </div>
@@ -499,38 +452,9 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                                {/* {files.length > 0 &&
-                                                    files.map((item, i) => (
-                                                        <div key={i}>
-                                                           
-                                                            <a
-                                                                key={i}
-                                                                className="badge mb-2 bg-info p-3 ms-3"
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                onClick={() =>
-                                                                    downloadFile(
-                                                                        item
-                                                                    )
-                                                                }
-                                                            >
-                                                                {item
-                                                                    .split('/')
-                                                                    .pop()}
-                                                            </a>
-                                                        </div>
-                                                    ))} */}
-                                                     {/* {
-                        <LinkComponent item={images} />
-                      } */}
+                                               
                        {teamResponse.support}
-                                                {/* <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.Prototype_file}
-                                    </p> */}
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -575,115 +499,9 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                 </div>
                             </div>
                            
-                            {/* {teamResponse?.map((item, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                                    >
-                                        <div className="question quiz mb-0">
-                                            <b
-                                                style={{
-                                                    fontSize: '1.6rem'
-                                                }}
-                                            >
-                                                {item?.question_no || ''}.{' '}
-                                                {item?.question || ''}
-                                            </b>
-                                        </div>
-                                        <div className="bg-light rounded p-5">
-                                            <p
-                                                style={{
-                                                    fontSize: '1.4rem'
-                                                }}
-                                            >
-                                                {item?.question_type ===
-                                                'MCQ' ? (
-                                                    item?.selected_option?.map(
-                                                        (data, i) => {
-                                                            return (
-                                                                <div key={i}>
-                                                                    {data || ''}
-                                                                </div>
-                                                            );
-                                                        }
-                                                    )
-                                                ) : item?.question_type ===
-                                                      'TEXT' ||
-                                                  item?.question_type ===
-                                                      'MRQ' ? (
-                                                    item?.selected_option
-                                                ) : item?.question_type ===
-                                                  'DRAW' ? (
-                                                    <LinkComponent
-                                                        item={
-                                                            item.selected_option
-                                                        }
-                                                    />
-                                                ) : (
-                                                    ''
-                                                )}
-                                            </p>
-                                        </div>
-                                    </div>
-                                );
-                            })} */}
+
                         </div>
-                        {/* <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
-                            {teamResponse?.map((item, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                                    >
-                                        <div className="question quiz mb-0">
-                                            <b
-                                                style={{
-                                                    fontSize: '1.6rem'
-                                                }}
-                                            >
-                                                {item?.question_no || ''}.{' '}
-                                                {item?.question || ''}
-                                            </b>
-                                        </div>
-                                        <div className="bg-light rounded p-5">
-                                            <p
-                                                style={{
-                                                    fontSize: '1.4rem'
-                                                }}
-                                            >
-                                                {item?.question_type ===
-                                                'MCQ' ? (
-                                                    item?.selected_option?.map(
-                                                        (data, i) => {
-                                                            return (
-                                                                <div key={i}>
-                                                                    {data || ''}
-                                                                </div>
-                                                            );
-                                                        }
-                                                    )
-                                                ) : item?.question_type ===
-                                                      'TEXT' ||
-                                                  item?.question_type ===
-                                                      'MRQ' ? (
-                                                    item?.selected_option
-                                                ) : item?.question_type ===
-                                                  'DRAW' ? (
-                                                    <LinkComponent
-                                                        item={
-                                                            item.selected_option
-                                                        }
-                                                    />
-                                                ) : (
-                                                    ''
-                                                )}
-                                            </p>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div> */}
+
                         <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col">
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                 <p
@@ -702,14 +520,7 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                         ? 'Accepted'
                                         : 'Rejected'}
                                 </p>
-                                {/* <p className="text-center">
-                                    <span className="text-bold">
-                                        Evaluated At:{' '}
-                                    </span>{' '}
-                                    {moment(
-                                        props?.ideaDetails?.evaluated_at
-                                    ).format('DD-MM-YY h:mm:ss a') || ''}
-                                </p> */}
+                               
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
                                         <>
@@ -728,13 +539,7 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                                 ?.rejected_reasonSecond || ''}
                                         </p>
                                     </>
-                                    // <p className="text-center">
-                                    //     <span className="text-bold">
-                                    //         Rejected Reason:{' '}
-                                    //     </span>{' '}
-                                    //     {props?.ideaDetails?.rejected_reason ||
-                                    //         ''}
-                                    // </p>
+                                   
                                 )}
                             </div>
                             {props?.levelName !== 'L1' && (

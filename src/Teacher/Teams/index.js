@@ -10,16 +10,12 @@ import "react-data-table-component-extensions/dist/index.css";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Tooltip } from "react-bootstrap";
-// import { Button } from "../../.stories/Button";
 
 import {
   getAdminTeamMembersList,
-  // studentResetPassword
 } from "../../redux/actions";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
@@ -38,13 +34,9 @@ const Dashboard = (props) => {
   const [show, setShow] = useState(false);
   const [teamlist, setteamlist] = useState([]);
   const [finalteamlist, setFinalteamlist] = useState([]);
-  const [selectedTeam, setSelectedTeam] = useState(null);
-  const [stuList, setStuList] = useState("");
   const [selectedstudent, setselectedstudent] = useState();
   const [teamchangeobj, setteamchangeObj] = useState({});
   const [value, setvalue] = useState("");
-  const [ViewedTeam, setViewedTeam] = useState();
-  const [IdeaStatus, setIdeaStatus] = useState("No Idea");
 
   useEffect(() => {
     teamListbymentorid();
@@ -152,7 +144,6 @@ const Dashboard = (props) => {
                 wordWrap: "break-word",
               }}
             >
-              {/* {row.full_name} */}
               {row?.full_name.length > 10 ? `${row?.full_name.slice(0, 10)}...` : row?.full_name}
             </strong>
             <OverlayTrigger
@@ -212,7 +203,6 @@ const Dashboard = (props) => {
                     wordWrap: "break-word",
                   }}
                 >
-                  {/* {row?.crewMembers[0]?.full_name} */}
                   {row?.crewMembers[0]?.full_name.length > 10 ? `${row?.crewMembers[0]?.full_name.slice(0, 10)}...` : row?.crewMembers[0]?.full_name}
                 </strong>
                 <OverlayTrigger
@@ -312,7 +302,6 @@ const Dashboard = (props) => {
                     wordWrap: "break-word",
                   }}
                 >
-                  {/* {row?.crewMembers[1]?.full_name} */}
                   {row?.crewMembers[1]?.full_name.length > 10 ? `${row?.crewMembers[1]?.full_name.slice(0, 10)}...` : row?.crewMembers[1]?.full_name}
 
                 </strong>
@@ -412,7 +401,6 @@ const Dashboard = (props) => {
                     wordWrap: "break-word",
                   }}
                 >
-                  {/* {row?.crewMembers[2]?.full_name} */}
                   {row?.crewMembers[2]?.full_name.length > 10 ? `${row?.crewMembers[2]?.full_name.slice(0, 10)}...` : row?.crewMembers[2]?.full_name}
 
                 </strong>
@@ -520,7 +508,6 @@ const Dashboard = (props) => {
           url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId,
           headers: {
             "Content-Type": "application/json",
-            // Accept: "application/json",
             Authorization: `Bearer ${currentUser?.data[0]?.token}`,
           },
         };
@@ -566,7 +553,6 @@ const Dashboard = (props) => {
             "/deleteAllData",
           headers: {
             "Content-Type": "application/json",
-            // Accept: "application/json",
             Authorization: `Bearer ${currentUser?.data[0]?.token}`,
           },
         };
@@ -653,7 +639,6 @@ const Dashboard = (props) => {
             <div className="add-item d-flex">
               <div className="page-title">
                 <h4>Enrolled Students</h4>
-                {/* <h6>You can &quot;Create Teams&quot; & then &quot;View&quot; , &quot;Edit&quot; , &quot;Delete&quot; & &quot;Swap&quot; students in teams</h6> */}
               </div>
             </div>
             <ul className="table-top-head">
@@ -674,14 +659,11 @@ const Dashboard = (props) => {
           {show && (
             <Modal
               show={show}
-              // onHide={() => setShow(false)}
-              //{...props}
-              // size="sm"
+             
               aria-labelledby="contained-modal-title-vcenter"
               centered
               className="assign-evaluator ChangePSWModal teacher-register-modal"
               backdrop="static"
-              // scrollable={true}
             >
               <Modal.Header closeButton onHide={() => setShow(false)}>
                 <Modal.Title
@@ -708,7 +690,6 @@ const Dashboard = (props) => {
                 <div className="text-center">
                   <button
                     label={"Submit"}
-                    // btnClass={!value ? "default" : "primary"}
                     className="btn btn-warning"
                     onClick={() => handleChangeStudent(value)}
                     disabled={!value}
@@ -721,7 +702,6 @@ const Dashboard = (props) => {
           )}
           <Row>
             <Col className="form-group">
-              {/* <h4>Teams List</h4> */}
               <div className="ticket-data">
                 <div className="my-2">
                   <DataTableExtensions

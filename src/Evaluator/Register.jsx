@@ -2,9 +2,7 @@
 /* eslint-disable indent */
 // import React, {useState} from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
-// import { InputBox } from '../stories/InputBox/InputBox';
 import { Label } from 'reactstrap';
-import { Button } from '../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -39,11 +37,7 @@ const navigate=useNavigate();
         placeholder: 'Enter Full Name',
           className:"form-control "
     };
-    // const inputCity = {
-    //     type: 'text',
-    //     placeholder: 'District Name',
-    //     className: 'defaultInput'
-    // };
+   
 
     const validationForEvaluator = Yup.object({
         full_name: Yup.string()
@@ -61,7 +55,6 @@ const navigate=useNavigate();
             .trim()
             .email('Invalid Email Id')
             .required('Please Enter Email Address'),
-        // district: Yup.string().trim().required('Required')
     });
 
     const formik = useFormik({
@@ -71,7 +64,6 @@ const navigate=useNavigate();
             full_name: '',
             password: '',
             role: 'EVALUATOR'
-            // district: ''
         },
 
         validationSchema: validationForEvaluator,
@@ -113,14 +105,11 @@ const navigate=useNavigate();
 
                 data: body
             };
-            // console.log(body);
-            // const actualUrl = URL.evaluatorRegister;
+          
             await axios(config)
-                // .post(actualUrl, JSON.stringify(values, null, 2), axiosConfig)
                 .then((evaluatorRegRes) => {
                     if (evaluatorRegRes?.data?.status == 201) {
                         const evaluatorId = evaluatorRegRes?.data?.data[0].evaluator_id;
-                        // console.log(evaluatorId,"11");
 
                         localStorage.setItem('eavlId', JSON.stringify(evaluatorId));
                         dispatch(getAdminEvalutorsList());
@@ -142,13 +131,7 @@ const navigate=useNavigate();
                                 }else{
                                   openNotificationWithIcon("error", "Email id is Invalid");
                                 }
-                    // openNotificationWithIcon(
-                    //     'error',
-                    //     err.response.data?.message
-                    // );
-                    // formik.setErrors({
-                    //     check: err.response && err?.response?.data?.message
-                    // });
+                   
                     props.setShow(false);
                     return err.response;
                 });
@@ -230,7 +213,6 @@ const navigate=useNavigate();
                                     onBlur={formik.handleBlur}
                                     value={formik.values.username}
                                     maxLength={100}
-                                    // isDisabled={stepTwoData.mobile ? true : false}
                                 />
 
                                 {formik.touched.username &&
@@ -256,7 +238,6 @@ const navigate=useNavigate();
                                     {...inputPhone}
                                     id="mobile"
                                     name="mobile"
-                                    // onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.mobile}
                                     onChange={(e) => {
@@ -281,18 +262,7 @@ const navigate=useNavigate();
                            
                         </div>
                     </div>
-                    {/* <div className="mb-3 mt-3 text-center">
-                        <button 
-                        className={
-                            !(formik.dirty && formik.isValid)
-                                ? 'btn btn-light'
-                                : "btn btn-primary"
-                        } 
-                        disabled={!(formik.dirty && formik.isValid)}
-                        type="submit">
-                          Add Evaluator
-                        </button>
-                      </div> */}
+                  
                       <div className="mb-3 mt-3 text-center">
         {isProcessing ? (
           <button 
@@ -320,106 +290,7 @@ const navigate=useNavigate();
             </div>
         </Modal.Body>
     </Modal>
-        // <Modal
-        //     {...props}
-        //     size="lg"
-        //     aria-labelledby="contained-modal-title-vcenter"
-        //     centered
-        //     className="assign-evaluator ChangePSWModal teacher-register-modal  py-3 px-3"
-        //     backdrop="static"
-        //     scrollable={true}
-        // >
-        //     <Modal.Header closeButton onHide={handleClose}>
-        //         <Modal.Title
-        //             id="contained-modal-title-vcenter"
-        //             className="w-100 d-block text-center"
-        //         >
-        //             {'ADD EVALUATOR'}
-        //         </Modal.Title>
-        //     </Modal.Header>
 
-        //     <Modal.Body>
-        //         <div>
-        //             <Form
-        //                 className="form-row row  mt-0 pb-5"
-        //                 onSubmit={formik.handleSubmit}
-        //                 isSubmitting
-        //             >
-        //                 <div className={`row justify-content-center pe-md-0`}>
-        //                     <div className={`col-md-6 p-2 w-100 `}>
-        //                         <FormGroup
-        //                             className={`form-group mt-md-0 mt-5`}
-        //                             md={12}
-        //                         >
-        //                             <Label className="mb-2" htmlFor="name">
-        //                                Full Name
-        //                             </Label>
-
-        //                             <input
-        //                                 {...inputName}
-        //                                 id="full_name"
-        //                                 name="full_name"
-        //                                 onChange={formik.handleChange}
-        //                                 onBlur={formik.handleBlur}
-        //                                 value={formik.values.full_name}
-        //                                 maxLength={100}
-        //                             />
-
-        //                             {formik.touched.full_name &&
-        //                             formik.errors.full_name ? (
-        //                                 <small className="error-cls">
-        //                                     {formik.errors.full_name}
-        //                                 </small>
-        //                             ) : null}
-        //                         </FormGroup>
-        //                     </div>
-
-        //                     <div className="col-md-6 p-0">
-        //                         <FormGroup
-        //                             className="form-group mt-md-0 mt-5"
-        //                             md={12}
-        //                         >
-        //                             <Label className="mb-2" htmlFor="mobile">
-        //                                 Contact Number
-        //                             </Label>
-        //                             {/* <InputWithMobileNoComp {...inputPhone} id='mobile' name='mobile' /> */}
-        //                             <input
-        //                                 {...inputPhone}
-        //                                 id="mobile"
-        //                                 name="mobile"
-        //                                 onChange={formik.handleChange}
-        //                                 onBlur={formik.handleBlur}
-        //                                 value={formik.values.mobile}
-        //                                 maxLength={10}
-        //                             />
-
-        //                             {formik.touched.mobile &&
-        //                             formik.errors.mobile ? (
-        //                                 <small className="error-cls">
-        //                                     {formik.errors.mobile}
-        //                                 </small>
-        //                             ) : null}
-        //                         </FormGroup>
-        //                     </div>
-        //                 </div>
-
-        //                 <div className="mt-5">
-        //                     <Button
-        //                         label={'Add Evaluator'}
-        //                         btnClass={
-        //                             !(formik.dirty && formik.isValid)
-        //                                 ? 'default'
-        //                                 : 'primary'
-        //                         }
-        //                         size="large "
-        //                         type="submit"
-        //                         disabled={!(formik.dirty && formik.isValid)}
-        //                     />
-        //                 </div>
-        //             </Form>
-        //         </div>
-        //     </Modal.Body>
-        // </Modal>
     );
 };
 

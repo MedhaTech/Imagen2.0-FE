@@ -2,7 +2,6 @@
 /* eslint-disable indent */
 import React, { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, List, Label, Card } from "reactstrap";
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import "react-data-table-component-extensions/dist/index.css";
@@ -16,7 +15,6 @@ import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import "./tables.css";
-import user from "../../assets/img/user.png";
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
 import Avatar from "react-string-avatar";
 import { MaskedMobile } from "../../RegPage/MaskedData";
@@ -56,20 +54,12 @@ const Dashboard = (props) => {
         if (response.status === 200) {
           setTeamsArray(response.data.data);
           setHideButton(response.data.count);
-          // console.log(response, "Single user");
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
-  // const handleCreate = (student_id) => {
-  //   // where item = team name //
-  //   // where we can add team member details //
-  //   navigate(`/student-teamAdd`,
-  //     { state: { student_id: student_id } }
-  //   );
-  // };
 
   const renderEditTooltip = (name) => (
     <Tooltip id="refresh-tooltip">{`Edit ${name} Details`}</Tooltip>
@@ -113,12 +103,10 @@ useEffect(()=>{
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "ideaSubApi");
           setIdeaStatus(response.data.data[0].status);
         }
       })
       .catch(function (error) {
-        // console.log(error,"error");
         if (error.response.data.status === 404) {
           // setStuIdeaSub("Not Started");
         }
@@ -143,7 +131,6 @@ useEffect(()=>{
           url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId,
           headers: {
             "Content-Type": "application/json",
-            // Accept: "application/json",
             Authorization: `Bearer ${currentUser?.data[0]?.token}`,
           },
         };
@@ -177,7 +164,6 @@ useEffect(()=>{
             <div className="add-item d-flex">
               <div className="page-title">
                 <h4>Manage Team</h4>
-                {/* <h6>You can &quot;Create Teams&quot; & then &quot;View&quot; , &quot;Edit&quot; , &quot;Delete&quot; & &quot;Swap&quot; students in teams</h6> */}
               </div>
             </div>
             {currentUser?.data[0]?.type_id === 0 && hidebutton < 4 && (
@@ -257,11 +243,7 @@ useEffect(()=>{
                     </div>
                     <div className="profile-info">
                       <div className="profile-pic active-profile">
-                        {/* <img
-                          src={user}
-                          alt="Profile"
-                          style={{ width: "64px", height: "64px" }}
-                        /> */}
+                       
                         <Avatar
                           initials={student?.full_name
                             .split(" ")
@@ -288,82 +270,14 @@ useEffect(()=>{
                             : student.roll_number}
                         </span>
                       </li>
-                      {/* <li>
-                        Roll Number<span>{student.roll_number}</span>{" "}
-                      </li> */}
+                     
                     </ul>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          {/* <Row className="pt-2">
-                    <Card className="w-100 p-5">
-                      <div>
-                        <Label className="text-danger">
-                            Instructions for adding Teams :
-                        </Label>
-                        <h4 style={{fontWeight:"bold"}}>
-                        Who Can Register?
-                        </h4>
-                        <ul >
-                            <li style={{listStyleType:"disc"}}>
-                            Are you 16 years or older?
-                            </li>
-                            <li style={{listStyleType:"disc"}}>Are you studying diploma/UG/PG in a college within the state?</li>
-                            <li style={{listStyleType:"disc"}}>
-                            Do you have a passion for innovation, entrepreneurship, and making an impact?
-                            </li>
-                        </ul>
-                        <br/>
-                        <p>If your answer to all these questions is <b>“Yes”</b>, then you’re good to go! 🚀
-                        </p>
-                        <h4 style={{fontWeight:"bold"}}>
-                        How Can You Register?
 
-                        </h4>
-                          <p ><span style={{fontWeight:"bold"}}>1. Form a Team</span>
-                        <ul >
-                            <li style={{listStyleType:"disc"}}>
-                            Teams must have <b>1 to 4 participants</b>.
-                            </li>
-                            <li style={{listStyleType:"disc"}}>One member will act as the <b>“Pilot”</b> (team leader) and be the main point of contact.</li>
-                            <li style={{listStyleType:"disc"}}>
-                            Other members are the <b>“Crew”</b>.
-                            </li>
-                        </ul>
-                            </p>
-                        <p ><span style={{fontWeight:"bold"}}>2. Pilot Starts Registration</span>
-                        <ul >
-                            <li style={{listStyleType:"disc"}}>
-                            Enter the Pilot’s personal details.
-                            </li>
-                            <li style={{listStyleType:"disc"}}>Choose a <b>unique team name</b> and set a <b>team password</b>.</li>
-                            <li style={{listStyleType:"disc"}}>
-                            Add the details of all Crew members.
-                            </li>
-                        </ul>
-                            </p>
-                        <p ><span style={{fontWeight:"bold"}}>3. Set Up Team Logins
-                        </span>
-                        <ul >
-                            <li style={{listStyleType:"disc"}}>
-                            All team members log in using their registered email and the team password (default).
-                            </li>
-                            <li style={{listStyleType:"disc"}}>Members can reset and create their own passwords anytime.</li>
-                        </ul>
-                            </p>
-                        <p ><span style={{fontWeight:"bold"}}>4. Manage Your Team
-                        </span>
-                        <ul >
-                            <li style={{listStyleType:"disc"}}>
-                            The Pilot can edit Crew details or add members until the program begins.
-                            </li>
-                        </ul>
-                            </p>
-                        </div>
-                    </Card>
-                </Row> */}
         </div>
       </div>
     </div>

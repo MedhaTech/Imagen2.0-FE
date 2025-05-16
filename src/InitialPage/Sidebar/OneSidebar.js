@@ -8,8 +8,7 @@ import { getCurrentUser } from "../../helpers/Utils";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import axios from "axios";
 
-// import {  useSelector } from "react-redux";
-// import {getPresurveyData}from "../../redux/studentRegistration/actions"
+
 const Sidebar = () => {
   const Location = useLocation();
   const currentUser = getCurrentUser("current_user");
@@ -17,9 +16,7 @@ const Sidebar = () => {
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
 const [condition,setCondition]=useState("");
-  //   const filterByRole = (items, role) => {
-  //     return items?.filter((item) => item.role === role || !item.role);
-  //   };
+ 
  useLayoutEffect(()=>{
 
   if(currentUser.data[0].user_id){
@@ -27,7 +24,6 @@ const [condition,setCondition]=useState("");
   }
  },[currentUser.data[0].user_id]);
  const SurveyStatus = (id) => {
-  // console.log(id, "stuid");
   const surveyApi = encryptGlobal(
       JSON.stringify({
           user_id: id
@@ -47,7 +43,6 @@ const [condition,setCondition]=useState("");
   axios(config)
       .then(function (response) {
           if (response.status === 200) {
-              console.log(response,"status");
               setCondition(response?.data?.data[0].pre_survey_completed_date);
               
           }

@@ -3,14 +3,10 @@
 import React, {  useLayoutEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link, useLocation } from "react-router-dom";
-// import  SidebarData  from "../../core/json/siderbar_data";
 import getSidebarData from "../../core/json/siderbar_data";
 import { getCurrentUser } from "../../helpers/Utils";
-import { encryptGlobal } from "../../constants/encryptDecrypt";
-import axios from "axios";
 import { useTranslation } from 'react-i18next';
-// import {  useSelector } from "react-redux";
-// import {getPresurveyData}from "../../redux/studentRegistration/actions"
+
 const Sidebar = () => {
   const Location = useLocation();
   const currentUser = getCurrentUser("current_user");
@@ -19,15 +15,9 @@ const Sidebar = () => {
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
   const presurvey = localStorage.getItem("stupresurveystatus") ;
-// console.log(presurvey,"status");
-  //   const filterByRole = (items, role) => {
-  //     return items?.filter((item) => item.role === role || !item.role);
-  //   };
-
 
 
   const filterByRole = (items, role) => {
-    // console.log(role,"role");
 
     if (!items) return [];
     return items.filter((item) => !item.role || item.role === role);
