@@ -7,7 +7,6 @@ import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { useDispatch } from 'react-redux';
 import { getSubmittedIdeaList } from '../store/evaluator/action';
-// import styled from 'styled-components';
 
 const RateIdea = (props) => {
     const currentUser = getCurrentUser('current_user');
@@ -87,7 +86,6 @@ const RateIdea = (props) => {
                     dispatch(getSubmittedIdeaList("L2"));
                     props?.topRef.current?.scrollIntoView({ behavior: 'smooth' });
 
-                    // props?.setIsNextDiv(true);
                 }, 100);
             })
             .catch(function (error) {

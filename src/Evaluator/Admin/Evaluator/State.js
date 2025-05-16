@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
-// import Layout from '../Pages/Layout';
 import { Row, Col, Label, Container, Card, } from 'reactstrap';
 import { Button } from '../../../stories/Button';
 import {
@@ -14,7 +13,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { URL, KEY } from '../../../constants/defaultValues';
 import Check from '../EvalProcess/Pages/Check.jsx';
 import { useDispatch, useSelector ,} from 'react-redux';
-// import { getStateData } from '../../../redux/studentRegistration/actions';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { stateList, districtList } from "../../../RegPage/ORGData.js";
 const State = (props) => {
@@ -22,11 +20,7 @@ const State = (props) => {
     const { evaluatorId } = location.district || {};
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
     const IdIntial = evaluatorId ? evaluatorId : (typeof evalID === 'object' ? evalID.evaluator_id : evalID);
-    // console.log(evalID,"item");
-    // console.log(IdIntial, "final id");
-
-
-    // const IdIntial =evaluatorId ? evaluatorId : evalID.evaluator_id ;
+   
     const dispatch = useDispatch();
     const [clickedValue, setclickedValue] = useState({});
     const [selectedStates, setselectedStates] = useState([]);
@@ -111,28 +105,16 @@ fullStatesNames.unshift("All Districts");
         await handleStates(value);
     };
     const handleDiscard = () => {
-        // alert("hii");
         setselectedStates([]);
         localStorage.removeItem('eavlId');
         navigate('/eadmin/evaluator');
       };
-    console.log(selectedStates,"selected");
     return (
         <div className="page-wrapper">
           <div className="content">
             <Container>
                 <Card className="m-3 p-3">
-                    <Row>
-                        <Col md={4}>
-                            <Label className="mb-2 text-info">
-                            
-                                <span className="text-muted">
-                                    {/* {evalID.evaluator_id} */}
-                                </span>{' '}
-                            </Label>
-                        </Col>
-                      
-                    </Row>
+                  
                     <Row>
                         <Label className="mb-2 text-info form-label">Districts :</Label>
                         <Check

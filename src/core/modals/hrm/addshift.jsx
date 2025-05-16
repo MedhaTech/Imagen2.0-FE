@@ -12,7 +12,6 @@ dayjs.extend(customParseFormat);
 
 const AddShift = () => {
     const onChange = () => {
-        // console.log(time, timeString, "timepicker");
       };
     
 

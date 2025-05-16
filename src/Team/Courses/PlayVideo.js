@@ -3,73 +3,37 @@
 /* eslint-disable no-unused-vars */
 import React, { Fragment, useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
-// import { useHistory } from "react-router-dom";
 import "./style.scss";
 import { BsChevronRight, BsFilter } from "react-icons/bs";
 import { RiAwardFill } from "react-icons/ri";
 import { Card, CardBody, CardTitle } from "reactstrap";
-import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import { getAdminCourseDetails } from "../../redux/actions";
 import TakeAssesmentPopup from "./TakeAssesmentPopup";
-import VideoPopup from "./VideoPopup";
-import { BsLayoutTextSidebarReverse } from "react-icons/bs";
-import { VscCircleFilled } from "react-icons/vsc";
-import { VscCheck } from "react-icons/vsc";
 import Vimeo from "@u-wave/react-vimeo";
-// import Layout from "../../Layout";
-import { BsQuestionCircle } from "react-icons/bs";
-import { Modal } from "react-bootstrap";
 import CourseSuccessMessage from "./CourseSuccessMessage";
 import FeatherIcon from "feather-icons-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import Confetti from "react-confetti";
-import { GoVideo } from "react-icons/go";
 import {
   Accordion,
   AccordionItem,
   AccordionHeader,
   AccordionBody,
 } from "reactstrap";
-import Scrollbars from "react-custom-scrollbars-2";
-import { Link } from "react-router-dom";
-import {
-  Airplay,
-  Archive,
-  Server,
-  Settings,
-} from "feather-icons-react/build/IconComponents";
+
 import { decryptGlobal, encryptGlobal } from "../../constants/encryptDecrypt";
 import { Button } from "../../stories/Button";
-import { GrDocument } from "react-icons/gr";
 import { AiFillPlayCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import axios from "axios";
-import ModuleAssesmentImg from "../../assets/img/moduleAssesmentPopup.svg";
 import { connect, useSelector } from "react-redux";
-import DetaledQuiz from "../../Admin/DetailedQuiz/DetaledQuiz";
 
-import Csv from "../../assets/img/csv1.png";
 
-import Pdf from "../../assets/img/csv1.png";
-import Congo from "../../assets/img/chek.png";
 import FullScreenButton from "../../components/FullScreenButtonComp";
 import { getLanguage } from "../../constants/languageOptions";
-// import { updateStudentBadges } from "../../../redux/studentRegistration/actions";
 import { useDispatch } from "react-redux";
 import CommonPage from "../../components/CommonPage";
 import { useTranslation } from "react-i18next";
-import { getStudentDashboardStatus } from "../../redux/studentRegistration/actions";
-// import Confetti from "react-confetti";
-import ResultStar from "../../assets/img/quiz-result-star.png";
-import succesImg from "../../assets/img/success1.jpeg";
 import { useParams, useLocation } from "react-router-dom";
-import {
-  ChevronUp,
-  PlusCircle,
-  RotateCcw,
-  User,
-} from "feather-icons-react/build/IconComponents";
+
 
 //VIMEO REFERENCE
 //https://github.com/u-wave/react-vimeo/blob/default/test/util/createVimeo.js
@@ -81,11 +45,9 @@ const PlayVideoCourses = (props) => {
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
   );
-  // const course_id = props.match.params.id;
   const [id, setResponce] = useState([]);
 
   const { id: paramId } = useParams();
-  // console.log(decryptGlobal(paramId),"000");
   const course_id = paramId ? decryptGlobal(paramId) : 1;
   const description = props?.location?.data
     ? props?.location?.data?.description
@@ -97,7 +59,6 @@ const PlayVideoCourses = (props) => {
   const courseVideosCount = props?.location?.data
     ? props?.location?.data?.course_videos_count
     : "";
-  // const history = useHistory();
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
   const [condition, setCondition] = useState("");
@@ -139,7 +100,6 @@ const PlayVideoCourses = (props) => {
   const [item, setItem] = useState("");
   const [adminCourseDetails, setAdminCourseDetails] = useState("");
   const [adminCourse, setAdminCourse] = useState([]);
-  // console.log(adminCourse, "22");
   const [selectedCourseModule, setSelectedCourseModule] = useState([]);
   const [worksheet, setWorksheetByWorkSheetId] = useState([]);
   const [fullScreen, setFullScreen] = useState({
@@ -155,7 +115,6 @@ const PlayVideoCourses = (props) => {
   const [userUploadedlist, setuserUploadedlist] = useState([]);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [quizStart, setQuizStart] = useState(false);
-  // linkComponent
   const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
     let a_link;
     let count;
@@ -163,13 +122,7 @@ const PlayVideoCourses = (props) => {
       a_link = item.split("/");
       count = a_link.length - 1;
     }
-    // useEffect(() => {
-    //     // Retrieve the stored quizAttempted value from localStorage on component mount
-    //     const storedQuizAttempted = localStorage.getItem('quizAttempted');
-    //     if (storedQuizAttempted) {
-    //       setQuizAttempted(JSON.parse(storedQuizAttempted));
-    //     }
-    //   }, []);
+   
     return (
       <>
         {original ? (
@@ -245,7 +198,6 @@ const PlayVideoCourses = (props) => {
   const { dashboardStatus } = useSelector(
     (state) => state?.studentRegistration
   );
-  // console.log(dashboardStatus ,"ccc");
   const [dashboard, setDashboard] = useState("");
   React.useEffect(() => {
     // if (dashboardStatus) {
@@ -275,16 +227,8 @@ const PlayVideoCourses = (props) => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"course");
           setDashboard(response.data.data[0]);
-          // const per = Math.round(
-          //     (response.data.data[0].topics_completed_count /
-          //         response.data.data[0].all_topics_count) *
-          //         100
-          // );
-          // console.log(per);
-          // setCoursepercentage(per);
-          // setStuCourseLoading(false);
+         
         }
       })
       .catch(function (error) {
@@ -301,7 +245,6 @@ const PlayVideoCourses = (props) => {
       setShowCompleteMessage(false);
     }
   }, [dashboard]);
-  // console.log(showCompleteMessage,"ss");
   const toggle = (id) => {
     if (id === 1) {
       setOpen("1");
@@ -419,7 +362,6 @@ const PlayVideoCourses = (props) => {
     await axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response,"res");
           SetWorksheetResponce(response.data.data[0]);
           if (response.data.data[0].response) {
             const userUploadedfiles =
@@ -469,7 +411,6 @@ const PlayVideoCourses = (props) => {
     await axios(config)
       .then(function (response) {
         if (response.status === 201) {
-          console.log(response, "userTopic");
           setUpdateModuleResponce(response.data && response.data.data[0]);
           props.getAdminCourseDetailsActions(
             course_id,
@@ -557,27 +498,14 @@ const PlayVideoCourses = (props) => {
     // console.log("428 event fired: ", event);
   };
 
-  // const handleTimeUpdate = (event) => {
-  //   // console.log("432event fired: ", event);
-  //   if (event.seconds > "11.62") {
-  //     // setModalShow(true);
-  //   }
-  // };
+ 
   const [videoCompleted, setVideoCompleted] = useState(false);
-  // console.log(videoCompleted,"sucee");
   const handleVimeoOnEnd = (event) => {
     toggle(topicObj.course_module_id);
     const topixIndex = setTopicArrays.findIndex(
       (item) => item.topic_type_id === topicObj.topic_type_id
     );
-    // if (event.reflective_quiz_status !== "INCOMPLETE") {
-
-      //old if condition for videos
-      // (topicObj.topic_type_id !==
-      // setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id ||
-      // topicObj.topic_type !=
-      // setTopicArrays[setTopicArrays?.length - 1]?.topic_type)
-
+   
 
       if (
         topicObj.topic_type!=='QUIZ'
@@ -593,70 +521,21 @@ const PlayVideoCourses = (props) => {
       } else {
 
         setVideoCompleted(true);
-        // alert("hii");
-        // getWorkSheetApi(worksheetId);
+       
 
       }
     // }
   };
-console.log(videoCompleted,"video");
   const handleTimeUpdate = (event) => {
-    // console.log("==========", event);
     const videoLength = event.duration; //500
     const halfTrimmedLength = videoLength / 2; //250
     const calculatePercentage = halfTrimmedLength / videoLength; //0.5
     const eventSeconds = Math.floor(event.seconds);
     const calculatedSeconds = Math.floor(halfTrimmedLength);
 
-    // const lastTrimmedLength = videoLength / 1; //250
-    // const calculatePercentage1 = lastTrimmedLength / videoLength; //0.5
-    // const eventSeconds1 = Math.floor(event.seconds);
-    // const calculatedSeconds1 = Math.floor(calculatePercentage1);
+   
 
-    // console.log(
-    //   lastTrimmedLength,
-    //   "lastTrimmedLength==",
-    //   calculatePercentage1,
-    //   "calculatePercentage12",
-    //   eventSeconds1,
-    //   "eventSeconds13",
-    //   calculatedSeconds1,
-    //   "calculatedSeconds14"
-    // );
-
-    // if (
-    //   event.percent === calculatePercentage &&
-    //   eventSeconds === calculatedSeconds
-    // ) {
-    //   handlePlayerPause();
-    //   setModalShow(true);
-    // }
-
-    // if (id.reflective_quiz_status === "INCOMPLETE") {
-    //   if (event.percent === 1) {
-    //     handlePlayerPause();
-    //     setModalShow(true);
-    //     setTimeout(() => {
-    //       handlePlayerPause();
-    //     }, 1000);
-    //   }
-    // }
-
-    // // if (
-    // //   event.percent === calculatePercentage1 &&
-    // //   eventSeconds1 === calculatedSeconds1
-    // // ) {
-    // //   console.log("==============1===============");
-    // // }
-    // if (event.percent === 0.998) {
-    //     modulesListUpdateApi(topicObj.course_topic_id);
-    //     handleSelect(
-    //         topicObj.topic_type_id,
-    //         topicObj.course_topic_id,
-    //         topicObj.topic_type
-    //     );
-    // }
-    // handlePlayerPlay();
+   
   };
 
   function resultdata(id) {
@@ -678,7 +557,6 @@ console.log(videoCompleted,"video");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"res");
           if (response.data.data === "user not stared") {
             setQuizStart(true);
             setQuizCompleted(false);
@@ -707,7 +585,6 @@ console.log(videoCompleted,"video");
   }
 
   const handleSelect = (topicId, couseId, type) => {
-    // console.log(topicId,"id");
     // here topicId = topicId ; couseId = couseId //
     // type = worksheet ,video, quiz //
     setShowCompleteMessage(false);
@@ -719,9 +596,7 @@ console.log(videoCompleted,"video");
           data.topic_type_id === topicId && data.course_topic_id === couseId
       );
     const currentObject = setTopicArrays[topic_Index];
-    // if(id.reflective_quiz_status === "COMPLETED"){}
 
-    // if(currentObject && currentObject.progress === "COMPLETED"){
     const topicObj = setTopicArrays[topic_Index + 1];
     setTopicObj(topicObj);
     if (type === "WORKSHEET") {
@@ -746,7 +621,6 @@ console.log(videoCompleted,"video");
   };
 
   const videoStatus = (type, status) => {
-    // console.log(type,"type");
     // here type = video , worksheet , quiz //
     // here status = Incomplete , completed //
     // const done = <IoCheckmarkDoneCircleSharp className="done" />;
@@ -765,7 +639,6 @@ console.log(videoCompleted,"video");
     );
     if (type === "VIDEO" && status === "COMPLETED") {
       return done;
-      // console.log("=================================================");
     } else if (type === "VIDEO" && status === "INCOMPLETE") {
       return notDone;
     }
@@ -838,7 +711,6 @@ console.log(videoCompleted,"video");
   const handleSubmit = (e) => {
     // here we can submit the worksheet response //
     if (files) {
-      // console.log(files,"---files");
       const formData = new FormData();
       for (let i = 0; i < files.length; i++) {
         let fieldName = "file" + i ? i : "";
@@ -970,24 +842,17 @@ console.log(videoCompleted,"video");
             >
               <Row
                 className="m-0 courser-video-section "
-              // style={{ border: "1px solid red" }}
               >
                 <Col
                   xl={4}
                   className="course-assement order-2 order-xl-1 mb-5"
                   style={{
                     display: `${fullScreen.isFullSCreen ? "none" : ""}`,
-                    // border: "1px solid Lightgrey",
-                    // borderRadius: "0",
+                   
                   }}
                 >
                   <div className="assement-info1">
-                    {/* <p
-                      className="content-title"
-                      style={{ "font-weight": "600" }}
-                    >
-                      {t("student_course.lessons")}
-                    </p> */}
+                   
                     <div className="view-head"></div>
                     <div className="assement-item " id="scrollbar">
                       <Accordion open={open} toggle={toggle}>
@@ -1015,7 +880,6 @@ console.log(videoCompleted,"video");
                                   targetId={str1}
                                 >
                                   <div className="course-sec">
-                                    {/* <Avatar src={User} className="avatar-imgs" /> */}
                                     <div className="course-title">
                                       {course.title}
                                     </div>
@@ -1027,12 +891,7 @@ console.log(videoCompleted,"video");
                                         {course.videos_count}{" "}
                                        
                                       </span>
- {/* <GoVideo /> */}
-                                        {/* {t("student.videos")} */}
-                                      {/* <span>
-                                  <BsDot />
-                                  {course.sectionDuration}mins
-                                </span> */}
+ 
                                     </div>
                                   </div>
                                 </AccordionHeader>
@@ -1103,25 +962,7 @@ console.log(videoCompleted,"video");
                                                     ""
                                                   )}
                                                 </p>
-                                                {/* <p className="course-time mb-0 px-5 my-auto">
-                                                                                                {videoType(
-                                                                                                    lecture.topic_type
-                                                                                                )}
-                                                                                                {lecture.video_duration && (
-                                                                                                    <span className="px-2">
-                                                                                                        
-                                                                                                        {Math.floor(
-                                                                                                            lecture.video_duration /
-                                                                                                                60
-                                                                                                        )}
-                                                                                                        {
-                                                                                                            ''
-                                                                                                        }{' '}
-                                                                                                        min
-                                                                                                    </span>
-                                                                                                )
-                                                                                                }
-                                                                                            </p> */}
+                                              
                                               </Col>
                                             </Row>
                                           </div>
@@ -1136,26 +977,7 @@ console.log(videoCompleted,"video");
                       </Accordion>
                     </div>
                   </div>
-                  {/* <div className='module-assement'>
-                <div className='assement-info'>
-                  <p className='content-title text-white'>Module Assessement</p>
-                  <p className='module-text m-0'>
-                    Test your knowledge of all skills in this module.
-                  </p>
-                  <p className='assement-link text-white pt-5'>
-                    <span onClick={() => setModalShow(true)}>
-                      Take assessment <BsChevronRight />
-                    </span>
-                    <figure>
-                      <img
-                        src={CourseVideo}
-                        alt='module'
-                        className='img-fluid'
-                      />
-                    </figure>
-                  </p>
-                </div>
-              </div> */}
+                 
                 </Col>
 
                 <Col
@@ -1401,16 +1223,7 @@ console.log(videoCompleted,"video");
                                       <Col md={8}>
                                         {worksheetResponce.response === null ? (
                                           <>
-                                            {/* <a
-                                              href={pdfFileURL}
-                                              target="_blank"
-                                              rel="noreferrer"
-                                              className="btn btn-secondary mx-2"
-                                            >
-                                              {t(
-                                                "student.download_theme"
-                                              )}
-                                            </a> */}
+                                           
 
                                             <a
                                               href={

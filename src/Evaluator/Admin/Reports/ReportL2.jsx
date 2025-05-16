@@ -3,7 +3,6 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-// import { Button } from '../../../stories/Button';
 import { CSVLink } from "react-csv";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -11,19 +10,14 @@ import {
   openNotificationWithIcon,
   getCurrentUser,
 } from "../../../helpers/Utils";
-import moment from "moment/moment";
 
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../../../Admin/Reports/Helpers/Select.jsx";
-import { Bar } from "react-chartjs-2";
-// import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
 
 import axios from "axios";
 import "../../../Admin/Reports/reports.scss";
-import { Doughnut } from "react-chartjs-2";
 import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt.js";
-// import { categoryValue } from '../../Schools/constentText';
 import { stateList, districtList,collegeType } from "../../../RegPage/ORGData";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
 import * as XLSX from 'xlsx';
@@ -31,41 +25,29 @@ import * as XLSX from 'xlsx';
 const ReportL2 = () => {
   const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState("");
   const [RegTeachersState, setRegTeachersState] = React.useState("");
-  const fruits = ["Overall", "Quality", "Feasibility"];
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
   );
   const [sdg, setsdg] = React.useState("");
-  const [filterType, setFilterType] = useState("");
   const [category, setCategory] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
-  const filterOptions = ["Registered", "Not Registered"];
-  const categoryData = ["All Categories", "ATL", "Non ATL"];
+ 
   const categoryDataTn = [
     "All Categories",
    "HSS",
     "HS",
     "Non ATL",
   ];
-  // useEffect(() => {
-  //   setRegTeachersdistrict("");
-  // }, [RegTeachersState]);
+ 
   const newThemesList = ["All Themes", ...themesList];
-  const newstateList = ["All States", ...stateList];
     const collegeList = ["All Types", ...collegeType];
   
-  const fullStatesNames = newstateList;
-  const allDistricts = {
-    "All Districts": [...Object.values(districtList).flat()],
-    ...districtList,
-  };
+
  const fiterDistData = [...districtList["Telangana"]];
       fiterDistData.unshift("All Districts");
     const [totalCountB, setTotalCountB] = useState([]);
   
   const [downloadData, setDownloadData] = useState(null);
-  const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
-    useState(null);
+ 
   const [chartTableData, setChartTableData] = useState([]);
   const [chartTableData2, setChartTableData2] = useState([]);
   const [chartTableData3, setChartTableData3] = useState([]);
@@ -75,21 +57,14 @@ const ReportL2 = () => {
   const csvLinkRefTable3 = useRef();
 
   const csvLinkRef = useRef();
-  const csvLinkRefNotRegistered = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = getCurrentUser("current_user");
-  const [registeredGenderChartData, setRegisteredGenderChartData] =
-    useState(null);
-  const [registeredChartData, setRegisteredChartData] = useState(null);
+ 
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadComplete, setDownloadComplete] = useState(false);
   const [newFormat, setNewFormat] = useState("");
-  const [barChart1Data, setBarChart1Data] = useState({
-    labels: [],
-    datasets: [],
-  });
-
+ 
   const [downloadTableData, setDownloadTableData] = useState(null);
   const [downloadTableData2, setDownloadTableData2] = useState(null);
   const [downloadTableData3, setDownloadTableData3] = useState(null);
@@ -174,14 +149,7 @@ const ReportL2 = () => {
     },
   ];
   const teacherDetailsHeaders = [
-    // {
-    //   label: "UDISE CODE",
-    //   key: "organization_code",
-    // },
-    // {
-    //   label: "State",
-    //   key: "state",
-    // },
+   
     {
       label: "District",
       key: "district",
@@ -327,7 +295,6 @@ const ReportL2 = () => {
       
     };
   const handleDownload = () => {
-    // alert('hii');
     if (!RegTeachersdistrict || !category || !sdg) {
       notification.warning({
         message:
@@ -340,18 +307,14 @@ const ReportL2 = () => {
   };
   useEffect(() => {
     if (studentDetailedReportsData.length > 0) {
-      console.log("Performing operation with the updated data.");
       handleExport();
-      // csvLinkRef.current.link.click();
     }
   }, [studentDetailedReportsData]);
 
   const fetchData = () => {
-    // const eDistParam =
-    //     RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
+  
     const api = encryptGlobal(
       JSON.stringify({
-        // state: RegTeachersState,
         district: RegTeachersdistrict,
         college_type: category,
         theme: sdg,
@@ -371,8 +334,7 @@ const ReportL2 = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response, "response");
-          // const mentorAndOrg = response?.data?.data;
+     
         
           const evaluatorRatingValuesMap =
             response.data.data[0].evaluatorRatingValues.reduce((map, item) => {
@@ -447,20 +409,14 @@ const ReportL2 = () => {
       });
   };
 
-  // useEffect(() => {
-  //     if (filteredData.length > 0) {
-  //         setDownloadData(filteredData);
-  //     }
-  // }, [filteredData, downloadNotRegisteredData]);
+ 
 
   useEffect(() => {
     if (downloadComplete) {
       setDownloadComplete(false);
-      // setRegTeachersState("");
 
       setRegTeachersdistrict("");
 
-      // setFilterType('');
       setsdg("");
     }
     const newDate = new Date();
@@ -482,7 +438,6 @@ const ReportL2 = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          // console.log(response, "response");
           const combinedArray = response?.data?.data || [];
           const total = combinedArray.reduce(
             (acc, item) => {
@@ -529,7 +484,6 @@ const ReportL2 = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          // console.log(response,"responsePre");
 
           const countData = {
             overall: {
@@ -645,14 +599,12 @@ const ReportL2 = () => {
             }
           );
 
-          // console.log(res,"22");
           var arrayB = chartTableData2;
           arrayB.push({ full_name: "Total Count", ...totalB });
           setChartTableData2(arrayB);
           setDownloadTableData2(chartTableData2);
           setTotalCountB(totalB);
-          // setChartTableData2(chartTableData2);
-          // setDownloadTableData2(chartTableData2);
+         
         }
       })
       .catch((error) => {
@@ -661,27 +613,12 @@ const ReportL2 = () => {
   };
   return (
     <div className="page-wrapper">
-      {/* <h4
-        className="m-2"
-        style={{
-          position: "sticky",
-          top: "70px",
-          zIndex: 1000,
-          padding: "10px",
-          backgroundColor: "white",
-          display: "inline-block",
-          color: "#fe9f43",
-          fontSize: "16px",
-        }}
-      >
-        Reports
-      </h4> */}
+     
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
               <h4>L2 - Report</h4>
-              {/* <h6>List of Teachers registered and their details</h6> */}
             </div>
           </div>
           <div className="page-btn">
@@ -697,16 +634,7 @@ const ReportL2 = () => {
         <Container className="RegReports userlist">
           <div className="reports-data mt-2 mb-2">
             <Row className="align-items-center mt-3 mb-2">
-              {/* <Col md={2}>
-                <div className="my-2 d-md-block d-flex justify-content-center">
-                  <Select
-                    list={fullStatesNames}
-                    setValue={setRegTeachersState}
-                    placeHolder={"Select State"}
-                    value={RegTeachersState}
-                  />
-                </div>
-              </Col> */}
+             
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
@@ -717,16 +645,7 @@ const ReportL2 = () => {
                   />
                 </div>
               </Col>
-              {/* <Col md={2}>
-                  <div className="my-2 d-md-block d-flex justify-content-center">
-                    <Select
-                      list={filterOptions}
-                      setValue={setFilterType}
-                      placeHolder={"Select Filter"}
-                      value={filterType}
-                    />
-                  </div>
-                </Col> */}
+             
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   {RegTeachersState === "Tamil Nadu" ? (
@@ -911,19 +830,7 @@ const ReportL2 = () => {
                                   <td>{item["7to8"]}</td>
                                   <td>{item["8to9"]}</td>
                                   <td>{item["9to10"]}</td>
-                                  {/* <td
-                                      style={{
-                                        maxWidth: "150px",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                        color: "crimson",
-                                      }}
-                                    >
-                                      {item.state}
-                                    </td>
-                                    <td> {item.totalSubmited}</td>
-                                    <td>{item.accepted}</td>
-                                    <td>{item.rejected}</td> */}
+                                 
                                 </tr>
                               ))}
                             </tbody>
@@ -1141,24 +1048,7 @@ const ReportL2 = () => {
                                 >
                                   No of Ideas Evaluated
                                 </th>
-                                {/* <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    No of Ideas Accepted
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    No of Ideas Rejected
-                                  </th> */}
+                              
                               </tr>
                             </thead>
                             <tbody>
@@ -1176,8 +1066,7 @@ const ReportL2 = () => {
                                     {item.full_name}
                                   </td>
                                   <td> {item.totalEvaluated}</td>
-                                  {/* <td>{item.accepted}</td> */}
-                                  {/* <td>{item.rejected}</td> */}
+                                 
                                 </tr>
                               ))}
                             </tbody>

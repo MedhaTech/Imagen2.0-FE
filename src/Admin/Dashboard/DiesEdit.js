@@ -4,38 +4,27 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   getCurrentUser,
-  setCurrentUser,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
 
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
-// import female from "../assets/img/Female_Profile.png";
-// import male from "../assets/img/Male_Profile.png";
-// import user from "../assets/img/user.png";
+
 const DiesEdit = () => {
   const location = useLocation();
   const mentorData = location.state || {};
-//   console.log(mentorData,"11");
   const navigate = useNavigate();
 
   const currentUser = getCurrentUser("current_user");
   const getValidationSchema = () => {
     // where data = mentorData //
     const adminValidation = Yup.object({
-      //   whatapp_mobile: Yup.string()
-      //     .required("required")
-      //     .trim()
-      //     .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
-      //     .min(10, "Please enter valid number")
-      //     .max(10, "Please enter valid number"),
-      //   gender: Yup.string().required("Please select valid gender"),
+     
       title: Yup.string().required(
         <span style={{ color: "red" }}>Please select Title</span>
       ),
@@ -43,9 +32,7 @@ const DiesEdit = () => {
         <span style={{ color: "red" }}>Please select Gender</span>
       ),
       full_name: Yup.string()
-        // .matches(/^[A-Za-z]*$/, 'Invalid name ')
-        // .min(2, 'Enter a valid name')
-        // .required('Name is Required'),
+      
         .trim()
         .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
         .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
@@ -130,10 +117,8 @@ const DiesEdit = () => {
         const gender = values.gender;
         const username = values.username;
 
-      //   const mobile = values.phone;
       const body = {
         full_name: full_name,
-        // mobile: mobile,
         title: title,
         whatapp_mobile: whatapp_mobile,
         gender: gender,
@@ -164,14 +149,9 @@ const DiesEdit = () => {
         .then(function (response) {
           if (response.status === 200) {
             openNotificationWithIcon("success", "Updated Successfully");
-            // currentUser.data[0].full_name = values.full_name;
-            // currentUser.data[0].title = values.title;
-            // currentUser.data[0].gender = values.gender;
-
-            // setCurrentUser(currentUser);
+           
             navigate("/diescode-search");
-            // setTimeout(() => {
-            // }, 2000);
+          
           }
         })
         .catch(function (error) {
@@ -233,7 +213,6 @@ const DiesEdit = () => {
                       className="form-control"
                       id="full_name"
                       name="full_name"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         const lettersOnly = inputValue.replace(

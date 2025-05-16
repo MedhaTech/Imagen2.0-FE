@@ -7,7 +7,6 @@ import "./LatestNewsScroll.css";
 import axios from "axios";
 import newIcon from "../../assets/img/blinking_new.gif";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-import { Link } from "react-router-dom";
 import { FaNewspaper } from "react-icons/fa";
 import { FaLink } from "react-icons/fa";
 import { FaDownload } from "react-icons/fa";
@@ -58,11 +57,9 @@ function LatestNews() {
           Latest News 
         </h4>
         <div className="view-all-link">
-          {/* <Link to="#" className="view-all d-flex align-items-center"> */}
             <span className="ps-2 d-flex align-items-center">
               <FaNewspaper size={30} />
             </span>
-          {/* </Link> */}
         </div>
       </div>
       <div className="card-body">
@@ -96,10 +93,8 @@ function LatestNews() {
                     >
                       {item?.details}
                     </span>
-                    {/* {item?.details} */}
                     {item?.new_status != 0 && item?.new_status != "" ? (
                       <img
-                        // className="m-2 p-2"
                         src={newIcon}
                         style={{
                           width: "40px",
@@ -117,9 +112,7 @@ function LatestNews() {
                         rel="noopener noreferrer"
                       >
                         <FaDownload size={20} style={{ color: "orange" }} />
-                        {/* <button className="btn btn-warning p-2 ">
-                                                    File
-                                                </button> */}
+                       
                       </a>
                     ) : (
                       ""
@@ -133,9 +126,7 @@ function LatestNews() {
                         target="_blank"
                       >
                         <FaLink size={20} style={{ color: "green" }} />
-                        {/* <button className="btn btn-success  ">
-                                                        Url
-                                                </button> */}
+                       
                       </a>
                     ) : (
                       ""

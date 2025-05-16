@@ -2,30 +2,20 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../../redux/studentRegistration/actions";
-import { ArrowRight } from "feather-icons-react/build/IconComponents";
+
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
-// import '../reports.scss';
-import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-import { categoryValue } from "../../Schools/constentText";
+
 import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList, collegeType } from "../../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faMale,
-  faFemale,
+ 
   faChalkboardTeacher,
 } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
@@ -34,13 +24,11 @@ import { openNotificationWithIcon } from "../../../helpers/Utils";
 const StudentProgress = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
-  const [selectstate, setSelectState] = React.useState("");
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const categoryList = ["All Types", ...collegeType];
   const newstateList = ["All States", ...stateList];
-  // const categoryData =
-  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+ 
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
   );
@@ -52,8 +40,7 @@ const StudentProgress = () => {
   const [combinedArray, setCombinedArray] = useState([]);
   const [downloadTableData, setDownloadTableData] = useState([]);
   const [newFormat, setNewFormat] = useState("");
-  const [atl, setAtl] = useState("");
-  const [nonAtl, setNonAtl] = useState("");
+ 
   const [series1, setseries1] = useState([]);
   const [series2, setseries2] = useState([]);
   const [series3, setseries3] = useState([]);
@@ -76,8 +63,7 @@ const StudentProgress = () => {
     labels: [],
     datasets: [],
   });
-  const fullStatesNames = newstateList;
-  // const fiterDistData = districtList["Telangana"];
+ 
   const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
 
@@ -96,10 +82,7 @@ const StudentProgress = () => {
       label: "District Name",
       key: "district",
     },
-    // {
-    //   label: "Total No.Of TEAMS created",
-    //   key: "totalTeams",
-    // },
+   
     {
       label: "Total No.Of Students enrolled",
       key: "totalStudents",
@@ -253,59 +236,7 @@ const StudentProgress = () => {
     ],
   };
 
-  var options = {
-    chart: {
-      height: 500,
-      type: "line",
-      toolbar: {
-        show: false,
-      },
-      zoom: {
-        enabled: false,
-      },
-    },
-    colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "straight",
-    },
-    series: [
-      {
-        name: "# Teams",
-        data: series1,
-      },
-      {
-        name: "# Students",
-        data: series2,
-      },
-    ],
-
-    yaxis: {
-      beginAtZero: true,
-      ticks: {
-        stepSize: 20,
-      },
-      labels: {
-        formatter: (val) => {
-          return val / 1;
-        },
-      },
-    },
-
-    xaxis: {
-      categories: barChart1Data.labels,
-      ticks: {
-        maxRotation: 80,
-        autoSkip: false,
-      },
-    },
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-  };
+ 
 
   var sColStacked = {
     chart: {
@@ -377,56 +308,7 @@ const StudentProgress = () => {
     },
   };
 
-  var optionsStudent = {
-    chart: {
-      height: 500,
-      type: "line",
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    series: [
-      {
-        name: "#NonATL Students",
-        type: "column",
-        data: series6,
-      },
-      {
-        name: "#ATL Students",
-        type: "line",
-        data: series7,
-      },
-    ],
-    stroke: {
-      width: [0, 4],
-    },
-
-    xaxis: {
-      categories: barChart3Data.labels,
-      ticks: {
-        maxRotation: 80,
-        autoSkip: false,
-      },
-    },
-    yaxis: [
-      {
-        title: {
-          text: "NonATL Student",
-        },
-      },
-      {
-        opposite: true,
-        title: {
-          text: "ATL Student",
-        },
-      },
-    ],
-  };
+ 
 
   var radialChart = {
     chart: {
@@ -479,7 +361,6 @@ const StudentProgress = () => {
   };
   useEffect(() => {
     if (studentDetailedReportsData.length > 0) {
-      console.log("Performing operation with the updated data.");
       csvLinkRef.current.link.click();
     }
   }, [studentDetailedReportsData]);
@@ -612,8 +493,7 @@ const StudentProgress = () => {
           } else {
             openNotificationWithIcon("error", "No Data Found");
           }
-          //   csvLinkRef.current.link.click();
-          //   console.log(studentDetailedReportsData,"ttt");
+         
           setIsDownload(false);
         }
       })
@@ -637,7 +517,6 @@ const StudentProgress = () => {
       .then((response) => {
         if (response.status === 200) {
           setIsloader(true);
-          // console.log(response,"view");
           const summary = response.data.data[0].summary;
 
           const courseCompleted = response.data.data[0].courseCompleted;
@@ -683,7 +562,6 @@ const StudentProgress = () => {
                       100
                   )
                 : 0;
-            // console.log(coursePercentage,"coursePercentage");
 
             return {
               district,
@@ -808,7 +686,6 @@ const StudentProgress = () => {
         console.log("API error:", error);
       });
   };
-  console.log(doughnutChartData, "chart");
 
   return (
     <div className="page-wrapper">
@@ -837,16 +714,7 @@ const StudentProgress = () => {
         <Container className="RegReports userlist">
           <div className="reports-data mt-2 mb-2">
             <Row className="align-items-center mt-3 mb-2">
-              {/* <Col md={3}>
-                <div className="my-2 d-md-block d-flex justify-content-center">
-                  <Select
-                    list={fullStatesNames}
-                    setValue={setSelectState}
-                    placeHolder={"Select State"}
-                    value={selectstate}
-                  />
-                </div>
-              </Col> */}
+             
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
@@ -890,17 +758,7 @@ const StudentProgress = () => {
                         <div className="card flex-fill default-cover w-100 mb-4">
                           <div className="card-header d-flex justify-content-between align-items-center">
                             <h4 className="card-title mb-0">Data Analytics</h4>
-                            {/* <div className="dropdown">
-                            <Link
-                              to="#"
-                              className="view-all d-flex align-items-center"
-                            >
-                              View All
-                              <span className="ps-2 d-flex align-items-center">
-                                <ArrowRight className="feather-16" />
-                              </span>
-                            </Link>
-                          </div> */}
+                           
                           </div>
                           <div className="card-body">
                             <div className="row">
@@ -963,7 +821,6 @@ const StudentProgress = () => {
                                   type="button"
                                   onClick={() => {
                                     if (downloadTableData) {
-                                      // setIsDownloading(true);
                                       setDownloadTableData(null);
                                       csvLinkRefTable.current.link.click();
                                     }
@@ -983,14 +840,7 @@ const StudentProgress = () => {
                                     <th style={{ color: "#36A2EB" }}>
                                       District Name
                                     </th>
-                                    {/* <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                    }}
-                                  >
-                                    #Teams Created
-                                  </th> */}
+                                   
                                     <th
                                       style={{
                                         whiteSpace: "wrap",
@@ -1087,7 +937,6 @@ const StudentProgress = () => {
                                       >
                                         {item.district}
                                       </td>
-                                      {/* <td>{item.totalTeams}</td> */}
                                       <td>{item.totalStudents}</td>
                                       <td>{item.courseCompleted}</td>
                                       <td>{item.courseINprogesss}</td>
@@ -1111,9 +960,7 @@ const StudentProgress = () => {
                                     >
                                       {"Total Count"}
                                     </td>
-                                    {/* <td style={{ color: "crimson" }}>
-                                    {totalCount.totalTeams}
-                                  </td> */}
+                                    
                                     <td style={{ color: "crimson" }}>
                                       {totalCount.totalStudents}
                                     </td>
@@ -1201,7 +1048,6 @@ const StudentProgress = () => {
                 Download Table CSV
               </CSVLink>
             )}
-            {/* </div> */}
           </div>
         </Container>
       </div>

@@ -3,24 +3,19 @@
 
 import React, { useEffect } from 'react';
 import './EvaluatedIdea.scss';
-// import Layout from '../Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
-import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { getL1EvaluatedIdea } from '../store/evaluator/action';
 import EvaluatedIdeaDetail from './EvaluatedIdeaDetail';
 import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
-// import { getDistrictData } from '../../redux/studentRegistration/actions';
 import { ReasonsOptions,reasondata2 } from '../Admin/Pages/ReasonForRejectionData';
-// import { cardData } from '../../Student/Pages/Ideas/SDGData';
 import { Button } from '../../stories/Button';
 import { getCurrentUser } from '../../helpers/Utils';
 import Spinner from 'react-bootstrap/Spinner';
 import { stateList, districtList } from "../../RegPage/ORGData";
 import { themesList } from "../../Team/IdeaSubmission/themesData";
-import { theme } from 'antd';
 const EvaluatedIdea = () => {
     // here we can see all the EvaluatedIdeas in  status wise , district wise , SDG wise   //
     const dispatch = useDispatch();
@@ -37,18 +32,9 @@ const EvaluatedIdea = () => {
     );
 
     const newThemesList = ["All Themes", ...themesList];
-    const newstateList = ["All States", ...stateList];
-    const allDistricts = {
-        "All Districts": [...Object.values(districtList).flat()],
-        ...districtList,
-      };
-      // const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
-    //   const fiterDistData = selectstate === "All States" 
-    // ? []  
-    // : ["All Districts", ...(allDistricts[selectstate] || [])];
+   
      const fiterDistData = [...districtList["Telangana"]];
         fiterDistData.unshift("All Districts");
-    // const fullStatesNames = fiterDistData;
 
     const statusdata = ['Accepted', 'Rejected', 'Both'];
 
@@ -59,13 +45,11 @@ const EvaluatedIdea = () => {
     }, [status]);
     const [levelName, setLevelName] = React.useState('');
     const [evalSchema, setEvalSchema] = React.useState('');
-    // console.log(evalSchema,"111");
 
     const [tabledate, settabledate] = React.useState([]);
     useEffect(() => {
-        // if (selectstate === "All States") {
+       
             setdistrict('');  // Reset the district value
-        //   }
     }, [selectstate]);
     React.useEffect(() => {
         if (currentUser) {
@@ -74,9 +58,7 @@ const EvaluatedIdea = () => {
         }
     }, [currentUser]);
 
-    // useEffect(() => {
-    //     dispatch(getDistrictData());
-    // }, []);
+   
     useEffect(() => {
         if (levelName !== '' && evalSchema !== '') {
             settabledate(evaluatedIdeaList);
@@ -88,7 +70,6 @@ const EvaluatedIdea = () => {
         const newQuery = {
             level:'L1',
             evaluation_status: status !== 'Both'? (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1'): '',
-            // state: selectstate !== 'All States' ? selectstate : '',
             district: district !== 'All Districts' ? district : '',
             theme: sdg !== 'All Themes' ? sdg : '',
             rejected_reason : reason,
@@ -97,32 +78,11 @@ const EvaluatedIdea = () => {
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(newQuery, setshowspin));
     };
-    // const levelparam =
-    //     levelName === 'L1'
-    //         ? '?level=L1'
-    //         : '?evaluation_status=SELECTEDROUND1&level=L2';
-    // const statusparam =
-    //     status && status !== 'Both'
-    //         ? '&evaluation_status=' +
-    //           (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1')
-    //         : '';
-    //         const stateparam =
-    //         selectstate && selectstate !== 'All States' ? '&selectstate' + selectstate : '';
-    // const districtparam =
-    //     district && district !== 'All Districts' ? '&district=' + district : '';
-    // const sdgparam = sdg && sdg !== 'All Themes' ? '&theme=' + sdg : '';
-    // const filterParams =
-    //     levelparam +
-    //     statusparam +
-    //     stateparam+
-    //     // districtparam +
-    //     sdgparam +
-    //     (reason && '&rejected_reason=' + reason);
+   
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState([]);
     const [currentRow, setCurrentRow] = React.useState(1);
     const [tablePage, setTablePage] = React.useState(1);
-// console.log(tabledate,"11");
 
     const evaluatedIdea = {
         data: tabledate || [],
@@ -139,38 +99,13 @@ const EvaluatedIdea = () => {
                 sortable: true,
                 width: '6rem'
             },
-            // {
-            //     name: 'State',
-            //     selector: (row) => row.state,
-            //     width: '10rem'
-            // },
+           
             {
                 name: 'District',
                 selector: (row) => row.district,
                 width: '10rem'
             },
-            // {
-            //     name: "College Type",
-            //     selector: (row) => row.college_type,
-            //     width: "10rem",
-            //   },
-            //   {
-            //     name: "College Name",
-            //     selector: (row) => row.college_name,
-            //     width: "10rem",
-            //   },
-            // {
-            //     name: 'Udise Code',
-            //     selector: (row) => row.
-            //     organization_code
-            //     ,
-            //     width: '9rem'
-            // },
-            // {
-            //     name: 'Team Name',
-            //     selector: (row) => row.team_name,
-            //     width: '10rem'
-            // },
+          
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
@@ -195,8 +130,7 @@ const EvaluatedIdea = () => {
                 cell: (row) => (
                     <div
                         style={{
-                            // whiteSpace: 'pre-wrap',
-                            // wordWrap: 'break-word'
+                           
                             whiteSpace: 'nowrap',       
                             overflow: 'hidden',         
                             textOverflow: 'ellipsis',
@@ -212,14 +146,7 @@ const EvaluatedIdea = () => {
                 selector: (row) => row.initiated_name,
                 width: '8rem'
             },
-            // {
-            //     name: 'Evaluated At',
-            //     selector: (row) =>
-            //         row.evaluated_at
-            //             ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
-            //             : row.evaluated_at,
-            //     width: '8rem'
-            // },
+          
             {
                 name: 'Status',
                 cell: (row) => {
@@ -319,16 +246,7 @@ const EvaluatedIdea = () => {
                                        
                                               
 
-                                        {/* <Col md={2}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                            <Select
-                    list={fullStatesNames}
-                    setValue={setSelectState}
-                    placeHolder={"Select District"}
-                    value={selectstate}
-                  />
-                                            </div>
-                                        </Col> */}
+                                       
                                         <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                             <Select
@@ -394,19 +312,7 @@ const EvaluatedIdea = () => {
                                         <Col md={1}>
                                             <div className="text-center">
                                                 <Button
-                                                    // btnClass={
-                                                    //     evalSchema &&
-                                                    //     evalSchema?.toLowerCase() ==
-                                                    //         'accept_reject'
-                                                    //         ? status &&
-                                                    //         //   district &&
-                                                    //           sdg
-                                                    //             ? 'primary'
-                                                    //             : 'default'
-                                                    //         : sdg
-                                                    //         ? 'primary'
-                                                    //         : 'default'
-                                                    // }
+                                                   
                                                     btnClass={
                                                         status && district && sdg
                                                             ? 'primary'
@@ -414,15 +320,7 @@ const EvaluatedIdea = () => {
                                                     }
                                                     size="small"
                                                     label="Search"
-                                                    // disabled={
-                                                    //     !(evalSchema &&
-                                                    //     evalSchema?.toLowerCase() ==
-                                                    //         'accept_reject'
-                                                    //         ? status &&
-                                                    //         //   district &&
-                                                    //           sdg
-                                                    //         : sdg)
-                                                    // }
+                                                   
                                                     disabled={
                                                         !(
                                                             status &&

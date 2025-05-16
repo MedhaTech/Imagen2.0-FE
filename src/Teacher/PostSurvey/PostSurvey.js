@@ -13,7 +13,6 @@ import {
   Input,
   Label,
 } from "reactstrap";
-// import { Button } from "../../stories/Button";
 import { useFormik } from "formik";
 import { URL, KEY } from "../../constants/defaultValues";
 import {
@@ -27,14 +26,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { UncontrolledAlert } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import PostSurveyStatic from "./PostSurveyStatic";
-// import { useHistory } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 const PostSurvey = () => {
   // here we can attempt all the questions then we are able to download the certificate //
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  //   const history = useHistory();
 
   const [postSurveyList, setPostSurveyList] = useState([]);
   const currentUser = getCurrentUser("current_user");
@@ -57,33 +54,7 @@ const PostSurvey = () => {
   };
   const [teamsCount, setTeamsCount] = useState(0);
   const [ideaCount, setIdeaCount] = useState(0);
-  const mentorTeamsCount = () => {
-    const mentteamApi = encryptGlobal(
-      JSON.stringify({
-        mentor_id: currentUser?.data[0]?.mentor_id,
-      })
-    );
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/dashboard/teamCount?Data=${mentteamApi}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          setTeamsCount(response.data.data[0].teams_count);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+ 
 
   const mentorIdeaCount = () => {
     const mentideaApi = encryptGlobal(
@@ -114,7 +85,6 @@ const PostSurvey = () => {
   };
   useEffect(() => {
     if (currentUser?.data[0]?.user_id) {
-      // mentorTeamsCount();
       mentorIdeaCount();
     }
   }, [currentUser?.data[0]?.user_id]);
@@ -160,7 +130,6 @@ const PostSurvey = () => {
   };
 
   const handleSubmit = async (e) => {
-    //alert("hii");
     e.preventDefault();
 
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -192,7 +161,6 @@ const PostSurvey = () => {
         )
         .then((preSurveyRes) => {
           if (preSurveyRes?.status == 200) {
-            console.log(preSurveyRes, "aa");
             openNotificationWithIcon(
               "success",
               "Post Survey has been submitted successfully..!!",
@@ -200,7 +168,6 @@ const PostSurvey = () => {
             );
 
             setCount(count + 1);
-            // formik.resetForm();
           }
         })
         .catch((err) => {
@@ -208,52 +175,7 @@ const PostSurvey = () => {
         });
     }
   };
-  // const formik = useFormik({
-  //     initialValues: {},
-  //     onSubmit: async (values) => {
-  //         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-  //         let responsesData = Object.keys(values).map((eachValues) => {
-  //             let selected = values[eachValues].split(' -- ');
-  //             return {
-  //                 quiz_survey_question_id: selected[0],
-  //                 selected_option: selected[1]
-  //             };
-  //         });
 
-  //         let submitData = {
-  //             responses: responsesData
-  //         };
-  //         if (postSurveyList.length != submitData.responses.length) {
-  //             openNotificationWithIcon(
-  //                 'warning',
-  //                 'Please Attempt All Questions..!!',
-  //                 ''
-  //             );
-  //         } else {
-  //             return await axios
-  //                 .post(
-  //                     `${URL.getPostSurveyList}/${quizSurveyId}/responses?locale=en`,
-  //                     JSON.stringify(submitData, null, 2),
-  //                     axiosConfig
-  //                 )
-  //                 .then((preSurveyRes) => {
-  //                     if (preSurveyRes?.status == 200) {
-  //                         openNotificationWithIcon(
-  //                             'success',
-  //                             'PostSurvey is been submitted successfully..!!',
-  //                             ''
-  //                         );
-  //                         setCount(count + 1);
-
-  //                         formik.resetForm();
-  //                     }
-  //                 })
-  //                 .catch((err) => {
-  //                     return err.response;
-  //                 });
-  //         }
-  //     }
-  // });
 
   useEffect(() => {
     let enDataone = encryptGlobal("3");
@@ -302,7 +224,6 @@ const PostSurvey = () => {
               <div className="aside  p-4 bg-white">
                 <CardBody>
                   {
-                    // teamsCount !== 0 &&
                     ideaCount !== 0 && postSurveyStatus != "COMPLETED" ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
@@ -311,8 +232,7 @@ const PostSurvey = () => {
                         </UncontrolledAlert>
                         <Form
                           className="form-row"
-                          // onSubmit={formik.handleSubmit}
-                          // isSubmitting
+                          
                         >
                           {postSurveyList.map((eachQuestion, i) => (
                             <Row key={i}>
@@ -322,107 +242,7 @@ const PostSurvey = () => {
                                     {i + 1}. {eachQuestion.question}
                                   </h6>
                                 </div>
-                                {/* <div className="answers">
-                                                                {/* <FormGroup
-                                                                    tag="fieldset"
-                                                                    className="w-100"
-                                                                    id="radioGroup1"
-                                                                    label="One of these please"
-                                                                    value={
-                                                                        formik
-                                                                            .values
-                                                                            .radioGroup1
-                                                                    }
-                                                                    error={
-                                                                        formik
-                                                                            .errors
-                                                                            .radioGroup1
-                                                                    }
-                                                                    touched={
-                                                                        formik
-                                                                            .touched
-                                                                            .radioGroup1
-                                                                    }
-                                                                    onChange={
-                                                                        formik.handleChange
-                                                                    }
-                                                                    onBlur={
-                                                                        formik.handleBlur
-                                                                    }
-                                                                >
-                                                                    <FormGroup
-                                                                        check
-                                                                    >
-                                                                        <Label
-                                                                            check
-                                                                        >
-                                                                            <Input
-                                                                                type="radio"
-                                                                                name={`radioGroup${i}`}
-                                                                                id="radioOption1"
-                                                                                value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_a}`}
-                                                                            />{' '}
-                                                                            {
-                                                                                eachQuestion.option_a
-                                                                            }
-                                                                        </Label>
-                                                                    </FormGroup>
-                                                                    <FormGroup
-                                                                        check
-                                                                    >
-                                                                        <Label
-                                                                            check
-                                                                        >
-                                                                            <Input
-                                                                                type="radio"
-                                                                                name={`radioGroup${i}`}
-                                                                                id="radioOption2"
-                                                                                value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_b}`}
-                                                                            />{' '}
-                                                                            {
-                                                                                eachQuestion.option_b
-                                                                            }
-                                                                        </Label>
-                                                                    </FormGroup>
-                                                                    <FormGroup
-                                                                        check
-                                                                    >
-                                                                        <Label
-                                                                            check
-                                                                        >
-                                                                            <Input
-                                                                                type="radio"
-                                                                                name={`radioGroup${i}`}
-                                                                                id="radioOption3"
-                                                                                value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_c}`}
-                                                                            />{' '}
-                                                                            {
-                                                                                eachQuestion.option_c
-                                                                            }
-                                                                        </Label>
-                                                                    </FormGroup>
 
-                                                                    <FormGroup
-                                                                        check
-                                                                    >
-                                                                        <Label
-                                                                            check
-                                                                        >
-                                                                            <Input
-                                                                                type="radio"
-                                                                                name={`radioGroup${i}`}
-                                                                                id="radioOption4"
-                                                                                value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_d}`}
-                                                                            />{' '}
-                                                                            {
-                                                                                eachQuestion.option_d
-                                                                            }
-                                                                        </Label>
-                                                                    </FormGroup>
-
-                                                                    {/* <hr /> */}
-                                {/* </FormGroup> */} {/* */}
-                                {/* </div> */}
                                 <div className="answers">
                                   <FormGroup
                                     tag="fieldset"
@@ -437,7 +257,6 @@ const PostSurvey = () => {
                                             eachQuestion.option_a !== "" && (
                                               <FormGroup
                                                 check
-                                                //   className="mx-1"
                                               >
                                                 <Label
                                                   check
@@ -475,7 +294,6 @@ const PostSurvey = () => {
                                             eachQuestion.option_b !== "" && (
                                               <FormGroup
                                                 check
-                                                //   className="mx-1"
                                               >
                                                 <Label
                                                   check
@@ -513,7 +331,6 @@ const PostSurvey = () => {
                                             eachQuestion.option_c !== "" && (
                                               <FormGroup
                                                 check
-                                                //   className="mx-1"
                                               >
                                                 <Label
                                                   check
@@ -542,7 +359,6 @@ const PostSurvey = () => {
                                             eachQuestion.option_d !== "" && (
                                               <FormGroup
                                                 check
-                                                //   className="mx-1"
                                               >
                                                 <Label
                                                   check
@@ -572,7 +388,6 @@ const PostSurvey = () => {
                                         <>
                                           <FormGroup
                                             check
-                                            // className="mx-1"
                                           >
                                             <Label
                                               check
@@ -607,7 +422,6 @@ const PostSurvey = () => {
                                           </FormGroup>
                                           <FormGroup
                                             check
-                                            // className="mx-1"
                                           >
                                             <Label
                                               check
@@ -642,7 +456,6 @@ const PostSurvey = () => {
                                           </FormGroup>
                                           <FormGroup
                                             check
-                                            // className="mx-1"
                                           >
                                             <Label
                                               check
@@ -679,7 +492,6 @@ const PostSurvey = () => {
                                           {eachQuestion.option_d !== null && (
                                             <FormGroup
                                               check
-                                              //   className="mx-1"
                                             >
                                               <Label
                                                 check
@@ -725,22 +537,7 @@ const PostSurvey = () => {
                           <div className="text-right">
                             <button
                               type="submit"
-                              // btnClass={
-                              //     !(
-                              //         formik.dirty &&
-                              //         formik.isValid
-                              //     )
-                              //         ? 'default'
-                              //         : 'primary'
-                              // }
-                              // disabled={
-                              //     !(
-                              //         formik.dirty &&
-                              //         formik.isValid
-                              //     )
-                              // }
-                              //   size="small"
-                              //   label="Submit"
+                             
                               className="btn btn-warning m-2"
                               onClick={(e) => handleSubmit(e)}
                             >

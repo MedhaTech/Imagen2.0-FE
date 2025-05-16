@@ -40,88 +40,19 @@ import dist from 'react-data-table-component-extensions';
 // import ClipLoader from 'react-spinners/ClipLoader';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
 import { stateList ,districtList} from '../../RegPage/ORGData.js';
-// import { useNavigate } from 'react-router-dom';
-// const { TabPane } = Tabs;
 
-// const SelectDists = ({
-//     // stateList,
-//     getDistrictsListAction,
-//     getStateDataListAction,
-//     dists,
-//     tab,
-//     setDist,
-//     newDist,
-//     drop
-// }) => {
-//     const [loading, setLoading] = useState(false);
-//     // console.log(stateList, 'id');
-//     // useEffect(() => {
-//     //     if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
-//     // }, [tab]);
-//     // console.log();
-//     const handleDists = (e) => {
-//         // console.log(e,"e");
-//         // setNewDist(e.target.value);
-//         setLoading(true);
-//         setTimeout(() => {
-//             setLoading(false);
-//         }, 2000);
-//         setDist(e.target.value);
-//         localStorage.setItem('dist', e.target.value);
-//     };
-//         // console.log(dist,"e");
-
-//     return (
-//         <select
-//             onChange={handleDists}
-//             name="districts"
-//             id="districts"
-//             value={newDist}
-//             className="text-capitalize"
-//         >
-//             <option value="">Select State</option>
-
-//             {stateList && stateList.length > 0 ? (
-//                 stateList.map((item, i) => (
-//                     <option key={i} value={item}>
-//                         {item}
-//                     </option>
-//                 ))
-//             ) : (
-//                 <option value="">There are no District</option>
-//             )}
-//         </select>
-//     );
-// };
 const TicketsPage = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [tableData, settableData] = React.useState([]);
     const [showspin, setshowspin] = React.useState(false);
-const[applicant,setApplicant]=useState("");
-const [gender,setGender]=useState("");
-const [institution,setInstitution]=useState("");
-    // const district = localStorage.getItem('dist');
-    const [menter, activeMenter] = useState(false);
-    const [loading, setLoading] = useState(false);
-const updateStatesList=["All States",...stateList];
+
  const currentUser = getCurrentUser("current_user");
 const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
-    const [evaluater, activeEvaluater] = useState(false);
-    const [tab, setTab] = useState('1');
-    // const [studentDist, setstudentDist] = useState(district ? district : '');
-    const [mentorDist, setmentorDist] = useState('');
-    const [newDist, setNewDists] = useState('');
-    const [registerModalShow, setRegisterModalShow] = useState(false);
-    const [fetchData, setFetchData] = useState(false);
-    const [state,setState]=useState("");
-    const [district,setDistrict]=useState("");
-    let State = localStorage.getItem('state');
 
-//   useEffect(()=>{
-//     handleideaList();
-//   },[]);
+    const [state,setState]=useState("");
+    
     const handleclickcall = async () => {
         // where we can select district and sdg //
         // where we can see list of challenges districtwise //
@@ -139,19 +70,13 @@ const fiterDistData = [...districtList["Telangana"]];
             JSON.stringify({
                 status: "ALL",
                 district: state ,
-                // year_of_study:applicant,
-                // group:institution,
-                // Gender:gender,
-                // district: district !== 'All Districts' ? district : ''
-                // protoType: protoType,
-                // sdg: sdg !== 'All Themes' ? sdg : ''
+               
             })
         );
         await axios
         .get(`${URL.getStudents}?Data=${resparam}`, axiosConfig)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response,"11");
                     const updatedWithKey =
                         response.data &&
                         response.data.data[0] &&
@@ -169,14 +94,12 @@ const fiterDistData = [...districtList["Telangana"]];
                 setshowspin(false);
             });
     }
-// console.log(state,"state");
     const handleSelect = (item, num) => {
         // where item = student id / mentor id //
         localStorage.removeItem('dist');
         localStorage.removeItem('num');
         if (num == '1') {
             navigate("/student-view",{state:{ data: item,
-                // dist:studentDist,
                 num: num}}
                
             );
@@ -186,94 +109,7 @@ const fiterDistData = [...districtList["Telangana"]];
         } 
            
     };
-    const viewDetail = (item) => {
-        props.history.push({
-            pathname: '/student-view',
-            data: item
-        });
-        // localStorage.setItem(
-        //     'institution_code',
-        //     JSON.stringify(item.institution_code)
-        // );
-    };
 
-    const handleEdit = (item) => {
-        // where we can edit user details  //
-        // where item = mentor id //
-        props.history.push({
-            pathname: `/admin/edit-user-profile`,
-            data: item
-        });
-        localStorage.setItem('mentor', JSON.stringify(item));
-    };
-
-    // const handleReset = (item) => {
-    //     const body = JSON.stringify({
-    //         organization_code: item.organization_code,
-    //         otp: false,
-    //         mentor_id: item.mentor_id
-    //     });
-    //     var config = {
-    //         method: 'put',
-    //         url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //         },
-    //         data: body
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 202) {
-    //                 openNotificationWithIcon(
-    //                     'success',
-    //                     'Reset Password Successfully Update!',
-    //                     ''
-    //                 );
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // };
-    // const handleDelete = () => {
-    //     const swalWithBootstrapButtons = Swal.mixin({
-    //         customClass: {
-    //             confirmButton: 'btn btn-success',
-    //             cancelButton: 'btn btn-danger'
-    //         },
-    //         buttonsStyling: false
-    //     });
-
-    //     swalWithBootstrapButtons
-    //         .fire({
-    //             title: 'You are attempting to delete Evalauaor.',
-    //             text: 'Are you sure?',
-    //             imageUrl: `${logout}`,
-    //             showCloseButton: true,
-    //             confirmButtonText: 'Delete',
-    //             showCancelButton: true,
-    //             cancelButtonText: 'Cancel',
-    //             reverseButtons: false
-    //         })
-    //         .then((result) => {
-    //             if (result.isConfirmed) {
-    //                 swalWithBootstrapButtons.fire(
-    //                     'Loged out!',
-    //                     'Successfully deleted.',
-    //                     'success'
-    //                 );
-    //             } else if (result.dismiss === Swal.DismissReason.cancel) {
-    //                 swalWithBootstrapButtons.fire(
-    //                     'Cancelled',
-    //                     'You are Logged in',
-    //                     'error'
-    //                 );
-    //             }
-    //         });
-    // };
-  
-//  console.log(tableData,"table");
     const handleSelect1 = (record) => {
         if (record.type === 0) {
           handleDeletePilot(record.student_id);
@@ -309,7 +145,6 @@ const fiterDistData = [...districtList["Telangana"]];
               url: process.env.REACT_APP_API_BASE_URL + "/students/" + supId,
               headers: {
                 "Content-Type": "application/json",
-                // Accept: "application/json",
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`,
               },
             };
@@ -363,7 +198,6 @@ const fiterDistData = [...districtList["Telangana"]];
               url: process.env.REACT_APP_API_BASE_URL + "/students/" + supId + "/deleteAllData",
               headers: {
                 "Content-Type": "application/json",
-                // Accept: "application/json",
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`,
               },
             };
@@ -388,13 +222,11 @@ const fiterDistData = [...districtList["Telangana"]];
         });
       };
      
-//  console.log(tableData,"table");
     const StudentsData = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
             {
                 name: 'No',
-                // selector: (row) => row.id,
                 selector: (row, key) => key + 1,
                 cellExport: (row) => row.index,
                 center:true,
@@ -421,7 +253,6 @@ const fiterDistData = [...districtList["Telangana"]];
             {
                 name: 'Email',
                 center:true,
-                // selector: (row) =>  <MaskedEmail email={row?.username_email} />,
                 selector: (row) => row?.username_email,
 
                 width: '12rem'
@@ -429,7 +260,6 @@ const fiterDistData = [...districtList["Telangana"]];
             {
                 name: 'Mobile No',
                 center:true,
-                // selector: (row) => <MaskedMobile mobile={row?.mobile} />,
                 selector: (row) => row?.mobile,
                 cellExport: (row) => row?.mobile,
                 width: '10rem'
@@ -439,7 +269,6 @@ const fiterDistData = [...districtList["Telangana"]];
                 center:true,
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
-                // left:true,
                 width: '14em'
             },
             {
@@ -468,28 +297,12 @@ const fiterDistData = [...districtList["Telangana"]];
                 width: '16rem',
             },
            
-            // {
-            //     name: 'Roll number',
-            //     selector: (row) => row?.roll_number,
-            //     width: '10rem'
-            // },
-
-            // {
-            //     name: ' Branch/Group/Stream',
-            //     selector: (row) => row?.branch,
-            //     width: '6rem'
-            // },
-            // {
-            //     name: 'Year of Study',
-            //     selector: (row) => row?.year_of_study,
-            //     width: '8rem'
-            // },
+          
            
             {
                 name: 'Actions',
                 sortable: false,
                 width: '14rem',
-                // left:true,
                 center:true,
                 cell: (record) => [
                     <><div
@@ -506,23 +319,7 @@ const fiterDistData = [...districtList["Telangana"]];
                             <div className="btn btn-danger"><i data-feather="trash-2" className="feather-trash-2"style={{fontSize: "15px" }}  />Delete</div>
                         </div>
                         </>
-                    // <div
-                    //     key={record.id}
-                    //     style={{ marginRight: '10px' }}
-                    //     onClick={() => {
-                    //         let status =
-                    //             record?.status === 'ACTIVE'
-                    //                 ? 'INACTIVE'
-                    //                 : 'ACTIVE';
-                    //         handleStatus(status, record?.student_id, 'student');
-                    //     }}
-                    // >
-                    //     {record?.status === 'ACTIVE' ? (
-                    //         <div className="btn btn-danger ">INACTIVE</div>
-                    //     ) : (
-                    //         <div className="btn btn-warning ">ACTIVE</div>
-                    //     )}
-                    // </div>
+                   
                 ]
             }
         ]
@@ -541,16 +338,13 @@ const fiterDistData = [...districtList["Telangana"]];
         <div className="page-title">
                            
                            <h4 className="mb-3 mx-0">Students List</h4>
-                           {/* <h6>Edit,Reset an Students here </h6> */}
            
                </div>
             <Container className="ticket-page mb-50 userlist">
                 <Row className="mt-0">
-                    {/* <h4 className="my-2 mx-0">Students List</h4> */}
-                    {/* <Container fluid className="px-0"> */}
+                  
                                         <Row className="align-items-center" style={{ paddingLeft: '0' }} >
                                             <Col md={2}>
-                                                {/* <div className="my-3 d-md-block d-flex justify-content-center"> */}
                                                     <Select
                                                         list={fiterDistData}
                                                         setValue={setState}
@@ -560,7 +354,6 @@ const fiterDistData = [...districtList["Telangana"]];
                                                         value={state}
                                                          className="form-select"
                                                     />
-                                                {/* </div> */}
                                             </Col>
                                            
                                            
@@ -591,7 +384,6 @@ const fiterDistData = [...districtList["Telangana"]];
                                             {...StudentsData}
                                         >
                                             <DataTable
-                                                // data={rows}
                                                 data={tableData || []}
                                                 defaultSortField="id"
                                     customStyles={customStyles}
@@ -606,7 +398,6 @@ const fiterDistData = [...districtList["Telangana"]];
                                             />
                                         </DataTableExtensions>
                                     </div>
-                                    {/* </Container> */}
                 </Row>
             </Container>
           

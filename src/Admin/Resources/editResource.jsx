@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 import React from 'react';
 import { Row, Col, FormGroup, Label, Form,Input } from 'reactstrap';
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
@@ -10,8 +9,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { useNavigate } from 'react-router-dom';
-// import { stateList} from "../../RegPage/ORGData";
-// import Select from "../Reports/Helpers/Select";
+
 
 
 const EditResource = () => {
@@ -19,7 +17,6 @@ const EditResource = () => {
     const navigate = useNavigate();
     const resID = JSON.parse(localStorage.getItem('resID'));
     const currentUser = getCurrentUser('current_user');
-//   const allData = ["All States", ...stateList];
 
     const inputDICE = {
         type: 'text',
@@ -78,7 +75,6 @@ const EditResource = () => {
             role: resID && resID.role,
             description: resID && resID.description,
             type: resID && resID.type,
-            // state: resID?.state,
 
             attachments: (resID && resID.attachments) || ''
         },
@@ -87,7 +83,6 @@ const EditResource = () => {
             role: Yup.string()
                 .optional()
                 .oneOf(['Institution', 'Student']).required('Role is Required'),
-    //   state: Yup.string().required("Please Select State"),
 
             description: Yup.string()
                 .optional()
@@ -119,14 +114,7 @@ const EditResource = () => {
                     );
                     values.attachments =
                         response?.data?.data[0].attachments[0].toString();
-                    // if (response.status === 200) {
-                    //     openNotificationWithIcon(
-                    //       'success',
-                    //       'File Updated Successfully'
-                    //     );
-                    //   } else {
-                    //     openNotificationWithIcon('error', 'Opps! Something Wrong');
-                    //   }
+                    
                 }
 
                 const body = {
@@ -154,7 +142,6 @@ const EditResource = () => {
 
                 if (response.status === 200) {
                     navigate('/adminresources');
-                    //props.history.push('/admin/Resources');
                     openNotificationWithIcon(
                         'success',
                         'Resource Updated Successfully'
@@ -177,17 +164,10 @@ const EditResource = () => {
         marginRight: '10px',
       };
 
-    //   const handleStateChange = (event) => {
-    //     const state = event.target.value;
-    //     formik.setFieldValue("state", state);
-    //   };
-    //   console.log(formik.values.state,"state");
+  
     return (
         <div className="page-wrapper">
-             {/* <h4 className="m-2" 
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
-        >Resources
-        </h4> */}
+            
             <div className="content">
                 <div className="page-header">
                     <div className="add-item d-flex">
@@ -231,28 +211,7 @@ const EditResource = () => {
                                                         </small>
                                                     )}
                                             </Col>
-                                            {/* <Col md={4}>
-                          <Label className="form-label" htmlFor="state">
-                            State
-                            <span required>*</span> 
-                          </Label>
-                          <Select
-  list={allData}
-  setValue={(value) => formik.setFieldValue("state", value)} // Update Formik state
-  placeHolder={"Select State"}
-  value={formik.values.state}  // Bind the Formik state value
-/>
-                       
-
-                          {formik.touched.state && formik.errors.state ? (
-                            <small
-                              className="error-cls"
-                              style={{ color: "red" }}
-                            >
-                              {formik.errors.state}
-                            </small>
-                          ) : null}
-                        </Col> */}
+                                           
                                             <Col md={6}>
 
                                             <Label
@@ -349,7 +308,6 @@ const EditResource = () => {
                                                       {formik.values.attachments ?  (<button
                                                             className='btn btn-info m-2'
                                                             type="button"
-                                                            // disabled={!formik.values.attachments}
                                                             onClick={() => {
                                                                 if (formik.values.attachments instanceof File) {
                                                                     const fileURL = URL.createObjectURL(formik.values.attachments);
@@ -471,30 +429,7 @@ const EditResource = () => {
                                             </button>
                                         </div>
                                     </Row>
-                                    {/* <Row>
-                                        <Col className="col-xs-12 col-sm-6">
-                                            <Button
-                                                label="Discard"
-                                                btnClass="secondary"
-                                                size="small"
-                                                onClick={() => navigate('/adminresources')}
-                                                
-                                            />
-                                        </Col>
-                                        <Col className="submit-btn col-xs-12 col-sm-6">
-                                            <Button
-                                                label="Submit details"
-                                                type="submit"
-                                                btnClass={
-                                                    !formik.dirty || !formik.isValid
-                                                        ? 'default'
-                                                        : 'primary'
-                                                }
-                                                size="small"
-                                                disabled={!formik.dirty}
-                                            />
-                                        </Col>
-                                    </Row> */}
+                                  
                                 </Form>
                             </div>
                         </Col>

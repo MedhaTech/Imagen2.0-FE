@@ -1,34 +1,26 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Row, Col, Form, Label, Card } from "reactstrap";
 import axios from "axios";
-import * as Yup from "yup";
-import { useFormik } from "formik";
 import { openNotificationWithIcon, getCurrentUser } from "../../helpers/Utils";
 import { useDispatch } from "react-redux";
 import { teacherCreateMultipleStudent } from "../store/teacher/actions";
 import { useLocation } from "react-router-dom";
-import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
 
-// import { all_routes } from "../../Router/all_routes";
 const studentBody = {
   full_name: "",
   Age: "",
   Grade: "",
   Gender: "",
   disability: "",
-  // username: "",
 };
 const grades = [6, 7, 8, 9, 10, 11, 12];
 const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 
 const CreateMultipleMembers = ({ id }) => {
   const [teamId, setTeamId] = useState("");
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-  // const [itemDataErrors, setItemDataErrors] = useState([]);
   const tempStudentData = {
     team_id: teamId,
     role: "STUDENT",
@@ -37,13 +29,11 @@ const CreateMultipleMembers = ({ id }) => {
     Grade: "",
     Gender: "",
     disability: "",
-    // username: "",
   };
   const dispatch = useDispatch();
   const [itemDataErrors, setItemDataErrors] = useState([studentBody]);
   const currentUser = getCurrentUser("current_user");
 
-  //   const history = useHistory();
   const navigate = useNavigate();
 
   const [isClicked, setIsClicked] = useState(false);
@@ -52,20 +42,9 @@ const CreateMultipleMembers = ({ id }) => {
 
   const [teamNameError, setTeamNameError] = useState("");
 
-  // const handleteamname = (e) => {
-  //   const numericValue = e.target.value;
-  //   const trimmedValue = numericValue.trim();
-  //   setTeamname(trimmedValue);
-
-  //   if (trimmedValue.length < 1) {
-  //     setTeamNameError("Please Enter Team Name");
-  //   } else {
-  //     setTeamNameError("");
-  //   }
-  // };
+ 
   const handleteamname = (e) => {
     const inputValue = e.target.value;
-    //const lettersOnly = inputValue.replace(/[^a-zA-Z\s]/g, "");
     const patternOnlyalfa = /^[a-zA-Z0-9\s]*$/;
     setTeamname(inputValue);
 
@@ -77,12 +56,7 @@ const CreateMultipleMembers = ({ id }) => {
       setTeamNameError("");
     }
   };
-  // const handleteamemail = (e) => {
-  //   const numericValue = e.target.value;
-  //   const trimmedValue = numericValue.trim();
 
-  //   setTeamemail(trimmedValue);
-  // };
   const [emailError, setEmailError] = useState("");
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -106,7 +80,6 @@ const CreateMultipleMembers = ({ id }) => {
       Age: "",
       Grade: "",
       Gender: "",
-      // username: "",
       disability: "",
     },
     {
@@ -116,7 +89,6 @@ const CreateMultipleMembers = ({ id }) => {
       Age: "",
       Grade: "",
       Gender: "",
-      // username: "",
       disability: "",
     },
     {
@@ -126,12 +98,10 @@ const CreateMultipleMembers = ({ id }) => {
       Age: "",
       Grade: "",
       Gender: "",
-      // username: "",
       disability: "",
     },
   ]);
   let pattern = /^[A-Za-z\s]+$/;
-  // const emailRegex = /[A-Za-z-@+.-]*$/;
   const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const handleChange = (e, i) => {
     let newItem = [...studentData];
@@ -154,19 +124,7 @@ const CreateMultipleMembers = ({ id }) => {
               }
             }
           }
-          // if (item === "username") {
-          //   let check = e.target.value;
-          //   if (check && check.match(emailRegex)) {
-          //     const { index } = check.match(emailRegex);
-          //     if (index) {
-          //       const foo = { ...errCopy[i] };
-          //       foo[e.target.name] = "Enter Valid Mail Id";
-          //       errCopy[i] = { ...foo };
-          //       setItemDataErrors(errCopy);
-          //       return;
-          //     }
-          //   }
-          // }
+         
           const foo = { ...errCopy[i] };
           foo[e.target.name] = "";
           errCopy[i] = { ...foo };
@@ -192,29 +150,7 @@ const CreateMultipleMembers = ({ id }) => {
           </span>
         );
       }
-      // if (!item.full_name.trim())
-      //   err["full_name"] = (
-      //     <span style={{ color: "red" }}>Please Enter Full Name</span>
-      //   );
-      // if (item.full_name && item.full_name.match(pattern)) {
-      //   const { index } = item.full_name.match(pattern);
-      //   if (index) {
-      //     err["full_name"] = (
-      //       <span style={{ color: "red" }}>Only alphanumeric are allowed</span>
-      //     );
-      //   }
-      // }
-
-      // if (!item.username.trim()) err["username"] = "Email is Required";
-      // if (item.username) {
-      //     const start = item.username.indexOf('@');
-      //     const main = item.username.substring(start);
-      //     const checkarry = ['@gmail.com', '@outlook.com', '@yahoo.com'];
-      //     const text = checkarry.includes(main);
-      //     if (!text) {
-      //         err['username'] = 'Enter Valid Mail Id';
-      //     }
-      // }
+     
 
       if (!item.Age)
         err["Age"] = <span style={{ color: "red" }}>Please Select Age</span>;
@@ -236,7 +172,6 @@ const CreateMultipleMembers = ({ id }) => {
       }
       return { ...err, i };
     });
-    // const combinedErrors = [...errors, teamErrors];
     setItemDataErrors(errors.filter((item) => Object.values(item).length > 0));
     const filterEmpty = errors.filter((item) => {
       const ce = { ...item };
@@ -268,9 +203,7 @@ const CreateMultipleMembers = ({ id }) => {
     setStudentData(newItems);
   };
   const handleSumbit = () => {
-    // alert("hii");
     if (!validateItemData()) return;
-    //setIsClicked(true);
     const checkDuplicateName = containsDuplicates(
       studentData.map((item) => item.full_name)
     );
@@ -317,35 +250,19 @@ const CreateMultipleMembers = ({ id }) => {
               )
             );
           }, 2000);
-          // if (teamId) {
-          //   setTimeout(() => {
-          //     dispatch(
-          //       teacherCreateMultipleStudent(
-          //         updatedStudentData,
-          //         navigate,
-          //         setIsClicked
-          //       )
-          //     );
-          //   }, 5000);
-          // }
-
-          // dispatch(
-          //   teacherCreateMultipleStudent(studentData, navigate, setIsClicked)
-          // );
+         
         } else {
           openNotificationWithIcon("error", "Opps! Something Wrong");
         }
       })
       .catch(function (error) {
         if (error.response.data.status === 400) {
-          // console.log(error, "eee");
           openNotificationWithIcon(
             "error",
             "Duplicate team names are not allowed"
           );
         }
       });
-    // dispatch(teacherCreateMultipleStudent(studentData, navigate, setIsClicked));
   };
 
   const button = teamname && teamemail && studentData;
@@ -462,30 +379,7 @@ const CreateMultipleMembers = ({ id }) => {
                       </small>
                     ) : null}
                   </Col>
-                  {/* <Col md={6} className="mb-xl-0">
-                        <Label className="form-label">
-                          Email Address
-                          <span required className="p-1">
-                            *
-                          </span>
-                        </Label>
-                        <input
-                          className="form-control"
-                          placeholder="Enter Email Id"
-                          id="username"
-                          name="username"
-                          onChange={(e) => {
-                            handleChange(e, i);
-                          }}
-                          value={item.username}
-                        />
-                        {foundErrObject?.username ? (
-                          <small className="error-cls">
-                            {foundErrObject.username}
-                          </small>
-                        ) : null}
-                      </Col> */}
-                  {/* </Row> */}
+                 
                   <Col md={2} className="mb-xl-0">
                     <Label htmlFor="inputState" className="form-label">
                       Age
@@ -631,31 +525,9 @@ const CreateMultipleMembers = ({ id }) => {
               CREATE TEAM
             </button>
           )}
-          {/* {studentData.length < 4 && (
-                  <div className="">
-                    <button
-                      // label={"Add More"}
-                      onClick={addItem}
-                      // btnClass={
-                      //   studentData.length != 3 ? "primary" : "default"
-                      // }
-                      // size="small"
-                      disabled={studentData.length === 3}
-                    >
-                      Add More
-                    </button>
-                  </div>
-                )} */}
+         
         </Col>
-        {/* <Col className="mt-2 text-right">
-            <button
-              type="button"
-              className="btn btn-secondary m-2 ml-auto"
-              onClick={() => navigate("/mentorteams")}
-            >
-              Discard
-            </button>
-          </Col> */}
+       
         <Col className="mt-2 d-flex justify-content-end">
           <button
             type="button"

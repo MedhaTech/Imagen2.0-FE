@@ -1,13 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState,useEffect } from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../helpers/Utils";
-import edit from "../assets/img/icons/edit-set.svg";
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useNavigate } from "react-router-dom";
-// import male from "../assets/img/admin.jpg";
 import male from "../assets/img/imazenlogo1.jpg";
 
 import { Row, Col, Label, Container, Card, } from 'reactstrap';
@@ -43,11 +39,9 @@ getAPi();
   axios(config)
       .then(function (response) {
           if (response.status === 200) {
-            console.log(response,"response");
             setMobile(response.data.data[0].mobile);
             const statesString = response.data.data[0].district; 
             setStates(statesString.split(','));
-            // setStates(response.data.data[0].states);
 
 
           }
@@ -56,7 +50,6 @@ getAPi();
           console.log(error);
       });
 };
-console.log(mobile,"m");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -65,7 +58,6 @@ console.log(mobile,"m");
             <h4>Evaluator Profile</h4>
           </div>
         </div>
-        {/* /product list */}
         <div className="card">
           <div className="card-body">
             <div className="profile-set">
@@ -74,7 +66,6 @@ console.log(mobile,"m");
                 <div className="profile-content">
                   <div className="profile-contentimg">
                   <img src={male} alt="Male" id="blah" />
-                  {/* <img src={customer} alt="Customer" id="blah" /> */}
                   <div className="profileupload"></div>
                   </div>
                   <div className="profile-contentname">
@@ -113,7 +104,6 @@ console.log(mobile,"m");
                   <input
                     type="email"
                     className="form-control"
-                    // defaultValue={mobile}
                     value={mobile}
                     readOnly="readonly"
                   />
@@ -125,31 +115,12 @@ console.log(mobile,"m");
                     <Row>
                         <Label className="mb-2">Evaluator Enable Districts:</Label>
                         <Row>
-                        {/* {states.length > 0 ? (
-                        states.map((state, index) => (
-                            <Col key={index} xs={12} md={6} lg={3} className="mb-2">
-                                <div>
-                                    {state.trim()} 
-                                </div>
-                            </Col>
-                        ))
-                    ) : (
-                        <div>No states available</div>
-                    )} */}
+                       
                      {states.length > 0 ? (
                         states.map((state, index) => (
                             <Col key={index} xs={12} md={6} lg={3} className="mb-2">
                                 <div className="d-flex align-items-center">
-                                    {/* <input 
-                                        type="checkbox" 
-                                        checked 
-                                        readOnly 
-                                        className="me-2" 
-                                        style={{ 
-                                          pointerEvents: 'none', 
-                                          cursor: 'default' 
-                                      }} 
-                                    /> */}
+                                   
                                     <span>{state.trim()}</span>
                                 </div>
                             </Col>
@@ -168,7 +139,6 @@ console.log(mobile,"m");
             </div>
           </div>
         </div>
-        {/* /product list */}
       </div>
     </div>
   );

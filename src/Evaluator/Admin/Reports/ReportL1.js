@@ -2,9 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
-// import Layout from '../Pages/Layout';
 import { Container, Row, Col, Table } from "reactstrap";
-// import { Button } from '../../../stories/Button';
 import { CSVLink } from "react-csv";
 import {
   openNotificationWithIcon,
@@ -13,21 +11,16 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../../../Admin/Reports/Helpers/Select.jsx";
-import { Bar } from "react-chartjs-2";
-// import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
 
 import axios from "axios";
 import "../../../Admin/Reports/reports.scss";
-import { Doughnut } from "react-chartjs-2";
 import { notification } from "antd";
 import { stateList, districtList,collegeType } from "../../../RegPage/ORGData";
 import { useNavigate, Link } from "react-router-dom";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
-import moment from "moment/moment";
 import * as XLSX from 'xlsx';
 
 import { encryptGlobal } from "../../../constants/encryptDecrypt.js";
-// import { categoryValue } from '../../Schools/constentText';
 
 const ReportL1 = () => {
   const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState("");
@@ -36,40 +29,27 @@ const ReportL1 = () => {
   const [totalCountB, setTotalCountB] = useState([]);
 
   const [sdg, setsdg] = React.useState("");
-  const [filterType, setFilterType] = useState("");
   const [category, setCategory] = useState("");
   const navigate = useNavigate();
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
   );
-  const [filteredData, setFilteredData] = useState([]);
-  const [filteresData, setFilteresData] = useState([]);
-  const filterOptions = ["Registered", "Not Registered"];
-  const categoryData = ["All Categories", "ATL", "Non ATL"];
+ 
   const categoryDataTn = [
    "All Categories",
    "HSS",
     "HS",
     "Non ATL",
   ];
-  // useEffect(() => {
-  //   setRegTeachersdistrict("");
-   
-  // }, [RegTeachersState]);
+ 
   const newThemesList = ["All Themes", ...themesList];
-  const newstateList = ["All States", ...stateList];
 
   const collegeList = ["All Types", ...collegeType];
-  const fullStatesNames = newstateList;
-  const allDistricts = {
-    "All Districts": [...Object.values(districtList).flat()],
-    ...districtList,
-  };
+
  const fiterDistData = [...districtList["Telangana"]];
      fiterDistData.unshift("All Districts");
   const [downloadData, setDownloadData] = useState(null);
-  const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
-    useState(null);
+ 
   const [chartTableData, setChartTableData] = useState([]);
   const [chartTableData2, setChartTableData2] = useState([]);
 
@@ -77,19 +57,13 @@ const ReportL1 = () => {
   const csvLinkRefTable2 = useRef();
 
   const csvLinkRef = useRef();
-  const csvLinkRefNotRegistered = useRef();
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
-  const [registeredGenderChartData, setRegisteredGenderChartData] =
-    useState(null);
-  const [registeredChartData, setRegisteredChartData] = useState(null);
+ 
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadComplete, setDownloadComplete] = useState(false);
   const [newFormat, setNewFormat] = useState("");
-  const [barChart1Data, setBarChart1Data] = useState({
-    labels: [],
-    datasets: [],
-  });
+ 
       const [status, setstatus] = React.useState('');
   
   const statusdata = ['Accepted', 'Rejected', 'Both'];
@@ -242,8 +216,6 @@ const ReportL1 = () => {
   }, []);
   useEffect(() => {
     if (studentDetailedReportsData.length > 0) {
-      console.log("Performing operation with the updated data.");
-      // csvLinkRef.current.link.click();
       handleExport();
 
     }
@@ -260,11 +232,9 @@ const ReportL1 = () => {
     fetchData();
   };
   const fetchData = () => {
-    // const edist =
-    //   RegTeachersdistrict === "" ? "All Districts" : RegTeachersdistrict;
+  
     const param = encryptGlobal(
       JSON.stringify({
-        // state: RegTeachersState,
         district: RegTeachersdistrict,
         college_type: category,
         theme: sdg,
@@ -273,7 +243,6 @@ const ReportL1 = () => {
       })
     );
     const url = `/reports/L1deatilreport?Data=${param}`;
-// console.log(param,"param");
     const config = {
       method: "get",
       url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + url,
@@ -286,7 +255,6 @@ const ReportL1 = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response,"response Filter");
          
                const mentorAndOrg = response?.data?.data;
         
@@ -347,11 +315,7 @@ const ReportL1 = () => {
 
  
 
-  // useEffect(() => {
-  //     if (filteredData.length > 0) {
-  //         setDownloadData(filteredData);
-  //     }
-  // }, [filteredData, downloadNotRegisteredData]);
+ 
 
   useEffect(() => {
     if (downloadComplete) {
@@ -360,7 +324,6 @@ const ReportL1 = () => {
 
       setRegTeachersdistrict("");
 
-      // setFilterType('');
       setsdg("");
     }
     const newDate = new Date();
@@ -383,19 +346,16 @@ const ReportL1 = () => {
     axios(config)
       .then((res) => {
         if (res.status === 200) {
-        //   console.log(res, "6");
           const chartTableData = res?.data?.data || [];
           const total = chartTableData.reduce(
             (acc, item) => {
               (acc.totalSubmited += item.totalSubmited),
-                // (acc.state += item.state);
                 (acc.accepted += item.accepted),
                 (acc.rejected += item.rejected);
 
               return acc;
             },
             {
-              // state: 0,
               totalSubmited: 0,
               accepted: 0,
               rejected: 0,
@@ -430,7 +390,6 @@ const ReportL1 = () => {
           const totalB = chartTableData2.reduce(
             (acc, item) => {
               (acc.totalEvaluated += item.totalEvaluated),
-                // (acc.full_name += item.full_name),
                 (acc.accepted += item.accepted),
                 (acc.rejected += item.rejected);
 
@@ -444,14 +403,12 @@ const ReportL1 = () => {
             }
           );
 
-          // console.log(res,"22");
           var arrayB = chartTableData2;
           arrayB.push({ full_name: "Total Count", ...totalB });
           setChartTableData2(arrayB);
           setDownloadTableData2(chartTableData2);
           setTotalCountB(totalB);
-          // setChartTableData2(chartTableData2);
-          // setDownloadTableData2(chartTableData2);
+         
         }
       })
       .catch((error) => {
@@ -461,27 +418,12 @@ const ReportL1 = () => {
 
   return (
     <div className="page-wrapper">
-      {/* <h4
-        className="m-2"
-        style={{
-          position: "sticky",
-          top: "70px",
-          zIndex: 1000,
-          padding: "10px",
-          backgroundColor: "white",
-          display: "inline-block",
-          color: "#fe9f43",
-          fontSize: "16px",
-        }}
-      >
-        Reports
-      </h4> */}
+     
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
               <h4>L1 - Report</h4>
-              {/* <h6>List of Teachers registered and their details</h6> */}
             </div>
           </div>
           <div className="page-btn">
@@ -497,16 +439,7 @@ const ReportL1 = () => {
         <Container className="RegReports userlist">
           <div className="reports-data mt-2 mb-2">
             <Row className="align-items-center mt-3 mb-2">
-              {/* <Col md={2}>
-                <div className="my-2 d-md-block d-flex justify-content-center">
-                  <Select
-                    list={fullStatesNames}
-                    setValue={setRegTeachersState}
-                    placeHolder={"Select State"}
-                    value={RegTeachersState}
-                  />
-                </div>
-              </Col> */}
+             
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select

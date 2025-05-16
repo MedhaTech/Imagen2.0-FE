@@ -172,9 +172,8 @@ function SchoolTeamPDF() {
             && ideaValuesForPDF !== undefined
         ) {
             handlePrint();
-            console.log('printcontinue');
         } else {
-            console.log("Some PDF printing related api's are failing");
+            // console.log("Some PDF printing related api's are failing");
         }
     }, [teamsData, mentorValuesForPDF]);
     const tsetcall = () => {

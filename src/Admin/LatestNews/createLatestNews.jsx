@@ -8,7 +8,6 @@ import * as Yup from 'yup';
 import { Button } from '../../stories/Button';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useTranslation } from 'react-i18next';
-// import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { stateList  } from "../../RegPage/ORGData";
@@ -17,7 +16,6 @@ const CreateLatestNews = () => {
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
     const navigate = useNavigate();
-    // const history = useHistory();
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -67,11 +65,9 @@ const CreateLatestNews = () => {
             file_name: '',
             url: '',
             new_status: '',
-            // state:""
         },
         validationSchema: Yup.object({
             role: Yup.string().optional().oneOf(['Institution', 'Student']).required('Role is Required'),
-                // state: Yup.string().required("Please Select State"),
             details: Yup.string().optional().required('Details is Required'),
             new_status: Yup.string().optional().oneOf(['0', '1']).required('New Icon Status is Required'),
             file_name: Yup.mixed(),
@@ -99,7 +95,6 @@ const CreateLatestNews = () => {
                 const body = {
                     category: values.role,
                     details: values.details,
-        //   state: values.state,
 
                     new_status: values.new_status
                 };
@@ -144,16 +139,10 @@ const CreateLatestNews = () => {
       const buttonStyle = {
         marginRight: '10px',
       };
-    //   const handleStateChange = (event) => {
-    //     const state = event.target.value;
-    //     formik.setFieldValue("state", state);
-    //   };
+   
     return (
         <div className="page-wrapper">
-             {/* <h4 className="m-2" 
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
-        >Latest News
-        </h4> */}
+           
         <div className="content">
                 <div className="page-header">
                     <div className="add-item d-flex">
@@ -246,33 +235,7 @@ const CreateLatestNews = () => {
                                                         </small>
                                                     )}
                                             </Col>
-                                            {/* <Col md={4}>
-                          <Label className="form-label" htmlFor="state">
-                            State
-                            <span required>*</span>
-                          </Label>
-                          <select
-                            id="inputState"
-                            className="form-select"
-                            onChange={(e) => handleStateChange(e)}
-                          >
-                            <option value="">Select State</option>
-                            {allData.map((state) => (
-                              <option key={state} value={state}>
-                                {state}
-                              </option>
-                            ))}
-                          </select>
-
-                          {formik.touched.state && formik.errors.state ? (
-                            <small
-                              className="error-cls"
-                              style={{ color: "red" }}
-                            >
-                              {formik.errors.state}
-                            </small>
-                          ) : null}
-                        </Col> */}
+                                           
                                         </Row>
                                         <Row className="mb-3 modal-body-table search-modal-header">
                                         <Label
@@ -376,10 +339,8 @@ const CreateLatestNews = () => {
                                             )}
                                     </Col>
                                 </Row>
-                                    {/* </FormGroup> */}
                                 </div>
 
-                                {/* <hr className="mt-4 mb-4" /> */}
                                 <Row>
                                     <div style={buttonContainerStyle} className='mt-3'>
                                         <button

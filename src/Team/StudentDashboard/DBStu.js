@@ -3,16 +3,11 @@
 /* eslint-disable indent */
 import React , { useEffect, useState }from "react";
 import CountUp from "react-countup";
-import Chart from "react-apexcharts";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import "bootstrap-daterangepicker/daterangepicker.css";
-import DateRangePicker from "react-bootstrap-daterangepicker";
-import ImageWithBasePath from "../../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
-import { setToogleHeader } from "../../core/redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import { Tooltip } from "react-bootstrap";
-import { all_routes } from "../../Router/all_routes";
 import { RiTeamFill } from "react-icons/ri";
 ////////my code/////////////
 import { getCurrentUser } from "../../helpers/Utils";
@@ -20,26 +15,20 @@ import FeatherIcon from "feather-icons-react";
 import LatestNews from './LatestNews';
 import { Eye } from "react-feather";
 import { FaBook, FaLightbulb } from 'react-icons/fa';
-import { FaLifeRing } from 'react-icons/fa';
 import { FaPoll } from 'react-icons/fa';
 import { FaRoute } from 'react-icons/fa';
-import { FaPlay } from 'react-icons/fa';
-import { FaUsers } from 'react-icons/fa';
 import { FaChalkboardTeacher } from 'react-icons/fa'; 
 import { useNavigate } from 'react-router-dom';
 import VideoModal from '../../HelpVideo/VideoModal';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
-import team from "../../assets/img/icons/team.svg";
 import { getTeamMemberStatus } from "../../Teacher/store/teams/actions";
 import Table from "../../core/pagination/datatable";
 import { CheckCircle } from "react-feather";
 import { IoHelpOutline } from "react-icons/io5";
 
-import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 const GreetingModal = (props) => {
-  // console.log(props,"props");
   return (
       <Modal
           show={props.show}
@@ -58,7 +47,6 @@ const GreetingModal = (props) => {
                                     <div style={{ width: '100%', height: '400px' }}>
                       <iframe
                          
-                          // src={props.popLink.replace("youtu.be/", "www.youtube.com/embed/")}
                           src={props.popLink
                             .replace("youtu.be/", "www.youtube.com/embed/")
                             .replace("watch?v=", "embed/")
@@ -93,7 +81,6 @@ const DBStu = () => {
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
     (state) => state.teams
   );
-  // console.log(teamsMembersStatus,"team");
   /////////my code//////////////////
   const currentUser = getCurrentUser("current_user");
   const [selectedLanguage, setSelectedLanguage] = useState('Select Language');
@@ -113,7 +100,6 @@ const DBStu = () => {
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
 );
-// const teamId = currentUser?.data[0]?.student_id;
 const teamId = currentUser?.data[0]?.type_id === 0 
   ? currentUser?.data[0]?.student_id 
   : currentUser?.data[0]?.type_id;
@@ -132,7 +118,6 @@ useEffect(() => {
 useEffect(() => {
   const popParam = encryptGlobal(
     JSON.stringify({
-      // state:currentUser.data[0]?.state,
       role:currentUser.data[0]?.role    })
 );
   var config = {
@@ -147,13 +132,11 @@ useEffect(() => {
   axios(config)
       .then(function (res) {
           if (res.status === 200 && res.data.data[0]?.on_off === '1') {
-            // console.log(res,"res");
               setShowsPopup(true);
               setPopType(res?.data?.data[0]?.type);
 
               setPopLink(res?.data?.data[0]?.url);
               setImgUrl(res?.data?.data[0]?.url);
-              // setState(res?.data?.data[0]?.navigate);
           }
       })
       .catch(function (error) {
@@ -315,9 +298,7 @@ useEffect(() => {
       "https://www.youtube.com/embed/1WvwMypdVaY?si=8GPHpUqV7Jdewh__",
       ];
 
-  // const handleLanguageChange = (language) => {
-  //   setSelectedLanguage(language);
-  // };
+  
 
   const scroll = () => {
     const section = document.querySelector('#start');
@@ -360,7 +341,6 @@ useEffect(() => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                // console.log(response);
                 const po = (response.data.data[0].post_survey_completed_date);
                 const pre = (response.data.data[0].pre_survey_completed_date);
                 setStuPostSurvey(po);
@@ -393,13 +373,11 @@ useEffect(() => {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            // console.log(response, "ideaSubApi");
             setStuIdeaSub(response.data.data[0].status);
             setStuIdeaLoading(false);
           }
         })
         .catch(function (error) {
-          // console.log(error,"error");
           if (error.response.data.status === 404) {
             setStuIdeaSub("Not Started");
             setStuIdeaLoading(false);
@@ -427,13 +405,11 @@ useEffect(() => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-              // console.log(response);
                 const per = Math.round(
                     (response.data.data[0].topics_completed_count /
                         response.data.data[0].all_topics_count) *
                         100
                 );
-                // console.log(per);
                 setCoursepercentage(per);
                 setStuCourseLoading(false);
             }
@@ -463,7 +439,6 @@ useEffect(() => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                // console.log(response);
                 setBadges(response.data.data[0].badges_earned_count);
             }
         })
@@ -492,7 +467,6 @@ useEffect(() => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                // console.log(response);
                 setQuiz(response.data.data[0].quiz_completed_count);
             }
         })
@@ -521,7 +495,6 @@ useEffect(() => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                // console.log(response);
                 setVideos(response.data.data[0].videos_completed_count);
             }
         })
@@ -538,7 +511,6 @@ useEffect(() => {
                 handleClose={handleClose}
                 show={showsPopup}
                 imgUrl={imgUrl}
-                // state={state}
                 popLink={popLink}
                 poptype={poptype}
             ></GreetingModal>
@@ -582,21 +554,9 @@ useEffect(() => {
                 <FeatherIcon icon="video"  style={{ pointerEvents: "none", color: "inherit", transform: "none" }}  />
               </div>
             </div>
-            {/* <div className="col-xl-4 col-sm-6 col-12">
-              <div className="card color-info bg-primary">
-                <h3>
-                  <CountUp end={badges} duration={4}>
-                    +
-                  </CountUp> / 3
-                </h3>
-                <p>Badges Achieved</p>
-                <FeatherIcon icon="award" />
-              </div>
-            </div> */}
+           
           </div>
-          {/* Quicklinks , Latest News */}
           <div className="row">
-            {/* Quick links */}
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <div className="card flex-fill w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
@@ -630,23 +590,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(0)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td> */}
+                         
                           <td>
                             {stuPreSLoading ? ( 
                                 <Loader />
@@ -699,23 +643,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(1)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td> */}
+                         
                           <td>
                             {stuCourseLoading ? ( 
                                 <Loader />
@@ -772,7 +700,6 @@ useEffect(() => {
                               <div className="info">
                                 <Link 
                                   to="#"
-                                // to="/instruction"
                                 >
                                   <h4>Idea Submission</h4>
                                 </Link>
@@ -780,23 +707,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(2)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td> */}
+                         
                           <td>
                             {stuIdeaLoading ? (
                               <Loader />
@@ -843,59 +754,7 @@ useEffect(() => {
                             </div>
                           </td>
                         </tr>
-                        {/* <tr>
-                          
-                          <td>
-                            <div className="product-info">
-                              <Link
-                                to={"/idea"}
-                                className="product-img"
-                              >
-                                <FaLightbulb size={30} style={{marginRight : "10px", color:"#ffe000"}} />
-                              </Link>
-                              <div className="info">
-                                <Link to={"/idea"}>
-                                  <h4>Idea Submission</h4>
-                                </Link>
-                                <p className="dull-text">Select a theme & submit idea</p>
-                              </div>
-                            </div>
-                          </td>
-                         
-                          <td>
-                            {stuIdeaLoading ? ( 
-                                <Loader />
-                              ) : stuIdeaSub != "SUBMITTED" ?  (
-                              <>
-                                <span
-                                  className={"badge badge-linedangered"}
-                                  onClick={redirectToIdea}
-                                >
-                                  Not Done!
-                                </span>
-                              </>
-                            ) : (
-                              <>
-                                <span
-                                  className={"badge badge-linesuccess"}
-                                >
-                                  Submitted
-                                </span>
-                              </>
-                            )}
-                          </td>
-                          <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/idea"} >
-                                    <Eye className="feather-view" />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>  */}
+                       
                          <tr>
                           <td>
                             <div className="product-info">
@@ -913,23 +772,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(2)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td> */}
+                        
                           <td>
                             {stuPostSLoading ? ( 
                                 <Loader />
@@ -981,23 +824,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(3)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td> */}
+                         
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
@@ -1033,14 +860,7 @@ useEffect(() => {
             <div className="card-header d-flex justify-content-between align-items-center">
               <h4 className="card-title mb-0">
                 {" "}
-                {/* <img
-                  src={team}
-                  style={{
-                    marginRight: "6px",
-                    width: "7%",
-                    verticalAlign: "middle",
-                  }}
-                /> */}
+               
                 <RiTeamFill size="25"  style={{
                     marginRight: "6px",
                     verticalAlign: "middle",
@@ -1058,7 +878,6 @@ useEffect(() => {
                 )}
                 {teamsMembersStatus.length > 0 && !showDefault ? (
                   <Table
-                    //bordered
                     pagination={false}
                     dataSource={teamsMembersStatus}
                     columns={columns}

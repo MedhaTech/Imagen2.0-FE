@@ -33,7 +33,6 @@ const LinkComponent = ({ item }) => {
 };
 const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
   const teamResponse = response;
-  console.log(teamResponse,"response");
   const [images, setImages] = useState([]);
    useEffect(() => {
       if (teamResponse) {
@@ -74,7 +73,6 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <Modal.Body>
                 <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                 <div
-                  // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                   style={{ 
                     borderTop: "1px solid #ccc", 
@@ -114,7 +112,6 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
               </div>
              {teamResponse?.theme === "Others" &&( <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                 <div
-                  // key={index}
                   className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                   style={{ 
                     borderTop: "1px solid #ccc", 
@@ -650,34 +647,8 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     }}
                   >
                     {teamResponse.support}
-                    {/* {files.length > 0 &&
-                                                    files.map((item, i) => (
-                                                        <div key={i}>
-                                                           
-                                                            <a
-                                                                key={i}
-                                                                className="badge mb-2 bg-info p-3 ms-3"
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                onClick={() =>
-                                                                    downloadFile(
-                                                                        item
-                                                                    )
-                                                                }
-                                                            >
-                                                                {item
-                                                                    .split('/')
-                                                                    .pop()}
-                                                            </a>
-                                                        </div>
-                                                    ))} */}
-                    {/* <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.Prototype_file}
-                                    </p> */}
+
+                   
                   </div>
                 </div>
               </div>
@@ -752,9 +723,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    {/* <FaDownload size={22} 
-                    onClick={handlePrint} 
-                    /> */}
+                   
                     <Button
             size="small"
             label={"Download"}

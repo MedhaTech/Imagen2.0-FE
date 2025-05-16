@@ -11,15 +11,12 @@ import { logout } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
-// import avtar from "../../assets/img/profiles/avator1.jpg";
 
 const MentorHeader = () => {
-  const route = all_routes;
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
-  // console.log(currentUser, " currentUser");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };
@@ -155,21 +152,7 @@ const MentorHeader = () => {
           <Link to="/dashboard" className="logo-small">
             <ImageWithBasePath src="assets/img/logo-small.png" alt="img" />
           </Link>
-          {/* <Link
-            id="toggle_btn"
-            to="#"
-            style={{
-              display:
-                pathname.includes("tasks") || pathname.includes("pos")
-                  ? "none"
-                  : pathname.includes("compose")
-                  ? "none"
-                  : "",
-            }}
-            onClick={handlesidebar}
-          >
-            <FeatherIcon icon="chevrons-left" className="feather-16" />
-          </Link> */}
+         
         </div>
         {/* /Logo */}
         <Link

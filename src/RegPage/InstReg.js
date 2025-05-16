@@ -4,9 +4,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect } from "react";
-import ImageWithBasePath from "../core/img/imagewithbasebath.jsx";
-import { Link } from "react-router-dom";
-// import { all_routes } from "../../../Router/all_routes";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -16,10 +13,6 @@ import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import user from "../assets/img/icons/user-icon.svg";
-import play from "../assets/img/playicon.png";
-import copy from "../assets/img/copyrights.png";
-import { ArrowRight } from "feather-icons-react";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import { districtList, collegeType, collegeNameList } from "./ORGData.js";
 import Select from "react-select";
@@ -31,28 +24,19 @@ const Register = () => {
   const [districtData, setDistrictData] = useState(
     districtList["Telangana"] || []
   );
-  const [stateData, setStateData] = useState();
   const [diesCode, setDiesCode] = useState("");
   const [orgData, setOrgData] = useState({});
-  const [data, setData] = useState(false);
   const [error, setError] = useState("");
-  const [schoolBtn, setSchoolBtn] = useState(false);
   const [btnOtp, setBtnOtp] = useState(false);
   const [otpRes, setOtpRes] = useState("");
   const [errorMsg, setErrorMsg] = useState(false);
   const [mentorData, setMentorData] = useState({});
-  const [diceBtn, setDiceBtn] = useState(true);
-  const [btn, setBtn] = useState(false);
   const [checkBox, setCheckBox] = useState(false);
   const [checkBox1, setCheckBox1] = useState(false);
   const [change, setChange] = useState("Send OTP");
   const [wtsNum, setWtsNum] = useState("");
-  const [mobNum, setMobNum] = useState("");
   const [holdKey, setHoldKey] = useState(false);
-  const [sendOtp, setSendOtp] = useState("");
-  const [time] = useState("00");
-  const [counter, setCounter] = useState(59);
-  const [sec, setSec] = useState(59);
+ 
   const [buttonData, setButtonData] = useState("");
   const [disable, setDisable] = useState(false);
   const [areInputsDisabled, setAreInputsDisabled] = useState(false);
@@ -60,25 +44,14 @@ const Register = () => {
   const [timer, setTimer] = useState(0);
   const [person, setPerson] = useState(true);
   const [design, setDesign] = useState(false);
-  const [emailData, setEmailData] = useState("");
-  const [mobileData, setMobileData] = useState("");
+  
   const [mentData, setMentData] = useState({});
-  const [multiData, setMultiData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
-  // const handleCollegeTypeChange = (event) => {
-  //   const selectedCollegeType = event.target.value;
-  //   console.log("Selected College Type:", selectedCollegeType);
-  //   formik.setFieldValue("college_type", selectedCollegeType);
-  //   setSelectedCollegeType(event.target.value);
-  //   formik.setFieldValue("college", "");
-  //   formik.setFieldValue("ocn", "");
-  //   AllCollegesApi(selectedCollegeType);
-  // };
+ 
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
-    console.log("Selected College Type:", selectedCollegeType);
     
     formik.setFieldValue("college_type", selectedCollegeType);
     setSelectedCollegeType(selectedCollegeType);
@@ -111,11 +84,9 @@ const Register = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
           
-          // setCollegeNamesList([...existingColleges, ...collegeNames]);
           const mergedColleges = [...existingColleges, ...collegeNames];
         const uniqueColleges = [...new Set(mergedColleges)];
 
@@ -130,49 +101,8 @@ const Register = () => {
     value: item,
     label: item,
   }));
-  // console.log(collegeNamesList,"options");
-  const normalizeStateName = (stateName) => {
-    return stateName
-      .toLowerCase()
-      .replace(/\b\w/g, (char) => char.toUpperCase());
-  };
+ 
 
-  const handleOnChange = (e) => {
-    const numericValue = e.target.value.replace(/\D/g, "");
-    const trimmedValue = numericValue.trim();
-
-    setDiesCode(trimmedValue);
-
-    if (trimmedValue.length === 11 && checkBox1) {
-      setIsButtonEnabled(true);
-    } else {
-      setIsButtonEnabled(false);
-    }
-
-    setOrgData();
-    setError("");
-  };
-
-  const renderTooltip = (props) => (
-    <Tooltip id="pdf-tooltip" {...props}>
-      Watch Demo
-    </Tooltip>
-  );
-
-  const handleCheckbox1 = (e, click) => {
-    if (click) {
-      setCheckBox1(true);
-      if (diesCode.length === 11) {
-        setIsButtonEnabled(true);
-      }
-      //formik.setFieldValue("whatapp_mobile", formik.values.mobile);
-      //setWtsNum(formik.values.mobile);
-    } else {
-      setCheckBox1(false);
-      setIsButtonEnabled(false);
-      //formik.setFieldValue("whatapp_mobile", "");
-    }
-  };
 
   localStorage.setItem("orgData", JSON.stringify(orgData));
   localStorage.setItem("diesCode", JSON.stringify(diesCode));
@@ -253,12 +183,7 @@ const Register = () => {
       college_type: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College Type</span>
       ),
-      // password: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Enter Password</span>
-      // ),
-      // confirmPassword: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Enter Confirm Password</span>
-      // ),
+     
       password: Yup.string()
       .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
       .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
@@ -309,10 +234,8 @@ const Register = () => {
         await axios(config)
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
-              // console.log(mentorRegRes,"mm");
               setMentData(mentorRegRes.data && mentorRegRes.data.data[0]);
-              // navigate("/atl-success");
-              // openNotificationWithIcon("success", "Email sent successfully");
+             
               setTimeout(() => {
                 apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
               }, 3000);
@@ -324,9 +247,7 @@ const Register = () => {
             } else {
               openNotificationWithIcon("error", "Email id is Invalid");
             }
-            // openNotificationWithIcon("error", "Email id is Invalid");
-
-            // setBtn(false);
+            
             formik.setErrors({
               check: err.response && err?.response?.data?.message,
             });
@@ -379,16 +300,7 @@ const Register = () => {
         console.log(error);
       });
   }
-  const handleCheckbox = (e, click) => {
-    if (click) {
-      setCheckBox(click);
-      formik.setFieldValue("whatapp_mobile", formik.values.mobile);
-      setWtsNum(formik.values.mobile);
-    } else {
-      setCheckBox(click);
-      formik.setFieldValue("whatapp_mobile", "");
-    }
-  };
+ 
   useEffect(() => {
     setCheckBox(false);
     formik.setFieldValue("whatapp_mobile", "");
@@ -419,7 +331,6 @@ const Register = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          // console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "OTP Sent to Given Email Id");
           setBtnOtp(true);
@@ -435,17 +346,11 @@ const Register = () => {
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
           openNotificationWithIcon("error", error?.response.data?.message);
-          // openNotificationWithIcon("error", "Email id is Invalid");
 
           setDisable(true);
           setAreInputsDisabled(false);
           setTimer(0);
-          // openNotificationWithIcon("error", "Email ID already exists");
-          // setTimeout(() => {
-          //   setDisable(true);
-          //   setHoldKey(false);
-          //   setTimer(0);
-          // }, 1000);
+          
         }
       });
     e.preventDefault();
@@ -455,17 +360,6 @@ const Register = () => {
     setErrorMsg(false);
   };
 
-  // useEffect(() => {
-  //   if (timer > 0) {
-  //     const intervalId = setInterval(() => {
-  //       setTimer((prevTimer) => prevTimer - 1);
-  //     }, 1000);
-  //     return () => clearInterval(intervalId);
-  //   } else if (timer === 0 && otpSent) {
-  //     setAreInputsDisabled(false);
-  //     setOtpSent(false);
-  //   }
-  // }, [timer, otpSent]);
   useEffect(() => {
     if (timer > 0) {
       const intervalId = setInterval(() => {
@@ -516,8 +410,7 @@ const Register = () => {
     document.body.style.overflow = "auto"; // Enable scrolling
     document.body.style.overflowY = "hidden"; // Hide vertical scrollbar
   }, []);
-  //console.log(formik.values.district,"district", );
-  // const route = all_routes;
+ 
   const style = {
     overflow: "auto",
 
@@ -564,7 +457,6 @@ const Register = () => {
                               id="full_name"
                               disabled={areInputsDisabled}
                               name="full_name"
-                              // onChange={formik.handleChange}
                               onChange={(e) => {
                                 const inputValue = e.target.value;
                                 const lettersOnly = inputValue.replace(
@@ -721,22 +613,7 @@ const Register = () => {
                             <span style={{ color: "red", fontWeight: "bold" }}>
                               *
                             </span>
-                            {/* <select
-                              id="college"
-                              className="form-select"
-                              disabled={areInputsDisabled}
-                              name="college"
-                              value={formik.values.college}
-                              onBlur={formik.handleBlur}
-                              onChange={formik.handleChange}
-                            >
-                              <option value={""}>College Name</option>
-                              {collegeNamesList.map((item) => (
-                                <option key={item} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                            </select> */}
+                           
                               <Select
         classNamePrefix="react-select"
         options={collegeOptions}
@@ -888,26 +765,13 @@ const Register = () => {
                                       timer < 10 ? `0${timer}` : timer
                                     } sec`
                                   : "Resend OTP enabled"}
-                                {/* {timer > 0
-                                    ? `Otp will expire in 00:${
-                                        timer < 10 ? `0${timer}` : timer
-                                      } seconds`
-                                    : "Otp expired"} */}
+                               
                               </p>
                             </div>
 
                             <div className="login-content user-login">
                               <div className="login-logo">
-                                {/* <ImageWithBasePath
-                                    src="assets/img/logo.png"
-                                    alt="img"
-                                  /> */}
-                                {/* <Link className="login-logo logo-white">
-                                    <ImageWithBasePath
-                                      src="assets/img/logo-white.png"
-                                      alt
-                                    />
-                                  </Link> */}
+                               
                               </div>
                               <div className="login-userset text-center justify-content-center">
                                 <div className="login-userheading">
@@ -999,7 +863,6 @@ const Register = () => {
                               ) : (
                                 "Verify My Account"
                               )}
-                              {/* Verify My Account */}
                             </button>
                           </div>
                         )}

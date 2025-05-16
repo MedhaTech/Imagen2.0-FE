@@ -1,52 +1,32 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState ,useEffect} from "react";
-import CountUp from "react-countup";
-import {
-  File,
-  User,
-  UserCheck,
-} from "feather-icons-react/build/IconComponents";
-import ImageWithBasePath from "../../core/img/imagewithbasebath";
-// import { all_routes } from "../../Router/all_routes";
+
 import {
   getCurrentUser,
  
 } from '../../helpers/Utils';
 import axios from 'axios';
-import { FaChalkboardTeacher } from 'react-icons/fa'; 
-import { FaPaperPlane } from 'react-icons/fa';
+
 import { FaUsers } from 'react-icons/fa';
-import { FaUserGraduate } from 'react-icons/fa';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMale, faFemale, faSchool } from '@fortawesome/free-solid-svg-icons';
-import { FcLibrary } from "react-icons/fc";
+
 import teacherreg from "../../assets/img/teacherreg.png";
 import ideasub from "../../assets/img/submission.png";
 import ideanotsub from "../../assets/img/ideanotsub.png";
 import ideadraft from "../../assets/img/ideadraft.png";
-import schoolreg from "../../assets/img/schoolreg.png";
 import stucorin from "../../assets/img/stucorin.png";
 import stucorcom from "../../assets/img/stucorcom.png";
 import stu from "../../assets/img/students.png";
-import teafem from "../../assets/img/teacher-female.png";
-import stufem from "../../assets/img/female-student.png";
-import stucornot from "../../assets/img/stucornot.png";
-import stumale from "../../assets/img/male-student.png";
-import teamale from "../../assets/img/teacher-male.png";
 
-import teaoth from "../../assets/img/teacher-other.png";
-import stuoth from "../../assets/img/student-other.png";
+import stucornot from "../../assets/img/stucornot.png";
 
 const Dashboard = () => {
   const currentUser = getCurrentUser('current_user');
-  // const route = all_routes;
   useEffect(() => {
     adminMentorCount();
     adminTeamsCount();
     adminSudentCount();
     adminideasCount();
-    // adminSudentbygenderCount();
     adminStudentCourseCount();
 }, []);
 const [totalteamsCount, setTotalteamsCount] = useState('-');
@@ -71,31 +51,7 @@ const [studentCoursesCompletedCount, setStudentCoursesCompletedCount] =
 const [totalstudentCoursesCount, setTotalstudentCoursesCount] =
     useState('-');
 
-const nonAtlCount = () => {
-    var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/ATLNonATLRegCount`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
-    };
-    axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
 
-                setAtl(response.data.data[0].ATLCount);
-                setNonAtl(response.data.data[0].NONATLCount);
-                setOther(response.data.data[0].OthersCount);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-};
 const adminTeamsCount = () => {
     var config = {
         method: 'get',
@@ -174,91 +130,18 @@ const adminMentorCount = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-    // console.log(response,"res");
     setTotalMentorCount(response.data.data[0].mentorCount);
     setTotalMentorFeMaleCount(response.data.data[0].mentorFemale
     );
     setTotalMentorMaleCount(response.data.data[0].mentorMale);
   }
-                // setTotalMentorCount(response.data.data[0].mentorCount);
-                // setTotalMentorMaleCount(response.data.data[0].mentorMale);
+              
         })
         .catch(function (error) {
             console.log(error);
         });
 };
-const adminSudentbygenderCount = () => {
-    var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/studentCountbygender`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
-    };
-    axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
 
-                setTotalStudentMaleCount(response.data.data[0].studentMale);
-                setTotalStudentFemaleCount(
-                    response.data.data[0].studentFemale
-                );
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-};
-const adminSchoolCount = () => {
-    var config = {
-        method: 'get',
-        url: process.env.REACT_APP_API_BASE_URL + `/dashboard/schoolCount`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
-    };
-    axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-
-                setTotalSchoolCount(response.data.data[0].schoolCount);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-};
-const adminmentorCourseCount = () => {
-    var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/mentorCourseCount`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
-    };
-    axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-
-                setMentorCoursesCompletedCount(
-                    response.data.data[0].mentorCoursesCompletedCount
-                );
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-};
 const adminStudentCourseCount = () => {
     var config = {
         method: 'get',
@@ -274,7 +157,6 @@ const adminStudentCourseCount = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-              // console.log(response,"11");
 
                 setStudentCoursesCompletedCount(
                     response.data.data[0].StudentCoursesCompletedCount
@@ -295,7 +177,6 @@ const adminStudentCourseCount = () => {
           <div className="page-title">
                            
                                     <h4>Dashboard</h4>
-                                    {/* <h6>Create , Edit , Del User specific Latest News here</h6> */}
                     
                         </div>
            
@@ -464,23 +345,7 @@ const adminStudentCourseCount = () => {
             
 
 
-            {/* <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                 
-                  <span>
-                    <FaChalkboardTeacher size={30} style={{color:"royalblue"}}/>
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {mentorCoursesCompletedCount}
-
-                  </h5>
-                  <h6>Teachers Course Completed</h6>
-                </div>
-              </div>
-            </div> */}
+           
           </div>
         </div>
       </div>

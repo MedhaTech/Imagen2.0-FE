@@ -17,7 +17,6 @@ const AddAttendance = () => {
   ];
 
   const onChange = () => {
-    // console.log(time, timeString, "timepicker");
   };
   return (
     <div>

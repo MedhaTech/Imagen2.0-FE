@@ -9,18 +9,15 @@ import CryptoJS from "crypto-js";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ChevronUp } from "feather-icons-react/build/IconComponents";
-// import { useNavigate } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { getCurrentUser } from "../helpers/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setToogleHeader } from "../Admin/store/admin/actions";
 
 const AdminPassword = () => {
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state?.admin?.toggle_header);
-  // console.log(data, "data");
   const currentUser = getCurrentUser("current_user");
   const [error, SetError] = useState("");
   const [responce, SetResponce] = useState("");

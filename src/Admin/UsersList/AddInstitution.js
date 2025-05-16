@@ -4,19 +4,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { decryptGlobal } from "../../constants/encryptDecrypt.js";
-import OtpInput from "react-otp-input-rc-17";
+
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/img/logo.png";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
 import { districtList, collegeType, collegeNameList } from '../../RegPage/ORGData.js';
-import { ArrowRight } from 'react-feather';
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import Select from "react-select";
 
@@ -29,16 +24,9 @@ const AddInstitution = () => {
   const [collegeNamesList, setCollegeNamesList] = useState([]);
    const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
-  // const handleCollegeTypeChange = (event) => {
-  //   const collegeType = event.target.value;
-  //   formik.setFieldValue("college_type", collegeType);
-  //   formik.setFieldValue('college', '');
-  //   formik.setFieldValue('ocn', '');
-  //   setCollegeNamesList(collegeNameList[collegeType] || []);
-  // };
+ 
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
-    console.log("Selected College Type:", selectedCollegeType);
     
     formik.setFieldValue("college_type", selectedCollegeType);
     setSelectedCollegeType(selectedCollegeType);
@@ -71,11 +59,9 @@ const AddInstitution = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
           
-          // setCollegeNamesList([...existingColleges, ...collegeNames]);
           const mergedColleges = [...existingColleges, ...collegeNames];
         const uniqueColleges = [...new Set(mergedColleges)];
 
@@ -90,7 +76,6 @@ const AddInstitution = () => {
     value: item,
     label: item,
   }));
-  // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -159,9 +144,7 @@ const AddInstitution = () => {
       college_type: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College Type</span>
       ),
-      // password: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Enter Password</span>
-      // ),
+      
         password: Yup.string()
             .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
             .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
@@ -411,21 +394,7 @@ const AddInstitution = () => {
                               College Name
                             </label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                            {/* <select
-                              id="college"
-                              className="form-select"
-                              name="college"
-                              value={formik.values.college}
-                              onBlur={formik.handleBlur}
-                              onChange={formik.handleChange}
-                            >
-                              <option value={""}>Select College Name</option>
-                              {collegeNamesList.map((item) => (
-                                <option key={item} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                            </select> */}
+                           
                               <Select
         classNamePrefix="react-select"
         options={collegeOptions}
@@ -552,7 +521,6 @@ const AddInstitution = () => {
                             }
                           >
                             Proceed
-                            {/* <ArrowRight /> */}
                           </button>
                           <button
                             className="btn btn-warning m-2"
@@ -560,7 +528,6 @@ const AddInstitution = () => {
                             onClick={() => navigate("/institution-users-list")}
                           >
                             Discard
-                            {/* <ArrowRight /> */}
                           </button>
                         </div>
                   </div>

@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
-//import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import Table from "../../core/pagination/datatable";
-// //import { ArrowRight } from "react-feather";
-// import { FaUsers } from 'react-icons/fa';
+
 ////////////////////New Code//////////////////////////
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
@@ -18,7 +16,6 @@ import { useEffect } from 'react';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { getTeamMemberStatus } from '../store/teams/actions';
 import { openNotificationWithIcon } from "../../helpers/Utils";
-import team from "../../assets/img/icons/team.svg";
 import { RiTeamFill } from "react-icons/ri";
 import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
 
@@ -26,7 +23,6 @@ import { Row, Col } from "reactstrap";
 
 
 const TeamsProgDD = ({user,setIdeaCount}) => {
-//   console.log(user,"user");
 
     //////////////New Code/////////////////////////
     const dispatch = useDispatch();
@@ -38,7 +34,6 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
 
   const [noData,setNoData]=useState(false);
   const [ideaShow, setIdeaShow] = useState(false);
-    // console.log(teamsMembersStatus,"team");
     const [teamId, setTeamId] = useState(null);
 
     const [mentorid, setmentorid] = useState('');
@@ -70,7 +65,6 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
         axios(configidea)
           .then(function (response) {
             if (response.status === 200) {
-            //   console.log(response,"Cards");
               if (response.data.data && response.data.data.length > 0) {
                 setFormData(response.data.data[0]);
                 setNoData(false);
@@ -80,7 +74,6 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
           .catch(function (error) {
             if (error.response.status === 404) {
                 setNoData(true);
-                // setTheme("");
             }
     
           });
@@ -123,7 +116,6 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
             .then(function (response) {
                 if (response.status === 200) {
                     setTeamsList(response.data.data);
-                    // console.log(response,"Teams List");
                 }
             })
             .catch(function (error) {
@@ -245,9 +237,7 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
         setTeamId(selectedOption ? selectedOption.value : '');
     };
 
-    // const handleemailapi=()=>{
-    //     emailTeamCredentials();
-    // };
+   
 
       ////////Email Team Credentisl////////////
     const emailTeamCredentials = () => {
@@ -344,7 +334,6 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
                     )}
                     {teamsMembersStatus.length > 0 && !showDefault ? (
                     <Table
-                        //bordered
                         pagination={false}
                         dataSource={teamsMembersStatus}
                         columns={columns}
@@ -365,7 +354,6 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
               handleClose={() => setIdeaShow(false)}
               response={formData}
               setIdeaCount={setIdeaCount}
-              // setApproval={setApproval}
             />
           )}
          

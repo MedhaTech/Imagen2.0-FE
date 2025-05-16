@@ -2,20 +2,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect } from "react";
-import { Row, Col, Form, Label } from "reactstrap";
-// import { withRouter } from 'react-router-dom';
-// import '../../Admin/Userli';
-// import Layout from '../Pages/Layout';
-import { Button } from "../../../stories/Button";
+
 import axios from "axios";
-import CryptoJS from "crypto-js";
-import { Link } from "react-router-dom";
-// import male from "../../../assets/img/admin.jpg";
 import { useLocation } from "react-router-dom";
 import male from "../../../assets/img/imazenlogo1.jpg";
 import { MaskedEmail, MaskedMobile } from "../../../RegPage/MaskedData.js";
 
-// import { InputBox } from '../../../stories/InputBox/InputBox';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -24,12 +16,8 @@ import {
 } from "../../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import { getAdminEvalutorsList } from "../../../redux/actions";
-// import { getAdmin } from '../store/admin/actions';
 import { useDispatch } from "react-redux";
-import Select from "../../Admin/Challenges/pages/Select";
-// import { getDistrictData } from '../../redux/studentRegistration/actions';
 
-import { useSelector } from "react-redux";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 const EditProfile = (props) => {
   // here we can edit the users details //
@@ -41,48 +29,31 @@ const EditProfile = (props) => {
   const dispatch = useDispatch();
   const mentorData = location.state || {};
 
-  const inputPassword = {
-    placeholder: "Enter Password",
-    showEyeIcon: true,
-    // className: 'defaultInput'
-  };
+ 
 
-  const passwordRegex =
-    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+ 
 
   const getValidationSchema = (data) => {
     // where data = mentorData //
     const adminValidation = Yup.object({
       name: Yup.string()
-        // .matches(/^[aA-zZ\s]+$/, "Invalid name ")
         .matches(/^[a-zA-Z\s._-]+$/, 'Not allowed')
         .min(2, "Please Enter a Full Name")
         .required("Please Enter Full Name"),
       email: Yup.string()
-        // .required("Please Enter Email Id")
         .optional()
         .trim()
         .email("Please Enter Valid Email Id"),
       mobile: Yup.string()
-        // .required("Please Enter Mobile Number")
         .optional()
         .trim()
         .min(10, "Number is less than 10 digits")
         .max(10, "Please Enter Valid Number"),
-      // password: Yup.string()
-      // .trim()
-      // .matches(
-      //     passwordRegex,
-      //     'Password must contains minimum 8 characters, including one letter, one number, and one special character.'
-      // )
+     
     });
     if (data?.mentor_id)
       if (data?.evaluator_id)
-        // adminValidation['phone'] = Yup.string()
-        //     .matches(phoneRegExp, 'Mobile number is not valid')
-        //     .min(10, 'Enter a valid mobile number')
-        //     .max(10, 'Enter a valid mobile number')
-        //     .required('Mobile Number is Required');
+       
         adminValidation["district"] = Yup.string()
           .matches(/^[aA-zZ\s]+$/, "Invalid District Name ")
           .min(2, "Enter a valid district")
@@ -94,8 +65,7 @@ const EditProfile = (props) => {
       name: mentorData?.full_name || mentorData?.user?.full_name,
       email: "",
       mobile: "",
-      // email: mentorData?.username || mentorData?.user?.username,
-      // mobile: mentorData?.mobile || mentorData?.user?.mobile,
+    
     };
     
     return commonInitialValues;
@@ -104,23 +74,16 @@ const EditProfile = (props) => {
     initialValues: getInitialValues(mentorData),
     validationSchema: getValidationSchema(mentorData),
     onSubmit: (values) => {
-      // alert("hii");
     
       const full_name = values.name;
       const email = values.email;
-      const mobile = values.mobile;
 
       const evlId = encryptGlobal(JSON.stringify(mentorData.evaluator_id));
       const body = {
         full_name: full_name,
       };
 
-      // if (mentorData?.mobile !== values.mobile) {
-      //   body["mobile"] = values.mobile;
-      // }
-      // if (mentorData?.user?.username !== email) {
-      //   body["username"] = email;
-      // }
+     
       if (values.mobile && mentorData?.mobile !== values.mobile) {
         body["mobile"] = values.mobile;
     }
@@ -161,7 +124,6 @@ const EditProfile = (props) => {
         });
     },
   });
-  // console.log(mentorData.user.username,formik.values.email ,"mentorData");
 
   const formLoginStyle = {
     display: "flex",
@@ -184,7 +146,6 @@ const EditProfile = (props) => {
             <h6>User Profile</h6>
           </div>
         </div>
-        {/* /product list */}
         <form onSubmit={formik.handleSubmit}>
           <div className="card">
             <div className="card-body">
@@ -211,14 +172,7 @@ const EditProfile = (props) => {
                       id="name"
                       name="name"
                       onChange={formik.handleChange}
-                      // onChange={(e) => {
-                      //   const inputValue = e.target.value;
-                      //   const lettersOnly = inputValue.replace(
-                      //     /[^a-zA-Z\s]/g,
-                      //     ""
-                      //   );
-                      //   formik.setFieldValue("name", lettersOnly);
-                      // }}
+                     
                       onBlur={formik.handleBlur}
                       value={formik.values.name}
                     />
@@ -227,9 +181,7 @@ const EditProfile = (props) => {
                     ) : null}
                   </div>
                 </div>
-                {/* </div> */}
-
-                {/* <div className="row"> */}
+             
 
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
@@ -273,7 +225,6 @@ const EditProfile = (props) => {
                       type="text"
                       className="form-control"
                       id="mobile"
-                      // type="password"
                       name="mobile"
                       onChange={(e) => {
                         const inputValue = e.target.value;
@@ -296,22 +247,7 @@ const EditProfile = (props) => {
                     ) : null}
                   </div>
                 </div>
-                {/* New fields  */}
-                {/* <div className="form-login" style={formLoginStyle}>
-  <button
-    style={buttonStyle}
-    type="submit"
-    className={`btn btn-warning  ${
-      !(formik.dirty && formik.isValid) ? "default" : "primary"
-    }`}
-    disabled={!(formik.dirty && formik.isValid)}
-  >
-    Submit
-  </button>
-  <Link className="btn btn-cancel" to={"/eadmin/evaluator"} style={cancelLinkStyle}>
-    Cancel
-  </Link>
-</div> */}
+               
 
                 <div className="form-login" style={formLoginStyle}>
                   <button
@@ -329,9 +265,7 @@ const EditProfile = (props) => {
                     type="button"
                     className="btn btn-secondary"
                     style={{ marginLeft: "auto" }}
-                    // className="btn btn-cancel"
-                    // to={"/eadmin/evaluator"}
-                    // style={cancelLinkStyle}
+                   
                   >
                     Cancel
                   </button>
@@ -340,7 +274,6 @@ const EditProfile = (props) => {
             </div>
           </div>
         </form>
-        {/* /product list */}
       </div>
     </div>
   );

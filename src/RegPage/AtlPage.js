@@ -4,9 +4,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect } from "react";
-import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
-// import { all_routes } from "../../../Router/all_routes";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -17,9 +15,6 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import user from "../assets/img/icons/user-icon.svg";
-import play from "../assets/img/playicon.png";
-import copy from "../assets/img/copyrights.png";
-import { ArrowRight } from "feather-icons-react";
 import { stateList, districtList } from "./ORGData.js";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 
@@ -39,17 +34,12 @@ const Register = () => {
   const [errorMsg, setErrorMsg] = useState(false);
   const [mentorData, setMentorData] = useState({});
   const [diceBtn, setDiceBtn] = useState(true);
-  const [btn, setBtn] = useState(false);
   const [checkBox, setCheckBox] = useState(false);
   const [checkBox1, setCheckBox1] = useState(false);
   const [change, setChange] = useState("Send OTP");
   const [wtsNum, setWtsNum] = useState("");
-  const [mobNum, setMobNum] = useState("");
   const [holdKey, setHoldKey] = useState(false);
-  const [sendOtp, setSendOtp] = useState("");
-  const [time] = useState("00");
-  const [counter, setCounter] = useState(59);
-  const [sec, setSec] = useState(59);
+ 
   const [buttonData, setButtonData] = useState("");
   const [disable, setDisable] = useState(false);
   const [areInputsDisabled, setAreInputsDisabled] = useState(false);
@@ -57,18 +47,11 @@ const Register = () => {
   const [timer, setTimer] = useState(0);
   const [person, setPerson] = useState(true);
   const [design, setDesign] = useState(false);
-  const [emailData, setEmailData] = useState("");
-  const [mobileData, setMobileData] = useState("");
+ 
   const [mentData, setMentData] = useState({});
-  const [multiData, setMultiData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false); 
-  // console.log(isSubmitting,"click");
 
-  const normalizeStateName = (stateName) => {
-    return stateName
-      .toLowerCase()
-      .replace(/\b\w/g, (char) => char.toUpperCase());
-  };
+
 
   const handleOnChange = (e) => {
     const numericValue = e.target.value.replace(/\D/g, "");
@@ -86,11 +69,7 @@ const Register = () => {
     setError("");
   };
 
-  const renderTooltip = (props) => (
-    <Tooltip id="pdf-tooltip" {...props}>
-      Watch Demo
-    </Tooltip>
-  );
+ 
 
   const handleCheckbox1 = (e, click) => {
     if (click) {
@@ -98,12 +77,11 @@ const Register = () => {
       if (diesCode.length === 11) {
         setIsButtonEnabled(true);
       }
-      //formik.setFieldValue("whatapp_mobile", formik.values.mobile);
-      //setWtsNum(formik.values.mobile);
+    
     } else {
       setCheckBox1(false);
       setIsButtonEnabled(false);
-      //formik.setFieldValue("whatapp_mobile", "");
+      
     }
   };
 
@@ -125,41 +103,18 @@ const Register = () => {
     };
     axios(config)
       .then(function (response) {
-        // if (response?.status === 200) {
-        //   console.log(response,"eivnir");
-        //   if (
-        //     response?.data?.data[0].mentor != null &&
-        //     response?.data?.data[0].mentor != ""
-        //   ) {
-        //     setError("Another Teacher is already registered in given School");
-        //   } else {
-        //     if (Object.keys(response?.data?.data[0]).length) {
-        //       setOrgData(response?.data?.data[0]);
-        //       formik.setFieldValue(
-        //         "organization_code",
-        //         response?.data?.data[0].organization_code
-        //       );
-
-        //       setDiceBtn(false);
-        //       setSchoolBtn(true);
-        //     } else {
-        //       setError("Oops..! UDISE Code seems incorrect");
-        //     }
-        //   }
-        // }
+       
         if (response?.status == 200) {
           if (response?.data.count === 0) {
             setError("Enter Valid School UDISE Code ");
           }
           if (
             response?.data?.data[0] &&
-            // response?.data?.data[0].category == "ATL" &&
             process.env.REACT_APP_USEDICECODE == 1
           ) {
             if (
               Object.keys(response?.data?.data[0]).length
-              // &&
-              // response?.data?.data[0].category === "ATL"
+              
             ) {
               setDropDownbtn(response?.data?.data[0].mentor != null);
               if (response?.data?.data[0].mentor != null) {
@@ -177,30 +132,20 @@ const Register = () => {
               );
 
               const fetchedstate = response?.data?.data[0].state;
-              //const normalizedState = normalizeStateName(fetchedstate);
-              //setStateData(normalizedState);
+             
               setStateData(fetchedstate);
               setDistrictData(districtList[fetchedstate] || []);
 
               setDiceBtn(false);
               setSchoolBtn(true);
-            } else {
-              // setError(
-              //   "Entered Code belongs to Non-Atl school. Kindly register as Non-ATL"
-              // );
-            }
-          } else {
-            // const nonAtl = response?.data?.data[0];
-            // setMultiData(nonAtl);
-            // navigate("/non-atl-register", { state: diesCode });
-          }
+            } 
+          } 
         }
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
           navigate("/non-atl-register", { state: diesCode });
 
-          // setError("Oops..!  UDISE Code seems incorrect");
         }
       });
 
@@ -276,7 +221,6 @@ const Register = () => {
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
           "Email Must be VALID"
-          // <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
         .max(255),
       whatapp_mobile: Yup.string()
@@ -366,7 +310,6 @@ const Register = () => {
           })
           .catch((err) => {
             openNotificationWithIcon("error", err.response.data?.message);
-            // setBtn(false);
             formik.setErrors({
               check: err.response && err?.response?.data?.message,
             });
@@ -472,7 +415,6 @@ const Register = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          // console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "OTP Sent to Given Email Id");
           setBtnOtp(true);
@@ -492,12 +434,7 @@ const Register = () => {
           setDisable(true);
           setAreInputsDisabled(false);
           setTimer(0);
-          // openNotificationWithIcon("error", "Email ID already exists");
-          // setTimeout(() => {
-          //   setDisable(true);
-          //   setHoldKey(false);
-          //   setTimer(0);
-          // }, 1000);
+        
         }
       });
     e.preventDefault();
@@ -507,17 +444,7 @@ const Register = () => {
     setErrorMsg(false);
   };
 
-  // useEffect(() => {
-  //   if (timer > 0) {
-  //     const intervalId = setInterval(() => {
-  //       setTimer((prevTimer) => prevTimer - 1);
-  //     }, 1000);
-  //     return () => clearInterval(intervalId);
-  //   } else if (timer === 0 && otpSent) {
-  //     setAreInputsDisabled(false);
-  //     setOtpSent(false);
-  //   }
-  // }, [timer, otpSent]);
+ 
   useEffect(() => {
     if (timer > 0) {
       const intervalId = setInterval(() => {
@@ -563,8 +490,7 @@ const Register = () => {
     navigate('/');
   };
 
-  //console.log(formik.values.district,"district", );
-  // const route = all_routes;
+ 
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -581,20 +507,7 @@ const Register = () => {
                     <h3>
                       {" "}
                       School Teacher Registration{" "}
-                      {/* <OverlayTrigger placement="top" overlay={renderTooltip}>
-                        <a
-                          href="https://www.youtube.com/watch?v=CiYa_iLdpXo"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img
-                            src={play}
-                            className="icon"
-                            alt="play"
-                            style={{ verticalAlign: "middle", width: "7%" }}
-                          />
-                        </a>
-                      </OverlayTrigger>*/}
+                     
                     </h3>
                     <h4>Register New Teacher account</h4>
                   </div>
@@ -665,7 +578,6 @@ const Register = () => {
                         >
                           {" "}
                           Proceed
-                          <span> {/* <ArrowRight /> */}</span>
                         </button>
                         <p className="form-login mb-3">
                           Already have an account ?
@@ -696,17 +608,10 @@ const Register = () => {
                             School Name : {""}
                             {orgData?.organization_name}
                             <br />
-                            {/* City Name : {""}
-                            {orgData?.city ? orgData?.city : " N/A"} <br /> */}
-                            {/* District Name :{" "} */}
-                            {/* {orgData?.district ? orgData?.district : " N/A"} */}
+                           
                             State Name :{" "}
                             {orgData?.state ? orgData?.state : " N/A"} <br />
-                            {/* PinCode :{" "}
-                            {orgData?.pin_code
-                              ? orgData?.pin_code
-                              : " N/A"}{" "} */}
-                            {/* <br /> */}
+                           
                           </div>
                         </div>
                       </div>
@@ -726,7 +631,6 @@ const Register = () => {
                               <select
                                 id="inputState"
                                 className="form-select"
-                                // disabled={holdKey ? true : false}
                                 disabled={areInputsDisabled}
                                 name="title"
                                 value={formik.values.title}
@@ -755,7 +659,6 @@ const Register = () => {
                                 id="full_name"
                                 disabled={areInputsDisabled}
                                 name="full_name"
-                                // onChange={formik.handleChange}
                                 onChange={(e) => {
                                   const inputValue = e.target.value;
                                   const lettersOnly = inputValue.replace(
@@ -808,7 +711,6 @@ const Register = () => {
                             </div>
                             {!dropdownbtn ? (
                               <div
-                                // className="col-md-4"
                                 className={`col-md-${design ? 4 : 0}`}
                               >
                                 <label
@@ -844,7 +746,6 @@ const Register = () => {
                               ""
                             )}
                             <div
-                              // className="col-md-5"
                               className={`col-md-${design ? 5 : 6}`}
                             >
                               <label
@@ -873,7 +774,6 @@ const Register = () => {
                               ) : null}
                             </div>
                             <div
-                              // className="col-md-3"
                               className={`col-md-${design ? 3 : 6}`}
                             >
                               <label
@@ -997,8 +897,7 @@ const Register = () => {
                               ) : null}
                             </div>
                           </>
-                          {/* )} */}
-                          {/* {person && ( */}
+                         
                           <div className="col-md-12">
                             <button
                               type="button"
@@ -1019,27 +918,12 @@ const Register = () => {
                                   {timer > 0
                                     ? `Access Resend OTP in ${timer < 10 ? `0${timer}` : timer} sec`
                                     : "Resend OTP enabled"}
-                                  {/* {timer > 0
-                                    ? `Otp will expire in 00:${
-                                        timer < 10 ? `0${timer}` : timer
-                                      } seconds`
-                                    : "Otp expired"} */}
+                                 
                                 </p>
                               </div>
 
                               <div className="login-content user-login">
-                                <div className="login-logo">
-                                  {/* <ImageWithBasePath
-                                    src="assets/img/logo.png"
-                                    alt="img"
-                                  /> */}
-                                  {/* <Link className="login-logo logo-white">
-                                    <ImageWithBasePath
-                                      src="assets/img/logo-white.png"
-                                      alt
-                                    />
-                                  </Link> */}
-                                </div>
+                               
                                 <div className="login-userset text-center justify-content-center">
                                   <div className="login-userheading">
                                     <h3>Verify your Email with OTP</h3>
@@ -1130,7 +1014,6 @@ const Register = () => {
             ) : (
               "Verify My Account"
             )}
-                                {/* Verify My Account */}
                               </button>
                             </div>
                           )}

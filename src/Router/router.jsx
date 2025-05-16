@@ -7,17 +7,12 @@ import Header from "../InitialPage/Sidebar/Header";
 import MentorHeader from "../InitialPage/Sidebar/TeacherHeader";
 import StateHeader from "../InitialPage/Sidebar/stateHeader";
 import TeamHeader from "../InitialPage/Sidebar/TeamHeader";
-import TeamSidebar from "../InitialPage/Sidebar/teamSidebar";
-import Sidebar from "../InitialPage/Sidebar/Sidebar";
-import OneSidebar from "../InitialPage/Sidebar/OneSidebar";
-import Condition from "../InitialPage/Sidebar/Conditon";
 
 
 import HorizontalSidebar from "../InitialPage/Sidebar/horizontalSidebar";
 
 import {
   pagesRoute,
-  posRoutes,
   teamRoutes,
   publicRoutes,
   mentorRoutes,
@@ -29,11 +24,8 @@ import {
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ThemeSettings from "../InitialPage/themeSettings";
-import FirstPage from "../RegPage/FirstPage";
 import LoginPage from "../RegPage/LoginPage";
 import LogInTeacher from "../Teacher/LogInTeacher";
-import AtlPage from "../RegPage/AtlPage";
-import Studentpage from "../RegPage/student";
 import AdminLogin from "../Admin/AdminLogin";
 import StateLogin from "../Coordinators/LogInNew";
 import "../i18n";
@@ -50,7 +42,6 @@ import EadminSidebar from "../InitialPage/Sidebar/eadminSidebar";
 import LogInTeam from "../Team/LogInTeam";
 import TeacherPSW from "../Teacher/forgotPass";
 import StudentPSW from "../Team/forgotPass";
-import CollapsedSidebar from "../InitialPage/Sidebar/collapsedSidebar";
 import RegInstruction from "../RegPage/RegInstruction";
 import PilotReg from "../RegPage/PilotReg";
 import RegSuccess from "../RegPage/RegSuccess";
@@ -60,7 +51,6 @@ import Crew3Reg from "../RegPage/Crew3Reg";
 import InstitutionReg from "../RegPage/InstReg";
 import StudentSidebar from "../InitialPage/Sidebar/StudedentSidebar";
 import ApEmailValidation from "../RegPage/ApEmailValidation";
-// import "../i18n";
 import EvalHeader from "../InitialPage/Sidebar/evalHeader";
 import LoginEvaluator from "../Evaluator/LoginEvaluator";
 
@@ -87,9 +77,6 @@ const AllRoutes = () => {
   const TeamHeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       <TeamHeader />
-      {/* <TeamSidebar /> */}
-      {/* <OneSidebar /> */}
-      {/* <Condition/> */}
 <StudentSidebar/>
       <Outlet />
       <ThemeSettings />
@@ -131,14 +118,7 @@ const AllRoutes = () => {
     </div>
   );
 
-  // const Pospages = () => (
-  //   <div>
-  //     <Header />
-  //     <Outlet />
-  //     {/* <Loader /> */}
-  //     <ThemeSettings />
-  //   </div>
-  // );
+ 
   function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -146,11 +126,7 @@ const AllRoutes = () => {
   return (
     <div>
       <Routes>
-        {/* <Route path="/pos" element={<Pospages />}>
-          {posRoutes.map((route, id) => (
-            <Route path={route.path} element={route.element} key={id} />
-          ))} */}
-        {/* </Route> */}
+        
 
         <Route path="/" exact={true} element={<MyComponent />} />
         <Route path="/">
@@ -169,7 +145,6 @@ const AllRoutes = () => {
           <Route path="/student-forgot-psw" element={<StudentPSW />} />
           <Route path="/institution" element={<LogInTeacher />} />
           <Route path="/evaluator" element={<LoginEvaluator />} />
-          {/* student register */}
           <Route path="/registration" element={<RegInstruction />} />
           <Route path="/pilotReg" element={<PilotReg />} />
           <Route path="/crew1Reg" element={<Crew1Reg />} />

@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Form, Label, FormGroup } from "reactstrap";
 
 import {
   getCurrentUser,
@@ -91,7 +89,6 @@ const StuProfileEdit = () => {
                 style={{ backgroundColor: "#EEEEEE" }}
               >
                 <form onSubmit={formik.handleSubmit}>
-                  {/* <div className="login-userset"> */}
                   <div className="col-xl-12">
                     <div className="row g-3 mt-0">
                       <>
@@ -129,16 +126,13 @@ const StuProfileEdit = () => {
                             College Town
                           </label>
                           &nbsp;
-                          {/* <span style={{ color: "red", fontWeight: "bold" }}>
-                          *
-                        </span> */}
+                        
                           <input
                             type="text"
                             className="form-control"
                             placeholder="College Town"
                             id="college_town"
                             name="college_town"
-                            // onChange={formik.handleChange}
                             onChange={(e) => {
                               const inputValue = e.target.value;
                               const lettersOnly = inputValue.replace(
@@ -171,7 +165,6 @@ const StuProfileEdit = () => {
                           }
                         >
                           Submit
-                          {/* <ArrowRight /> */}
                         </button>
                         <button
                           className="btn btn-warning m-2"
@@ -179,7 +172,6 @@ const StuProfileEdit = () => {
                           onClick={() => navigate("/student-profile")}
                         >
                           Back
-                          {/* <ArrowRight /> */}
                         </button>
                       </div>
                     </div>

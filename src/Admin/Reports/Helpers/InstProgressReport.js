@@ -2,32 +2,17 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../../redux/studentRegistration/actions";
-import { ArrowRight } from "feather-icons-react/build/IconComponents";
+
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
-// import '../reports.scss';
-import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-import { categoryValue } from "../../Schools/constentText";
 import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList, collegeType } from "../../../RegPage/ORGData";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMale,
-  faFemale,
-  faChalkboardTeacher,
-} from "@fortawesome/free-solid-svg-icons";
+
 import ReactApexChart from "react-apexcharts";
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 
@@ -41,10 +26,7 @@ const InstProgressDetailed = () => {
   const [chartTableData, setChartTableData] = useState([]);
   const [chartTableData1, setChartTableData1] = useState([]);
 
-  // const filterOptions = ["Registered", "Not Registered"];
-  const newstateList = ["All States", ...stateList];
-  // const categoryData =
-  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+  
   const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
     []
   );
@@ -58,9 +40,7 @@ const InstProgressDetailed = () => {
   const [combinedArray, setCombinedArray] = useState([]);
   const [downloadTableData, setDownloadTableData] = useState([]);
   const [newFormat, setNewFormat] = useState("");
-  const [atl, setAtl] = useState("");
-  const [nonAtl, setNonAtl] = useState("");
-  const [series1, setseries1] = useState([]);
+ 
   const [series2, setseries2] = useState([]);
   const [series3, setseries3] = useState([]);
   const [series4, setseries4] = useState([]);
@@ -69,12 +49,7 @@ const InstProgressDetailed = () => {
   const [series7, setseries7] = useState([]);
   const [seriesa, setseriesa] = useState([]);
     const [seriesb, setseriesb] = useState([]);
-  const [filterType, setFilterType] = useState("");
-
-  const [barChart1Data, setBarChart1Data] = useState({
-    labels: [],
-    datasets: [],
-  });
+ 
   const [barChartNew, setBarChartNew] = useState({
     labels: [],
     datasets: [],
@@ -87,8 +62,7 @@ const InstProgressDetailed = () => {
     labels: [],
     datasets: [],
   });
-  const fullStatesNames = newstateList;
-  // const fiterDistData = districtList["Telangana"];
+ 
   const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
 
@@ -183,39 +157,7 @@ const InstProgressDetailed = () => {
 
  
 
-  var chartOption = {
-    chart: {
-      height: 330,
-      type: "donut",
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ["#36A2EB", "#FF6384", "rgb(254, 176, 25)"],
-    labels: ["Male", "Female", "Others"],
-    series: [
-      totalCount.maleStudents,
-      totalCount.femaleStudents,
-      totalCount.otherStudents,
-    ],
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: "bottom",
-          },
-        },
-      },
-    ],
-  };
+
 
   var options = {
     chart: {
@@ -287,155 +229,11 @@ const InstProgressDetailed = () => {
     },
   };
 
-  var sColStacked = {
-    chart: {
-      height: 500,
-      type: "bar",
-      stacked: true,
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ["rgb(255, 69, 96)", "rgb(254, 176, 25)", "rgb(0, 227, 150)"],
+ 
 
-    plotOptions: {
-      bar: {
-        horizontal: false,
-      },
-    },
-    series: [
-      {
-        name: "#Not started",
-        data: series3,
-      },
-      {
-        name: "#InProgress",
-        data: series4,
-      },
-      {
-        name: "#Completed",
-        data: series5,
-      },
-    ],
-    xaxis: {
-      categories: barChart2Data.labels,
-      ticks: {
-        maxRotation: 80,
-        autoSkip: false,
-      },
-    },
-    yaxis: {
-      beginAtZero: true,
-      ticks: {
-        stepSize: 20,
-      },
-      labels: {
-        formatter: (val) => {
-          return val / 1;
-        },
-      },
-    },
+ 
 
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    fill: {
-      opacity: 1,
-    },
-  };
-
-  var optionsStudent = {
-    chart: {
-      height: 500,
-      type: "line",
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    series: [
-      {
-        name: "#NonATL Students",
-        type: "column",
-        data: series6,
-      },
-      {
-        name: "#ATL Students",
-        type: "line",
-        data: series7,
-      },
-    ],
-    stroke: {
-      width: [0, 4],
-    },
-
-    xaxis: {
-      categories: barChart3Data.labels,
-      ticks: {
-        maxRotation: 80,
-        autoSkip: false,
-      },
-    },
-    yaxis: [
-      {
-        title: {
-          text: "NonATL Student",
-        },
-      },
-      {
-        opposite: true,
-        title: {
-          text: "ATL Student",
-        },
-      },
-    ],
-  };
-
-  var radialChart = {
-    chart: {
-      height: 350,
-      type: "radialBar",
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ["rgb(0, 227, 150)", "rgb(254, 176, 25)", "rgb(255, 69, 96)"],
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          name: {
-            fontSize: "22px",
-          },
-          value: {
-            fontSize: "16px",
-          },
-          total: {
-            show: true,
-            label: "Total",
-            formatter: function () {
-              return totalCount.totalReg;
-            },
-          },
-        },
-      },
-    },
-    series: [
-      Math.round((totalCount.courseCompleted * 100) / totalCount.totalReg),
-      Math.round((totalCount.courseINcompleted * 100) / totalCount.totalReg),
-      Math.round(
-        ((totalCount.totalReg -
-          (totalCount.courseCompleted + totalCount.courseINcompleted)) *
-          100) /
-          totalCount.totalReg
-      ),
-    ],
-    labels: ["Completed", "InProgress", "NotStarted"],
-  };
+  
 
  
   const handleDownload = () => {
@@ -469,7 +267,6 @@ const InstProgressDetailed = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "22");
 
           const StuIdeaDraftCountMap = response.data.data[0].StuIdeaDraftCount.reduce(
             (map, item) => {
@@ -506,16 +303,7 @@ const InstProgressDetailed = () => {
             },
             {}
           );
-          // const studentCountMap = response.data.data[0].studentCount
-          // .reduce(
-          //   (map, item) => {
-          //     map[item.
-          //       college_name
-          //       ] = item.stuCount;
-          //     return map;
-          //   },
-          //   {}
-          // );
+         
           const studentCountMap = response.data.data[0].studentCount.reduce((map, item) => {
             map[item.college_name] = {
               stuCount: item.stuCount,
@@ -528,7 +316,6 @@ const InstProgressDetailed = () => {
             const collegeName = item.college_name;
             const draftCount = StuIdeaDraftCountMap[collegeName] || 0;
             const submitCount = StuIdeaSubCountMap[collegeName] || 0;
-            // const totalStudents = studentCountMap[collegeName] || 0;
             const totalStudents = studentCountMap[collegeName]?.stuCount || 0;
             const teamCount = studentCountMap[collegeName]?.teamCount || 0;
             const completedCount = StudentCourseCmpMap[collegeName] || 0;
@@ -557,7 +344,6 @@ const InstProgressDetailed = () => {
           } else {
             openNotificationWithIcon('error', 'No Data Found');
           }
-          // csvLinkRef.current.link.click();
           setIsDownload(false);
         }
       })
@@ -568,8 +354,6 @@ const InstProgressDetailed = () => {
   };
   useEffect(() => {
     if (mentorDetailedReportsData.length > 0) {
-      // console.log(mentorDetailedReportsData,"full");
-      console.log("Performing operation with the updated data.");
       csvLinkRef.current.link.click();
 
     }
@@ -587,7 +371,6 @@ const InstProgressDetailed = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          // console.log(response, "whole");
           setIsloader(true);
           const chartTableData = response?.data?.data || [];
           const totals = chartTableData.reduce(
@@ -606,27 +389,7 @@ const InstProgressDetailed = () => {
               studentReg:0,
             }
           );
-        //   const barData = {
-        //     labels: combinedArray.map((item) => item.state),
-        //     datasets: [
-        //         {
-        //             label: 'No.of Students Enrolled',
-        //             data: combinedArray.map(
-        //                 (item) => item.totalStudents
-        //             ),
-        //             backgroundColor: 'rgba(255, 0, 0, 0.6)'
-        //         },
-        //         {
-        //             label: 'No. of Teams created',
-        //             data: combinedArray.map(
-        //                 (item) => item.totalTeams
-        //             ),
-        //             backgroundColor: 'rgba(75, 162, 192, 0.6)'
-        //         }
-        //     ]
-        // };
-        // setseries2(barData.datasets[0].data);
-        // setseries1(barData.datasets[1].data);
+      
 
         const barDataA = {
             labels: chartTableData.map((item) => item.district),
@@ -654,8 +417,7 @@ const InstProgressDetailed = () => {
         setseriesb(barDataA.datasets[1].data);
         setseries2(barDataA.datasets[2].data);
 
-          // console.log(totals,"1");
-          // setBarChart1Data(barData);
+          
                     setBarChartNew(barDataA);
           const chartTableDataWithTotals = [...chartTableData, totals];
           setChartTableData(chartTableDataWithTotals);
@@ -713,16 +475,7 @@ const InstProgressDetailed = () => {
                   />
                 </div>
               </Col>
-              {/* <Col md={3}>
-                <div className="my-2 d-md-block d-flex justify-content-center">
-                  <Select
-                    list={filterOptions}
-                    setValue={setFilterType}
-                    placeHolder={"Select Filter"}
-                    value={filterType}
-                  />
-                </div>
-              </Col> */}
+             
               <Col
                 md={3}
                 className="d-flex align-items-center justify-content-center"
@@ -758,7 +511,6 @@ const InstProgressDetailed = () => {
                                 type="button"
                                 onClick={() => {
                                   if (downloadTableData) {
-                                    // setIsDownloading(true);
                                     setDownloadTableData(null);
                                     csvLinkRefTable.current.link.click();
                                   }

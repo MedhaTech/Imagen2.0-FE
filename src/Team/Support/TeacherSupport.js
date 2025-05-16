@@ -26,22 +26,17 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import FeatherIcon from "feather-icons-react";
 
 const TeacherSupport = () => {
   const { supportTickets } = useSelector((state) => state.mentors);
   const { supportTicket } = useSelector((state) => state.mentors);
   const language = useSelector((state) => state?.mentors.mentorLanguage);
   const { t } = useTranslation();
-  //const [id, setId] = useState();
   useEffect(() => {
     dispatch(getSupportTickets(currentUser?.data[0]));
   }, []);
-// console.log(supportTickets,"supportTickets");
 
   const ticketOptions = [
-    // { value: "", label: "Select Category", disabled: true },
     { value: "General", label: "General query" },
     { value: "Technical", label: "Technical query" },
     { value: "Suggestion", label: "Suggestion" },
@@ -334,7 +329,6 @@ const TeacherSupport = () => {
  
   
   const handleOpenOffcanvas = () => {
-    console.log("Initial Values:", formik1.initialValues); 
     formik1.resetForm({ values: formik1.initialValues }); 
   };
   return (
@@ -373,7 +367,6 @@ const TeacherSupport = () => {
                   print={false}
                 >
                   <DataTable
-                    // data={rows}
                     defaultSortField="id"
                     defaultSortAsc={false}
                     pagination
@@ -385,11 +378,9 @@ const TeacherSupport = () => {
               </div>
             </div>
           </div>
-          {/* /product list */}
         </div>
       </div>
 
-      {/* Add Ticket start */}
       <div
         className="offcanvas offcanvas-end em-payrol-add"
         tabIndex={-1}
@@ -409,7 +400,6 @@ const TeacherSupport = () => {
                     data-bs-dismiss="offcanvas"
                     onClick={() => formik1.resetForm()}
                   >
-                    {/* <ArrowLeft className="me-2" /> */}
                     Back To List
                   </a>
                 </div>
@@ -424,25 +414,7 @@ const TeacherSupport = () => {
                           <label className="form-label">
                             Select Query Category <span>*</span>
                           </label>
-                          {/* <Select
-                            name="ticket"
-                            id="ticket"
-                            classNamePrefix="react-select"
-                            options={ticketOptions}
-                            onChange={(option) =>
-                              formik1.setFieldValue("ticket", option.value)
-                            }
-                            onBlur={formik1.handleBlur}
-                            value={ticketOptions.find(
-                              (option) => option.value === formik1.values.ticket
-                            )}
-                            placeholder="Select Category"
-                          />
-                          {formik1.errors.ticket ? (
-                            <small className="error-cls text-danger">
-                              {formik1.errors.ticket}
-                            </small>
-                          ) : null} */}
+                         
                            <Select
         classNamePrefix="react-select"
         options={ticketOptions}
@@ -567,14 +539,11 @@ const TeacherSupport = () => {
                   </form>
                 </div>
               </div>
-              {/* /add */}
             </div>
           </div>
         </div>
       </div>
-      {/* /Add Ticket end */}
-
-      {/* Chat start */}
+      
       <div
         className="offcanvas offcanvas-end em-payrol-add"
         tabIndex={-1}
@@ -594,12 +563,10 @@ const TeacherSupport = () => {
                     data-bs-dismiss="offcanvas"
                     onClick={() => formik.resetForm()}
                   >
-                    {/* <ArrowLeft className="me-2" /> */}
                     Back To List
                   </a>
                 </div>
               </div>
-              {/* /add */}
 
               <form onSubmit={formik.handleSubmit}>
                 <Card className="aside ">
@@ -621,20 +588,10 @@ const TeacherSupport = () => {
                             >
                               {supportTicket.query_details}
                             </div>
-                        {/* <strong style={{ whiteSpace: "pre-line" }}>
-                          {supportTicket.query_details}
-                        </strong> */}
+                      
                         <hr />
 
-                        {/* <strong style={{ whiteSpace: "pre-line" }}>
-        <span 
-            dangerouslySetInnerHTML={{
-                __html: supportTicket.query_details 
-                    ? supportTicket.query_details.replace(/\n/g, '<br />')
-                    : ''
-            }}
-        />
-    </strong> */}
+                       
                       </Col>
 
                       <Col md={3}>
@@ -668,7 +625,6 @@ const TeacherSupport = () => {
                         <span>
                           <FaRegClock />{" "}
                           {moment(supportTicket.created_at).format(
-                            // 'Do MMM, YYYY HH:mm',
                             "LLL"
                           )}
                         </span>
@@ -698,15 +654,12 @@ const TeacherSupport = () => {
                                 >
                                   {data.reply_details}
                                 </div>
-                              {/* <strong>{data.reply_details}</strong> */}
                               <hr />
                             </Col>
                             <Col md={3}>
                               <span>
                                 <FaUserCircle />{" "}
-                                {/* {
-                                                                        data.created_by
-                                                                    } */}
+                               
                                 {data.created_by == null
                                   ? data.replied_by
                                   : data.created_by}
@@ -738,7 +691,6 @@ const TeacherSupport = () => {
                               <span>
                                 <FaRegClock />{" "}
                                 {moment(data.created_at).format(
-                                  // 'Do MMM, YYYY HH:mm',
                                   "LLL"
                                 )}
                               </span>
@@ -908,12 +860,10 @@ const TeacherSupport = () => {
                   </Row>
                 </div>
               </form>
-              {/* /add */}
             </div>
           </div>
         </div>
       </div>
-      {/* Chat end */}
     </>
   );
 };

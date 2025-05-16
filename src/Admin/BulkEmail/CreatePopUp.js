@@ -1,33 +1,22 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
-// import Layout from '../../Admin/Layout';
 import { Row, Col, FormGroup, Label, Form } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Button } from "../../stories/Button";
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-// import { URL, KEY } from '../../constants/defaultValues';
 import { stateList, districtList} from "../../RegPage/ORGData";
 const CreateEmail = () => {
   const currentUser = getCurrentUser("current_user");
-  // const allData = ["All States", ...stateList];
    const allData = [...districtList["Telangana"]];
    allData.unshift("All Districts");
   const navigate = useNavigate();
-  // const inputDICE = {
-  //     type: 'text',
-  //    className:"form-control"
-  // };
-  const inputDICE = {
-    type: "text",
-    className: "form-control",
-  };
+  
+ 
   const inputDICE1 = {
     type: "text",
     className: "form-control",
@@ -58,11 +47,7 @@ const CreateEmail = () => {
           subject: values.subject,
           district: values.state,
         };
-        // if (values.navigate !== "") {
-        //   body["navigate"] = values.navigate;
-        // }
-        // console.log(body,"body");
-        
+       
         const response = await axios.post(
           `${process.env.REACT_APP_API_BASE_URL}/admins/bulkEmail`,
           body,
@@ -79,7 +64,6 @@ const CreateEmail = () => {
           openNotificationWithIcon("success", "Email Sent Successfully");
         } 
       } catch (error) {
-        // Handle the 400 status error and check the message for the subject validation issue
         if (error.response?.status === 400) {
           const errorMessage = error.response?.data?.errors?.[0];
     
@@ -99,13 +83,9 @@ const CreateEmail = () => {
     const state = event.target.value;
     formik.setFieldValue("state", state);
   };
-//  console.log(formik.values.msg,"msg");
   return (
     <div className="page-wrapper">
-      {/* <h4 className="m-2" 
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
-        >Bulk Email
-        </h4> */}
+     
       <div className="content">
         <div className="EditPersonalDetails new-member-page">
           <Row>
@@ -119,7 +99,6 @@ const CreateEmail = () => {
                       <Col md={12}>
                         <Label className="form-label" htmlFor="msg">
                         Email Content
-                          {/* <span required>*</span> */}
                         </Label>
                         <ReactQuill
                         style={{ 
@@ -145,7 +124,6 @@ const CreateEmail = () => {
                       <Col md={12}>
                         <Label className="form-label" htmlFor="subject">
                           Subject
-                          {/* <span required>*</span> */}
                         </Label>
                         <textarea
                           {...inputDICE1}
@@ -157,14 +135,7 @@ const CreateEmail = () => {
                           onBlur={formik.handleBlur}
                           value={formik.values.subject}
                         />
-                        {/* <ReactQuill
-            id="subject"
-            name="subject"
-            value={formik.values.subject}
-            onChange={(value) => formik.setFieldValue("subject", value)} 
-            onBlur={() => formik.setFieldTouched("subject", true)} 
-            placeholder="Please enter Subject"
-          /> */}
+                       
                         {formik.touched.subject && formik.errors.subject ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.subject}
@@ -176,7 +147,6 @@ const CreateEmail = () => {
                         <Col md={6}>
                           <Label className="form-label" htmlFor="state">
                           District
-                            {/* <span required>*</span> */}
                           </Label>
                           <select
                             id="inputState"

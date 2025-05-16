@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable no-empty */
 import axios from "axios";
@@ -63,7 +64,6 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       ...data,
       passwordConfirmation: data.password,
     };
-    // console.log(loginData, "aaa");
     dispatch({ type: ADMIN_LOGIN_USER });
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     const result = await axios
@@ -76,7 +76,6 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       const item = result.data;
       setCurrentUser(item);
       localStorage.setItem("module", module);
-      // localStorage.setItem("layoutStyling", "modern");
       localStorage.setItem("layoutStyling", "default");
 
       localStorage.setItem("time", new Date().toString());
@@ -149,7 +148,7 @@ export const getAdmin = () => async (dispatch) => {
               data.length > 0
                   ? data.forEach((item, i) => (item.id = i + 1))
                   : [];
-          console.log(datamodify);
+          // console.log(datamodify);
           dispatch(getAdminSuccess(data));
       } else {
           dispatch(getAdminError(result.statusText));
@@ -186,7 +185,6 @@ export const getAdminList = () => async (dispatch) => {
               data.length > 0
                   ? data.forEach((item, i) => (item.id = i + 1))
                   : [];
-          console.log(datamodify);
           dispatch(getAdminListSuccess(data));
       } else {
           dispatch(getAdminListError(result.statusText));

@@ -2,21 +2,14 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Table } from 'reactstrap';
-import { Button } from '../../../stories/Button';
 import { CSVLink } from 'react-csv';
 import {
     openNotificationWithIcon,
     getCurrentUser
 } from '../../../helpers/Utils';
-import {
-    getDistrictData,
-    getStateData,
-    getFetchDistData
-} from '../../../redux/studentRegistration/actions';
-import { ArrowRight  } from "feather-icons-react/build/IconComponents";
+
 import { useDispatch, useSelector } from 'react-redux';
 import Select from '../Helpers/Select';
-import { Chart } from "primereact/chart";
 import { useNavigate , Link } from 'react-router-dom';
 import axios from 'axios';
 import '../reports.scss';
@@ -43,17 +36,13 @@ import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { stateList, districtList,collegeType } from "../../../RegPage/ORGData";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMale, faFemale, faSchool } from '@fortawesome/free-solid-svg-icons';
+
 import ReactApexChart from "react-apexcharts";
 
-// import { categoryValue } from '../../Schools/constentText';
 
 const ReportsRegistration = () => {
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
-    const [RegTeachersState, setRegTeachersState] = React.useState('');
     const navigate = useNavigate();
-    const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
     const [filteredData, setFilteredData] = useState([]);
     const categoryList = ['All Types', ...collegeType];
@@ -61,26 +50,22 @@ const ReportsRegistration = () => {
     const [studentFilterData, setStudentFilterData] = useState(
         []
       );
-    // const categoryData =
-    //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+  
 
     const [downloadData, setDownloadData] = useState(null);
-    const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
-        useState(null);
+   
     const [chartTableData, setChartTableData] = useState([]);
     const csvLinkRefTable = useRef();
     const csvLinkRef = useRef();
     const csvLinkRefNotRegistered = useRef();
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
-    const [registeredGenderChartData, setRegisteredGenderChartData] =
-        useState(null);
+   
     const [registeredChartData, setRegisteredChartData] = useState(null);
     const [isDownloading, setIsDownloading] = useState(false);
     const [downloadComplete, setDownloadComplete] = useState(false);
     const [newFormat, setNewFormat] = useState('');
     const [series1, setseries1] = useState([]);
-    const [series2, setseries2] = useState([]);
       const [totalCount, setTotalCount] = useState([]);
     
     const [barChart1Data, setBarChart1Data] = useState({
@@ -88,11 +73,8 @@ const ReportsRegistration = () => {
         datasets: []
     });
     
-    // const fullStatesNames = useSelector(
-    //     (state) => newstateList
-    // );
-    const fullDistNames =newstateList;
-    // const fiterDistData = districtList["Telangana"];
+   
+   
     const fiterDistData = [...districtList["Telangana"]];
     fiterDistData.unshift("All Districts");
     
@@ -200,96 +182,9 @@ const ReportsRegistration = () => {
 
    
 
-    // const chartOptions = {
-    //     maintainAspectRatio: false,
-    //     legend: {
-    //         position: 'bottom',
-    //         labels: {
-    //             fontColor: 'black'
-    //         }
-    //     },
-    //     legend: {
-    //         display: false // Hide legend inside the chart
-    //     },
-    //     plugins: {
-    //         legend: {
-    //             labels: {
-    //                 generateLabels: function (chart) {
-    //                     return chart.data.labels.map(function (label, i) {
-    //                         const value = chart.data.datasets[0].data[i];
-    //                         const backgroundColor =
-    //                             chart.data.datasets[0].backgroundColor[i];
-    //                         return {
-    //                             text: label + ': ' + value,
-    //                             fillStyle: backgroundColor
-    //                         };
-    //                     });
-    //                 }
-    //             }
-    //         }
-    //     }
-    // };
-    const chartOptions = {
-        maintainAspectRatio: false,
-        legend: {
-            position: 'bottom',
-            labels: {
-                fontColor: 'black'
-            }
-        },
-        plugins: {
-            legend: {
-                labels: {
-                    generateLabels: function (chart) {
-                        return chart.data.labels.map(function (label, i) {
-                            const value = chart.data.datasets[0].data[i];
-                            const backgroundColor =
-                                chart.data.datasets[0].backgroundColor[i];
-                            return {
-                                text: label + ': ' + value,
-                                fillStyle: backgroundColor
-                            };
-                        });
-                    }
-                }
-            }
-        }
-    };
-    // const options = {
-    //     maintainAspectRatio: false,
-    //     responsive: true,
-    //     scales: {
-    //         y: {
-    //             beginAtZero: true,
-    //             ticks: {
-    //                 stepSize: 10
-    //             },
-    //             title: {
-    //                 display: true,
-    //                 text: 'Number of Registered ATL and Non ATL Schools',
-    //                 color: 'blue'
-    //             }
-    //         },
-    //         x: {
-    //             grid: {
-    //                 display: true,
-    //                 drawBorder: true,
-    //                 color: 'rgba(0, 0, 0, 0.2)',
-    //                 lineWidth: 0.5
-    //             },
-    //             title: {
-    //                 display: true,
-    //                 text: 'States',
-    //                 color: 'blue'
-    //             },
-    //             ticks: {
-    //                 maxRotation: 80,
-    //                 autoSkip: false
-    //                 //maxTicksLimit: 10,
-    //             }
-    //         }
-    //     }
-    // };
+
+  
+   
     var options = {
         chart: {
           height: 700, 
@@ -388,7 +283,6 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(response,"22");
                     const Data = response?.data?.data || [];
                     const formattedData = Data.map(item => ({
                         ...item,
@@ -397,8 +291,7 @@ const ReportsRegistration = () => {
                       
                       setFilteredData(formattedData);
                       setDownloadData(formattedData);
-                    // setFilteredData(response?.data?.data || []);
-            // setDownloadData(response?.data?.data || []);
+                   
             if (response?.data.count > 0) {
                 openNotificationWithIcon(
                   "success",
@@ -453,7 +346,6 @@ const ReportsRegistration = () => {
             .then((response) => {
                 if (response.status === 200) {
                     const chartTableData = response?.data?.data || [];
-                     // added for download report //
           const updatedChartTableData = chartTableData.map(item => {
             if (item.PrivateCollege_Count === undefined) item.PrivateCollege_Count = 0;
             if (item.GovtJuniorCollege_Count === undefined) item.GovtJuniorCollege_Count = 0;
@@ -565,9 +457,7 @@ const ReportsRegistration = () => {
                       });
                       
                       setBarChart1Data(barData);
-                      console.log(barData,"barData");
                       setseries1(barData.datasets[0].data);
-                    // console.log(chartTableData, "table data");
           setTotalCount(totals);
 
 
@@ -669,7 +559,6 @@ const ReportsRegistration = () => {
                                                             type="button"
                                                             onClick={() => {
                                                                 if (downloadTableData) {
-                                                                    // setIsDownloading(true);
                                                                     setDownloadTableData(
                                                                         null
                                                                     );
@@ -775,28 +664,7 @@ const ReportsRegistration = () => {
                                                     <h4 className="card-title mb-0">Data Analytics</h4>
                                                   
                                                 </div>
-                                                {/* <div className="card-body">
-                                                    <div className="row">
-                                                        <div className="col-md-12 text-center mt-3">
-                                                            <p>
-                                                                <b>
-                                                                    Overall Category wise Registered Students As of{" "}
-                                                                    {newFormat}
-                                                                </b>
-                                                            </p>
-                                                        </div>
-                                                        <div className="col-md-12 doughnut-chart-container">
-                                                            {registeredChartData && (
-                                                                <Doughnut
-                                                                    data={registeredChartData}
-                                                                    options={chartOption} 
-                                                                    height={400}
-                                                                    />
-                                                            )}
-                                                        </div>
-
-                                                    </div>
-                                                </div> */}
+                                              
                                                 
                                                 <div className="card-body">
     <div className="row">
@@ -809,7 +677,6 @@ const ReportsRegistration = () => {
             </p>
         </div>
 
-        {/* Labels with counts (Formatted using chart options legend) */}
         <div className="col-md-6 d-flex align-items-center justify-content-center">
             {registeredChartData && registeredChartData.labels && (
                 <ul className="list-unstyled">
@@ -839,16 +706,9 @@ const ReportsRegistration = () => {
             )}
         </div>
 
-        {/* Doughnut Chart */}
         <div className="col-md-6 doughnut-chart-container">
             {registeredChartData && (
-        //         <Doughnut
-        //             data={registeredChartData}
-        //             height={300}
-        //             width={300}
-        // options={chartOption}
-
-        //         />
+       
         <div style={{ width: "400px", height: "400px" }}> 
         <Doughnut data={registeredChartData} options={chartOption} />
     </div>
@@ -869,10 +729,7 @@ const ReportsRegistration = () => {
                                         filename={`StudentRegistrationSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
-                                        // onDownloaded={() => {
-                                        //     setIsDownloading(false);
-                                        //     setDownloadComplete(true);
-                                        // }}
+                                      
                                     >
                                         Download Table CSV
                                     </CSVLink>
@@ -884,10 +741,7 @@ const ReportsRegistration = () => {
                                         filename={`StudentRegistrationDetailedReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
-                                        // onDownloaded={() => {
-                                        //     setIsDownloading(false);
-                                        //     setDownloadComplete(true);
-                                        // }}
+                                       
                                     >
                                         Download CSV
                                     </CSVLink>

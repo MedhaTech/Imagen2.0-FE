@@ -38,25 +38,21 @@ const DetaledQuiz = (props) => {
   const [video, SetVideo] = useState(true);
   const [qst, SetQst] = useState({});
   const [quizdata, setQuizData] = useState(0);
-  // console.log(quizdata,"11");
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
   );
   const [isSubmitted, setSubmitted] = useState(false);
-  // console.log(isSubmitted,"bb");
   const [attemptNumber, setAttemptNumber] = useState(0);
   const [currentScore, setCurrentScore] = useState({});
   const [currentRole, setCurrentRole] = useState("");
   const [totalQstCount, setTotalQstCount] = useState(0);
   const [currentPercentage, setCurrentPercentage] = useState(0);
   const [startloader, setStartloader] = useState(false);
-  //   const startRef = useRef(null);
   useEffect(() => {
     setCurrentRole(currentUser?.data[0]?.role);
   }, [currentUser]);
 
   function resultdata() {
-    console.log("result api");
     const paramApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id,
@@ -75,7 +71,6 @@ const DetaledQuiz = (props) => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"dd");
           if (response.data.count === null) {
             setAttemptNumber(1);
             props.getAdminQuizQuestionsActions(
@@ -179,39 +174,26 @@ const DetaledQuiz = (props) => {
   };
 
 
-  // const goToTop = () => {
-  //   window.scrollTo(0, 0);
-
-  //   const section = document.querySelector("#start");
-  //   section.scrollIntoView({
-  //     behavior: "smooth",
-  //     block: "start",
-  //   });
-
-  // };
+ 
 
   const goToTop = () => {
-    console.log("Scrolling to top...");
 
     // Scroll to the top of the page immediately
     window.scrollTo(0, 0);
 
     // Log after scrolling to top
-    console.log("Scrolled to top. Now scrolling to #start...");
 
     // Then, scroll to the element with id 'start' smoothly
     const section = document.querySelector('#start');
 
     // Check if the section exists
     if (section) {
-      console.log("Element found:", section);
 
       section.scrollIntoView({
         behavior: 'smooth', // Smooth scroll effect
         block: 'start'      // Aligns the top of the element with the top of the viewport
       });
 
-      console.log("Scroll initiated to #start with smooth behavior.");
     } else {
       console.warn("Element with id 'start' not found.");
     }
@@ -220,7 +202,6 @@ const DetaledQuiz = (props) => {
 
 
   const handleNxtQst = () => {
-    // console.log("/resu");
 
     Setloading(true);
     setTimeout(() => {
@@ -304,10 +285,7 @@ const DetaledQuiz = (props) => {
                 <div className="row justify-content-md-center ">
                   <div className="col col-lg-9">
                     <div className="mt-4 text-center">
-                      {/* <div className="success_img text-center w-100">
-                        <img src={succesImg} alt=".." />
-                        <br />
-                      </div> */}
+                     
                       {currentRole === "MENTOR" && (
                         <>
                           <div className="success_img text-center w-100">

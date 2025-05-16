@@ -1,31 +1,24 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Form, Label, FormGroup } from "reactstrap";
 
 import {
   getCurrentUser,
-  setCurrentUser,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { ArrowLeft, ArrowRight } from "react-feather";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
 import {
   districtList,
-  collegeType,
   yearofstudyList,
-  collegeNameList,
   genderList,
 } from "../../RegPage/ORGData.js";
-import { string } from "prop-types";
 import { MaskedEmail, MaskedMobile } from "../../RegPage/MaskedData.js";
 
 const StuEdit = () => {
@@ -66,17 +59,7 @@ const StuEdit = () => {
         console.log(error);
       });
   };
-  // const [collegeNamesList, setCollegeNamesList] = useState([]);
-  // const handleCollegeTypeChange = (event) => {
-  //   const selectedCollegeType = event.target.value;
-  //   formik.setFieldValue("collegeType", selectedCollegeType);
-  //   formik.setFieldValue("college", "");
-  //   formik.setFieldValue("ocn", "");
-
-  //   const updatedCollegeNames = collegeNameList[selectedCollegeType] || [];
-  //   setCollegeNamesList(updatedCollegeNames);
-
-  // };
+ 
 
   const formik = useFormik({
     initialValues: {
@@ -84,12 +67,9 @@ const StuEdit = () => {
       email: "",
       mobile: "",
       district: "",
-      // college: '',
       rollnumber: "",
       branch: "",
       yearofstudy: "",
-      // collegeType: '',
-      // ocn: '',
       id_number: "",
       gender: "",
       college_town: "",
@@ -112,9 +92,7 @@ const StuEdit = () => {
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
         .optional()
-        // .required(
-        //   <span style={{ color: "red" }}>Please Enter Email Address</span>
-        // )
+       
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
           "Email Must be Valid"
@@ -125,9 +103,7 @@ const StuEdit = () => {
         <span style={{ color: "red" }}>Please Select Gender</span>
       ),
       mobile: Yup.string()
-        // .required(
-        //   <span style={{ color: "red" }}>Please Enter Mobile Number</span>
-        // )
+      
         .optional()
         .trim()
         .matches(
@@ -146,15 +122,11 @@ const StuEdit = () => {
           10,
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
-      // collegeType: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Select collegeType</span>
-      // ),
+     
       district: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Institution District</span>
       ),
-      // college: Yup.string().required(
-      //   <span style={{ color: "red" }}>Please Select college</span>
-      // ),
+     
       rollnumber: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Roll Number</span>
       ),
@@ -169,10 +141,8 @@ const StuEdit = () => {
     }),
 
     onSubmit: (values) => {
-      // alert("hii");
       const body = {
         full_name: values.full_name,
-        // mobile: String(values.mobile),
         district: values.district,
         college_type: currentUser?.data[0]?.college_type,
         college_name: currentUser?.data[0]?.college_name,
@@ -208,7 +178,6 @@ const StuEdit = () => {
               "Student Details Updated Successfully"
             );
             navigate("/mentorteams");
-            // handleView(studentData);
           } else {
             openNotificationWithIcon("error", "Opps! Something Wrong");
           }
@@ -231,8 +200,6 @@ const StuEdit = () => {
     if (data) {
       formik.setValues({
         full_name: data.full_name || "",
-        // email: data.username_email || '',
-        // mobile: data.mobile || '',
         district: data.district || "",
         rollnumber: data.roll_number || "",
         branch: data.branch || "",
@@ -244,24 +211,7 @@ const StuEdit = () => {
       });
     }
   }, [data]);
-  // useEffect(() => {
-  //   if (data?.college_type) {
-  //     formik.setFieldValue('collegeType', data.college_type);
-  //   }
-  // }, [data?.college_type]);
-  // useEffect(() => {
-  //   if (data.college_name) {
-  //     formik.setFieldValue('college', data.college_name);
-  //   }
-  // }, [data.college_name]);
-  // useEffect(()=>{
-  //   setCollegeNamesList(
-  //     collegeNameList[
-
-  //       data.college_type
-  //       ] || []
-  //   );
-  //  },[data.college_type]);
+ 
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -276,7 +226,6 @@ const StuEdit = () => {
                 style={{ backgroundColor: "#EEEEEE" }}
               >
                 <form onSubmit={formik.handleSubmit}>
-                  {/* <div className="login-userset"> */}
                   <div className="col-xl-12">
                     <div className="row g-3 mt-0">
                       <>
@@ -445,16 +394,13 @@ const StuEdit = () => {
                             College Town
                           </label>
                           &nbsp;
-                          {/* <span style={{ color: "red", fontWeight: "bold" }}>
-                          *
-                        </span> */}
+                         
                           <input
                             type="text"
                             className="form-control"
                             placeholder="College Town"
                             id="college_town"
                             name="college_town"
-                            // onChange={formik.handleChange}
                             onChange={(e) => {
                               const inputValue = e.target.value;
                               const lettersOnly = inputValue.replace(
@@ -562,39 +508,7 @@ const StuEdit = () => {
                             </small>
                           ) : null}
                         </div>
-                        {/* {formik.values.collegeType === "Other" && (
-                            <div className={`col-md-12`}>
-                              <label htmlFor="ocn" className="form-label">
-                                Other College Name
-                              </label>&nbsp;
-                              <span style={{color:"red",fontWeight:"bold"}}>*</span>
-                              <input
-                                type="text"
-                                className="form-control"
-                                id="ocn"
-                                placeholder="Other College Name"
-                                name="ocn"
-                                onChange={(e) => {
-                                  const inputValue = e.target.value;
-                                  const lettersOnly = inputValue.replace(
-                                    /[^a-zA-Z0-9 \s]/g,
-                                    ""
-                                  );
-                                  formik.setFieldValue("ocn", lettersOnly);
-                                }}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.ocn || ""}
-                              />
-                              {formik.touched.ocn && formik.errors.ocn ? (
-                                <small
-                                  className="error-cls"
-                                  style={{ color: "red" }}
-                                >
-                                  {formik.errors.ocn}
-                                </small>
-                              ) : null}
-                            </div>
-                          )} */}
+
 
                         <div className="col-md-6">
                           <label className="form-label" htmlFor="branch">
@@ -610,7 +524,6 @@ const StuEdit = () => {
                             placeholder=" Branch/Group/Stream"
                             id="branch"
                             name="branch"
-                            // onChange={formik.handleChange}
                             onChange={(e) => {
                               const inputValue = e.target.value;
                               const lettersOnly = inputValue.replace(
@@ -637,7 +550,6 @@ const StuEdit = () => {
                             className="form-control"
                             id="id_number"
                             placeholder="APAAR ID"
-                            // disabled={areInputsDisabled}
                             name="id_number"
                             onChange={(e) => {
                               const inputValue = e.target.value;
@@ -701,7 +613,6 @@ const StuEdit = () => {
                           Discard
                         </button>
                         <button
-                          // className="btn btn-warning m-2"
                           className={`btn btn-warning m-2 ${
                             !formik.dirty || !formik.isValid
                               ? "default"

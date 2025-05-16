@@ -3,7 +3,6 @@
 /* eslint-disable indent */
 import React, { useEffect, useRef, useState } from 'react';
 import './ViewFinalSelectedideas.scss';
-// import Layout from '../../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import ViewDetail from './ViewFinalDetail';
@@ -13,19 +12,14 @@ import { KEY, URL } from '../../../../constants/defaultValues';
 import { Button } from '../../../../stories/Button';
 import Select from '../Pages/Select';
 import { Col, Container, Row } from 'reactstrap';
-import { useSelector } from 'react-redux';
 import Swal from "sweetalert2/dist/sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import logout from "../../../../assets/img/logout.png";
 import { useDispatch } from 'react-redux';
 import { getCurrentUser, getNormalHeaders } from '../../../../helpers/Utils';
 import { Spinner } from 'react-bootstrap';
-import jsPDF from 'jspdf';
-import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
-import html2canvas from 'html2canvas';
-import TableDetailPdf from './TableDetailPdf';
+
 import { useReactToPrint } from 'react-to-print';
-import DetailToDownload from './DetailToDownload.jsx';
 import { encryptGlobal } from '../../../../constants/encryptDecrypt.js';
 import { stateList, districtList } from "../../../../RegPage/ORGData.js";
 import { themesList } from "../../../../Team/IdeaSubmission/themesData.js";
@@ -35,37 +29,22 @@ const ViewSelectedIdea = () => {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const title = new URLSearchParams(search).get('title');
-    const level = new URLSearchParams(search).get('level');
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState({});
     const [tableData, settableData] = React.useState({});
     const [district, setdistrict] = React.useState('');
-    const [state, setState] = useState('');
-    const [selectstate, setSelectState] = React.useState("");
 
     const [sdg, setsdg] = React.useState('');
     const [currentRow, setCurrentRow] = React.useState(1);
     const [tablePage, setTablePage] = React.useState(1);
     const [showspin, setshowspin] = React.useState(false);
     const newThemesList = ["All Themes", ...themesList];
-    const newstateList = ["All States", ...stateList];
-    const fullStatesNames = newstateList;
 
- const allDistricts = {
-      "All Districts": [...Object.values(districtList).flat()],
-      ...districtList,
-    };
-    // const fiterDistData = selectstate === "All States" 
-    // ? []  
-    // : ["All Districts", ...(allDistricts[selectstate] || [])];
     const fiterDistData = [...districtList["Telangana"]];
         fiterDistData.unshift("All Districts");
     useEffect(() => {
-        // if (selectstate === "All States") {
             setdistrict('');
-      console.log(state,"state");
 
-        //   }
     }, [selectstate]);
     
 
@@ -137,7 +116,6 @@ const ViewSelectedIdea = () => {
         const apiParam = encryptGlobal(
             JSON.stringify({
                 key: title == '0' ? '0' : '1',
-                // state : selectstate !== 'All States' ? selectstate : '',
                 district: district !== "All Districts" ? district :"",
                 theme : sdg !== 'All Themes' ? sdg : ''
             })
@@ -162,7 +140,6 @@ const ViewSelectedIdea = () => {
                 setshowspin(false);
             });
     }
-    // console.log(tableData, 'data');
     const evaluatedIdeafinal = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -173,21 +150,7 @@ const ViewSelectedIdea = () => {
                 sortable: true,
                 width: '6rem'
             },
-            // {
-            //     name: 'State',
-            //     cellExport: (row) => row.state,
-            //     cell: (row) => (
-            //         <div
-            //             style={{
-            //                 whiteSpace: 'pre-wrap',
-            //                 wordWrap: 'break-word'
-            //             }}
-            //         >
-            //             {row.state}
-            //         </div>
-            //     ),
-            //     width: '10rem'
-            // },
+          
             {
                 name: 'District',
                 selector: (row) => row.district,
@@ -208,11 +171,7 @@ const ViewSelectedIdea = () => {
                 selector: (row) => row.challenge_response_id,
                 width: "5rem",
               },
-            // {
-            //     name: 'Category',
-            //     selector: (row) => row.category,
-            //     width: '8rem'
-            // },
+          
             {
                 name: 'Theme',
                 cellExport: (row) => row.theme,
@@ -228,28 +187,13 @@ const ViewSelectedIdea = () => {
                 ),
                 width: '10rem'
             },
-            // {
-            //     name: 'Problem Statement',
-            //     cellExport: (row) => row.sub_category,
-            //     cell: (row) => (
-            //         <div
-            //             style={{
-            //                 whiteSpace: 'pre-wrap',
-            //                 wordWrap: 'break-word'
-            //             }}
-            //         >
-            //             {row.sub_category}
-            //         </div>
-            //     ),
-            //     width: '25rem'
-            // },
+           
             {
                 name: 'Idea Name',
                 cell: (row) => (
                     <div
                         style={{
-                            // whiteSpace: 'pre-wrap',
-                            // wordWrap: 'break-word'
+                           
                             whiteSpace: 'nowrap',       
                             overflow: 'hidden',         
                             textOverflow: 'ellipsis',
@@ -260,21 +204,7 @@ const ViewSelectedIdea = () => {
                 ),
                 width: '11rem'
             },
-            // {
-            //     name: 'District',
-            //     selector: (row) => row.district,
-            //     width: '15rem'
-            // },
-            // {
-            //     name: 'Team Name',
-            //     selector: (row) => row?.team_name || '',
-            //     sortable: true
-            // },
-            // {
-            //     name: 'SDG',
-            //     selector: (row) => row?.sdg,
-            //     width: '10%'
-            // },
+         
 
             {
                 name: 'Novelty',
@@ -426,12 +356,7 @@ const ViewSelectedIdea = () => {
                             </div>
                             <div className="mx-2 pointer d-flex align-items-center">
                                
-                                {/* <FaDownload
-                                    size={22}
-                                    onClick={() => {
-                                        handleDownpdf(params);
-                                    }}
-                                /> */}
+                               
                             </div>
                             {params.final_result === '0' && (
                                 <div
@@ -451,32 +376,7 @@ const ViewSelectedIdea = () => {
                 width: '15rem',
                 left: true
             }
-            //       {params.final_result === '0' ?
-            //       (
-            //     {
-            //         name: 'Final Evaluation',
-            //         cell: (params) => {
-            //             return [
-            //                 <div className="d-flex" key={params}>
-            //                     {params.final_result === '0' && (
-            //                         <div
-            //                             onClick={() =>
-            //                                 handlePromotelFinalEvaluated(params)
-            //                             }
-            //                             style={{ marginRight: '12px' }}
-            //                         >
-            //                             <div className="btn btn-info btn-lg mx-2">
-            //                                 Promote
-            //                             </div>
-            //                         </div>
-            //                     )}
-            //                 </div>
-            //             ];
-            //         },
-            //         width: '15%',
-            //         left: true
-            //     } )
-            // : ""}
+
         ]
     };
     const [sortid, setsortid] = useState();
@@ -510,18 +410,7 @@ const ViewSelectedIdea = () => {
     const componentRef = useRef();
     const [pdfIdeaDetails, setPdfIdeaDetails] = useState('');
     const [pdfTeamResponse, setpdfTeamResponse] = useState('');
-    const handleDownpdf = (params) => {
-        console.log(params,"222");
-        setPdfIdeaDetails(params);
-        setpdfTeamResponse(params);
-       
-    };
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-        documentTitle: `${
-            pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
-        }_IdeaSubmission`
-    });
+  
     useEffect(() => {
         if (pdfIdeaDetails !== '' && pdfTeamResponse !== '') {
             handlePrint();
@@ -550,24 +439,10 @@ const ViewSelectedIdea = () => {
         <>
           <div className="page-wrapper">
           <div className="content">
-            {/* <div style={{ display: 'none' }}>
-                <DetailToDownload
-                    ref={componentRef}
-                    ideaDetails={pdfIdeaDetails}
-                    teamResponse={pdfTeamResponse}
-                    level={'Draft'}
-                />
-            </div> */}
+           
 
-            {/* <Layout> */}
                 <div className="container evaluated_idea_wrapper pt-2">
-                    {/* <div id="pdfIdd" style={{ display: 'none' }}>
-                    <TableDetailPdf
-                        ideaDetails={details}
-                        teamResponse={teamResponse}
-                        level={level}
-                    />
-                </div> */}
+                 
                     <div className="row">
                         <div className="col-12 p-0">
                             {!isDetail && (
@@ -581,16 +456,7 @@ const ViewSelectedIdea = () => {
 
                                     <Container fluid className="px-0">
                                         <Row className="align-items-center">
-                                            {/* <Col md={2}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                    list={fullStatesNames}
-                    setValue={setSelectState}
-                    placeHolder={"Select State"}
-                    value={selectstate}
-                  />
-                                                </div>
-                                            </Col> */}
+                                          
                                             <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select

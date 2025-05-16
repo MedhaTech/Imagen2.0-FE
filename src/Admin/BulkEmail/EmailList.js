@@ -7,12 +7,7 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-import { openNotificationWithIcon } from '../../helpers/Utils';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2/dist/sweetalert2';
-import logout from '../../assets/img/logout.png';
-import { encryptGlobal } from '../../constants/encryptDecrypt';
-import 'sweetalert2/src/sweetalert2.scss';
 import * as Icon from "react-feather";
 const EmailList = () => {
     const navigate = useNavigate();
@@ -34,7 +29,6 @@ const EmailList = () => {
                 }
             );
             if (response.status === 200) {
-                console.log(response,"op");
 
                 setEmailList(response?.data?.data[0]?.dataValues);
             }
@@ -75,10 +69,7 @@ const EmailList = () => {
                             style={{ marginRight: '8px' }}
                         >
                             <a className="badge badge-md bg-info">
-                                {/* <i
-                                    data-feather="trash-2"
-                                    className="feather-trash-2"
-                                /> */}
+                              
                                 <Icon.Send size={15}/>  RESEND
                             </a>
                         </div>
@@ -87,64 +78,7 @@ const EmailList = () => {
             }
         ]
     };
-    const handleTecherDelete = (items) => {
-        // here we can delete the team //
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-submit',
-                cancelButton: 'btn btn-cancel'
-            },
-            buttonsStyling: false
-        });
-
-        swalWithBootstrapButtons
-            .fire({
-                title: "<h4>Are you sure?</h4>",
-                text: "Do you really want to delete this item, This process cannot be undone.",
-                imageUrl: `${logout}`,
-                confirmButtonText: 'Delete',
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                reverseButtons: false
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    const resId = encryptGlobal(
-                        JSON.stringify(items.popup_id)
-                    );
-                    var config = {
-                        method: 'delete',
-                        url:
-                            process.env.REACT_APP_API_BASE_URL +
-                            '/popup/' +
-                            resId,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            // Accept: "application/json",
-                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
-                        }
-                    };
-                    axios(config)
-                        .then(function (response) {
-                            if (response.status === 200) {
-                                openNotificationWithIcon(
-                                    'success',
-                                    'PopUp Deleted Successfully'
-                                );
-                                
-                            } else {
-                                openNotificationWithIcon(
-                                    'error',
-                                    'Opps! Something Wrong'
-                                );
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
-            });
-    };
+ 
     const customStyles = {
         rows: {
           style: {
@@ -172,7 +106,7 @@ const EmailList = () => {
                                 <div className="add-item d-flex">
                                     <div className="page-title">
                                         <h4>Bulk Email List</h4>
-                                        <h6>Send Emails to Registered Students Bsased on Districts</h6>
+                                        <h6>Send Emails to Registered Students Based on Districts</h6>
                                     </div>
                                 </div>
                                 <div className="page-btn">

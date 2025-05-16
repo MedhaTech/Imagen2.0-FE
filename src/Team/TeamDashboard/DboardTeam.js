@@ -1,13 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from "react";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { all_routes } from "../../Router/all_routes";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-import female from "../../assets/img/Female_Profile.png";
-import male from "../../assets/img/Male_Profile.png";
 import team from "../../assets/img/icons/team.svg";
 import user from "../../assets/img/user.png";
 import girl1 from "../../assets/img/girl1.png";
@@ -22,30 +18,22 @@ import boy3 from "../../assets/img/boy3.png";
 import boy4 from "../../assets/img/boy4.png";
 import boy5 from "../../assets/img/boy5.png";
 import boy6 from "../../assets/img/boy6.png";
-import { FaUsers } from "react-icons/fa";
 import Table from "../../core/pagination/datatable";
 import { CheckCircle } from "react-feather";
 import { getTeamMemberStatus } from "../../Teacher/store/teams/actions";
-import { setToogleHeader } from "../../core/redux/action";
 import { IoHelpOutline } from "react-icons/io5";
-import Select from "react-select";
-import withReactContent from "sweetalert2-react-content";
-import Swal from "sweetalert2";
 import { getCurrentUser, setCurrentUser } from "../../helpers/Utils";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaRoute } from 'react-icons/fa';
 
 const EmployeesGrid = () => {
-  const route = all_routes;
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.toggle_header);
-  const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("Select Language");
   const [studentCount, setStudentCount] = useState([]);
-  const [stuPreSurvey, setStuPreSurvey] = useState("");
   const [showDefault, setshowDefault] = useState(true);
   const [stuInstructionsLoad, setStuInstructionsLoading] = useState(true);
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
@@ -53,7 +41,6 @@ const EmployeesGrid = () => {
   );
      
   const teamId = currentUser?.data[0]?.team_id;
-  const mentorid = currentUser?.data[0]?.mentor_id;
 
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
@@ -76,7 +63,6 @@ const EmployeesGrid = () => {
   useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));
-      //dispatch(getStudentChallengeSubmittedResponse(teamId));
     }
   }, [teamId, dispatch]);
 
@@ -223,7 +209,6 @@ const EmployeesGrid = () => {
       .then(function (response) {
         if (response.status === 200) {
           setStudentCount(response.data.data);
-          // console.log(studentCount , "count");
         }
       })
       .catch(function (error) {
@@ -231,10 +216,8 @@ const EmployeesGrid = () => {
       });
   };
 
-  //console.log(teamsMembersStatus,"data for instructions");
 
   const stuSurveyStatus = (id) => {
-    // console.log(id, "stuid");
     const surveyApi = encryptGlobal(
         JSON.stringify({
             user_id: id
@@ -254,16 +237,12 @@ const EmployeesGrid = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                // console.log(response);
                 const pre = (response.data.data[0].pre_survey_completed_date);
-                // console.log(pre , "pre");
                 if (pre === null) {
                   localStorage.setItem("stupresurveystatus", "INCOMPLETED");
-                  // console.log("to presurvey page");
                   navigate("/studentpresurvey");
                 } else{
                   localStorage.setItem("stupresurveystatus", "COMPLETED");
-                  // console.log("to stu dashboard");
                   navigate("/student-dashboard");
                 }
             }
@@ -274,7 +253,6 @@ const EmployeesGrid = () => {
     };
 
   const handleStudent = (student) => {
-    //alert("hii");
     const data = { ...student };
     currentUser.data[0].full_name = data?.full_name;
     currentUser.data[0].user_id = data?.user_id;
@@ -304,40 +282,13 @@ const EmployeesGrid = () => {
         return user;
     }
   };
-  // const renderTooltip = (props) => (
-  //   <Tooltip id="pdf-tooltip" {...props}>
-  //     Pdf
-  //   </Tooltip>
-  // );
-  // const renderExcelTooltip = (props) => (
-  //   <Tooltip id="excel-tooltip" {...props}>
-  //     Excel
-  //   </Tooltip>
-  // );
-  // const renderPrinterTooltip = (props) => (
-  //   <Tooltip id="printer-tooltip" {...props}>
-  //     Printer
-  //   </Tooltip>
-  // );
-  // const renderRefreshTooltip = (props) => (
-  //   <Tooltip id="refresh-tooltip" {...props}>
-  //     Refresh
-  //   </Tooltip>
-  // );
-  // const renderCollapseTooltip = (props) => (
-  //   <Tooltip id="refresh-tooltip" {...props}>
-  //     Collapse
-  //   </Tooltip>
-  // );
-  const handleLanguageChange = (language) => {
-    setSelectedLanguage(language);
-  };
+ 
+ 
 
   return (
     <div>
       <div className="page-wrapper">
         <div className="content">
-          {/* Welcome user */}
           <div className="welcome d-lg-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center welcome-text">
               <h3 className="d-flex align-items-center">
@@ -351,56 +302,8 @@ const EmployeesGrid = () => {
                 Marathon 2025 today.
               </h6>
             </div>
-            {/* <div className="dropdown">
-              <button
-                className="btn btn-primary dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {selectedLanguage}
-              </button>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    onClick={() => handleLanguageChange("English")}
-                    to="#"
-                  >
-                    English
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    onClick={() => handleLanguageChange("Hindi")}
-                    to="#"
-                  >
-                    Hindi
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    onClick={() => handleLanguageChange("Telugu")}
-                    to="#"
-                  >
-                    Telugu
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    onClick={() => handleLanguageChange("Tamil")}
-                    to="#"
-                  >
-                    Tamil
-                  </Link>
-                </li>
-              </ul>
-            </div> */}
+
           </div>
-          {/* Student Cards */}
           <div className="employee-grid-widget">
             <div className="row">
               {studentCount.map((student, i) => (
@@ -449,7 +352,6 @@ const EmployeesGrid = () => {
               ))}
             </div>
           </div>
-          {/* Students Progress */}
           <div className="card table-list-card">
             <div className="card-header d-flex justify-content-between align-items-center">
               <h4 className="card-title mb-0">
@@ -474,7 +376,6 @@ const EmployeesGrid = () => {
                 )}
                 {teamsMembersStatus.length > 0 && !showDefault ? (
                   <Table
-                    //bordered
                     pagination={false}
                     dataSource={teamsMembersStatus}
                     columns={columns}

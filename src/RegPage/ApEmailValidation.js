@@ -4,72 +4,37 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect } from "react";
-import ImageWithBasePath from "../core/img/imagewithbasebath.jsx";
-import { Link } from "react-router-dom";
-// import { all_routes } from "../../../Router/all_routes";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { decryptGlobal } from "../constants/encryptDecrypt.js";
 import OtpInput from "react-otp-input-rc-17";
-import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import user from "../assets/img/icons/user-icon.svg";
-import play from "../assets/img/playicon.png";
-import copy from "../assets/img/copyrights.png";
-import { ArrowRight } from "feather-icons-react";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
-import { districtList, collegeType, collegeNameList } from './ORGData.js';
 
 const Register = () => {
   const navigate = useNavigate();
   const [otpSent, setOtpSent] = useState(false);
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  const [districtData, setDistrictData] = useState(districtList["Telangana"] || []);
-  const [stateData, setStateData] = useState();
-  const [diesCode, setDiesCode] = useState("");
-  const [orgData, setOrgData] = useState({});
-  const [data, setData] = useState(false);
-  const [error, setError] = useState("");
-  const [schoolBtn, setSchoolBtn] = useState(false);
+ 
   const [btnOtp, setBtnOtp] = useState(false);
   const [otpRes, setOtpRes] = useState("");
   const [errorMsg, setErrorMsg] = useState(false);
-  const [mentorData, setMentorData] = useState({});
-  const [diceBtn, setDiceBtn] = useState(true);
   const [btn, setBtn] = useState(false);
-  const [checkBox, setCheckBox] = useState(false);
-  const [checkBox1, setCheckBox1] = useState(false);
   const [change, setChange] = useState("Send OTP");
-  const [wtsNum, setWtsNum] = useState("");
-  const [mobNum, setMobNum] = useState("");
   const [holdKey, setHoldKey] = useState(false);
-  const [sendOtp, setSendOtp] = useState("");
   const [time] = useState("00");
-  const [counter, setCounter] = useState(59);
-  const [sec, setSec] = useState(59);
-  const [buttonData, setButtonData] = useState("");
   const [disable, setDisable] = useState(false);
   const [areInputsDisabled, setAreInputsDisabled] = useState(false);
   const [dropdownbtn, setDropDownbtn] = useState("");
   const [timer, setTimer] = useState(0);
   const [person, setPerson] = useState(true);
   const [design, setDesign] = useState(false);
-  const [emailData, setEmailData] = useState("");
-  const [mobileData, setMobileData] = useState("");
-  const [mentData, setMentData] = useState({});
-  const [multiData, setMultiData] = useState({});
+ 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [collegeNamesList, setCollegeNamesList] = useState([]);
 
-  const renderTooltip = (props) => (
-    <Tooltip id="pdf-tooltip" {...props}>
-      Watch Demo
-    </Tooltip>
-  );
-
+ 
   useEffect(() => {
     if (!dropdownbtn) {
       setDesign(true);
@@ -77,7 +42,6 @@ const Register = () => {
       setDesign(false);
     }
   }, [dropdownbtn]);
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const formik = useFormik({
     initialValues: {
      
@@ -107,50 +71,7 @@ const Register = () => {
       if (values.otp.length < 5) {
         setErrorMsg(true);
       } 
-    //   else {
-
-    //     const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
-    //     const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
-       
-    //     const body = JSON.stringify({
-    //       username: values.email.trim(),
-    //     });
-    //     setMentorData(body);
-
-    //     localStorage.setItem("mentorData", body);
-    //     var config = {
-    //       method: "post",
-    //       url: process.env.REACT_APP_API_BASE_URL + "/mentors/register",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-    //       },
-
-    //       data: body,
-    //     };
-    //     await axios(config)
-    //       .then((mentorRegRes) => {
-    //         if (mentorRegRes?.data?.status == 201) {
-    //           setMentData(mentorRegRes.data && mentorRegRes.data.data[0]);
-              
-            
-    //         }
-    //       })
-    //       .catch((err) => {
-    //         if(err?.response?.data?.status === 406){
-    //           openNotificationWithIcon("error", err.response.data?.message);
-    
-    //           }else{
-    
-    //             openNotificationWithIcon("error", "Email id is Invalid");
-    //           }
-
-    //         formik.setErrors({
-    //           check: err.response && err?.response?.data?.message,
-    //         });
-    //         return err.response;
-    //       });
-    //   }
+   
     },
   });
   useEffect(() => {
@@ -165,50 +86,7 @@ const Register = () => {
     formik.setFieldValue("otp", "");
 
   }, [formik.values.email]);
-  async function apiCall(mentData) {
-    // Dice code list API //
-    // where list = diescode  //
-    const body = {
-    //   college_name: mentData.college_name,
-      college_type: mentData.college_type,
-
-    //   district: orgData.district,
-      email: mentData.username,
-    //   mobile: mentData.mobile,
-    };
-
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-      },
-      data: JSON.stringify(body),
-    };
-
-    await axios(config)
-      .then(async function (response) {
-        if (response.status == 200) {
-          setButtonData(response?.data?.data[0]?.data);
-          navigate("/atl-success");
-          openNotificationWithIcon("success", "Email Sent Successfully");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-  const handleCheckbox = (e, click) => {
-    if (click) {
-      setCheckBox(click);
-      formik.setFieldValue("whatapp_mobile", formik.values.mobile);
-      setWtsNum(formik.values.mobile);
-    } else {
-      setCheckBox(click);
-      formik.setFieldValue("whatapp_mobile", "");
-    }
-  };
+ 
   
   const handleSendOtp = async (e) => {
     setTimer(60);
@@ -235,7 +113,6 @@ const Register = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "OTP Sent to Given Email Id");
           setBtnOtp(true);
@@ -255,12 +132,7 @@ const Register = () => {
           setDisable(true);
           setAreInputsDisabled(false);
           setTimer(0);
-          // openNotificationWithIcon("error", "Email ID already exists");
-          // setTimeout(() => {
-          //   setDisable(true);
-          //   setHoldKey(false);
-          //   setTimer(0);
-          // }, 1000);
+          
         }
       });
     e.preventDefault();
@@ -340,8 +212,7 @@ const Register = () => {
                 )}
 
                 <div className="col-xl-12">
-                  {/* <div className="card"> */}
-                    {/* <div className="card-body"> */}
+                 
                       <div className="row g-3 mt-0">
                         <>
                          
@@ -474,34 +345,9 @@ const Register = () => {
 
                         )}
 
-                        {/* {btnOtp && (
-                          <div className="form-login text-center">
-                            <button
-                              className="btn btn-login"
-                              type="submit"
-                              disabled={
-                                isSubmitting ||
-                                !(
-                                  formik.values.otp.length === 6 &&
-                                  formik.values.otp === otpRes
-                                )
-                              }
-
-                            >
-                              {isSubmitting ? (
-                                <>
-                                  <i className="fas fa-spinner fa-spin me-2" />
-                                  Processing your Registration
-                                </>
-                              ) : (
-                                "Verify My Account"
-                              )}
-                            </button>
-                          </div>
-                        )} */}
+                       
                       </div>
-                    {/* </div> */}
-                  {/* </div> */}
+                  
                 </div>
 
               </div>

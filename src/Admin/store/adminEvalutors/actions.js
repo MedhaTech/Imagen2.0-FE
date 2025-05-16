@@ -42,7 +42,6 @@ export const getAdminEvalutorsList = () => async (dispatch) => {
 
             const data = result.data?.data|| [];
             let datamodify = data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
-            console.log(result,"res",datamodify,"data");
             dispatch(getAdminEvalutorsListSuccess(data));
         } else {
             dispatch(getAdminEvalutorsListError(result.statusText));

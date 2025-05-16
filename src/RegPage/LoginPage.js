@@ -22,13 +22,9 @@ const LoginPage = () => {
               <div className="login-userset">
                 <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+               
                 <div className="login-userheading text-center">
-                  {/* <h3> Youth for Social Impact 2024</h3> */}
                   <h4>Select Your Role to Access Your Account </h4>
                 </div>
                 <div className="form-login mb-3">
@@ -63,20 +59,7 @@ const LoginPage = () => {
                     </Row>
                   </div>
                 </div>
-                {/* <div className="signinform text-center">
-                  <h4 className="mt-2 mb-3">
-                    Not Yet Registered ?
-                    <br/>
-                    <Link className="hover-a" to={"/registration"}>
-                      {" "}
-                      Student Registration &nbsp;/  
-                    </Link>
-                    <Link className="hover-a" to={"/institution-registration"}>
-                      {" "}
-                      Institution Registration 
-                    </Link>
-                  </h4>
-                </div> */}
+               
                 <div className="signinform text-center">
   <h4 className="mt-2 mb-3">Not Yet Registered?</h4>
   <Row className="d-flex justify-content-between">
