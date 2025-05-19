@@ -248,6 +248,8 @@ const InstProgressDetailed = () => {
     fetchData();
   };
   const fetchData = () => {
+   // This function filters  data based on selected district, college_type
+
     const apiRes = encryptGlobal(
       JSON.stringify({
         district: district,

@@ -89,6 +89,8 @@ const StuEdit = () => {
     AllCollegesApi(selectedCollegeType, existingColleges);
   };
   const AllCollegesApi = (item, existingColleges) => {
+    // this function fetches all college names list related to college type from the API 
+
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,

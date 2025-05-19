@@ -36,8 +36,8 @@ const Crew1Reg = () => {
 
   
   const handleCollegeTypeChange = (event) => {
+    
     const selectedCollegeType = event.target.value;
-    console.log("Selected College Type:", selectedCollegeType);
     
     formik.setFieldValue("collegeType", selectedCollegeType);
     setSelectedCollegeType(selectedCollegeType);
@@ -51,6 +51,8 @@ const Crew1Reg = () => {
     AllCollegesApi(selectedCollegeType, existingColleges);
   };
   const AllCollegesApi = (item,existingColleges) => {
+    // this function fetches all college names list related to college type from the API 
+
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
@@ -88,6 +90,7 @@ const Crew1Reg = () => {
     label: item,
   }));
   async function apiCall() {
+       // this function Sends a request to trigger the student welcome email
    
     const body = {
       college_name: mentData.college_name,

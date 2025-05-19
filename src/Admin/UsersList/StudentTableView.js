@@ -45,6 +45,8 @@ const CommonUserProfile = (props) => {
     },[]);
    
     const submittedApi = () => {
+               // This function fetches Idea Submission Details from the API //
+
       const Param = encryptGlobal(
         JSON.stringify({
           student_id: TeamId
@@ -68,9 +70,7 @@ const CommonUserProfile = (props) => {
             if (response.data.data && response.data.data.length > 0) {
               const data = response.data.data[0];
               setIdeaDetails(response.data.data[0]);
-              console.log(data, "data");
               setNoData(false);
-              // setInitiate(response.data.data[0].initiate_by);
   
   
             }
@@ -78,7 +78,6 @@ const CommonUserProfile = (props) => {
         })
         .catch(function (error) {
           if (error.response.status === 404) {
-            //   seterror4( true);
             setNoData(true);
           }
   
@@ -87,6 +86,8 @@ const CommonUserProfile = (props) => {
   
    
       const stuVideosCount = () => {
+               // This function fetches students videos count from the API //
+
         const videoApi = encryptGlobal(
           JSON.stringify({
             user_id: StudentsDaTa?.user_id

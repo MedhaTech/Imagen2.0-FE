@@ -102,6 +102,8 @@ const StateRes = (props) => {
   });
 
   const fileHandlerforFormik = (e) => {
+    // Handles file selection and reads the selected file
+
     let file = e.target.files[0];
 
     if (!file) {

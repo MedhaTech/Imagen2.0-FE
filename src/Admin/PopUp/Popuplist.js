@@ -31,6 +31,7 @@ const AdminResources = () => {
     fetchTecResourceList();
   }, []);
   async function fetchTecResourceList() {
+        // This function fetches all popup list from the API // 
    
     try {
       const response = await axios.get(

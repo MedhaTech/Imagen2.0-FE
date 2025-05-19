@@ -26,7 +26,8 @@ const AdminSupport = () => {
     }, []);
 
     async function listApi() {
-        // where we can see all tickets //
+              // This function fetches all support tickets from the API //
+
         setFetchData(true);
        
         var config = {
@@ -61,7 +62,8 @@ const AdminSupport = () => {
                 status: 'OPEN',
             })
         );
-        // where we can see all open tickets //
+              // This function fetches open  tickets from the API //
+
         var config = {
             method: 'get',
             url:
@@ -93,7 +95,8 @@ const AdminSupport = () => {
                 status: 'INPROGRESS',
             })
         );
-        // where  we can see  all inprogress tickets //
+                    // This function fetches inprogress  tickets from the API //
+
         var config = {
             method: 'get',
             url:
@@ -120,7 +123,8 @@ const AdminSupport = () => {
     }
     async function resolvedApi() {
         setFetchData(true);
-        // where we ca see all resolved tickets //
+               // This function fetches resolved  tickets from the API //
+
         const resolvedParam = encryptGlobal(
             JSON.stringify({
                 status: 'RESOLVED',
@@ -151,7 +155,8 @@ const AdminSupport = () => {
             });
     }
     async function invalidApi() {
-        // where we can see all invalid tickets //
+              // This function fetches invalid  tickets from the API //
+
         const invalidParam = encryptGlobal(
             JSON.stringify({
                 status: 'INVALID',

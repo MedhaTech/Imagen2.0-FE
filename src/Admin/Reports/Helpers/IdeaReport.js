@@ -290,6 +290,8 @@ const IdeaReport = () => {
     }
   }, [studentDetailedReportsData]);
   const fetchData = () => {
+   // This function filters  data based on selected district, college_type and theme
+
     const apiRes = encryptGlobal(
       JSON.stringify({
         district: district,

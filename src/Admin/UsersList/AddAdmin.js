@@ -1,9 +1,7 @@
 /* eslint-disable indent */
 import React from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import { Label } from 'reactstrap';
-//import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -77,7 +75,6 @@ const Register = (props) => {
                 .then((evaluatorRegRes) => {
                     if (evaluatorRegRes?.data?.status == 201) {
                         setTimeout(() => {
-                            // handleideaList();
                         dispatch(getAdmin());
 
                         }, 1000);

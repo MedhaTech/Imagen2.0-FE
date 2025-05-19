@@ -38,6 +38,7 @@ const StuEdit = () => {
   }, [studentData.student_id]);
 
   const mentorViewApi = () => {
+    // this function fetches current user all details from the API 
     let supId;
     if (typeof studentData.student_id !== "string") {
       supId = encryptGlobal(JSON.stringify(studentData.student_id));
@@ -89,6 +90,8 @@ const StuEdit = () => {
     AllCollegesApi(selectedCollegeType, existingColleges);
   };
   const AllCollegesApi = (item, existingColleges) => {
+    // this function fetches all college names list related to college type from the API 
+
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
