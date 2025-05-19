@@ -97,7 +97,8 @@ const MentorDashboard = () => {
 
   
   useEffect(() => {
-    
+               // This function fetches Institutions popup from the API //
+     
     const newListParam = encryptGlobal(
       JSON.stringify({
         role:"Institution"
@@ -154,11 +155,11 @@ const MentorDashboard = () => {
   const [teamsCount, setTeamsCount] = useState();
   const [ideaCount, setIdeaCount] = useState();
   const [studentCount, setStudentCount] = useState();
-  const [coursepercentage, setCoursepercentage] = useState();
-  const [teacPostSurvey, setTeacPostSurvey] = useState();
 
  
   const mentorTeamsCount = () => {
+    // Function to fetch the Teams Count from the API
+
     const teamApi = encryptGlobal(
         JSON.stringify({
           college_name: currentUser?.data[0]?.college_name
@@ -187,6 +188,8 @@ const MentorDashboard = () => {
         });
   };
   const mentorIdeaCount = () => {
+    // Function to fetch the Ideas Count from the API
+
       const ideaApi = encryptGlobal(
           JSON.stringify({
             college_name: currentUser?.data[0]?.college_name
@@ -216,6 +219,8 @@ const MentorDashboard = () => {
           });
   };
   const mentorStudentCount = () => {
+    // Function to fetch the Students Count from the API
+
       const studentApi = encryptGlobal(
           JSON.stringify({
             college_name: currentUser?.data[0]?.college_name

@@ -139,6 +139,8 @@ const Instructions = () => {
     apiData(language);
   }, []);
   const mentorViewApi = () => {
+    // this function fetches current user all details from the API 
+
     let supId;
     if (typeof user !== "string") {
       supId = encryptGlobal(JSON.stringify(user));
@@ -167,6 +169,8 @@ const Instructions = () => {
  
   
   const apiData = (language) => {
+               // This function fetches Post Survey Status from the API //
+
     const locale = getLanguage(language);
 
     let enDataone = encryptGlobal("4");
@@ -223,6 +227,8 @@ const Instructions = () => {
  
   const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
         JSON.stringify({
             student_id: TeamId
@@ -257,6 +263,8 @@ const Instructions = () => {
   };
 
   const stuCoursePercent = () => {
+               // This function fetches Course % from the API //
+
     const corseApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id,
@@ -289,6 +297,8 @@ const Instructions = () => {
       });
   };
   const Ideas = async (resList) => {
+               // This function fetches Idea Status and L2 Score from the API //
+
     const corseApi1 = encryptGlobal(
       JSON.stringify({
         student_id: TeamId

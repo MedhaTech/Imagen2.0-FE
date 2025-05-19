@@ -18,6 +18,8 @@ const TeacherProfile = () => {
     mentorViewApi();
   }, [mentorData.student_id]);
   const mentorViewApi = () => {
+    // this function fetches current user all details from the API 
+
     let supId;
     if(typeof(mentorData.student_id) !== "string"){
   supId = encryptGlobal(

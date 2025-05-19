@@ -45,6 +45,8 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
         }
     }, [teamId, dispatch]);
     const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
         const Param = encryptGlobal(
           JSON.stringify({
             student_id: teamId
@@ -240,37 +242,7 @@ const TeamsProgDD = ({user,setIdeaCount}) => {
    
 
       ////////Email Team Credentisl////////////
-    const emailTeamCredentials = () => {
-        
-        const teamCredMailApi = encryptGlobal(
-            JSON.stringify({
-                mentor_id: currentUser?.data[0]?.mentor_id,
-                email:currentUser?.data[0]?.name
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/teamCredentials?Data=${teamCredMailApi}`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    openNotificationWithIcon("success", "All Teams login's sent to your email");
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-
-    
+   
   return (
     <div>
         <div className="card table-list-card">

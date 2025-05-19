@@ -23,6 +23,8 @@ const IdeaSubmission = () => {
   const [initiate, setInitiate] = useState("");
  
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         student_id: TeamId
@@ -88,6 +90,8 @@ const IdeaSubmission = () => {
   };
 
   const submitted = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         student_id: TeamId

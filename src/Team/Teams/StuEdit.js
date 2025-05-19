@@ -38,6 +38,8 @@ const StuEdit = () => {
     mentorViewApi();
   }, [studentData.student_id]);
   const mentorViewApi = () => {
+               // This function fetches current user details from the API //
+
     let supId;
     if (typeof studentData.student_id !== "string") {
       supId = encryptGlobal(JSON.stringify(studentData.student_id));

@@ -4,20 +4,12 @@ import React, { useState, useEffect,useRef  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ArrowLeft, PlusCircle } from "react-feather";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
-import { createSupportTickets } from "../../Teacher/store/mentors/actions";
 import { getDiscussionList } from "../../redux/actions";
-import { FaComments, FaFile, FaLink } from "react-icons/fa";
-import DataTableExtensions from "react-data-table-component-extensions";
-import DataTable, { Alignment } from "react-data-table-component";
-import {
-  getSupportTicketById,
-  getDiscussionChatById,
-} from "../../Teacher/store/mentors/actions";
+
 import { useNavigate } from "react-router-dom";
 import { FaCircleUser } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { FaReply } from "react-icons/fa";
 import Avatar from "react-string-avatar";
 import { FaComment } from "react-icons/fa";
 import { formatDistanceToNow } from "date-fns";
@@ -69,9 +61,7 @@ const TicketsPage = () => {
       setCurrentPage(nextPage);
     }
   };
-  // if (!discussionChats || discussionChats.length === 0) {
-  //   return <p>No tickets available.</p>;
-  // }
+  
 
 
   return (
