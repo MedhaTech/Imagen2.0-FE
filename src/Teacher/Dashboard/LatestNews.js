@@ -20,6 +20,8 @@ function LatestNews() {
     setIsPaused(!isPaused);
   };
   useEffect(() => {
+    // this function fetches latest news list from the API
+
     const fetchNews = async () => {
       let teacherParam = encryptGlobal(
         JSON.stringify({

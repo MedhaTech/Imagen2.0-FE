@@ -151,6 +151,8 @@ const StuPostSurvey = () => {
         submittedApi();
       },[]);
       const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
         const Param = encryptGlobal(
           JSON.stringify({
             student_id: TeamId
@@ -185,6 +187,8 @@ const StuPostSurvey = () => {
       };
       // useEffect(() => {
         const apiData=(language)=>{
+               // This function fetches Post Survey Status from the API //
+
         const locale = getLanguage(language);
 
         let enDataone = encryptGlobal("4");

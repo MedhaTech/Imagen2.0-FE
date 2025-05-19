@@ -34,6 +34,8 @@ const Dashboard = (props) => {
       : currentUser?.data[0]?.type_id;
 
   const teamListbymentorid = () => {
+               // This function fetches all team  details from the API //
+
     const queryteam = encryptGlobal(
       JSON.stringify({
         team: true,
@@ -84,6 +86,8 @@ useEffect(()=>{
   stuIdeaSubStatus();
 },[]);
   const stuIdeaSubStatus = () => {
+               // This function fetches idea submission details from the API //
+
     const ideaSubApi = encryptGlobal(
       JSON.stringify({
         student_id: currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id
@@ -114,6 +118,8 @@ useEffect(()=>{
       });
   };
   const handleDeleteStudent = (id) => {
+               // This function Delete the student details from the API //
+
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       title: "Are you sure?",

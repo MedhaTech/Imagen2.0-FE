@@ -17,6 +17,8 @@ const StuResource = () => {
   }, []);
 
   async function fetchResourceList() {
+     // this function fetches all resources list from the API
+
     const fectchTecParam = encryptGlobal(
       JSON.stringify({
         role: "student",

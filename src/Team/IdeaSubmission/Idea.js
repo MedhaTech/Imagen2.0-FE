@@ -61,6 +61,8 @@ const [statusCode,setStatusCode]= useState(false);
   const [data, setData] = useState(0);
   const [initiate, setInitiate] = useState("");
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         student_id: TeamId

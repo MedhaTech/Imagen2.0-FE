@@ -174,6 +174,8 @@ const StuPreSurvey = () => {
       }, []);
 
       useEffect(() => {
+// this function submit the Survey 
+
         let enDataone = encryptGlobal("2");
         let axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const lang = "locale=en";

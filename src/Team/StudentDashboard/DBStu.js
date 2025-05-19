@@ -116,6 +116,8 @@ useEffect(() => {
 
 
 useEffect(() => {
+               // This function fetches students popup from the API //
+
   const popParam = encryptGlobal(
     JSON.stringify({
       role:currentUser.data[0]?.role    })
@@ -322,6 +324,8 @@ useEffect(() => {
   const [showDefault, setshowDefault] = useState(true);
 
   const stuSurveyStatus = () => {
+    // Function to fetch the Post survey ,Pre Survey status from the API
+
     const surveyApi = encryptGlobal(
         JSON.stringify({
             user_id: currentUser?.data[0]?.user_id
@@ -354,6 +358,8 @@ useEffect(() => {
         });
     };
     const stuIdeaSubStatus = () => {
+    // Function to fetch the Idea Status from the API
+
       const ideaSubApi = encryptGlobal(
         JSON.stringify({
           student_id: currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id
@@ -386,6 +392,8 @@ useEffect(() => {
         });
     };
   const stuCoursePercent = () => {
+    // Function to fetch the Course % from the API
+
     const corseApi = encryptGlobal(
         JSON.stringify({
             user_id: currentUser?.data[0]?.user_id
@@ -420,6 +428,8 @@ useEffect(() => {
   };
 
   const stuBadgesCount = () => {
+    // Function to fetch the Badges from the API
+
     const badgeApi = encryptGlobal(
         JSON.stringify({
           user_id: currentUser?.data[0]?.user_id
@@ -448,6 +458,8 @@ useEffect(() => {
   };
 
   const stuQuizCount = () => {
+    // Function to fetch the Students Quiz Status from the API
+
     const quizApi = encryptGlobal(
         JSON.stringify({
           user_id: currentUser?.data[0]?.user_id
@@ -476,6 +488,8 @@ useEffect(() => {
   };
 
   const stuVideosCount = () => {
+    // Function to fetch the Students Videos Counts from the API
+
     const videoApi = encryptGlobal(
         JSON.stringify({
           user_id: currentUser?.data[0]?.user_id

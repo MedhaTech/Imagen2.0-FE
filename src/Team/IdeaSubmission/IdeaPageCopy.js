@@ -317,6 +317,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     submittedApi();
   }, []);
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         student_id: TeamId,
@@ -353,6 +355,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       });
   };
   const apiCall = () => {
+               // This function initiate the Idea the API //
+
     const challengeParamID = encryptGlobal("1");
     const queryObj = JSON.stringify({
       student_id: TeamId,
@@ -486,6 +490,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   };
 
   const handleSubmitAll = async (item, stats, file) => {
+               // This function submit the idea submission from from the API //
+
     setLoading(initialLoadingStatus);
 
     let attachmentsList = "";
