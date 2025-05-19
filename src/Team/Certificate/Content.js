@@ -14,20 +14,7 @@ class TCertificate extends React.Component {
             <div style={{ width: '100%', margin: 0, padding: 0 , overflow: 'hidden',}}> 
                 <div className="row" > 
                     <div> 
-                        {/* <span 
-                            className="text-capitalize" 
-                            style={{ 
-                                position: 'absolute', 
-                                top: '8rem', 
-                                left: '20rem',
-                                fontSize: '3rem',
-                                fontWeight:"bold",
-                                color:"#DA220C",
-                                fontFamily: 'Times New Roman' 
-                            }} 
-                        > 
-                            {this.props.full_name} 
-                        </span> */}
+                       
                         <span 
                             className="text-capitalize" 
                             style={{ 
