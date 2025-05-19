@@ -12,7 +12,7 @@ import TeamHeader from "../InitialPage/Sidebar/TeamHeader";
 import HorizontalSidebar from "../InitialPage/Sidebar/horizontalSidebar";
 
 import {
-  pagesRoute,
+  // pagesRoute,
   teamRoutes,
   publicRoutes,
   mentorRoutes,
@@ -111,12 +111,12 @@ const AllRoutes = () => {
     </div>
   );
 
-  const Authpages = () => (
-    <div className={data ? "header-collapse" : ""}>
-      <Outlet />
-      <ThemeSettings />
-    </div>
-  );
+  // const Authpages = () => (
+  //   <div className={data ? "header-collapse" : ""}>
+  //     <Outlet />
+  //     <ThemeSettings />
+  //   </div>
+  // );
 
  
   function MyComponent() {
@@ -242,11 +242,11 @@ const AllRoutes = () => {
             />
           ))}
         </Route>
-        <Route path={"/"} element={<Authpages />}>
+        {/* <Route path={"/"} element={<Authpages />}>
           {pagesRoute.map((route, id) => (
             <Route path={route.path} element={route.element} key={id} />
           ))}
-        </Route>
+        </Route> */}
       </Routes>
     </div>
   );
