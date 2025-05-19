@@ -81,7 +81,7 @@ adminaddinstitution:"/add-institution",
   eadminevaluation:"/eadmin/evaluationStatus",
 eadminstats:"/eadmin/evaluationStatus/viewlist",
 editeval:"/edit-evaluator",
-
+mentorprofile:"/mentorprofile",
 eadminEvaluationProcess:"/eadmin/evaluationProcess",
 eadminevaluator:"/eadmin/evaluator",
 eadminfinal:"/eadmin/evaluationStatus/viewfinallist",

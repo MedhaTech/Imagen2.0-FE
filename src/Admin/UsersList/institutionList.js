@@ -89,6 +89,8 @@ const handleSelect = (item, num) => {
      
 };
 const handleDeleteInstitution = (item) => {
+      // this function delete the Institution user //
+
   let supId;
   if(typeof(item.mentor_id) !== "string"){
 supId = encryptGlobal(

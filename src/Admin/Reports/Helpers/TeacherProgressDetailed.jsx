@@ -241,6 +241,8 @@ const TeacherProgressDetailed = () => {
     fetchData(filterType);
   };
   const fetchData = (item) => {
+   // This function filters  data based on selected district, college_type
+
     const apiRes = encryptGlobal(
       JSON.stringify({
         district: district,

@@ -3,18 +3,8 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'reactstrap';
-// import { Tabs } from 'antd';
-// import Layout from '../../Admin/Layout';
-import { BsUpload } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
-import { connect } from 'react-redux';
-import {
-    getAdmin,
-    getAdminEvalutorsList,
-    getAdminMentorsList,
-    getAdminMentorsListSuccess,
-    updateMentorStatus
-} from '../../redux/actions';
+
 import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
 import { MaskedEmail ,MaskedMobile} from "../../RegPage/MaskedData.js";
@@ -23,9 +13,7 @@ import { getNormalHeaders } from '../../helpers/Utils';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 
-// import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
-import logout from '../../assets/img/logout.png';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -33,11 +21,7 @@ import Select from './Select.js';
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 
-import { Badge } from 'react-bootstrap';
-import CommonPage from '../../components/CommonPage';
 import { useDispatch } from 'react-redux';
-import dist from 'react-data-table-component-extensions';
-// import ClipLoader from 'react-spinners/ClipLoader';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
 import { stateList ,districtList} from '../../RegPage/ORGData.js';
 
@@ -118,6 +102,7 @@ const fiterDistData = [...districtList["Telangana"]];
         }
       };
     const handleDeleteStudent = (id) => {
+      // this function delete the crew user //
       let supId;
       if(typeof(id) !== "string"){
     supId = encryptGlobal(
@@ -169,6 +154,8 @@ const fiterDistData = [...districtList["Telangana"]];
         });
       };
       const handleDeletePilot = (id) => {
+      // this function delete the pilot user //
+
         let supId;
             if(typeof(id) !== "string"){
           supId = encryptGlobal(

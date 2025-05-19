@@ -10,7 +10,6 @@ import 'react-data-table-component-extensions/dist/index.css';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { encryptGlobal } from '../../constants/encryptDecrypt';
 import DoughnutChart from '../../Teacher/Dashboard/TeamsProgDD';
 
 
@@ -22,8 +21,6 @@ import { Table} from "react-bootstrap";
 const InstProfile = (props) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const [button, setButton] = useState('');
-    const [data, setData] = useState('');
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
    
@@ -73,6 +70,8 @@ const InstProfile = (props) => {
             .catch((err) => console.log(err.response));
     };
       const handleResetApi = () => {
+      // this function reset the password for Institution 
+
         const body = JSON.stringify({
             email: StudentsDaTa.username_email,
             otp: false,

@@ -65,6 +65,8 @@ const Register = () => {
     AllCollegesApi(selectedCollegeType, existingColleges);
   };
   const AllCollegesApi = (item,existingColleges) => {
+    // this function fetches all college names list related to college type from the API 
+
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
@@ -267,8 +269,7 @@ const Register = () => {
     formik.setFieldValue("otp", "");
   }, [formik.values.email]);
   async function apiCall(mentData) {
-    // Dice code list API //
-    // where list = diescode  //
+          // this function Sends a request to trigger the mentor welcome email
     const body = {
       college_name: mentData.college_name,
       college_type: mentData.college_type,
@@ -306,6 +307,8 @@ const Register = () => {
     formik.setFieldValue("whatapp_mobile", "");
   }, [formik.values.mobile.length == 0]);
   const handleSendOtp = async (e) => {
+    // This function  Sends a request to generate and send OTP to the user's mobile and email
+
     formik.setFieldValue("mobile", formik.values.mobile);
     setTimer(60);
 

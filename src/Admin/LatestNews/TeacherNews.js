@@ -29,6 +29,8 @@ const AdminLatestNews = () => {
         teacherList();
     }, []);
     const teacherList = () => {
+        // This function fetches Institution latest news list  from the API //
+
         let teacherParam = encryptGlobal(
             JSON.stringify({
                 category: 'Institution'
@@ -60,6 +62,8 @@ const AdminLatestNews = () => {
         setReqList(false);
     };
     async function handleNewStatus(data, value) {
+        // This function updates status with the value // 
+
         const body = {
             status: "ACTIVE",
             category: data.category,
@@ -225,6 +229,8 @@ const AdminLatestNews = () => {
             });
     };
     async function handleNewStuStatus(item, number) {
+       // This function updates  status with the given category and details //
+
         const body = {
             status: "ACTIVE",
             category: item.category,
@@ -264,6 +270,8 @@ const AdminLatestNews = () => {
             });
     }
     const stuList = () => {
+        // This function fetches student latest news list  from the API //
+
         const stuParam = encryptGlobal(
             JSON.stringify({
                 category: 'Student'

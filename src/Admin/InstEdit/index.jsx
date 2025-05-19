@@ -15,6 +15,8 @@ const InstOption = () => {
     AllCollegesApi();
   }, []);
   const AllCollegesApi = () => {
+    // this function fetches all college names list related to college type from the API 
+
     var config = {
       method: "get",
       url:

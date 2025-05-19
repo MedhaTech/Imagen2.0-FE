@@ -19,6 +19,8 @@ const Createpopup = () => {
 
 
   const fileHandler = (e) => {
+    // Handles file selection and reads the selected file //
+
     let file = e.target.files[0];
 
     if (!file) {

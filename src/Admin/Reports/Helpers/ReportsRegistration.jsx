@@ -262,7 +262,10 @@ const ReportsRegistration = () => {
         setIsDownloading(true);
         fetchData();
     };
+
     const fetchData = () => {
+   // This function filters  data based on selected district, college_type
+
         const param = encryptGlobal(
             JSON.stringify({
                 district: RegTeachersdistrict,
