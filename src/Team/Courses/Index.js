@@ -16,6 +16,7 @@ const Index = () => {
     fetchstudentdetails();
   }, []);
   async function fetchstudentdetails() {
+    // this function fetches current user course details
     const fectchTecParam = encryptGlobal(JSON.stringify(currentUser?.data[0]?.student_id));
     try {
       const response = await axios.get(
@@ -69,7 +70,6 @@ const Index = () => {
                           <h6 
                           className="product-name col-sm-6 col-md-6 col-lg-3 col-xl-6" 
                           style={{ fontSize: '1.2rem', marginTop: '1rem', textAlign:"center"}}
-                          // className="product-name"
                           >
                             <Link to='/studentcourse/VTJGc2RHVmtYMThUMXFCOXBiWTZReGN3dXdSU3JzSlJYM3NwblpZSVlSZz0='>Course 1</Link>
                           </h6>

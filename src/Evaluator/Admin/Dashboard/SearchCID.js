@@ -95,6 +95,8 @@ const SearchCID = () => {
   };
 
   const handleL1Round = (handledText) => {
+    // this function accept / reject the Idea //
+
     const currentTime = new Date().toLocaleString();
 
     const body = JSON.stringify({

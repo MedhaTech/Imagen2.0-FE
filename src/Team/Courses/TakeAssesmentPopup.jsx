@@ -2,7 +2,6 @@
 /* eslint-disable indent */
 import { Fragment, React, useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-// import { Button } from "../../../stories/Button.jsx";
 import ModuleAssesmentImg from "../../assets/img/moduleAssesmentPopup.svg";
 import Quiz from "../../Admin/Quiz/Quiz";
 import { useTranslation } from "react-i18next";
@@ -45,9 +44,7 @@ function TakeAssesmentPopup(props) {
               />
             </figure>
             <button
-              // label={t('student.lets_start')}
-              // btnClass="primary mt-4"
-              // size="small"
+             
               className="btn btn-warning"
               onClick={() => setHideQuiz(true)}
             >

@@ -1,12 +1,8 @@
 /* eslint-disable indent */
 import React from 'react';
 
-// import { useLocation } from 'react-router-dom';
 
 const RatedDetailCard = (props) => {
-    // const { search } = useLocation();
-    // const level = new URLSearchParams(search).get('level');
-    console.warn(props);
     const [overAll, setOverAll] = React.useState('');
     const [novelity, setNovelity] = React.useState(0);
     const [usefulness, setUsefulness] = React.useState(0);
@@ -30,26 +26,7 @@ const RatedDetailCard = (props) => {
         }
     }, [props]);
     
-    // React.useEffect(() => {
-    //     if (props?.details?.evaluator_ratings.length > 0) {
-    //         const average = (arr) =>
-    //             arr.reduce((p, c) => p + c, 0) / arr.length;
-    //         setOverAll(average(props?.details?.evaluator_ratings[0]?.overall));
-    //         setNovelity(average(props?.details?.evaluator_ratings[0]?.param_1));
-    //         setUsefulness(
-    //             average(props?.details?.evaluator_ratings[0]?.param_2)
-    //         );
-    //         setFeasability(
-    //             average(props?.details?.evaluator_ratings[0]?.param_3)
-    //         );
-    //         setScalability(
-    //             average(props?.details?.evaluator_ratings[0]?.param_4)
-    //         );
-    //         setSustainability(
-    //             average(props?.details?.evaluator_ratings[0]?.param_5)
-    //         );
-    //     }
-    // }, [props]);
+  
     return (
         <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
             <div className="row">

@@ -232,6 +232,7 @@ const ReportL1 = () => {
     fetchData();
   };
   const fetchData = () => {
+   // This function filters  data based on selected  district, college type, theme, and evaluation status
   
     const param = encryptGlobal(
       JSON.stringify({

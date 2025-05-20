@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
-// import Layout from '../Pages/Layout';
 import { Row, Col, Label, Container, Card, } from 'reactstrap';
 import { Button } from '../../../stories/Button';
 import {
@@ -14,11 +13,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { URL, KEY } from '../../../constants/defaultValues';
 import Check from './Pages/Check';
 import { useDispatch, useSelector ,} from 'react-redux';
-// import { getStateData } from '../../../redux/studentRegistration/actions';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { stateList, districtList } from "../../../RegPage/ORGData.js";
 const EditEvalProcess = (props) => {
-    const location = useLocation();
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
     //  where evalID= evaluation_process_id //
     const dispatch = useDispatch();
@@ -27,17 +24,8 @@ const EditEvalProcess = (props) => {
 const navigate = useNavigate();
 const fullStatesNames = [...districtList["Telangana"]];
 fullStatesNames.unshift("All Districts");
-// const newstateList = ["All Districts", ...districtList];
-//     const fullStatesNames = newstateList;
-
     useEffect(() => {
-        // evalID && evalID.state
-        //     ? evalID.state.split(',').length ===
-        //           fullStatesNames.length - 1 &&
-        //       !evalID.state.includes('All Districts')
-        //         ? setselectedStates(fullStatesNames)
-        //         : setselectedStates(evalID.state.split(','))
-        //     : '';
+      
         if (evalID && evalID.district) {
             if (
                 evalID.district.split(',').length ===
@@ -157,31 +145,8 @@ fullStatesNames.unshift("All Districts");
                     </Row>
                 </Card>
 
-                {/* <Row>
-                    <Col className="col-xs-12 col-sm-6">
-                       
-                          <button
-                            type="button"
-                            onClick={() => navigate('/eadmin/evaluationProcess')}
-                            className="btn btn-secondary"
-                            style={{ marginLeft: "30px" }}
-                            >
-                            Discard
-                            </button>
-
-                    </Col>
-                    <Col className="submit-btn col-xs-12 col-sm-6 text-right">
-                        <Button
-                        
-                            label="Save"
-                            onClick={() => handleclick()}
-                            btnClass={'primary'}
-                            size="small"
-                        />
-                    </Col>
-                </Row>  */}
+               
                 <Row className="align-items-center">
-    {/* Left Column */}
     <Col xs={12} sm={6} className="text-left">
         <button
             type="button"
@@ -193,7 +158,6 @@ fullStatesNames.unshift("All Districts");
         </button>
     </Col>
 
-    {/* Right Column */}
     <Col xs={12} sm={6} className="text-right">
         <Button
             label="Save"

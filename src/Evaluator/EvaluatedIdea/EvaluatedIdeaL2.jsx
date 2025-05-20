@@ -3,20 +3,14 @@
 
 import React, { useEffect, useState } from 'react';
 import './EvaluatedIdea.scss';
-// import Layout from '../Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
-import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { getL1EvaluatedIdea } from '../store/evaluator/action';
 import EvaluatedIdeaDetail from './EvaluatedIdeaDetail';
 import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
-import {
-    getDistrictData,
-    getStateData
-} from '../../redux/studentRegistration/actions';
-// import { cardData } from '../../Student/Pages/Ideas/SDGData';
+
 import { Button } from '../../stories/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import { stateList, districtList } from "../../RegPage/ORGData";
@@ -26,8 +20,6 @@ const EvaluatedIdea = () => {
     const dispatch = useDispatch();
     const [showspin, setshowspin] = React.useState(false);
     const [district, setdistrict] = React.useState('');
-    const [state, setState] = useState('');
-    const [selectstate, setSelectState] = React.useState("");
 
     const [sdg, setsdg] = React.useState('');
     const evaluatedIdeaList = useSelector(
@@ -35,35 +27,13 @@ const EvaluatedIdea = () => {
     );
 
     const newThemesList = ["All Themes", ...themesList];
-    const newstateList = ["All States", ...stateList];
-    const allDistricts = {
-        "All Districts": [...Object.values(districtList).flat()],
-        ...districtList,
-      };
-      // const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
-    //   const fiterDistData = selectstate === "All States" 
-    // ? []  
-    // : ["All Districts", ...(allDistricts[selectstate] || [])];
-    const fullStatesNames = newstateList;
+   
+     
  const fiterDistData = [...districtList["Telangana"]];
         fiterDistData.unshift("All Districts");
-    // const SDGDate = cardData.map((i) => {
-    //     return i.goal_title;
-    // });
-    // SDGDate.unshift('All Themes');
-    // const fullStatesNames = useSelector(
-    //     (state) => state?.studentRegistration?.regstate
-    // );
-    // const fullDistrictsNames = useSelector(
-    //     (state) => state?.studentRegistration?.dists
-    // );
-
+    
     const [tabledate, settabledate] = React.useState([]);
-//  useEffect(() => {
-//         // if (selectstate === "All States") {
-//             setdistrict('');  // Reset the district value
-//         //   }
-//     }, [selectstate]);
+
    
     useEffect(() => {
         if (district === '') {
@@ -78,7 +48,6 @@ const EvaluatedIdea = () => {
         const newQuery = {
             evaluation_status : 'SELECTEDROUND1',
             level:'L2',
-            // state: selectstate !== 'All States' ? selectstate : '',
             district: district !== 'All Districts' ? district : '',
 
             theme: sdg !== 'All Themes' ? sdg : '',
@@ -86,11 +55,7 @@ const EvaluatedIdea = () => {
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(newQuery, setshowspin));
     };
-    // const levelparam = '?evaluation_status=SELECTEDROUND1&level=L2';
-    // const districtparam =
-    //     state && state !== 'All States' ? '&state=' + state : '';
-    // const sdgparam = sdg && sdg !== 'All Themes' ? '&sdg=' + sdg : '';
-    // const filterParams = levelparam + districtparam + sdgparam;
+   
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState([]);
     const [currentRow, setCurrentRow] = React.useState(1);
@@ -111,38 +76,13 @@ const EvaluatedIdea = () => {
                 sortable: true,
                 width: '6rem'
             },
-            // {
-            //     name: 'State',
-            //     selector: (row) => row.state,
-            //     width: '10rem'
-            // },
+           
             {
                 name: 'District',
                 selector: (row) => row.district,
                 width: '10rem'
             },
-            // {
-            //     name: "College Type",
-            //     selector: (row) => row.college_type,
-            //     width: "10rem",
-            //   },
-            //   {
-            //     name: "College Name",
-            //     selector: (row) => row.college_name,
-            //     width: "10rem",
-            //   },
-            // {
-            //     name: 'Udise Code',
-            //     selector: (row) => row.
-            //     organization_code
-            //     ,
-            //     width: '9rem'
-            // },
-            // {
-            //     name: 'Team Name',
-            //     selector: (row) => row.team_name,
-            //     width: '10rem'
-            // },
+           
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
@@ -163,27 +103,13 @@ const EvaluatedIdea = () => {
                 width: '15rem'
             },
 
-            // {
-            //     name: 'Problem Statement',
-            //     cell: (row) => (
-            //         <div
-            //             style={{
-            //                 whiteSpace: 'pre-wrap',
-            //                 wordWrap: 'break-word'
-            //             }}
-            //         >
-            //             {row.sub_category}
-            //         </div>
-            //     ),
-            //     width: '25rem'
-            // },
+          
             {
                 name: 'Idea Name',
                 cell: (row) => (
                     <div
                         style={{
-                            // whiteSpace: 'pre-wrap',
-                            // wordWrap: 'break-word'
+                            
                             whiteSpace: 'nowrap',       
                             overflow: 'hidden',         
                             textOverflow: 'ellipsis',
@@ -200,16 +126,7 @@ const EvaluatedIdea = () => {
                 selector: (row) => row.initiated_name,
                 width: '8rem'
             },
-            // {
-            //     name: 'Evaluated At',
-            //     selector: (row) =>
-            //         row?.evaluator_ratings[0]?.created_at
-            //             ? moment(row?.evaluator_ratings[0]?.created_at).format(
-            //                   'DD-MM-YY h:mm:ss a'
-            //               )
-            //             : row?.evaluator_ratings[0]?.created_at,
-            //     width: '10rem'
-            // },
+           
             {
                 name: 'Overall',
 
@@ -299,16 +216,7 @@ const EvaluatedIdea = () => {
                                 <h4 >L2 Evaluated Idea</h4>
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
-                                        {/* <Col md={2}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={fullStatesNames}
-                                                    setValue={setSelectState}
-                                                    placeHolder={'Select District'}
-                                                    value={selectstate}
-                                                />
-                                            </div>
-                                        </Col> */}
+                                       
                                         <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                             <Select

@@ -93,6 +93,8 @@ const ViewDetail = (props) => {
   };
 
   const handleL1Round = (handledText) => {
+    // this function accept / reject the Idea //
+
     const body = JSON.stringify({
      status: handledText == "accept" ? "SELECTEDROUND1" : "REJECTEDROUND1",
       rejected_reason: handledText == "reject" ? reason : "",

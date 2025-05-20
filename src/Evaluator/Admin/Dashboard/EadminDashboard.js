@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 import { KEY, URL } from '../../../constants/defaultValues';
 import { getNormalHeaders } from '../../../helpers/Utils';
 const Dashboard = () => {
-  const currentUser = getCurrentUser('current_user');
  
   const [dateCount, setdateCount] = useState({});
 
@@ -23,6 +22,8 @@ const Dashboard = () => {
   }, []);
 
   async function handlecountvalue() {
+               // This function fetches all counts of stats of ideas count the API //
+
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       await axios
           .get(`${URL.gettotalcount}`, axiosConfig)

@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import Confetti from "react-confetti";
-// import { useHistory } from "react-router-dom";
-import ResultStar from "../../assets/img/quiz-result-star.png";
 import { Button } from "../../stories/Button";
 import succesImg from "../../assets/img/success1.jpeg";
 import { useTranslation } from "react-i18next";
@@ -13,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 
 const CourseSuccessMessage = () => {
   const { t } = useTranslation();
-  // const history = useHistory();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
@@ -34,10 +31,7 @@ const CourseSuccessMessage = () => {
       <Confetti className="w-100" />
       <div className="row justify-content-md-center ">
         <div className="col col-lg-9">
-          {/* <div className="results-heading"> */}
-
-            {/* <img src={ResultStar} alt="star" /> */}
-          {/* </div> */}
+         
           <div className="congratulations text-center">
             <div className="success_img text-center w-100">
             <Confetti className="w-100" />
@@ -61,8 +55,7 @@ const CourseSuccessMessage = () => {
               size="small"
               onClick={() => handleClick(true)}
             />
-            {/* {t("student_course.go_idea_submission")}
-            </button> */}
+          
           </div>
         </div>
       </div>

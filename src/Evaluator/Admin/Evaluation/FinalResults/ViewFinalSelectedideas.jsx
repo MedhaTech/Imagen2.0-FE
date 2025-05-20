@@ -19,7 +19,6 @@ import { useDispatch } from 'react-redux';
 import { getCurrentUser, getNormalHeaders } from '../../../../helpers/Utils';
 import { Spinner } from 'react-bootstrap';
 
-import { useReactToPrint } from 'react-to-print';
 import { encryptGlobal } from '../../../../constants/encryptDecrypt.js';
 import { stateList, districtList } from "../../../../RegPage/ORGData.js";
 import { themesList } from "../../../../Team/IdeaSubmission/themesData.js";
@@ -80,6 +79,8 @@ const ViewSelectedIdea = () => {
     };
 
     async function promoteapi(id) {
+        // this function update the status 
+
         const body = JSON.stringify({ final_result: '1' });
         const promPram = encryptGlobal(JSON.stringify(id));
         var config = {
@@ -111,6 +112,8 @@ const ViewSelectedIdea = () => {
     };
 
     async function handleideaList() {
+        // this function fetches all ideas list from the API
+
         settableData({});
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const apiParam = encryptGlobal(

@@ -26,7 +26,6 @@ import { Spinner } from "react-bootstrap";
 import Swal from "sweetalert2/dist/sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import logout from "../../../../assets/img/logout.png";
-import { useReactToPrint } from "react-to-print";
 import { encryptGlobal } from "../../../../constants/encryptDecrypt.js";
 import { stateList, districtList } from "../../../../RegPage/ORGData.js";
 import { themesList } from "../../../../Team/IdeaSubmission/themesData.js";
@@ -120,6 +119,8 @@ const ViewSelectedideasNew = () => {
         });
 };
   async function promoteapi(id) {
+        // this function update the status
+
     const promoteId = encryptGlobal(JSON.stringify(id));
     const body = JSON.stringify({ final_result: "0" });
     var config = {
@@ -152,6 +153,8 @@ const ViewSelectedideasNew = () => {
   };
 
   async function handleideaList() {
+        // this function fetches all ideas list from the API
+
     level === "L1" && title !== "L1 - Yet to Processed"
       ? (newQuery["evaluation_status"] = evaluation_status)
       : level === "L1" && title === "L1 - Yet to Processed"

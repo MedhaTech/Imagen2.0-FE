@@ -478,7 +478,6 @@ const NextLevel = (props) => {
                         </div>
                     </div>
 
-                    {/* //-----------Rating section---- */}
 
                     <RateIdea
                         challenge_response_id={
@@ -487,7 +486,6 @@ const NextLevel = (props) => {
                         evaluator_id={currentUser?.data[0]?.user_id}
                         level={'L2'}
                         topRef={props?.topRef}
-                        // setIsNextDiv={props?.setIsNextDiv}
                     />
                 </>
             ) : (

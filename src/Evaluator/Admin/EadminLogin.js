@@ -2,13 +2,11 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 import React, { useState, useLayoutEffect } from "react";
-// import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-// import logo from "../../assets/img/new-logo.png";
 import email from "../../assets/img/icons/mail.svg";
 import { openNotificationWithIcon } from "../../helpers/Utils";
 import { evaluatorAdminLoginUser } from "../../redux/actions";
@@ -76,7 +74,6 @@ const StateLogin = (props) => {
         username: values.email,
         password: encrypted,
         role: "EADMIN",
-        // role: 'STATE',
       };
 
       props.evaluatorAdminLoginUserAction(body, navigate, "EADMIN");
@@ -93,7 +90,6 @@ const StateLogin = (props) => {
                   <img
                     src={logo}
                     alt="Logo"
-                    // className="logo-image"
                   />
                 </div>
 
@@ -102,9 +98,7 @@ const StateLogin = (props) => {
                   <h4>
                     Access the Evaluator Admin panel using your Email and Password.
                   </h4>
-                  {/* <h4>
-                    Access the Dreamspos panel using your email and passcode.
-                  </h4> */}
+                  
                 </div>
                 <div className="form-login mb-3">
                   <label className="form-label">Email Address</label>
@@ -131,7 +125,6 @@ const StateLogin = (props) => {
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
                       placeholder="Please Enter password"
-                      // className="pass-input form-control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -148,33 +141,15 @@ const StateLogin = (props) => {
                       <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
                     ) : null}
                 </div>
-                {/* <div className="form-login authentication-check">
-                  <div className="row">
-                    <div className="col-12 d-flex align-items-center justify-content-between">
-                      <div className="custom-control custom-checkbox">
-                        <label className="checkboxs ps-4 mb-0 pb-0 line-height-1">
-                          <input type="checkbox" className="form-control" />
-                          <span className="checkmarks" />
-                          Remember me
-                        </label>
-                      </div>
-                      <div className="text-end">
-                        <Link className="forgot-link">Forgot Password?</Link>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
+               
                  <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 
                   <button
-                    // className="btn btn-login"
                     type="submit"
                     className={`btn btn-login ${
                       !(formik.dirty && formik.isValid) ? "default" : "primary"
                     }`}
-                    // btnClass={
-                    //   !(formik.dirty && formik.isValid) ? "default" : "primary"
-                    // }
+                   
                     disabled={!(formik.dirty && formik.isValid)}
                   >
                     Sign In
