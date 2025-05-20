@@ -77,7 +77,7 @@ const ViewSelectedideasNew = () => {
   //   selectstate === "All States"
   //     ? []
   //     : ["All Districts", ...(allDistricts[selectstate] || [])];
-      const fiterDistData = [...districtList["Telangana"]];
+      const fiterDistData = [...districtList["Andhra Pradesh"]];
           fiterDistData.unshift("All Districts");
   // useEffect(() => {
   //     setdistrict(""); 

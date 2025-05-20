@@ -46,7 +46,7 @@ const EvaluatedIdea = () => {
     //   const fiterDistData = selectstate === "All States" 
     // ? []  
     // : ["All Districts", ...(allDistricts[selectstate] || [])];
-     const fiterDistData = [...districtList["Telangana"]];
+     const fiterDistData = [...districtList["Andhra Pradesh"]];
         fiterDistData.unshift("All Districts");
     // const fullStatesNames = fiterDistData;
 

@@ -106,7 +106,7 @@ const [institution,setInstitution]=useState("");
     const [loading, setLoading] = useState(false);
 const updateStatesList=["All States",...stateList];
  const currentUser = getCurrentUser("current_user");
-const fiterDistData = [...districtList["Telangana"]];
+const fiterDistData = [...districtList["Andhra Pradesh"]];
   fiterDistData.unshift("All Districts");
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');

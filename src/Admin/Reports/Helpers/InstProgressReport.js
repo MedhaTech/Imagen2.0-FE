@@ -88,8 +88,8 @@ const InstProgressDetailed = () => {
     datasets: [],
   });
   const fullStatesNames = newstateList;
-  // const fiterDistData = districtList["Telangana"];
-  const fiterDistData = [...districtList["Telangana"]];
+  // const fiterDistData = districtList["Andhra Pradesh"];
+  const fiterDistData = [...districtList["Andhra Pradesh"]];
   fiterDistData.unshift("All Districts");
 
   useEffect(() => {
