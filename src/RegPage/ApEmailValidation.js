@@ -27,7 +27,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [otpSent, setOtpSent] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  const [districtData, setDistrictData] = useState(districtList["Telangana"] || []);
+  const [districtData, setDistrictData] = useState(districtList["Andhra Pradesh"] || []);
   const [stateData, setStateData] = useState();
   const [diesCode, setDiesCode] = useState("");
   const [orgData, setOrgData] = useState({});

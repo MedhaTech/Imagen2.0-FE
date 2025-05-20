@@ -45,7 +45,7 @@ const EvaluatedIdea = () => {
     // ? []  
     // : ["All Districts", ...(allDistricts[selectstate] || [])];
     const fullStatesNames = newstateList;
- const fiterDistData = [...districtList["Telangana"]];
+ const fiterDistData = [...districtList["Andhra Pradesh"]];
         fiterDistData.unshift("All Districts");
     // const SDGDate = cardData.map((i) => {
     //     return i.goal_title;
