@@ -34,7 +34,7 @@ const ResendEmail = () => {
     type: "text",
     className: "form-control",
   };
- const allData = [...districtList["Telangana"]];
+ const allData = [...districtList["Andhra Pradesh"]];
  allData.unshift("All Districts");
   const formik = useFormik({
     initialValues: {

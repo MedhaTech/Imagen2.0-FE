@@ -65,7 +65,7 @@ const ReportL1 = () => {
     "All Districts": [...Object.values(districtList).flat()],
     ...districtList,
   };
- const fiterDistData = [...districtList["Telangana"]];
+ const fiterDistData = [...districtList["Andhra Pradesh"]];
      fiterDistData.unshift("All Districts");
   const [downloadData, setDownloadData] = useState(null);
   const [downloadNotRegisteredData, setDownloadNotRegisteredData] =

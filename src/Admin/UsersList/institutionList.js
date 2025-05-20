@@ -32,7 +32,7 @@ const TicketsPage = (props) => {
   const [tableData, settableData] = React.useState([]);
   const [showspin, setshowspin] = React.useState(false);
  const currentUser = getCurrentUser("current_user");
-  const fiterDistData = [...districtList["Telangana"]];
+  const fiterDistData = [...districtList["Andhra Pradesh"]];
   fiterDistData.unshift("All Districts");
   const [state, setState] = useState("");
 

@@ -31,7 +31,7 @@ const State = (props) => {
     const [clickedValue, setclickedValue] = useState({});
     const [selectedStates, setselectedStates] = useState([]);
 const navigate = useNavigate();
-const fullStatesNames = [...districtList["Telangana"]];
+const fullStatesNames = [...districtList["Andhra Pradesh"]];
 fullStatesNames.unshift("All Districts");
 
     useEffect(() => {
