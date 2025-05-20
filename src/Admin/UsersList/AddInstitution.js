@@ -17,7 +17,7 @@ import Select from "react-select";
 
 const AddInstitution = () => {
   const navigate = useNavigate();
-  const [districtData, setDistrictData] = useState(districtList["Telangana"] || []);
+  const [districtData, setDistrictData] = useState(districtList["Andhra Pradesh"] || []);
  
   const [areInputsDisabled, setAreInputsDisabled] = useState(false);
  

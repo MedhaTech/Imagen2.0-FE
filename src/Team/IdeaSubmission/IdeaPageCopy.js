@@ -369,7 +369,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       title: title,
       solve: solve,
       initiated_by: currentUser?.data[0]?.user_id,
-      state: "Telangana",
+      state: "Andhra Pradesh",
       district: currentUser?.data[0]?.district,
     };
    

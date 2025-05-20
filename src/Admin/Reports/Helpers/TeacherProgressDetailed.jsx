@@ -50,7 +50,7 @@ const TeacherProgressDetailed = () => {
     datasets: [],
   });
  
-  const fiterDistData = [...districtList["Telangana"]];
+  const fiterDistData = [...districtList["Andhra Pradesh"]];
   fiterDistData.unshift("All Districts");
 
   useEffect(() => {

@@ -46,7 +46,7 @@ const ReportL1 = () => {
 
   const collegeList = ["All Types", ...collegeType];
 
- const fiterDistData = [...districtList["Telangana"]];
+ const fiterDistData = [...districtList["Andhra Pradesh"]];
      fiterDistData.unshift("All Districts");
   const [downloadData, setDownloadData] = useState(null);
  

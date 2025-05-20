@@ -22,7 +22,7 @@ const Register = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [districtData, setDistrictData] = useState(
-    districtList["Telangana"] || []
+    districtList["Andhra Pradesh"] || []
   );
   const [diesCode, setDiesCode] = useState("");
   const [orgData, setOrgData] = useState({});

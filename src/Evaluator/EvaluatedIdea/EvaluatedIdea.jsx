@@ -33,7 +33,7 @@ const EvaluatedIdea = () => {
 
     const newThemesList = ["All Themes", ...themesList];
    
-     const fiterDistData = [...districtList["Telangana"]];
+     const fiterDistData = [...districtList["Andhra Pradesh"]];
         fiterDistData.unshift("All Districts");
 
     const statusdata = ['Accepted', 'Rejected', 'Both'];
