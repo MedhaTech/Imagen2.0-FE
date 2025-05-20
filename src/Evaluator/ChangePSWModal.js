@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Form, Label } from 'reactstrap';
 import axios from 'axios';
-// import { InputBox } from '../stories/InputBox/InputBox';
 import CryptoJS from 'crypto-js';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -12,8 +10,6 @@ import { useTranslation } from 'react-i18next';
 import male from "../assets/img/imazenlogo1.jpg";
 
 import 'sweetalert2/src/sweetalert2.scss';
-import { FaEyeSlash, FaEye } from 'react-icons/fa';
-// import Layout from './Layout';
 import { useNavigate,Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
@@ -147,10 +143,7 @@ const ChangePSWModal = () => {
         placeholder: t('changepswd.Verify_New_password'),
         className: 'defaultInput'
     };
-    const handleOnCancel = () => {
-        // here we can cancel the changes //
-        history.push('/evaluator/submitted-ideas');
-    };
+  
     const handleShowPassword = (name) => {
         // here we can see the password //
         // here name = password //
@@ -194,16 +187,11 @@ const ChangePSWModal = () => {
               A strong password helps prevent unauthorized access to your
               account.
             </p>
-            {/* <h6>User Profile</h6> */}
           </div>
           <div>
-            {/* <button onClick={() => handleEdit() }className={"btn btn-primary"}>
-                      <img src={edit} alt="Edit" />
-                    </button> */}
-            {/* <h4>Update Personal Details.</h4> */}
+           
           </div>
         </div>
-        {/* /product list */}
         <form onSubmit={formik.handleSubmit}>
         <div className="card">
           <div className="card-body">
@@ -351,7 +339,6 @@ const ChangePSWModal = () => {
                               </div>
             </div>
 
-            {/* </div> */}
           </div>
         </div>
         </form>

@@ -312,7 +312,7 @@ const ReportL2 = () => {
   }, [studentDetailedReportsData]);
 
   const fetchData = () => {
-  
+   // This function filters  data based on selected  district, college type, theme
     const api = encryptGlobal(
       JSON.stringify({
         district: RegTeachersdistrict,

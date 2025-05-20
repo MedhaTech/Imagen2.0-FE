@@ -97,6 +97,8 @@ const IdeaDetail = (props) => {
     };
 
     const handleL1Round = (handledText) => {
+    // this function accept / reject the Idea //
+
         const body = JSON.stringify({
             status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
@@ -628,18 +630,7 @@ const IdeaDetail = (props) => {
                         </div>
                     </div>
 
-                    {/* //-----------Rating section---- */}
-                    {/* {evalSchema?.toLowerCase()=='rating_scale'? (
-                       <RateIdea
-                        challenge_response_id={props?.ideaDetails?.challenge_response_id}
-                        evaluator_id={currentUser?.data[0]?.user_id}
-                        level={levelName}
-                        setIsNextDiv={props?.setIsNextDiv}
-                       />
-                    ):
-                    <>
-                    </>
-                } */}
+                  
                 </>
             ) : (
                 <>

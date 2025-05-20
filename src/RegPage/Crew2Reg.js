@@ -38,7 +38,6 @@ const Crew2Reg = () => {
  
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
-    console.log("Selected College Type:", selectedCollegeType);
     
     formik.setFieldValue("collegeType", selectedCollegeType);
     setSelectedCollegeType(selectedCollegeType);

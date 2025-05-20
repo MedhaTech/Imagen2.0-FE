@@ -11,13 +11,11 @@ import RatedDetailCard from '../Pages/RatedDetailCard';
 
 import { Col, Container, Row } from 'reactstrap';
 import { Card } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
 
 const ViewDetail = (props) => {
     const { search } = useLocation();
     const level = new URLSearchParams(search).get('level');
     const [teamResponse, setTeamResponse] = React.useState({});
-    const { t } = useTranslation();
  const [images,setImages] = React.useState([]);
 
    
@@ -28,7 +26,6 @@ const ViewDetail = (props) => {
 
         }
     }, [props]);
-    const [pdfLoader, setPdfLoader] = React.useState(false);
    
     return (
         <div>
@@ -687,15 +684,7 @@ const ViewDetail = (props) => {
                     </div>
                     <br />
                     <div style={{ display: 'flex' }}>
-                        {/* <p
-                            style={{ fontSize: '1rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified By :{' '}
-                            {teamResponse.verified_name
-                                ? teamResponse.verified_name
-                                : '-'}
-                        </p> */}
+                       
                        
                     </div>
                     <div>

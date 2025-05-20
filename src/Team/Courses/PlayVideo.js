@@ -208,6 +208,8 @@ const PlayVideoCourses = (props) => {
     stuCoursePercent();
   }, []);
   const stuCoursePercent = () => {
+               // This function fetches students Course percentage from the API //
+
     const corseApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id
@@ -1424,7 +1426,6 @@ const PlayVideoCourses = (props) => {
   );
 };
 
-// export default withRouter(AdminPlayVideoCourses);
 
 const mapStateToProps = ({ adminCourses }) => {
   const { adminCoursesDetails, loading } = adminCourses;
