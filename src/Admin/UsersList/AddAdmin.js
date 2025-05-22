@@ -42,7 +42,10 @@ const Register = (props) => {
         username: Yup.string()
             .trim()
             .email('Invalid Email Address')
-            .required('Please Enter Email Address')
+            .required('Please Enter Email Address'),
+              role:Yup.string()
+            .trim()
+             .required('Please Select Admin Type'),
     });
 
     const formik = useFormik({
@@ -50,7 +53,7 @@ const Register = (props) => {
             username: '',
             full_name: '',
             password: '',
-            role: 'ADMIN'
+            role: ''
         },
 
         validationSchema: validationForAdmin,
@@ -199,6 +202,7 @@ const Register = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.role}
                                     >
+                                        <option value="">Please Select Admin Type</option>
                                         {dists.map((item, i) => (
                                             <option key={i} value={item}>
                                                 {item}

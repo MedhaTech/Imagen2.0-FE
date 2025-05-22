@@ -787,7 +787,7 @@ const IdeaReport = () => {
             </Row>
             {isloader ? (
               <div className="chart mt-2 mb-2">
-                {combinedArray.length > 0 && (
+                {combinedArray.length > 0 ? (
                   <div>
                     {/* <div className="row"> */}
 
@@ -1273,7 +1273,14 @@ const IdeaReport = () => {
                       </div>
                     </div>
                   // </div>
-                )}
+                ):
+                 <div className="d-flex justify-content-center align-items-center"
+   style={{ height: '60dvh', overflow: 'hidden' }}>
+  <div className="text-center">
+    <h6 className="text-muted">There are no records to display</h6>
+  </div>
+</div>
+                }
 
                 {downloadTableData && (
                   <CSVLink
