@@ -264,7 +264,7 @@ const Register = () => {
       .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
       .matches(/[A-Z]/, () => <span style={{ color: "red" }}>Password must contain at least one uppercase letter</span>)
       .matches(/\d/, () => <span style={{ color: "red" }}>Password must contain at least one number</span>)
-      .matches(/[@$!%*?&]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&)</span>)
+      .matches(/[@$!%*?&()]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&())</span>)
       .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
     
   
