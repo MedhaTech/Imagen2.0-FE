@@ -375,11 +375,11 @@ const Instructions = () => {
         console.log(error);
       });
   };
-// console.log(course,"cc",ideaStatus,"idea");
+console.log(course,"cc",ideaStatus,"idea");
 
 const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
 //   const handleCertificateDownload1 = () => {
-//     handlePrintCertificate();
+    // handlePrintCertificate();
 //   };
   const componentRef = useRef();
   const handlePrintCertificate = useReactToPrint({
@@ -390,7 +390,14 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
     <>
       <div className="page-wrapper">
         <div className="content">
-          <div className="row">
+
+          {course === true ? (
+          <><h3 className="mt-5 text-center">Congratulations on completing your course! 🎉 </h3><h5 className="mt-5 text-center">We appreciate your effort! Your certificate is being processed and will be available soon. Stay tuned!</h5></>
+          
+          ): (
+            <h3 className="mt-5 pt-5 text-center">Please Complete Course and Post Survey to get your Certificates</h3>
+        )}
+        {/* <div className="row">
             <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
               <div
                 className="employee-grid-profile"
@@ -408,14 +415,12 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                       to="#"
                       className="btn btn-lg text-bold"
                       style={{
-                        // backgroundColor: "#007e33",
                         backgroundColor: course === true ? "#007e33" : "#aaa",
                         color: "#fff",
                         padding: "1rem",
                         borderRadius: "20px",
                       }}
                       disabled={!(course === true)}
-                    //   onClick={handleCertificateDownload}
                       onClick={course === true ? handleCertificateDownload : (e) => e.preventDefault()}
                     >
                       <MdOutlineFileDownload size="27"/> DOWNLOAD CERTIFICATE
@@ -441,14 +446,12 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                       to="#"
                       className="btn btn-lg text-bold"
                       style={{
-                        // backgroundColor: "#007e33",
                         backgroundColor: ideaStatus === "SUBMITTED" ? "#007e33" : "#aaa",
                         color: "#fff",
                         padding: "1rem",
                         borderRadius: "20px",
                       }}
                       disabled={ideaStatus !== "SUBMITTED"}
-                    //   onClick={handleCertificateDownload1}
                       onClick={ideaStatus === "SUBMITTED" ? handleCertificateDownload1 : (e) => e.preventDefault()}
                     >
                       <MdOutlineFileDownload size="27"/> DOWNLOAD CERTIFICATE
@@ -474,7 +477,6 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                       to="#"
                       className="btn btn-lg text-bold"
                       style={{
-                        // backgroundColor: "#007e33",
                         backgroundColor: isEligible ? "#007e33" : "#aaa",
                         color: "#fff",
                         padding: "1rem",
@@ -488,7 +490,7 @@ const isEligible = status === "SUBMITTED" && score !== null && score >= 6.5;
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
