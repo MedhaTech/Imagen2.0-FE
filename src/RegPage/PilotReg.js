@@ -204,9 +204,9 @@ const PilotReg = () => {
             Password must contain at least one number
           </span>
         ))
-        .matches(/[@$!%*?&]/, () => (
+        .matches(/[@$!%*?&()]/, () => (
           <span style={{ color: "red" }}>
-            Password must contain at least one special character (@$!%*?&)
+            Password must contain at least one special character (@$!%*?&())
           </span>
         ))
         .required(() => (
