@@ -38,7 +38,7 @@ import * as XLSX from "xlsx";
 const IdeaReport = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
-  const [isloader, setIsloader] = useState(true);
+  const [isloader, setIsloader] = useState(false);
   const [selectstate, setSelectState] = React.useState("");
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
@@ -1272,7 +1272,6 @@ const IdeaReport = () => {
                         
                       </div>
                     </div>
-                  // </div>
                 ):
                  <div className="d-flex justify-content-center align-items-center"
    style={{ height: '60dvh', overflow: 'hidden' }}>
