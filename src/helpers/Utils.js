@@ -109,6 +109,9 @@ export const logout = (navigate, t, module, dispatch) => {
           case "STATE":
             navigate("/state");
             break;
+            case "MENTORSHIP":
+            navigate("/mentor");
+            break;
           default:
             navigate("/login");
         }

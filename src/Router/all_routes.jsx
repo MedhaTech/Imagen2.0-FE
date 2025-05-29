@@ -23,7 +23,7 @@ export const all_routes = {
   mentorEdit:"/admin-mentor-edit",
   studenttableview:"/student-view",
   insttableview:"/Institution-view",
-
+mentorshipchangePwd:"/mentorship-changePwd",
   stuedit:"/student-edit",
   instedit:"/Institution-edit",
 
@@ -77,6 +77,11 @@ adminaddinstitution:"/add-institution",
   mentorteams: "/mentorteams",
   newchat:"/new-chat",
   idea: "/idea",
+  MentorshipProfileEdit:"/Mentorship-ProfileEdit",
+  mentorshipdashboard:"/mentorship-dashboard",
+  mentorshipprofile:"/mentorship-profile",
+
+  mentorsucess:'/mentor-success',
   statedashboard: "/state-dashboard",
   eadmindashboard: "/eadmin/dashboard",
   eadminevaluation:"/eadmin/evaluationStatus",

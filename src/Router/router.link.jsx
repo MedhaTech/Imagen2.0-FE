@@ -116,6 +116,44 @@ import EvaluateL1 from "../Evaluator/EvaluatedIdea/EvaluatedIdea";
 import EvaluateL2 from "../Evaluator/EvaluatedIdea/EvaluatedIdeaL2";
 import EvaluatorProfile from "../Evaluator/EvaluatorProfile";
 import StuProfileEdit from "../Team/StuProfileEdit";
+import MentorShipDashboard from "../MentorShip/Dashboard/MentorShipDashboard";
+import MentorShipProfile from "../MentorShip/MentorShipProfile";
+import MentorshipChangePwd from "../MentorShip/MentorshipChangePwd";
+import MentorShipProfileEdit from "../MentorShip/MentorShipProfileEdit";
+export const mentorShipRoutes = [
+  {
+    id: 1,
+    path: routes.mentorshipdashboard,
+    name: "mentorshipdashboard",
+    element: <MentorShipDashboard />,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 2,
+    path: routes.mentorshipprofile,
+    name: "mentorshipprofile",
+    element: <MentorShipProfile />,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 3,
+    path: routes.mentorshipchangePwd,
+    name: "mentorshipchangePwd",
+    element: <MentorshipChangePwd />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 3,
+    path: routes.MentorshipProfileEdit,
+    name: "MentorshipProfileEdit",
+    element: <MentorShipProfileEdit />,
+    protected: true,
+    route: Route,
+  },
+];
 export const evaluatorRoutes = [
   {
     id: 1,
@@ -839,6 +877,7 @@ export const stateRoutes = [
     route: Route,
   },
 ];
+
 export const eadminRoutes = [
   {
     id: 1,

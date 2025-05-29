@@ -18,7 +18,7 @@ import {
   mentorRoutes,
   stateRoutes,
   eadminRoutes,
-  evaluatorRoutes,
+  evaluatorRoutes,mentorShipRoutes
 
 } from "./router.link";
 import { Outlet } from "react-router-dom";
@@ -55,6 +55,12 @@ import EvalHeader from "../InitialPage/Sidebar/evalHeader";
 import LoginEvaluator from "../Evaluator/LoginEvaluator";
 
 import EvalSidebar from "../InitialPage/Sidebar/evalSidebar";
+import MentorRegister from "../RegPage/Mentor/MentorReg";
+import MentorSuccess from "../RegPage/Mentor/MentorSuccess";
+import MentorLogin from "../MentorShip/MentorLogin";
+import MentorshipHead from "../InitialPage/Sidebar/MentorshipHeader";
+import MentorshipSide from "../InitialPage/Sidebar/MentorshipSidebar";
+
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
   const HeaderLayout = () => (
@@ -110,6 +116,15 @@ const AllRoutes = () => {
       <ThemeSettings />
     </div>
   );
+   const MentorShipHeaderLayout = () => (
+    <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
+      <MentorshipHead/>
+      <MentorshipSide />
+
+      <Outlet />
+      <ThemeSettings />
+    </div>
+  );
 
   // const Authpages = () => (
   //   <div className={data ? "header-collapse" : ""}>
@@ -132,6 +147,10 @@ const AllRoutes = () => {
         <Route path="/">
           
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/mentor-registration" element={<MentorRegister />} />
+          <Route path="/mentor" element={<MentorLogin />} />
+
+          <Route path="/mentor-success" element={<MentorSuccess />} />
           <Route path="/email" element={<ApEmailValidation/>} />
           <Route path="/institution-registration" element={<InstitutionReg />} />
           <Route path="/atl-success" element={<AtlSucess />} />
@@ -235,6 +254,21 @@ const AllRoutes = () => {
               element={
                 route.protected ? (
                   <ProtectedRoute user="EVALUATOR">{route.element}</ProtectedRoute>
+                ) : (
+                  route.element
+                )
+              }
+            />
+          ))}
+        </Route>
+        <Route path="/" element={<MentorShipHeaderLayout />}>
+          {mentorShipRoutes.map((route, id) => (
+            <Route
+              key={id}
+              path={route.path}
+              element={
+                route.protected ? (
+                  <ProtectedRoute user="MENTORSHIP">{route.element}</ProtectedRoute>
                 ) : (
                   route.element
                 )

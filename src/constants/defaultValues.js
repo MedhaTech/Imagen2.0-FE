@@ -56,6 +56,8 @@ export const URL = {
     process.env.REACT_APP_API_BASE_URL + "/dashboard/studentStats/",
   coordinatorLogin:
     process.env.REACT_APP_API_BASE_URL + "/state_coordinators/login",
+    mentorshipLogin:
+    process.env.REACT_APP_API_BASE_URL + "/mentorships/login",
   eadminLogin: process.env.REACT_APP_API_BASE_URL + "/admins/login?",
   evaluatorLogin: process.env.REACT_APP_API_BASE_URL + "/evaluators/login",
   getPreSurveyList: `${process.env.REACT_APP_API_BASE_URL}/quizSurveys`,
