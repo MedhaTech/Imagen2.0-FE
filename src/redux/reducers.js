@@ -10,6 +10,8 @@ import teacherCourses from "../Teacher/store/courses/reducer";
 import adminCourses from "../Admin/Courses/store/adminCourses/reducer";
 import teamUser from "../Team/store/reducers";
 import students from "./students/reducer";
+import mentorShip from "../MentorShip/store/reducer";
+
 import home from './home/reducer';
 import schoolRegistration from './schoolRegistration/reducers';
 import adminEvalutors from '../Admin/store/adminEvalutors/reducer';
@@ -17,6 +19,7 @@ import adminNotifications from '../Admin/store/adminNotifications/reducer';
 
 const reducers = combineReducers({
   admin,
+  mentorShip,
   home,
   mentors,
   adminEvalutors,

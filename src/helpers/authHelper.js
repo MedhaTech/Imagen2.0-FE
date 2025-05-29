@@ -30,8 +30,8 @@ const ProtectedRoute = ({ children, user }) => {
       return <Navigate to="/institution" />;
     } else if (user === "STUDENT") {
       return <Navigate to="/student" />;
-    // } else if (user.includes("TEAM")) {
-    //   return <Navigate to="/team" />;
+    } else if (user.includes("MENTORSHIP")) {
+      return <Navigate to="/mentor" />;
     } else if (user === "EVALUATOR") {
       return <Navigate to="/evaluator" />;
     }
