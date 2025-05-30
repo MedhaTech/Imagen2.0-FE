@@ -68,7 +68,11 @@ export const URL = {
   getTeamMembersList: `${process.env.REACT_APP_API_BASE_URL}/teams/`,
   getTeamsList: `${process.env.REACT_APP_API_BASE_URL}/teams`,
   getAdmin: process.env.REACT_APP_API_BASE_URL + '/admins/',
+  getMentorship: process.env.REACT_APP_API_BASE_URL + '/mentorships/',
+
   updateAdminStatus: process.env.REACT_APP_API_BASE_URL + '/admins',
+  updateMentorshipStatus: process.env.REACT_APP_API_BASE_URL + '/mentorships',
+
   adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins',
   deleteTempMentor: process.env.REACT_APP_API_BASE_URL + '/mentors/',
   studentResetPwd:

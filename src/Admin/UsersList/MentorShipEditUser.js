@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import {
   getCurrentUser,
   openNotificationWithIcon,
-} from "../helpers/Utils";
+} from "../../helpers/Utils";
 
 
 import { useLocation } from "react-router-dom";
@@ -14,17 +14,14 @@ import axios from "axios";
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { encryptGlobal } from "../constants/encryptDecrypt";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
-import {
-  genderList
-} from "../RegPage/ORGData.js";
 
 
-const MentorShipProfileEdit = () => {
+
+const MentorShipEditUser = () => {
   const location = useLocation();
   const MentorShiptData = location.state || {};
-  // console.log(MentorShiptData,"mm");
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
 
@@ -134,7 +131,7 @@ const MentorShipProfileEdit = () => {
         body["mobile"] = values.mobile;
     }
     
-      const teamparamId = encryptGlobal(JSON.stringify(currentUser?.data[0]?.mentorship_id));
+      const teamparamId = encryptGlobal(JSON.stringify(MentorShiptData.mentorship_id));
       var config = {
         method: "put",
         url: process.env.REACT_APP_API_BASE_URL + "/mentorships/" + teamparamId,
@@ -152,7 +149,7 @@ const MentorShipProfileEdit = () => {
               "success",
               "Mentorship Details Updated Successfully "
             );
-            navigate("/mentorship-profile");
+            navigate("/admin-mentorship-list");
           } else {
             openNotificationWithIcon("error", "Opps! Something Wrong");
           }
@@ -356,7 +353,7 @@ const MentorShipProfileEdit = () => {
                         <button
                           className="btn btn-warning m-2"
                           type="button"
-                          onClick={() => navigate("/mentorship-profile")}
+                          onClick={() => navigate("/admin-mentorship-list")}
                         >
                           Cancel
                         </button>
@@ -373,4 +370,4 @@ const MentorShipProfileEdit = () => {
   );
 };
 
-export default MentorShipProfileEdit;
+export default MentorShipEditUser;

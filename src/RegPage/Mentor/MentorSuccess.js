@@ -33,7 +33,7 @@ const MentorSuccess = () => {
                 </h4>
                <h4 style={{ color: "black" }}>
                   <b>Mentorship Login ID : </b>{" "}
-                  <b style={{ color: "blue" }}>{mentorData.email}</b>{" "}
+                  <b style={{ color: "blue" }}>{mentorData.email}</b>{" "}<br/>
                   <b>Password :</b> <b style={{ color: "blue" }}>{mentorData.mobile}</b>
                 </h4>
               </div>
@@ -43,7 +43,7 @@ const MentorSuccess = () => {
               <div className="signinform">
                 <h4>
                   Want to Login ?
-                  <Link className="hover-a" to={"/mentor"}>
+                  <Link className="hover-a" to={"/mentorship"}>
                     {" "}
                     Login
                   </Link>
