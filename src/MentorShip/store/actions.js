@@ -69,7 +69,7 @@ export const mentorShipLoginUserLogOut = (navigate) => async () => {
     if (result && result.status === 200) {
       setCurrentUser();
       localStorage.removeItem("headerOption");
-      navigate("/mentor");
+      navigate("/mentorship");
     }
   } catch (error) {
     console.log("error");

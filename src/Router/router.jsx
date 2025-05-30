@@ -147,8 +147,8 @@ const AllRoutes = () => {
         <Route path="/">
           
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/mentor-registration" element={<MentorRegister />} />
-          <Route path="/mentor" element={<MentorLogin />} />
+          <Route path="/mentorship-registration" element={<MentorRegister />} />
+          <Route path="/mentorship" element={<MentorLogin />} />
 
           <Route path="/mentor-success" element={<MentorSuccess />} />
           <Route path="/email" element={<ApEmailValidation/>} />

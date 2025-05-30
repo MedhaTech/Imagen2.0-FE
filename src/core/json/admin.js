@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from "react";
 
 import * as Icon from "react-feather";
-
+import { SiCodementor } from "react-icons/si";
 const AdminSidebarData = () => {
  
 
@@ -68,6 +69,13 @@ const AdminSidebarData = () => {
           label:"Institutions",
           link: "/institution-users-list",
           icon: <Icon.UserPlus />,
+          showSubRoute: false,
+          submenu: false,
+        },
+         {
+          label:"Mentorship",
+          link: "/admin-mentorship-list",
+          icon: <SiCodementor />,
           showSubRoute: false,
           submenu: false,
         },

@@ -120,6 +120,8 @@ import MentorShipDashboard from "../MentorShip/Dashboard/MentorShipDashboard";
 import MentorShipProfile from "../MentorShip/MentorShipProfile";
 import MentorshipChangePwd from "../MentorShip/MentorshipChangePwd";
 import MentorShipProfileEdit from "../MentorShip/MentorShipProfileEdit";
+import MentorshipList from "../Admin/UsersList/MentorshipList";
+import MentorShipEditUser from "../Admin/UsersList/MentorShipEditUser";
 export const mentorShipRoutes = [
   {
     id: 1,
@@ -146,13 +148,14 @@ export const mentorShipRoutes = [
     route: Route,
   },
   {
-    id: 3,
+    id: 4,
     path: routes.MentorshipProfileEdit,
     name: "MentorshipProfileEdit",
     element: <MentorShipProfileEdit />,
     protected: true,
     route: Route,
   },
+ 
 ];
 export const evaluatorRoutes = [
   {
@@ -532,6 +535,22 @@ export const publicRoutes = [
     path: routes.instedit,
     name: "instedit",
     element: <InstEdit />,
+    protected: true,
+    route: Route,
+  },
+    {
+    id: 36,
+    path: routes.adminmentorshiplist,
+    name: "adminmentorshiplist",
+    element: <MentorshipList />,
+    protected: true,
+    route: Route,
+  },
+    {
+    id: 36,
+    path: routes.adminmentorshipedit,
+    name: "adminmentorshipedit",
+    element: <MentorShipEditUser />,
     protected: true,
     route: Route,
   },
