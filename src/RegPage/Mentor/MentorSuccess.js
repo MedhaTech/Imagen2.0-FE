@@ -27,12 +27,16 @@ const MentorSuccess = () => {
               <div className="text-center">
                 <h3 style={{ color: "DarkGreen" }}> Congratulations...</h3>
 
-                <h4 className="mb-3">
+                {/* <h4 className="mb-3">
                   {" "}
                   Congratulations, Your Account has been Successfully Created.
+                </h4> */}
+                <h4 className="mb-3">
+                  {" "}
+                 <span style={{fontWeight:"bold"}}>{mentorData.full_name}</span>, Congratulations! Your YFSI Mentorship Account has been Successfully Created.
                 </h4>
                <h4 style={{ color: "black" }}>
-                  <b>Mentorship Login ID : </b>{" "}
+                  <b>Mentorship Email Id : </b>{" "}
                   <b style={{ color: "blue" }}>{mentorData.email}</b>{" "}<br/>
                   <b>Password :</b> <b style={{ color: "blue" }}>{mentorData.mobile}</b>
                 </h4>

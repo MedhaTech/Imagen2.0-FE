@@ -122,6 +122,7 @@ import MentorshipChangePwd from "../MentorShip/MentorshipChangePwd";
 import MentorShipProfileEdit from "../MentorShip/MentorShipProfileEdit";
 import MentorshipList from "../Admin/UsersList/MentorshipList";
 import MentorShipEditUser from "../Admin/UsersList/MentorShipEditUser";
+import AddMentorship from "../Admin/UsersList/AddMentorship";
 export const mentorShipRoutes = [
   {
     id: 1,
@@ -547,10 +548,18 @@ export const publicRoutes = [
     route: Route,
   },
     {
-    id: 36,
+    id: 37,
     path: routes.adminmentorshipedit,
     name: "adminmentorshipedit",
     element: <MentorShipEditUser />,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 38,
+    path: routes.addnewmentorship,
+    name: "addnewmentorship",
+    element: <AddMentorship />,
     protected: true,
     route: Route,
   },

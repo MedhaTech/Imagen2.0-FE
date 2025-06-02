@@ -60,6 +60,7 @@ import MentorSuccess from "../RegPage/Mentor/MentorSuccess";
 import MentorLogin from "../MentorShip/MentorLogin";
 import MentorshipHead from "../InitialPage/Sidebar/MentorshipHeader";
 import MentorshipSide from "../InitialPage/Sidebar/MentorshipSidebar";
+import MentorshipForgetPsw from "../MentorShip/MentorshipForgetPsw";
 
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
@@ -162,6 +163,8 @@ const AllRoutes = () => {
           <Route path="/eadmin" element={<EadminLogin />} />
           <Route path="/student" element={<LogInTeam />} />
           <Route path="/student-forgot-psw" element={<StudentPSW />} />
+          <Route path="/mentorship-forgot-psw" element={<MentorshipForgetPsw />} />
+
           <Route path="/institution" element={<LogInTeacher />} />
           <Route path="/evaluator" element={<LoginEvaluator />} />
           <Route path="/registration" element={<RegInstruction />} />

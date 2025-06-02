@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import logo from "../assets/img/logo.png";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { mentorShipLoginUser } from "../MentorShip/store/actions";
@@ -111,7 +111,7 @@ const MentorshipLogin = (props) => {
                       value={formik.values.username}
                     />
                     {formik.touched.username && formik.errors.username ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.username}</small>
                     ) : null}
                    
                   </div>
@@ -128,7 +128,7 @@ const MentorshipLogin = (props) => {
                       value={formik.values.password}
                     />
                     {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
                     ) : null}
                     <span
                       className={`fas toggle-password ${
@@ -139,6 +139,19 @@ const MentorshipLogin = (props) => {
                   </div>
                 </div>
                
+               <div className="form-login authentication-check">
+                                 <div className="row">
+                                   <div className="col-12 d-flex align-items-center justify-content-end">
+                                   
+                                     <div className="text-end">
+                                       <Link className="forgot-link" to="/mentorship-forgot-psw">
+                                         Forgot Password?
+                                       </Link>
+                                     </div>
+                                    
+                                   </div>
+                                 </div>
+                               </div>
                 <div className="form-login" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 
                   <button
@@ -152,6 +165,15 @@ const MentorshipLogin = (props) => {
                     Sign In
                   </button>
                 </div>
+                   <div className="signinform  d-flex justify-content-center align-items-center">
+                  <h4>
+                  Not Yet Registered ? 
+                    <Link className="hover-a" to={"/mentorship-registration"}>
+                      {" "}
+                      Click Here
+                    </Link>
+                  </h4>
+                </div> 
                  <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
                 <p>Copyright © {currentYear}  <b>YFSI.</b> All rights reserved</p>
                   </div>
