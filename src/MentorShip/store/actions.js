@@ -48,9 +48,12 @@ export const mentorShipLoginUser =
         localStorage.setItem("layoutStyling", "default");
         dispatch(mentorShipLoginUserSuccess(result));
         navigate("/mentorship-dashboard");
-      } else {
-        openNotificationWithIcon("error", "Invalid Username or Password");
+        } else if (result && result.status === 404) {
+              openNotificationWithIcon("error", "Invalid Email Id or Password");
         dispatch(mentorShipLoginUserError(result.statusText));
+             
+      } else {
+        openNotificationWithIcon("error",  "Entered Mentorship Credentials are in InActive Status");
       }
     } catch (error) {
       dispatch(mentorShipLoginUserError({}));

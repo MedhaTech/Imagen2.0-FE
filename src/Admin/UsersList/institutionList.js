@@ -9,7 +9,11 @@ import axios from "axios";
 import { URL, KEY } from "../../constants/defaultValues.js";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import { getNormalHeaders,getCurrentUser,openNotificationWithIcon } from "../../helpers/Utils";
+import {
+  getNormalHeaders,
+  getCurrentUser,
+  openNotificationWithIcon,
+} from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 
 import "sweetalert2/src/sweetalert2.scss";
@@ -26,7 +30,7 @@ const TicketsPage = (props) => {
   const navigate = useNavigate();
   const [tableData, settableData] = React.useState([]);
   const [showspin, setshowspin] = React.useState(false);
- const currentUser = getCurrentUser("current_user");
+  const currentUser = getCurrentUser("current_user");
   const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
   const [state, setState] = useState("");
@@ -71,35 +75,27 @@ const TicketsPage = (props) => {
         setshowspin(false);
       });
   }
- 
-  
-const handleSelect = (item, num) => {
-  // where item = student id / mentor id //
-  localStorage.removeItem('dist');
-  localStorage.removeItem('num');
-  if (num == '1') {
-      navigate("/Institution-view",{state:{ data: item,
-          num: num}}
-         
-      );
-     
-      localStorage.setItem('studentId', item.user_id);
-      localStorage.setItem('studentData', JSON.stringify(item));
-  } 
-     
-};
-const handleDeleteInstitution = (item) => {
-      // this function delete the Institution user //
 
-  let supId;
-  if(typeof(item.mentor_id) !== "string"){
-supId = encryptGlobal(
-    JSON.stringify(item.mentor_id)
-  );
-  }else{
-   supId = encryptGlobal(item.mentor_id);
+  const handleSelect = (item, num) => {
+    // where item = student id / mentor id //
+    localStorage.removeItem("dist");
+    localStorage.removeItem("num");
+    if (num == "1") {
+      navigate("/Institution-view", { state: { data: item, num: num } });
 
-  }
+      localStorage.setItem("studentId", item.user_id);
+      localStorage.setItem("studentData", JSON.stringify(item));
+    }
+  };
+  const handleDeleteInstitution = (item) => {
+    // this function delete the Institution user //
+
+    let supId;
+    if (typeof item.mentor_id !== "string") {
+      supId = encryptGlobal(JSON.stringify(item.mentor_id));
+    } else {
+      supId = encryptGlobal(item.mentor_id);
+    }
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       title: "Are you sure?",
@@ -111,8 +107,6 @@ supId = encryptGlobal(
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-      
-
         var config = {
           method: "delete",
           url: process.env.REACT_APP_API_BASE_URL + "/mentors/" + supId,
@@ -124,7 +118,7 @@ supId = encryptGlobal(
         axios(config)
           .then(function (response) {
             if (response.status === 200) {
-                handleideaList();
+              handleideaList();
               openNotificationWithIcon(
                 "success",
                 "Institution Deleted Successfully"
@@ -147,14 +141,14 @@ supId = encryptGlobal(
       {
         name: "No",
         selector: (row, key) => key + 1,
-        center:true,
+        center: true,
         cellExport: (row) => row.index,
         width: "4rem",
       },
 
       {
         name: "Full Name",
-        center:true,
+        center: true,
         selector: (row) => row?.full_name,
         cell: (row) => (
           <div
@@ -171,28 +165,28 @@ supId = encryptGlobal(
       },
       {
         name: "Email Address",
-        center:true,
-        selector: (row) =>  row?.username_email,
-       
+        center: true,
+        selector: (row) => row?.username_email,
+
         width: "16rem",
       },
       {
         name: "Mobile No",
-        center:true,
-        selector: (row) =>  row?.mobile,
+        center: true,
+        selector: (row) => row?.mobile,
         cellExport: (row) => row?.mobile,
         width: "9rem",
       },
       {
         name: "District",
-        center:true,
+        center: true,
         selector: (row) => row.district,
         cellExport: (row) => row.district,
         width: "8rem",
       },
       {
         name: "College Type",
-        center:true,
+        center: true,
         cell: (row) => (
           <div
             style={{
@@ -210,36 +204,49 @@ supId = encryptGlobal(
 
       {
         name: "College Name",
-        center:true,
+        center: true,
         selector: (row) => row?.college_name,
         cellExport: (row) => row?.college_name,
         width: "16rem",
       },
       {
-        name: 'Actions',
-        center:true,
+        name: "Actions",
+        center: true,
         sortable: false,
-        width: '14rem',
+        width: "14rem",
         cell: (record) => [
-            <>
-           
-          <div
-                        key={record.id}
-                        onClick={() => handleSelect(record, '1')}
-                        style={{ marginRight: '10px' }}
-                    >
-                        <div className="btn btn-primary"><i data-feather="eye" className="feather-eye" style={{ marginRight: "5px" }} />View</div>
-                    </div>
-          <div
-            key={record.id}
-            onClick={() => handleDeleteInstitution(record)}
-          >
-              <div className="btn btn-danger"><i data-feather="trash-2" className="feather-trash-2" style={{ fontSize: "15px" }} /> Delete</div>
-            </div></>
-        ]
-      }
-    
-    ]
+          <>
+            <div
+              key={record.id}
+              onClick={() => handleSelect(record, "1")}
+              style={{ marginRight: "10px" }}
+            >
+              <div className="btn btn-primary">
+                <i
+                  data-feather="eye"
+                  className="feather-eye"
+                  style={{ marginRight: "5px" }}
+                />
+                View
+              </div>
+            </div>
+            <div
+              key={record.id}
+              onClick={() => handleDeleteInstitution(record)}
+            >
+              <div className="btn btn-danger">
+                <i
+                  data-feather="trash-2"
+                  className="feather-trash-2"
+                  style={{ fontSize: "15px" }}
+                />{" "}
+                Delete
+              </div>
+            </div>
+          </>,
+        ],
+      },
+    ],
   };
   const customStyles = {
     head: {
@@ -252,66 +259,63 @@ supId = encryptGlobal(
   return (
     <div className="page-wrapper">
       <div className="content">
-      <div className="page-title">
-                           
-                           <h4 className="mb-3 mx-0">Institutions List</h4>
-           
-               </div>
+        <div className="page-title">
+          <h4 className="mb-3 mx-0">Institutions List</h4>
+        </div>
         <Container className="ticket-page mb-50 userlist">
           <Row className="mt-0">
-           
-              <Row className="align-items-center" style={{ paddingLeft: '0' }} >
-                <Col md={2}>
-                  <Select
-                    list={fiterDistData}
-                    setValue={setState}
-                    placeHolder={"Select District"}
-                    value={state}
-                    className="form-select"
-                  />
-                </Col>
+            <Row className="align-items-center" style={{ paddingLeft: "0" }}>
+              <Col md={2}>
+                <Select
+                  list={fiterDistData}
+                  setValue={setState}
+                  placeHolder={"Select District"}
+                  value={state}
+                  className="form-select"
+                />
+              </Col>
 
-                <Col md={2}>
-                  <div className="text-center">
-                    <Button
-                      btnClass={showbutton ? "primary" : "default"}
-                      size="small"
-                      label="Search"
-                      disabled={!showbutton}
-                      onClick={() => handleclickcall()}
-                    />
-                  </div>
-                </Col>
-                <Col className="d-flex justify-content-end">
-                  <div className="text-center">
-                    <button
-                      className="btn btn-info"
-                      onClick={() => navigate("/add-institution")}
-                    >
-                      <PlusCircle className="me-2" style={{ color: "white" }} />
-                      <b>Add Institution</b>
-                    </button>
-                  </div>
-                </Col>
-              </Row>
-              <div className="bg-white border card pt-3 mt-5">
-                <DataTableExtensions
-                  print={false}
-                  export={false}
-                  {...StudentsData}
-                >
-                  <DataTable
-                    data={tableData || []}
-                    defaultSortField="id"
-                    customStyles={customStyles}
-                    defaultSortAsc={false}
-                    pagination
-                    highlightOnHover
-                    fixedHeader
-                    subHeaderAlign={Alignment.Center}
+              <Col md={2}>
+                <div className="text-center">
+                  <Button
+                    btnClass={showbutton ? "primary" : "default"}
+                    size="small"
+                    label="Search"
+                    disabled={!showbutton}
+                    onClick={() => handleclickcall()}
                   />
-                </DataTableExtensions>
-              </div>
+                </div>
+              </Col>
+              <Col className="d-flex justify-content-end">
+                <div className="text-center">
+                  <button
+                    className="btn btn-info"
+                    onClick={() => navigate("/add-institution")}
+                  >
+                    <PlusCircle className="me-2" style={{ color: "white" }} />
+                    <b>Add Institution</b>
+                  </button>
+                </div>
+              </Col>
+            </Row>
+            <div className="bg-white border card pt-3 mt-5">
+              <DataTableExtensions
+                print={false}
+                export={false}
+                {...StudentsData}
+              >
+                <DataTable
+                  data={tableData || []}
+                  defaultSortField="id"
+                  customStyles={customStyles}
+                  defaultSortAsc={false}
+                  pagination
+                  highlightOnHover
+                  fixedHeader
+                  subHeaderAlign={Alignment.Center}
+                />
+              </DataTableExtensions>
+            </div>
           </Row>
         </Container>
       </div>

@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card } from "reactstrap";
 import { openNotificationWithIcon } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
 import axios from "axios";
 import { URL, KEY } from "../../constants/defaultValues.js";
@@ -21,7 +23,6 @@ import logout from "../../assets/img/logout.png";
 import DataTable, { Alignment } from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
-import AddADmins from "./AddAdmin";
 
 import { useDispatch } from "react-redux";
 import { encryptGlobal } from "../../constants/encryptDecrypt.js";
@@ -54,7 +55,35 @@ const MentorshipList = (props) => {
       .then(function (response) {
         if (response.status === 200) {
           settableData(response.data.data);
-
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const handleResetapi = (item) => {
+    // console.log(item,"itemof rest");
+    // This function fetches Institution latest news list  from the API //
+    const body = JSON.stringify({
+      user_id: item.user.user_id,
+    });
+    var config = {
+      method: "put",
+      url: process.env.REACT_APP_API_BASE_URL + `/mentorships/resetPassword`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+      data: body,
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 202) {
+          openNotificationWithIcon(
+            "success",
+            "Password Updated to Mobile Number Successfully"
+          );
         }
       })
       .catch(function (error) {
@@ -76,8 +105,8 @@ const MentorshipList = (props) => {
       });
   };
 
-  const handleStatus = (status, id, type,all) => {
-    const stats= "Mentorship";
+  const handleStatus = (status, id, type, all) => {
+    const stats = "Mentorship";
     // where we can update the status Active to InActive //
     // where id = student id / mentor id  / admin id / evaluator  id//
     // where status = status //
@@ -110,7 +139,7 @@ const MentorshipList = (props) => {
             }, 500);
           } else {
             const obj = {
-                 full_name: all?.user?.full_name,
+              full_name: all?.user?.full_name,
               status,
             };
             await handleStatusUpdateInAdmin(obj, id);
@@ -127,7 +156,7 @@ const MentorshipList = (props) => {
         }
       });
   };
-const handleDeleteMentorship = (items) => {
+  const handleDeleteMentorship = (items) => {
     // here we can delete the team //
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -166,7 +195,7 @@ const handleDeleteMentorship = (items) => {
                   "Mentorship Deleted Successfully"
                 );
                 setTimeout(() => {
-                 handleideaList();
+                  handleideaList();
                 }, 500);
               } else {
                 openNotificationWithIcon("error", "Opps! Something Wrong");
@@ -178,18 +207,45 @@ const handleDeleteMentorship = (items) => {
         }
       });
   };
-       const handleEditMentorshipUser = (data) => {
+  const handleEditMentorshipUser = (data) => {
     navigate("/admin-mentorship-edit", {
       state: {
         full_name: data?.user?.full_name,
         college_name: data?.college_name,
         mobile: data?.mobile,
-mentorship_id:data?.mentorship_id,
+        mentorship_id: data?.mentorship_id,
         username: data?.user?.username,
         area_of_expertise: data?.areas_of_expertise,
-
       },
     });
+  };
+  const handleResetMentorshipUser = (item) => {
+    // here we can reset password as  user_id //
+    // here data = student_id //
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-submit",
+        cancelButton: "btn btn-cancel",
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "<h4>Are you sure?</h4>",
+        text: "You are attempting to reset the password",
+        imageUrl: `${logout}`,
+        confirmButtonText: "Reset Password",
+        showCancelButton: true,
+        cancelButtonText: "Cancel",
+        reverseButtons: false,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          handleResetapi(item);
+        }
+      })
+      .catch((err) => console.log(err.response));
   };
   const StudentsData = {
     data: tableData && tableData.length > 0 ? tableData : [],
@@ -208,7 +264,7 @@ mentorship_id:data?.mentorship_id,
         center: true,
         cellExport: (row) => row?.user?.full_name,
         sortable: true,
-        width: "10rem",
+        width: "13rem",
       },
       {
         name: "Email",
@@ -253,16 +309,25 @@ mentorship_id:data?.mentorship_id,
         cell: (record) => [
           <div key={record?.id}></div>,
           <>
-          <div
+            <div
               key={record}
               onClick={() => handleEditMentorshipUser(record)}
               style={{ marginRight: "8px" }}
             >
               <a className="badge badge-md bg-info">
-                  <i data-feather="edit" className="feather-edit" />
+                <i data-feather="edit" className="feather-edit" />
               </a>
             </div>
-           <div
+            <div
+              key={record}
+              onClick={() => handleResetMentorshipUser(record)}
+              style={{ marginRight: "8px" }}
+            >
+              <a className="badge badge-md bg-success">
+                <FontAwesomeIcon icon={faKey} className="me-1" />
+              </a>
+            </div>
+            <div
               key={record}
               onClick={() => handleDeleteMentorship(record)}
               style={{ marginRight: "8px" }}
@@ -277,7 +342,12 @@ mentorship_id:data?.mentorship_id,
               onClick={() => {
                 let status =
                   record?.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
-                handleStatus(status, record?.mentorship_id,"mentorship", record);
+                handleStatus(
+                  status,
+                  record?.mentorship_id,
+                  "mentorship",
+                  record
+                );
               }}
             >
               {record?.status === "ACTIVE" ? (
@@ -317,48 +387,50 @@ mentorship_id:data?.mentorship_id,
               <h4>Mentorship List</h4>
             </div>
           </div>
-          {/* <div className="page-btn">
-                        <button
-                            type="button"
-                            className="btn btn-info"
-                            onClick={() =>
-                                setRegisterModalShow(true)
-                            }
-                        >
-                            <PlusCircle className="me-2" style={{color:"white"}} /><b>Add New Admin</b>
-                        </button>
-                    </div> */}
         </div>
         <Container className="ticket-page mb-50 userlist">
           <Row>
-            <Container fluid>
-              <div className="card pt-3 mt-2">
-                <DataTableExtensions
-                  print={false}
-                  export={false}
-                  {...StudentsData}
+            <Container className="ticket-page mb-50 userlist">
+              <Row className="mt-0">
+                <Row
+                  className="align-items-center"
+                  style={{ paddingLeft: "0" }}
                 >
-                  <DataTable
-                    data={tableData || []}
-                    defaultSortField="id"
-                    customStyles={customStyles}
-                    defaultSortAsc={false}
-                    pagination
-                    highlightOnHover
-                    fixedHeader
-                    subHeaderAlign={Alignment.Center}
-                  />
-                </DataTableExtensions>
-              </div>
-            </Container>
-            {/* {registerModalShow &&
-                
-                    <AddADmins
-                        show={registerModalShow}
-                        setShow={setRegisterModalShow}
-                        onHide={() => setRegisterModalShow(false)}
+                  <Col className="d-flex justify-content-end">
+                    <div className="text-center">
+                      <button
+                        className="btn btn-info"
+                        onClick={() => navigate("/add-mentorship")}
+                      >
+                        <PlusCircle
+                          className="me-2"
+                          style={{ color: "white" }}
+                        />
+                        <b>Add Mentorship</b>
+                      </button>
+                    </div>
+                  </Col>
+                </Row>
+                <div className="bg-white border card pt-3 mt-5">
+                  <DataTableExtensions
+                    print={false}
+                    export={false}
+                    {...StudentsData}
+                  >
+                    <DataTable
+                      data={tableData || []}
+                      defaultSortField="id"
+                      customStyles={customStyles}
+                      defaultSortAsc={false}
+                      pagination
+                      highlightOnHover
+                      fixedHeader
+                      subHeaderAlign={Alignment.Center}
                     />
-              } */}
+                  </DataTableExtensions>
+                </div>
+              </Row>
+            </Container>
           </Row>
         </Container>
       </div>
