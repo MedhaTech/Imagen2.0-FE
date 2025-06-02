@@ -230,7 +230,7 @@ openNotificationWithIcon("error", error.response.data?.message);
                     ></div>
                 </div>
                 {formik.touched.oldPassword && formik.errors.oldPassword ? (
-                  <small className=" -cls">
+                  <small className="error-cls">
                     {formik.errors.oldPassword}
                   </small>
                 ) : null}
@@ -264,10 +264,7 @@ openNotificationWithIcon("error", error.response.data?.message);
                     }}
                   ></div>
                 </div>
-                <small>
-                  8-character minimum; case sensitive
-                </small>
-                <br />
+               
                 {formik.touched.newPassword && formik.errors.newPassword ? (
                   <small className="error-cls">
                     {formik.errors.newPassword}
