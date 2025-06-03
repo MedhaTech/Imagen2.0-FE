@@ -3,12 +3,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useRef, useEffect, useState } from "react";
-import "../Evaluation/ViewSelectedIdea/ViewSelectedideas.scss";
-import { Button } from "../../../stories/Button";
+import "../../Evaluator/Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas.scss";
+
+import { Button } from "../../stories/Button";
 import {
   getCurrentUser,
   openNotificationWithIcon,
-} from "../../../helpers/Utils";
+} from "../../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import { Card } from "react-bootstrap";
 import Select from "react-select";
@@ -17,15 +18,15 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import RatedCard from "./RatedCard";
+import RatedCard from "../../Evaluator/Admin/Dashboard/RatedCard";
 import jsPDF from "jspdf";
 import { FaUnlink } from "react-icons/fa";
 import html2canvas from "html2canvas";
 import { Row, Col, Form, Label } from "reactstrap";
 import { useReactToPrint } from "react-to-print";
-import { encryptGlobal } from "../../../constants/encryptDecrypt";
-import LinkComponent from "../Challenges/pages/LinkComponent";
-const SearchCID = () => {
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import LinkComponent from "../../Evaluator/Admin/Challenges/pages/LinkComponent";
+const AdminSearchCID = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -1229,4 +1230,4 @@ const SearchCID = () => {
   );
 };
 
-export default SearchCID;
+export default AdminSearchCID;

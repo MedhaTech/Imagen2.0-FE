@@ -14,7 +14,7 @@ import logo from "../../assets/img/logo.png";
 import axios from "axios";
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
 
-import { encryptGlobal } from '../../constants/encryptDecrypt';
+import { encryptGlobal } from "../../constants/encryptDecrypt";
 import Icon from "../../assets/img/favicon.png";
 
 const EadmiHeader = () => {
@@ -25,21 +25,17 @@ const EadmiHeader = () => {
   const [diesCode, setDiesCode] = useState("");
 
   const handleOnChange = (e) => {
-   
-    const numericValue = e.target.value.replace(/\D/g, ""); 
+    const numericValue = e.target.value.replace(/\D/g, "");
     const trimmedValue = numericValue.trim();
 
     setDiesCode(trimmedValue);
   };
- 
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       if (!diesCode.trim()) {
-        e.preventDefault(); 
-        openNotificationWithIcon(
-          "error",
-          "Please Enter CID"
-        );
+        e.preventDefault();
+        openNotificationWithIcon("error", "Please Enter CID");
       } else {
         e.preventDefault();
         handleSearch(diesCode);
@@ -55,7 +51,6 @@ const EadmiHeader = () => {
     e.preventDefault();
   };
 
- 
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(
@@ -103,7 +98,6 @@ const EadmiHeader = () => {
     document?.querySelector("html")?.classList?.toggle("menu-opened");
   };
 
-
   const exclusionArray = [
     "/reactjs/template/dream-pos/index-three",
     "/reactjs/template/dream-pos/index-one",
@@ -141,15 +135,13 @@ const EadmiHeader = () => {
       }
     }
   };
- 
 
   const handleSearch = (diesCode) => {
-    const popParam = encryptGlobal(diesCode
-     
-    );
+    const popParam = encryptGlobal(diesCode);
     var config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + `/challenge_response/${popParam}`,
+      url:
+        process.env.REACT_APP_API_BASE_URL + `/challenge_response/${popParam}`,
       headers: {
         "Content-Type": "application/json",
 
@@ -160,15 +152,11 @@ const EadmiHeader = () => {
     axios(config)
       .then(async function (response) {
         if (response.status == 200) {
-           const multiOrgData = response?.data?.data[0];
-           localStorage.setItem("diesCode", JSON.stringify(diesCode));
-           localStorage.setItem(
-             "multiOrgData",
-             JSON.stringify(multiOrgData)
-           );
-           
-           navigate("/search-cid", {
-            state: { multiOrgData, diesCode },
+          const multiOrgData = response?.data?.data[0];
+          window.location.reload();
+
+          navigate("/search-cid", {
+            state: { multiOrgData },
           });
 
           setDiesCode("");
@@ -176,11 +164,8 @@ const EadmiHeader = () => {
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
-        setDiesCode("");
-          openNotificationWithIcon(
-                  "error",
-                  "No Data Found"
-                );
+          setDiesCode("");
+          openNotificationWithIcon("error", "No Data Found");
         }
       });
   };
@@ -193,13 +178,7 @@ const EadmiHeader = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img
-            src={logo}
-            alt="Logo"
-            className="responsive-image"
-          
-          />
-         
+          <img src={logo} alt="Logo" className="responsive-image" />
         </div>
         {/* /Logo */}
         <Link
@@ -222,18 +201,13 @@ const EadmiHeader = () => {
                 <Search />
               </Link>
               <form action="#" className="dropdown">
-                <div
-                  className="searchinputs"
-                  
-                  data-bs-auto-close="false"
-                >
+                <div className="searchinputs" data-bs-auto-close="false">
                   <input
                     type="text"
                     placeholder="Enter CID"
                     onChange={(e) => handleOnChange(e)}
                     value={diesCode}
                     onKeyDown={handleKeyDown}
-                   
                     name="organization_code"
                   />
                   <div className="search-addon">
@@ -241,13 +215,11 @@ const EadmiHeader = () => {
                       <XCircle className="feather-14" />
                     </span>
                   </div>
-                </div> 
-              
+                </div>
               </form>
             </div>
           </li>
-         
-         
+
           <li className="nav-item nav-item-box">
             <Link
               to="#"
@@ -267,7 +239,6 @@ const EadmiHeader = () => {
             >
               <span className="user-info">
                 <span className="user-letter">
-                 
                   <img src={Icon} alt="Team" id="blah" />
                 </span>
                 <span className="user-detail">
@@ -282,7 +253,6 @@ const EadmiHeader = () => {
               <div className="profilename">
                 <div className="profileset">
                   <span className="user-img">
-                  
                     {/* <img src={avtar} alt="Avtar" /> */}
                     <span className="status online" />
                   </span>
@@ -291,13 +261,12 @@ const EadmiHeader = () => {
                   </div>
                 </div>
                 <hr className="m-0" />
-               
+
                 <Link
                   className="dropdown-item logout pb-0"
                   to=""
                   onClick={handleLogout}
                 >
-                 
                   <img src={logoutIcon} alt="LogoutIcon" />
                   Logout
                 </Link>
@@ -305,7 +274,7 @@ const EadmiHeader = () => {
             </div>
           </li>
         </ul>
-      
+
         <div className="dropdown mobile-user-menu">
           <Link
             to="#"
@@ -316,9 +285,7 @@ const EadmiHeader = () => {
             <i className="fa fa-ellipsis-v" />
           </Link>
           <div className="dropdown-menu dropdown-menu-right">
-           
-            <Link className="dropdown-item"  to=""
-            onClick={handleLogout}>
+            <Link className="dropdown-item" to="" onClick={handleLogout}>
               Logout
             </Link>
           </div>

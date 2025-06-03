@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import React from "react";
-import { Route} from "react-router-dom";
+import { Route } from "react-router-dom";
 import Dashboard from "../Admin/Dashboard/index";
 import MentorDashboard from "../Teacher/Dashboard/MentorDashboard";
 const routes = all_routes;
@@ -116,6 +116,8 @@ import EvaluateL1 from "../Evaluator/EvaluatedIdea/EvaluatedIdea";
 import EvaluateL2 from "../Evaluator/EvaluatedIdea/EvaluatedIdeaL2";
 import EvaluatorProfile from "../Evaluator/EvaluatorProfile";
 import StuProfileEdit from "../Team/StuProfileEdit";
+import StudentMentorship from "../Team/StuMentorship/StudentMentorship";
+
 import MentorShipDashboard from "../MentorShip/Dashboard/MentorShipDashboard";
 import MentorShipProfile from "../MentorShip/MentorShipProfile";
 import MentorshipChangePwd from "../MentorShip/MentorshipChangePwd";
@@ -123,6 +125,7 @@ import MentorShipProfileEdit from "../MentorShip/MentorShipProfileEdit";
 import MentorshipList from "../Admin/UsersList/MentorshipList";
 import MentorShipEditUser from "../Admin/UsersList/MentorShipEditUser";
 import AddMentorship from "../Admin/UsersList/AddMentorship";
+import AdminSearchCID from "../Admin/Dashboard/SearchCID";
 export const mentorShipRoutes = [
   {
     id: 1,
@@ -132,7 +135,7 @@ export const mentorShipRoutes = [
     protected: true,
     route: Route,
   },
-   {
+  {
     id: 2,
     path: routes.mentorshipprofile,
     name: "mentorshipprofile",
@@ -140,7 +143,7 @@ export const mentorShipRoutes = [
     protected: true,
     route: Route,
   },
-   {
+  {
     id: 3,
     path: routes.mentorshipchangePwd,
     name: "mentorshipchangePwd",
@@ -156,7 +159,6 @@ export const mentorShipRoutes = [
     protected: true,
     route: Route,
   },
- 
 ];
 export const evaluatorRoutes = [
   {
@@ -187,7 +189,7 @@ export const evaluatorRoutes = [
     id: 4,
     path: routes.evalchange,
     name: "evalchange",
-    element: <ChangeEval/>,
+    element: <ChangeEval />,
     protected: true,
     route: Route,
   },
@@ -195,15 +197,15 @@ export const evaluatorRoutes = [
     id: 5,
     path: routes.evlL1,
     name: "evlL1",
-    element: <EvaluateL1/>,
+    element: <EvaluateL1 />,
     protected: true,
     route: Route,
   },
-   {
+  {
     id: 6,
     path: routes.evlL2,
     name: "evlL2",
-    element: <EvaluateL2/>,
+    element: <EvaluateL2 />,
     protected: true,
     route: Route,
   },
@@ -211,20 +213,11 @@ export const evaluatorRoutes = [
     id: 7,
     path: routes.evlProfile,
     name: "evlProfile",
-    element: <EvaluatorProfile/>,
+    element: <EvaluatorProfile />,
     protected: true,
     route: Route,
   },
 ];
-
-
-
-
-
-
-
-
-
 
 export const publicRoutes = [
   {
@@ -295,7 +288,7 @@ export const publicRoutes = [
     id: 8,
     path: routes.latestnews,
     name: "latestnews",
-    element: < TeacherNews/>,
+    element: <TeacherNews />,
     protected: true,
     route: Route,
   },
@@ -303,7 +296,7 @@ export const publicRoutes = [
     id: 9,
     path: routes.createlatestnews,
     name: "createlatestnews",
-    element: < CreateLatestNews/>,
+    element: <CreateLatestNews />,
     protected: true,
     route: Route,
   },
@@ -311,7 +304,7 @@ export const publicRoutes = [
     id: 10,
     path: routes.editnews,
     name: "editnews",
-    element: < EditLatestNews/>,
+    element: <EditLatestNews />,
     protected: true,
     route: Route,
   },
@@ -319,7 +312,7 @@ export const publicRoutes = [
     id: 11,
     path: routes.studentslist,
     name: "studentslist",
-    element: <Ticket/>,
+    element: <Ticket />,
     protected: true,
     route: Route,
   },
@@ -327,7 +320,7 @@ export const publicRoutes = [
     id: 12,
     path: routes.mentorslist,
     name: "mentorslist",
-    element: <MentorsList/>,
+    element: <MentorsList />,
     protected: true,
     route: Route,
   },
@@ -335,7 +328,7 @@ export const publicRoutes = [
     id: 13,
     path: routes.teamslist,
     name: "teamslist",
-    element: <TeamsList/>,
+    element: <TeamsList />,
     protected: true,
     route: Route,
   },
@@ -343,7 +336,7 @@ export const publicRoutes = [
     id: 14,
     path: routes.adminlist,
     name: "adminlist",
-    element: <AdminsList/>,
+    element: <AdminsList />,
     protected: true,
     route: Route,
   },
@@ -351,7 +344,7 @@ export const publicRoutes = [
     id: 15,
     path: routes.mentortableview,
     name: "mentortableview",
-    element: <MentorTableView/>,
+    element: <MentorTableView />,
     protected: true,
     route: Route,
   },
@@ -359,7 +352,7 @@ export const publicRoutes = [
     id: 16,
     path: routes.popup,
     name: "popup",
-    element: <PopUp/>,
+    element: <PopUp />,
     protected: true,
     route: Route,
   },
@@ -367,7 +360,7 @@ export const publicRoutes = [
     id: 16,
     path: routes.InstOption,
     name: "InstOption",
-    element: <InstOption/>,
+    element: <InstOption />,
     protected: true,
     route: Route,
   },
@@ -375,7 +368,7 @@ export const publicRoutes = [
     id: 16,
     path: routes.createpopup,
     name: "createpopup",
-    element: <Createpopup/>,
+    element: <Createpopup />,
     protected: true,
     route: Route,
   },
@@ -383,7 +376,7 @@ export const publicRoutes = [
     id: 17,
     path: routes.mentordetails,
     name: "mentordetails",
-    element: <MentorView/>,
+    element: <MentorView />,
     protected: true,
     route: Route,
   },
@@ -391,7 +384,7 @@ export const publicRoutes = [
     id: 18,
     path: routes.mentorEdit,
     name: "mentorEdit",
-    element: <MentorEdit/>,
+    element: <MentorEdit />,
     protected: true,
     route: Route,
   },
@@ -399,7 +392,7 @@ export const publicRoutes = [
     id: 19,
     path: routes.studenttableview,
     name: "studenttableview",
-    element: <StudentTableView/>,
+    element: <StudentTableView />,
     protected: true,
     route: Route,
   },
@@ -407,7 +400,7 @@ export const publicRoutes = [
     id: 20,
     path: routes.stuedit,
     name: "stuedit",
-    element: <StuEdit/>,
+    element: <StuEdit />,
     protected: true,
     route: Route,
   },
@@ -415,7 +408,7 @@ export const publicRoutes = [
     id: 21,
     path: routes.reportsteacher,
     name: "reportsteacher",
-    element: <TeacherProgressDetailed/>,
+    element: <TeacherProgressDetailed />,
     protected: true,
     route: Route,
   },
@@ -423,7 +416,7 @@ export const publicRoutes = [
     id: 22,
     path: routes.adminresources,
     name: "adminresources",
-    element: <AdminResources/>,
+    element: <AdminResources />,
     protected: true,
     route: Route,
   },
@@ -431,7 +424,7 @@ export const publicRoutes = [
     id: 23,
     path: routes.createResource,
     name: "createResource",
-    element: <CreateResource/>,
+    element: <CreateResource />,
     protected: true,
     route: Route,
   },
@@ -439,7 +432,7 @@ export const publicRoutes = [
     id: 24,
     path: routes.editResource,
     name: "editResource",
-    element: <EditResource/>,
+    element: <EditResource />,
     protected: true,
     route: Route,
   },
@@ -447,7 +440,7 @@ export const publicRoutes = [
     id: 25,
     path: routes.studentreport,
     name: "studentreport",
-    element: <StudentProgressReport/>,
+    element: <StudentProgressReport />,
     protected: true,
     route: Route,
   },
@@ -455,7 +448,7 @@ export const publicRoutes = [
     id: 26,
     path: routes.adminsupport,
     name: "adminsupport",
-    element: <AdminSupport/>,
+    element: <AdminSupport />,
     protected: true,
     route: Route,
   },
@@ -471,7 +464,7 @@ export const publicRoutes = [
     id: 28,
     path: routes.institutionUsersList,
     name: "institutionUsersList",
-    element: <AdminInstitutionUsersList/>,
+    element: <AdminInstitutionUsersList />,
     protected: true,
     route: Route,
   },
@@ -479,7 +472,7 @@ export const publicRoutes = [
     id: 29,
     path: routes.instprogress,
     name: "instprogress",
-    element: <AdminInstitutionProgress/>,
+    element: <AdminInstitutionProgress />,
     protected: true,
     route: Route,
   },
@@ -487,7 +480,7 @@ export const publicRoutes = [
     id: 29,
     path: routes.adminIdeareport,
     name: "adminIdeareport",
-    element: <AdminIdea/>,
+    element: <AdminIdea />,
     protected: true,
     route: Route,
   },
@@ -495,7 +488,7 @@ export const publicRoutes = [
     id: 30,
     path: routes.adminaddinstitution,
     name: "adminaddinstitution",
-    element: <AddInst/>,
+    element: <AddInst />,
     protected: true,
     route: Route,
   },
@@ -527,7 +520,7 @@ export const publicRoutes = [
     id: 34,
     path: routes.insttableview,
     name: "insttableview",
-    element: <InstTableView/>,
+    element: <InstTableView />,
     protected: true,
     route: Route,
   },
@@ -539,7 +532,7 @@ export const publicRoutes = [
     protected: true,
     route: Route,
   },
-    {
+  {
     id: 36,
     path: routes.adminmentorshiplist,
     name: "adminmentorshiplist",
@@ -547,7 +540,7 @@ export const publicRoutes = [
     protected: true,
     route: Route,
   },
-    {
+  {
     id: 37,
     path: routes.adminmentorshipedit,
     name: "adminmentorshipedit",
@@ -555,11 +548,19 @@ export const publicRoutes = [
     protected: true,
     route: Route,
   },
-   {
+  {
     id: 38,
     path: routes.addnewmentorship,
     name: "addnewmentorship",
     element: <AddMentorship />,
+    protected: true,
+    route: Route,
+  },
+    {
+    id: 39,
+    path: routes.admincid,
+    name: "addnewmeadmincidntorship",
+    element: <AdminSearchCID />,
     protected: true,
     route: Route,
   },
@@ -638,7 +639,7 @@ export const teamRoutes = [
     // protected: true,
     route: Route,
   },
-  
+
   {
     id: 10,
     path: routes.instruction,
@@ -723,7 +724,7 @@ export const teamRoutes = [
     route: Route,
   },
 
- {
+  {
     id: 21,
     path: routes.discussionChatResponse,
     name: "discussionChatResponse",
@@ -735,6 +736,14 @@ export const teamRoutes = [
     path: routes.studentProfileEdit,
     name: "studentProfileEdit",
     element: <StuProfileEdit />,
+    // protected: true,
+    route: Route,
+  },
+   {
+    id: 23,
+    path: routes.studentmentorship,
+    name: "studentmentorship",
+    element: <StudentMentorship/>,
     // protected: true,
     route: Route,
   },
@@ -853,47 +862,46 @@ export const mentorRoutes = [
     protected: true,
     route: Route,
   },
-  { 
-   id: 14,
+  {
+    id: 14,
     path: routes.AddCrew1Stu,
     name: "AddCrew1Stu",
     element: <AddCrew1Stu />,
     protected: true,
     route: Route,
   },
-  { 
+  {
     id: 15,
-     path: routes.AddCrew2Stu,
-     name: "AddCrew2Stu",
-     element: <AddCrew2Stu />,
-     protected: true,
-     route: Route,
-   },
-   { 
+    path: routes.AddCrew2Stu,
+    name: "AddCrew2Stu",
+    element: <AddCrew2Stu />,
+    protected: true,
+    route: Route,
+  },
+  {
     id: 16,
-     path: routes.AddCrew3Stu,
-     name: "AddCrew3Stu",
-     element: <AddCrew3Stu />,
-     protected: true,
-     route: Route,
-   },
-   { 
+    path: routes.AddCrew3Stu,
+    name: "AddCrew3Stu",
+    element: <AddCrew3Stu />,
+    protected: true,
+    route: Route,
+  },
+  {
     id: 17,
-     path: routes.institutionview,
-     name: "institutionview",
-     element: <ViewTeam />,
-     protected: true,
-     route: Route,
-   },
-   { 
+    path: routes.institutionview,
+    name: "institutionview",
+    element: <ViewTeam />,
+    protected: true,
+    route: Route,
+  },
+  {
     id: 18,
-     path: routes.inststuedit,
-     name: "inststuedit",
-     element: <EditInstStu />,
-     protected: true,
-     route: Route,
-   },
-  
+    path: routes.inststuedit,
+    name: "inststuedit",
+    element: <EditInstStu />,
+    protected: true,
+    route: Route,
+  },
 ];
 export const stateRoutes = [
   {
@@ -943,7 +951,7 @@ export const eadminRoutes = [
     id: 5,
     path: routes.eadminstats,
     name: "eadminstats",
-    element: <ViewSelectedideasNew/>,
+    element: <ViewSelectedideasNew />,
     protected: true,
     route: Route,
   },
@@ -951,7 +959,7 @@ export const eadminRoutes = [
     id: 6,
     path: routes.eadminfinal,
     name: "eadminfinal",
-    element: <EadminFinal/>,
+    element: <EadminFinal />,
     protected: true,
     route: Route,
   },
@@ -959,7 +967,7 @@ export const eadminRoutes = [
     id: 7,
     path: routes.eadminRest,
     name: "eadminRest",
-    element: <EadminRest/>,
+    element: <EadminRest />,
     protected: true,
     route: Route,
   },
@@ -967,7 +975,7 @@ export const eadminRoutes = [
     id: 8,
     path: routes.eadminDist,
     name: "eadminDist",
-    element: <EadminDist/>,
+    element: <EadminDist />,
     protected: true,
     route: Route,
   },
@@ -975,7 +983,7 @@ export const eadminRoutes = [
     id: 9,
     path: routes.evalState,
     name: "evalState",
-    element: <State/>,
+    element: <State />,
     protected: true,
     route: Route,
   },
@@ -983,7 +991,7 @@ export const eadminRoutes = [
     id: 10,
     path: routes.evalReports,
     name: "evalReports",
-    element: <ReportsCard/>,
+    element: <ReportsCard />,
     protected: true,
     route: Route,
   },
@@ -991,7 +999,7 @@ export const eadminRoutes = [
     id: 11,
     path: routes.evalL1,
     name: "evalL1",
-    element: <ReportL1/>,
+    element: <ReportL1 />,
     protected: true,
     route: Route,
   },
@@ -999,34 +1007,32 @@ export const eadminRoutes = [
     id: 12,
     path: routes.evalL2,
     name: "evalL2",
-    element: <ReportL2/>,
+    element: <ReportL2 />,
     protected: true,
     route: Route,
-  }, {
+  },
+  {
     id: 13,
     path: routes.evalL3,
     name: "evalL3",
-    element: <ReportL3/>,
+    element: <ReportL3 />,
     protected: true,
     route: Route,
-  }
-  , {
+  },
+  {
     id: 14,
     path: routes.editeval,
     name: "editeval",
-    element: <EditEvaluator/>,
+    element: <EditEvaluator />,
     protected: true,
     route: Route,
-  }
-  , {
+  },
+  {
     id: 15,
     path: routes.searchCid,
     name: "searchCid",
-    element: <SearchCID/>,
+    element: <SearchCID />,
     protected: true,
     route: Route,
   },
 ];
-
-
-

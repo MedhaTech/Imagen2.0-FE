@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import * as Icon from "react-feather";
-import { encryptGlobal } from '../../constants/encryptDecrypt';
-import { getCurrentUser } from '../../helpers/Utils';
-import axios from 'axios';
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { getCurrentUser } from "../../helpers/Utils";
+import axios from "axios";
+import { SiCodementor } from "react-icons/si";
 
 import { GoCommentDiscussion } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
@@ -13,10 +14,14 @@ import { logout } from "../../helpers/Utils";
 
 const SidebarData = () => {
   const { t } = useTranslation();
-   const navigate = useNavigate();
-  const currentUser = getCurrentUser('current_user');
-  const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
-  const [link, setLink] = useState('/instruction');
+  const navigate = useNavigate();
+  const currentUser = getCurrentUser("current_user");
+  const TeamId =
+    currentUser?.data[0]?.type_id === 0
+      ? currentUser?.data[0]?.student_id
+      : currentUser?.data[0]?.type_id;
+  const [link, setLink] = useState("/instruction");
+  const [mentorId, setMentorId] = useState("");
   const submittedApi = () => {
     const Param = encryptGlobal(
       JSON.stringify({
@@ -38,33 +43,32 @@ const SidebarData = () => {
       .then(function (response) {
         if (response.status === 200) {
           if (response.data.data && response.data.data.length > 0) {
+            console.log(response, "res");
             const data = response.data.data[0];
-            if (response.data.data[0].status === 'SUBMITTED') {
-              setLink('/idea');
+            setMentorId(response.data.data.mentorship_user_id);
+            if (response.data.data[0].status === "SUBMITTED") {
+              setLink("/idea");
             } else {
-              setLink('/instruction');
-            } 
-
-          } 
-        } 
+              setLink("/instruction");
+            }
+          }
+        }
       })
       .catch(function (error) {
         if (error.response.status === 404) {
-        //   seterror4( true);
-        } 
-
+          //   seterror4( true);
+        }
       });
   };
-useEffect(() => {
+  useEffect(() => {
     submittedApi();
-}, []);
- const handleLogout1 = (e) => {
+  }, []);
+  const handleLogout1 = (e) => {
     logout(navigate, t, "STUDENT");
     e.preventDefault();
   };
-  
-  return( [
-   
+
+  return [
     {
       label: "Student",
 
@@ -74,7 +78,7 @@ useEffect(() => {
       role: "STUDENT",
       submenuItems: [
         {
-          label:"PreSurvey",
+          label: "PreSurvey",
 
           link: "/studentpresurvey",
           icon: <Icon.Edit />,
@@ -82,7 +86,7 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label:"Dashboard",
+          label: "Dashboard",
           link: "/student-dashboard",
           icon: <Icon.Grid />,
           showSubRoute: false,
@@ -90,7 +94,7 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label:"Manage Team",
+          label: "Manage Team",
           link: "/student-team",
           icon: <Icon.UserPlus />,
           showSubRoute: false,
@@ -98,7 +102,7 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label:"Course",
+          label: "Course",
           link: `/studentcourseMenu`,
           icon: <Icon.Monitor />,
           showSubRoute: false,
@@ -107,7 +111,7 @@ useEffect(() => {
 
         {
           label: "Idea Submission",
-          link:link,
+          link: link,
 
           icon: <Icon.Send />,
           role: "STUDENT",
@@ -115,9 +119,9 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label:"Post Survey",
+          label: "Post Survey",
           link: "/studentpostsurvey",
-          icon:<Icon.Edit3 />,
+          icon: <Icon.Edit3 />,
           role: "STUDENT",
           showSubRoute: false,
           submenu: false,
@@ -129,10 +133,21 @@ useEffect(() => {
           showSubRoute: false,
           submenu: false,
         },
+        ...(mentorId !== null
+          ? [
+              {
+                label: "Mentorship",
+                link: "/student-Mentorship",
+                icon: <SiCodementor />,
+                showSubRoute: false,
+                submenu: false,
+              },
+            ]
+          : []),
         {
           label: "Discussion Forum",
           link: "/discussion-chat",
-          icon:<GoCommentDiscussion />,
+          icon: <GoCommentDiscussion />,
           showSubRoute: false,
           submenu: false,
         },
@@ -144,9 +159,9 @@ useEffect(() => {
           showSubRoute: false,
           submenu: false,
         },
-       
+
         {
-          label:"My Certificate",
+          label: "My Certificate",
           link: "/certificate",
           icon: <Icon.Tag />,
           role: "STUDENT",
@@ -154,21 +169,17 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label:"Logout",
+          label: "Logout",
           onClick: handleLogout1,
           icon: <Icon.LogOut />,
           role: "STUDENT",
           showSubRoute: false,
           submenu: false,
-          link: "#"
+          link: "#",
         },
-       
-        
-        
       ],
     },
-  ]
-);
+  ];
 };
 
 export default SidebarData;
