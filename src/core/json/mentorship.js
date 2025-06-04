@@ -2,7 +2,7 @@
 import React from "react";
 
 import * as Icon from "react-feather";
-
+import { MdChatBubbleOutline } from "react-icons/md";
 const MentorShipSidebarData = () => {
  
 
@@ -20,13 +20,13 @@ const MentorShipSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        // {
-        //   label: "Institution Edit",
-        //   link: "/instOption",
-        //   icon: <Icon.Home />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+        {
+          label: "Chat Box",
+          link: "/mentor-chatbox",
+          icon: <MdChatBubbleOutline />,
+          showSubRoute: false,
+          submenu: false,
+        },
         // {
         //   label:"PopUp",
         //   link: "/popup",

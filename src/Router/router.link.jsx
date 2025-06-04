@@ -126,6 +126,8 @@ import MentorshipList from "../Admin/UsersList/MentorshipList";
 import MentorShipEditUser from "../Admin/UsersList/MentorShipEditUser";
 import AddMentorship from "../Admin/UsersList/AddMentorship";
 import AdminSearchCID from "../Admin/Dashboard/SearchCID";
+import MentorAddChat from "../MentorShip/ChatBox/MentorAddChat";
+import MentorChatBoxList from "../MentorShip/ChatBox/MentorChatBoxList";
 export const mentorShipRoutes = [
   {
     id: 1,
@@ -156,6 +158,22 @@ export const mentorShipRoutes = [
     path: routes.MentorshipProfileEdit,
     name: "MentorshipProfileEdit",
     element: <MentorShipProfileEdit />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.mentorchatbox,
+    name: "mentorchatbox",
+    element: <MentorChatBoxList />,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 6,
+    path: routes.addMchat,
+    name: "addMchat",
+    element: <MentorAddChat />,
     protected: true,
     route: Route,
   },
