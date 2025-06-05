@@ -70,7 +70,7 @@ const CreateResource = () => {
         validationSchema: Yup.object({
             role: Yup.string()
                 .optional()
-                .oneOf(['Institution', 'Student']).required('Role is Required'),
+                .oneOf(['Institution', 'Student','Mentorship']).required('Role is Required'),
             description: Yup.string()
                 .optional()
                 .required('Details is Required'),
@@ -194,6 +194,9 @@ const CreateResource = () => {
                                                 </option>
                                                 <option value="Student">
                                                     Student
+                                                </option>
+                                                 <option value="Mentorship">
+                                                    Mentorship
                                                 </option>
                                             </select>
                                             {formik.touched.role &&

@@ -27,6 +27,13 @@ const MentorShipSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
+          {
+          label:"Resource",
+          link: "/mentor-resource",
+          icon: <Icon.FilePlus />,
+          showSubRoute: false,
+          submenu: false,
+        },
         // {
         //   label:"PopUp",
         //   link: "/popup",
@@ -34,13 +41,7 @@ const MentorShipSidebarData = () => {
         //   showSubRoute: false,
         //   submenu: false,
         // },
-        // {
-        //   label:"Resource",
-        //   link: "/adminresources",
-        //   icon: <Icon.FilePlus />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+      
         // {
         //   label:"Latest News",
         //   link: "/latest-news",

@@ -7,11 +7,13 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+// import "../../assets/plugins/fullcalendar/fullcalendar.min.css";
 import "../../style/css/fullcalendar.min.css";
+// import FullCalendar from '@fullcalendar/react/dist/main.esm.js';
 
 import Select from "react-select";
 
-const Calendar = () => {
+const MentorScheduleCalls = () => {
   const [startDate, setDate] = useState(new Date()),
     [showCategory, setshowCategory] = useState(false),
     [showmodel, setshowmodel] = useState(false),
@@ -345,4 +347,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default MentorScheduleCalls;
