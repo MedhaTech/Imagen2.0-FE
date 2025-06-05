@@ -153,11 +153,11 @@ const EadmiHeader = () => {
       .then(async function (response) {
         if (response.status == 200) {
           const multiOrgData = response?.data?.data[0];
-          window.location.reload();
-
+          
           navigate("/search-cid", {
             state: { multiOrgData },
           });
+          window.location.reload();
 
           setDiesCode("");
         }
