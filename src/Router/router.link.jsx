@@ -118,7 +118,7 @@ import EvaluatorProfile from "../Evaluator/EvaluatorProfile";
 import StuProfileEdit from "../Team/StuProfileEdit";
 import StudentMentorship from "../Team/StuMentorship/StudentMentorship";
 
-import MentorShipDashboard from "../MentorShip/Dashboard/MentorShipDashboard";
+import MentorShipDashboard from "../MentorShip/Dashboard/Milestone";
 import MentorShipProfile from "../MentorShip/MentorShipProfile";
 import MentorshipChangePwd from "../MentorShip/MentorshipChangePwd";
 import MentorShipProfileEdit from "../MentorShip/MentorShipProfileEdit";
@@ -128,6 +128,8 @@ import AddMentorship from "../Admin/UsersList/AddMentorship";
 import AdminSearchCID from "../Admin/Dashboard/SearchCID";
 import MentorAddChat from "../MentorShip/ChatBox/MentorAddChat";
 import MentorChatBoxList from "../MentorShip/ChatBox/MentorChatBoxList";
+import MentorshipResource from "../MentorShip/Resouce/MetorshipResorces";
+import MentorScheduleCalls from "../MentorShip/Dashboard/MentorScheduleCalls";
 export const mentorShipRoutes = [
   {
     id: 1,
@@ -174,6 +176,22 @@ export const mentorShipRoutes = [
     path: routes.addMchat,
     name: "addMchat",
     element: <MentorAddChat />,
+    protected: true,
+    route: Route,
+  },
+    {
+    id: 7,
+    path: routes.mentorResorce,
+    name: "mentorResorce",
+    element: <MentorshipResource/>,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 8,
+    path: routes.schedulecalls,
+    name: "schedulecalls",
+    element: <MentorScheduleCalls/>,
     protected: true,
     route: Route,
   },

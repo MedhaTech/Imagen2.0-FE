@@ -67,7 +67,6 @@ const [id,setId]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "res");
           setData(response.data.data);
           setId(response.data.data[0].mentorship_user_id);
         }

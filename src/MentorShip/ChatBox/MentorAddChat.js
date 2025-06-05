@@ -21,6 +21,8 @@ const MentorAddChat = (props) => {
   const location = useLocation();
   const studentData = location.state || {};
   const [predata, setPreData] = useState([]);
+  const currentUser = getCurrentUser("current_user");
+
   useEffect(() => {
     mentorgetApi();
   }, []);
@@ -45,7 +47,6 @@ const MentorAddChat = (props) => {
         console.log(error);
       });
   };
-  const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -148,11 +149,11 @@ const MentorAddChat = (props) => {
                   <Col md={12}>
                     <div>
                       <label className="form-label">
-                        Description <span>*</span>
+                        Reply <span>*</span>
                       </label>
                       <textarea
                         className="text-form form-control"
-                        placeholder="Enter Details"
+                        placeholder="Enter your Reply"
                         id="description"
                         name="description"
                         rows={4}
@@ -182,7 +183,7 @@ const MentorAddChat = (props) => {
                         Discard
                       </button>
                       <button type="submit" className="btn btn-warning">
-                        Send Response
+                        Send 
                       </button>
                     </div>
                   </div>
