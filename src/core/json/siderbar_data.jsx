@@ -22,6 +22,7 @@ const SidebarData = () => {
       : currentUser?.data[0]?.type_id;
   const [link, setLink] = useState("/instruction");
   const [mentorId, setMentorId] = useState("");
+  const [chatBoxId, setChatBoxId] = useState("0");
   const submittedApi = () => {
     const Param = encryptGlobal(
       JSON.stringify({
@@ -43,9 +44,9 @@ const SidebarData = () => {
       .then(function (response) {
         if (response.status === 200) {
           if (response.data.data && response.data.data.length > 0) {
-            console.log(response, "res");
-            const data = response.data.data[0];
-            setMentorId(response.data.data.mentorship_user_id);
+            setMentorId(response.data.data[0].mentorship_user_id);
+            setChatBoxId(response.data.data[0].chatbox);
+
             if (response.data.data[0].status === "SUBMITTED") {
               setLink("/idea");
             } else {
@@ -60,6 +61,8 @@ const SidebarData = () => {
         }
       });
   };
+
+
   useEffect(() => {
     submittedApi();
   }, []);
@@ -133,7 +136,7 @@ const SidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        ...(mentorId !== null
+        ...(mentorId !== null && Number(chatBoxId) === 1
           ? [
               {
                 label: "Mentorship",
