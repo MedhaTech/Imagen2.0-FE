@@ -78,12 +78,7 @@ const AddMentorship = () => {
             Please Enter Organization / Institution
           </span>
         )
-        .matches(
-          /^[aA-zZ\s]+$/,
-          <span style={{ color: "red" }}>
-            "Special Characters are not allowed"
-          </span>
-        )
+       .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
         .required(
           <span style={{ color: "red" }}>
             Please Enter Organization / Institution
@@ -96,12 +91,7 @@ const AddMentorship = () => {
           2,
           <span style={{ color: "red" }}>Please Enter Area of Expertise</span>
         )
-        .matches(
-          /^[aA-zZ\s]+$/,
-          <span style={{ color: "red" }}>
-            "Special Characters are not allowed"
-          </span>
-        )
+       .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
         .required(
           <span style={{ color: "red" }}>Please Enter Area of Expertise</span>
         ),
@@ -204,7 +194,7 @@ const AddMentorship = () => {
                             />
                             {formik.touched.full_name &&
                             formik.errors.full_name ? (
-                              <small className="error-cls">
+                              <small className="error-cls" style={{ color: "red" }}>
                                 {formik.errors.full_name}
                               </small>
                             ) : null}
@@ -265,7 +255,7 @@ const AddMentorship = () => {
                               value={formik.values.mobile}
                             />
                             {formik.touched.mobile && formik.errors.mobile ? (
-                              <small className="error-cls">
+                              <small className="error-cls" style={{ color: "red" }}>
                                 {formik.errors.mobile}
                               </small>
                             ) : null}
@@ -297,7 +287,7 @@ const AddMentorship = () => {
                               value={formik.values.college_name}
                             />
                             {formik.touched.college_name && formik.errors.college_name ? (
-                              <small className="error-cls">
+                              <small className="error-cls" style={{color:"red"}}>
                                 {formik.errors.college_name}
                               </small>
                             ) : null}
@@ -326,7 +316,7 @@ const AddMentorship = () => {
                             />
                             {formik.touched.area_of_expertise &&
                             formik.errors.area_of_expertise ? (
-                              <small className="error-cls">
+                              <small className="error-cls" style={{color:"red"}}>
                                 {formik.errors.area_of_expertise}
                               </small>
                             ) : null}

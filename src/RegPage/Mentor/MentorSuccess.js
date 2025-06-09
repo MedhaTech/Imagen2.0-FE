@@ -46,11 +46,7 @@ const MentorSuccess = () => {
             <div className="text-center">
               <div className="signinform">
                 <h4>
-                  Want to Login ?
-                  <Link className="hover-a" to={"/mentorship"}>
-                    {" "}
-                    Login
-                  </Link>
+                Access will be granted once approved by Admin.
                 </h4>
               </div>
             </div>

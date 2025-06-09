@@ -12,14 +12,13 @@ const MentorChatBoxList = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
   const [studentCount, setStudentCount] = useState([]);
-const[data,setData]=useState([]);
-const [id,setId]=useState("");
+  const [data, setData] = useState([]);
+  const [id, setId] = useState("");
   useEffect(() => {
     mentorTeamsCount(currentUser?.data[0]?.user_id);
     mentorChatBox(currentUser?.data[0]?.user_id);
-
   }, []);
-   
+
   const mentorTeamsCount = (id) => {
     const surveyApi = encryptGlobal(
       JSON.stringify({
@@ -47,7 +46,7 @@ const [id,setId]=useState("");
         console.log(error);
       });
   };
-    const mentorChatBox = (id) => {
+  const mentorChatBox = (id) => {
     const surveyApi = encryptGlobal(
       JSON.stringify({
         user_id: id,
@@ -55,9 +54,7 @@ const [id,setId]=useState("");
     );
     var config = {
       method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/chatboxs?Data=${surveyApi}`,
+      url: process.env.REACT_APP_API_BASE_URL + `/chatboxs?Data=${surveyApi}`,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -75,57 +72,54 @@ const [id,setId]=useState("");
         console.log(error);
       });
   };
-const handleChat = (student) => {
-  const challengeId = student.challenge_response_id;
+  const handleChat = (student) => {
+    const challengeId = student.challenge_response_id;
 
-  const matchingChatbox = data.find(
-    (chat) => chat.challenge_response_id === challengeId
-  );
+    const matchingChatbox = data.find(
+      (chat) => chat.challenge_response_id === challengeId
+    );
 
-  if (matchingChatbox) {
-    const chatboxId = matchingChatbox.chatbox_id;
+    if (matchingChatbox) {
+      const chatboxId = matchingChatbox.chatbox_id;
 
-    navigate(`/add-Mchat?id=${challengeId}`, {
-      state: {
-        ...student,
-        chatbox_id: chatboxId,
-      },
-    });
-  } else {
-    createChatboxid(challengeId);
-  }
-};
-   const createChatboxid = (challengeId) => {
-    const body = 
-      JSON.stringify({
-       challenge_response_id: challengeId,
-    mentorship_user_id: id
+      navigate(`/add-Mchat?id=${challengeId}`, {
+        state: {
+          ...student,
+          chatbox_id: chatboxId,
+        },
       });
-  
+    } else {
+      createChatboxid(challengeId);
+    }
+  };
+  const createChatboxid = (challengeId) => {
+    const body = JSON.stringify({
+      challenge_response_id: challengeId,
+      mentorship_user_id: id,
+    });
+
     var config = {
       method: "post",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/chatboxs`,
+      url: process.env.REACT_APP_API_BASE_URL + `/chatboxs`,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
         Authorization: `Bearer ${currentUser.data[0]?.token}`,
       },
-       data: body,
+      data: body,
     };
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          const response =response.data.data;
+          const response = response.data.data;
           setData(response.data.data);
 
-            navigate(`/add-Mchat?id=${challengeId}`, {
-      state: {
-        ...response,
-        chatbox_id: response.data.data.chatbox_id,
-      },
-    });
+          navigate(`/add-Mchat?id=${challengeId}`, {
+            state: {
+              ...response,
+              chatbox_id: response.data.data.chatbox_id,
+            },
+          });
         }
       })
       .catch(function (error) {
@@ -143,44 +137,43 @@ const handleChat = (student) => {
                 <h6>Manage your Chats</h6>
               </div>
             </div>
-           
           </div>
 
           <div className="employee-grid-widget">
             <div className="row">
-              {studentCount.map((student, i) => (
-                <div key={i} className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
-                  <div className="employee-grid-profile">
-                    <div className="profile-head">
-                      <div className="profile-head-action">
-                        <button
-                          type="button"
-                          className="btn btn-outline-warning text-center w-auto me-1"
+              {studentCount?.length > 0 ? (
+                studentCount.map((student, i) => (
+                  <div key={i} className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+                    <div className="employee-grid-profile">
+                      <div className="profile-head">
+                        <div className="profile-head-action">
+                          <button
+                            type="button"
+                            className="btn btn-outline-warning text-center w-auto me-1"
                             onClick={() => handleChat(student)}
-                        >
-                          Chat Box
-                        </button>
-                      </div>
-                    </div>
-                    <div className="profile-info">
-                      <div className="profile-pic active-profile">
-                        <div style={{ width: "64px", height: "64px" }}>
-                          <BiLogoMicrosoftTeams
-                            style={{ width: "100%", height: "100%" }}
-                          />
+                          >
+                            Chat Box
+                          </button>
                         </div>
                       </div>
-                      <h4 style={{ color: "orange" }}>CID : {student?.challenge_response_id}</h4>
+                      <div className="profile-info">
+                        <div className="profile-pic active-profile">
+                          <div style={{ width: "64px", height: "64px" }}>
+                            <BiLogoMicrosoftTeams
+                              style={{ width: "100%", height: "100%" }}
+                            />
+                          </div>
+                        </div>
+                        <h4 style={{ color: "orange" }}>
+                          CID : {student?.challenge_response_id}
+                        </h4>
+                      </div>
                     </div>
-                    <ul className="department">
-                      <li>
-                        {/* Class <span>{student.Grade}th class</span>{" "} */}
-                      </li>
-                      <li>{/* Age <span>{student.Age} yrs</span>{" "} */}</li>
-                    </ul>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <p className="text-center text-muted">There are no teams assigned yet.</p>
+              )}
             </div>
           </div>
         </div>
