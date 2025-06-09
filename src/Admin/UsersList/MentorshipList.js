@@ -27,7 +27,7 @@ import "react-data-table-component-extensions/dist/index.css";
 import { useDispatch } from "react-redux";
 import { encryptGlobal } from "../../constants/encryptDecrypt.js";
 import { MaskedEmail, MaskedMobile } from "../../RegPage/MaskedData.js";
-import ToggleButton from './Toggle';
+import ToggleButton from "./Toggle";
 
 const MentorshipList = (props) => {
   const dispatch = useDispatch();
@@ -248,6 +248,46 @@ const MentorshipList = (props) => {
       })
       .catch((err) => console.log(err.response));
   };
+  async function handleStatusOfChat(item, value) {
+    console.log(item,"item","value",value);
+    // This function updates status with the  type and value //
+const updatedValue = value === 1 ? "1" : "0";
+    const body = {
+      chatbox: updatedValue,
+    };
+
+    const popParam = encryptGlobal(JSON.stringify(item.mentorship_id));
+
+    let config = {
+      method: "put",
+      url: process.env.REACT_APP_API_BASE_URL + `/mentorships/${popParam}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+      data: JSON.stringify(body),
+    };
+    await axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          if (value === 0) {
+            openNotificationWithIcon(
+              "success",
+              "ChatBox Disabled successfully"
+            );
+          } else {
+            openNotificationWithIcon("success", "ChatBox Enabled successfully");
+          }
+
+          setTimeout(() => {
+            handleideaList();
+          }, 500);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   const StudentsData = {
     data: tableData && tableData.length > 0 ? tableData : [],
     columns: [
@@ -337,16 +377,15 @@ const MentorshipList = (props) => {
                 <i data-feather="trash-2" className="feather-trash-2" />
               </a>
             </div>
-              {/* <div
-              key={record}
-              style={{ marginRight: "8px" }}
-            >
- <ToggleButton
-        isEnabled={record.ideaSubmission === 1}
-        onToggle={(newStatus) => handleStatus(record, newStatus, 'idea')}
-      />
-            </div> */} 
-          
+            <div key={record} style={{ marginRight: "8px" }}>
+              <ToggleButton
+                 isEnabled={record.chatbox === 1 || record.chatbox === "1"}
+                onToggle={(newStatus) =>
+                  handleStatusOfChat(record, newStatus, "chatbox")
+                }
+              />
+            </div>
+
             <div
               key={record.id}
               style={{ marginRight: "10px" }}

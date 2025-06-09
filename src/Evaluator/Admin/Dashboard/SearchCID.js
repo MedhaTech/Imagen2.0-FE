@@ -1044,7 +1044,7 @@ const SearchCID = () => {
                       <p>
                         Status :{" "}
                         <span style={{ color: "green", fontSize: "1rem" }}>
-                          ASSIGENED
+                          ASSIGNED
                         </span>
                       </p>
                       <p>
