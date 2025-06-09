@@ -27,6 +27,7 @@ import "react-data-table-component-extensions/dist/index.css";
 import { useDispatch } from "react-redux";
 import { encryptGlobal } from "../../constants/encryptDecrypt.js";
 import { MaskedEmail, MaskedMobile } from "../../RegPage/MaskedData.js";
+import ToggleButton from './Toggle';
 
 const MentorshipList = (props) => {
   const dispatch = useDispatch();
@@ -305,7 +306,7 @@ const MentorshipList = (props) => {
         name: "Actions",
         center: true,
         sortable: false,
-        width: "20rem",
+        width: "25rem",
         cell: (record) => [
           <div key={record?.id}></div>,
           <>
@@ -336,6 +337,16 @@ const MentorshipList = (props) => {
                 <i data-feather="trash-2" className="feather-trash-2" />
               </a>
             </div>
+              {/* <div
+              key={record}
+              style={{ marginRight: "8px" }}
+            >
+ <ToggleButton
+        isEnabled={record.ideaSubmission === 1}
+        onToggle={(newStatus) => handleStatus(record, newStatus, 'idea')}
+      />
+            </div> */} 
+          
             <div
               key={record.id}
               style={{ marginRight: "10px" }}

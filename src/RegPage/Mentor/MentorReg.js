@@ -102,9 +102,7 @@ const Register = () => {
         )
         .matches(
           /^[aA-zZ\s]+$/,
-          <span style={{ color: "red" }}>
             "Special Characters are not allowed"
-          </span>
         )
         .required(
           <span style={{ color: "red" }}>
@@ -120,9 +118,7 @@ const Register = () => {
         )
         .matches(
           /^[aA-zZ\s]+$/,
-          <span style={{ color: "red" }}>
             "Special Characters are not allowed"
-          </span>
         )
         .required(
           <span style={{ color: "red" }}>Please Enter Area of Expertise</span>
@@ -193,11 +189,8 @@ const Register = () => {
   async function apiCall(mentData) {
     // this function Sends a request to trigger the mentor welcome email
     const body = {
-      full_name: mentData.full_name,
-      email: mentData.username,
+      email: formik.values.email,
       mobile: mentData.mobile,
-      // areas_of_expertise: mentData.area_of_expertise,
-      // college_name: mentData.college_name,
     };
 
     var config = {
@@ -260,7 +253,7 @@ const Register = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          // console.log(UNhashedPassword,"otp");
+          console.log(UNhashedPassword,"otp");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "OTP Sent to Given Email Id");
           setBtnOtp(true);
@@ -393,7 +386,7 @@ const Register = () => {
                             />
                             {formik.touched.full_name &&
                             formik.errors.full_name ? (
-                              <small className="error-cls">
+                              <small className="error-cls" style={{ color: "red" }}>
                                 {formik.errors.full_name}
                               </small>
                             ) : null}
@@ -456,7 +449,7 @@ const Register = () => {
                               value={formik.values.mobile}
                             />
                             {formik.touched.mobile && formik.errors.mobile ? (
-                              <small className="error-cls">
+                              <small className="error-cls" style={{ color: "red" }}>
                                 {formik.errors.mobile}
                               </small>
                             ) : null}
@@ -495,7 +488,7 @@ const Register = () => {
                             />
                             {formik.touched.college_name &&
                             formik.errors.college_name ? (
-                              <small className="error-cls">
+                              <small className="error-cls" style={{ color: "red" }}>
                                 {formik.errors.college_name}
                               </small>
                             ) : null}
@@ -518,7 +511,7 @@ const Register = () => {
                               name="area_of_expertise"
                               // rows={5}
                               disabled={areInputsDisabled}
-                              placeholder="Areas of Expertise "
+                              placeholder="Areas of Expertise"
                               onChange={(e) => {
                                 const inputValue = e.target.value;
                                 const lettersOnly = inputValue.replace(
@@ -535,7 +528,7 @@ const Register = () => {
                             />
                             {formik.touched.area_of_expertise &&
                             formik.errors.area_of_expertise ? (
-                              <small className="error-cls">
+                              <small className="error-cls" style={{ color: "red" }}>
                                 {formik.errors.area_of_expertise}
                               </small>
                             ) : null}

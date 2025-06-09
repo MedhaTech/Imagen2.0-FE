@@ -256,7 +256,7 @@ const DBStu = () => {
                 </div>
               ))
             ) : (
-              <p>No discussions available.</p>
+              <p>No assigned Ideas are available.</p>
             )}
           </div>
         </div>

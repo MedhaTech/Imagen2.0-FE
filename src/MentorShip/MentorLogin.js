@@ -10,6 +10,7 @@ import { useNavigate,Link } from "react-router-dom";
 import logo from "../assets/img/logo.png";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { mentorShipLoginUser } from "../MentorShip/store/actions";
+import user from "../assets/img/icons/user-icon.svg";
 
 const MentorshipLogin = (props) => {
   const navigate = useNavigate();
@@ -98,6 +99,9 @@ const MentorshipLogin = (props) => {
                
                 <div className="login-userheading">
                   <h3>Mentorship Login</h3>
+                    <h4>
+                    Access the MentorShip Panel Using Your Email and Password.
+                  </h4>
                 </div>
                 <div className="form-login mb-3">
                   <label className="form-label">Email</label>
@@ -113,7 +117,7 @@ const MentorshipLogin = (props) => {
                     {formik.touched.username && formik.errors.username ? (
                       <small className="error-cls" style={{ color: "red" }}>{formik.errors.username}</small>
                     ) : null}
-                   
+                   <img src={user} alt="user" />
                   </div>
                 </div>
                 <div className="form-login mb-3">
@@ -130,12 +134,12 @@ const MentorshipLogin = (props) => {
                     {formik.touched.password && formik.errors.password ? (
                       <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
                     ) : null}
-                    <span
+                    <div
                       className={`fas toggle-password ${
                         isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={togglePasswordVisibility}
-                    ></span>
+                    ></div>
                   </div>
                 </div>
                
