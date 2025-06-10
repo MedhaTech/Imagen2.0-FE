@@ -90,6 +90,7 @@ import IdeaSubmission from "../Team/IdeaSubmission/IdeaSubmission";
 import AdminInstitutionUsersList from "../Admin/UsersList/institutionList";
 import AdminInstitutionProgress from "../Admin/Reports/Helpers/InstProgressReport";
 import AdminIdea from "../Admin/Reports/Helpers/IdeaReport";
+import AdminMentorship from "../Admin/Reports/Helpers/mentorshipReport";
 import StudentDiscussion from "../Team/SupportJourney/Ticket";
 import StudentNewChat from "../Team/SupportJourney/AddNewTicket";
 import StudentNewChatResponse from "../Team/SupportJourney/TicketResponse";
@@ -117,7 +118,7 @@ import EvaluateL2 from "../Evaluator/EvaluatedIdea/EvaluatedIdeaL2";
 import EvaluatorProfile from "../Evaluator/EvaluatorProfile";
 import StuProfileEdit from "../Team/StuProfileEdit";
 import StudentMentorship from "../Team/StuMentorship/StudentMentorship";
-
+import Studentmilestone from "../Team/StuMentorship/StudentMilestone";
 import MentorShipDashboard from "../MentorShip/Dashboard/Milestone";
 import MentorShipProfile from "../MentorShip/MentorShipProfile";
 import MentorshipChangePwd from "../MentorShip/MentorshipChangePwd";
@@ -129,6 +130,8 @@ import AdminSearchCID from "../Admin/Dashboard/SearchCID";
 import MentorAddChat from "../MentorShip/ChatBox/MentorAddChat";
 import MentorChatBoxList from "../MentorShip/ChatBox/MentorChatBoxList";
 import MentorshipResource from "../MentorShip/Resouce/MetorshipResorces";
+import MentorshipTeams from "../MentorShip/Team/index";
+import MentorshipMilestone from "../MentorShip/Milestone/index";
 import MentorScheduleCalls from "../MentorShip/Dashboard/MentorScheduleCalls";
 export const mentorShipRoutes = [
   {
@@ -192,6 +195,22 @@ export const mentorShipRoutes = [
     path: routes.schedulecalls,
     name: "schedulecalls",
     element: <MentorScheduleCalls/>,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 9,
+    path: routes.mentorMilestone,
+    name: "mentorMilestone",
+    element: <MentorshipMilestone/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 10,
+    path: routes.mentorTeams,
+    name: "mentorTeams",
+    element: <MentorshipTeams/>,
     protected: true,
     route: Route,
   },
@@ -600,6 +619,14 @@ export const publicRoutes = [
     protected: true,
     route: Route,
   },
+   {
+    id: 40,
+    path: routes.adminmentorshipreport,
+    name: "adminmentorshipreport",
+    element: <AdminMentorship />,
+    protected: true,
+    route: Route,
+  },
 ];
 
 export const teamRoutes = [
@@ -780,6 +807,14 @@ export const teamRoutes = [
     path: routes.studentmentorship,
     name: "studentmentorship",
     element: <StudentMentorship/>,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 24,
+    path: routes.studentmilestone,
+    name: "studentmilestone",
+    element: <Studentmilestone/>,
     // protected: true,
     route: Route,
   },

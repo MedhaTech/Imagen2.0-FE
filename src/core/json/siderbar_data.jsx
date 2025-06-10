@@ -44,6 +44,7 @@ const SidebarData = () => {
       .then(function (response) {
         if (response.status === 200) {
           if (response.data.data && response.data.data.length > 0) {
+            localStorage.setItem('CID', response.data.data[0].challenge_response_id);
             setMentorId(response.data.data[0].mentorship_user_id);
             setChatBoxId(response.data.data[0].chatbox);
 
@@ -142,6 +143,17 @@ const SidebarData = () => {
                 label: "Mentorship",
                 link: "/student-Mentorship",
                 icon: <SiCodementor />,
+                showSubRoute: false,
+                submenu: false,
+              },
+            ]
+          : []),
+          ...(mentorId !== null
+          ? [
+              {
+                label: "Milestone",
+                link: "/studentmilestone",
+                icon: <Icon.Award />,
                 showSubRoute: false,
                 submenu: false,
               },

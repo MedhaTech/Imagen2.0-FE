@@ -231,6 +231,7 @@ const DBStu = () => {
                           type="button"
                           className="btn btn-outline-info text-center w-auto me-2"
                           onClick={() => handleMessage(discussion)}
+                          disabled={currentUser?.data[0]?.chatbox === '0'}
                         >
                           <BiSolidMessageRounded size={20} /> Message
                         </button>

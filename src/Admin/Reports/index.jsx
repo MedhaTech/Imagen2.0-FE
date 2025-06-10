@@ -6,7 +6,7 @@ import reg from "../../assets/img/reportregister1.png";
 import school from "../../assets/img/reportschool.png";
 import student from "../../assets/img/reportsstudent1.png";
 import idea from "../../assets/img/reportidea.png";
-import user from "../../assets/img/user.png";
+import ms from "../../assets/img/mentorship_report.png";
 import user1 from "../../assets/img/reportuser1.png";
 import user2 from "../../assets/img/reportuser2.png";
 import user3 from "../../assets/img/reportuser3.png";
@@ -72,9 +72,6 @@ return (
                        
                         </div>
                     </div>
-                    </div>
-                    <div className="row d-flex justify-content-center">
-
                     <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
                         <div className="employee-grid-profile">
                         <div className="profile-head">
@@ -97,6 +94,8 @@ return (
                        
                         </div>
                     </div>
+                    </div>
+                    <div className="row d-flex justify-content-center">
                     <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
                         <div className="employee-grid-profile">
                         <div className="profile-head">
@@ -143,7 +142,30 @@ return (
                         </Link>
                        
                         </div>
-                    </div>                    
+                    </div>
+                    <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+                        <div className="employee-grid-profile">
+                        <div className="profile-head">
+                            <div className="dep-name">
+                                <h5 className="active">MentorShip</h5>
+                            </div>
+                        </div>
+                        <Link  to="/mentorship-report ">
+                            <div className="profile-info department-profile-info" >
+                                
+                                    <div className="profile-pic">
+                                    <img
+                                        src={ms}
+                                        alt=""
+                                    />
+
+                                    </div>
+                                    <h4>MentorShip Overview</h4>
+                            </div>
+                        </Link>
+                       
+                        </div>
+                    </div>                      
                 </div>
             </div>
         </div>
