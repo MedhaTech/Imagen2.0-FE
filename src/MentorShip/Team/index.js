@@ -8,7 +8,6 @@ import Table from "../../core/pagination/datatable";
 ////////////////////New Code//////////////////////////
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-import { Mail } from "feather-icons-react/build/IconComponents";
 import {
   IoHelpOutline,
 } from "react-icons/io5";
@@ -16,14 +15,11 @@ import { CheckCircle } from 'react-feather';
 import { useEffect } from 'react';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { getTeamMemberStatus } from '../../Teacher/store/teams/actions';
-import { openNotificationWithIcon } from "../../helpers/Utils";
-import { RiTeamFill } from "react-icons/ri";
 import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
+import { Row } from "reactstrap";
 
-import { Row, Col } from "reactstrap";
 
-
-const TeamsProgDD = ({ user, setIdeaCount }) => {
+const TeamsProgDD = ({ setIdeaCount }) => {
 
   //////////////New Code/////////////////////////
   const dispatch = useDispatch();
@@ -32,12 +28,9 @@ const TeamsProgDD = ({ user, setIdeaCount }) => {
     (state) => state.teams
   );
   const [formData, setFormData] = useState({});
-
   const [noData, setNoData] = useState(false);
   const [ideaShow, setIdeaShow] = useState(false);
   const [teamId, setTeamId] = useState(null);
-
-  const [mentorid, setmentorid] = useState('');
   const [showDefault, setshowDefault] = useState(true);
   useEffect(() => {
     if (teamId) {
@@ -85,30 +78,27 @@ const TeamsProgDD = ({ user, setIdeaCount }) => {
   const percentageBWNumbers = (a, b) => {
     return (((a - b) / a) * 100).toFixed(2);
   };
-  useEffect(() => {
-    if (user) {
-      setmentorid(user[0].college_name);
-    }
-  }, [user]);
-  const [teamsList, setTeamsList] = useState([]);
-  useEffect(() => {
-    if (mentorid) {
-      setshowDefault(true);
-      teamNameandIDsbymentorid(mentorid);
-    }
-  }, [mentorid]);
 
-  const teamNameandIDsbymentorid = (mentorid) => {
+  const [teamsList, setTeamsList] = useState([]);
+
+  useEffect(() => {
+    if (currentUser.data[0]?.user_id) {
+      setshowDefault(true);
+      teamNameandIDsbymentorid(currentUser.data[0]?.user_id);
+    }
+  }, [currentUser.data[0]?.user_id]);
+
+  const teamNameandIDsbymentorid = (user_id) => {
     const teamApi = encryptGlobal(
       JSON.stringify({
-        college_name: mentorid
+        user_id: user_id
       })
     );
     var config = {
       method: 'get',
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/mentors/pilotNameByInstName?Data=${teamApi}`,
+        `/mentorships/seletedteams?Data=${teamApi}`,
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -230,35 +220,26 @@ const TeamsProgDD = ({ user, setIdeaCount }) => {
     }
   ];
 
-
   const customer = teamsList.map((team) => ({
     value: team.student_id,
-    label: team.full_name,
+    label: team.challenge_response_id,
   }));
 
   const handleSelectChange = (selectedOption) => {
     setTeamId(selectedOption ? selectedOption.value : '');
   };
 
-
-
   ////////Email Team Credentisl////////////
 
   return (
-    <div>
-      <div className="card table-list-card">
-        <div className="card-header d-flex justify-content-between align-items-center">
-          <h4 className="card-title mb-0">
-            <RiTeamFill size="25" style={{
-              marginRight: "6px",
-              verticalAlign: "middle",
-              color: "#0e4b99"
-            }} />
-            Team Progress</h4>
-
+    <div className="page-wrapper">
+      <div className="content">
+        <div className="page-title">
+          <h4>Team Progress</h4>
+          <br />
         </div>
         <div className="card-body">
-          <div className="table-top">
+          <div className="table-top pb-3">
             <div className="form-sort select-bluk">
               <Select
                 classNamePrefix="react-select"
