@@ -78,7 +78,7 @@ const DBStu = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "cid");
+          // console.log(response, "cid");
           setCidList(response.data.data);
         }
       })
@@ -86,20 +86,82 @@ const DBStu = () => {
         console.log(error);
       });
   };
-  const handleMessage = (item) => {
-    const challengeId = item.challenge_response_id;
-    const matchingChatbox = data.find(
-      (chat) => chat.challenge_response_id === challengeId
-    );
+  // const handleMessage = (item) => {
+  //   const challengeId = item.challenge_response_id;
+
+  //   const matchingChatbox = data.find(
+  //     (chat) => chat.challenge_response_id === challengeId
+  //   );
+  //   if (matchingChatbox) {
+  //     const chatboxId = matchingChatbox.chatbox_id;
+  //     navigate(`/add-Mchat?id=${challengeId}`, {
+  //       state: {
+  //         ...item,
+  //         chatbox_id: chatboxId,
+  //       },
+  //     });
+  //   }
+  // };
+    const handleMessage = (student) => {
+
+    const challengeId = student;
+const mentorId = currentUser.data[0]?.user_id;
+    // const matchingChatbox = data.find(
+    //   (chat) => chat.challenge_response_id === challengeId
+    // );
+
+     const matchingChatbox = data.find(
+    (chat) =>
+      chat.challenge_response_id === challengeId &&
+      chat.mentorship_user_id === mentorId
+  );
+
     if (matchingChatbox) {
       const chatboxId = matchingChatbox.chatbox_id;
+
       navigate(`/add-Mchat?id=${challengeId}`, {
         state: {
-          ...item,
+          ...student,
           chatbox_id: chatboxId,
         },
       });
+    } else {
+      createChatboxid(challengeId,student);
     }
+  };
+  const createChatboxid = (challengeId,student) => {
+    const body = JSON.stringify({
+      challenge_response_id: challengeId,
+      mentorship_user_id: currentUser.data[0]?.user_id,
+    });
+
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + `/chatboxs`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+      data: body,
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // const response = response.data.data;
+          // setData(response.data.data);
+
+          navigate(`/add-Mchat?id=${challengeId}`, {
+            state: {
+              ...student,
+              chatbox_id: response.data.data.chatbox_id,
+            },
+          });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   return (
     <>
@@ -230,7 +292,7 @@ const DBStu = () => {
                         <button
                           type="button"
                           className="btn btn-outline-info text-center w-auto me-2"
-                          onClick={() => handleMessage(discussion)}
+                          onClick={() => handleMessage(discussion.challenge_response_id)}
                           disabled={currentUser?.data[0]?.chatbox === '0'}
                         >
                           <BiSolidMessageRounded size={20} /> Message

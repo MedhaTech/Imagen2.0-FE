@@ -122,11 +122,18 @@ const SearchCID = () => {
 
     axios(config)
       .then(async function (response) {
-        if (response.status == 200) {
-          openNotificationWithIcon(
-            "success",
-            "Mentorship Assigned Successfully"
-          );
+       if (response.status == 200) {
+                if(item === "UnAssign"){
+                   openNotificationWithIcon(
+                  "success",
+                  "Mentorship UnAssigned Successfully"
+                );
+                }else {
+                openNotificationWithIcon(
+                  "success",
+                  "Mentorship Assigned Successfully"
+                );
+              }
 
           handleSearch();
         }

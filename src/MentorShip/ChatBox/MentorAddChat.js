@@ -55,7 +55,7 @@ const MentorAddChat = (props) => {
     },
 
     validationSchema: Yup.object({
-      description: Yup.string().required("Please Enter a Description"),
+      description: Yup.string().required("Please Enter Message for your Teammates"),
     }),
     onSubmit: async (values) => {
       const body = JSON.stringify({
@@ -149,11 +149,11 @@ const MentorAddChat = (props) => {
                   <Col md={12}>
                     <div>
                       <label className="form-label">
-                        Reply <span>*</span>
+                        Message your Teammates <span>*</span>
                       </label>
                       <textarea
                         className="text-form form-control"
-                        placeholder="Enter your Reply"
+                        placeholder="Enter Message for your Teammates"
                         id="description"
                         name="description"
                         rows={4}
@@ -183,7 +183,7 @@ const MentorAddChat = (props) => {
                         Discard
                       </button>
                       <button type="submit" className="btn btn-warning">
-                        Send 
+                        Reply 
                       </button>
                     </div>
                   </div>

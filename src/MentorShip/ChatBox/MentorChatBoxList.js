@@ -13,7 +13,6 @@ const MentorChatBoxList = () => {
   const navigate = useNavigate();
   const [studentCount, setStudentCount] = useState([]);
   const [data, setData] = useState([]);
-  const [id, setId] = useState("");
   useEffect(() => {
     mentorTeamsCount(currentUser?.data[0]?.user_id);
     mentorChatBox(currentUser?.data[0]?.user_id);
@@ -65,7 +64,6 @@ const MentorChatBoxList = () => {
       .then(function (response) {
         if (response.status === 200) {
           setData(response.data.data);
-          setId(response.data.data[0].mentorship_user_id);
         }
       })
       .catch(function (error) {
@@ -74,10 +72,16 @@ const MentorChatBoxList = () => {
   };
   const handleChat = (student) => {
     const challengeId = student.challenge_response_id;
+const mentorId = currentUser.data[0]?.user_id;
+    // const matchingChatbox = data.find(
+    //   (chat) => chat.challenge_response_id === challengeId
+    // );
 
-    const matchingChatbox = data.find(
-      (chat) => chat.challenge_response_id === challengeId
-    );
+     const matchingChatbox = data.find(
+    (chat) =>
+      chat.challenge_response_id === challengeId &&
+      chat.mentorship_user_id === mentorId
+  );
 
     if (matchingChatbox) {
       const chatboxId = matchingChatbox.chatbox_id;
@@ -89,13 +93,13 @@ const MentorChatBoxList = () => {
         },
       });
     } else {
-      createChatboxid(challengeId);
+      createChatboxid(challengeId,student);
     }
   };
-  const createChatboxid = (challengeId) => {
+  const createChatboxid = (challengeId,student) => {
     const body = JSON.stringify({
       challenge_response_id: challengeId,
-      mentorship_user_id: id,
+      mentorship_user_id: currentUser.data[0]?.user_id,
     });
 
     var config = {
@@ -111,12 +115,12 @@ const MentorChatBoxList = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          const response = response.data.data;
-          setData(response.data.data);
+          // const response = response.data.data;
+          // setData(response.data.data);
 
           navigate(`/add-Mchat?id=${challengeId}`, {
             state: {
-              ...response,
+              ...student,
               chatbox_id: response.data.data.chatbox_id,
             },
           });
