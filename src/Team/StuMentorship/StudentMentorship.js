@@ -98,7 +98,7 @@ const StudentMentorship = (props) => {
     },
 
     validationSchema: Yup.object({
-      description: Yup.string().required("Please Enter a Description"),
+      description: Yup.string().required("Please Enter Message for your Mentor"),
     }),
     onSubmit: async (values, { resetForm }) => {
       const body = JSON.stringify({
@@ -201,11 +201,11 @@ const StudentMentorship = (props) => {
                   <Col md={12}>
                     <div>
                       <label className="form-label">
-                        Reply <span>*</span>
+                        Message your Mentor <span>*</span>
                       </label>
                       <textarea
                         className="text-form form-control"
-                        placeholder="Enter your Reply"
+                        placeholder="Enter Message for your Mentor"
                         id="description"
                         name="description"
                         rows={4}
@@ -235,7 +235,7 @@ const StudentMentorship = (props) => {
                         Discard
                       </button>
                       <button type="submit" className="btn btn-warning">
-                        Send 
+                        Reply
                       </button>
                     </div>
                   </div>

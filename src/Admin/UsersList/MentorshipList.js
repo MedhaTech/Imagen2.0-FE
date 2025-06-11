@@ -249,9 +249,9 @@ const MentorshipList = (props) => {
       .catch((err) => console.log(err.response));
   };
   async function handleStatusOfChat(item, value) {
-    console.log(item,"item","value",value);
+    // console.log(item,"item","value",value);
     // This function updates status with the  type and value //
-const updatedValue = value === 1 ? "1" : "0";
+    const updatedValue = value === 1 ? "1" : "0";
     const body = {
       chatbox: updatedValue,
     };
@@ -340,7 +340,21 @@ const updatedValue = value === 1 ? "1" : "0";
             {row.status}
           </span>,
         ],
-        width: "12rem",
+        width: "8rem",
+      },
+      {
+        name: "ChatBox Activation",
+        width: "10rem",
+        center: true,
+
+        cell: (record) => (
+          <ToggleButton
+            isEnabled={record.chatbox === 1 || record.chatbox === "1"}
+            onToggle={(newStatus) =>
+              handleStatusOfChat(record, newStatus, "chatbox")
+            }
+          />
+        ),
       },
       {
         name: "Actions",
@@ -377,14 +391,14 @@ const updatedValue = value === 1 ? "1" : "0";
                 <i data-feather="trash-2" className="feather-trash-2" />
               </a>
             </div>
-            <div key={record} style={{ marginRight: "8px" }}>
+            {/* <div key={record} style={{ marginRight: "8px" }}>
               <ToggleButton
-                 isEnabled={record.chatbox === 1 || record.chatbox === "1"}
+                isEnabled={record.chatbox === 1 || record.chatbox === "1"}
                 onToggle={(newStatus) =>
                   handleStatusOfChat(record, newStatus, "chatbox")
                 }
               />
-            </div>
+            </div> */}
 
             <div
               key={record.id}
