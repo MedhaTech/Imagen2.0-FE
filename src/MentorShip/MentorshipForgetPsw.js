@@ -89,7 +89,7 @@ const MentorshipForgetPsw = () => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading">
-                  <h3>Forgot your YFSI Mentorship password?</h3>
+                  <h3>Forgot your YFSI Mentor password?</h3>
                   {/* <h4>
                     If you forgot your password, well, then we’ll email you
                     instructions to reset your password.

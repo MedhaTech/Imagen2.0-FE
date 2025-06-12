@@ -11,7 +11,7 @@ const MentorShipSidebarData = () => {
 const ChatId =currentUser?.data[0]?.chatbox ;
   return( [
     {
-      label:"Mentorship",
+      label:"Mentor",
       submenuOpen: true,
       showSubRoute: false,
       submenuHdr: "Inventory",

@@ -150,7 +150,7 @@ const MentorShipProfileEdit = () => {
           if (response.status === 200) {
             openNotificationWithIcon(
               "success",
-              "Mentorship Details Updated Successfully "
+              "Mentor Details Updated Successfully "
             );
             navigate("/mentorship-profile");
           } else {
@@ -171,7 +171,7 @@ const MentorShipProfileEdit = () => {
     <div className="page-wrapper">
       <div className="content">
         <div className="login-userheading">
-          <h4>Edit MentorShip User Details</h4>
+          <h4>Edit Mentor User Details</h4>
         </div>
         <div className="d-flex justify-content-center align-items-center">
           <div className="card container m-4">

@@ -133,6 +133,7 @@ import MentorshipResource from "../MentorShip/Resouce/MetorshipResorces";
 import MentorshipTeams from "../MentorShip/Team/index";
 import MentorshipMilestone from "../MentorShip/Milestone/index";
 import MentorScheduleCalls from "../MentorShip/Dashboard/MentorScheduleCalls";
+import AddMilestone from "../MentorShip/Milestone/AddInputs";
 export const mentorShipRoutes = [
   {
     id: 1,
@@ -211,6 +212,14 @@ export const mentorShipRoutes = [
     path: routes.mentorTeams,
     name: "mentorTeams",
     element: <MentorshipTeams/>,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 10,
+    path: routes.addnote,
+    name: "addnote",
+    element: <AddMilestone/>,
     protected: true,
     route: Route,
   },

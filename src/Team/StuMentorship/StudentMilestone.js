@@ -74,7 +74,7 @@ const StudentMilestone = (props) => {
     <div className="page-wrapper">
       <div className="content">
         <div className="page-title">
-          <h4>Student Milestone</h4>
+          <h4>Milestone</h4>
           <br />
         </div>
         <DataTableExtensions

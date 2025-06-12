@@ -20,7 +20,7 @@ const MentorshipResource = () => {
 
     const fectchTecParam = encryptGlobal(
       JSON.stringify({
-        role: "Mentorship",
+        role: "Mentor",
       })
     );
 

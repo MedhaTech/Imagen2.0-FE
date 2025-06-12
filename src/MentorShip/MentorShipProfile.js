@@ -61,7 +61,7 @@ const MentorShipProfile = () => {
       <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>Mentorship Profile</h4>
+            <h4>Mentor Profile</h4>
           </div>
         </div>
         <div className="card">

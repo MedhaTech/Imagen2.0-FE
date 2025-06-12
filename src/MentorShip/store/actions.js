@@ -53,7 +53,7 @@ export const mentorShipLoginUser =
         dispatch(mentorShipLoginUserError(result.statusText));
              
       } else {
-        openNotificationWithIcon("error",  "Entered Mentorship Credentials are in InActive Status");
+        openNotificationWithIcon("error",  "Entered Mentor Credentials are in InActive Status");
       }
     } catch (error) {
       dispatch(mentorShipLoginUserError({}));

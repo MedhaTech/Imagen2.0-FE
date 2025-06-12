@@ -183,7 +183,7 @@ const MentorAddChat = (props) => {
                         Discard
                       </button>
                       <button type="submit" className="btn btn-warning">
-                        Reply 
+                        Send
                       </button>
                     </div>
                   </div>
