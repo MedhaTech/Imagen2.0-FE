@@ -150,7 +150,7 @@ const AddMentorship = () => {
     <div className="page-wrapper">
       <div className="content">
           <div className="login-userheading">
-          <h4>Add New Mentorship</h4>
+          <h4>Add New Mentor</h4>
         </div >
         <div className='d-flex justify-content-center align-items-center'>
           <div className="card container m-4">

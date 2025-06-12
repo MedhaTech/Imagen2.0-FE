@@ -309,7 +309,8 @@ const mentorId = currentUser.data[0]?.user_id;
                         <button
                           type="button"
                           className="btn btn-outline-success text-center w-auto"
-                          //   onClick={() => handleDelete(student)}
+                          
+                           onClick={() => navigate("/mentor-milestone")}
                         >
                           <BsListCheck size={20} /> Milestones
                         </button>

@@ -98,9 +98,9 @@ const MentorshipLogin = (props) => {
                 </div>
                
                 <div className="login-userheading">
-                  <h3>Mentorship Login</h3>
+                  <h3>Mentor Login</h3>
                     <h4>
-                    Access the MentorShip Panel Using Your Email and Password.
+                    Access the Mentor Panel Using Your Email and Password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">

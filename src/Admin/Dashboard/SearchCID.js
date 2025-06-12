@@ -127,12 +127,12 @@ const AdminSearchCID = () => {
           if(item === "UnAssign"){
              openNotificationWithIcon(
             "success",
-            "Mentorship UnAssigned Successfully"
+            "Mentor UnAssigned Successfully"
           );
           }else {
           openNotificationWithIcon(
             "success",
-            "Mentorship Assigned Successfully"
+            "Mentor Assigned Successfully"
           );
         }
           handleSearch();
@@ -1045,6 +1045,7 @@ const AdminSearchCID = () => {
                     )}
                   </div>
                 )}
+                {multiOrgListData?.evaluator_ratings?.length === 2 && (
                 <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                   {multiOrgListData?.mentorship_user_id !== null ? (
                     <>
@@ -1101,6 +1102,7 @@ const AdminSearchCID = () => {
                     </div>
                   )}
                 </div>
+                )}
                 {multiOrgListData?.evaluator_ratings.length > 0 && (
                   <RatedCard details={multiOrgListData} />
                 )}

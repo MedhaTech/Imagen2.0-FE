@@ -126,12 +126,12 @@ const SearchCID = () => {
                 if(item === "UnAssign"){
                    openNotificationWithIcon(
                   "success",
-                  "Mentorship UnAssigned Successfully"
+                  "Mentor UnAssigned Successfully"
                 );
                 }else {
                 openNotificationWithIcon(
                   "success",
-                  "Mentorship Assigned Successfully"
+                  "Mentor Assigned Successfully"
                 );
               }
 
@@ -294,6 +294,7 @@ const SearchCID = () => {
         console.log(error);
       });
   };
+
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -417,7 +418,6 @@ const SearchCID = () => {
                   </div>
                 </div>
               </div>
-
               <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
                 <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                   <div
@@ -1045,6 +1045,8 @@ const SearchCID = () => {
                     )}
                   </div>
                 )}
+{multiOrgListData?.evaluator_ratings?.length === 2 && (
+
                 <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                   {multiOrgListData?.mentorship_user_id !== null ? (
                     <>
@@ -1101,6 +1103,7 @@ const SearchCID = () => {
                     </div>
                   )}
                 </div>
+)}
                 {multiOrgListData?.evaluator_ratings.length > 0 && (
                   <RatedCard details={multiOrgListData} />
                 )}

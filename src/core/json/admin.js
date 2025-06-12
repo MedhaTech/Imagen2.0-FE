@@ -73,7 +73,7 @@ const AdminSidebarData = () => {
           submenu: false,
         },
          {
-          label:"Mentorship",
+          label:"Mentors",
           link: "/admin-mentorship-list",
           icon: <SiCodementor />,
           showSubRoute: false,

@@ -107,7 +107,7 @@ const MentorshipList = (props) => {
   };
 
   const handleStatus = (status, id, type, all) => {
-    const stats = "Mentorship";
+    const stats = "Mentor";
     // where we can update the status Active to InActive //
     // where id = student id / mentor id  / admin id / evaluator  id//
     // where status = status //
@@ -193,7 +193,7 @@ const MentorshipList = (props) => {
               if (response.status === 200) {
                 openNotificationWithIcon(
                   "success",
-                  "Mentorship Deleted Successfully"
+                  "Mentor Deleted Successfully"
                 );
                 setTimeout(() => {
                   handleideaList();
@@ -300,7 +300,7 @@ const MentorshipList = (props) => {
         width: "5rem",
       },
       {
-        name: "Mentorship Name",
+        name: "Mentor Name",
         selector: (row) => row?.user?.full_name,
         center: true,
         cellExport: (row) => row?.user?.full_name,
@@ -448,7 +448,7 @@ const MentorshipList = (props) => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Mentorship List</h4>
+              <h4>Mentors List</h4>
             </div>
           </div>
         </div>
@@ -470,7 +470,7 @@ const MentorshipList = (props) => {
                           className="me-2"
                           style={{ color: "white" }}
                         />
-                        <b>Add Mentorship</b>
+                        <b>Add Mentor</b>
                       </button>
                     </div>
                   </Col>
