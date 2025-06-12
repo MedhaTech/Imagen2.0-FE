@@ -61,11 +61,12 @@ const mentorshipReport = () => {
               "Mentor Name": item.full_name,
               "Email": item.email,
               "Mobile": item.mobile,
-              "Areas of Expertise": item.areas_of_expertise,
-              "college_name": item.college_name,
               "CID": item.challenge_response_id,
+              "Theme": item.theme,
               "Idea Title": item.title,
               "Team Members": JSON.stringify(item.team_members),
+              "Areas of Expertise": item.areas_of_expertise,
+              "College Name": item.college_name,
             };
           });
 
