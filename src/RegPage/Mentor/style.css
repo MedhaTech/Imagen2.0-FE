@@ -1,0 +1,5 @@
+@media (min-width: 1024px) {
+  .scroll-box {
+    overflow-y: hidden !important;           /* Disable vertical scroll on large screens */
+  }
+}
