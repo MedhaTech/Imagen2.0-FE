@@ -86,29 +86,12 @@ const DBStu = () => {
         console.log(error);
       });
   };
-  // const handleMessage = (item) => {
-  //   const challengeId = item.challenge_response_id;
-
-  //   const matchingChatbox = data.find(
-  //     (chat) => chat.challenge_response_id === challengeId
-  //   );
-  //   if (matchingChatbox) {
-  //     const chatboxId = matchingChatbox.chatbox_id;
-  //     navigate(`/add-Mchat?id=${challengeId}`, {
-  //       state: {
-  //         ...item,
-  //         chatbox_id: chatboxId,
-  //       },
-  //     });
-  //   }
-  // };
+  
     const handleMessage = (student) => {
 
     const challengeId = student;
 const mentorId = currentUser.data[0]?.user_id;
-    // const matchingChatbox = data.find(
-    //   (chat) => chat.challenge_response_id === challengeId
-    // );
+   
 
      const matchingChatbox = data.find(
     (chat) =>
@@ -162,6 +145,15 @@ const mentorId = currentUser.data[0]?.user_id;
       .catch(function (error) {
         console.log(error);
       });
+  };
+ 
+  const handleMilestone =(item)=>{
+    console.log(item,"item");
+      navigate(`/mentor-milestone`, {
+            state: {
+      challenge_response_id:item,
+            },
+          });
   };
   return (
     <>
@@ -242,18 +234,18 @@ const mentorId = currentUser.data[0]?.user_id;
                   key={discussion.challenge_response_id}
                   className="col-md-12"
                 >
-                  <div className="card mb-3">
-                    <div className="card-body">
-                      <div className="d-flex justify-content-between align-items-start">
-                        <div>
+                  <div className="card">
+                    <div className="card-body"style={{ padding: '1rem' }}>
+                      <div >
+                        {/* <div>
                           <p>
                             <span
-                              style={{ fontSize: "14px", fontWeight: "bold" }}
+                              style={{ fontSize: "14px", fontWeight: "bold",marginBottom:"1rem" }}
                             >
                               Theme Name :{" "}
                             </span>
                             <span
-                              style={{ fontSize: "12px", fontWeight: "bold" }}
+                              style={{ fontSize: "12px", fontWeight: "bold" ,marginBottom:"1rem"}}
                             >
                               {discussion.theme}
                             </span>
@@ -278,8 +270,33 @@ const mentorId = currentUser.data[0]?.user_id;
                               {discussion.idea_describe}
                             </span>
                           </p>
-                        </div>
-                     
+                        </div> */}
+                     <div style={{ marginBottom: "0.5rem" }}>
+  <span style={{ fontSize: "14px", fontWeight: "bold" }}>
+    Theme Name:{" "}
+  </span>
+  <span style={{ fontSize: "12px", fontWeight: "bold" }}>
+    {discussion.theme}
+  </span>
+</div>
+<div style={{ marginBottom: "0.5rem" }}>
+  <span style={{ fontSize: "14px", fontWeight: "bold" }}>
+    Team Members:{" "}
+  </span>
+  <span style={{ fontSize: "12px" }}>
+    {discussion.team_members?.[0]?.split(" ").join(", ")}
+  </span>
+</div>
+
+<div >
+  <span style={{ fontSize: "14px", fontWeight: "bold" }}>
+    Idea Description:{" "}
+  </span>
+  <span style={{ fontSize: "12px" }}>
+    {discussion.idea_describe}
+  </span>
+</div>
+
                       </div>
                       {/* <div className="mt-2 text-end">
                         <button
@@ -323,7 +340,7 @@ const mentorId = currentUser.data[0]?.user_id;
   <button
     type="button"
     style={{ whiteSpace: 'nowrap' }}
-    className="btn btn-outline-info"
+    className="btn btn-outline-info mb-1"
     onClick={() => handleMessage(discussion.challenge_response_id)}
     disabled={currentUser?.data[0]?.chatbox === '0'}
   >
@@ -336,7 +353,7 @@ const mentorId = currentUser.data[0]?.user_id;
   <button
     type="button"
     style={{ whiteSpace: 'nowrap' }}
-    className="btn btn-outline-primary"
+    className="btn btn-outline-primary mb-1"
     onClick={() => navigate("/schedule-calls")}
   >
     <span className="d-none d-md-inline" style={{ marginRight: '5px' }}>
@@ -348,8 +365,10 @@ const mentorId = currentUser.data[0]?.user_id;
   <button
     type="button"
     style={{ whiteSpace: 'nowrap' }}
-    className="btn btn-outline-success"
-    onClick={() => navigate("/mentor-milestone")}
+    className="btn btn-outline-success mb-1"
+    // onClick={() => navigate("/mentor-milestone")}
+    onClick={() => handleMilestone(discussion.challenge_response_id)}
+
   >
     <span className="d-none d-md-inline" style={{ marginRight: '5px' }}>
       <BsListCheck size={20} />

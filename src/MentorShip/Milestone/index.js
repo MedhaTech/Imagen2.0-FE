@@ -12,13 +12,24 @@ import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import ToggleButton from "../../Admin/UsersList/Toggle";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { BsMicrosoftTeams } from "react-icons/bs";
 
 const Milestone = (props) => {
+   const location = useLocation();
   const [milestoneList, setmilestoneList] = useState([]);
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+ const cid = location.state?.challenge_response_id;
+ const [showCid, setShowCid] = useState(true);
 
+ useEffect(() => {
+    if (cid) {
+      submittedApi(cid); 
+    }
+  }, [cid]);
+ 
   const [teamId, setTeamId] = useState(null);
   const [showDefault, setshowDefault] = useState(true);
   const [progressData, setProgressData] = useState([]);
@@ -224,8 +235,9 @@ const Milestone = (props) => {
   useEffect(() => {
     if (teamId) {
       submittedApi(teamId);
+       setShowCid(false);
     }
-  }, [teamId, dispatch]);
+  }, [teamId]);
   const submittedApi = (teamId) => {
     // This function fetches idea submission details from the API //
 
@@ -275,7 +287,21 @@ const Milestone = (props) => {
           <div className="row align-items-center">
             <div className="col-md-3">
               <h4 className="mb-0">Milestone</h4>
+
             </div>
+            {cid && showCid && (
+            <div className="col-md-2">
+               <button
+                 type="button"
+                 className="btn btn-outline-warning text-nowrap d-flex align-items-center"
+                 style={{ whiteSpace: 'nowrap' }}
+                 disabled
+               >
+                 <BsMicrosoftTeams size="20px" style={{ marginRight: '5px' }} />
+                 CID: {cid}
+               </button>
+              
+            </div>)}
             <div className="col-md-6 text-md-end mt-2 mt-md-0">
               <div className="form-sort select-bluk">
                 <Select

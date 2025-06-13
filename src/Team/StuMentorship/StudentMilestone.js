@@ -70,6 +70,13 @@ const StudentMilestone = (props) => {
       }
     ]
   };
+   const customStyles = {
+    head: {
+      style: {
+        fontSize: "1em", // Adjust as needed
+      },
+    },
+  };
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -87,6 +94,7 @@ const StudentMilestone = (props) => {
           <DataTable
             defaultSortField="id"
             defaultSortAsc={false}
+              customStyles={customStyles}
             pagination
             highlightOnHover
             fixedHeader
