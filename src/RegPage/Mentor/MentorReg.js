@@ -4,6 +4,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect } from "react";
+import './style.css';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -329,7 +330,8 @@ const Register = () => {
 
   const style = {
     overflow: "auto",
-
+    height:"650px",
+    marginTop:"20px",
     scrollbarWidth: "none", // Hides scrollbar in Firefox
     msOverflowStyle: "none", // Hides scrollbar in Internet Explorer
   };
@@ -337,7 +339,7 @@ const Register = () => {
     <div className="main-wrapper">
       <div className="account-content">
         <div className="login-wrapper register-wrap  bg-img">
-          <div className="login-content" style={style}>
+          <div className="login-content scroll-box" style={style}>
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
                 <div
