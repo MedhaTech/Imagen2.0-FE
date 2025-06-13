@@ -23,6 +23,7 @@ const MentorAddChat = (props) => {
   const studentData = location.state || {};
   const [predata, setPreData] = useState([]);
   const currentUser = getCurrentUser("current_user");
+  const [isloader, setIsloader] = useState(false);
 
   useEffect(() => {
     mentorgetApi();
@@ -42,6 +43,7 @@ const MentorAddChat = (props) => {
       .then(function (response) {
         if (response.status === 200) {
           setPreData(response.data.data[0].chatbox_replies);
+          setIsloader(true);
         }
       })
       .catch(function (error) {
@@ -135,6 +137,7 @@ const MentorAddChat = (props) => {
 
                 </div>
         <div className="EditPersonalDetails new-member-page">
+          {isloader ?(
           <Row>
             <form onSubmit={formik.handleSubmit}>
               <Card className="aside">
@@ -233,6 +236,11 @@ const MentorAddChat = (props) => {
 
             {/* </Col> */}
           </Row>
+          ):(
+              <div className="spinner-border text-info" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            )}
         </div>
       </div>
     </div>
