@@ -329,7 +329,7 @@ const MentorshipList = (props) => {
       {
         name: "Status",
         center: true,
-        sortable: true,
+        // sortable: true,
         cell: (row) => [
           <span
             key={row.mentorship_id}
@@ -450,32 +450,23 @@ const MentorshipList = (props) => {
             <div className="page-title">
               <h4>Mentors List</h4>
             </div>
-          </div>
         </div>
-        <Container className="ticket-page mb-50 userlist">
+
+               <div className="page-btn">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                         onClick={() => navigate("/add-mentorship")}
+                                    >
+                                        <PlusCircle className="me-2" style={{color:"white"}} />Add Mentor
+                                    </button>
+                                </div>
+          </div>
           <Row>
-            <Container className="ticket-page mb-50 userlist">
-              <Row className="mt-0">
-                <Row
-                  className="align-items-center"
-                  style={{ paddingLeft: "0" }}
-                >
-                  <Col className="d-flex justify-content-end">
-                    <div className="text-center">
-                      <button
-                        className="btn btn-info"
-                        onClick={() => navigate("/add-mentorship")}
-                      >
-                        <PlusCircle
-                          className="me-2"
-                          style={{ color: "white" }}
-                        />
-                        <b>Add Mentor</b>
-                      </button>
-                    </div>
-                  </Col>
-                </Row>
-                <div className="bg-white border card pt-3 mt-5">
+            {/* <Container className="ticket-page mb-50 userlist"> */}
+              {/* <Row className="mt-0"> */}
+                
+                {/* <div className="bg-white border card m-2"> */}
                   <DataTableExtensions
                     print={false}
                     export={false}
@@ -492,11 +483,10 @@ const MentorshipList = (props) => {
                       subHeaderAlign={Alignment.Center}
                     />
                   </DataTableExtensions>
-                </div>
-              </Row>
-            </Container>
+                {/* </div> */}
+              {/* </Row> */}
+            {/* </Container> */}
           </Row>
-        </Container>
       </div>
     </div>
   );

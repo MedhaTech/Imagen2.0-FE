@@ -5,6 +5,7 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col,  Card, } from "reactstrap";
 import axios from "axios";
+import { BsMicrosoftTeams } from "react-icons/bs";
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -78,7 +79,7 @@ const MentorAddChat = (props) => {
             const mentorData = mentorRegRes?.data?.data[0];
 
             navigate("/mentor-chatbox");
-            openNotificationWithIcon("success", "Chat Created Successfully");
+            openNotificationWithIcon("success", "Message sent Successfully");
           }
         })
         .catch((err) => {
@@ -94,6 +95,28 @@ const MentorAddChat = (props) => {
   return (
     <div className="page-wrapper">
       <div className="content">
+         <div className="page-header">
+                  <div className="add-item d-flex">
+                   
+                  <div className="d-flex align-items-center  flex-wrap gap-2 mt-2">
+          <button
+            type="button"
+            // className="btn btn-outline-warning text-center w-auto me-1"
+             className="btn btn-outline-warning text-nowrap d-flex align-items-center"
+    style={{ whiteSpace: 'nowrap' }}
+            disabled
+          >
+            <BsMicrosoftTeams size="20px" /> CID : {studentData?.challenge_response_id}
+          </button>
+        
+          <h6 className="mb-0">
+            You can message your teammates  by submitting details here
+          </h6>
+        </div>
+        
+        
+                  </div>
+                </div>
         <div className="EditPersonalDetails new-member-page">
           <Row>
             <form onSubmit={formik.handleSubmit}>
@@ -135,12 +158,12 @@ const MentorAddChat = (props) => {
                             </span>{" "}
                           </Col>
 
-                          <Col md={6} className="text-right">
+                          {/* <Col md={6} className="text-right">
                             <span>
                               <FaRegClock />{" "}
                               {moment(data.created_at).format("LLL")}
                             </span>
-                          </Col>
+                          </Col> */}
                         </Row>
                       </div>
                     );
