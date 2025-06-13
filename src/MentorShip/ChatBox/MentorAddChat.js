@@ -96,26 +96,43 @@ const MentorAddChat = (props) => {
     <div className="page-wrapper">
       <div className="content">
          <div className="page-header">
-                  <div className="add-item d-flex">
-                   
-                  <div className="d-flex align-items-center  flex-wrap gap-2 mt-2">
-          <button
-            type="button"
-            // className="btn btn-outline-warning text-center w-auto me-1"
-             className="btn btn-outline-warning text-nowrap d-flex align-items-center"
+                 
+<div
+  className="d-flex align-items-center flex-wrap gap-2 mt-2"
+  style={{ justifyContent: 'space-between' }}
+>
+  <button
+    type="button"
+    className="btn btn-outline-warning text-nowrap d-flex align-items-center"
     style={{ whiteSpace: 'nowrap' }}
-            disabled
-          >
-            <BsMicrosoftTeams size="20px" /> CID : {studentData?.challenge_response_id}
-          </button>
-        
-          <h6 className="mb-0">
-            You can message your teammates  by submitting details here
-          </h6>
-        </div>
-        
-        
-                  </div>
+    disabled
+  >
+    <BsMicrosoftTeams size="20px" style={{ marginRight: '5px' }} />
+    CID: {studentData?.challenge_response_id}
+  </button>
+
+  <div className="flex-grow-1 text-center text-md-start mx-2">
+    <h6 className="mb-0">
+      You can message your teammates by submitting details here
+    </h6>
+  </div>
+
+   
+</div>
+  <div className="text-end text-md-end">
+    <button
+      type="button"
+      className="btn btn-secondary text-nowrap m-2"
+      onClick={() => navigate(-1)}
+      style={{ whiteSpace: 'nowrap' }}
+    >
+      Back
+    </button>
+  </div>
+
+
+
+
                 </div>
         <div className="EditPersonalDetails new-member-page">
           <Row>

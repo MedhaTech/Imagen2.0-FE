@@ -229,7 +229,7 @@ const StudentMentorship = (props) => {
                     <div className="view-btn d-flex justify-content-between">
                       <button
                         type="button"
-                        onClick={() => navigate("/mentor-chatbox")}
+                        onClick={() => navigate("/student-Mentorship")}
                         className="btn btn-secondary me-2"
                       >
                         Discard
