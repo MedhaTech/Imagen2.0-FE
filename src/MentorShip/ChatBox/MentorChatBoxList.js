@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
-
+import { TbMessageDots } from "react-icons/tb";
 import { getCurrentUser, setCurrentUser } from "../../helpers/Utils";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -156,7 +156,7 @@ const mentorId = currentUser.data[0]?.user_id;
                             className="btn btn-outline-warning text-center w-auto me-1"
                             onClick={() => handleChat(student)}
                           >
-                            Chat Box
+                            <TbMessageDots size="20px"/> Message
                           </button>
                         </div>
                       </div>

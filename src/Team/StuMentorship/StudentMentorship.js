@@ -119,7 +119,7 @@ const StudentMentorship = (props) => {
         .then((mentorRegRes) => {
           if (mentorRegRes?.data?.status == 201) {
             const mentorData = mentorRegRes?.data?.data[0];
-            openNotificationWithIcon("success", "Chat Created Successfully");
+            openNotificationWithIcon("success", "Message sent Successfully");
             resetForm();
             mentorgetApi();
 
@@ -142,7 +142,7 @@ const StudentMentorship = (props) => {
     <div className="page-wrapper">
       <div className="content">
             <div className="page-title">
-              <h4>Student Mentorship</h4>
+              <h4>Mentorship</h4>
               <br/>
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>

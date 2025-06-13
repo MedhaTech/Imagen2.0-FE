@@ -181,8 +181,8 @@ const mentorId = currentUser.data[0]?.user_id;
               </h6>
             </div>
           </div>
-          <div className="row">
-            <div className="col-xl-4 col-sm-6 col-12 mb-3 mt-3">
+          <div className="row m-3">
+            <div className="col-xl-4 col-sm-6 col-12 mb-1 mt-1">
               <div
                 className="dash-widget dash2 w-100"
                 style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
@@ -200,7 +200,7 @@ const mentorId = currentUser.data[0]?.user_id;
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12  mb-3 mt-3">
+            <div className="col-xl-4 col-sm-6 col-12  mb-1 mt-1">
               <div
                 className="dash-widget dash1 w-100"
                 style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
@@ -216,7 +216,7 @@ const mentorId = currentUser.data[0]?.user_id;
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12  mb-3 mt-3">
+            <div className="col-xl-4 col-sm-6 col-12 mb-1 mt-1">
               <div
                 className="dash-widget dash3 w-100"
                 style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
@@ -279,31 +279,26 @@ const mentorId = currentUser.data[0]?.user_id;
                             </span>
                           </p>
                         </div>
-                        <div>
-                          <RxDotFilled style={{ color: "green" }} size="25px" />
-                          <span
-                            style={{ fontSize: "14px", fontWeight: "bold" }}
-                          >
-                            Active{" "}
-                          </span>
-                        </div>
+                     
                       </div>
-                      <div className="mt-2 text-end">
+                      {/* <div className="mt-2 text-end">
                         <button
                           type="button"
-                          className="btn btn-outline-info text-center w-auto me-2"
+                          className="btn btn-outline-info text-center w-auto me-1"
                           onClick={() => handleMessage(discussion.challenge_response_id)}
                           disabled={currentUser?.data[0]?.chatbox === '0'}
                         >
-                          <BiSolidMessageRounded size={20} /> Message
+                          <BiSolidMessageRounded size={20} /> 
+                          Message
                         </button>
 
                         <button
                           type="button"
-                          className="btn btn-outline-primary text-center w-auto me-2"
+                          className="btn btn-outline-primary text-center w-auto me-1"
                             onClick={() => navigate("/schedule-calls")}
                         >
-                          <IoIosVideocam size={20} /> Schedule Call
+                          <IoIosVideocam size={20} />
+                           Schedule Call
                         </button>
 
                         <button
@@ -312,9 +307,58 @@ const mentorId = currentUser.data[0]?.user_id;
                           
                            onClick={() => navigate("/mentor-milestone")}
                         >
-                          <BsListCheck size={20} /> Milestones
+                          <BsListCheck size={20} />
+                           Milestones
                         </button>
-                      </div>
+                      </div> */}
+                 <div
+  style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end', // Aligns right on all screens
+    gap: '0.5rem',
+    marginTop: '0.5rem',
+  }}
+>
+  <button
+    type="button"
+    style={{ whiteSpace: 'nowrap' }}
+    className="btn btn-outline-info"
+    onClick={() => handleMessage(discussion.challenge_response_id)}
+    disabled={currentUser?.data[0]?.chatbox === '0'}
+  >
+    <span className="d-none d-md-inline" style={{ marginRight: '5px' }}>
+      <BiSolidMessageRounded size={20} />
+    </span>
+    Message
+  </button>
+
+  <button
+    type="button"
+    style={{ whiteSpace: 'nowrap' }}
+    className="btn btn-outline-primary"
+    onClick={() => navigate("/schedule-calls")}
+  >
+    <span className="d-none d-md-inline" style={{ marginRight: '5px' }}>
+      <IoIosVideocam size={20} />
+    </span>
+    Schedule Call
+  </button>
+
+  <button
+    type="button"
+    style={{ whiteSpace: 'nowrap' }}
+    className="btn btn-outline-success"
+    onClick={() => navigate("/mentor-milestone")}
+  >
+    <span className="d-none d-md-inline" style={{ marginRight: '5px' }}>
+      <BsListCheck size={20} />
+    </span>
+    Milestones
+  </button>
+</div>
+
+
                     </div>
                   </div>
                 </div>

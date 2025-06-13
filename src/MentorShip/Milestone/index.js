@@ -248,7 +248,7 @@ const Milestone = (props) => {
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
-          if (response.data.data && response.data.data.length > 0) {
+          if (response.data.data) {
             // console.log(response, "res");
             setProgressData(response.data.data);
              setProgressReady(true);

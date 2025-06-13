@@ -16,7 +16,7 @@ import { useEffect } from 'react';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { getTeamMemberStatus } from '../../Teacher/store/teams/actions';
 import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
-import { Row } from "reactstrap";
+import { Row ,Col } from "reactstrap";
 
 
 const TeamsProgDD = ({ setIdeaCount }) => {
@@ -240,6 +240,7 @@ const TeamsProgDD = ({ setIdeaCount }) => {
         </div>
         <div className="card-body">
           <div className="table-top pb-3">
+
             <div className="form-sort select-bluk">
               <Select
                 classNamePrefix="react-select"
@@ -249,10 +250,10 @@ const TeamsProgDD = ({ setIdeaCount }) => {
                 value={customer.find(option => option.value === teamId)}
               />
             </div>
-            {teamId && (
+            {/* {teamId && (
               <>
                 <Row>
-                  <div className="singlediv">
+                  <div className="singlediv mt-2">
                     <span className="fw-bold text-info">IDEA STATUS :</span>
                     <span style={{ paddingLeft: "1rem" }}>
                       {noData
@@ -278,7 +279,71 @@ const TeamsProgDD = ({ setIdeaCount }) => {
 
                 </>
               </>
-            )}
+            )} */}
+            {teamId && (
+  // <Row className="align-items-center mt-2 ">
+  //   {/* IDEA STATUS Column */}
+  //   <Col xs={12} md={8}>
+  //     <div className="d-flex align-items-center flex-wrap">
+  //       <span className="fw-bold text-info me-1">IDEA STATUS :</span>
+  //       <span>
+  //         {noData ? (
+  //           <span className="text-warning">NOT STARTED</span>
+  //         ) : formData?.verified_status === "ACCEPTED" ? (
+  //           <span className="text-success">ACCEPTED</span>
+  //         ) : formData?.verified_status === "REJECTED" ? (
+  //           <span className="text-danger">REJECTED</span>
+  //         ) : (
+  //           formData?.status || <span className="text-warning">NOT STARTED</span>
+  //         )}
+  //       </span>
+  //     </div>
+  //   </Col>
+
+  //   {/* VIEW IDEA BUTTON Column */}
+  //   <Col xs={12} md={4} className="text-md-end mt-2 mt-md-0" >
+  //     {!noData &&
+  //       (formData?.status === "SUBMITTED" || formData?.status === "DRAFT") && (
+  //         <button
+  //           className="btn btn-primary text-nowrap"
+  //           onClick={() => setIdeaShow(true)}
+  //         >
+  //           View Idea
+  //         </button>
+  //       )}
+  //   </Col>
+  // </Row>
+  <Row className="align-items-center mt-2 flex-wrap">
+  <Col xs="auto" className="d-flex align-items-center flex-wrap">
+    <span className="fw-bold text-info me-1">IDEA STATUS :</span>
+    <span>
+      {noData ? (
+        <span className="text-warning">NOT STARTED</span>
+      ) : formData?.verified_status === "ACCEPTED" ? (
+        <span className="text-success">ACCEPTED</span>
+      ) : formData?.verified_status === "REJECTED" ? (
+        <span className="text-danger">REJECTED</span>
+      ) : (
+        formData?.status || <span className="text-warning">NOT STARTED</span>
+      )}
+    </span>
+  </Col>
+
+  <Col xs="auto" className="ms-auto mt-md-0">
+    {!noData &&
+      (formData?.status === "SUBMITTED" || formData?.status === "DRAFT") && (
+        <button
+          className="btn btn-primary text-nowrap"
+          onClick={() => setIdeaShow(true)}
+        >
+          View Idea
+        </button>
+      )}
+  </Col>
+</Row>
+
+)}
+
           </div>
           <div className="table-responsive">
             {showDefault && (

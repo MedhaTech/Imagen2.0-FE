@@ -12,7 +12,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-
+import { BsMicrosoftTeams } from "react-icons/bs";
 const AddMilestone = () => {
   const { t } = useTranslation();
   const location = useLocation();
@@ -20,7 +20,6 @@ const AddMilestone = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
   const MentorShiptData = location.state || {};
-  console.log(MentorShiptData, "note");
   const inputDICE = {
     type: "text",
     className: "defaultInput",
@@ -272,17 +271,29 @@ const AddMilestone = () => {
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
-            <div className="page-title">
-              {/* <h4>Add New Latest News</h4> */}
-              <h6>
-                You can add Note and FileUpload by submitting details here
-              </h6>
-            </div>
+           
+          <div className="d-flex align-items-center flex-wrap gap-2 mt-2">
+  <button
+    type="button"
+    // className="btn btn-outline-warning text-center w-auto me-1"
+     className="btn btn-outline-warning text-nowrap d-flex align-items-center"
+    style={{ whiteSpace: 'nowrap' }}
+    disabled
+  >
+    <BsMicrosoftTeams size="20px" /> CID :{MentorShiptData?.challenge_response_id}
+  </button>
+
+  <h6 className="mb-0">
+    You can add Note and FileUpload by submitting details here
+  </h6>
+</div>
+
+
           </div>
         </div>
         <div className="EditPersonalDetails new-member-page">
           <Row>
-            <Col className="col-xl-10 offset-xl-1 offset-md-0">
+            {/* <Col className="col-xl-10 offset-xl-1 offset-md-0"> */}
               <div>
                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                   <div className="create-ticket register-block">
@@ -433,7 +444,7 @@ const AddMilestone = () => {
                   </Row>
                 </Form>
               </div>
-            </Col>
+            {/* </Col> */}
           </Row>
         </div>
       </div>
