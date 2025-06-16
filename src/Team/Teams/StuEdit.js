@@ -226,7 +226,7 @@ const StuEdit = () => {
       // ),
 
       rollnumber: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Roll Number</span>
+        <span style={{ color: "red" }}>Please Enter your Roll Number</span>
       ),
       branch: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter  Branch/Group/Stream Name</span>
@@ -504,7 +504,7 @@ const StuEdit = () => {
                             onChange={formik.handleChange}
                           >
                             <option value={""}>Select Your Institution District</option>
-                            {districtList["Telangana"].map((item) => (
+                            {districtList["Andhra Pradesh"].map((item) => (
                               <option key={item} value={item}>
                                 {item}
                               </option>

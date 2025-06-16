@@ -13,14 +13,17 @@ import {
   getSupportTicketById,
   getDiscussionChatById,
 } from "../../Teacher/store/mentors/actions";
+import { HiOutlineLink } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { FaCircleUser } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { FaReply } from "react-icons/fa";
+import { BiLinkExternal } from "react-icons/bi";
 import Avatar from "react-string-avatar";
 import { FaComment } from "react-icons/fa";
 import { formatDistanceToNow } from "date-fns";
+import { MdAttachFile } from "react-icons/md";
 import { BiSolidLike,BiSolidDislike } from "react-icons/bi";
 const TicketsPage = () => {
   const { t } = useTranslation();
@@ -139,6 +142,31 @@ const TicketsPage = () => {
                     <BiSolidDislike size={20}
                           style={{ marginRight: "10px" }}/>
                       </p>
+                     {discussion?.link && (
+  <p className="card-text mb-2 mx-3">
+    <a
+      href={discussion.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ textDecoration: 'none', color: 'inherit' }}
+    >
+      <BiLinkExternal size={20} style={{ marginRight: "10px" }} />
+    </a>
+  </p>
+)}
+ {discussion?.file && (
+  <p className="card-text mb-2 mx-3">
+    <a
+      href={discussion.file}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ textDecoration: 'none', color: 'inherit' }}
+    >
+      <MdAttachFile size={20} style={{ marginRight: "10px" }} />
+    </a>
+  </p>
+)}
+
                       <p className="card-text mb-2 mx-3">
                         <Link
                           to={`/Discussion-Chat-Response?id=${discussion.discussion_forum_id}`}

@@ -88,8 +88,8 @@ const InstProgressDetailed = () => {
     datasets: [],
   });
   const fullStatesNames = newstateList;
-  // const fiterDistData = districtList["Telangana"];
-  const fiterDistData = [...districtList["Telangana"]];
+  // const fiterDistData = districtList["Andhra Pradesh"];
+  const fiterDistData = [...districtList["Andhra Pradesh"]];
   fiterDistData.unshift("All Districts");
 
   useEffect(() => {
@@ -677,6 +677,8 @@ const InstProgressDetailed = () => {
             <div className="page-title">
               <h4> Institutions</h4>
               <h6>Progress Report</h6>
+              <h5 className="mt-3"><span style={{color:"red"}}>Note : </span>Downloaded Report show the Counts of Individual Institution-wise Stats</h5>
+
             </div>
           </div>
           <div className="page-btn">
@@ -745,9 +747,14 @@ const InstProgressDetailed = () => {
                     <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center"style={{ borderBottom: 'none',paddingBottom: 0 }}>
+                          <div>
                           <h4 className="card-title mb-0">
                             District wise Institution Progress Stats
                           </h4>
+                          <br/>
+              <h6><span style={{color:"red"}}>Note : </span>Summary table show the Counts of Each District-wise stats</h6>
+</div>
+
                           <div className="dropdown">
                             <Link
                               to="#"

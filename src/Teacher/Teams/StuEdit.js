@@ -156,7 +156,7 @@ const StuEdit = () => {
       //   <span style={{ color: "red" }}>Please Select college</span>
       // ),
       rollnumber: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Roll Number</span>
+        <span style={{ color: "red" }}>Please Enter your Roll Number</span>
       ),
       branch: Yup.string().required(
         <span style={{ color: "red" }}>
@@ -428,7 +428,7 @@ const StuEdit = () => {
                             <option value={""}>
                               Select Your Institution District
                             </option>
-                            {districtList["Telangana"].map((item) => (
+                            {districtList["Andhra Pradesh"].map((item) => (
                               <option key={item} value={item}>
                                 {item}
                               </option>

@@ -17,7 +17,7 @@ import { stateList, districtList} from "../../RegPage/ORGData";
 const CreateEmail = () => {
   const currentUser = getCurrentUser("current_user");
   // const allData = ["All States", ...stateList];
-   const allData = [...districtList["Telangana"]];
+   const allData = [...districtList["Andhra Pradesh"]];
    allData.unshift("All Districts");
   const navigate = useNavigate();
   // const inputDICE = {

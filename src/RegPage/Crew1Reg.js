@@ -210,7 +210,7 @@ const Crew1Reg = () => {
         <span style={{ color: "red" }}>Please Select College</span>
       ),
       rollnumber: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Roll Number</span>
+        <span style={{ color: "red" }}>Please Enter your Roll Number</span>
       ),
       id_number: Yup.string().optional(),
       branch: Yup.string().required(
@@ -227,7 +227,7 @@ const Crew1Reg = () => {
             .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
             .matches(/[A-Z]/, () => <span style={{ color: "red" }}>Password must contain at least one uppercase letter</span>)
             .matches(/\d/, () => <span style={{ color: "red" }}>Password must contain at least one number</span>)
-            .matches(/[@$!%*?&]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&)</span>)
+            .matches(/[@$!%*?&()]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&())</span>)
             .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Confirm Password</span>
@@ -542,7 +542,7 @@ navigate("/regSuccess");
                           onChange={formik.handleChange}
                         >
                           <option value={""}>Select Your Institution District</option>
-                          {districtList["Telangana"].map((item) => (
+                          {districtList["Andhra Pradesh"].map((item) => (
                             <option key={item} value={item}>
                               {item}
                             </option>

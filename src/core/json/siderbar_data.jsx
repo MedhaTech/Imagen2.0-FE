@@ -15,7 +15,6 @@ import { logout } from "../../helpers/Utils";
 const SidebarData = () => {
   const { t } = useTranslation();
    const navigate = useNavigate();
-  const presurvey = localStorage.getItem("stupresurveystatus") ;
   const currentUser = getCurrentUser('current_user');
   const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
   const [link, setLink] = useState('/instruction');
@@ -33,7 +32,7 @@ const SidebarData = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+        Authorization: `Bearer ${currentUser.data[0].token}`,
       },
     };
     axios(configidea)
@@ -43,7 +42,6 @@ const SidebarData = () => {
             const data = response.data.data[0];
             if (response.data.data[0].status === 'SUBMITTED') {
               setLink('/idea');
-              console.log("headerData",response.data.data[0].status);
             } else {
               setLink('/instruction');
             } 
@@ -62,7 +60,6 @@ useEffect(() => {
     submittedApi();
 }, []);
  const handleLogout1 = (e) => {
-  // alert("hii");
     logout(navigate, t, "STUDENT");
     e.preventDefault();
   };
@@ -82,6 +79,8 @@ useEffect(() => {
 
           link: "/studentpresurvey",
           icon: <Icon.Edit />,
+          role: "STUDENT",
+
           showSubRoute: false,
           submenu: false,
         },
@@ -106,6 +105,8 @@ useEffect(() => {
           link: `/studentcourseMenu`,
           icon: <Icon.Monitor />,
           showSubRoute: false,
+          role: "STUDENT",
+
           submenu: false,
         },
 
@@ -131,6 +132,8 @@ useEffect(() => {
           link: "/student-support",
           icon: <Icon.Inbox />,
           showSubRoute: false,
+          role: "STUDENT",
+
           submenu: false,
         },
         {
@@ -138,6 +141,8 @@ useEffect(() => {
           link: "/discussion-chat",
           icon:<GoCommentDiscussion />,
           showSubRoute: false,
+          role: "STUDENT",
+
           submenu: false,
         },
         {

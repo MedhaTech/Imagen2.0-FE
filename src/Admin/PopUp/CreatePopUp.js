@@ -114,17 +114,12 @@ const Createpopup = () => {
               },
             }
           );
+          
+            
           // console.log(response,"reee");
           values.attachments =
             response?.data?.data[0].attachments[0].toString();
-          // if (response.status === 200) {
-          //     openNotificationWithIcon(
-          //       'success',
-          //       'File Uploaded Successfully'
-          //     );
-          //   } else {
-          //     openNotificationWithIcon('error', 'Opps! Something Wrong');
-          //   }
+         
         }
 
         const body = {
@@ -154,9 +149,13 @@ const Createpopup = () => {
           openNotificationWithIcon("success", "PopUp Created Successfully");
         } 
       } catch (error) {
-        //console.log(error.response.status);
         if (error.response.status === 420) {
           openNotificationWithIcon("error", "PopUp for this Role already exists");
+        }else{
+           openNotificationWithIcon(
+        "error",
+        t("Accepting only png,jpg,jpeg,pdf,doc,docx Only")
+      );
         }
       }
     },

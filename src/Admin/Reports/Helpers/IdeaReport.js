@@ -38,7 +38,7 @@ import * as XLSX from "xlsx";
 const IdeaReport = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
-  const [isloader, setIsloader] = useState(true);
+  const [isloader, setIsloader] = useState(false);
   const [selectstate, setSelectState] = React.useState("");
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
@@ -46,7 +46,7 @@ const IdeaReport = () => {
   const [chartTableData, setChartTableData] = useState([]);
 
   const categoryList = ["All Types", ...collegeType];
-  const fiterDistData = [...districtList["Telangana"]];
+  const fiterDistData = [...districtList["Andhra Pradesh"]];
   fiterDistData.unshift("All Districts");
   const newThemesList = ["All Themes", ...themesList];
 
@@ -787,7 +787,7 @@ const IdeaReport = () => {
             </Row>
             {isloader ? (
               <div className="chart mt-2 mb-2">
-                {combinedArray.length > 0 && (
+                {combinedArray.length > 0 ? (
                   <div>
                     {/* <div className="row"> */}
 
@@ -1272,8 +1272,14 @@ const IdeaReport = () => {
                         
                       </div>
                     </div>
-                  // </div>
-                )}
+                ):
+                 <div className="d-flex justify-content-center align-items-center"
+   style={{ height: '60dvh', overflow: 'hidden' }}>
+  <div className="text-center">
+    <h6 className="text-muted">There are no records to display</h6>
+  </div>
+</div>
+                }
 
                 {downloadTableData && (
                   <CSVLink

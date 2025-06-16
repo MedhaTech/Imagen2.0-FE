@@ -85,8 +85,8 @@ const TeacherProgressDetailed = () => {
     datasets: [],
   });
   const fullStatesNames = newstateList;
-  // const fiterDistData = districtList["Telangana"];
-  const fiterDistData = [...districtList["Telangana"]];
+  // const fiterDistData = districtList["Andhra Pradesh"];
+  const fiterDistData = [...districtList["Andhra Pradesh"]];
   fiterDistData.unshift("All Districts");
 
   useEffect(() => {
@@ -241,7 +241,7 @@ const TeacherProgressDetailed = () => {
     },
     series: [
       {
-        name: "Registered Schools",
+        name: "Registered Institutions",
         data: series1,
       },
     ],
@@ -612,7 +612,7 @@ const TeacherProgressDetailed = () => {
             datasets: [
              
               {
-                label: "Registered Schools",
+                label: "Registered Institutions",
                 data: GraphfilteredData.map((item) => item.instReg),
                 backgroundColor: "#ffa31a",
               }

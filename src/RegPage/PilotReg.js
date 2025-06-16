@@ -204,9 +204,9 @@ const PilotReg = () => {
             Password must contain at least one number
           </span>
         ))
-        .matches(/[@$!%*?&]/, () => (
+        .matches(/[@$!%*?&()]/, () => (
           <span style={{ color: "red" }}>
-            Password must contain at least one special character (@$!%*?&)
+            Password must contain at least one special character (@$!%*?&())
           </span>
         ))
         .required(() => (
@@ -674,7 +674,7 @@ const PilotReg = () => {
                           onChange={formik.handleChange}
                         >
                           <option value={""}>Select Your Institution District</option>
-                          {districtList["Telangana"].map((item) => (
+                          {districtList["Andhra Pradesh"].map((item) => (
                             <option key={item} value={item}>
                               {item}
                             </option>

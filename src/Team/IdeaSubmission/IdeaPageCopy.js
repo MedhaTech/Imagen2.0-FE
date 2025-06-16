@@ -459,7 +459,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       title: title,
       solve: solve,
       initiated_by: currentUser?.data[0]?.user_id,
-      state: "Telangana",
+      state: "Andhra Pradesh",
       district: currentUser?.data[0]?.district,
     };
     // if (others !== "") {
@@ -900,6 +900,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                       )}
                     </div>
                     {/* {currentSection === 1 && ( */}
+                       {formData?.status !== "SUBMITTED" && (
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <p style={{ marginRight: "1rem" ,marginBottom:"1rem"}}>
                         <span style={{ color: "red" }}>Note : </span>
@@ -919,6 +920,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                           </p>
                         )}
                     </div>
+)}
 
                     <div className="d-md-flex justify-content-end px-0">
                       <Row>
