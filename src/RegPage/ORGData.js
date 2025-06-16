@@ -897,6 +897,9 @@ export const collegeType = [
   "Social Welfare College",
   "Tribal Welfare College",
   "Private College",
+  "Engineering Colleges",
+  "Polytechnic Colleges",
+  "Degree Colleges",
   "Other"
 ];
 export const collegeNameList = {

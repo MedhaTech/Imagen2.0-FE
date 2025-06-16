@@ -66,7 +66,7 @@ const Naipunyam = () => {
             mobile: mobile,
             district: district,
             college_type: collegetype,
-            college_name: collegename,
+            college_name: collegename === null ? 'Other' : collegename,
             roll_number: rollnumber,
             branch: branch,
             year_of_study: yearofstudy,
