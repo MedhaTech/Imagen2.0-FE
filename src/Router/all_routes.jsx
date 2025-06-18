@@ -32,6 +32,8 @@ adminmentorshiplist:"/admin-mentorship-list",
   adminsupport:"/admin-support",
   studentsupport: "/student-support",
   studentmentorship:"/student-Mentorship",
+  addevent:"/add-event",
+
   studentmilestone:"/studentmilestone",
   mentorchatbox:"/mentor-chatbox",
   addMchat:"/add-Mchat",
