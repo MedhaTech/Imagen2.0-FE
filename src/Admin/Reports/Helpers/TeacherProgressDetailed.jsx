@@ -644,6 +644,9 @@ const TeacherProgressDetailed = () => {
           setRegisteredChartData({
             labels: [
               "Govt Junior College ",
+               "Engineering Colleges",
+                            "Polytechnic College",
+                            "Degree Colleges",
               "Govt ITI College ",
               "Govt Polytechnic College ",
               "Govt Degree College ",
@@ -677,6 +680,8 @@ const TeacherProgressDetailed = () => {
                   "#800000",
                   "#da9100",
                   "#800080",
+                  "#4682B4",
+                              "#FFD700"
                 ],
                 hoverBackgroundColor: [
                   "#85e085",
@@ -688,6 +693,8 @@ const TeacherProgressDetailed = () => {
                   "#800000",
                   "#da9100",
                   "#800080",
+                  "#4682B4",
+                              "#FFD700"
                 ],
               },
             ],
@@ -835,6 +842,9 @@ const TeacherProgressDetailed = () => {
                                   >
                                     No of Reg Institutions
                                   </th>
+                                   <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Engineering<br />Colleges</th>
+                                                                <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Polytechnic <br />Colleges</th>
+                                                                <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Degree <br />Colleges</th>
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
