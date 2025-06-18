@@ -132,8 +132,10 @@ import MentorChatBoxList from "../MentorShip/ChatBox/MentorChatBoxList";
 import MentorshipResource from "../MentorShip/Resouce/MetorshipResorces";
 import MentorshipTeams from "../MentorShip/Team/index";
 import MentorshipMilestone from "../MentorShip/Milestone/index";
-import MentorScheduleCalls from "../MentorShip/Dashboard/MentorScheduleCalls";
+import MentorScheduleCalls from "../MentorShip/Calls/MentorCalls";
 import AddMilestone from "../MentorShip/Milestone/AddInputs";
+import AddEvent from "../MentorShip/Calls/AddEvent";
+
 export const mentorShipRoutes = [
   {
     id: 1,
@@ -216,10 +218,18 @@ export const mentorShipRoutes = [
     route: Route,
   },
    {
-    id: 10,
+    id: 11,
     path: routes.addnote,
     name: "addnote",
     element: <AddMilestone/>,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 12,
+    path: routes.addevent,
+    name: "addevent",
+    element: <AddEvent/>,
     protected: true,
     route: Route,
   },

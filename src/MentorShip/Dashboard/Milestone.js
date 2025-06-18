@@ -16,7 +16,7 @@ import { BsListCheck } from "react-icons/bs";
 import { IoIosVideocam } from "react-icons/io";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-
+import { AiOutlineSchedule } from "react-icons/ai";
 const DBStu = () => {
   const navigate = useNavigate();
   const currentUser = getCurrentUser("current_user");
@@ -86,18 +86,16 @@ const DBStu = () => {
         console.log(error);
       });
   };
-  
-    const handleMessage = (student) => {
 
+  const handleMessage = (student) => {
     const challengeId = student;
-const mentorId = currentUser.data[0]?.user_id;
-   
+    const mentorId = currentUser.data[0]?.user_id;
 
-     const matchingChatbox = data.find(
-    (chat) =>
-      chat.challenge_response_id === challengeId &&
-      chat.mentorship_user_id === mentorId
-  );
+    const matchingChatbox = data.find(
+      (chat) =>
+        chat.challenge_response_id === challengeId &&
+        chat.mentorship_user_id === mentorId
+    );
 
     if (matchingChatbox) {
       const chatboxId = matchingChatbox.chatbox_id;
@@ -109,10 +107,10 @@ const mentorId = currentUser.data[0]?.user_id;
         },
       });
     } else {
-      createChatboxid(challengeId,student);
+      createChatboxid(challengeId, student);
     }
   };
-  const createChatboxid = (challengeId,student) => {
+  const createChatboxid = (challengeId, student) => {
     const body = JSON.stringify({
       challenge_response_id: challengeId,
       mentorship_user_id: currentUser.data[0]?.user_id,
@@ -146,15 +144,22 @@ const mentorId = currentUser.data[0]?.user_id;
         console.log(error);
       });
   };
- 
-  const handleMilestone =(item)=>{
-    console.log(item,"item");
-      navigate(`/mentor-milestone`, {
-            state: {
-      challenge_response_id:item,
-            },
-          });
+
+  const handleMilestone = (item) => {
+    console.log(item, "item");
+    navigate(`/mentor-milestone`, {
+      state: {
+        challenge_response_id: item,
+      },
+    });
   };
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <>
       <div className="page-wrapper" id="start">
@@ -174,7 +179,7 @@ const mentorId = currentUser.data[0]?.user_id;
             </div>
           </div>
           <div className="row m-3">
-            <div className="col-xl-4 col-sm-6 col-12 mb-1 mt-1">
+            <div className="col-xl-3 col-sm-6 col-12 mb-1 mt-1">
               <div
                 className="dash-widget dash2 w-100"
                 style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
@@ -192,7 +197,7 @@ const mentorId = currentUser.data[0]?.user_id;
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12  mb-1 mt-1">
+            <div className="col-xl-3 col-sm-6 col-12  mb-1 mt-1">
               <div
                 className="dash-widget dash1 w-100"
                 style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
@@ -208,7 +213,23 @@ const mentorId = currentUser.data[0]?.user_id;
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 mb-1 mt-1">
+             <div className="col-xl-3 col-sm-6 col-12  mb-1 mt-1">
+              <div
+                className="dash-widget dash1 w-100"
+                style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
+              >
+                <div className="dash-widgetimg">
+                  <span>
+                    <AiOutlineSchedule size={35} style={{ color: "#28C76F" }} />
+                  </span>
+                </div>
+                <div className="dash-widgetcontent">
+                  <h5>{/* {totalStudentCount} */}</h5>
+                  <h6>Completed sessions</h6>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12 mb-1 mt-1">
               <div
                 className="dash-widget dash3 w-100"
                 style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
@@ -234,149 +255,93 @@ const mentorId = currentUser.data[0]?.user_id;
                   key={discussion.challenge_response_id}
                   className="col-md-12"
                 >
-                  <div className="card">
-                    <div className="card-body"style={{ padding: '1rem' }}>
-                      <div >
-                        {/* <div>
-                          <p>
-                            <span
-                              style={{ fontSize: "14px", fontWeight: "bold",marginBottom:"1rem" }}
-                            >
-                              Theme Name :{" "}
-                            </span>
-                            <span
-                              style={{ fontSize: "12px", fontWeight: "bold" ,marginBottom:"1rem"}}
-                            >
-                              {discussion.theme}
-                            </span>
-                            <br />
-                            <span
-                              style={{ fontSize: "14px", fontWeight: "bold" }}
-                            >
-                              Team Members :{" "}
-                            </span>
-                            <span style={{ fontSize: "12px" }}>
-                              {discussion.team_members?.[0]
-                                ?.split(" ")
-                                .join(", ")}
-                            </span>
-                            <br />{" "}
-                            <span
-                              style={{ fontSize: "14px", fontWeight: "bold" }}
-                            >
-                              Idea Description :{" "}
-                            </span>
-                            <span style={{ fontSize: "12px" }}>
-                              {discussion.idea_describe}
-                            </span>
-                          </p>
-                        </div> */}
-                     <div style={{ marginBottom: "0.5rem" }}>
-  <span style={{ fontSize: "14px", fontWeight: "bold" }}>
-    Theme Name:{" "}
-  </span>
-  <span style={{ fontSize: "12px", fontWeight: "bold" }}>
-    {discussion.theme}
-  </span>
-</div>
-<div style={{ marginBottom: "0.5rem" }}>
-  <span style={{ fontSize: "14px", fontWeight: "bold" }}>
-    Team Members:{" "}
-  </span>
-  <span style={{ fontSize: "12px" }}>
-    {discussion.team_members?.[0]?.split(" ").join(", ")}
-  </span>
-</div>
-
-<div >
-  <span style={{ fontSize: "14px", fontWeight: "bold" }}>
-    Idea Description:{" "}
-  </span>
-  <span style={{ fontSize: "12px" }}>
-    {discussion.idea_describe}
-  </span>
-</div>
-
-                      </div>
-                      {/* <div className="mt-2 text-end">
-                        <button
-                          type="button"
-                          className="btn btn-outline-info text-center w-auto me-1"
-                          onClick={() => handleMessage(discussion.challenge_response_id)}
-                          disabled={currentUser?.data[0]?.chatbox === '0'}
-                        >
-                          <BiSolidMessageRounded size={20} /> 
-                          Message
-                        </button>
-
-                        <button
-                          type="button"
-                          className="btn btn-outline-primary text-center w-auto me-1"
-                            onClick={() => navigate("/schedule-calls")}
-                        >
-                          <IoIosVideocam size={20} />
-                           Schedule Call
-                        </button>
-
-                        <button
-                          type="button"
-                          className="btn btn-outline-success text-center w-auto"
-                          
-                           onClick={() => navigate("/mentor-milestone")}
-                        >
-                          <BsListCheck size={20} />
-                           Milestones
-                        </button>
-                      </div> */}
-                 <div
+                  <div className="card" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
+                    <div className="card-body" style={{ padding: "1rem" }}>
+                    
+                      <div
   style={{
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-end', // Aligns right on all screens
-    gap: '0.5rem',
-    marginTop: '0.5rem',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    flexWrap: "wrap",
+    gap: "1rem",
+    marginBottom: "1rem",
   }}
 >
-  <button
-    type="button"
-    style={{ whiteSpace: 'nowrap' }}
-    className="btn btn-outline-info mb-1"
-    onClick={() => handleMessage(discussion.challenge_response_id)}
-    disabled={currentUser?.data[0]?.chatbox === '0'}
-  >
-    <span className="d-none d-md-inline" style={{ marginRight: '5px' }}>
-      <BiSolidMessageRounded size={20} />
-    </span>
-    Message
-  </button>
+  <div style={{ flex: "1 1 auto", minWidth: "250px" }}>
+    <div style={{ marginBottom: "1rem" ,marginTop:"1rem"}}>
+      <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+        Theme Name:{" "}
+      </span>
+      <span style={{ fontSize: "14px", fontWeight: "bold" }}>
+        {discussion.theme}
+      </span>
+    </div>
+    <div style={{ marginBottom: "1rem" ,marginTop:"1rem"}}>
+      <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+        Team Members:{" "}
+      </span>
+      <span style={{ fontSize: "14px" }}>
+        {discussion.team_members?.[0]?.split(" ").join(", ")}
+      </span>
+    </div>
+    <div style={{ marginBottom: "1rem" ,marginTop:"1rem"}}>
+      <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+        Idea Description:{" "}
+      </span>
+      <span style={{ fontSize: "14px" }}>{discussion.idea_describe}</span>
+    </div>
+  </div>
 
-  <button
-    type="button"
-    style={{ whiteSpace: 'nowrap' }}
-    className="btn btn-outline-primary mb-1"
-    onClick={() => navigate("/schedule-calls")}
+  <div
+    style={{
+      display: "flex",
+      // flexDirection: "column",
+      // alignItems: "flex-start",
+      flexDirection: isMobile ? "row" : "column",
+        alignItems: isMobile ? "center" : "flex-start",
+        flexWrap: isMobile ? "wrap" : "nowrap",
+      gap: "0.5rem",
+    }}
   >
-    <span className="d-none d-md-inline" style={{ marginRight: '5px' }}>
-      <IoIosVideocam size={20} />
-    </span>
-    Schedule Call
-  </button>
+    <button
+      type="button"
+      style={{ whiteSpace: "nowrap" }}
+      className="btn btn-outline-info"
+      onClick={() => handleMessage(discussion.challenge_response_id)}
+      disabled={currentUser?.data[0]?.chatbox === "0"}
+    >
+      <span className="d-none d-md-inline" style={{ marginRight: "5px" }}>
+        <BiSolidMessageRounded size={20} />
+      </span>
+      Message
+    </button>
 
-  <button
-    type="button"
-    style={{ whiteSpace: 'nowrap' }}
-    className="btn btn-outline-success mb-1"
-    // onClick={() => navigate("/mentor-milestone")}
-    onClick={() => handleMilestone(discussion.challenge_response_id)}
+    <button
+      type="button"
+       style={{ whiteSpace: "nowrap"}}
+      className="btn btn-outline-primary"
+      onClick={() => navigate("/schedule-calls")}
+    >
+      <span className="d-none d-md-inline" style={{ marginRight: "5px" }}>
+        <IoIosVideocam size={20} />
+      </span>
+      Schedule Call
+    </button>
 
-  >
-    <span className="d-none d-md-inline" style={{ marginRight: '5px' }}>
-      <BsListCheck size={20} />
-    </span>
-    Milestones
-  </button>
+    <button
+      type="button"
+      style={{ whiteSpace: "nowrap"}}
+      className="btn btn-outline-success"
+      onClick={() => handleMilestone(discussion.challenge_response_id)}
+    >
+      <span className="d-none d-md-inline" style={{ marginRight: "5px" }}>
+        <BsListCheck size={20} />
+      </span>
+      Milestones
+    </button>
+  </div>
 </div>
-
 
                     </div>
                   </div>

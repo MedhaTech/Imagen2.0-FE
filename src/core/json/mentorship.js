@@ -4,7 +4,7 @@ import React from "react";
 import * as Icon from "react-feather";
 import { MdChatBubbleOutline } from "react-icons/md";
 import { getCurrentUser } from "../../helpers/Utils";
-
+import { SiGooglemeet } from "react-icons/si";
 const MentorShipSidebarData = () => {
    const currentUser = getCurrentUser("current_user");
  
@@ -30,13 +30,14 @@ const ChatId =currentUser?.data[0]?.chatbox ;
           showSubRoute: false,
           submenu: false,
         },
-        // {
-        //   label: "Chat Box",
-        //   link: "/mentor-chatbox",
-        //   icon: <MdChatBubbleOutline />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+          {
+          label:"Schedule Call",
+          link: "/schedule-calls",
+          icon: <SiGooglemeet />,
+          showSubRoute: false,
+          submenu: false,
+        },
+      
          ...(ChatId === 1 || ChatId === "1"
         ? [
             {
@@ -48,6 +49,13 @@ const ChatId =currentUser?.data[0]?.chatbox ;
             },
           ]
         : []),
+         {
+          label:"Teams",
+          link: "/mentor-teams",
+          icon: <Icon.Users />,
+          showSubRoute: false,
+          submenu: false,
+        },
           {
           label:"Resource",
           link: "/mentor-resource",
@@ -56,13 +64,7 @@ const ChatId =currentUser?.data[0]?.chatbox ;
           submenu: false,
         },
       
-         {
-          label:"Teams",
-          link: "/mentor-teams",
-          icon: <Icon.Users />,
-          showSubRoute: false,
-          submenu: false,
-        },
+        
       ],
     },
    
