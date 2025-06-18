@@ -415,7 +415,7 @@ const MentorshipList = (props) => {
               }}
             >
               {record?.status === "ACTIVE" ? (
-                <button className="btn btn-light">
+                <button className="btn btn-dark">
                   {" "}
                   Inactivate
                   <AlertOctagon

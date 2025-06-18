@@ -22,18 +22,25 @@ const Milestone = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
  const cid = location.state?.challenge_response_id;
- const [showCid, setShowCid] = useState(true);
-
- useEffect(() => {
-    if (cid) {
-      submittedApi(cid); 
-    }
-  }, [cid]);
- 
-  const [teamId, setTeamId] = useState(null);
+const [teamId, setTeamId] = useState(null);
   const [showDefault, setshowDefault] = useState(true);
   const [progressData, setProgressData] = useState([]);
   const [progressReady, setProgressReady] = useState(false);
+    const [teamsList, setTeamsList] = useState([]);
+
+  useEffect(() => {
+    if (currentUser.data[0]?.user_id) {
+      setshowDefault(true);
+      teamNameandIDsbymentorid(currentUser.data[0]?.user_id);
+    }
+  }, [currentUser.data[0]?.user_id]);
+ useEffect(() => {
+    if (cid) {
+      setTeamId(cid);
+    }
+  }, [cid]);
+ 
+  
   useEffect(() => {
     fetchTecResourceList();
   }, []);
@@ -170,6 +177,7 @@ const Milestone = (props) => {
   };
 
   const handleEdit = (data) => {
+    // console.log(data,"of cid");
     const matchedProgress = progressData?.find(
       (item) => item.milestone_id === data?.milestone_id
     );
@@ -188,14 +196,15 @@ const Milestone = (props) => {
     });
   };
 
-  const [teamsList, setTeamsList] = useState([]);
-
+ const handleSelectChange = (selectedOption) => {
+    // setTeamId(selectedOption ? selectedOption.label : "");
+     setTeamId(selectedOption ? Number(selectedOption.value) : "");
+  };
   useEffect(() => {
-    if (currentUser.data[0]?.user_id) {
-      setshowDefault(true);
-      teamNameandIDsbymentorid(currentUser.data[0]?.user_id);
+    if (teamId) {
+      submittedApi(teamId);
     }
-  }, [currentUser.data[0]?.user_id]);
+  }, [teamId]);
 
   const teamNameandIDsbymentorid = (user_id) => {
     const teamApi = encryptGlobal(
@@ -224,20 +233,17 @@ const Milestone = (props) => {
         console.log(error);
       });
   };
-  const customer = teamsList.map((team) => ({
-    value: team.student_id,
-    label: team.challenge_response_id,
-  }));
+  // const customer = teamsList.map((team) => ({
+  //   value: team.student_id,
+  //   label: team.challenge_response_id,
+  // }));
+const customer = teamsList.map((team) => ({
+  value: team.challenge_response_id,               
+  label: `${team.challenge_response_id}`,      
+}));
 
-  const handleSelectChange = (selectedOption) => {
-    setTeamId(selectedOption ? selectedOption.label : "");
-  };
-  useEffect(() => {
-    if (teamId) {
-      submittedApi(teamId);
-       setShowCid(false);
-    }
-  }, [teamId]);
+ 
+ 
   const submittedApi = (teamId) => {
     // This function fetches idea submission details from the API //
 
@@ -289,19 +295,7 @@ const Milestone = (props) => {
               <h4 className="mb-0">Milestone</h4>
 
             </div>
-            {cid && showCid && (
-            <div className="col-md-2">
-               <button
-                 type="button"
-                 className="btn btn-outline-warning text-nowrap d-flex align-items-center"
-                 style={{ whiteSpace: 'nowrap' }}
-                 disabled
-               >
-                 <BsMicrosoftTeams size="20px" style={{ marginRight: '5px' }} />
-                 CID: {cid}
-               </button>
-              
-            </div>)}
+           
             <div className="col-md-6 text-md-end mt-2 mt-md-0">
               <div className="form-sort select-bluk">
                 <Select
@@ -309,7 +303,9 @@ const Milestone = (props) => {
                   options={customer}
                   placeholder="Choose a Team"
                   onChange={handleSelectChange}
-                  value={customer.find((option) => option.value === teamId)}
+                  // value={customer.find((option) => option.value === teamId)}
+                  value={customer.find((option) => Number(option.value) === Number(teamId))}
+
                   menuPortalTarget={document.body}
                   styles={{
                     menuPortal: (base) => ({ ...base, zIndex: 9999 }),

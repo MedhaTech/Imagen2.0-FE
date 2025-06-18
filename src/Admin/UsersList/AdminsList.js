@@ -274,7 +274,7 @@ const TicketsPage = (props) => {
                     >
                         {record?.status === 'ACTIVE' ? (
                             <button
-                            className="btn btn-light"
+                            className="btn btn-dark"
                         > Inactivate<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>    
                         </button>
                         ) : (

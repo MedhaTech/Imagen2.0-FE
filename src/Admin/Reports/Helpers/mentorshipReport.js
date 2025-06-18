@@ -95,7 +95,7 @@ const mentorshipReport = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Mentorship Detailed Report</h4>
+              <h4>Mentor Detailed Report</h4>
               <h6>
                 Mentor Details - idea,team members
               </h6>
