@@ -147,7 +147,7 @@ return (
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
-                                <h5 className="active">MentorShip</h5>
+                                <h5 className="active">Mentor</h5>
                             </div>
                         </div>
                         <Link  to="/mentorship-report ">
@@ -160,7 +160,7 @@ return (
                                     />
 
                                     </div>
-                                    <h4>MentorShip Overview</h4>
+                                    <h4>Mentor Overview</h4>
                             </div>
                         </Link>
                        

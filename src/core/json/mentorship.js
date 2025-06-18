@@ -23,6 +23,13 @@ const ChatId =currentUser?.data[0]?.chatbox ;
           showSubRoute: false,
           submenu: false,
         },
+          {
+          label:"Milestone",
+          link: "/mentor-milestone",
+          icon: <Icon.Award />,
+          showSubRoute: false,
+          submenu: false,
+        },
         // {
         //   label: "Chat Box",
         //   link: "/mentor-chatbox",
@@ -48,13 +55,7 @@ const ChatId =currentUser?.data[0]?.chatbox ;
           showSubRoute: false,
           submenu: false,
         },
-        {
-          label:"Milestone",
-          link: "/mentor-milestone",
-          icon: <Icon.Award />,
-          showSubRoute: false,
-          submenu: false,
-        },
+      
          {
           label:"Teams",
           link: "/mentor-teams",

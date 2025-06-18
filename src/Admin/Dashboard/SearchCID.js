@@ -1073,7 +1073,7 @@ const AdminSearchCID = () => {
                   ) : (
                     <div className={`col-md-12`}>
                       <label htmlFor="college" className="form-label">
-                        Assign Mentorship
+                        Assign Mentor
                       </label>
 
                       {mentorshipList.length > 0 && (
@@ -1081,7 +1081,7 @@ const AdminSearchCID = () => {
                           options={mentorshipList}
                           value={oldCollegeName}
                           onChange={(option) => setOldCollegeName(option)}
-                          placeholder="Type here to Select Mentorship User"
+                          placeholder="Type here to Select Mentor User"
                           classNamePrefix="react-select"
                         />
                       )}

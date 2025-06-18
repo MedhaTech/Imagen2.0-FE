@@ -24,7 +24,6 @@ const AddMilestone = () => {
     type: "text",
     className: "defaultInput",
   };
-
   const fileHandler = (e) => {
     // Handles file selection and reads the selected file //
 
@@ -167,84 +166,102 @@ const AddMilestone = () => {
     // },
 
     onSubmit: async (values) => {
-  try {
-    let uploadedFileName = values.file_name;
+      try {
+        let uploadedFileName = values.file_name;
 
-    // File Upload if selected
-    if (uploadedFileName && uploadedFileName instanceof File) {
-      const fileData = new FormData();
-      fileData.append("file", uploadedFileName);
+        // File Upload if selected
+        if (uploadedFileName && uploadedFileName instanceof File) {
+          const fileData = new FormData();
+          fileData.append("file", uploadedFileName);
 
-      const uploadRes = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/milestone_progress/milestoneFileUpload`,
-        fileData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-          },
+          const uploadRes = await axios.post(
+            `${process.env.REACT_APP_API_BASE_URL}/milestone_progress/milestoneFileUpload`,
+            fileData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+              },
+            }
+          );
+
+          uploadedFileName = uploadRes?.data?.data[0]?.attachments?.[0] || "";
         }
-      );
 
-      uploadedFileName = uploadRes?.data?.data[0]?.attachments?.[0] || "";
-    }
+        const body = {
+          status: values.status,
+          milestone_id: MentorShiptData?.milestone_id,
+          challenge_response_id: MentorShiptData?.challenge_response_id,
+        };
 
-    const body = {
-      status: values.status,
-      milestone_id: MentorShiptData?.milestone_id,
-      challenge_response_id: MentorShiptData?.challenge_response_id,
-    };
+        if (uploadedFileName) body.file = uploadedFileName;
+        if (values.note) body.note = values.note;
 
-    if (uploadedFileName) body.file = uploadedFileName;
-    if (values.note) body.note = values.note;
+        if (!MentorShiptData?.milestone_progress_id) {
+          const response = await axios.post(
+            `${process.env.REACT_APP_API_BASE_URL}/milestone_progress`,
+            body,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+              },
+            }
+          );
 
-    if (!MentorShiptData?.milestone_progress_id) {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/milestone_progress`,
-        body,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-          },
+          if (response.status === 201) {
+            navigate("/mentor-milestone", {
+              state: {
+                challenge_response_id: MentorShiptData?.challenge_response_id,
+              },
+            });
+
+            openNotificationWithIcon(
+              "success",
+              "Milestone Created Successfully"
+            );
+          } else {
+            openNotificationWithIcon("error", "Oops! Something went wrong");
+          }
+        } else {
+          const teamparamId = encryptGlobal(
+            JSON.stringify(MentorShiptData?.milestone_progress_id)
+          );
+
+          const response = await axios.put(
+            `${process.env.REACT_APP_API_BASE_URL}/milestone_progress/${teamparamId}`,
+            body,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+              },
+            }
+          );
+
+          if (response.status === 200) {
+            navigate("/mentor-milestone", {
+              state: {
+                challenge_response_id: MentorShiptData?.challenge_response_id,
+              },
+            });
+
+            openNotificationWithIcon(
+              "success",
+              "Milestone Updated Successfully"
+            );
+          } else {
+            openNotificationWithIcon("error", "Oops! Something went wrong");
+          }
         }
-      );
-
-      if (response.status === 201) {
-        navigate("/mentor-milestone");
-        openNotificationWithIcon("success", "Milestone Created Successfully");
-      } else {
-        openNotificationWithIcon("error", "Oops! Something went wrong");
+      } catch (error) {
+        console.error("Milestone submission error:", error);
+        openNotificationWithIcon(
+          "error",
+          "Something went wrong while submitting."
+        );
       }
-    } else {
-      const teamparamId = encryptGlobal(
-        JSON.stringify(MentorShiptData?.milestone_progress_id)
-      );
-
-      const response = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/milestone_progress/${teamparamId}`,
-        body,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        navigate("/mentor-milestone");
-        openNotificationWithIcon("success", "Milestone Updated Successfully");
-      } else {
-        openNotificationWithIcon("error", "Oops! Something went wrong");
-      }
-    }
-  } catch (error) {
-    console.error("Milestone submission error:", error);
-    openNotificationWithIcon("error", "Something went wrong while submitting.");
-  }
-},
-
+    },
   });
   useEffect(() => {
     if (MentorShiptData) {
@@ -271,135 +288,130 @@ const AddMilestone = () => {
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
-           
-          <div className="d-flex align-items-center flex-wrap gap-2 mt-2">
-  <button
+            <div className="d-flex align-items-center flex-wrap gap-2 mt-2">
+              {/* <button
     type="button"
-    // className="btn btn-outline-warning text-center w-auto me-1"
      className="btn btn-outline-warning text-nowrap d-flex align-items-center"
     style={{ whiteSpace: 'nowrap' }}
     disabled
   >
     <BsMicrosoftTeams size="20px" /> CID :{MentorShiptData?.challenge_response_id}
-  </button>
+  </button> */}
 
-  <h6 className="mb-0">
-    You can add Note and FileUpload by submitting details here
-  </h6>
-</div>
-
-
+              <h6 className="mb-0">
+                You can add Note and FileUpload by submitting details here
+              </h6>
+            </div>
           </div>
         </div>
         <div className="EditPersonalDetails new-member-page">
           <Row>
             {/* <Col className="col-xl-10 offset-xl-1 offset-md-0"> */}
-              <div>
-                <Form onSubmit={formik.handleSubmit} isSubmitting>
-                  <div className="create-ticket register-block">
-                    {/* <FormGroup className="form-group" md={12}> */}
-                    <Row className="mb-3 modal-body-table search-modal-header">
-                      <Col md={6}>
-                        <Label className="mb-2" htmlFor="status">
-                          Status
-                          <span required>*</span>
-                        </Label>
-                        <select
-                          name="status"
-                          id="status"
-                          className="form-control custom-dropdown"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.status}
-                        >
-                          <option value="">Select Status</option>
-                          <option value="COMPLETED">COMPLETED</option>
-                          <option value="INCOMPLETE">INCOMPLETE</option>
-                        </select>
-                        {formik.touched.status && formik.errors.status && (
-                          <small className="error-cls" style={{ color: "red" }}>
-                            {formik.errors.status}
-                          </small>
-                        )}
-                      </Col>
-                    </Row>
+            <div>
+              <Form onSubmit={formik.handleSubmit} isSubmitting>
+                <div className="create-ticket register-block">
+                  {/* <FormGroup className="form-group" md={12}> */}
+                  <Row className="mb-3 modal-body-table search-modal-header">
+                    <Col md={6}>
+                      <Label className="mb-2" htmlFor="status">
+                        Status
+                        <span required>*</span>
+                      </Label>
+                      <select
+                        name="status"
+                        id="status"
+                        className="form-control custom-dropdown"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.status}
+                      >
+                        <option value="">Select Status</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                        <option value="INCOMPLETE">INCOMPLETE</option>
+                      </select>
+                      {formik.touched.status && formik.errors.status && (
+                        <small className="error-cls" style={{ color: "red" }}>
+                          {formik.errors.status}
+                        </small>
+                      )}
+                    </Col>
+                  </Row>
 
-                    {MentorShiptData?.noteId === "1" && (
-                      <Row className="mb-3 modal-body-table search-modal-header">
-                        <Label className="mb-2" htmlFor="note">
-                          Note
-                          <span required>*</span>
+                  {MentorShiptData?.noteId === "1" && (
+                    <Row className="mb-3 modal-body-table search-modal-header">
+                      <Label className="mb-2" htmlFor="note">
+                        Note
+                        <span required>*</span>
+                      </Label>
+                      <Input
+                        type="note"
+                        {...inputDICE}
+                        id="note"
+                        name="note"
+                        placeholder="Please enter note"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.note}
+                      />
+                      {formik.touched.note && formik.errors.note && (
+                        <small className="error-cls" style={{ color: "red" }}>
+                          {formik.errors.note}
+                        </small>
+                      )}
+                    </Row>
+                  )}
+                  {MentorShiptData?.uploadId === "1" && (
+                    <Row className="mb-3 modal-body-table search-modal-header">
+                      <Col md={4}>
+                        <Label className="mb-2" htmlFor="file_name">
+                          File
                         </Label>
-                        <Input
-                          type="note"
-                          {...inputDICE}
-                          id="note"
-                          name="note"
-                          placeholder="Please enter note"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.note}
-                        />
-                        {formik.touched.note && formik.errors.note && (
-                          <small className="error-cls" style={{ color: "red" }}>
-                            {formik.errors.note}
-                          </small>
-                        )}
-                      </Row>
-                    )}
-                    {MentorShiptData?.uploadId === "1" && (
-                      <Row className="mb-3 modal-body-table search-modal-header">
-                        <Col md={4}>
-                          <Label className="mb-2" htmlFor="file_name">
-                            File
-                          </Label>
-                          <div className="d-flex align-items-center">
-                            <input
-                              type="file"
-                              id="file_name"
-                              name="file_name"
-                              style={{
-                                display: "none",
-                              }}
-                              accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                              onChange={(e) => fileHandler(e)}
-                              onBlur={formik.handleBlur}
-                            />
-                            <Button
-                              label="Upload File "
-                              btnClass="primary"
-                              size="small"
+                        <div className="d-flex align-items-center">
+                          <input
+                            type="file"
+                            id="file_name"
+                            name="file_name"
+                            style={{
+                              display: "none",
+                            }}
+                            accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                            onChange={(e) => fileHandler(e)}
+                            onBlur={formik.handleBlur}
+                          />
+                          <Button
+                            label="Upload File "
+                            btnClass="primary"
+                            size="small"
+                            onClick={() => {
+                              document.getElementById("file_name").click();
+                            }}
+                          />
+                          {formik.values.file_name ? (
+                            <button
+                              className="btn btn-info m-2"
+                              type="button"
                               onClick={() => {
-                                document.getElementById("file_name").click();
+                                if (formik.values.file_name instanceof File) {
+                                  const fileURL = URL.createObjectURL(
+                                    formik.values.file_name
+                                  );
+                                  window.open(fileURL, "_blank");
+                                } else {
+                                  window.open(
+                                    formik.values.file_name,
+                                    "_blank"
+                                  );
+                                }
                               }}
-                            />
-                            {formik.values.file_name ? (
-                              <button
-                                className="btn btn-info m-2"
-                                type="button"
-                                onClick={() => {
-                                  if (formik.values.file_name instanceof File) {
-                                    const fileURL = URL.createObjectURL(
-                                      formik.values.file_name
-                                    );
-                                    window.open(fileURL, "_blank");
-                                  } else {
-                                    window.open(
-                                      formik.values.file_name,
-                                      "_blank"
-                                    );
-                                  }
-                                }}
-                              >
-                                {formik.values.file_name instanceof File
-                                  ? formik.values.file_name.name
-                                  : formik.values.file_name.substring(
-                                      formik.values.file_name.lastIndexOf("/") +
-                                        1
-                                    )}
-                              </button>
-                            ) : null}
-                            {/* {formik.values.file_name &&
+                            >
+                              {formik.values.file_name instanceof File
+                                ? formik.values.file_name.name
+                                : formik.values.file_name.substring(
+                                    formik.values.file_name.lastIndexOf("/") + 1
+                                  )}
+                            </button>
+                          ) : null}
+                          {/* {formik.values.file_name &&
                           formik.values.file_name.name ? (
                             <span className="ml-2">
                               {formik.values.file_name.name}
@@ -410,40 +422,48 @@ const AddMilestone = () => {
                                 formik.initialValues.file_name.name}
                             </span>
                           )} */}
-                          </div>
-                          {formik.touched.file_name &&
-                            formik.errors.file_name && (
-                              <small className="error-cls">
-                                {formik.errors.file_name}
-                              </small>
-                            )}
-                        </Col>
-                      </Row>
-                    )}
+                        </div>
+                        {formik.touched.file_name &&
+                          formik.errors.file_name && (
+                            <small className="error-cls">
+                              {formik.errors.file_name}
+                            </small>
+                          )}
+                      </Col>
+                    </Row>
+                  )}
+                </div>
+
+                <Row>
+                  <div style={buttonContainerStyle} className="mt-3">
+                    <button
+                      type="submit"
+                      className="btn btn-warning"
+                      disabled={!(formik.dirty && formik.isValid)}
+                      style={buttonStyle}
+                    >
+                      Submit Details
+                    </button>
+
+                    <button
+                      className="btn btn-secondary"
+                      type="button"
+                      style={{ marginLeft: "auto" }}
+                      onClick={() =>
+                        navigate("/mentor-milestone", {
+                          state: {
+                            challenge_response_id:
+                              MentorShiptData?.challenge_response_id,
+                          },
+                        })
+                      }
+                    >
+                      Discard
+                    </button>
                   </div>
-
-                  <Row>
-                    <div style={buttonContainerStyle} className="mt-3">
-                      <button
-                        type="submit"
-                        className="btn btn-warning"
-                        style={buttonStyle}
-                      >
-                        Submit Details
-                      </button>
-
-                      <button
-                        className="btn btn-secondary"
-                        type="button"
-                        style={{ marginLeft: "auto" }}
-                        onClick={() => navigate("/mentor-milestone")}
-                      >
-                        Discard
-                      </button>
-                    </div>
-                  </Row>
-                </Form>
-              </div>
+                </Row>
+              </Form>
+            </div>
             {/* </Col> */}
           </Row>
         </div>
