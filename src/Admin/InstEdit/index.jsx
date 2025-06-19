@@ -19,7 +19,7 @@ const InstOption = () => {
       method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/dashboard/CollegeNameForCollegeType`,
+        `/dashboard/CollegeNameForCollegeTypeDistrict`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
