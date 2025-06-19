@@ -153,7 +153,7 @@ const mentorId = currentUser.data[0]?.user_id;
                         <div className="profile-head-action">
                           <button
                             type="button"
-                            className="btn btn-outline-warning text-center w-auto me-1"
+                            className="btn btn-outline-info text-center w-auto me-1"
                             onClick={() => handleChat(student)}
                           >
                             <TbMessageDots size="20px"/> Message
@@ -164,7 +164,7 @@ const mentorId = currentUser.data[0]?.user_id;
                         <div className="profile-pic active-profile">
                           <div style={{ width: "64px", height: "64px" }}>
                             <BiLogoMicrosoftTeams
-                              style={{ width: "100%", height: "100%" }}
+                              style={{ width: "100%", height: "100%", color:"#17a2b8"}}
                             />
                           </div>
                         </div>

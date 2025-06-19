@@ -146,7 +146,6 @@ const DBStu = () => {
   };
 
   const handleMilestone = (item) => {
-    console.log(item, "item");
     navigate(`/mentor-milestone`, {
       state: {
         challenge_response_id: item,
@@ -265,7 +264,7 @@ const DBStu = () => {
     alignItems: "flex-start",
     flexWrap: "wrap",
     gap: "1rem",
-    marginBottom: "1rem",
+    // marginBottom: "1rem",
   }}
 >
   <div style={{ flex: "1 1 auto", minWidth: "250px" }}>

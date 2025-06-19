@@ -8,42 +8,33 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { getCurrentUser } from "../../helpers/Utils";
 import { CheckCircle } from "react-feather";
 import { IoHelpOutline } from "react-icons/io5";
-import Select from "react-select";
-import { useDispatch, useSelector } from "react-redux";
-import ToggleButton from "../../Admin/UsersList/Toggle";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { BsMicrosoftTeams } from "react-icons/bs";
+import { TbMessageDots } from "react-icons/tb";
+import { BiLogoMicrosoftTeams } from "react-icons/bi";
 
 const Milestone = (props) => {
-   const location = useLocation();
+  const location = useLocation();
   const [milestoneList, setmilestoneList] = useState([]);
   const currentUser = getCurrentUser("current_user");
-  const dispatch = useDispatch();
   const navigate = useNavigate();
- const cid = location.state?.challenge_response_id;
-const [teamId, setTeamId] = useState(null);
-  const [showDefault, setshowDefault] = useState(true);
+  const cid = location.state?.challenge_response_id;
+  const [teamId, setTeamId] = useState(null);
   const [progressData, setProgressData] = useState([]);
   const [progressReady, setProgressReady] = useState(false);
-    const [teamsList, setTeamsList] = useState([]);
-
+  const [studentCount, setStudentCount] = useState([]);
+  const [hide, setHide] = useState(false);
   useEffect(() => {
     if (currentUser.data[0]?.user_id) {
-      setshowDefault(true);
       teamNameandIDsbymentorid(currentUser.data[0]?.user_id);
     }
   }, [currentUser.data[0]?.user_id]);
- useEffect(() => {
+  useEffect(() => {
     if (cid) {
       setTeamId(cid);
     }
   }, [cid]);
- 
-  
-  useEffect(() => {
-    fetchTecResourceList();
-  }, []);
+
   async function fetchTecResourceList() {
     try {
       const response = await axios.get(
@@ -82,102 +73,73 @@ const [teamId, setTeamId] = useState(null);
         selector: (row) => row.description,
         width: "30rem",
       },
-       ...(progressReady
-    ? [
-      {
-        name: "Status",
-        selector: (record) => {
-          const matchedProgress = progressData?.find(
-            (item) =>
-              item.milestone_id === record.milestone_id &&
-              item.challenge_response_id === teamId 
-          );
-          const status = matchedProgress?.status;
-          return status === "COMPLETED" ? (
-            <div className="d-flex align-items-center gap-2">
-              <CheckCircle size={20} color="#28C76F" />
-            </div>
-          ) : (
-            <IoHelpOutline size={20} color="#FF0000" />
-          );
-        },
-        width: "10rem",
-      },
-       ]
-    : []),
+      ...(progressReady
+        ? [
+            {
+              name: "Status",
+              selector: (record) => {
+                const matchedProgress = progressData?.find(
+                  (item) =>
+                    item.milestone_id === record.milestone_id &&
+                    item.challenge_response_id === teamId
+                );
+                const status = matchedProgress?.status;
+                return status === "COMPLETED" ? (
+                  <div className="d-flex align-items-center gap-2">
+                    <CheckCircle size={20} color="#28C76F" />
+                  </div>
+                ) : (
+                  <IoHelpOutline size={20} color="#FF0000" />
+                );
+              },
+              width: "10rem",
+            },
+          ]
+        : []),
 
-      // {
-      //   name: "Update Status",
-      //   width: "10rem",
-      //   center: true,
+      ...(progressReady
+        ? [
+            {
+              name: "Actions",
+              left: true,
+              width: "15rem",
+              cell: (record) => {
+                const matchedProgress = Array.isArray(progressData)
+                  ? progressData.find(
+                      (item) => item.milestone_id === record.milestone_id
+                    )
+                  : null;
 
-      //   cell: (record) => (
-      //     <ToggleButton
-      //       isEnabled={record.chatbox === 1 || record.chatbox === "1"}
-      //       onToggle={(newStatus) =>
-      //         handleStatusOfChat(record, newStatus, "chatbox")
-      //       }
-      //     />
-      //   ),
-      // },
-      // {
-      //   name: "Actions",
-      //   left: true,
-      //   width: "15rem",
-      //   cell: (record) => [
-      //     <>
-      //       <button
-      //         className="btn btn-info btn-sm"
-      //         onClick={() => handleEdit(record)}
-      //       >
-      //         <i data-feather="edit" className="feather-edit" /> Edit
-      //       </button>
-      //     </>,
-      //   ],
-      // },
-        ...(progressReady
-    ? [
-   {
-  name: "Actions",
-  left: true,
-  width: "15rem",
-  cell: (record) => {
-    const matchedProgress = Array.isArray(progressData)
-      ? progressData.find((item) => item.milestone_id === record.milestone_id)
-      : null;
-
-    return (
-      <>
-        {matchedProgress ? (
-          <button
-            className="btn btn-info btn-sm me-1"
-            onClick={() => handleEdit(record)}
-            title="Edit Progress"
-          >
-            <i data-feather="edit" className="feather-edit" /> Update
-          </button>
-        ) : (
-          <button
-            className="btn btn-success btn-sm me-1"
-            onClick={() => handleEdit(record)}
-            title="Create Progress"
-          >
-            <i data-feather="plus" className="feather-plus" /> Add
-          </button>
-        )}
-      </>
-    );
-  },
-}
- ]
-    : []),
-
-
+                return (
+                  <>
+                    {matchedProgress ? (
+                      <button
+                        className="btn btn-info btn-sm me-1"
+                        onClick={() => handleEdit(record)}
+                        title="Edit Progress"
+                      >
+                        <i data-feather="edit" className="feather-edit" />{" "}
+                        Update
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-success btn-sm me-1"
+                        onClick={() => handleEdit(record)}
+                        title="Create Progress"
+                      >
+                        <i data-feather="plus" className="feather-plus" /> Add
+                      </button>
+                    )}
+                  </>
+                );
+              },
+            },
+          ]
+        : []),
     ],
   };
 
   const handleEdit = (data) => {
-    // console.log(data,"of cid");
     const matchedProgress = progressData?.find(
       (item) => item.milestone_id === data?.milestone_id
     );
@@ -196,13 +158,11 @@ const [teamId, setTeamId] = useState(null);
     });
   };
 
- const handleSelectChange = (selectedOption) => {
-    // setTeamId(selectedOption ? selectedOption.label : "");
-     setTeamId(selectedOption ? Number(selectedOption.value) : "");
-  };
   useEffect(() => {
     if (teamId) {
+      fetchTecResourceList();
       submittedApi(teamId);
+      setHide(true);
     }
   }, [teamId]);
 
@@ -226,24 +186,14 @@ const [teamId, setTeamId] = useState(null);
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          setTeamsList(response.data.data);
+          setStudentCount(response.data.data);
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
-  // const customer = teamsList.map((team) => ({
-  //   value: team.student_id,
-  //   label: team.challenge_response_id,
-  // }));
-const customer = teamsList.map((team) => ({
-  value: team.challenge_response_id,               
-  label: `${team.challenge_response_id}`,      
-}));
 
- 
- 
   const submittedApi = (teamId) => {
     // This function fetches idea submission details from the API //
 
@@ -267,9 +217,9 @@ const customer = teamsList.map((team) => ({
       .then(function (response) {
         if (response.status === 200) {
           if (response.data.data) {
-            // console.log(response, "res");
             setProgressData(response.data.data);
-             setProgressReady(true);
+
+            setProgressReady(true);
           }
         }
       })
@@ -279,63 +229,88 @@ const customer = teamsList.map((team) => ({
         }
       });
   };
-    const customStyles = {
+  const customStyles = {
     head: {
       style: {
-        fontSize: "1em", // Adjust as needed
+        fontSize: "1em",
       },
     },
+  };
+  const handleChat = (item) => {
+    setTeamId(item.challenge_response_id);
   };
   return (
     <div className="page-wrapper">
       <div className="content">
-        <div className="page-title">
-          <div className="row align-items-center">
-            <div className="col-md-3">
-              <h4 className="mb-0">Milestone</h4>
-
-            </div>
-           
-            <div className="col-md-6 text-md-end mt-2 mt-md-0">
-              <div className="form-sort select-bluk">
-                <Select
-                  classNamePrefix="react-select"
-                  options={customer}
-                  placeholder="Choose a Team"
-                  onChange={handleSelectChange}
-                  // value={customer.find((option) => option.value === teamId)}
-                  value={customer.find((option) => Number(option.value) === Number(teamId))}
-
-                  menuPortalTarget={document.body}
-                  styles={{
-                    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                    menu: (base) => ({ ...base, zIndex: 9999 }),
-                  }}
-                />
-              </div>
+        <div className="page-header">
+          <div className="add-item d-flex">
+            <div className="page-title">
+              <h4>Milestone</h4>
             </div>
           </div>
         </div>
-
-        <div style={{ marginTop: "1rem" }}>
-          <DataTableExtensions
-            print={false}
-            export={false}
-            filter={false}
-            {...milestoneData}
-            exportHeaders
-          >
-            <DataTable
-              defaultSortField="id"
-               customStyles={customStyles}
-              defaultSortAsc={false}
-              pagination
-              highlightOnHover
-              fixedHeader
-              subHeaderAlign={Alignment.Center}
-            />
-          </DataTableExtensions>
-        </div>
+        {!hide && (
+          <div className="employee-grid-widget">
+            <div className="row">
+              {studentCount?.length > 0 ? (
+                studentCount.map((student, i) => (
+                  <div key={i} className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+                    <div className="employee-grid-profile">
+                      <div className="profile-head">
+                        <div className="profile-head-action">
+                          <button
+                            type="button"
+                            className="btn btn-outline-success text-center w-auto me-1"
+                            onClick={() => handleChat(student)}
+                          >
+                            <TbMessageDots size="20px" /> Message
+                          </button>
+                        </div>
+                      </div>
+                      <div className="profile-info">
+                        <div className="profile-pic active-profile">
+                          <div style={{ width: "64px", height: "64px" }}>
+                            <BiLogoMicrosoftTeams
+                              style={{ width: "100%", height: "100%", color:"#28C76F"}}
+                            />
+                          </div>
+                        </div>
+                        <h4 style={{ color: "orange" }}>
+                          CID : {student?.challenge_response_id}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center text-muted">
+                  There are no teams assigned yet.
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+        {hide && (
+          <div style={{ marginTop: "1rem" }}>
+            <DataTableExtensions
+              print={false}
+              export={false}
+              filter={false}
+              {...milestoneData}
+              exportHeaders
+            >
+              <DataTable
+                defaultSortField="id"
+                customStyles={customStyles}
+                defaultSortAsc={false}
+                pagination
+                highlightOnHover
+                fixedHeader
+                subHeaderAlign={Alignment.Center}
+              />
+            </DataTableExtensions>
+          </div>
+        )}
       </div>
     </div>
   );
