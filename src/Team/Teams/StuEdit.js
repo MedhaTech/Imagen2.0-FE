@@ -23,7 +23,6 @@ import {
   districtList,
   collegeType,
   yearofstudyList,
-  collegeNameList,
   genderList
 } from "../../RegPage/ORGData.js";
 import { MaskedEmail, MaskedMobile } from "../../RegPage/MaskedData.js";
@@ -71,42 +70,31 @@ const StuEdit = () => {
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
-  // const handleCollegeTypeChange = (event) => {
-  //   const selectedCollegeType = event.target.value;
-  //   formik.setFieldValue("collegeType", selectedCollegeType);
-  //   formik.setFieldValue("college", "");
-  //   formik.setFieldValue("ocn", "");
 
-  //   const updatedCollegeNames = collegeNameList[selectedCollegeType] || [];
-  //   setCollegeNamesList(updatedCollegeNames);
-
-  // };
   useEffect(() => {
-    if (data?.college_type) {
-      const existingColleges = collegeNameList[data.college_type] || [];
-      setCollegeNamesList(existingColleges);
-
-      AllCollegesApi(data.college_type, existingColleges);
+    if (data?.college_type && data?.district) {
+      AllCollegesApi(data.college_type, data?.district);
     }
-  }, [data?.college_type]);
+  }, [data?.college_type,data?.district]);
   const handleCollegeTypeChange = (event) => {
-    const selectedCollegeType = event.target.value;
-    console.log("Selected College Type:", selectedCollegeType);
-
-    formik.setFieldValue("collegeType", selectedCollegeType);
-    setSelectedCollegeType(selectedCollegeType);
-    formik.setFieldValue("college", "");
-    formik.setFieldValue("ocn", "");
-
-    const existingColleges = collegeNameList[selectedCollegeType] || [];
-    setCollegeNamesList(existingColleges);
-
-    AllCollegesApi(selectedCollegeType, existingColleges);
-  };
-  const AllCollegesApi = (item, existingColleges) => {
+      const selectedCollegeType = event.target.value;
+      formik.setFieldValue("collegeType", selectedCollegeType);
+      setSelectedCollegeType(selectedCollegeType);
+      formik.setFieldValue("college", "");
+      formik.setFieldValue("ocn", "");
+      AllCollegesApi(selectedCollegeType, formik.values.district);
+    };
+    const handledistrictChange = (event) =>{
+      formik.setFieldValue("district", event.target.value);
+      formik.setFieldValue("college", "");
+      formik.setFieldValue("ocn", "");
+      AllCollegesApi(formik.values.collegeType, event.target.value);
+    };
+  const AllCollegesApi = (item, district) => {
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
+        district:district
       })
     );
 
@@ -114,7 +102,7 @@ const StuEdit = () => {
       method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/dashboard/CollegeNameForCollegeType?Data=${distParam}`,
+        `/dashboard/CollegeNameForCollegeTypeDistrict?Data=${distParam}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
@@ -126,12 +114,7 @@ const StuEdit = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-
-          // setCollegeNamesList([...existingColleges, ...collegeNames]);
-          const mergedColleges = [...existingColleges, ...collegeNames];
-          const uniqueColleges = [...new Set(mergedColleges)];
-
-          setCollegeNamesList(uniqueColleges);
+          setCollegeNamesList(collegeNames);
         }
       })
       .catch(function (error) {
@@ -340,9 +323,6 @@ const StuEdit = () => {
       formik.setFieldValue("college", data.college_name);
     }
   }, [data.college_name]);
-  useEffect(() => {
-    setCollegeNamesList(collegeNameList[data.college_type] || []);
-  }, [data.college_type]);
   // console.log(formik.values.collegeType, "clg", formik.values.ocn, "other");
   return (
     <div className="page-wrapper">
@@ -501,7 +481,7 @@ const StuEdit = () => {
                             name="district"
                             value={formik.values.district || ""}
                             onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
+                            onChange={handledistrictChange}
                           >
                             <option value={""}>Select Your Institution District</option>
                             {districtList["Andhra Pradesh"].map((item) => (
