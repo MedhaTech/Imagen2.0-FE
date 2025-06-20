@@ -486,7 +486,11 @@ const Crew1student = () => {
         classNamePrefix="react-select"
         options={collegeOptions}
         placeholder=" Type here to Select Your College Name"
-        value={collegeOptions.find(option => option.value === formik.values.college)}
+        value={collegeOptions.find(
+                            (option) => option.value === formik.values.college
+                          ) === undefined ? null : collegeOptions.find(
+                            (option) => option.value === formik.values.college
+                          )}
         onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
         onBlur={formik.handleBlur}
       />
