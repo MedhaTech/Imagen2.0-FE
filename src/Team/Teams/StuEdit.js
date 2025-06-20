@@ -114,7 +114,7 @@ const StuEdit = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          setCollegeNamesList(collegeNames);
+          setCollegeNamesList([...collegeNames,'Other']);
         }
       })
       .catch(function (error) {
