@@ -772,6 +772,8 @@ const PilotReg = () => {
                           isDisabled={areInputsDisabled}
                           value={collegeOptions.find(
                             (option) => option.value === formik.values.college
+                          ) === undefined ? null : collegeOptions.find(
+                            (option) => option.value === formik.values.college
                           )}
                           onChange={(selectedOption) =>
                             formik.setFieldValue(
