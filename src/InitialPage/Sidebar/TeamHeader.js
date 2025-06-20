@@ -36,13 +36,11 @@ const Header = () => {
       window.location.reload();
       return;
     }
-
-    mentorViewApi();
   }, [currentUser]);
   const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   mentorViewApi();
-  // }, [user]);
+  useEffect(() => {
+    mentorViewApi();
+  }, []);
 
   const mentorViewApi = () => {
     let supId;
