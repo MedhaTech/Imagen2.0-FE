@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
-import { districtList, collegeType, collegeNameList } from '../../RegPage/ORGData.js';
+import { districtList, collegeType } from '../../RegPage/ORGData.js';
 import { ArrowRight } from 'react-feather';
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import Select from "react-select";
@@ -29,32 +29,25 @@ const AddInstitution = () => {
   const [collegeNamesList, setCollegeNamesList] = useState([]);
    const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
-  // const handleCollegeTypeChange = (event) => {
-  //   const collegeType = event.target.value;
-  //   formik.setFieldValue("college_type", collegeType);
-  //   formik.setFieldValue('college', '');
-  //   formik.setFieldValue('ocn', '');
-  //   setCollegeNamesList(collegeNameList[collegeType] || []);
-  // };
-  const handleCollegeTypeChange = (event) => {
-    const selectedCollegeType = event.target.value;
-    console.log("Selected College Type:", selectedCollegeType);
-    
-    formik.setFieldValue("college_type", selectedCollegeType);
-    setSelectedCollegeType(selectedCollegeType);
-    formik.setFieldValue("college", "");
-    formik.setFieldValue("ocn", "");
-  
-   
-    const existingColleges = collegeNameList[selectedCollegeType] || [];
-    setCollegeNamesList(existingColleges);
-  
-    AllCollegesApi(selectedCollegeType, existingColleges);
-  };
-  const AllCollegesApi = (item,existingColleges) => {
+ const handleCollegeTypeChange = (event) => {
+     const selectedCollegeType = event.target.value;
+     formik.setFieldValue("college_type", selectedCollegeType);
+     setSelectedCollegeType(selectedCollegeType);
+     formik.setFieldValue("college", "");
+     formik.setFieldValue("ocn", "");
+     AllCollegesApi(selectedCollegeType, formik.values.district);
+   };
+   const handledistrictChange = (event) =>{
+     formik.setFieldValue("district", event.target.value);
+     formik.setFieldValue("college", "");
+     formik.setFieldValue("ocn", "");
+     AllCollegesApi(formik.values.college_type, event.target.value);
+   };
+  const AllCollegesApi = (item,district) => {
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
+        district:district
       })
     );
 
@@ -62,7 +55,7 @@ const AddInstitution = () => {
       method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/dashboard/CollegeNameForCollegeType?Data=${distParam}`,
+        `/dashboard/CollegeNameForCollegeTypeDistrict?Data=${distParam}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
@@ -74,12 +67,7 @@ const AddInstitution = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          
-          // setCollegeNamesList([...existingColleges, ...collegeNames]);
-          const mergedColleges = [...existingColleges, ...collegeNames];
-        const uniqueColleges = [...new Set(mergedColleges)];
-
-        setCollegeNamesList(uniqueColleges);
+        setCollegeNamesList([...collegeNames,'Other']);
         }
       })
       .catch(function (error) {
@@ -352,7 +340,7 @@ const AddInstitution = () => {
                               name="district"
                               value={formik.values.district}
                               onBlur={formik.handleBlur}
-                              onChange={formik.handleChange}
+                              onChange={handledistrictChange}
                             >
                               <option value={""}>Select Your Institution District</option>
                               {districtData.map((item) => (
@@ -430,7 +418,11 @@ const AddInstitution = () => {
         classNamePrefix="react-select"
         options={collegeOptions}
         placeholder=" Type here to Select Your College Name"
-        value={collegeOptions.find(option => option.value === formik.values.college)}
+        value={collegeOptions.find(
+                            (option) => option.value === formik.values.college
+                          ) === undefined ? null : collegeOptions.find(
+                            (option) => option.value === formik.values.college
+                          )}
         onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
         onBlur={formik.handleBlur}
       />

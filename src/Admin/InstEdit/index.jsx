@@ -19,7 +19,7 @@ const InstOption = () => {
       method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/dashboard/CollegeNameForCollegeType`,
+        `/dashboard/CollegeNameForCollegeTypeDistrict`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -30,7 +30,7 @@ const InstOption = () => {
         if (response.status === 200) {
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          setCollegeNamesList(collegeNames);
+          setCollegeNamesList([...collegeNames,'Other']);
         }
       })
       .catch(function (error) {

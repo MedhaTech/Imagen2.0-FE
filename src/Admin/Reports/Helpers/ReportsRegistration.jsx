@@ -107,6 +107,18 @@ const ReportsRegistration = () => {
             key: 'studentReg'
         },
         {
+            label: 'Engineering Colleges',
+            key: 'EngineeringColleges_Count'
+        },
+        {
+            label: 'Polytechnic College',
+            key: 'PolytechnicColleges_Count'
+        },
+        {
+            label: 'Degree Colleges',
+            key: 'DegreeColleges_Count'
+        },
+        {
             label: 'Govt Junior College',
             key: 'GovtJuniorCollege_Count'
         },
@@ -446,6 +458,9 @@ const ReportsRegistration = () => {
           const updatedChartTableData = chartTableData.map(item => {
             if (item.PrivateCollege_Count === undefined) item.PrivateCollege_Count = 0;
             if (item.GovtJuniorCollege_Count === undefined) item.GovtJuniorCollege_Count = 0;
+            if (item.EngineeringColleges_Count === undefined) item.EngineeringColleges_Count = 0;
+            if (item.PolytechnicColleges_Count === undefined) item.PolytechnicColleges_Count = 0;
+            if (item.DegreeColleges_Count === undefined) item.DegreeColleges_Count = 0;
             if (item.GovtPolytechnicCollege_Count === undefined) item.GovtPolytechnicCollege_Count = 0;
             if (item.GovtDegreeCollege_Count === undefined) item.GovtDegreeCollege_Count = 0;
             if (item.SocialWelfareCollege_Count === undefined) item.SocialWelfareCollege_Count = 0;
@@ -460,6 +475,9 @@ const ReportsRegistration = () => {
                             acc.district = "Total";
                           (acc.studentReg += curr.studentReg || 0),
                             (acc.GovtJuniorCollege_Count += curr.GovtJuniorCollege_Count || 0),
+                            (acc.EngineeringColleges_Count += curr.EngineeringColleges_Count || 0),
+                            (acc.PolytechnicColleges_Count += curr.PolytechnicColleges_Count || 0),
+                            (acc.DegreeColleges_Count += curr.DegreeColleges_Count || 0),
                             acc.GovtITICollege_Count += curr.GovtITICollege_Count || 0;
                             (acc.GovtPolytechnicCollege_Count += curr.GovtPolytechnicCollege_Count || 0),
                             (acc.GovtDegreeCollege_Count += curr.GovtDegreeCollege_Count || 0),
@@ -476,6 +494,9 @@ const ReportsRegistration = () => {
                           district: "None",
                           studentReg:0,
                           GovtJuniorCollege_Count:0,
+                          EngineeringColleges_Count:0,
+                          PolytechnicColleges_Count:0,
+                          DegreeColleges_Count:0,
                           GovtPolytechnicCollege_Count:0,
                           GovtDegreeCollege_Count:0,
                           SocialWelfareCollege_Count: 0,
@@ -506,7 +527,10 @@ const ReportsRegistration = () => {
                    
                       setRegisteredChartData({
                         labels: [
-                          "Govt Junior College ",
+                            "Govt Junior College ",
+                            "Engineering Colleges",
+                            "Polytechnic College",
+                            "Degree Colleges",
                           "Govt ITI College ",
                           "Govt Polytechnic College ",
                           "Govt Degree College ",
@@ -519,6 +543,9 @@ const ReportsRegistration = () => {
                           {
                             data: [
                               totals.GovtJuniorCollege_Count,
+                              totals.EngineeringColleges_Count,
+                              totals.PolytechnicColleges_Count,
+                              totals.DegreeColleges_Count,
                               totals.GovtITICollege_Count,
                               totals.GovtPolytechnicCollege_Count,
                               totals.GovtDegreeCollege_Count,
@@ -537,6 +564,8 @@ const ReportsRegistration = () => {
                               "#800000",
                               "#da9100",
                               "#800080",
+                              "#4682B4",
+                              "#FFD700"
                             ],
                             hoverBackgroundColor: [
                               "#85e085",
@@ -548,6 +577,8 @@ const ReportsRegistration = () => {
                               "#800000",
                               "#da9100",
                               "#800080",
+                              "#4682B4",
+                              "#FFD700"
                             ],
                           },
                         ],
@@ -679,6 +710,9 @@ const ReportsRegistration = () => {
                                                                 <th style={{ color: "#36A2EB" }}>No</th>
                                                                 <th style={{ color: "#36A2EB" }}>District <br />Name</th>
                                                                 <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>No of <br />Students <br />Reg</th>
+                                                                <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Engineering<br />Colleges</th>
+                                                                <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Polytechnic <br />Colleges</th>
+                                                                <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Degree <br />Colleges</th>
                                                                 <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Govt <br />Junior <br /> College</th>
                                                                 <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Govt <br />ITI <br />College</th>
 
@@ -705,6 +739,15 @@ const ReportsRegistration = () => {
                                                                     </td>
                                                                     <td>
                                                                         {item.studentReg}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.EngineeringColleges_Count ? item.EngineeringColleges_Count : "0"}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.PolytechnicColleges_Count ? item.PolytechnicColleges_Count : "0"}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.DegreeColleges_Count ? item.DegreeColleges_Count : "0"}
                                                                     </td>
                                                                     <td>
                                                                         {item.GovtJuniorCollege_Count ? item.GovtJuniorCollege_Count : "0"}
