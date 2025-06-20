@@ -53,6 +53,8 @@ const Naipunyam = () => {
             regfuc();
         }
     };
+    const normalizeValue = (val) =>
+        val === null || val === 'null' || val === undefined ? 'Other' : val;
     const regfuc = async () => {
         const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
         const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
@@ -64,9 +66,9 @@ const Naipunyam = () => {
             full_name: studentname,
             username: uuid,
             mobile: mobile,
-            district: district,
-            college_type: collegetype,
-            college_name: collegename === null ? 'Other' : collegename,
+            district: district.toUpperCase(),
+            college_type: normalizeValue(collegetype),
+            college_name: normalizeValue(collegename),
             roll_number: rollnumber,
             branch: branch,
             year_of_study: yearofstudy,
