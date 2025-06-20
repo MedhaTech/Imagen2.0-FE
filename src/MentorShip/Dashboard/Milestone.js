@@ -23,15 +23,97 @@ const DBStu = () => {
   const [cidList, setCidList] = useState([]);
   const [data, setData] = useState([]);
 
-  const [mentorUserId, setMentorUserId] = useState("");
   useEffect(() => {
     mentorChatBox(currentUser?.data[0]?.user_id);
+    mentorTeamCount(currentUser?.data[0]?.user_id);
+    mentorsetMilestoneCount(currentUser?.data[0]?.user_id);
+    mentorschedule_calls(currentUser?.data[0]?.user_id);
+    challengesListApi(currentUser?.data[0]?.user_id);
   }, []);
-  useEffect(() => {
-    if (mentorUserId) {
-      challengesListApi();
-    }
-  }, [mentorUserId]);
+ 
+
+   const [teamCount, setTeamCount] = useState([]);
+  const mentorTeamCount = (id) => {
+    const surveyApi = encryptGlobal(
+      JSON.stringify({
+        user_id: id,
+      })
+    );
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_API_BASE_URL + `/dashboard/MSteamCount?Data=${surveyApi}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          setTeamCount(response.data.data);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const [milestoneCount, setMilestoneCount] = useState([]);
+  const mentorsetMilestoneCount = (id) => {
+    const surveyApi = encryptGlobal(
+      JSON.stringify({
+        user_id: id,
+      })
+    );
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_API_BASE_URL + `/dashboard/MmileStoneCount?Data=${surveyApi}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          setMilestoneCount(response.data.data);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const [completedCall, setCompletedCall] = useState([]);
+  const [incompletedCall, setIncompletedCall] = useState([]);
+  const mentorschedule_calls = (id) => {
+    const surveyApi = encryptGlobal(
+      JSON.stringify({
+        user_id: id,
+      })
+    );
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_API_BASE_URL + `/dashboard/MschedulecallsCount?Data=${surveyApi}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          setCompletedCall(response.data.data[0].scheduleCompleted);
+          setIncompletedCall(response.data.data[0].scheduleCompleted);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const mentorChatBox = (id) => {
     const surveyApi = encryptGlobal(
@@ -52,17 +134,15 @@ const DBStu = () => {
       .then(function (response) {
         if (response.status === 200) {
           setData(response.data.data);
-
-          setMentorUserId(response.data.data[0].mentorship_user_id);
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
-  const challengesListApi = () => {
+  const challengesListApi = (id) => {
     const surveyApi = encryptGlobal(
-      JSON.stringify({ mentorship_user_id: mentorUserId })
+      JSON.stringify({ mentorship_user_id: id})
     );
     var config = {
       method: "get",
@@ -191,7 +271,7 @@ const DBStu = () => {
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
-                  <h5>{/* {totalMentorCount} */}</h5>
+                  <h5>{teamCount}</h5>
                   <h6>My Teams</h6>
                 </div>
               </div>
@@ -207,7 +287,7 @@ const DBStu = () => {
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
-                  <h5>{/* {totalStudentCount} */}</h5>
+                  <h5>{incompletedCall}</h5>
                   <h6>Upcoming Sessions</h6>
                 </div>
               </div>
@@ -223,7 +303,7 @@ const DBStu = () => {
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
-                  <h5>{/* {totalStudentCount} */}</h5>
+                  <h5>{completedCall}</h5>
                   <h6>Completed sessions</h6>
                 </div>
               </div>
@@ -239,7 +319,7 @@ const DBStu = () => {
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
-                  <h5>{/* {totalteamsCount} */}</h5>
+                  <h5>{milestoneCount}</h5>
                   <h6>Milestone</h6>
                 </div>
               </div>
