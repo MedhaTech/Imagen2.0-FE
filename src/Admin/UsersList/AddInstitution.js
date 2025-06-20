@@ -31,7 +31,7 @@ const AddInstitution = () => {
 
  const handleCollegeTypeChange = (event) => {
      const selectedCollegeType = event.target.value;
-     formik.setFieldValue("collegeType", selectedCollegeType);
+     formik.setFieldValue("college_type", selectedCollegeType);
      setSelectedCollegeType(selectedCollegeType);
      formik.setFieldValue("college", "");
      formik.setFieldValue("ocn", "");
@@ -41,7 +41,7 @@ const AddInstitution = () => {
      formik.setFieldValue("district", event.target.value);
      formik.setFieldValue("college", "");
      formik.setFieldValue("ocn", "");
-     AllCollegesApi(formik.values.collegeType, event.target.value);
+     AllCollegesApi(formik.values.college_type, event.target.value);
    };
   const AllCollegesApi = (item,district) => {
     const distParam = encryptGlobal(
