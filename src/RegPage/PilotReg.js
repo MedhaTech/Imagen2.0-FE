@@ -213,10 +213,10 @@ const PilotReg = () => {
         <span style={{ color: "red" }}>Please Select Date of Birth</span>
       ),
       disability: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Disability</span>
+        <span style={{ color: "red" }}>Please Select Disability Status</span>
       ),
       area: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Residential Area Type</span>
+        <span style={{ color: "red" }}>Please Select Area of Residence</span>
       )
     }),
 
@@ -629,7 +629,7 @@ const PilotReg = () => {
                       </div>
                       <div className={`col-md-4`}>
                         <label htmlFor="disability" className="form-label">
-                          Do you have any disability?
+                          Disability Status
                         </label>
                         &nbsp;
                         <span style={{ color: "red", fontWeight: "bold" }}>
@@ -644,7 +644,7 @@ const PilotReg = () => {
                           onBlur={formik.handleBlur}
                           onChange={formik.handleChange}
                         >
-                          <option value={""}>Do you have any disability?</option>
+                          <option value={""}>Disability Status</option>
                           {disabilityList.map((item) => (
                             <option key={item} value={item}>
                               {item}
@@ -659,7 +659,7 @@ const PilotReg = () => {
                       </div>
                       <div className={`col-md-4`}>
                         <label htmlFor="area" className="form-label">
-                          Your Residential Area Type
+                          Area of Residence
                         </label>
                         &nbsp;
                         <span style={{ color: "red", fontWeight: "bold" }}>
@@ -674,7 +674,7 @@ const PilotReg = () => {
                           onBlur={formik.handleBlur}
                           onChange={formik.handleChange}
                         >
-                          <option value={""}>Your Residential Area Type</option>
+                          <option value={""}>Area of Residence</option>
                           {areaList.map((item) => (
                             <option key={item} value={item}>
                               {item}
