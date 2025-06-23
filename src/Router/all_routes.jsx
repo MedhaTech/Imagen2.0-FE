@@ -33,6 +33,8 @@ adminmentorshiplist:"/admin-mentorship-list",
   studentsupport: "/student-support",
   studentmentorship:"/student-Mentorship",
   addevent:"/add-event",
+  editevent:"/edit-event",
+
 
   studentmilestone:"/studentmilestone",
   mentorchatbox:"/mentor-chatbox",
