@@ -11,7 +11,9 @@ import {
   districtList,
   collegeType,
   yearofstudyList,
-  genderList
+  genderList,
+  disabilityList,
+  areaList
 } from "./ORGData";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import { ArrowRight } from "react-feather";
@@ -144,6 +146,9 @@ const Crew3Reg = () => {
       id_number: "",
       gender: "",
       college_town: "",
+       dob:"",
+      area:"",
+      disability:""
     },
 
     validationSchema: Yup.object({
@@ -226,6 +231,15 @@ const Crew3Reg = () => {
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Confirm Password</span>
       ),
+       dob: Yup.string().required(
+              <span style={{ color: "red" }}>Please Select Date of Birth</span>
+            ),
+            disability: Yup.string().required(
+              <span style={{ color: "red" }}>Please Select Disability Status</span>
+            ),
+            area: Yup.string().required(
+              <span style={{ color: "red" }}>Please Select Area of Residence</span>
+            )
     }),
 
     onSubmit: async (values) => {
@@ -248,7 +262,10 @@ const Crew3Reg = () => {
         confirmPassword: encrypted,
         type: pilotStudentId,
         gender:values.gender,
-        college_town: values.college_town
+        college_town: values.college_town,
+        dateofbirth:values.dob,
+      disability:values.disability,
+      area:values.area
       };
       if (values.id_number !== "") {
         body["id_number"] = values.id_number;
@@ -412,7 +429,7 @@ const Crew3Reg = () => {
                 <div className="col-xl-12">
                   <div className="row g-3 mt-0">
                     <>
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <label className="form-label" htmlFor="full_name">
                           Full Name
                         </label>
@@ -443,7 +460,7 @@ const Crew3Reg = () => {
                           </small>
                         ) : null}
                       </div>
-                       <div className={`col-md-6`}>
+                       <div className={`col-md-2`}>
                                                                     <label htmlFor="gender" className="form-label">
                                                                       Gender
                                                                     </label>
@@ -472,7 +489,91 @@ const Crew3Reg = () => {
                                                                       </small>
                                                                     ) : null}
                                                                   </div>
-                      <div className={`col-md-6`}>
+                      <div className={`col-md-2`}>
+                                              <label htmlFor="dob" className="form-label">
+                                                Date of Birth
+                                              </label>
+                                              &nbsp;
+                                              <span style={{ color: "red", fontWeight: "bold" }}>
+                                                *
+                                              </span>
+                                              <input
+                                                type="date"
+                                                className="form-control"
+                                                id="dob"
+                                                
+                                                name="dob"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.dob}
+                                              />
+                                              {formik.touched.dob && formik.errors.dob ? (
+                                                <small className="error-cls" style={{ color: "red" }}>
+                                                  {formik.errors.dob}
+                                                </small>
+                                              ) : null}
+                                            </div>
+                                            <div className={`col-md-4`}>
+                                              <label htmlFor="disability" className="form-label">
+                                                Disability Status
+                                              </label>
+                                              &nbsp;
+                                              <span style={{ color: "red", fontWeight: "bold" }}>
+                                                *
+                                              </span>
+                                              <select
+                                                id="disability"
+                                                className="form-select"
+                                                
+                                                name="disability"
+                                                value={formik.values.disability}
+                                                onBlur={formik.handleBlur}
+                                                onChange={formik.handleChange}
+                                              >
+                                                <option value={""}>Disability Status</option>
+                                                {disabilityList.map((item) => (
+                                                  <option key={item} value={item}>
+                                                    {item}
+                                                  </option>
+                                                ))}
+                                              </select>
+                                              {formik.touched.disability && formik.errors.disability ? (
+                                                <small className="error-cls" style={{ color: "red" }}>
+                                                  {formik.errors.disability}
+                                                </small>
+                                              ) : null}
+                                            </div>
+                                            <div className={`col-md-4`}>
+                                              <label htmlFor="area" className="form-label">
+                                                Area of Residence
+                                              </label>
+                                              &nbsp;
+                                              <span style={{ color: "red", fontWeight: "bold" }}>
+                                                *
+                                              </span>
+                                              <select
+                                                id="area"
+                                                className="form-select"
+                                                
+                                                name="area"
+                                                value={formik.values.area}
+                                                onBlur={formik.handleBlur}
+                                                onChange={formik.handleChange}
+                                              >
+                                                <option value={""}>Area of Residence</option>
+                                                {areaList.map((item) => (
+                                                  <option key={item} value={item}>
+                                                    {item}
+                                                  </option>
+                                                ))}
+                                              </select>
+                                              {formik.touched.area && formik.errors.area ? (
+                                                <small className="error-cls" style={{ color: "red" }}>
+                                                  {formik.errors.area}
+                                                </small>
+                                              ) : null}
+                                            </div>
+                      <div className={`col-md-4`}>
                         <label htmlFor="email" className="form-label">
                           Email
                         </label>
@@ -497,7 +598,7 @@ const Crew3Reg = () => {
                         ) : null}
                       </div>
 
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <label className="form-label" htmlFor="mobile">
                           Mobile Number
                         </label>
@@ -772,7 +873,6 @@ const Crew3Reg = () => {
                           className="form-control"
                           id="id_number"
                           placeholder="APAAR ID"
-                          // disabled={areInputsDisabled}
                           name="id_number"
                           onChange={(e) => {
                             const inputValue = e.target.value;
