@@ -14,7 +14,6 @@ const MentorCalls = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     mentorTeamsCount(currentUser?.data[0]?.user_id);
-    mentorChatBox(currentUser?.data[0]?.user_id);
   }, []);
 
   const mentorTeamsCount = (id) => {
@@ -44,7 +43,7 @@ const MentorCalls = () => {
         console.log(error);
       });
   };
-  const mentorChatBox = (id) => {
+  const mentorGetApi = (id) => {
     const surveyApi = encryptGlobal(
       JSON.stringify({
         user_id: id,
@@ -52,7 +51,9 @@ const MentorCalls = () => {
     );
     var config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + `/chatboxs?Data=${surveyApi}`,
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/schedule_calls?Data=${surveyApi}`,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -62,70 +63,34 @@ const MentorCalls = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          setData(response.data.data);
+          const apiData = response.data?.data;
+console.log(response,"res");
+          if (
+            Array.isArray(apiData) &&
+            (apiData.length === 0 ||
+              (apiData.length === 1 && Object.keys(apiData[0]).length === 0))
+          ) {
+            setTimeout(()=>{
+              navigate("/add-event", { state: { id } });
+            },1000);
+          } else {
+             setTimeout(()=>{
+               navigate("/edit-event", { state: { id } });
+            },1000);
+
+          }
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
   const handleChat = (student) => {
-    const challengeId = student.challenge_response_id;
-const mentorId = currentUser.data[0]?.user_id;
-   
-     const matchingChatbox = data.find(
-    (chat) =>
-      chat.challenge_response_id === challengeId &&
-      chat.mentorship_user_id === mentorId
-  );
-
-    if (matchingChatbox) {
-      const chatboxId = matchingChatbox.chatbox_id;
-
-      navigate(`/add-event?id=${challengeId}`, {
-        state: {
-          ...student,
-          chatbox_id: chatboxId,
-        },
-      });
-    } else {
-      createChatboxid(challengeId,student);
-    }
+    
+    mentorGetApi(student.challenge_response_id);
   };
-  const createChatboxid = (challengeId,student) => {
-    const body = JSON.stringify({
-      challenge_response_id: challengeId,
-      mentorship_user_id: currentUser.data[0]?.user_id,
-    });
 
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + `/chatboxs`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-      data: body,
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          // const response = response.data.data;
-          // setData(response.data.data);
-
-          navigate(`/add-Mchat?id=${challengeId}`, {
-            state: {
-              ...student,
-              chatbox_id: response.data.data.chatbox_id,
-            },
-          });
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
   return (
     <div>
       <div className="page-wrapper">
@@ -152,7 +117,7 @@ const mentorId = currentUser.data[0]?.user_id;
                             className="btn btn-outline-warning text-center w-auto me-1"
                             onClick={() => handleChat(student)}
                           >
-                            <MdEventNote size="20px"/> Create Event
+                            <MdEventNote size="20px" /> Create Event
                           </button>
                         </div>
                       </div>
@@ -172,7 +137,9 @@ const mentorId = currentUser.data[0]?.user_id;
                   </div>
                 ))
               ) : (
-                <p className="text-center text-muted">There are no teams assigned yet.</p>
+                <p className="text-center text-muted">
+                  There are no teams assigned yet.
+                </p>
               )}
             </div>
           </div>

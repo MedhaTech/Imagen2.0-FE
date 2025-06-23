@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect } from "react";
+import React,{useEffect} from "react";
 import { Row, Col, FormGroup, Label, Form, Input } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import axios from "axios";
-import { encryptGlobal } from "../../constants/encryptDecrypt";
-
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation } from "react-router-dom";
-const AddEvent = () => {
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+
+const EditEvent = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
  const location = useLocation();
@@ -41,7 +41,21 @@ mentorGetApi(cid);
       .then(function (response) {
         if (response.status === 200) {
           const apiData = response.data?.data;
-console.log(apiData,"api");
+          console.log(apiData,"api");
+        //   if (
+        //     Array.isArray(apiData) &&
+        //     (apiData.length === 0 ||
+        //       (apiData.length === 1 && Object.keys(apiData[0]).length === 0))
+        //   ) {
+        //     setTimeout(()=>{
+        //       navigate("/add-event", { state: { id } });
+        //     },1000);
+        //   } else {
+        //      setTimeout(()=>{
+        //        navigate("/edit-event", { state: { id } });
+        //     },1000);
+
+        //   }
         }
       })
       .catch(function (error) {
@@ -196,4 +210,4 @@ console.log(apiData,"api");
   );
 };
 
-export default AddEvent;
+export default EditEvent;
