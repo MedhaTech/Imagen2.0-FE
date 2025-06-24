@@ -15,6 +15,7 @@ import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import Select from "react-select";
+import moment from "moment";
 
 const Crew1Reg = () => {
   const location = useLocation();
@@ -224,9 +225,10 @@ const Crew1Reg = () => {
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       ),
-       dob: Yup.string().required(
+       dob: Yup.date().required(
               <span style={{ color: "red" }}>Please Select Date of Birth</span>
-            ),
+            ).min(moment().subtract(27, 'years').startOf('day').toDate(), 'Your age must be at most 27 years')
+                  .max(moment().subtract(15, 'years').endOf('day').toDate(), 'Your age must be at least 15 years'),
             disability: Yup.string().required(
               <span style={{ color: "red" }}>Please Select Disability Status</span>
             ),

@@ -179,6 +179,10 @@ const TeacherProgressDetailed = () => {
       label: "District",
       key: "district",
     },
+    {
+      label: 'Date of Registration',
+      key: 'created_at'
+  }
    
   ];
 
@@ -489,8 +493,15 @@ const TeacherProgressDetailed = () => {
       .then(function (response) {
         if (response.status === 200) {
           if (item === "Registered") {
-            setFilteredData(response?.data?.data || []);
-            setDownloadData(response?.data?.data || []);
+            const Data = response?.data?.data || [];
+
+            const formattedData = Data.map((item) => ({
+              ...item,
+              created_at: new Date(item.created_at).toLocaleDateString("en-GB"),
+            }));
+
+            setFilteredData(formattedData);
+            setDownloadData(formattedData);
             if (response?.data.count > 0) {
               openNotificationWithIcon(
                 "success",
