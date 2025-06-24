@@ -9,7 +9,7 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import { decryptGlobal,encryptGlobal } from "../constants/encryptDecrypt";
 import { useLocation } from "react-router-dom";
-
+import moment from "moment";
 import { districtList, collegeType, yearofstudyList,genderList, disabilityList, areaList } from './ORGData';
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import { ArrowRight } from 'react-feather';
@@ -226,9 +226,10 @@ const Crew2Reg = () => {
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Confirm Password</span>
       ),
-       dob: Yup.string().required(
+       dob: Yup.date().required(
               <span style={{ color: "red" }}>Please Select Date of Birth</span>
-            ),
+            ).min(moment().subtract(27, 'years').startOf('day').toDate(), 'Your age must be at most 27 years')
+                  .max(moment().subtract(15, 'years').endOf('day').toDate(), 'Your age must be at least 15 years'),
             disability: Yup.string().required(
               <span style={{ color: "red" }}>Please Select Disability Status</span>
             ),

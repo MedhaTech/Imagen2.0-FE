@@ -22,6 +22,7 @@ import { Link } from "react-router-dom";
 import { decryptGlobal,encryptGlobal } from "../constants/encryptDecrypt";
 import Select from "react-select";
 import { useLocation } from "react-router-dom";
+import moment from "moment";
 
 const Crew3Reg = () => {
   const navigate = useNavigate();
@@ -231,9 +232,10 @@ const Crew3Reg = () => {
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Confirm Password</span>
       ),
-       dob: Yup.string().required(
+       dob: Yup.date().required(
               <span style={{ color: "red" }}>Please Select Date of Birth</span>
-            ),
+            ).min(moment().subtract(27, 'years').startOf('day').toDate(), 'Your age must be at most 27 years')
+                  .max(moment().subtract(15, 'years').endOf('day').toDate(), 'Your age must be at least 15 years'),
             disability: Yup.string().required(
               <span style={{ color: "red" }}>Please Select Disability Status</span>
             ),
