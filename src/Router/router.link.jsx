@@ -135,6 +135,7 @@ import MentorshipMilestone from "../MentorShip/Milestone/index";
 import MentorScheduleCalls from "../MentorShip/Calls/MentorCalls";
 import AddMilestone from "../MentorShip/Milestone/AddInputs";
 import AddEvent from "../MentorShip/Calls/AddEvent";
+import EditEvent from "../MentorShip/Calls/EditEvent";
 
 export const mentorShipRoutes = [
   {
@@ -230,6 +231,14 @@ export const mentorShipRoutes = [
     path: routes.addevent,
     name: "addevent",
     element: <AddEvent/>,
+    protected: true,
+    route: Route,
+  },
+    {
+    id: 13,
+    path: routes.editevent,
+    name: "editevent",
+    element: <EditEvent/>,
     protected: true,
     route: Route,
   },

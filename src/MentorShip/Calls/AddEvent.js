@@ -19,11 +19,12 @@ const AddEvent = () => {
 const cid = location.state?.id;
 useEffect(()=>{
 mentorGetApi(cid);
+
 },[]);
  const mentorGetApi = (id) => {
     const surveyApi = encryptGlobal(
       JSON.stringify({
-        user_id: id,
+        challenge_response_id: id,
       })
     );
     var config = {
@@ -41,7 +42,6 @@ mentorGetApi(cid);
       .then(function (response) {
         if (response.status === 200) {
           const apiData = response.data?.data;
-console.log(apiData,"api");
         }
       })
       .catch(function (error) {
