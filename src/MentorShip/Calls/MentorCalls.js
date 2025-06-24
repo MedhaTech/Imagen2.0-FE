@@ -46,7 +46,7 @@ const MentorCalls = () => {
   const mentorGetApi = (id) => {
     const surveyApi = encryptGlobal(
       JSON.stringify({
-        user_id: id,
+        challenge_response_id: id,
       })
     );
     var config = {
@@ -72,11 +72,11 @@ console.log(response,"res");
           ) {
             setTimeout(()=>{
               navigate("/add-event", { state: { id } });
-            },1000);
+            },500);
           } else {
              setTimeout(()=>{
                navigate("/edit-event", { state: { id } });
-            },1000);
+            },500);
 
           }
         }
