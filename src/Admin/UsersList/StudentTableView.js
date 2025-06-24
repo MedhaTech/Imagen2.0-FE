@@ -229,18 +229,7 @@ const CommonUserProfile = (props) => {
             <td className="w-50"><b>Gender</b></td>
             <td className="w-50">{StudentsDaTa?.gender ? StudentsDaTa?.gender :"-"}</td>
           </tr>
-           <tr>
-            <td className="w-50"><b>Date of Birth</b></td>
-            <td className="w-50">{StudentsDaTa?.dateofbirth ? StudentsDaTa?.dateofbirth :"-"}</td>
-          </tr>
-            <tr>
-            <td className="w-50"><b>Disability Status</b></td>
-            <td className="w-50">{StudentsDaTa?.disability ? StudentsDaTa?.disability :"-"}</td>
-          </tr>
-            <tr>
-            <td className="w-50"><b>Area of Residence</b></td>
-            <td className="w-50">{StudentsDaTa?.area ? StudentsDaTa?.area :"-"}</td>
-          </tr>
+         
           
           <tr>
             <td><b>Email Address</b></td>
