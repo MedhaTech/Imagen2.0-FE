@@ -10,6 +10,7 @@ import {
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import Select from "react-select";
+import moment from "moment/moment";
 
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -126,7 +127,6 @@ const StuEdit = () => {
     value: item,
     label: item,
   }));
-  // console.log(collegeNamesList,"options");
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -224,9 +224,18 @@ const StuEdit = () => {
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
-      dateofbirth: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Date of Birth</span>
-      ),
+       dateofbirth: Yup.date()
+             .required(
+               <span style={{ color: "red" }}>Please Select Date of Birth</span>
+             )
+             .min(
+               moment().subtract(27, "years").startOf("day").toDate(),
+               "Your age must be at most 27 years"
+             )
+             .max(
+               moment().subtract(15, "years").endOf("day").toDate(),
+               "Your age must be at least 15 years"
+             ),
       disability: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Disability Status</span>
       ),
