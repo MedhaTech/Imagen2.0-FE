@@ -196,7 +196,7 @@ const StudentProgress = () => {
     {
       label: "Post Survey Completed Date",
       key: "post_created_at",
-    },
+    }
   ];
   var chartOption = {
     chart: {

@@ -21,7 +21,6 @@ const TeacherProfile = () => {
   //   const dispatch = useDispatch();
   const location = useLocation();
   const mentorData = location.state || {};
-  // console.log(mentorData, "data");
   const currentUser = getCurrentUser("current_user");
   const [data, setData] = useState([]);
   const navigate = useNavigate();
@@ -137,6 +136,38 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div>
+               <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Date of Birth</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={data.dateofbirth}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div> <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Disability Status</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={data.disability}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Area of Residence</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={data?.area}
+                    readOnly="readonly"
+                  />
+                </div>
+                </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">Email</label>

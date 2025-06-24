@@ -6,10 +6,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import axios from "axios";
-import { districtList, collegeType, yearofstudyList, collegeNameList ,genderList} from '../../RegPage/ORGData.js';
+import { districtList, collegeType, yearofstudyList, collegeNameList ,genderList, disabilityList,
+  areaList,} from '../../RegPage/ORGData.js';
 import { openNotificationWithIcon,getCurrentUser } from "../../helpers/Utils.js";
 import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
+import moment from "moment/moment";
 
 const Crew1student = () => {
   const navigate = useNavigate();
@@ -50,7 +52,10 @@ const Crew1student = () => {
       college_town: "",
       // collegeType: "",
       // ocn: "",
-       id_number:""
+       id_number:"",
+        dateofbirth: "",
+      area: "",
+      disability: "",
     },
 
     validationSchema: Yup.object({
@@ -133,7 +138,25 @@ const Crew1student = () => {
             .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Confirm Password</span>
-      )
+      ),
+       dateofbirth: Yup.date()
+              .required(
+                <span style={{ color: "red" }}>Please Select Date of Birth</span>
+              )
+              .min(
+                moment().subtract(27, "years").startOf("day").toDate(),
+                "Your age must be at most 27 years"
+              )
+              .max(
+                moment().subtract(15, "years").endOf("day").toDate(),
+                "Your age must be at least 15 years"
+              ),
+            disability: Yup.string().required(
+              <span style={{ color: "red" }}>Please Select Disability Status</span>
+            ),
+            area: Yup.string().required(
+              <span style={{ color: "red" }}>Please Select Area of Residence</span>
+            ),
     }),
 
     onSubmit: async (values) => {
@@ -158,6 +181,9 @@ const Crew1student = () => {
         branch: values.branch,
         year_of_study: values.yearofstudy,
         confirmPassword: encrypted,
+         dateofbirth: values.dateofbirth,
+        disability: values.disability,
+        area: values.area,
         type: pilotStudentId
       };
       if (values.id_number !== "") {
@@ -211,7 +237,7 @@ const Crew1student = () => {
                     <div className="col-xl-12">
                       <div className="row g-3 mt-0">
                         <>
-                          <div className="col-md-6">
+                          <div className="col-md-4">
                             <label className="form-label" htmlFor="full_name">Full Name</label>&nbsp;
                             <span style={{color:"red",fontWeight:"bold"}}>*</span>
                             <input
@@ -241,7 +267,7 @@ const Crew1student = () => {
                               </small>
                             ) : null}
                           </div>
-                           <div className={`col-md-6`}
+                           <div className={`col-md-2`}
                                                     >
                                                      <label htmlFor="gender" className="form-label">
                                                                           Gender
@@ -268,7 +294,100 @@ const Crew1student = () => {
                                                                                                      </small>
                                                                                                    ) : null}
                                                     </div>
-                          <div className={`col-md-6`}
+                                                     <div className={`col-md-2`}>
+                                                                                <label htmlFor="dateofbirth" className="form-label">
+                                                                                  Date of Birth
+                                                                                </label>
+                                                                                &nbsp;
+                                                                                <span style={{ color: "red", fontWeight: "bold" }}>
+                                                                                  *
+                                                                                </span>
+                                                                                <input
+                                                                                  type="date"
+                                                                                  className="form-control"
+                                                                                  id="dateofbirth"
+                                                                                  name="dateofbirth"
+                                                                                  onChange={formik.handleChange}
+                                                                                  onBlur={formik.handleBlur}
+                                                                                  value={formik.values.dateofbirth}
+                                                                                />
+                                                                                {formik.touched.dateofbirth &&
+                                                                                formik.errors.dateofbirth ? (
+                                                                                  <small
+                                                                                    className="error-cls"
+                                                                                    style={{ color: "red" }}
+                                                                                  >
+                                                                                    {formik.errors.dateofbirth}
+                                                                                  </small>
+                                                                                ) : null}
+                                                                              </div>
+                                                                              <div className={`col-md-4`}>
+                                                                                <label htmlFor="disability" className="form-label">
+                                                                                  Disability Status
+                                                                                </label>
+                                                                                &nbsp;
+                                                                                <span style={{ color: "red", fontWeight: "bold" }}>
+                                                                                  *
+                                                                                </span>
+                                                                                <select
+                                                                                  id="disability"
+                                                                                  className="form-select"
+                                                                                  name="disability"
+                                                                                  value={formik.values.disability}
+                                                                                  onBlur={formik.handleBlur}
+                                                                                  onChange={formik.handleChange}
+                                                                                >
+                                                                                  <option value={""}>Disability Status</option>
+                                                                                  {disabilityList.map((item) => (
+                                                                                    <option key={item} value={item}>
+                                                                                      {item}
+                                                                                    </option>
+                                                                                  ))}
+                                                                                </select>
+                                                                                {formik.touched.disability &&
+                                                                                formik.errors.disability ? (
+                                                                                  <small
+                                                                                    className="error-cls"
+                                                                                    style={{ color: "red" }}
+                                                                                  >
+                                                                                    {formik.errors.disability}
+                                                                                  </small>
+                                                                                ) : null}
+                                                                              </div>
+                                                                              <div className={`col-md-4`}>
+                                                                                <label htmlFor="area" className="form-label">
+                                                                                  Area of Residence
+                                                                                </label>
+                                                                                &nbsp;
+                                                                                <span style={{ color: "red", fontWeight: "bold" }}>
+                                                                                  *
+                                                                                </span>
+                                                                                <select
+                                                                                  id="area"
+                                                                                  className="form-select"
+                                                                                  name="area"
+                                                                                  value={formik.values.area}
+                                                                                  onBlur={formik.handleBlur}
+                                                                                  onChange={formik.handleChange}
+                                                                                >
+                                                                                  <option value={""}>Area of Residence</option>
+                                                                                  {areaList.map((item) => (
+                                                                                    <option key={item} value={item}>
+                                                                                      {item}
+                                                                                    </option>
+                                                                                  ))}
+                                                                                </select>
+                                                                                {formik.touched.area && formik.errors.area ? (
+                                                                                  <small
+                                                                                    className="error-cls"
+                                                                                    style={{ color: "red" }}
+                                                                                  >
+                                                                                    {formik.errors.area}
+                                                                                  </small>
+                                                                                ) : null}
+                                                                              </div>
+
+                          <div className={`col-md-4`}
                           >
                             <label
                               htmlFor="email"
@@ -297,7 +416,7 @@ const Crew1student = () => {
                             ) : null}
                           </div>
 
-                          <div className="col-md-6"
+                          <div className="col-md-4"
                           >
                             <label className="form-label" htmlFor="mobile">
                               Mobile Number
