@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Row, Col, Label } from "reactstrap";
+import moment from "moment/moment";
 
 import {
   getCurrentUser,
@@ -78,31 +79,30 @@ const StuEdit = () => {
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
-
   useEffect(() => {
-      if (data?.college_type && data?.district) {
-        AllCollegesApi(data.college_type, data?.district);
-      }
-    }, [data?.college_type,data?.district]);
- const handleCollegeTypeChange = (event) => {
-       const selectedCollegeType = event.target.value;
-       formik.setFieldValue("collegeType", selectedCollegeType);
-       setSelectedCollegeType(selectedCollegeType);
-       formik.setFieldValue("college", "");
-       formik.setFieldValue("ocn", "");
-       AllCollegesApi(selectedCollegeType, formik.values.district);
-     };
-     const handledistrictChange = (event) =>{
-       formik.setFieldValue("district", event.target.value);
-       formik.setFieldValue("college", "");
-       formik.setFieldValue("ocn", "");
-       AllCollegesApi(formik.values.collegeType, event.target.value);
-     };
+    if (data?.college_type && data?.district) {
+      AllCollegesApi(data.college_type, data?.district);
+    }
+  }, [data?.college_type, data?.district]);
+  const handleCollegeTypeChange = (event) => {
+    const selectedCollegeType = event.target.value;
+    formik.setFieldValue("collegeType", selectedCollegeType);
+    setSelectedCollegeType(selectedCollegeType);
+    formik.setFieldValue("college", "");
+    formik.setFieldValue("ocn", "");
+    AllCollegesApi(selectedCollegeType, formik.values.district);
+  };
+  const handledistrictChange = (event) => {
+    formik.setFieldValue("district", event.target.value);
+    formik.setFieldValue("college", "");
+    formik.setFieldValue("ocn", "");
+    AllCollegesApi(formik.values.collegeType, event.target.value);
+  };
   const AllCollegesApi = (item, district) => {
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
-        district:district
+        district: district,
       })
     );
 
@@ -122,7 +122,7 @@ const StuEdit = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          setCollegeNamesList([...collegeNames,'Other']);
+          setCollegeNamesList([...collegeNames, "Other"]);
         }
       })
       .catch(function (error) {
@@ -149,11 +149,10 @@ const StuEdit = () => {
       id_number: "",
       gender: "",
       college_town: "",
-            dateofbirth:"",
-      area:"",
-      disability:""
+      dateofbirth: "",
+      area: "",
+      disability: "",
     },
-   
 
     validationSchema: Yup.object({
       full_name: Yup.string()
@@ -226,15 +225,24 @@ const StuEdit = () => {
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
-       dateofbirth: Yup.string().required(
-              <span style={{ color: "red" }}>Please Select Date of Birth</span>
-            ),
-            disability: Yup.string().required(
-              <span style={{ color: "red" }}>Please Select Disability Status</span>
-            ),
-            area: Yup.string().required(
-              <span style={{ color: "red" }}>Please Select Area of Residence</span>
-            )
+      dateofbirth: Yup.date()
+        .required(
+          <span style={{ color: "red" }}>Please Select Date of Birth</span>
+        )
+        .min(
+          moment().subtract(27, "years").startOf("day").toDate(),
+          "Your age must be at most 27 years"
+        )
+        .max(
+          moment().subtract(15, "years").endOf("day").toDate(),
+          "Your age must be at least 15 years"
+        ),
+      disability: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Disability Status</span>
+      ),
+      area: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Area of Residence</span>
+      ),
     }),
 
     onSubmit: (values) => {
@@ -248,11 +256,11 @@ const StuEdit = () => {
         year_of_study: values.yearofstudy,
         gender: values.gender,
         college_town: values.college_town,
-        dateofbirth:values.dateofbirth,
-      disability:values.disability,
-      area:values.area
+        dateofbirth: values.dateofbirth,
+        disability: values.disability,
+        area: values.area,
       };
-     
+
       if (data && data.username_email !== values.email && values.email) {
         body["username"] = values.email;
       }
@@ -260,7 +268,7 @@ const StuEdit = () => {
       if (data && data.mobile !== values.mobile && values.mobile) {
         body["mobile"] = values.mobile;
       }
-      
+
       if (values.id_number !== "") {
         body["id_number"] = values.id_number;
       }
@@ -316,9 +324,9 @@ const StuEdit = () => {
         id_number: data.id_number || "",
         college_town: data.college_town || "",
         gender: data.gender || "",
-        dateofbirth:data.dateofbirth|| "",
-      disability:data.disability|| "",
-      area:data.area || "",
+        dateofbirth: data.dateofbirth || "",
+        disability: data.disability || "",
+        area: data.area || "",
       });
     }
   }, [data]);
@@ -417,87 +425,98 @@ const StuEdit = () => {
                             </small>
                           ) : null}
                         </div>
-                            <div className={`col-md-2`}>
-                                                <label htmlFor="dateofbirth" className="form-label">
-                                                  Date of Birth
-                                                </label>
-                                                &nbsp;
-                                                <span style={{ color: "red", fontWeight: "bold" }}>
-                                                  *
-                                                </span>
-                                                <input
-                                                  type="date"
-                                                  className="form-control"
-                                                  id="dateofbirth"
-                                                  name="dateofbirth"
-                                                  onChange={formik.handleChange}
-                                                  onBlur={formik.handleBlur}
-                                                  value={formik.values.dateofbirth}
-                                                />
-                                                {formik.touched.dateofbirth && formik.errors.dateofbirth ? (
-                                                  <small className="error-cls" style={{ color: "red" }}>
-                                                    {formik.errors.dateofbirth}
-                                                  </small>
-                                                ) : null}
-                                              </div>
-                                              <div className={`col-md-4`}>
-                                                <label htmlFor="disability" className="form-label">
-                                                  Disability Status
-                                                </label>
-                                                &nbsp;
-                                                <span style={{ color: "red", fontWeight: "bold" }}>
-                                                  *
-                                                </span>
-                                                <select
-                                                  id="disability"
-                                                  className="form-select"
-                                                  name="disability"
-                                                  value={formik.values.disability}
-                                                  onBlur={formik.handleBlur}
-                                                  onChange={formik.handleChange}
-                                                >
-                                                  <option value={""}>Disability Status</option>
-                                                  {disabilityList.map((item) => (
-                                                    <option key={item} value={item}>
-                                                      {item}
-                                                    </option>
-                                                  ))}
-                                                </select>
-                                                {formik.touched.disability && formik.errors.disability ? (
-                                                  <small className="error-cls" style={{ color: "red" }}>
-                                                    {formik.errors.disability}
-                                                  </small>
-                                                ) : null}
-                                              </div>
-                                              <div className={`col-md-4`}>
-                                                <label htmlFor="area" className="form-label">
-                                                  Area of Residence
-                                                </label>
-                                                &nbsp;
-                                                <span style={{ color: "red", fontWeight: "bold" }}>
-                                                  *
-                                                </span>
-                                                <select
-                                                  id="area"
-                                                  className="form-select"
-                                                  name="area"
-                                                  value={formik.values.area}
-                                                  onBlur={formik.handleBlur}
-                                                  onChange={formik.handleChange}
-                                                >
-                                                  <option value={""}>Area of Residence</option>
-                                                  {areaList.map((item) => (
-                                                    <option key={item} value={item}>
-                                                      {item}
-                                                    </option>
-                                                  ))}
-                                                </select>
-                                                {formik.touched.area && formik.errors.area ? (
-                                                  <small className="error-cls" style={{ color: "red" }}>
-                                                    {formik.errors.area}
-                                                  </small>
-                                                ) : null}
-                                              </div>
+                        <div className={`col-md-2`}>
+                          <label htmlFor="dateofbirth" className="form-label">
+                            Date of Birth
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <input
+                            type="date"
+                            className="form-control"
+                            id="dateofbirth"
+                            name="dateofbirth"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.dateofbirth}
+                          />
+                          {formik.touched.dateofbirth &&
+                          formik.errors.dateofbirth ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.dateofbirth}
+                            </small>
+                          ) : null}
+                        </div>
+                        <div className={`col-md-4`}>
+                          <label htmlFor="disability" className="form-label">
+                            Disability Status
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <select
+                            id="disability"
+                            className="form-select"
+                            name="disability"
+                            value={formik.values.disability}
+                            onBlur={formik.handleBlur}
+                            onChange={formik.handleChange}
+                          >
+                            <option value={""}>Disability Status</option>
+                            {disabilityList.map((item) => (
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                          {formik.touched.disability &&
+                          formik.errors.disability ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.disability}
+                            </small>
+                          ) : null}
+                        </div>
+                        <div className={`col-md-4`}>
+                          <label htmlFor="area" className="form-label">
+                            Area of Residence
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <select
+                            id="area"
+                            className="form-select"
+                            name="area"
+                            value={formik.values.area}
+                            onBlur={formik.handleBlur}
+                            onChange={formik.handleChange}
+                          >
+                            <option value={""}>Area of Residence</option>
+                            {areaList.map((item) => (
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                          {formik.touched.area && formik.errors.area ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.area}
+                            </small>
+                          ) : null}
+                        </div>
                         <div className={`col-md-4`}>
                           <label
                             htmlFor="email"
@@ -683,11 +702,17 @@ const StuEdit = () => {
                             classNamePrefix="react-select"
                             options={collegeOptions}
                             placeholder=" Type here to Select Your College Name"
-                            value={collegeOptions.find(
-                            (option) => option.value === formik.values.college
-                          ) === undefined ? null : collegeOptions.find(
-                            (option) => option.value === formik.values.college
-                          )}
+                            value={
+                              collegeOptions.find(
+                                (option) =>
+                                  option.value === formik.values.college
+                              ) === undefined
+                                ? null
+                                : collegeOptions.find(
+                                    (option) =>
+                                      option.value === formik.values.college
+                                  )
+                            }
                             onChange={(selectedOption) =>
                               formik.setFieldValue(
                                 "college",
@@ -872,13 +897,12 @@ const StuEdit = () => {
 
                       <div className="form-login d-flex justify-content-between">
                         <button
-                          
                           // className={`btn btn-warning m-2 ${
                           //   !formik.dirty || !formik.isValid
                           //     ? "default"
                           //     : "primary"
                           // }`}
-                           className="btn btn-warning m-2"
+                          className="btn btn-warning m-2"
                           type="submit"
                           // disabled={!formik.isValid || !formik.dirty}
                         >
