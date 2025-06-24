@@ -124,18 +124,7 @@ const ReportsRegistration = () => {
       label: "Gender",
       key: "gender",
     },
-    {
-      label: "Date of Birth",
-      key: "dateofbirth",
-    },
-    {
-      label: "Disability Status",
-      key: "disability",
-    },
-    {
-      label: "Area of Residence",
-      key: "area",
-    },
+ 
 
     {
       label: "Email Address",

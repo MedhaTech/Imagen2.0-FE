@@ -115,38 +115,7 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div>
-               <div className="col-lg-4 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label">Date of Birth</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    defaultValue={data.dateofbirth}
-                    readOnly="readonly"
-                  />
-                </div>
-              </div> <div className="col-lg-4 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label">Disability Status</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    defaultValue={data.disability}
-                    readOnly="readonly"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-4 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label">Area of Residence</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    defaultValue={maskEmail(data?.area)}
-                    readOnly="readonly"
-                  />
-                </div>
-              </div>
+            
                <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">Email</label>
