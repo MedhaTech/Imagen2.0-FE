@@ -308,6 +308,14 @@ const MentorshipList = (props) => {
         width: "13rem",
       },
       {
+        name: "Team Count",
+        selector: (row) => row?.teamCount,
+        center: true,
+        cellExport: (row) => row?.teamCount,
+        sortable: true,
+        width: "8rem",
+      },
+      {
         name: "Email",
         center: true,
 

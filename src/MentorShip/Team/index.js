@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import Table from "../../core/pagination/datatable";
-
+import { Modal } from 'react-bootstrap';
 ////////////////////New Code//////////////////////////
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
@@ -32,6 +32,8 @@ const TeamsProgDD = ({ setIdeaCount }) => {
   const [ideaShow, setIdeaShow] = useState(false);
   const [teamId, setTeamId] = useState(null);
   const [showDefault, setshowDefault] = useState(true);
+  const [isStuProfile,setIsStuProfile] = useState(false);
+  const [stuProfile,setStuProfile] = useState({});
   useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));
@@ -70,6 +72,41 @@ const TeamsProgDD = ({ setIdeaCount }) => {
       .catch(function (error) {
         if (error.response.status === 404) {
           setNoData(true);
+        }
+
+      });
+  };
+ const StudentProfileCall = (id) => {
+    // This function fetches student profile from the API //
+
+    const Param = encryptGlobal(
+      JSON.stringify(
+         id
+      )
+    );
+    var configidea = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/students/${Param}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(configidea)
+      .then(function (response) {
+        if (response.status === 200) {
+          if (response.data.data && response.data.data.length > 0) {
+            setStuProfile(response?.data?.data[0]);
+            setIsStuProfile(true);
+          }
+        }
+      })
+      .catch(function (error) {
+        if (error.response.status === 404) {
+          console.log(error);
         }
 
       });
@@ -120,7 +157,17 @@ const TeamsProgDD = ({ setIdeaCount }) => {
     {
       title: 'Name',
       dataIndex: 'full_name',
-      width: '15rem'
+      width: '15rem',
+      render:(_, record)=>(
+        <span
+        style={{ cursor: 'pointer', color: 'blue' }}
+        onClick={() => {
+          StudentProfileCall(record?.student_id);
+        }}
+      >
+        {record.full_name}
+      </span>
+      )
     },
     {
       title: 'Pre Survey',
@@ -375,7 +422,52 @@ const TeamsProgDD = ({ setIdeaCount }) => {
               setIdeaCount={setIdeaCount}
             />
           )}
+        {isStuProfile &&(
+          <Modal
+                show={isStuProfile}
+                size="md"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                className="assign-evaluator ChangePSWModal teacher-register-modal"
+                backdrop="static"
+            >
+                <Modal.Header closeButton onHide={() =>setIsStuProfile(false)}>
+                    <Modal.Title
+                        id="contained-modal-title-vcenter"
+                        className="w-100 d-block text-center"
+                    >
+                       Student Profile
+                    </Modal.Title>
+                </Modal.Header>
 
+                <Modal.Body>
+                <div className="container">
+                  <div className="row">
+                    <b className="col-md-5" >Name</b> <b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.full_name}</p>
+                  <br />
+                  <b className="col-md-5"> Gender </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.gender !== null ? stuProfile.gender : '-'}</p>
+                  <br />
+                  <b className="col-md-5">Institution District </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.district !== null ? stuProfile.district : '-'}</p>
+                  <br />
+                  <b className="col-md-5">College Town </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.college_town !== null ? stuProfile.college_town : '-'}</p>
+                  <br />
+                  <b className="col-md-5">College Type </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.college_type !== null ? stuProfile.college_type : '-'}</p>
+                  <br />
+                  <b className="col-md-5">College Name </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.college_name !== null ? stuProfile.college_name : '-'}</p>
+                  <br />
+                  <b className="col-md-5">Roll Number </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.roll_number !== null ? stuProfile.roll_number : '-'}</p>
+                  <br />
+                  <b className="col-md-5">Branch/Group/Stream </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.branch !== null ? stuProfile.branch : '-'}</p>
+                  <br />
+                  <b className="col-md-5">APAAR Id </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.id_number !== null ? stuProfile.id_number : '-'}</p>
+                  <br />
+                  <b className="col-md-5">Year of study </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.year_of_study !== null ? stuProfile.year_of_study : '-'}</p>
+                  </div>
+                 
+               </div>
+                </Modal.Body>
+            </Modal>)
+        }
         </div>
       </div>
     </div>
