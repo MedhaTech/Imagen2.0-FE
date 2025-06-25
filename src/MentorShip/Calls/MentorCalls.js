@@ -64,7 +64,6 @@ const MentorCalls = () => {
       .then(function (response) {
         if (response.status === 200) {
           const apiData = response.data?.data;
-console.log(response,"res");
           if (
             Array.isArray(apiData) &&
             (apiData.length === 0 ||
@@ -117,7 +116,7 @@ console.log(response,"res");
                             className="btn btn-outline-warning text-center w-auto me-1"
                             onClick={() => handleChat(student)}
                           >
-                            <MdEventNote size="20px" /> Create Event
+                            <MdEventNote size="20px" />Event
                           </button>
                         </div>
                       </div>
