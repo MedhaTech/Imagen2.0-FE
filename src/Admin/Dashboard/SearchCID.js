@@ -285,7 +285,7 @@ const AdminSearchCID = () => {
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((item) => ({
             value: item.user_id,
-            label: item.full_name,
+            label: `${item.full_name} - (${item.teamCount})`,
           }));
           setMentorshipList(collegeNames);
         }
