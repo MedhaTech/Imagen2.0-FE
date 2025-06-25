@@ -34,8 +34,7 @@ adminmentorshiplist:"/admin-mentorship-list",
   studentmentorship:"/student-Mentorship",
   addevent:"/add-event",
   editevent:"/edit-event",
-
-
+  studentScheduleCall:"/studentScheduleCall",
   studentmilestone:"/studentmilestone",
   mentorchatbox:"/mentor-chatbox",
   addMchat:"/add-Mchat",

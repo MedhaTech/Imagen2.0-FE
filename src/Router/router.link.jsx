@@ -119,6 +119,7 @@ import EvaluatorProfile from "../Evaluator/EvaluatorProfile";
 import StuProfileEdit from "../Team/StuProfileEdit";
 import StudentMentorship from "../Team/StuMentorship/StudentMentorship";
 import Studentmilestone from "../Team/StuMentorship/StudentMilestone";
+import StudentScheduleCall from "../Team/StuMentorship/StuscheduleCall";
 import MentorShipDashboard from "../MentorShip/Dashboard/Milestone";
 import MentorShipProfile from "../MentorShip/MentorShipProfile";
 import MentorshipChangePwd from "../MentorShip/MentorshipChangePwd";
@@ -843,6 +844,14 @@ export const teamRoutes = [
     path: routes.studentmilestone,
     name: "studentmilestone",
     element: <Studentmilestone/>,
+    // protected: true,
+    route: Route,
+  },
+   {
+    id: 25,
+    path: routes.studentScheduleCall,
+    name: "studentScheduleCall",
+    element: <StudentScheduleCall/>,
     // protected: true,
     route: Route,
   },

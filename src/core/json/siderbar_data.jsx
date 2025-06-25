@@ -6,7 +6,7 @@ import * as Icon from "react-feather";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { getCurrentUser } from "../../helpers/Utils";
 import axios from "axios";
-import { SiCodementor } from "react-icons/si";
+import { SiCodementor, SiGooglemeet } from "react-icons/si";
 
 import { GoCommentDiscussion } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
@@ -140,7 +140,7 @@ const SidebarData = () => {
         ...(mentorId !== null && Number(chatBoxId) === 1
           ? [
               {
-                label: "Mentorship",
+                label: "Chat Box",
                 link: "/student-Mentorship",
                 icon: <SiCodementor />,
                 showSubRoute: false,
@@ -154,6 +154,17 @@ const SidebarData = () => {
                 label: "Milestone",
                 link: "/studentmilestone",
                 icon: <Icon.Award />,
+                showSubRoute: false,
+                submenu: false,
+              },
+            ]
+          : []),
+           ...(mentorId !== null
+          ? [
+              {
+                label: "Schedule Call",
+                link: "/studentScheduleCall",
+                icon: <SiGooglemeet />,
                 showSubRoute: false,
                 submenu: false,
               },
