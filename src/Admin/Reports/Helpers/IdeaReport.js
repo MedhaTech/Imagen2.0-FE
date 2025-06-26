@@ -2,48 +2,31 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../../redux/studentRegistration/actions";
-import { ArrowRight } from "feather-icons-react/build/IconComponents";
+
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
 
-// import '../reports.scss';
 import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-// import { categoryValue } from "../../Schools/constentText";
 import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList, collegeType } from "../../../RegPage/ORGData";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMale,
-  faFemale,
-  faChalkboardTeacher,
-} from "@fortawesome/free-solid-svg-icons";
-import ReactApexChart from "react-apexcharts";
+
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
-import moment from "moment/moment";
 import * as XLSX from "xlsx";
 
 const IdeaReport = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
-  const [isloader, setIsloader] = useState(false);
+  const [isloader, setIsloader] = useState(true);
   const [selectstate, setSelectState] = React.useState("");
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const [sdg, setSdg] = React.useState("");
-  const [chartTableData, setChartTableData] = useState([]);
 
   const categoryList = ["All Types", ...collegeType];
   const fiterDistData = [...districtList["Andhra Pradesh"]];
@@ -54,8 +37,7 @@ const IdeaReport = () => {
     setdistrict("");
   }, [selectstate]);
 
-  // const categoryData =
-  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+ 
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
   );
@@ -68,25 +50,8 @@ const IdeaReport = () => {
   const [downloadTableData, setDownloadTableData] = useState([]);
   const [newFormat, setNewFormat] = useState("");
 
-  const [barChart1Data, setBarChart1Data] = useState({
-    labels: [],
-    datasets: [],
-  });
-  const [barChart3Data, setBarChart3Data] = useState({
-    labels: [],
-    datasets: [],
-  });
-  const [barChart2Data, setBarChart2Data] = useState({
-    labels: [],
-    datasets: [],
-  });
-  //   const fullStatesNames = newstateList;
-  //   const allDistricts = {
-  //     "All Districts": [...Object.values(districtList).flat()],
-  //     ...districtList,
-  //   };
-  //   const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
-  // const fiterDistData = districtList[selectstate];
+ 
+
 
   useEffect(() => {
     fetchChartTableData();
@@ -223,10 +188,7 @@ const IdeaReport = () => {
       key: "year_of_study",
     },
 
-    // {
-    //   label: "Student Names",
-    //   key: "names",
-    // },
+  
     {
       label: "Which category does your idea belong to?",
       key: "theme",
@@ -299,101 +261,7 @@ const IdeaReport = () => {
     XLSX.writeFile(wb, `SubmittedIdeasDetailedReport_${newFormat}.xlsx`); // Triggers download of the Excel file
   };
 
-  // var chartOption = {
-  //   chart: {
-  //     height: 500,
-  //     type: "donut",
-  //     toolbar: {
-  //       show: false,
-  //     },
-  //   },
-  //   colors: [
-  //     "#dc143c",
-  //     "#ff99af",
-  //     "#ff0000",
-  //     "#800000",
-  //     "#648c11",
-  //     "#00ffff",
-  //     "#0000ff",
-  //     "#800080",
-  //     "#ffa07a",
-  //     "#ffff00",
-  //     "#e8f48c",
-  //     "#08e8de",
-  //     "#002147",
-  //     "#1d2951",
-  //     "#997a8d",
-  //     "#4f3a3c",
-  //     "#843f5b",
-  //     "#ff004f ",
-  //     "#da9100",
-  //     "#fbab60",
-  //     "#592720",
-  //   ],
-  //   labels: [
-  //     "Smart Automation",
-  //     "Fitness and Sports",
-  //     "Heritage and Culture",
-  //     "MedTech or BioTech or HealthTech",
-  //     "Agriculture, and Rural Development",
-  //     "Smart Vehicles",
-  //     "Transportation and Logistics",
-  //     "Robotics and Drones",
-  //     "Clean and Green Technology",
-  //     "Tourism",
-  //     "Renewable and sustainable Energy",
-  //     "Blockchain and Cybersecurity",
-  //     "Smart Education",
-  //     "Disaster Management",
-  //     "Toys and Games",
-  //     "Miscellaneous",
-  //     "Space Technology",
-  //     "Financial Inclusion and FinTech",
-  //     "Rural Innovation and Development",
-  //     "Public Governance and CivicTech",
-  //     "Others",
-  //   ],
-  //   series: [
-  //     totalCount.SmartAutomation,
-  //     totalCount.FitnessandSports,
-  //     totalCount.HeritageandCulture,
-  //     totalCount.MedTechorBioTechorHealthTech,
-  //     totalCount.AgricultureandRuralDevelopment,
-  //     totalCount.SmartVehicles,
-  //     totalCount.TransportationandLogistics,
-  //     totalCount.RoboticsandDrones,
-  //     totalCount.CleanandGreenTechnology,
-  //     totalCount.Tourism,
-  //     totalCount.RenewableandsustainableEnergy,
-  //     totalCount.BlockchainandCybersecurity,
-  //     totalCount.SmartEducation,
-  //     totalCount.DisasterManagement,
-  //     totalCount.ToysandGames,
-  //     totalCount.Miscellaneous,
-  //     totalCount.SpaceTechnology,
-  //     totalCount.FinancialInclusionandFinTech,
-  //     totalCount.RuralInnovationandDevelopment,
-  //     totalCount.PublicGovernanceandCivicTech,
-  //     totalCount.OTHERS,
-  //   ],
-  //   legend: {
-  //     position: "top",
-  //     horizontalAlign: "center",
-  //   },
-  //   responsive: [
-  //     {
-  //       breakpoint: 480,
-  //       options: {
-  //         chart: {
-  //           width: 200,
-  //         },
-  //         legend: {
-  //           position: "bottom",
-  //         },
-  //       },
-  //     },
-  //   ],
-  // };
+
   const chartOption = {
     maintainAspectRatio: false,
     responsive: true,
@@ -418,13 +286,12 @@ const IdeaReport = () => {
   };
   useEffect(() => {
     if (studentDetailedReportsData.length > 0) {
-      console.log("Performing operation with the updated data.");
       handleExport();
-      // csvLinkRef.current.link.click();
     }
   }, [studentDetailedReportsData]);
-  // console.log(studentDetailedReportsData,"data");
   const fetchData = () => {
+   // This function filters  data based on selected district, college_type and theme
+
     const apiRes = encryptGlobal(
       JSON.stringify({
         district: district,
@@ -432,7 +299,6 @@ const IdeaReport = () => {
         theme: sdg,
       })
     );
-    // console.log(selectstate,district,category);
     const config = {
       method: "get",
       url:
@@ -446,7 +312,6 @@ const IdeaReport = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"filter");
           const IdeaData = response.data.data[0].summary || [];
     
           const newdatalist = IdeaData.map((item) => {
@@ -454,14 +319,12 @@ const IdeaReport = () => {
               District: item.district,
               "College Name": item.college_name,
               "College Type": item.college_type,
-              //"Student Name": item.studentfullname,
               "Pilot":item.Pilot,
               "Crew-1":item.teamMembers === null ? '':item.teamMembers[0],
               "Crew-2":item.teamMembers === null ? '':item.teamMembers[1] === null ? '':item.teamMembers[1],
               "Crew-3":item.teamMembers === null ? '':item.teamMembers[2] === null ? '':item.teamMembers[2],
               "Initiated Name":item.initiatedName,
               Theme: item.theme,
-              // "Describe the category your idea belongs to":item.others !== undefined ? item.others : "",
               "Describe your idea (in one sentence).": item.idea_describe,
               "Give a title to your idea.": item.title,
               "What problem does your idea solve?": item.solve,
@@ -485,10 +348,14 @@ const IdeaReport = () => {
               "Upload images/documents & video links related to your Idea.(total size limit : 10 MB)":
                 item.prototype_link,
               "Idea Submission Status": item.status,
+              "Idea Submission Submitted Date": item?.submitted_at
+                ? new Date(
+                    item?.submitted_at
+                  ).toLocaleDateString("en-GB")
+                : null,
             };
           });
 
-          // console.log(newdatalist,"filter");
           setstudentDetailedReportsData(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             openNotificationWithIcon(
@@ -498,8 +365,7 @@ const IdeaReport = () => {
           } else {
             openNotificationWithIcon("error", "No Data Found");
           }
-          //   csvLinkRef.current.link.click();
-          //   console.log(studentDetailedReportsData,"ttt");
+         
           setIsDownload(false);
         }
       })
@@ -523,7 +389,6 @@ const IdeaReport = () => {
       .then((response) => {
         if (response.status === 200) {
           setIsloader(true);
-          //   console.log(response, "View Data");
           const combinedArray = response?.data?.data || [];
 
           const total = combinedArray.reduce(
@@ -691,7 +556,6 @@ const IdeaReport = () => {
           setDownloadTableData(newcombinedArray);
           setDoughnutChartData(doughnutData);
           setTotalCount(total);
-          // console.log(total,"tt");
         }
       })
       .catch((error) => {
@@ -701,21 +565,7 @@ const IdeaReport = () => {
 
   return (
     <div className="page-wrapper">
-      {/* <h4
-        className="m-2"
-        style={{
-          position: "sticky",
-          top: "70px",
-          zIndex: 1000,
-          padding: "10px",
-          backgroundColor: "white",
-          display: "inline-block",
-          color: "#fe9f43",
-          fontSize: "16px",
-        }}
-      >
-        Reports
-      </h4> */}
+     
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
@@ -787,11 +637,9 @@ const IdeaReport = () => {
             </Row>
             {isloader ? (
               <div className="chart mt-2 mb-2">
-                {combinedArray.length > 0 ? (
+                {combinedArray.length > 0 && (
                   <div>
-                    {/* <div className="row"> */}
-
-                    {/* <div className="row"> */}
+                   
                     <div className="col-sm-12 col-md-6 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div
@@ -811,7 +659,6 @@ const IdeaReport = () => {
                                 type="button"
                                 onClick={() => {
                                   if (downloadTableData) {
-                                    // setIsDownloading(true);
                                     setDownloadTableData(null);
                                     csvLinkRefTable.current.link.click();
                                   }
@@ -833,7 +680,6 @@ const IdeaReport = () => {
                           >
                             <table
                               className="table table-striped table-bordered responsive"
-                              // className="table table-border recent-transactions"
                             >
                               <thead>
                                 <tr>
@@ -1166,27 +1012,7 @@ const IdeaReport = () => {
                                                     <h4 className="card-title mb-0">Data Analytics</h4>
                                                   
                                                 </div>
-                          {/* </div> */}
-                          {/* <div className="card-body">
-                            <div className="row">
-                              <div className="col-sm-12 text-center ">
-                                <h4 className="card-title mb-2">
-                                  Theme-Wise Ideas Submissions as of {newFormat}
-                                </h4>
-                                {doughnutChartData && (
-                                  <div id="donut-chart">
-                                    <Doughnut
-                                    data={doughnutChartData}
-                                      options={chartOption}
-                                      // series={chartOption.series}
-                                      // type="donut"
-                                      // height={330}
-                                    />
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </div> */}
+                        
                              
                                                                           <div className="card-body">
                               <div className="row">
@@ -1199,34 +1025,8 @@ const IdeaReport = () => {
                                       </p>
                                   </div>
                           
-                                  {/* Labels with counts (Formatted using chart options legend) */}
                                   <div className="col-md-6 d-flex align-items-center justify-content-center">
-                                      {/* {doughnutChartData && doughnutChartData.labels && (
-                                          <ul className="list-unstyled">
-                                              {doughnutChartData.labels.map((label, index) => (
-                                                  <li key={index} className="mb-2">
-                                                      <span
-                                                          className="badge"
-                                                          style={{
-                                                              backgroundColor: doughnutChartData.datasets[0].backgroundColor[index],
-                                                              color: "#fff",
-                                                              padding: "5px 10px",
-                                                              borderRadius: "5px",
-                                                              marginRight: "10px",
-                                                              minWidth: "100px",
-                                                              display: "inline-block",
-                                                              textAlign: "center",
-                                                              fontSize:"16px"
-                                                              
-                                                          }}
-                                                      >
-                                                          {label}
-                                                      </span>
-                                                      <b style={{fontSize:"16px"}}>: {doughnutChartData.datasets[0].data[index]}</b>
-                                                  </li>
-                                              ))}
-                                          </ul>
-                                      )} */}
+                                    
                                       {doughnutChartData && doughnutChartData.labels && (
   <ul className="list-unstyled d-flex flex-wrap">
     {doughnutChartData.labels.map((label, index) => (
@@ -1257,7 +1057,6 @@ const IdeaReport = () => {
 
                                   </div>
                           
-                                  {/* Doughnut Chart */}
                                   <div className="col-md-6 doughnut-chart-container">
                                       {doughnutChartData && (
                                   <div style={{ width: "400px", height: "400px" }}> 
@@ -1272,14 +1071,8 @@ const IdeaReport = () => {
                         
                       </div>
                     </div>
-                ):
-                 <div className="d-flex justify-content-center align-items-center"
-   style={{ height: '60dvh', overflow: 'hidden' }}>
-  <div className="text-center">
-    <h6 className="text-muted">There are no records to display</h6>
-  </div>
-</div>
-                }
+                  // </div>
+                )}
 
                 {downloadTableData && (
                   <CSVLink

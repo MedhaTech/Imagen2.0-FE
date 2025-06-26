@@ -160,7 +160,16 @@ const ReportsRegistration = () => {
             label: 'Gender',
             key: 'gender'
         },
-       
+        {
+            label: 'Date of Birth',
+            key: 'dateofbirth'
+        }, {
+            label: 'Disability Status',
+            key: 'disability'
+        }, {
+            label: 'Area of Residence',
+            key: 'area'
+        },
         {
             label: 'Email Address',
             key: 'username'
@@ -197,6 +206,10 @@ const ReportsRegistration = () => {
         {
             label: 'Year of Study',
             key: 'year_of_study'
+        },
+         {
+            label: 'Date of Registration',
+            key: 'created_at'
         },
        
     ];
@@ -396,10 +409,14 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(response,"22");
-                    const Data = response?.data?.data || [];
-                    setFilteredData(response?.data?.data || []);
-            setDownloadData(response?.data?.data || []);
+                     const Data = response?.data?.data || [];
+                    const formattedData = Data.map(item => ({
+                        ...item,
+                        created_at: new Date(item.created_at).toLocaleDateString('en-GB')
+                      }));
+                      
+                      setFilteredData(formattedData);
+                      setDownloadData(formattedData);
             if (response?.data.count > 0) {
                 openNotificationWithIcon(
                   "success",

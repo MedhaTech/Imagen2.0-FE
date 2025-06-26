@@ -24,9 +24,12 @@ import {
   yearofstudyList,
   collegeNameList,
   genderList,
+  disabilityList,
+  areaList,
 } from "../../RegPage/ORGData.js";
 import { string } from "prop-types";
 import { MaskedEmail, MaskedMobile } from "../../RegPage/MaskedData.js";
+import moment from "moment/moment";
 
 const StuEdit = () => {
   const location = useLocation();
@@ -93,6 +96,9 @@ const StuEdit = () => {
       id_number: "",
       gender: "",
       college_town: "",
+      dateofbirth: "",
+      area: "",
+      disability: "",
     },
 
     validationSchema: Yup.object({
@@ -166,13 +172,29 @@ const StuEdit = () => {
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
+      dateofbirth: Yup.date()
+        .required(
+          <span style={{ color: "red" }}>Please Select Date of Birth</span>
+        )
+        .min(
+          moment().subtract(27, "years").startOf("day").toDate(),
+          "Your age must be at most 27 years"
+        )
+        .max(
+          moment().subtract(15, "years").endOf("day").toDate(),
+          "Your age must be at least 15 years"
+        ),
+      disability: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Disability Status</span>
+      ),
+      area: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Area of Residence</span>
+      ),
     }),
 
     onSubmit: (values) => {
-      // alert("hii");
       const body = {
         full_name: values.full_name,
-        // mobile: String(values.mobile),
         district: values.district,
         college_type: currentUser?.data[0]?.college_type,
         college_name: currentUser?.data[0]?.college_name,
@@ -182,14 +204,17 @@ const StuEdit = () => {
         gender: values.gender,
         college_town: values.college_town,
         id_number: values.id_number,
+        dateofbirth: values.dateofbirth,
+        disability: values.disability,
+        area: values.area,
       };
       if (data && data.username_email !== values.email && values.email) {
         body["username"] = values.email;
-    }
-    
-    if (data && data.mobile !== values.mobile && values.mobile) {
+      }
+
+      if (data && data.mobile !== values.mobile && values.mobile) {
         body["mobile"] = values.mobile;
-    }
+      }
       const teamparamId = encryptGlobal(JSON.stringify(data?.student_id));
       var config = {
         method: "put",
@@ -231,15 +256,15 @@ const StuEdit = () => {
     if (data) {
       formik.setValues({
         full_name: data.full_name || "",
-        // email: data.username_email || '',
-        // mobile: data.mobile || '',
         district: data.district || "",
         rollnumber: data.roll_number || "",
         branch: data.branch || "",
         yearofstudy: data.year_of_study || "",
         college_town: data.college_town || "",
         gender: data.gender || "",
-
+ dateofbirth: data.dateofbirth,
+        disability: data.disability,
+        area: data.area,
         id_number: data.id_number || "",
       });
     }
@@ -280,7 +305,7 @@ const StuEdit = () => {
                   <div className="col-xl-12">
                     <div className="row g-3 mt-0">
                       <>
-                        <div className="col-md-6">
+                        <div className="col-md-4">
                           <label className="form-label" htmlFor="full_name">
                             Full Name
                           </label>
@@ -312,7 +337,7 @@ const StuEdit = () => {
                             </small>
                           ) : null}
                         </div>
-                        <div className={`col-md-6`}>
+                        <div className={`col-md-2`}>
                           <label htmlFor="gender" className="form-label">
                             Gender
                           </label>
@@ -344,7 +369,99 @@ const StuEdit = () => {
                             </small>
                           ) : null}
                         </div>
-                        <div className={`col-md-6`}>
+                        <div className={`col-md-2`}>
+                          <label htmlFor="dateofbirth" className="form-label">
+                            Date of Birth
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <input
+                            type="date"
+                            className="form-control"
+                            id="dateofbirth"
+                            name="dateofbirth"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.dateofbirth}
+                          />
+                          {formik.touched.dateofbirth &&
+                          formik.errors.dateofbirth ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.dateofbirth}
+                            </small>
+                          ) : null}
+                        </div>
+                        <div className={`col-md-4`}>
+                          <label htmlFor="disability" className="form-label">
+                            Disability Status
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <select
+                            id="disability"
+                            className="form-select"
+                            name="disability"
+                            value={formik.values.disability}
+                            onBlur={formik.handleBlur}
+                            onChange={formik.handleChange}
+                          >
+                            <option value={""}>Disability Status</option>
+                            {disabilityList.map((item) => (
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                          {formik.touched.disability &&
+                          formik.errors.disability ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.disability}
+                            </small>
+                          ) : null}
+                        </div>
+                        <div className={`col-md-4`}>
+                          <label htmlFor="area" className="form-label">
+                            Area of Residence
+                          </label>
+                          &nbsp;
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            *
+                          </span>
+                          <select
+                            id="area"
+                            className="form-select"
+                            name="area"
+                            value={formik.values.area}
+                            onBlur={formik.handleBlur}
+                            onChange={formik.handleChange}
+                          >
+                            <option value={""}>Area of Residence</option>
+                            {areaList.map((item) => (
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                          {formik.touched.area && formik.errors.area ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.area}
+                            </small>
+                          ) : null}
+                        </div>
+                        <div className={`col-md-4`}>
                           <label
                             htmlFor="email"
                             className="form-label d-flex align-items-center"
@@ -373,7 +490,7 @@ const StuEdit = () => {
                           ) : null}
                         </div>
 
-                        <div className="col-md-6">
+                        <div className="col-md-4">
                           <label
                             htmlFor="email"
                             className="form-label d-flex align-items-center"
