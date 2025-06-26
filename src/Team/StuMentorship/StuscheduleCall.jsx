@@ -6,15 +6,13 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-// import { openNotificationWithIcon } from '../../helpers/Utils';
-// import Swal from 'sweetalert2/dist/sweetalert2';
+import { openNotificationWithIcon } from '../../helpers/Utils';
 import 'sweetalert2/src/sweetalert2.scss';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { CheckCircle } from 'react-feather';
 import { IoHelpOutline } from 'react-icons/io5';
 const StuscheduleCall = () => {
     const [callList, setCallList] = useState([]);
-    console.log(callList);
     const currentUser = getCurrentUser('current_user');
     useEffect(() => {
         handleResList();
@@ -42,7 +40,43 @@ const StuscheduleCall = () => {
                 console.log(error);
             });
     }
+    const handleaccept = async (id, of) => {
+        const param = encryptGlobal(JSON.stringify(id));
+        let config = {
+            method: 'put',
+            url: process.env.REACT_APP_API_BASE_URL + `/schedule_calls/${param}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: {
+                stu_accept: of
+            }
 
+        };
+        await axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (of === '1') {
+                        openNotificationWithIcon(
+                            "success",
+                            "Meeting Accepted"
+                        );
+                    }
+                    if (of === '0') {
+                        openNotificationWithIcon(
+                            "success",
+                            "Meeting Acceptance Removed"
+                        );
+                    }
+
+                    handleResList();
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 
     const callsData = {
         data: callList && callList.length > 0 ? callList : [],
@@ -56,7 +90,7 @@ const StuscheduleCall = () => {
             {
                 name: 'Meeting link',
                 selector: (row) => {
-                    return (<a href={row.meet_link} target='_blank' rel="noreferrer">{row.meet_link}</a>);
+                    return (<a style={{ cursor: 'pointer', color: 'blue' }} href={row.meet_link} target='_blank' rel="noreferrer">{row.meet_link}</a>);
                 },
                 width: '30rem'
             },
@@ -88,14 +122,20 @@ const StuscheduleCall = () => {
                 name: 'Actions',
                 left: true,
                 width: '10rem',
-                cell: () => [
+                cell: (row) => [
                     <>
-                        <button
+                        {row.stu_accept === '0' ? <button
                             className="btn btn-success btn-sm mx-3"
-                        //onClick={() => handleDelete(record)}
+                            onClick={() => handleaccept(row.schedule_call_id, '1')}
                         >
                             Accept
-                        </button>
+                        </button> : <button
+                            className="btn btn-danger btn-sm mx-3"
+                            onClick={() => handleaccept(row.schedule_call_id, '0')}
+                        >
+                            Remove
+                        </button>}
+
                     </>
                 ]
             }
