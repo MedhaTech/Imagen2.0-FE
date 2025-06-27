@@ -66,7 +66,7 @@ const StuscheduleCall = () => {
                     if (of === '0') {
                         openNotificationWithIcon(
                             "success",
-                            "Meeting Acceptance Removed"
+                            "Meeting Declined"
                         );
                     }
 
@@ -133,7 +133,7 @@ const StuscheduleCall = () => {
                             className="btn btn-danger btn-sm mx-3"
                             onClick={() => handleaccept(row.schedule_call_id, '0')}
                         >
-                            Remove
+                            Decline
                         </button>}
 
                     </>
