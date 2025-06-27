@@ -71,11 +71,11 @@ const MentorCalls = () => {
           ) {
             setTimeout(()=>{
               navigate("/add-event", { state: { id } });
-            },500);
+            },300);
           } else {
              setTimeout(()=>{
                navigate("/edit-event", { state: { id } });
-            },500);
+            },300);
 
           }
         }
