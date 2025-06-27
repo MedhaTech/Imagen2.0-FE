@@ -54,13 +54,15 @@ mentorGetApi(cid);
   };
   const formik = useFormik({
     initialValues: {
-      timing: "",
+      timing: null,
       meet_link: "",
         status: "",
     },
     validationSchema: Yup.object({
-      timing: Yup.date().optional().required("Date & time is required"),
+      timing: Yup.date().required("Date & time is required"),
       meet_link: Yup.string(),
+      status: Yup.string().oneOf(["COMPLETED", "INCOMPLETE"]),
+
     }),
     onSubmit: async (values) => {
       try {
@@ -115,7 +117,7 @@ useEffect(() => {
     if (data) {
       formik.setValues({
         meet_link: data.meet_link || "",
-        timing: data.timing || "",
+        timing: data.timing && !isNaN(Date.parse(data.timing)) ? new Date(data.timing) : null,
         status: data.status || "",
       });
     }

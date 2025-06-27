@@ -351,7 +351,7 @@ const Register = () => {
 
                 {person && (
                   <div className="login-userheading">
-                    <h3>Mentor Registration Form Details </h3>
+                    <h3>Mentor Registration</h3>
                   </div>
                 )}
 
