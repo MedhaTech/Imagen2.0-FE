@@ -44,7 +44,6 @@ mentorGetApi(cid);
         if (response.status === 200) {
           setData(response?.data?.data[0]);
           setCallId(response?.data?.data[0]?.schedule_call_id);
-          console.log(response,"api");
        
         }
       })
@@ -91,7 +90,9 @@ const teamparamId = encryptGlobal(JSON.stringify(data?.schedule_call_id));
         );
 
         if (response.status === 200) {
-          navigate('/schedule-calls');
+          // navigate('/schedule-calls');
+          navigate("/schedule-calls", { state: { showTable: true ,challenge_response_id: cid,} });
+
           openNotificationWithIcon(
               'success',
               'Event Updated Successfully'
@@ -171,6 +172,8 @@ useEffect(() => {
                         className="form-control"
                         name="timing"
                         id="timing"
+                         minDate={new Date()}
+
                       />
                       {formik.touched.timing && formik.errors.timing && (
                         <small className="error-cls" style={{ color: "red" }}>
@@ -219,7 +222,16 @@ useEffect(() => {
                         className="btn btn-secondary"
                         type="button"
                         style={{ marginLeft: "auto" }}
-                        onClick={() => navigate("/schedule-calls")}
+                        // onClick={() => navigate("/schedule-calls")}
+                         onClick={() =>
+    navigate("/schedule-calls", {
+      state: {
+        showTable: true,
+        challenge_response_id: cid, 
+      },
+    })
+  }
+                        
                       >
                         Discard
                       </button>

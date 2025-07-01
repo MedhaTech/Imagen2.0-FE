@@ -243,11 +243,22 @@ const Milestone = (props) => {
     <div className="page-wrapper">
       <div className="content">
         <div className="page-header">
-          <div className="add-item d-flex">
+          {/* <div className="add-item d-flex">
             <div className="page-title">
               <h4>Milestone</h4>
             </div>
-          </div>
+          </div> */}
+          <div className="add-item d-flex justify-content-between align-items-center mb-3 w-100">
+  <div className="page-title">
+    <h4 className="mb-0">Milestone</h4>
+  </div>
+  {hide && (
+  <button className="btn btn-outline-primary" onClick={() => setHide(false)}>
+  Back to Cards
+  </button>
+  )}
+</div>
+
         </div>
         {!hide && (
           <div className="employee-grid-widget">
@@ -292,6 +303,7 @@ const Milestone = (props) => {
         )}
         {hide && (
           <div style={{ marginTop: "1rem" }}>
+            
             <DataTableExtensions
               print={false}
               export={false}
