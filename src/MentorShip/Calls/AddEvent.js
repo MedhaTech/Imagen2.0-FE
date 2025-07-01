@@ -17,37 +17,8 @@ const AddEvent = () => {
   const navigate = useNavigate();
  const location = useLocation();
 const cid = location.state?.id;
-useEffect(()=>{
-mentorGetApi(cid);
+console.log(cid,"cid");
 
-},[]);
- const mentorGetApi = (id) => {
-    const surveyApi = encryptGlobal(
-      JSON.stringify({
-        challenge_response_id: id,
-      })
-    );
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/schedule_calls?Data=${surveyApi}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          const apiData = response.data?.data;
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
   const formik = useFormik({
     initialValues: {
       timing: "",
@@ -84,7 +55,8 @@ mentorGetApi(cid);
         );
 
         if (response.status === 201) {
-          navigate('/schedule-calls');
+          // navigate('/schedule-calls');
+          navigate("/schedule-calls", { state: { showTable: true ,challenge_response_id: cid,} });
           openNotificationWithIcon(
               'success',
               'Event Created Successfully'
@@ -156,6 +128,7 @@ mentorGetApi(cid);
                         className="form-control"
                         name="timing"
                         id="timing"
+                         minDate={new Date()}
                       />
                       {formik.touched.timing && formik.errors.timing && (
                         <small className="error-cls" style={{ color: "red" }}>
@@ -180,7 +153,15 @@ mentorGetApi(cid);
                         className="btn btn-secondary"
                         type="button"
                         style={{ marginLeft: "auto" }}
-                        onClick={() => navigate("/schedule-calls")}
+                        // onClick={() => navigate("/schedule-calls")}
+                         onClick={() =>
+    navigate("/schedule-calls", {
+      state: {
+        showTable: true,
+        challenge_response_id: cid, 
+      },
+    })
+  }
                       >
                         Discard
                       </button>
