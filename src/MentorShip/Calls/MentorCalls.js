@@ -24,7 +24,9 @@ const MentorCalls = () => {
   const [hide, setHide] = useState(false);
   const [teamId, setTeamId] = useState(null);
   const [callList, setCallList] = useState([]);
-const location = useLocation();
+  const [selectedStudent, setSelectedStudent] = useState(null);
+
+  const location = useLocation();
   useEffect(() => {
     mentorTeamsCount(currentUser?.data[0]?.user_id);
   }, []);
@@ -57,19 +59,24 @@ const location = useLocation();
       });
   };
 
-
   const handleChat = (student) => {
     setTeamId(student.challenge_response_id);
+    localStorage.setItem("selectedCID", student.challenge_response_id);
   };
-   const handleAddEvent = () => {
-    navigate("/add-event", { state: { id: teamId } });
+  const handleAddEvent = () => {
+    const cid = localStorage.getItem("selectedCID");
+
+    navigate("/add-event", {
+      state: { id: cid },
+    });
   };
-   useEffect(() => {
-      if (teamId) {
-        handleResList(teamId);
-        setHide(true);
-      }
-    }, [teamId]);
+
+  useEffect(() => {
+    if (teamId) {
+      handleResList(teamId);
+      setHide(true);
+    }
+  }, [teamId]);
 
   async function handleResList(teamId) {
     //  handleResList Api where we can see list of all resource //
@@ -151,34 +158,30 @@ const location = useLocation();
         width: "10rem",
         cell: (record) => [
           <>
-           <button
-                        className="btn btn-info btn-sm me-1"
-                        onClick={() => handleEdit(record)}
-                        title="Edit Progress"
-                      >
-                        <i data-feather="edit" className="feather-edit" />{" "}
-                        Update
-                      </button>
-           
+            <button
+              className="btn btn-info btn-sm me-1"
+              onClick={() => handleEdit(record)}
+              title="Edit Progress"
+            >
+              <i data-feather="edit" className="feather-edit" /> Update
+            </button>
           </>,
         ],
       },
     ],
   };
   const handleEdit = (data) => {
-    navigate("/edit-event", 
-    { state: { id: teamId }
-    });
+    navigate("/edit-event", { state: data });
   };
- useEffect(() => {
-  const shouldShowTable = location.state?.showTable;
-  const challengeResponseId = location.state?.challenge_response_id;
+  useEffect(() => {
+    const shouldShowTable = location.state?.showTable;
+    const challengeResponseId = location.state?.challenge_response_id;
 
-  if (shouldShowTable && challengeResponseId) {
-    setHide(true);
-    handleResList(challengeResponseId); 
-  }
-}, [location.state]);
+    if (shouldShowTable && challengeResponseId) {
+      setHide(true);
+      handleResList(challengeResponseId);
+    }
+  }, [location.state]);
   const customStyles = {
     rows: {
       style: {
@@ -201,33 +204,30 @@ const location = useLocation();
       <div className="page-wrapper">
         <div className="content">
           <div className="page-header">
-            {/* <div className="add-item d-flex">
-              <div className="page-title">
-                <h4>Schedule Calls</h4>
-                <h6>Manage your Calls</h6>
-              </div>
-            </div> */}
             <div className="add-item d-flex justify-content-between align-items-center mb-3 w-100">
               <div className="page-title">
                 <h4 className="mb-0">Schedule Calls</h4>
               </div>
-             {hide && (
-  <div className="d-flex gap-2">
-    <button
-      className="btn btn-outline-primary"
-      onClick={ handleAddEvent}
-    >
-      Add Event
-    </button>
-    <button
-      className="btn btn-outline-primary"
-      onClick={() => setHide(false)}
-    >
-      Back to Cards
-    </button>
-  </div>
-)}
+              {hide && (
+                <div className="d-flex gap-2">
+                  <button
+                    className="btn btn-outline-primary"
+                    onClick={handleAddEvent}
+                  >
+                    Add Event
+                  </button>
 
+                  <button
+                    className="btn btn-outline-primary"
+                    onClick={() => {
+                      setHide(false);
+                      localStorage.removeItem("selectedStudent");
+                    }}
+                  >
+                    Back to Cards
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           {!hide && (
