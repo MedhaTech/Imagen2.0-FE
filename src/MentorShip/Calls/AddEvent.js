@@ -17,7 +17,6 @@ const AddEvent = () => {
   const navigate = useNavigate();
  const location = useLocation();
 const cid = location.state?.id;
-console.log(cid,"cid");
 
   const formik = useFormik({
     initialValues: {

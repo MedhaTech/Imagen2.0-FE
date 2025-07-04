@@ -16,41 +16,8 @@ const EditEvent = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
  const location = useLocation();
-const cid = location.state?.id;
-const [callId,setCallId]=useState("");
-const [data,setData]=useState([]);
-useEffect(()=>{
-mentorGetApi(cid);
-},[]);
- const mentorGetApi = (id) => {
-    const surveyApi = encryptGlobal(
-      JSON.stringify({
-        challenge_response_id: id,
-      })
-    );
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/schedule_calls?Data=${surveyApi}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          setData(response?.data?.data[0]);
-          setCallId(response?.data?.data[0]?.schedule_call_id);
-       
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  const data = location.state;
+ 
   const formik = useFormik({
     initialValues: {
       timing: null,
@@ -67,7 +34,7 @@ mentorGetApi(cid);
       try {
         const body = {
           timing: values.timing,
-          challenge_response_id: cid,
+          challenge_response_id: data.challenge_response_id,
           meet_link: values.meet_link,
           status: values.status,
           mentorship_user_id: currentUser?.data[0]?.user_id,
@@ -91,7 +58,9 @@ const teamparamId = encryptGlobal(JSON.stringify(data?.schedule_call_id));
 
         if (response.status === 200) {
           // navigate('/schedule-calls');
-          navigate("/schedule-calls", { state: { showTable: true ,challenge_response_id: cid,} });
+          navigate("/schedule-calls", { state: { showTable: true ,
+            challenge_response_id: data.challenge_response_id,
+          } });
 
           openNotificationWithIcon(
               'success',
@@ -227,7 +196,7 @@ useEffect(() => {
     navigate("/schedule-calls", {
       state: {
         showTable: true,
-        challenge_response_id: cid, 
+        challenge_response_id: data.challenge_response_id, 
       },
     })
   }
