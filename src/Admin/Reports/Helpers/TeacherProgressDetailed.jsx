@@ -157,11 +157,11 @@ const TeacherProgressDetailed = () => {
   const teacherDetailsHeaders = [
     {
       label: 'Institution User Full Name',
-      key: 'full_name'
+      key: 'full_names'
   },
   {
       label: 'Email Address',
-      key: 'username'
+      key: 'usernames'
   },
   {
       label: 'Mobile Number',
@@ -182,7 +182,11 @@ const TeacherProgressDetailed = () => {
     {
       label: 'Date of Registration',
       key: 'created_at'
-  }
+  },
+   {
+      label: 'Total Institution Users',
+      key: 'instuser_Count'
+  },
    
   ];
 
@@ -497,7 +501,7 @@ const TeacherProgressDetailed = () => {
 
             const formattedData = Data.map((item) => ({
               ...item,
-              created_at: new Date(item.created_at).toLocaleDateString("en-GB"),
+              mobile : item.mobiles.join(", ")
             }));
 
             setFilteredData(formattedData);

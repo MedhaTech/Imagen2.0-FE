@@ -124,11 +124,11 @@ const InstProgressDetailed = () => {
   const teacherDetailsHeaders = [
     {
       label: 'Institution User Full Name',
-      key: 'full_name'
+      key: 'full_names'
   },
   {
       label: 'Email Address',
-      key: 'username'
+      key: 'usernames'
   },
   {
       label: 'Mobile Number',
@@ -145,6 +145,10 @@ const InstProgressDetailed = () => {
     {
       label: "District",
       key: "district",
+    },
+    {
+      label: "Total Registered Institution Users",
+      key: "users_count",
     },
     {
       label: "Total Registered Students",
@@ -537,6 +541,7 @@ const InstProgressDetailed = () => {
             const courseNotStartedCount = totalStudents - (completedCount + inProgressCount);
             return {
               ...item,
+              mobile : item.mobiles.join(", "),
               draft_count: draftCount || 0,
     submit_count: submitCount || 0,
     initiated_status: notInitiatedCount  || 0 ,
