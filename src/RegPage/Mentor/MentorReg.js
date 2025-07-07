@@ -339,7 +339,7 @@ const Register = () => {
     <div className="main-wrapper">
       <div className="account-content">
         <div className="login-wrapper register-wrap  bg-img">
-          <div className="login-content scroll-box" style={style}>
+          <div className="login-content" style={style}>
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
                 <div
