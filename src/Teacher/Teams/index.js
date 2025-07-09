@@ -132,7 +132,7 @@ const Dashboard = (props) => {
       {
         name: <b style={{ color: "crimson" }}>#</b>,
         selector: (row, index) => index + 1,
-        width: "8%",
+        width: "3rem",
       },
       {
         name: <b style={{ color: "crimson" }}>Pilot Student&apos;s</b>,
@@ -188,7 +188,7 @@ const Dashboard = (props) => {
             </OverlayTrigger>
           </div>
         ),
-        width: "23%",
+        width: "15rem",
       },
       {
         name: <b style={{ color: "crimson" }}>Crew-1</b>,
@@ -287,7 +287,7 @@ const Dashboard = (props) => {
             )}
           </div>
         ),
-        width: "23%",
+        width: "15rem",
       },
       {
         name: <b style={{ color: "crimson" }}>Crew-2</b>,
@@ -386,7 +386,7 @@ const Dashboard = (props) => {
             )}
           </div>
         ),
-        width: "23%",
+        width: "15rem",
       },
       {
         name: <b style={{ color: "crimson" }}>Crew-3</b>,
@@ -485,7 +485,7 @@ const Dashboard = (props) => {
             )}
           </div>
         ),
-        width: "23%",
+        width: "15rem",
       },
     ],
   };

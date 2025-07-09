@@ -84,6 +84,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       : formData?.theme
   );
   const [others, setOthers] = useState(formData?.others);
+  // const [othersupport, setOthersupprt] = useState(formData?.others);
+
   const [ideaDescribe, setIdeaDescribe] = useState(formData?.ideaDescribe);
   const [solve, setSolve] = useState(formData?.solve);
   const [customer, setCustomer] = useState(formData?.customer);
@@ -1230,6 +1232,35 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                           </div>
                        
                         </div>
+                         {/* {support === "Other" && (
+                          <div className="card comment-card">
+                            <div className="question quiz mb-0">
+                              <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {support !== "Other" ? "" : "15"}.{" "}
+                                {t("ideaform_questions.supportothers")}
+                              </b>
+                            </div>
+
+                            <div className=" answers row flex-column p-4">
+                              <textarea
+                                disabled={isDisabled}
+                                placeholder={t("home.ideaFoc")}
+                                value={othersupport}
+                                maxLength={500}
+                                onChange={(e) => setOthersupprt(e.target.value)}
+                                className="form-control"
+                              />
+                              <div className="text-end">
+                                {t("student_course.chars")} :
+                                {500 - (othersupport ? othersupport.length : 0)}
+                              </div>
+                            </div>
+                          </div>
+                        )} */}
                         <div className="card comment-card">
                           <div className="question quiz mb-0">
                             <b
