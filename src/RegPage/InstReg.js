@@ -36,7 +36,7 @@ const Register = () => {
   const [change, setChange] = useState("Send OTP");
   const [wtsNum, setWtsNum] = useState("");
   const [holdKey, setHoldKey] = useState(false);
- 
+
   const [buttonData, setButtonData] = useState("");
   const [disable, setDisable] = useState(false);
   const [areInputsDisabled, setAreInputsDisabled] = useState(false);
@@ -44,28 +44,27 @@ const Register = () => {
   const [timer, setTimer] = useState(0);
   const [person, setPerson] = useState(true);
   const [design, setDesign] = useState(false);
-  
+
   const [mentData, setMentData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
- 
+
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
-    
+
     formik.setFieldValue("college_type", selectedCollegeType);
     setSelectedCollegeType(selectedCollegeType);
     formik.setFieldValue("college", "");
     formik.setFieldValue("ocn", "");
-  
-   
+
     const existingColleges = collegeNameList[selectedCollegeType] || [];
     setCollegeNamesList(existingColleges);
-  
+
     AllCollegesApi(selectedCollegeType, existingColleges);
   };
-  const AllCollegesApi = (item,existingColleges) => {
-    // this function fetches all college names list related to college type from the API 
+  const AllCollegesApi = (item, existingColleges) => {
+    // this function fetches all college names list related to college type from the API
 
     const distParam = encryptGlobal(
       JSON.stringify({
@@ -88,11 +87,11 @@ const Register = () => {
         if (response.status === 200) {
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          
-          const mergedColleges = [...existingColleges, ...collegeNames];
-        const uniqueColleges = [...new Set(mergedColleges)];
 
-        setCollegeNamesList(uniqueColleges);
+          const mergedColleges = [...existingColleges, ...collegeNames];
+          const uniqueColleges = [...new Set(mergedColleges)];
+
+          setCollegeNamesList(uniqueColleges);
         }
       })
       .catch(function (error) {
@@ -103,8 +102,6 @@ const Register = () => {
     value: item,
     label: item,
   }));
- 
-
 
   localStorage.setItem("orgData", JSON.stringify(orgData));
   localStorage.setItem("diesCode", JSON.stringify(diesCode));
@@ -185,18 +182,40 @@ const Register = () => {
       college_type: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College Type</span>
       ),
-     
+
       password: Yup.string()
-      .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
-      .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
-      .matches(/[A-Z]/, () => <span style={{ color: "red" }}>Password must contain at least one uppercase letter</span>)
-      .matches(/\d/, () => <span style={{ color: "red" }}>Password must contain at least one number</span>)
-      .matches(/[@$!%*?&]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&)</span>)
-      .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
-    
-  
-    confirmPassword: Yup.string()
-      .required(<span style={{ color: "red" }}>Please Enter Confirm Password</span>),
+        .min(8, () => (
+          <span style={{ color: "red" }}>
+            Password must be at least 8 characters
+          </span>
+        ))
+        .matches(/[a-z]/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one lowercase letter
+          </span>
+        ))
+        .matches(/[A-Z]/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one uppercase letter
+          </span>
+        ))
+        .matches(/\d/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one number
+          </span>
+        ))
+        .matches(/[@$!%*?&]/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one special character (@$!%*?&)
+          </span>
+        ))
+        .required(() => (
+          <span style={{ color: "red" }}>Please Enter Password</span>
+        )),
+
+      confirmPassword: Yup.string().required(
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
+      ),
     }),
 
     onSubmit: async (values) => {
@@ -237,7 +256,7 @@ const Register = () => {
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
               setMentData(mentorRegRes.data && mentorRegRes.data.data[0]);
-             
+
               setTimeout(() => {
                 apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
               }, 3000);
@@ -249,7 +268,7 @@ const Register = () => {
             } else {
               openNotificationWithIcon("error", "Email id is Invalid");
             }
-            
+
             formik.setErrors({
               check: err.response && err?.response?.data?.message,
             });
@@ -269,7 +288,7 @@ const Register = () => {
     formik.setFieldValue("otp", "");
   }, [formik.values.email]);
   async function apiCall(mentData) {
-          // this function Sends a request to trigger the mentor welcome email
+    // this function Sends a request to trigger the mentor welcome email
     const body = {
       college_name: mentData.college_name,
       college_type: mentData.college_type,
@@ -301,7 +320,7 @@ const Register = () => {
         console.log(error);
       });
   }
- 
+
   useEffect(() => {
     setCheckBox(false);
     formik.setFieldValue("whatapp_mobile", "");
@@ -353,7 +372,6 @@ const Register = () => {
           setDisable(true);
           setAreInputsDisabled(false);
           setTimer(0);
-          
         }
       });
     e.preventDefault();
@@ -413,13 +431,25 @@ const Register = () => {
     document.body.style.overflow = "auto"; // Enable scrolling
     document.body.style.overflowY = "hidden"; // Hide vertical scrollbar
   }, []);
- 
+
   const style = {
     overflow: "auto",
 
     scrollbarWidth: "none", // Hides scrollbar in Firefox
     msOverflowStyle: "none", // Hides scrollbar in Internet Explorer
   };
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup on unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -436,7 +466,7 @@ const Register = () => {
 
                 {person && (
                   <div className="login-userheading">
-                    <h3> Registration Form Details </h3>
+                    <h3 className="text-center"> Registration Details </h3>
                   </div>
                 )}
 
@@ -543,7 +573,7 @@ const Register = () => {
                           </div>
                           <div className={`col-md-6`}>
                             <label htmlFor="district" className="form-label">
-                            District
+                              District
                             </label>
                             &nbsp;
                             <span style={{ color: "red", fontWeight: "bold" }}>
@@ -616,16 +646,23 @@ const Register = () => {
                             <span style={{ color: "red", fontWeight: "bold" }}>
                               *
                             </span>
-                           
-                              <Select
-        classNamePrefix="react-select"
-        options={collegeOptions}
-         placeholder=" Type here to Select Your College Name"
-        isDisabled={areInputsDisabled}
-        value={collegeOptions.find(option => option.value === formik.values.college)}
-        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
-        onBlur={formik.handleBlur}
-      />
+                            <Select
+                              classNamePrefix="react-select"
+                              options={collegeOptions}
+                              placeholder=" Type here to Select Your College Name"
+                              isDisabled={areInputsDisabled}
+                              value={collegeOptions.find(
+                                (option) =>
+                                  option.value === formik.values.college
+                              )}
+                              onChange={(selectedOption) =>
+                                formik.setFieldValue(
+                                  "college",
+                                  selectedOption?.value
+                                )
+                              }
+                              onBlur={formik.handleBlur}
+                            />
                             {formik.touched.college && formik.errors.college ? (
                               <small className="error-cls">
                                 {formik.errors.college}
@@ -768,15 +805,17 @@ const Register = () => {
                                       timer < 10 ? `0${timer}` : timer
                                     } sec`
                                   : "Resend OTP enabled"}
-                               
                               </p>
                             </div>
 
                             <div className="login-content user-login">
-                              <div className="login-logo">
-                               
-                              </div>
-                              <div className="login-userset text-center justify-content-center">
+                              <div className="login-logo"></div>
+                              <div
+                                className="login-userset text-center justify-content-center"
+                                style={{
+                                   padding: isMobile ? "11px" : "20px",
+                                }}
+                              >
                                 <div className="login-userheading">
                                   <h3>Verify your Email with OTP</h3>
                                   <h4 className="verfy-mail-content">
