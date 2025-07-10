@@ -21,6 +21,7 @@ import moment from "moment";
 const MentorAddChat = (props) => {
   const location = useLocation();
   const studentData = location.state || {};
+  console.log(studentData,"data");
   const [predata, setPreData] = useState([]);
   const currentUser = getCurrentUser("current_user");
   const [isloader, setIsloader] = useState(false);

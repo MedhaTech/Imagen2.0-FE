@@ -249,16 +249,21 @@ const Milestone = (props) => {
             </div>
           </div> */}
           <div className="add-item d-flex justify-content-between align-items-center mb-3 w-100">
-  <div className="page-title">
-    <h4 className="mb-0">Milestone</h4>
-  </div>
-  {hide && (
-  <button className="btn btn-outline-primary" onClick={() => setHide(false)}>
-  Back to Cards
-  </button>
-  )}
-</div>
-
+            <div className="page-title">
+              <h4 className="mb-0">Milestone</h4>
+            </div>
+            {hide && (
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => {
+                  setTeamId(null);
+                  setHide(false);
+                }}
+              >
+                Back to Cards
+              </button>
+            )}
+          </div>
         </div>
         {!hide && (
           <div className="employee-grid-widget">
@@ -282,7 +287,11 @@ const Milestone = (props) => {
                         <div className="profile-pic active-profile">
                           <div style={{ width: "64px", height: "64px" }}>
                             <BiLogoMicrosoftTeams
-                              style={{ width: "100%", height: "100%", color:"#28C76F"}}
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                color: "#28C76F",
+                              }}
                             />
                           </div>
                         </div>
@@ -303,7 +312,6 @@ const Milestone = (props) => {
         )}
         {hide && (
           <div style={{ marginTop: "1rem" }}>
-            
             <DataTableExtensions
               print={false}
               export={false}

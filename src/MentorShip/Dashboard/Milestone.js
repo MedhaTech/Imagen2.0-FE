@@ -184,6 +184,7 @@ const DBStu = () => {
         state: {
           ...student,
           chatbox_id: chatboxId,
+            challenge_response_id:challengeId
         },
       });
     } else {
@@ -227,6 +228,13 @@ const DBStu = () => {
 
   const handleMilestone = (item) => {
     navigate(`/mentor-milestone`, {
+      state: {
+        challenge_response_id: item,
+      },
+    });
+  };
+   const handleCalls = (item) => {
+    navigate(`/schedule-calls`, {
       state: {
         challenge_response_id: item,
       },
@@ -400,7 +408,7 @@ const DBStu = () => {
       type="button"
        style={{ whiteSpace: "nowrap"}}
       className="btn btn-outline-primary"
-      onClick={() => navigate("/schedule-calls")}
+       onClick={() => handleCalls(discussion.challenge_response_id)}
     >
       <span className="d-none d-md-inline" style={{ marginRight: "5px" }}>
         <IoIosVideocam size={20} />
