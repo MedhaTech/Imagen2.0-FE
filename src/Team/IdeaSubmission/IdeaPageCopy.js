@@ -36,6 +36,7 @@ const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
     count = a_link.length - 1;
     fileName = a_link[count];
   }
+  console.log(fileName,"file");
   return (
     <>
       {original ? (
@@ -55,6 +56,7 @@ const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
           rel="noreferrer"
         >
           <span className="file-name">{fileName}</span>
+          
         </a>
       )}
     </>
@@ -216,6 +218,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setPrototypeImage(formData?.prototype_image);
     setPrototypeLink(formData?.prototype_link);
   }, [formData]);
+  console.log(prototypeImage,"image");
   useEffect(() => {
     if (formData?.stage) {
       setStage(JSON.parse(formData.stage));
@@ -356,15 +359,19 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         }
       });
   };
-  const apiCall = () => {
+  const apiCall = (file) => {
                // This function initiate the Idea the API //
 
     const challengeParamID = encryptGlobal("1");
     const queryObj = JSON.stringify({
       student_id: TeamId,
     });
-    const queryObjEn = encryptGlobal(queryObj);
 
+    const queryObjEn = encryptGlobal(queryObj);
+  let attachmentsList = "";
+    if (file) {
+      attachmentsList = file.join(", ");
+    }
     const body = {
       theme: theme,
       idea_describe: ideaDescribe,
@@ -409,7 +416,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     if (prototypeLink !== "") {
       body["prototype_link"] = prototypeLink;
     }
-
+  if (attachmentsList !== "") {
+      body["prototype_image"] = JSON.stringify(file);
+    }
     var config = {
       method: "post",
       url:
@@ -439,10 +448,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const handleSubmit = async (item, stats) => {
     setIsDisabled(true);
 
-    if (error4) {
-      apiCall();
-      return;
-    } else {
+    // if (error4) {
+    //   apiCall();
+    //   return;
+    // } else {
       if (stats) {
         setLoading({ ...loading, draft: true });
       } else {
@@ -478,7 +487,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         if (result && result.status === 200) {
           setImmediateLink(result.data?.data[0]?.attachments);
           setPrototypeImage(result.data?.data[0]?.attachments);
-          handleSubmitAll(item, stats, result.data?.data[0]?.attachments);
+           if (error4) {
+        apiCall(result.data?.data[0]?.attachments); // ✅ pass uploaded files
+      } else {
+        handleSubmitAll(item, stats, result.data?.data[0]?.attachments);
+      }
         } else {
           openNotificationWithIcon("error", `${result?.data?.message}`);
           setLoading(initialLoadingStatus);
@@ -486,9 +499,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           return;
         }
       } else {
-        handleSubmitAll(item, stats);
-      }
+          if (error4) {
+      apiCall(); 
+    } else {
+      handleSubmitAll(item, stats);
     }
+        // handleSubmitAll(item, stats);
+      }
+    // }
   };
 
   const handleSubmitAll = async (item, stats, file) => {

@@ -18,6 +18,8 @@ import { IoHelpOutline } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
 const MentorCalls = () => {
   const currentUser = getCurrentUser("current_user");
+  const location = useLocation();
+
   const navigate = useNavigate();
   const [studentCount, setStudentCount] = useState([]);
   const [data, setData] = useState([]);
@@ -25,8 +27,8 @@ const MentorCalls = () => {
   const [teamId, setTeamId] = useState(null);
   const [callList, setCallList] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const cid = location.state?.challenge_response_id;
 
-  const location = useLocation();
   useEffect(() => {
     mentorTeamsCount(currentUser?.data[0]?.user_id);
   }, []);
@@ -70,7 +72,12 @@ const MentorCalls = () => {
       state: { id: cid },
     });
   };
-
+useEffect(() => {
+  if (cid) {
+    setTeamId(cid); 
+    localStorage.setItem("selectedCID", cid);
+  }
+}, [cid]);
   useEffect(() => {
     if (teamId) {
       handleResList(teamId);
@@ -150,6 +157,7 @@ const MentorCalls = () => {
             <IoHelpOutline size={20} color="#FF0000" />
           );
         },
+        center: true,
         width: "13rem",
       },
       {
@@ -221,6 +229,7 @@ const MentorCalls = () => {
                     className="btn btn-outline-primary"
                     onClick={() => {
                       setHide(false);
+                       setTeamId(null);
                       localStorage.removeItem("selectedStudent");
                     }}
                   >

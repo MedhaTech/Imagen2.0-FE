@@ -162,7 +162,7 @@ const SidebarData = () => {
            ...(mentorId !== null
           ? [
               {
-                label: "Schedule Call",
+                label: "Schedule Calls",
                 link: "/studentScheduleCall",
                 icon: <SiGooglemeet />,
                 showSubRoute: false,

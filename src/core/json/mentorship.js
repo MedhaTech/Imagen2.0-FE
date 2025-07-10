@@ -31,7 +31,7 @@ const ChatId =currentUser?.data[0]?.chatbox ;
           submenu: false,
         },
           {
-          label:"Schedule Call",
+          label:"Schedule Calls",
           link: "/schedule-calls",
           icon: <SiGooglemeet />,
           showSubRoute: false,

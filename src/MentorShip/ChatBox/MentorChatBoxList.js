@@ -73,9 +73,7 @@ const MentorChatBoxList = () => {
   const handleChat = (student) => {
     const challengeId = student.challenge_response_id;
 const mentorId = currentUser.data[0]?.user_id;
-    // const matchingChatbox = data.find(
-    //   (chat) => chat.challenge_response_id === challengeId
-    // );
+  
 
      const matchingChatbox = data.find(
     (chat) =>
@@ -90,6 +88,7 @@ const mentorId = currentUser.data[0]?.user_id;
         state: {
           ...student,
           chatbox_id: chatboxId,
+          challenge_response_id:challengeId
         },
       });
     } else {
