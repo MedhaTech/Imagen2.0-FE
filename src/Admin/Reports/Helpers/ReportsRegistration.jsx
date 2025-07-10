@@ -105,44 +105,54 @@ const ReportsRegistration = () => {
       key: "studentReg",
     },
     {
-      label: "Engineering Colleges",
-      key: "EngineeringColleges_Count",
-    },
-    {
-      label: "Polytechnic College",
-      key: "PolytechnicColleges_Count",
-    },
-    {
-      label: "Degree Colleges",
-      key: "DegreeColleges_Count",
-    },
-    {
-      label: "Govt Junior College",
-      key: "GovtJuniorCollege_Count",
-    },
-    {
-      label: "Govt ITI College",
-      key: "GovtITICollege_Count",
-    },
-    {
-      label: "Govt Polytechnic College",
-      key: "GovtPolytechnicCollege_Count",
-    },
-    {
-      label: "Govt Degree College",
+      label: "Govt - Degree College",
       key: "GovtDegreeCollege_Count",
     },
     {
-      label: "Social Welfare College",
-      key: "SocialWelfareCollege_Count",
+      label: "Govt - Polytechnic College",
+      key: "GovtPolytechnicCollege_Count",
     },
     {
-      label: "Tribal Welfare College",
-      key: "TribalWelfareCollege_Count",
+      label: "Govt - ITI College",
+      key: "GovtITICollege_Count",
     },
     {
-      label: "Private College",
-      key: "PrivateCollege_Count",
+      label: "Govt - Junior College",
+      key: "GovtJuniorCollege_Count",
+    },
+    {
+      label: "Govt - Tribal Welfare Residential College",
+      key: "GovtTribalWelfareResidentialCollege_Count",
+    },
+    {
+      label: "Govt - Social Welfare Residential College",
+      key: "GovtSocialWelfareResidentialCollege_Count",
+    },
+    {
+      label: "Private - Degree College",
+      key: "PrivateDegreeCollege_Count",
+    },
+    {
+      label: "Private - Polytechnic College",
+      key: "PrivatePolytechnicCollege_Count",
+    },
+    {
+      label: "Private - ITI College",
+      key: "PrivateITICollege_Count",
+    },
+    {
+      label: "Private - Junior College",
+      key: "PrivateJuniorCollege_Count",
+    },
+     {
+      label: "Engineering Colleges",
+      key: "EngineeringColleges_Count",
+    }, {
+      label: "Polytechnic Colleges",
+      key: "PolytechnicColleges_Count",
+    }, {
+      label: "Degree Colleges",
+      key: "DegreeColleges_Count",
     },
     {
       label: "Others",
