@@ -110,17 +110,17 @@ const TeacherProgressDetailed = () => {
       key: "instReg",
     },
     {
-            label: 'Engineering Colleges',
-            key: 'EngineeringColleges_Count'
-        },
-        {
-            label: 'Polytechnic College',
-            key: 'PolytechnicColleges_Count'
-        },
-        {
-            label: 'Degree Colleges',
-            key: 'DegreeColleges_Count'
-        },
+      label: "Engineering Colleges",
+      key: "EngineeringColleges_Count",
+    },
+    {
+      label: "Polytechnic College",
+      key: "PolytechnicColleges_Count",
+    },
+    {
+      label: "Degree Colleges",
+      key: "DegreeColleges_Count",
+    },
     {
       label: "Govt Junior College",
       key: "GovtJuniorCollege_Count",
@@ -156,58 +156,56 @@ const TeacherProgressDetailed = () => {
   ];
   const teacherDetailsHeaders = [
     {
-      label: 'Institution User Full Name',
-      key: 'full_names'
-  },
-  {
-      label: 'Email Address',
-      key: 'usernames'
-  },
-  {
-      label: 'Mobile Number',
-      key: 'mobile'
-  },
-  {
-      label: 'College Type',
-      key: 'college_type'
-  },
-  {
-      label: 'College Name',
-      key: 'college_name'
-  },
+      label: "Institution User Full Name",
+      key: "full_names",
+    },
+    {
+      label: "Email Address",
+      key: "usernames",
+    },
+    {
+      label: "Mobile Number",
+      key: "mobile",
+    },
+    {
+      label: "College Type",
+      key: "college_type",
+    },
+    {
+      label: "College Name",
+      key: "college_name",
+    },
     {
       label: "District",
       key: "district",
     },
     {
-      label: 'Date of Registration',
-      key: 'created_at'
-  },
-   {
-      label: 'Total Institution Users',
-      key: 'instuser_Count'
-  },
-   
+      label: "Date of Registration",
+      key: "created_at",
+    },
+    {
+      label: "Total Institution Users",
+      key: "instuser_Count",
+    },
   ];
 
   const notRegHeaders = [
-   
-  
-  {
-    label: "District",
-      key: "district",
-  },
-  {
-      label: 'College Type',
-      key: 'college_type'
-  },
-  {
-      label: 'College Name',
-      key: 'college_name'
-  },
     {
-      label: 'College Town',
-      key: 'college_town'    },
+      label: "District",
+      key: "district",
+    },
+    {
+      label: "College Type",
+      key: "college_type",
+    },
+    {
+      label: "College Name",
+      key: "college_name",
+    },
+    {
+      label: "College Town",
+      key: "college_town",
+    },
     {
       label: "No of Students Registered",
       key: "studentRegCount",
@@ -242,7 +240,7 @@ const TeacherProgressDetailed = () => {
 
   var options = {
     chart: {
-      height: 700, 
+      height: 700,
       width: 1000,
       type: "bar",
       toolbar: {
@@ -295,7 +293,7 @@ const TeacherProgressDetailed = () => {
         autoSkip: false,
       },
     },
-    
+
     legend: {
       position: "top",
       horizontalAlign: "left",
@@ -452,12 +450,11 @@ const TeacherProgressDetailed = () => {
     labels: ["Completed", "InProgress", "NotStarted"],
   };
 
- 
   const handleDownload = () => {
-    if (!district || !category   || !filterType ) {
+    if (!district || !category || !filterType) {
       notification.warning({
         message:
-           'Please select District, FilterType and College Type before Downloading Reports.'
+          "Please select District, FilterType and College Type before Downloading Reports.",
       });
       return;
     }
@@ -485,9 +482,7 @@ const TeacherProgressDetailed = () => {
         : "";
     const config = {
       method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        url,
+      url: process.env.REACT_APP_API_BASE_URL + url,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -501,7 +496,7 @@ const TeacherProgressDetailed = () => {
 
             const formattedData = Data.map((item) => ({
               ...item,
-              mobile : item.mobiles.join(", ")
+              mobile: item.mobiles.join(", "),
             }));
 
             setFilteredData(formattedData);
@@ -531,7 +526,7 @@ const TeacherProgressDetailed = () => {
           // console.log(response, "22");
 
           // const chartTable = response?.data?.data || [];
-        
+
           // setChartTableData1(chartTable);
           // // console.log(chartTableData1,"data");
           // if (response.data.count > 0) {
@@ -582,58 +577,88 @@ const TeacherProgressDetailed = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-        //   console.log(response, "whole");
           const chartTableData = response?.data?.data || [];
           // added for download report //
-          const updatedChartTableData = chartTableData.map(item => {
-            if (item.PrivateCollege_Count === undefined) item.PrivateCollege_Count = 0;
-            if (item.GovtJuniorCollege_Count === undefined) item.GovtJuniorCollege_Count = 0;
-            if (item.EngineeringColleges_Count === undefined) item.EngineeringColleges_Count = 0;
-            if (item.PolytechnicColleges_Count === undefined) item.PolytechnicColleges_Count = 0;
-            if (item.DegreeColleges_Count === undefined) item.DegreeColleges_Count = 0;
-            if (item.GovtPolytechnicCollege_Count === undefined) item.GovtPolytechnicCollege_Count = 0;
-            if (item.GovtDegreeCollege_Count === undefined) item.GovtDegreeCollege_Count = 0;
-            if (item.SocialWelfareCollege_Count === undefined) item.SocialWelfareCollege_Count = 0;
-            if (item.TribalWelfareCollege_Count === undefined) item.TribalWelfareCollege_Count = 0;
-            if (item.GovtITICollege_Count === undefined) item.GovtITICollege_Count = 0;
+          const updatedChartTableData = chartTableData.map((item) => {
+            if (item.GovtDegreeCollege_Count === undefined)
+              item.GovtDegreeCollege_Count = 0;
+            if (item.GovtPolytechnicCollege_Count === undefined)
+              item.GovtPolytechnicCollege_Count = 0;
+            if (item.GovtITICollege_Count === undefined)
+              item.GovtITICollege_Count = 0;
+            if (item.GovtJuniorCollege_Count === undefined)
+              item.GovtJuniorCollege_Count = 0;
+            if (item.GovtTribalWelfareResidentialCollege_Count === undefined)
+              item.GovtTribalWelfareResidentialCollege_Count = 0;
+            if (item.GovtSocialWelfareResidentialCollege_Count === undefined)
+              item.GovtSocialWelfareResidentialCollege_Count = 0;
+            if (item.PrivateDegreeCollege_Count === undefined)
+              item.PrivateDegreeCollege_Count = 0;
+            if (item.PrivatePolytechnicCollege_Count === undefined)
+              item.PrivatePolytechnicCollege_Count = 0;
+            if (item.PrivateITICollege_Count === undefined)
+              item.PrivateITICollege_Count = 0;
+            if (item.PrivateJuniorCollege_Count === undefined)
+              item.PrivateJuniorCollege_Count = 0;
+            if (item.EngineeringColleges_Count === undefined)
+              item.EngineeringColleges_Count = 0;
+            if (item.PolytechnicColleges_Count === undefined)
+              item.PolytechnicColleges_Count = 0;
+            if (item.DegreeColleges_Count === undefined)
+              item.DegreeColleges_Count = 0;
             if (item.Other_Count === undefined) item.Other_Count = 0;
-          
+
             return item;
           });
           const totals = updatedChartTableData.reduce(
             (acc, curr) => {
-                acc.district = "Total";
+              acc.district = "Total";
               (acc.instReg += curr.instReg || 0),
-                (acc.GovtJuniorCollege_Count += curr.GovtJuniorCollege_Count || 0),
-                (acc.EngineeringColleges_Count += curr.EngineeringColleges_Count || 0),
-                (acc.PolytechnicColleges_Count += curr.PolytechnicColleges_Count || 0),
-                (acc.DegreeColleges_Count += curr.DegreeColleges_Count || 0),
-                acc.GovtITICollege_Count += curr.GovtITICollege_Count || 0;
-                (acc.GovtPolytechnicCollege_Count += curr.GovtPolytechnicCollege_Count || 0),
-                (acc.GovtDegreeCollege_Count += curr.GovtDegreeCollege_Count || 0),
-                (acc.SocialWelfareCollege_Count +=
-                    curr.SocialWelfareCollege_Count || 0),
-                (acc.TribalWelfareCollege_Count += curr.TribalWelfareCollege_Count || 0),
-                (acc.PrivateCollege_Count += curr.PrivateCollege_Count || 0);
-                (acc.Other_Count += curr.Other_Count || 0);
+                (acc.GovtDegreeCollege_Count +=
+                  curr.GovtDegreeCollege_Count || 0),
+                (acc.GovtPolytechnicCollege_Count +=
+                  curr.GovtPolytechnicCollege_Count || 0),
+                (acc.GovtITICollege_Count += curr.GovtITICollege_Count || 0),
+                (acc.GovtJuniorCollege_Count +=
+                  curr.GovtJuniorCollege_Count || 0),
+                (acc.GovtTribalWelfareResidentialCollege_Count +=
+                  curr.GovtTribalWelfareResidentialCollege_Count || 0);
+              (acc.GovtSocialWelfareResidentialCollege_Count +=
+                curr.GovtSocialWelfareResidentialCollege_Count || 0),
+                (acc.PrivateDegreeCollege_Count +=
+                  curr.PrivateDegreeCollege_Count || 0),
+                (acc.PrivatePolytechnicCollege_Count +=
+                  curr.PrivatePolytechnicCollege_Count || 0),
+                (acc.PrivateITICollege_Count +=
+                  curr.PrivateITICollege_Count || 0),
+                (acc.PrivateJuniorCollege_Count +=
+                  curr.PrivateJuniorCollege_Count || 0);
+              (acc.EngineeringColleges_Count +=
+                curr.EngineeringColleges_Count || 0);
+              (acc.PolytechnicColleges_Count +=
+                curr.PolytechnicColleges_Count || 0);
+              (acc.DegreeColleges_Count += curr.DegreeColleges_Count || 0);
+              acc.Other_Count += curr.Other_Count || 0;
 
-               
               return acc;
             },
             {
               district: "None",
-              instReg:0,
-              GovtJuniorCollege_Count:0,
-              EngineeringColleges_Count:0,
-              PolytechnicColleges_Count:0,
-              DegreeColleges_Count:0,
-              GovtPolytechnicCollege_Count:0,
-              GovtDegreeCollege_Count:0,
-              SocialWelfareCollege_Count: 0,
-              TribalWelfareCollege_Count:0,
+              instReg: 0,
+              GovtDegreeCollege_Count: 0,
+              GovtPolytechnicCollege_Count: 0,
               GovtITICollege_Count: 0,
-              PrivateCollege_Count:0,
-              Other_Count:0,
+              GovtJuniorCollege_Count: 0,
+              GovtTribalWelfareResidentialCollege_Count: 0,
+              GovtSocialWelfareResidentialCollege_Count: 0,
+              PrivateDegreeCollege_Count: 0,
+              PrivatePolytechnicCollege_Count: 0,
+              PrivateITICollege_Count: 0,
+              PrivateJuniorCollege_Count: 0,
+              EngineeringColleges_Count: 0,
+              PolytechnicColleges_Count: 0,
+              DegreeColleges_Count: 0,
+              Other_Count: 0,
             }
           );
 
@@ -643,46 +668,50 @@ const TeacherProgressDetailed = () => {
           );
           setChartTableData(chartTableDataWithTotals);
           setDownloadTableData(chartTableDataWithTotals);
-  const barData = {
+          const barData = {
             labels: GraphfilteredData.map((item) => item.district),
             datasets: [
-             
               {
                 label: "Registered Institutions",
                 data: GraphfilteredData.map((item) => item.instReg),
                 backgroundColor: "#ffa31a",
-              }
-
+              },
             ],
           };
-       
+
           setRegisteredChartData({
             labels: [
-              "Govt Junior College ",
-               "Engineering Colleges",
-                            "Polytechnic College",
-                            "Degree Colleges",
-              "Govt ITI College ",
-              "Govt Polytechnic College ",
-              "Govt Degree College ",
-              "Social Welfare College ",
-              "Tribal Welfare College ",
-              "Private College",
-              "Other ",
+              "Govt - Degree College",
+              "Govt - Polytechnic College",
+              "Govt - ITI College",
+              "Govt - Junior College",
+              "Govt - Tribal Welfare Residential College",
+              "Govt - Social Welfare Residential College",
+              "Private - Degree College",
+              "Private - Polytechnic College",
+              "Private - ITI College",
+              "Private - Junior College",
+              "Engineering Colleges",
+              "Polytechnic Colleges",
+              "Degree Colleges",
+              "Other",
             ],
             datasets: [
               {
                 data: [
+                  totals.GovtDegreeCollege_Count,
+                  totals.GovtPolytechnicCollege_Count,
+                  totals.GovtITICollege_Count,
                   totals.GovtJuniorCollege_Count,
+                  totals.GovtTribalWelfareResidentialCollege_Count,
+                  totals.GovtSocialWelfareResidentialCollege_Count,
+                  totals.PrivateDegreeCollege_Count,
+                  totals.PrivatePolytechnicCollege_Count,
+                  totals.PrivateITICollege_Count,
+                  totals.PrivateJuniorCollege_Count,
                   totals.EngineeringColleges_Count,
                   totals.PolytechnicColleges_Count,
                   totals.DegreeColleges_Count,
-                  totals.GovtITICollege_Count,
-                  totals.GovtPolytechnicCollege_Count,
-                  totals.GovtDegreeCollege_Count,
-                  totals.SocialWelfareCollege_Count,
-                  totals.TribalWelfareCollege_Count,
-                  totals.PrivateCollege_Count,
                   totals.Other_Count,
                 ],
                 backgroundColor: [
@@ -696,7 +725,11 @@ const TeacherProgressDetailed = () => {
                   "#da9100",
                   "#800080",
                   "#4682B4",
-                              "#FFD700"
+                  "#FFD700",
+                  "#7601fb",
+                  "#39ff14",
+                  "#a50b5e",
+                  "#f75394",
                 ],
                 hoverBackgroundColor: [
                   "#85e085",
@@ -709,16 +742,19 @@ const TeacherProgressDetailed = () => {
                   "#da9100",
                   "#800080",
                   "#4682B4",
-                              "#FFD700"
+                  "#FFD700",
+                  "#7601fb",
+                  "#39ff14",
+                  "#a50b5e",
+                  "#f75394",
                 ],
               },
             ],
           });
-          
+
           setBarChart1Data(barData);
-          console.log(barData,"barData");
           setseries1(barData.datasets[0].data);
-         
+
           // const newcombinedArray = [...combinedArray,total];
           // setDownloadTableData(newcombinedArray);
           setTotalCount(totals);
@@ -732,14 +768,14 @@ const TeacherProgressDetailed = () => {
     maintainAspectRatio: false,
     responsive: true,
     plugins: {
-        legend: {
-            display: false // Ensure legend is completely hidden
-        },
-        tooltip: {
-            enabled: true // Tooltips will still work on hover
-        }
-    }
-};
+      legend: {
+        display: false, // Ensure legend is completely hidden
+      },
+      tooltip: {
+        enabled: true, // Tooltips will still work on hover
+      },
+    },
+  };
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -811,11 +847,13 @@ const TeacherProgressDetailed = () => {
             <div className="chart mt-2 mb-2">
               {chartTableData.length > 0 && (
                 <>
-                 
                   <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center"style={{ borderBottom: 'none',paddingBottom: 0 }}>
+                        <div
+                          className="card-header d-flex justify-content-between align-items-center"
+                          style={{ borderBottom: "none", paddingBottom: 0 }}
+                        >
                           <h4 className="card-title mb-0">
                             District wise Registered Institution Stats
                           </h4>
@@ -857,16 +895,13 @@ const TeacherProgressDetailed = () => {
                                   >
                                     No of Reg Institutions
                                   </th>
-                                   <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Engineering<br />Colleges</th>
-                                                                <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Polytechnic <br />Colleges</th>
-                                                                <th style={{ whiteSpace: 'wrap', color: "#36A2EB", }}>Degree <br />Colleges</th>
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
                                     }}
                                   >
-                                    Govt Junior College
+                                    Govt - Degree College
                                   </th>
                                   <th
                                     style={{
@@ -874,7 +909,7 @@ const TeacherProgressDetailed = () => {
                                       color: "#36A2EB",
                                     }}
                                   >
-                                    Govt Polytechnic College
+                                    Govt - Polytechnic College
                                   </th>
                                   <th
                                     style={{
@@ -882,10 +917,7 @@ const TeacherProgressDetailed = () => {
                                       color: "#36A2EB",
                                     }}
                                   >
-                                    Govt ITI College
-                                  </th>
-                                  <th style={{ whiteSpace: "wrap",  color: "#36A2EB" }}>
-                                    Govt Degree College
+                                    Govt - ITI College
                                   </th>
                                   <th
                                     style={{
@@ -893,7 +925,7 @@ const TeacherProgressDetailed = () => {
                                       color: "#36A2EB",
                                     }}
                                   >
-                                    Social Welfare College
+                                    Govt - Junior College
                                   </th>
                                   <th
                                     style={{
@@ -901,7 +933,7 @@ const TeacherProgressDetailed = () => {
                                       color: "#36A2EB",
                                     }}
                                   >
-                                    Tribal Welfare College
+                                    Govt - Tribal Welfare Residential College
                                   </th>
                                   <th
                                     style={{
@@ -909,7 +941,63 @@ const TeacherProgressDetailed = () => {
                                       color: "#36A2EB",
                                     }}
                                   >
-                                    Private College
+                                    Govt - Social Welfare Residential College
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Private - Degree College
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Private - Polytechnic College
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Private - ITI College
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Private - Junior College
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Engineering Colleges
+                                  </th>{" "}
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Polytechnic Colleges
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    Degree Colleges
                                   </th>
                                   <th
                                     style={{
@@ -938,17 +1026,8 @@ const TeacherProgressDetailed = () => {
                                     </td>
                                     <td>{item.instReg}</td>
                                     <td>
-                                                                        {item.EngineeringColleges_Count ? item.EngineeringColleges_Count : "0"}
-                                                                    </td>
-                                                                    <td>
-                                                                        {item.PolytechnicColleges_Count ? item.PolytechnicColleges_Count : "0"}
-                                                                    </td>
-                                                                    <td>
-                                                                        {item.DegreeColleges_Count ? item.DegreeColleges_Count : "0"}
-                                                                    </td>
-                                    <td>
-                                      {item.GovtJuniorCollege_Count
-                                        ? item.GovtJuniorCollege_Count
+                                      {item.GovtDegreeCollege_Count
+                                        ? item.GovtDegreeCollege_Count
                                         : "0"}
                                     </td>
                                     <td>
@@ -962,25 +1041,55 @@ const TeacherProgressDetailed = () => {
                                         : "0"}
                                     </td>
                                     <td>
-                                      {item.GovtDegreeCollege_Count
-                                        ? item.GovtDegreeCollege_Count
+                                      {item.GovtJuniorCollege_Count
+                                        ? item.GovtJuniorCollege_Count
                                         : "0"}
                                     </td>
                                     <td>
-                                      {item.SocialWelfareCollege_Count
-                                        ? item.SocialWelfareCollege_Count
+                                      {item.GovtTribalWelfareResidentialCollege_Count
+                                        ? item.GovtTribalWelfareResidentialCollege_Count
                                         : "0"}
                                     </td>
                                     <td>
-                                      {item.TribalWelfareCollege_Count
-                                        ? item.TribalWelfareCollege_Count
+                                      {item.GovtSocialWelfareResidentialCollege_Count
+                                        ? item.GovtSocialWelfareResidentialCollege_Count
                                         : "0"}
                                     </td>
                                     <td>
-                                      {item.PrivateCollege_Count
-                                        ? item.PrivateCollege_Count
+                                      {item.PrivateDegreeCollege_Count
+                                        ? item.PrivateDegreeCollege_Count
+                                        : "0"}
+                                    </td>
+                                    <td>
+                                      {item.PrivatePolytechnicCollege_Count
+                                        ? item.PrivatePolytechnicCollege_Count
+                                        : "0"}
+                                    </td>
+                                    <td>
+                                      {item.PrivateITICollege_Count
+                                        ? item.PrivateITICollege_Count
+                                        : "0"}
+                                    </td>
+                                    <td>
+                                      {item.PrivateJuniorCollege_Count
+                                        ? item.PrivateJuniorCollege_Count
+                                        : "0"}
+                                    </td>
+                                    <td>
+                                      {item.EngineeringColleges_Count
+                                        ? item.EngineeringColleges_Count
                                         : "0"}
                                     </td>{" "}
+                                    <td>
+                                      {item.PolytechnicColleges_Count
+                                        ? item.PolytechnicColleges_Count
+                                        : "0"}
+                                    </td>
+                                    <td>
+                                      {item.DegreeColleges_Count
+                                        ? item.DegreeColleges_Count
+                                        : "0"}
+                                    </td>
                                     <td>
                                       {item.Other_Count
                                         ? item.Other_Count
@@ -996,33 +1105,31 @@ const TeacherProgressDetailed = () => {
                     </div>
                   </div>
                   <div className="col-md-12">
-                <div className="card">
-                  <div className="card-header">
-                    <h5 className="card-title">
-                      Registered Institutions As of{" "}
-                      {newFormat}
-                    </h5>
-                  </div>
-                  <div className="card-body">
-                    <div id="s-col-stacked" />
-                    <ReactApexChart
-                      options={options}
-                      series={options.series}
-                      type="bar"
-                      // type="area"
-                      height={400}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                  <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                    <div className="card flex-fill default-cover w-100 mb-4">
-                      <div className="card-header d-flex justify-content-between align-items-center">
-                        <h4 className="card-title mb-0">Data Analytics</h4>
-                       
+                    <div className="card">
+                      <div className="card-header">
+                        <h5 className="card-title">
+                          Registered Institutions As of {newFormat}
+                        </h5>
                       </div>
-                      {/* <div className="card-body">
+                      <div className="card-body">
+                        <div id="s-col-stacked" />
+                        <ReactApexChart
+                          options={options}
+                          series={options.series}
+                          type="bar"
+                          // type="area"
+                          height={400}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                      <div className="card flex-fill default-cover w-100 mb-4">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                          <h4 className="card-title mb-0">Data Analytics</h4>
+                        </div>
+                        {/* <div className="card-body">
                         <div className="row">
                           <div className="col-md-12 text-center mt-3">
                             <p>
@@ -1043,66 +1150,81 @@ const TeacherProgressDetailed = () => {
                          
                         </div>
                       </div> */}
-                       <div className="card-body">
+                        <div className="card-body">
                           <div className="row">
-                              <div className="col-md-12 text-center mt-3">
-                                  <p style={{fontSize:"24px"}}>
-                                      <b>
-                                          Overall Category wise Registered Institutions As of{" "}
-                                          {newFormat}
-                                      </b>
-                                  </p>
-                              </div>
-                      
-                              {/* Labels with counts (Formatted using chart options legend) */}
-                              <div className="col-md-6 d-flex align-items-center justify-content-center">
-                                  {registeredChartData && registeredChartData.labels && (
-                                      <ul className="list-unstyled">
-                                          {registeredChartData.labels.map((label, index) => (
-                                              <li key={index} className="mb-2">
-                                                  <span
-                                                      className="badge"
-                                                      style={{
-                                                          backgroundColor: registeredChartData.datasets[0].backgroundColor[index],
-                                                          color: "#fff",
-                                                          padding: "5px 10px",
-                                                          borderRadius: "5px",
-                                                          marginRight: "10px",
-                                                          minWidth: "100px",
-                                                          display: "inline-block",
-                                                          textAlign: "center",
-                                                          fontSize:"16px"
-                                                          
-                                                      }}
-                                                  >
-                                                      {label}
-                                                  </span>
-                                                  <b style={{fontSize:"16px"}}>: {registeredChartData.datasets[0].data[index]}</b>
-                                              </li>
-                                          ))}
-                                      </ul>
-                                  )}
-                              </div>
-                      
-                              {/* Doughnut Chart */}
-                              <div className="col-md-6 doughnut-chart-container">
-                                  {registeredChartData && (
-                              //         <Doughnut
-                              //             data={registeredChartData}
-                              //             height={300}
-                              //             width={300}
-                              // options={chartOption}
-                      
-                              //         />
-                              <div style={{ width: "400px", height: "400px" }}> 
-                              <Doughnut data={registeredChartData} options={chartOption} />
+                            <div className="col-md-12 text-center mt-3">
+                              <p style={{ fontSize: "24px" }}>
+                                <b>
+                                  Overall Category wise Registered Institutions
+                                  As of {newFormat}
+                                </b>
+                              </p>
+                            </div>
+
+                            {/* Labels with counts (Formatted using chart options legend) */}
+                            <div className="col-md-6 d-flex align-items-center justify-content-center">
+                              {registeredChartData &&
+                                registeredChartData.labels && (
+                                  <ul className="list-unstyled">
+                                    {registeredChartData.labels.map(
+                                      (label, index) => (
+                                        <li key={index} className="mb-2">
+                                          <span
+                                            className="badge"
+                                            style={{
+                                              backgroundColor:
+                                                registeredChartData.datasets[0]
+                                                  .backgroundColor[index],
+                                              color: "#fff",
+                                              padding: "5px 10px",
+                                              borderRadius: "5px",
+                                              marginRight: "10px",
+                                              minWidth: "100px",
+                                              display: "inline-block",
+                                              textAlign: "center",
+                                              fontSize: "16px",
+                                            }}
+                                          >
+                                            {label}
+                                          </span>
+                                          <b style={{ fontSize: "16px" }}>
+                                            :{" "}
+                                            {
+                                              registeredChartData.datasets[0]
+                                                .data[index]
+                                            }
+                                          </b>
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
+                                )}
+                            </div>
+
+                            {/* Doughnut Chart */}
+                            <div className="col-md-6 doughnut-chart-container">
+                              {registeredChartData && (
+                                //         <Doughnut
+                                //             data={registeredChartData}
+                                //             height={300}
+                                //             width={300}
+                                // options={chartOption}
+
+                                //         />
+                                <div
+                                  style={{ width: "400px", height: "400px" }}
+                                >
+                                  <Doughnut
+                                    data={registeredChartData}
+                                    options={chartOption}
+                                  />
+                                </div>
+                              )}
+                            </div>
                           </div>
-                                  )}
-                              </div>
-                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
                   </div>
                 </>
               )}
@@ -1119,7 +1241,7 @@ const TeacherProgressDetailed = () => {
                 </CSVLink>
               )}
 
-{downloadData && (
+              {downloadData && (
                 <CSVLink
                   data={downloadData}
                   headers={teacherDetailsHeaders}
