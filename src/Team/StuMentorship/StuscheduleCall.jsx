@@ -164,7 +164,7 @@ const StuscheduleCall = () => {
                 <div className="page-header">
                     <div className="add-item d-flex">
                         <div className="page-title">
-                            <h4>Schedule Calls</h4>
+                            <h4>Scheduled Calls</h4>
                         </div>
                     </div>
                 </div>
