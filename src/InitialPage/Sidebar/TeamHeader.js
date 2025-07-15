@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/newap.png";
 
 import "./styles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

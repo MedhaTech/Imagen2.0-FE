@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newap.png";
 import email from "../assets/img/icons/mail.svg";
 import { teacherLoginUser } from "../redux/actions";
 import { connect } from "react-redux";
@@ -85,7 +85,7 @@ const LogInTeacher = (props) => {
                     alt="Logo"
                     // className="logo-image"
                   />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+                  {/* <ImageWithBasePath src="assets/img/newap.png" alt="img" /> */}
                 </div>
                 {/* <Link className="login-logo logo-white">
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />

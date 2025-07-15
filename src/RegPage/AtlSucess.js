@@ -8,7 +8,7 @@ import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import success from "../assets/img/chek.png";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newap.png";
 
 const AtlSucess = () => {
   const navigate = useNavigate();
@@ -27,10 +27,10 @@ const AtlSucess = () => {
           <div className="login-userset">
             {/* <div className="login-logo logo-normal"> */}
             {/* <img src={logo} alt="Logo" /> */}
-            {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+            {/* <ImageWithBasePath src="assets/img/newap.png" alt="img" /> */}
             {/* </div> */}
             <div className="login-logo logo-normal" onClick={handleLogoClick}>
-              {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+              {/* <ImageWithBasePath src="assets/img/newap.png" alt="img" /> */}
               <img src={success} alt="Success" />
             </div>
 
