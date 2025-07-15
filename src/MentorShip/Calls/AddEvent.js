@@ -34,7 +34,7 @@ const cid = location.state?.id;
           timing: values.timing,
           challenge_response_id: cid,
           meet_link: values.meet_link,
-          status: "INCOMPLETE",
+          status: "IN PROGRESS",
           mentorship_user_id: currentUser?.data[0]?.user_id,
         };
 

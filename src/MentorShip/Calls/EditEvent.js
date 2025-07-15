@@ -27,7 +27,7 @@ const EditEvent = () => {
     validationSchema: Yup.object({
       timing: Yup.date().required("Date & time is required"),
       meet_link: Yup.string(),
-      status: Yup.string().oneOf(["COMPLETED", "INCOMPLETE"]),
+      status: Yup.string().oneOf(["COMPLETED", "IN PROGRESS"]),
 
     }),
     onSubmit: async (values) => {
@@ -166,7 +166,7 @@ useEffect(() => {
                                          >
                                            <option value="">Select Status</option>
                                            <option value="COMPLETED">COMPLETED</option>
-                                           <option value="INCOMPLETE">INCOMPLETE</option>
+                                           <option value="IN PROGRESS">IN PROGRESS</option>
                                          </select>
                                          {formik.touched.status && formik.errors.status && (
                                            <small className="error-cls" style={{ color: "red" }}>
