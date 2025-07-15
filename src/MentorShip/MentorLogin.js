@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import { useNavigate,Link } from "react-router-dom";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newts.png";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { mentorShipLoginUser } from "../MentorShip/store/actions";
 import user from "../assets/img/icons/user-icon.svg";
