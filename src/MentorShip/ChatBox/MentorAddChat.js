@@ -193,11 +193,11 @@ const MentorAddChat = (props) => {
                   <Col md={12}>
                     <div>
                       <label className="form-label">
-                        Message your Teammates <span>*</span>
+                        Send a note to your teammates <span>*</span>
                       </label>
                       <textarea
                         className="text-form form-control"
-                        placeholder="Enter Message for your Teammates"
+                        placeholder="Enter your Message"
                         id="description"
                         name="description"
                         rows={4}
