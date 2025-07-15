@@ -25,7 +25,7 @@ import {
 } from "../redux/studentRegistration/actions";
 import { decryptGlobal, encryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newts.png";
 
 const NonAtlPage = () => {
   const navigate = useNavigate();

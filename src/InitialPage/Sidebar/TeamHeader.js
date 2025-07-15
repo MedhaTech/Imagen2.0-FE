@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/newts.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import team from "../../assets/img/icons/team2.png";

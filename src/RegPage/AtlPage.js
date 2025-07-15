@@ -12,7 +12,7 @@ import { decryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newts.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import user from "../assets/img/icons/user-icon.svg";
 import { stateList, districtList } from "./ORGData.js";

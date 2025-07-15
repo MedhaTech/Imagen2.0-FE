@@ -11,7 +11,7 @@ import { logout } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/newts.png";
 
 import { useSelector,useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
