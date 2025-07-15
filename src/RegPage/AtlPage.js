@@ -14,7 +14,7 @@ import { decryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newap.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import user from "../assets/img/icons/user-icon.svg";
 import play from "../assets/img/playicon.png";
@@ -1030,7 +1030,7 @@ const Register = () => {
                               <div className="login-content user-login">
                                 <div className="login-logo">
                                   {/* <ImageWithBasePath
-                                    src="assets/img/logo.png"
+                                    src="assets/img/newap.png"
                                     alt="img"
                                   /> */}
                                   {/* <Link className="login-logo logo-white">

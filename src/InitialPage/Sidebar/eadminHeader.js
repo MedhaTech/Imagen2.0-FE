@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
-// import logo from "../../assets/img/new-logo.png";
-import logo from "../../assets/img/logo.png";
+// import logo from "../../assets/img/new-newap.png";
+import logo from "../../assets/img/newap.png";
 
 import axios from "axios";
 // import Icon from "../../assets/img/logos.jpg";
@@ -245,7 +245,7 @@ const EadmiHeader = () => {
             // className="logo-image"
           />
           {/* <Link to="/dashboard" className="logo logo-normal">
-            <ImageWithBasePath src="assets/img/logo.png" alt="img" />
+            <ImageWithBasePath src="assets/img/newap.png" alt="img" />
           </Link>
           <Link to="/dashboard" className="logo logo-white">
             <ImageWithBasePath src="assets/img/logo-white.png" alt="img" />
