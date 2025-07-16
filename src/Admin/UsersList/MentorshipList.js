@@ -471,10 +471,10 @@ const MentorshipList = (props) => {
                                 </div>
           </div>
           <Row>
-            {/* <Container className="ticket-page mb-50 userlist"> */}
-              {/* <Row className="mt-0"> */}
+            <Container className="ticket-page mb-50 userlist">
+              <Row className="mt-0">
                 
-                {/* <div className="bg-white border card m-2"> */}
+                <div className="bg-white border card m-2">
                   <DataTableExtensions
                     print={false}
                     export={false}
@@ -491,9 +491,9 @@ const MentorshipList = (props) => {
                       subHeaderAlign={Alignment.Center}
                     />
                   </DataTableExtensions>
-                {/* </div> */}
-              {/* </Row> */}
-            {/* </Container> */}
+                </div>
+              </Row>
+            </Container>
           </Row>
       </div>
     </div>
