@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/newap.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
@@ -211,7 +211,7 @@ const MentorHeader = () => {
           <img src={logo} alt="Team" className="responsive-image" />
 
           {/* <Link to="/dashboard" className="logo logo-normal">
-            <ImageWithBasePath src="assets/img/logo.png" alt="img" />
+            <ImageWithBasePath src="assets/img/newap.png" alt="img" />
           </Link>
           <Link to="/dashboard" className="logo logo-white">
             <ImageWithBasePath src="assets/img/logo-white.png" alt="img" />

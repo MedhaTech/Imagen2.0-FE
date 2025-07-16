@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/newap.png";
 import axios from "axios";
 // import Icon from "../../assets/img/logos.jpg";
 import { openNotificationWithIcon } from "../../helpers/Utils.js";

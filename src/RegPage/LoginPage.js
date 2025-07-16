@@ -4,7 +4,7 @@ import React from "react";
 import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newapt.png";
 import { Row,Col} from "reactstrap";
 import { ArrowRight } from "feather-icons-react";
 const LoginPage = () => {
@@ -22,7 +22,7 @@ const LoginPage = () => {
               <div className="login-userset">
                 <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+                  {/* <ImageWithBasePath src="assets/img/newap.png" alt="img" /> */}
                 </div>
                 {/* <Link className="login-logo logo-white">
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />

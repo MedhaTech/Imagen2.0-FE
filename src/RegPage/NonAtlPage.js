@@ -25,7 +25,7 @@ import {
 } from "../redux/studentRegistration/actions";
 import { decryptGlobal, encryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newap.png";
 
 const NonAtlPage = () => {
   const navigate = useNavigate();
@@ -755,7 +755,7 @@ const NonAtlPage = () => {
               <div className="login-userset">
                 <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+                  {/* <ImageWithBasePath src="assets/img/newap.png" alt="img" /> */}
                 </div>
                 {/* <Link className="login-logo logo-white">
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />

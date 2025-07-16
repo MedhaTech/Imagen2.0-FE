@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React,{useEffect} from 'react';
 import './Styles.css';
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newap.png";
 import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 
