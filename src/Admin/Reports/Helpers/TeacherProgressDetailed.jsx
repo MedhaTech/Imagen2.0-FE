@@ -215,11 +215,7 @@ const TeacherProgressDetailed = () => {
     {
       label: "College Town",
       key: "college_town",
-    },
-    {
-      label: "No of Students Registered",
-      key: "studentRegCount",
-    },
+    }
   ];
 
   // const chartOption = {
