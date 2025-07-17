@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import email from "../../assets/img/icons/mail.svg";
 import { openNotificationWithIcon } from "../../helpers/Utils";
 import { evaluatorAdminLoginUser } from "../../redux/actions";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/newts.png";
 
 const StateLogin = (props) => {
   const navigate = useNavigate();
