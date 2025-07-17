@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import './Styles.css';
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newts.png";
 import { ArrowRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";

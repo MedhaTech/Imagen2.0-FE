@@ -11,7 +11,7 @@ import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import { adminLoginUser } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newts.png";
 import email from "../assets/img/icons/mail.svg";
 import { openNotificationWithIcon } from "../helpers/Utils";
 

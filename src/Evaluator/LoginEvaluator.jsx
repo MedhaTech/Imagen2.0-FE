@@ -13,7 +13,7 @@ import { openNotificationWithIcon } from "../helpers/Utils";
 
 import CryptoJS from 'crypto-js';
 // import logo from "../assets/img/new-logo.png";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/newts.png";
 import email from "../assets/img/icons/mail.svg";
 const LoginEvaluator = (props) => {
     const navigate = useNavigate();
