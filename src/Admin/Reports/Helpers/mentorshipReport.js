@@ -25,7 +25,7 @@ const mentorshipReport = () => {
     const ws = XLSX.utils.json_to_sheet(mentorshipReportsData); // Converts the JSON data to a sheet
     const wb = XLSX.utils.book_new(); // Creates a new workbook
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1"); // Appends the sheet to the workbook
-    XLSX.writeFile(wb, `MentorShipDetailedReport_${formattedDate}.xlsx`); // Triggers download of the Excel file
+    XLSX.writeFile(wb, `MentorDetailedReport_${formattedDate}.xlsx`); // Triggers download of the Excel file
   };
 
 
