@@ -109,15 +109,15 @@ const TeacherProgressDetailed = () => {
   const teacherDetailsHeaders = [
     {
       label: "Institution User Full Name",
-      key: "full_name",
+      key: "full_names",
     },
     {
       label: "Email Address",
-      key: "username",
+      key: "usernames",
     },
     {
       label: "Mobile Number",
-      key: "mobile",
+      key: "mobiles",
     },
     {
       label: "College Type",
