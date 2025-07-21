@@ -78,7 +78,7 @@ const AddMilestone = () => {
       status: "",
     },
     validationSchema: Yup.object({
-      status: Yup.string().optional().oneOf(["COMPLETED", "INCOMPLETE"]),
+      status: Yup.string().optional().oneOf(["COMPLETED", "IN PROGRESS"]),
       // .required("Status is Required"),
       note: Yup.string().optional(),
       //   .required("Note is Required"),
@@ -327,7 +327,7 @@ const AddMilestone = () => {
                       >
                         <option value="">Select Status</option>
                         <option value="COMPLETED">COMPLETED</option>
-                        <option value="INCOMPLETE">INCOMPLETE</option>
+                        <option value="IN PROGRESS">IN PROGRESS</option>
                       </select>
                       {formik.touched.status && formik.errors.status && (
                         <small className="error-cls" style={{ color: "red" }}>
