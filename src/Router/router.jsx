@@ -35,7 +35,7 @@ import LogInTeacher from "../Teacher/LogInTeacher";
 import AtlPage from "../RegPage/AtlPage";
 import Studentpage from "../RegPage/student";
 import AdminLogin from "../Admin/AdminLogin";
-import StateLogin from "../Coordinators/LogInNew";
+// import StateLogin from "../Coordinators/LogInNew";
 import "../i18n";
 
 import NonAtlPage from "../RegPage/NonAtlPage";
@@ -163,7 +163,7 @@ const AllRoutes = () => {
           <Route path="/non-atl-register" element={<NonAtlPage />} />
           <Route path="/institution-forgot-psw" element={<TeacherPSW />} />
           <Route path="/admin" element={<AdminLogin />} />
-          <Route path="/state" element={<StateLogin />} />
+          {/* <Route path="/state" element={<StateLogin />} /> */}
           <Route path="/eadmin" element={<EadminLogin />} />
           <Route path="/student" element={<LogInTeam />} />
           <Route path="/student-forgot-psw" element={<StudentPSW />} />

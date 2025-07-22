@@ -145,15 +145,15 @@ const TeacherProgressDetailed = () => {
   const teacherDetailsHeaders = [
     {
       label: "Institution User Full Name",
-      key: "full_name",
+      key: "full_names",
     },
     {
       label: "Email Address",
-      key: "username",
+      key: "usernames",
     },
     {
       label: "Mobile Number",
-      key: "mobile",
+      key: "mobiles",
     },
     {
       label: "College Type",
@@ -479,11 +479,26 @@ const TeacherProgressDetailed = () => {
           if (item === "Registered") {
             const Data = response?.data?.data || [];
 
-            const formattedData = Data.map((item) => ({
-              ...item,
-              created_at: new Date(item.created_at).toLocaleDateString("en-GB"),
-            }));
+            // const formattedData = Data.map((item) => ({
+            //   ...item,
+            //   created_at: new Date(item.created_at).toLocaleDateString("en-GB"),
+            // }));
+const formattedData = Data.map((item) => {
+              const formattedDates = item.created_at.map((dateStr) => {
+                const [day, month, year] = dateStr.split("-");
 
+                const d = day.padStart(2, "0");
+                const m = month.padStart(2, "0");
+
+                return `${d}-${m}-${year}`;
+              });
+
+              return {
+                ...item,
+                mobiles: item.mobiles.join(", "),
+                created_at: formattedDates.join(", "),
+              };
+            });
             setFilteredData(formattedData);
             setDownloadData(formattedData);
             if (response?.data.count > 0) {
