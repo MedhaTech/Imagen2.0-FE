@@ -327,7 +327,7 @@ const AddMilestone = () => {
                       >
                         <option value="">Select Status</option>
                         <option value="COMPLETED">COMPLETED</option>
-                        <option value="IN PROGRESS">IN PROGRESS</option>
+                        <option value="INCOMPLETE">IN PROGRESS</option>
                       </select>
                       {formik.touched.status && formik.errors.status && (
                         <small className="error-cls" style={{ color: "red" }}>

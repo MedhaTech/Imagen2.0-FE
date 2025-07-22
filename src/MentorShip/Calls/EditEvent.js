@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, FormGroup, Label, Form, Input } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -15,20 +15,19 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 const EditEvent = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
- const location = useLocation();
+  const location = useLocation();
   const data = location.state;
- 
+
   const formik = useFormik({
     initialValues: {
       timing: null,
       meet_link: "",
-        status: "",
+      status: "",
     },
     validationSchema: Yup.object({
       timing: Yup.date().required("Date & time is required"),
       meet_link: Yup.string(),
-      status: Yup.string().oneOf(["COMPLETED", "IN PROGRESS"]),
-
+      status: Yup.string().oneOf(["COMPLETED", "INCOMPLETE"]),
     }),
     onSubmit: async (values) => {
       try {
@@ -38,12 +37,15 @@ const EditEvent = () => {
           meet_link: values.meet_link,
           status: values.status,
           mentorship_user_id: currentUser?.data[0]?.user_id,
+          stu_accept: "0",
         };
 
         if (values.meet_link !== "") {
           body["meet_link"] = values.meet_link;
         }
-const teamparamId = encryptGlobal(JSON.stringify(data?.schedule_call_id));
+        const teamparamId = encryptGlobal(
+          JSON.stringify(data?.schedule_call_id)
+        );
 
         const response = await axios.put(
           `${process.env.REACT_APP_API_BASE_URL}/schedule_calls/${teamparamId}`,
@@ -58,14 +60,14 @@ const teamparamId = encryptGlobal(JSON.stringify(data?.schedule_call_id));
 
         if (response.status === 200) {
           // navigate('/schedule-calls');
-          navigate("/schedule-calls", { state: { showTable: true ,
-            challenge_response_id: data.challenge_response_id,
-          } });
+          navigate("/schedule-calls", {
+            state: {
+              showTable: true,
+              challenge_response_id: data.challenge_response_id,
+            },
+          });
 
-          openNotificationWithIcon(
-              'success',
-              'Event Updated Successfully'
-          );
+          openNotificationWithIcon("success", "Event Updated Successfully");
         } else {
           openNotificationWithIcon("error", "Opps! Something Wrong");
         }
@@ -83,11 +85,14 @@ const teamparamId = encryptGlobal(JSON.stringify(data?.schedule_call_id));
   const buttonStyle = {
     marginRight: "10px",
   };
-useEffect(() => {
+  useEffect(() => {
     if (data) {
       formik.setValues({
         meet_link: data.meet_link || "",
-        timing: data.timing && !isNaN(Date.parse(data.timing)) ? new Date(data.timing) : null,
+        timing:
+          data.timing && !isNaN(Date.parse(data.timing))
+            ? new Date(data.timing)
+            : null,
         status: data.status || "",
       });
     }
@@ -111,7 +116,7 @@ useEffect(() => {
                   <div className="create-ticket register-block">
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Label className="mb-2" htmlFor="meet_link">
-                       Link
+                        Link
                       </Label>
                       <Input
                         type="text"
@@ -123,14 +128,16 @@ useEffect(() => {
                         value={formik.values.meet_link}
                       />
                       {formik.touched.meet_link && formik.errors.meet_link && (
-                        <small className="error-cls">{formik.errors.meet_link}</small>
+                        <small className="error-cls">
+                          {formik.errors.meet_link}
+                        </small>
                       )}
                     </Row>
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Label className="mb-2" htmlFor="timing">
                         Date & Time <span style={{ color: "red" }}>*</span>
                       </Label>
-                     
+
                       <DatePicker
                         selected={formik.values.timing}
                         onChange={(val) => formik.setFieldValue("timing", val)}
@@ -141,8 +148,7 @@ useEffect(() => {
                         className="form-control"
                         name="timing"
                         id="timing"
-                         minDate={new Date()}
-
+                        minDate={new Date()}
                       />
                       {formik.touched.timing && formik.errors.timing && (
                         <small className="error-cls" style={{ color: "red" }}>
@@ -151,30 +157,30 @@ useEffect(() => {
                       )}
                     </Row>
                     <Row className="mb-3 modal-body-table search-modal-header">
-                                       <Col md={6}>
-                                         <Label className="mb-2" htmlFor="status">
-                                           Status
-                                           <span required>*</span>
-                                         </Label>
-                                         <select
-                                           name="status"
-                                           id="status"
-                                           className="form-control custom-dropdown"
-                                           onChange={formik.handleChange}
-                                           onBlur={formik.handleBlur}
-                                           value={formik.values.status}
-                                         >
-                                           <option value="">Select Status</option>
-                                           <option value="COMPLETED">COMPLETED</option>
-                                           <option value="IN PROGRESS">IN PROGRESS</option>
-                                         </select>
-                                         {formik.touched.status && formik.errors.status && (
-                                           <small className="error-cls" style={{ color: "red" }}>
-                                             {formik.errors.status}
-                                           </small>
-                                         )}
-                                       </Col>
-                                     </Row>
+                      <Col md={6}>
+                        <Label className="mb-2" htmlFor="status">
+                          Status
+                          <span required>*</span>
+                        </Label>
+                        <select
+                          name="status"
+                          id="status"
+                          className="form-control custom-dropdown"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.status}
+                        >
+                          <option value="">Select Status</option>
+                          <option value="COMPLETED">COMPLETED</option>
+                          <option value="INCOMPLETE">IN PROGRESS</option>
+                        </select>
+                        {formik.touched.status && formik.errors.status && (
+                          <small className="error-cls" style={{ color: "red" }}>
+                            {formik.errors.status}
+                          </small>
+                        )}
+                      </Col>
+                    </Row>
                   </div>
 
                   <Row>
@@ -192,15 +198,14 @@ useEffect(() => {
                         type="button"
                         style={{ marginLeft: "auto" }}
                         // onClick={() => navigate("/schedule-calls")}
-                         onClick={() =>
-    navigate("/schedule-calls", {
-      state: {
-        showTable: true,
-        challenge_response_id: data.challenge_response_id, 
-      },
-    })
-  }
-                        
+                        onClick={() =>
+                          navigate("/schedule-calls", {
+                            state: {
+                              showTable: true,
+                              challenge_response_id: data.challenge_response_id,
+                            },
+                          })
+                        }
                       >
                         Discard
                       </button>
