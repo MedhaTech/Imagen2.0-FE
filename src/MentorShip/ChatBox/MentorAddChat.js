@@ -21,14 +21,41 @@ import moment from "moment";
 const MentorAddChat = (props) => {
   const location = useLocation();
   const studentData = location.state || {};
-  console.log(studentData,"data");
+  // console.log(studentData,"data");
   const [predata, setPreData] = useState([]);
   const currentUser = getCurrentUser("current_user");
   const [isloader, setIsloader] = useState(false);
-
+const[stuList,setStuList]=useState([]);
   useEffect(() => {
     mentorgetApi();
+    teamList();
   }, []);
+   const teamList = () => {
+      const surveyApi = encryptGlobal(
+        JSON.stringify({
+          challenge_response_id: studentData?.challenge_response_id,
+        })
+      );
+      var config = {
+        method: "get",
+        url: process.env.REACT_APP_API_BASE_URL + `/students/CIDteamMenbers?Data=${surveyApi}`,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${currentUser.data[0]?.token}`,
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          if (response.status === 200) {
+            console.log(response,"res");
+            setStuList(response.data.data);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
   const mentorgetApi = () => {
     const surveyApi = encryptGlobal(JSON.stringify(studentData?.chatbox_id));
     var config = {
@@ -112,6 +139,15 @@ const MentorAddChat = (props) => {
   >
     <BsMicrosoftTeams size="20px" style={{ marginRight: '5px' }} />
     CID: {studentData?.challenge_response_id}
+  </button>
+   <button
+    type="button"
+    className="btn btn-outline-warning text-nowrap d-flex align-items-center"
+    style={{ whiteSpace: 'nowrap' }}
+    disabled
+  >
+    <BsMicrosoftTeams size="20px" style={{ marginRight: '5px' }} />
+    Team Members: {stuList.map(student => student.full_name).join(', ')}
   </button>
 
   <div className="flex-grow-1 text-center text-md-start mx-2">

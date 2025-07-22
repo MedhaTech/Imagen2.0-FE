@@ -22,6 +22,7 @@ const DBStu = () => {
   const currentUser = getCurrentUser("current_user");
   const [cidList, setCidList] = useState([]);
   const [data, setData] = useState([]);
+const[stuList,setStuList]=useState([]);
 
   useEffect(() => {
     mentorChatBox(currentUser?.data[0]?.user_id);
@@ -166,7 +167,39 @@ const DBStu = () => {
         console.log(error);
       });
   };
-
+ const teamList = (challengeId, studentWithChatbox) => {
+      const surveyApi = encryptGlobal(
+        JSON.stringify({
+          challenge_response_id: challengeId,
+        })
+      );
+      var config = {
+        method: "get",
+        url: process.env.REACT_APP_API_BASE_URL + `/students/CIDteamMenbers?Data=${surveyApi}`,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${currentUser.data[0]?.token}`,
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          if (response.status === 200) {
+            // console.log(response,"res");
+            setStuList(response.data.data);
+             navigate(`/add-Mchat?id=${challengeId}`, {
+          state: {
+            ...studentWithChatbox,
+            challenge_response_id: challengeId,
+            teamMembers: response.data.data,
+          },
+        });
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
   const handleMessage = (student) => {
     const challengeId = student;
     const mentorId = currentUser.data[0]?.user_id;
@@ -177,16 +210,20 @@ const DBStu = () => {
         chat.mentorship_user_id === mentorId
     );
 
-    if (matchingChatbox) {
+    if (matchingChatbox?.chatbox_id) {
       const chatboxId = matchingChatbox.chatbox_id;
 
-      navigate(`/add-Mchat?id=${challengeId}`, {
-        state: {
-          ...student,
-          chatbox_id: chatboxId,
-            challenge_response_id:challengeId
-        },
-      });
+      // navigate(`/add-Mchat?id=${challengeId}`, {
+      //   state: {
+      //     ...student,
+      //     chatbox_id: chatboxId,
+      //       challenge_response_id:challengeId
+      //   },
+      // });
+        teamList(challengeId, {
+      ...student,
+      chatbox_id: chatboxId,
+    });
     } else {
       createChatboxid(challengeId, student);
     }
@@ -210,15 +247,17 @@ const DBStu = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // const response = response.data.data;
-          // setData(response.data.data);
-
-          navigate(`/add-Mchat?id=${challengeId}`, {
-            state: {
-              ...student,
-              chatbox_id: response.data.data.chatbox_id,
-            },
-          });
+ const chatbox_id = response?.data?.data?.chatbox_id;
+          // navigate(`/add-Mchat?id=${challengeId}`, {
+          //   state: {
+          //     ...student,
+          //     chatbox_id: response.data.data.chatbox_id,
+          //   },
+          // });
+           teamList(challengeId, {
+          ...student,
+          chatbox_id: chatbox_id,
+        });
         }
       })
       .catch(function (error) {
