@@ -326,6 +326,7 @@ const InstProgressDetailed = () => {
             const courseNotStartedCount = totalStudents - (completedCount + inProgressCount);
             return {
               ...item,
+              mobiles : item.mobiles.join(", "),
               draft_count: draftCount || 0,
     submit_count: submitCount || 0,
     initiated_status: notInitiatedCount  || 0 ,

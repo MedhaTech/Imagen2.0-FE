@@ -28,17 +28,16 @@ const TeacherProgressDetailed = () => {
   const [filterType, setFilterType] = useState("");
 
   const filterOptions = ["Registered", "Not Registered"];
- 
- 
+
   const currentUser = getCurrentUser("current_user");
   const csvLinkRef = useRef();
   const csvLinkRefTable = useRef();
   const dispatch = useDispatch();
   const [downloadTableData, setDownloadTableData] = useState([]);
   const [newFormat, setNewFormat] = useState("");
- 
+
   const [series1, setseries1] = useState([]);
- 
+
   const [registeredChartData, setRegisteredChartData] = useState(null);
   const [downloadData, setDownloadData] = useState(null);
   const csvLinkRefNotRegistered = useRef();
@@ -49,7 +48,7 @@ const TeacherProgressDetailed = () => {
     labels: [],
     datasets: [],
   });
- 
+
   const fiterDistData = [...districtList["Telangana"]];
   fiterDistData.unshift("All Districts");
 
@@ -132,9 +131,9 @@ const TeacherProgressDetailed = () => {
       key: "district",
     },
     {
-      label: 'Date of Registration',
-      key: 'created_at'
-  },
+      label: "Date of Registration",
+      key: "created_at",
+    },
   ];
 
   const notRegHeaders = [
@@ -158,10 +157,7 @@ const TeacherProgressDetailed = () => {
       label: "No of Students Registered",
       key: "studentRegCount",
     },
-   
   ];
-
- 
 
   var options = {
     chart: {
@@ -225,10 +221,6 @@ const TeacherProgressDetailed = () => {
     },
   };
 
-
- 
- 
-
   const handleDownload = () => {
     if (!district || !category || !filterType) {
       notification.warning({
@@ -241,7 +233,7 @@ const TeacherProgressDetailed = () => {
     fetchData(filterType);
   };
   const fetchData = (item) => {
-   // This function filters  data based on selected district, college_type
+    // This function filters  data based on selected district, college_type
 
     const apiRes = encryptGlobal(
       JSON.stringify({
@@ -275,10 +267,28 @@ const TeacherProgressDetailed = () => {
           if (item === "Registered") {
             const Data = response?.data?.data || [];
 
-            const formattedData = Data.map((item) => ({
-              ...item,
-              created_at: new Date(item.created_at).toLocaleDateString("en-GB"),
-            }));
+            // const formattedData = Data.map((item) => ({
+            //   ...item,
+            //   mobiles : item.mobiles.join(", "),
+
+            //   created_at: new Date(item.created_at).toLocaleDateString("en-GB"),
+            // }));
+            const formattedData = Data.map((item) => {
+              const formattedDates = item.created_at.map((dateStr) => {
+                const [day, month, year] = dateStr.split("-");
+
+                const d = day.padStart(2, "0");
+                const m = month.padStart(2, "0");
+
+                return `${d}-${m}-${year}`;
+              });
+
+              return {
+                ...item,
+                mobiles: item.mobiles.join(", "),
+                created_at: formattedDates.join(", "),
+              };
+            });
 
             setFilteredData(formattedData);
             setDownloadData(formattedData);
@@ -291,7 +301,6 @@ const TeacherProgressDetailed = () => {
               openNotificationWithIcon("error", "No Data Found");
             }
           } else if (item === "Not Registered") {
-           
             setFilteresData(response?.data?.data || []);
             setDownloadNotRegisteredData(response?.data?.data || []);
             if (response?.data.count > 0) {
@@ -303,7 +312,7 @@ const TeacherProgressDetailed = () => {
               openNotificationWithIcon("error", "No Data Found");
             }
           }
-         
+
           setIsDownload(false);
         }
       })
@@ -460,7 +469,6 @@ const TeacherProgressDetailed = () => {
           setBarChart1Data(barData);
           setseries1(barData.datasets[0].data);
 
-        
           setTotalCount(totals);
         }
       })
@@ -755,7 +763,7 @@ const TeacherProgressDetailed = () => {
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">Data Analytics</h4>
                         </div>
-                      
+
                         <div className="card-body">
                           <div className="row">
                             <div className="col-md-12 text-center mt-3">
@@ -808,7 +816,6 @@ const TeacherProgressDetailed = () => {
 
                             <div className="col-md-6 doughnut-chart-container">
                               {registeredChartData && (
-                               
                                 <div
                                   style={{ width: "400px", height: "400px" }}
                                 >
@@ -846,7 +853,6 @@ const TeacherProgressDetailed = () => {
                   filename={`Institution_${filterType}Report_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
-                 
                 >
                   Download CSV
                 </CSVLink>
@@ -858,12 +864,10 @@ const TeacherProgressDetailed = () => {
                   filename={`Institution_${filterType}Report_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefNotRegistered}
-                 
                 >
                   Download Not Registered CSV
                 </CSVLink>
               )}
-             
             </div>
           </div>
         </Container>
