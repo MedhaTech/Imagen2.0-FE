@@ -3,6 +3,7 @@ import React from "react";
 import { Route} from "react-router-dom";
 // import ProductList from "../feature-module/inventory/productlist";
 import Dashboard from "../Admin/Dashboard/index";
+import Bulkstu from "../Admin/BulkStu/Bulkstu";
 import MentorDashboard from "../Teacher/Dashboard/MentorDashboard";
 const routes = all_routes;
 import Pos from "../feature-module/sales/pos";
@@ -521,6 +522,14 @@ export const publicRoutes = [
     path: routes.instedit,
     name: "instedit",
     element: <InstEdit />,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 36,
+    path: routes.Bulkstu,
+    name: "Bulkstu",
+    element: <Bulkstu />,
     protected: true,
     route: Route,
   },

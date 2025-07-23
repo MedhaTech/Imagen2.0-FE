@@ -32,6 +32,7 @@
     "dayjs": "^1.11.11",
     "dragula": "^3.7.3",
     "feather-icons-react": "^0.7.0",
+    "file-saver": "^2.0.5",
     "formik": "^2.4.6",
     "html-react-parser": "^5.1.12",
     "i18next": "^21.6.11",

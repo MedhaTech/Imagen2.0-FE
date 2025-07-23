@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 export const all_routes = {
+  Bulkstu: "/bulkStu",
   dashboard: "/admin-dashboard",
   institution:'/institution-registration',
   addinstitution:'/addinstitution',
