@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React from "react";
+import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import axios from "axios";
 import CryptoJS from "crypto-js";
@@ -7,15 +7,17 @@ import { saveAs } from "file-saver";
 
 const ExcelReader = () => {
   let result = {};
+  const [loadder, setloadder] = useState(false);
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = (evt) => {
       const bstr = evt.target.result;
-      const workbook = XLSX.read(bstr, { type: "binary" });
+      const workbook = XLSX.read(bstr, { type: "binary",cellDates: true });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const jsonData = XLSX.utils.sheet_to_json(worksheet);
       looptest(jsonData);
+      setloadder(true);
     };
     reader.readAsBinaryString(file);
   };
@@ -80,7 +82,11 @@ const ExcelReader = () => {
         return "Error uploading";
       });
   };
-
+const dateformat = async (date) =>{
+  const datenewF = new Date(date);
+  datenewF.setDate(datenewF.getDate() + 1);
+  return datenewF;
+};
   const looptest = async (data) => {
     for (const item of data) {
       const body = {
@@ -101,7 +107,7 @@ const ExcelReader = () => {
         roll_number:
           item["P_RollNumber"] === undefined
             ? null
-            : JSON.stringify(item["P_RollNumber"]),
+            : typeof(item["P_RollNumber"]) === 'string' ? item["P_RollNumber"] : JSON.stringify(item["P_RollNumber"]),
         branch: item["P_Branch"] === undefined ? null : item["P_Branch"],
         year_of_study:
           item["P_YearOfStudy"] === undefined ? null : item["P_YearOfStudy"],
@@ -110,7 +116,7 @@ const ExcelReader = () => {
         college_town:
           item["P_CollegeTown"] === undefined ? null : item["P_CollegeTown"],
         dateofbirth:
-          item["P_DateOfBirth"] === undefined ? null : item["P_DateOfBirth"],
+          item["P_DateOfBirth"] === undefined ? null : await dateformat(item["P_DateOfBirth"]),
         disability:
           item["P_Disability"] === undefined ? null : item["P_Disability"],
         area:
@@ -120,7 +126,7 @@ const ExcelReader = () => {
         id_number:
           item["P_APAARId"] === undefined
             ? null
-            : JSON.stringify(item["P_APAARId"]),
+            : typeof(item["P_APAARId"]) === 'string' ? item["P_APAARId"] : JSON.stringify(item["P_APAARId"]),
       };
       const studentId = await studentPiolt(body);
       if (typeof studentId === "number") {
@@ -148,7 +154,7 @@ const ExcelReader = () => {
           roll_number:
             item["C1_RollNumber"] === undefined
               ? null
-              : JSON.stringify(item["C1_RollNumber"]),
+              : typeof(item["C1_RollNumber"]) === 'string' ? item["C1_RollNumber"] : JSON.stringify(item["C1_RollNumber"]),
           branch: item["C1_Branch"] === undefined ? null : item["C1_Branch"],
           year_of_study:
             item["C1_YearOfStudy"] === undefined
@@ -163,7 +169,7 @@ const ExcelReader = () => {
           dateofbirth:
             item["C1_DateOfBirth"] === undefined
               ? null
-              : item["C1_DateOfBirth"],
+              : await dateformat(item["C1_DateOfBirth"]),
           disability:
             item["C1_Disability"] === undefined ? null : item["C1_Disability"],
           area:
@@ -173,7 +179,7 @@ const ExcelReader = () => {
           id_number:
             item["C1_APAARId"] === undefined
               ? null
-              : JSON.stringify(item["C1_APAARId"]),
+              : typeof(item["C1_APAARId"]) === 'string' ? item["C1_APAARId"] : JSON.stringify(item["C1_APAARId"]),
           type: JSON.stringify(studentId),
         };
         const crew1 = await studentcrews(bodycrew1);
@@ -200,7 +206,7 @@ const ExcelReader = () => {
           roll_number:
             item["C2_RollNumber"] === undefined
               ? null
-              : JSON.stringify(item["C2_RollNumber"]),
+              : typeof(item["C2_RollNumber"]) === 'string' ? item["C2_RollNumber"] : JSON.stringify(item["C2_RollNumber"]),
           branch: item["C2_Branch"] === undefined ? null : item["C2_Branch"],
           year_of_study:
             item["C2_YearOfStudy"] === undefined
@@ -215,7 +221,7 @@ const ExcelReader = () => {
           dateofbirth:
             item["C2_DateOfBirth"] === undefined
               ? null
-              : item["C2_DateOfBirth"],
+              : await dateformat(item["C2_DateOfBirth"]),
           disability:
             item["C2_Disability"] === undefined ? null : item["C2_Disability"],
           area:
@@ -225,7 +231,7 @@ const ExcelReader = () => {
           id_number:
             item["C2_APAARId"] === undefined
               ? null
-              : JSON.stringify(item["C2_APAARId"]),
+              : typeof(item["C2_APAARId"]) === 'string' ? item["C2_APAARId"] : JSON.stringify(item["C2_APAARId"]),
           type: JSON.stringify(studentId),
         };
         const crew2 = await studentcrews(bodycrew2);
@@ -252,7 +258,7 @@ const ExcelReader = () => {
           roll_number:
             item["C3_RollNumber"] === undefined
               ? null
-              : JSON.stringify(item["C3_RollNumber"]),
+              : typeof(item["C3_RollNumber"]) === 'string' ? item["C3_RollNumber"] : JSON.stringify(item["C3_RollNumber"]),
           branch: item["C3_Branch"] === undefined ? null : item["C3_Branch"],
           year_of_study:
             item["C3_YearOfStudy"] === undefined
@@ -267,7 +273,7 @@ const ExcelReader = () => {
           dateofbirth:
             item["C3_DateOfBirth"] === undefined
               ? null
-              : item["C3_DateOfBirth"],
+              : await dateformat(item["C3_DateOfBirth"]),
           disability:
             item["C3_Disability"] === undefined ? null : item["C3_Disability"],
           area:
@@ -277,7 +283,7 @@ const ExcelReader = () => {
           id_number:
             item["C3_APAARId"] === undefined
               ? null
-              : JSON.stringify(item["C3_APAARId"]),
+              : typeof(item["C3_APAARId"]) === 'string' ? item["C3_APAARId"] : JSON.stringify(item["C3_APAARId"]),
           type: JSON.stringify(studentId),
         };
         const crew3 = await studentcrews(bodycrew3);
@@ -296,7 +302,7 @@ const ExcelReader = () => {
     exportJsonToExcel(result);
   };
 
-  const exportJsonToExcel = (jsonData, fileName = "Status.xlsx") => {
+  const exportJsonToExcel = (jsonData, fileName = "DTEB2Status.xlsx") => {
     // Convert object to array of arrays (for Excel)
     const aoa = [["ID", "Message"]]; // Header row
     for (const key in jsonData) {
@@ -316,6 +322,7 @@ const ExcelReader = () => {
       type: "application/octet-stream",
     });
     saveAs(dataBlob, fileName);
+    setloadder(false);
   };
 
   return (
@@ -323,6 +330,11 @@ const ExcelReader = () => {
       <div className="content">
         <div>
           <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
+          {loadder && (
+            <div className="spinner-border text-info" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
