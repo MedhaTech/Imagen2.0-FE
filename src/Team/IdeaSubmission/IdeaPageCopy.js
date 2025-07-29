@@ -183,7 +183,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       value: "Legal Support",
     },
     {
-      label: "Other (Please specify) / ఇతర (దయచేసి వివరించండి)",
+      label: "Other / ఇతర",
       value: "Other",
     },
   ];
