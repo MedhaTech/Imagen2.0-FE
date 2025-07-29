@@ -15,7 +15,7 @@ import {
 import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/img/newts.png";
+import logo from "../../assets/img/newtst.png";
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
 
 const Register = () => {
