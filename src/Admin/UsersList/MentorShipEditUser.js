@@ -155,11 +155,13 @@ const MentorShipEditUser = () => {
           }
         })
         .catch(function (err) {
-         if (err?.response?.data?.status === 406) {
-                    openNotificationWithIcon("error", err.response.data?.message);
-                  } else {
-                    openNotificationWithIcon("error", "Email id should be Unique");
-                  }
+          if (err.response.data?.message === "mobile_UNIQUE must be unique") {
+            openNotificationWithIcon("error","Mobile Number is already exists");
+          } else if (err.response.data?.message === "username_UNIQUE must be unique") {
+            openNotificationWithIcon("error", "Email Id is already exists");
+          } else {
+            openNotificationWithIcon("error", err.response.data?.message);
+          }
         });
     },
   });
