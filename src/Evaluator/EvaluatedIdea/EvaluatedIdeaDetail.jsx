@@ -32,18 +32,18 @@ const EvaluatedIdeaDetail = (props) => {
                             <div className="row">
                                 <div className="col-lg-6">
                                 <Row>
-                                        <Col>
+                                        <Col className="col-lg-8">
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme : 
+                                                Theme :&nbsp; 
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
                                                 </span>
                                             </h4>
-                                        </Col>
-                                        <Col>
+                                        </Col >
+                                        <Col className="col-lg-4">
                                             <h4 className="mb-md-4 mb-3">
-                                                CID :
+                                                CID :&nbsp;
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails.challenge_response_id ||
                                                         ''}

@@ -313,7 +313,7 @@ const MentorshipList = (props) => {
         center: true,
         cellExport: (row) => row?.teamCount,
         sortable: true,
-        width: "8rem",
+        width: "9rem",
       },
       {
         name: "Email",
@@ -322,7 +322,7 @@ const MentorshipList = (props) => {
         selector: (row) => <MaskedEmail email={row?.user?.username} />,
         cellExport: (row) => row?.user?.username,
         sortable: true,
-        width: "13rem",
+        width: "9rem",
       },
       {
         name: "Mobile",
@@ -331,7 +331,7 @@ const MentorshipList = (props) => {
         selector: (row) => <MaskedMobile mobile={row?.mobile} />,
         cellExport: (row) => row?.mobile,
         sortable: true,
-        width: "10rem",
+        width: "8rem",
       },
 
       {
@@ -348,7 +348,7 @@ const MentorshipList = (props) => {
             {row.status}
           </span>,
         ],
-        width: "8rem",
+        width: "6rem",
       },
       {
         name: "ChatBox Activation",
@@ -368,7 +368,7 @@ const MentorshipList = (props) => {
         name: "Actions",
         center: true,
         sortable: false,
-        width: "25rem",
+        width: "20rem",
         cell: (record) => [
           <div key={record?.id}></div>,
           <>
