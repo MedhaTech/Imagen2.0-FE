@@ -118,7 +118,10 @@ const EditProfile = (props) => {
           console.log(error);
           if(error?.response?.data?.status === 400){
             openNotificationWithIcon("error", error.response.data?.message !== "Bad Request" ?  error.response.data?.message :"Email Id is Invalid");
-            }else{
+            }else if(error?.response?.data?.message === "username_UNIQUE must be unique" ){
+              openNotificationWithIcon("error", "Email Id is already exists");
+            }
+            else{
               openNotificationWithIcon("error", "Email Id is Invalid");
             }
         });
