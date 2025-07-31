@@ -31,6 +31,13 @@ const TeacherProfile = () => {
       state: {
         gender: data.gender,
         college_town: data.college_town,
+         rollnumber: data.roll_number ,
+        branch: data.branch,
+        yearofstudy: data.year_of_study,
+         id_number: data.id_number ,
+         dateofbirth: data.dateofbirth ,
+        disability: data.disability,
+        area: data.area,
       },
     });
   };
