@@ -70,7 +70,7 @@ export const districtList = {
     "VISAKHAPATNAM",
     "VIZIANAGARAM",
     "WEST GODAVARI",
-    "YSR KADAPA"
+    "YSR KADAPA",
   ],
   "Arunachal Pradesh": [
     "Anjaw",
@@ -901,13 +901,13 @@ export const collegeType = [
   "Engineering Colleges",
   "Polytechnic Colleges",
   "Degree Colleges",
-  "Other"
+  "Other",
 ];
 export const collegeNameList = {
   "Govt Junior College": ["Other"],
-  "Govt ITI College": ["Other"],
-  "Govt Polytechnic College": ["Other"],
-  "Govt Degree College": ["Other"],
+  "Govt ITI College": [],
+  "Govt Polytechnic College": [],
+  "Govt Degree College": [],
   "Social Welfare College": ["Other"],
   "Tribal Welfare College": ["Other"],
   "Private College": ["Other"],
