@@ -69,24 +69,24 @@ const Register = () => {
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
   const handleCollegeTypeChange = (event) => {
-     const selectedCollegeType = event.target.value;
-     formik.setFieldValue("college_type", selectedCollegeType);
-     setSelectedCollegeType(selectedCollegeType);
-     formik.setFieldValue("college", "");
-     formik.setFieldValue("ocn", "");
-     AllCollegesApi(selectedCollegeType, formik.values.district);
-   };
-   const handledistrictChange = (event) =>{
-     formik.setFieldValue("district", event.target.value);
-     formik.setFieldValue("college", "");
-     formik.setFieldValue("ocn", "");
-     AllCollegesApi(formik.values.college_type, event.target.value);
-   };
-  const AllCollegesApi = (item,district) => {
+    const selectedCollegeType = event.target.value;
+    formik.setFieldValue("college_type", selectedCollegeType);
+    setSelectedCollegeType(selectedCollegeType);
+    formik.setFieldValue("college", "");
+    formik.setFieldValue("ocn", "");
+    AllCollegesApi(selectedCollegeType, formik.values.district);
+  };
+  const handledistrictChange = (event) => {
+    formik.setFieldValue("district", event.target.value);
+    formik.setFieldValue("college", "");
+    formik.setFieldValue("ocn", "");
+    AllCollegesApi(formik.values.college_type, event.target.value);
+  };
+  const AllCollegesApi = (item, district) => {
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
-        district:district
+        district: district,
       })
     );
 
@@ -106,7 +106,7 @@ const Register = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-        setCollegeNamesList([...collegeNames,'Other']);
+          setCollegeNamesList([...collegeNames, "Other"]);
         }
       })
       .catch(function (error) {
@@ -247,16 +247,38 @@ const Register = () => {
       //   <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       // ),
       password: Yup.string()
-      .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
-      .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
-      .matches(/[A-Z]/, () => <span style={{ color: "red" }}>Password must contain at least one uppercase letter</span>)
-      .matches(/\d/, () => <span style={{ color: "red" }}>Password must contain at least one number</span>)
-      .matches(/[@$!%*?&()]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&())</span>)
-      .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
-    
-  
-    confirmPassword: Yup.string()
-      .required(<span style={{ color: "red" }}>Please Enter Confirm Password</span>),
+        .min(8, () => (
+          <span style={{ color: "red" }}>
+            Password must be at least 8 characters
+          </span>
+        ))
+        .matches(/[a-z]/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one lowercase letter
+          </span>
+        ))
+        .matches(/[A-Z]/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one uppercase letter
+          </span>
+        ))
+        .matches(/\d/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one number
+          </span>
+        ))
+        .matches(/[@$!%*?&()]/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one special character (@$!%*?&())
+          </span>
+        ))
+        .required(() => (
+          <span style={{ color: "red" }}>Please Enter Password</span>
+        )),
+
+      confirmPassword: Yup.string().required(
+        <span style={{ color: "red" }}>Please Enter Confirm Password</span>
+      ),
     }),
 
     onSubmit: async (values) => {
@@ -392,7 +414,11 @@ const Register = () => {
     const body = JSON.stringify({
       username: formik.values.email,
       mobile: formik.values.mobile,
+      college_name: formik.values.college,
+      district: formik.values.district,
+      college_type: formik.values.college_type,
     });
+    console.log(body, "body");
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/mentors/emailOtp",
@@ -422,7 +448,6 @@ const Register = () => {
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
           openNotificationWithIcon("error", error?.response.data?.message);
-          // openNotificationWithIcon("error", "Email id is Invalid");
 
           setDisable(true);
           setAreInputsDisabled(false);
@@ -433,6 +458,12 @@ const Register = () => {
           //   setHoldKey(false);
           //   setTimer(0);
           // }, 1000);
+        } else {
+          openNotificationWithIcon("error", error?.response.data?.message);
+
+          setDisable(true);
+          setAreInputsDisabled(false);
+          setTimer(0);
         }
       });
     e.preventDefault();
@@ -635,7 +666,7 @@ const Register = () => {
                           </div>
                           <div className={`col-md-6`}>
                             <label htmlFor="district" className="form-label">
-                            District
+                              District
                             </label>
                             &nbsp;
                             <span style={{ color: "red", fontWeight: "bold" }}>
@@ -724,19 +755,30 @@ const Register = () => {
                                 </option>
                               ))}
                             </select> */}
-                              <Select
-        classNamePrefix="react-select"
-        options={collegeOptions}
-         placeholder=" Type here to Select Your College Name"
-        isDisabled={areInputsDisabled}
-        value={collegeOptions.find(
-                            (option) => option.value === formik.values.college
-                          ) === undefined ? null : collegeOptions.find(
-                            (option) => option.value === formik.values.college
-                          )}
-        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
-        onBlur={formik.handleBlur}
-      />
+                            <Select
+                              classNamePrefix="react-select"
+                              options={collegeOptions}
+                              placeholder=" Type here to Select Your College Name"
+                              isDisabled={areInputsDisabled}
+                              value={
+                                collegeOptions.find(
+                                  (option) =>
+                                    option.value === formik.values.college
+                                ) === undefined
+                                  ? null
+                                  : collegeOptions.find(
+                                      (option) =>
+                                        option.value === formik.values.college
+                                    )
+                              }
+                              onChange={(selectedOption) =>
+                                formik.setFieldValue(
+                                  "college",
+                                  selectedOption?.value
+                                )
+                              }
+                              onBlur={formik.handleBlur}
+                            />
                             {formik.touched.college && formik.errors.college ? (
                               <small className="error-cls">
                                 {formik.errors.college}
