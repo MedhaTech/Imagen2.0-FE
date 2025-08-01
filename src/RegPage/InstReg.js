@@ -392,7 +392,12 @@ const Register = () => {
     const body = JSON.stringify({
       username: formik.values.email,
       mobile: formik.values.mobile,
+      college_name:formik.values.college,
+      district:formik.values.district,
+      college_type:formik.values.college_type,
+
     });
+    console.log(body,"body");
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/mentors/emailOtp",
@@ -422,7 +427,6 @@ const Register = () => {
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
           openNotificationWithIcon("error", error?.response.data?.message);
-          // openNotificationWithIcon("error", "Email id is Invalid");
 
           setDisable(true);
           setAreInputsDisabled(false);
@@ -433,6 +437,12 @@ const Register = () => {
           //   setHoldKey(false);
           //   setTimer(0);
           // }, 1000);
+        }else{
+           openNotificationWithIcon("error", error?.response.data?.message);
+
+          setDisable(true);
+          setAreInputsDisabled(false);
+          setTimer(0);
         }
       });
     e.preventDefault();

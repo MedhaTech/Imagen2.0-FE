@@ -221,14 +221,34 @@ const AdminSupport = () => {
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
                 sortable: true,
-                width: '15rem'
+                width: '10rem'
+            },
+               {
+                name: 'Role',
+                center:true,
+                selector: (row) => row?.role,
+                sortable: true,
+                width: '9rem',
+                cell: (params) => [
+                    params.role === 'MENTOR' ? (
+                        <span className="badge rounded-pill bg-outline-success">
+                            Institution
+                        </span>
+                    ) : params.role === 'STUDENT' ? (
+                        <span className="badge rounded-pill bg-outline-primary">
+                            Student
+                        </span>
+                    ) : (
+                        ''
+                    )
+                ]
             },
             {
                 name: 'Created By',
                 selector: (row) => row.created_by,
                 cellExport: (row) => row.created_by,
                 sortable: true,
-                width: '15rem'
+                width: '10rem'
             },
 
             {
@@ -236,7 +256,7 @@ const AdminSupport = () => {
                 selector: (row) => row.query_category,
                 cellExport: (row) => row.query_category,
                 sortable: true,
-                width: '10rem'
+                width: '9rem'
             },
             {
                 name: ' Query Details',
