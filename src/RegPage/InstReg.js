@@ -106,7 +106,15 @@ const Register = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          setCollegeNamesList([...collegeNames, "Other"]);
+          if (
+            item !== "Govt - Degree College" &&
+            item !== "Govt - Polytechnic College" &&
+            item !== "Govt - ITI College"
+          ) {
+            setCollegeNamesList([...collegeNames, "Other"]);
+          } else {
+            setCollegeNamesList(collegeNames);
+          }
         }
       })
       .catch(function (error) {

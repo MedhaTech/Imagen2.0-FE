@@ -21,7 +21,7 @@ import { ArrowLeft, ArrowRight } from "react-feather";
 import {
   districtList,
   collegeType,
-  yearofstudyList
+  yearofstudyList,
 } from "../../RegPage/ORGData.js";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -46,31 +46,30 @@ const InstEdit = () => {
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
-
   useEffect(() => {
-       if (data?.college_type && data?.district) {
-         AllCollegesApi(data.college_type, data?.district);
-       }
-     }, [data?.college_type,data?.district]);
+    if (data?.college_type && data?.district) {
+      AllCollegesApi(data.college_type, data?.district);
+    }
+  }, [data?.college_type, data?.district]);
   const handleCollegeTypeChange = (event) => {
-       const selectedCollegeType = event.target.value;
-       formik.setFieldValue("collegeType", selectedCollegeType);
-       setSelectedCollegeType(selectedCollegeType);
-       formik.setFieldValue("college", "");
-       formik.setFieldValue("ocn", "");
-       AllCollegesApi(selectedCollegeType, formik.values.district);
-     };
-     const handledistrictChange = (event) =>{
-       formik.setFieldValue("district", event.target.value);
-       formik.setFieldValue("college", "");
-       formik.setFieldValue("ocn", "");
-       AllCollegesApi(formik.values.collegeType, event.target.value);
-     };
+    const selectedCollegeType = event.target.value;
+    formik.setFieldValue("collegeType", selectedCollegeType);
+    setSelectedCollegeType(selectedCollegeType);
+    formik.setFieldValue("college", "");
+    formik.setFieldValue("ocn", "");
+    AllCollegesApi(selectedCollegeType, formik.values.district);
+  };
+  const handledistrictChange = (event) => {
+    formik.setFieldValue("district", event.target.value);
+    formik.setFieldValue("college", "");
+    formik.setFieldValue("ocn", "");
+    AllCollegesApi(formik.values.collegeType, event.target.value);
+  };
   const AllCollegesApi = (item, district) => {
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
-        district:district
+        district: district,
       })
     );
 
@@ -90,7 +89,15 @@ const InstEdit = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          setCollegeNamesList([...collegeNames,'Other']);
+          if (
+            item !== "Govt - Degree College" &&
+            item !== "Govt - Polytechnic College" &&
+            item !== "Govt - ITI College"
+          ) {
+            setCollegeNamesList([...collegeNames, "Other"]);
+          } else {
+            setCollegeNamesList(collegeNames);
+          }
         }
       })
       .catch(function (error) {
@@ -109,7 +116,7 @@ const InstEdit = () => {
       mobile: "",
       district: "",
       college: "",
-     
+
       collegeType: "",
       ocn: "",
     },
@@ -153,7 +160,7 @@ const InstEdit = () => {
         )
         .max(255),
       mobile: Yup.string()
-      // .optional()
+        // .optional()
         .required(
           <span style={{ color: "red" }}>Please Enter Mobile Number</span>
         )
@@ -183,7 +190,6 @@ const InstEdit = () => {
       college: Yup.string().required(
         <span style={{ color: "red" }}>Please Select College</span>
       ),
-    
     }),
 
     onSubmit: (values) => {
@@ -194,19 +200,18 @@ const InstEdit = () => {
         district: values.district,
         college_type: values.collegeType,
         college_name: values.college === "Other" ? values.ocn : values.college,
-       
       };
       if (data && data.username_email !== values.email && values.email) {
         body["username"] = values.email;
-    }
-    
-    if (data && data.mobile !== values.mobile && values.mobile) {
+      }
+
+      if (data && data.mobile !== values.mobile && values.mobile) {
         body["mobile"] = values.mobile;
-    }
+      }
       // if (data && data.id_number !== values.id_number ) {
       //   body["id_number"] = values.id_number;
       // }
-     
+
       const teamparamId = encryptGlobal(JSON.stringify(data?.mentor_id));
       var config = {
         method: "put",
@@ -252,7 +257,7 @@ const InstEdit = () => {
         mobile: data.mobile || "",
         district: data.district || "",
         college: data.college_name || "",
-       
+
         collegeType: data.college_type || "",
         ocn: data.college_type === "Other" ? data.college_name : "",
       });
@@ -270,7 +275,6 @@ const InstEdit = () => {
     }
   }, [data.college_name]);
 
- 
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -322,8 +326,11 @@ const InstEdit = () => {
                           ) : null}
                         </div>
                         <div className={`col-md-6`}>
-                          <label htmlFor="email" className="form-label d-flex align-items-center">
-                            Email 
+                          <label
+                            htmlFor="email"
+                            className="form-label d-flex align-items-center"
+                          >
+                            Email
                           </label>
                           <input
                             type="email"
@@ -346,8 +353,11 @@ const InstEdit = () => {
                         </div>
 
                         <div className="col-md-6">
-                        <label htmlFor="email" className="form-label d-flex align-items-center">
-                            Mobile Number 
+                          <label
+                            htmlFor="email"
+                            className="form-label d-flex align-items-center"
+                          >
+                            Mobile Number
                           </label>
                           <input
                             type="text"
@@ -390,7 +400,9 @@ const InstEdit = () => {
                             onBlur={formik.handleBlur}
                             onChange={handledistrictChange}
                           >
-                            <option value={""}>Select Your Institution District</option>
+                            <option value={""}>
+                              Select Your Institution District
+                            </option>
                             {districtList["Andhra Pradesh"].map((item) => (
                               <option key={item} value={item}>
                                 {item}
@@ -458,18 +470,29 @@ const InstEdit = () => {
                               </option>
                             ))}
                           </select> */}
-                            <Select
-        classNamePrefix="react-select"
-        options={collegeOptions}
-       placeholder=" Type here to Select Your College Name"
-        value={collegeOptions.find(
-                            (option) => option.value === formik.values.college
-                          ) === undefined ? null : collegeOptions.find(
-                            (option) => option.value === formik.values.college
-                          )}
-        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
-        onBlur={formik.handleBlur}
-      />
+                          <Select
+                            classNamePrefix="react-select"
+                            options={collegeOptions}
+                            placeholder=" Type here to Select Your College Name"
+                            value={
+                              collegeOptions.find(
+                                (option) =>
+                                  option.value === formik.values.college
+                              ) === undefined
+                                ? null
+                                : collegeOptions.find(
+                                    (option) =>
+                                      option.value === formik.values.college
+                                  )
+                            }
+                            onChange={(selectedOption) =>
+                              formik.setFieldValue(
+                                "college",
+                                selectedOption?.value
+                              )
+                            }
+                            onBlur={formik.handleBlur}
+                          />
                           {formik.touched.college && formik.errors.college ? (
                             <small className="error-cls">
                               {formik.errors.college}
@@ -477,9 +500,7 @@ const InstEdit = () => {
                           ) : null}
                         </div>
 
-                        {(formik.values.college === "Other" 
-                       
-                          ) && (
+                        {formik.values.college === "Other" && (
                           <div className={`col-md-12`}>
                             <label htmlFor="ocn" className="form-label">
                               Other College Name
@@ -525,7 +546,12 @@ const InstEdit = () => {
                           // }`}
                           className="btn btn-warning m-2"
                           type="submit"
-                          disabled={!formik.isValid || !formik.dirty ||(formik.values.college === 'Other' && !formik.values.ocn)}
+                          disabled={
+                            !formik.isValid ||
+                            !formik.dirty ||
+                            (formik.values.college === "Other" &&
+                              !formik.values.ocn)
+                          }
                           // disabled={!formik.dirty || !formik.isValid}
                         >
                           Submit

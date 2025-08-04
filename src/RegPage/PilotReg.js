@@ -34,7 +34,7 @@ const PilotReg = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [collegeNamesList, setCollegeNamesList] = useState([]);
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
- 
+
   // Added Code //
   const handleCollegeTypeChange = (event) => {
     const selectedCollegeType = event.target.value;
@@ -44,7 +44,7 @@ const PilotReg = () => {
     formik.setFieldValue("ocn", "");
     AllCollegesApi(selectedCollegeType, formik.values.district);
   };
-  const handledistrictChange = (event) =>{
+  const handledistrictChange = (event) => {
     formik.setFieldValue("district", event.target.value);
     formik.setFieldValue("college", "");
     formik.setFieldValue("ocn", "");
@@ -54,7 +54,7 @@ const PilotReg = () => {
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
-        district:district
+        district: district,
       })
     );
 
@@ -74,7 +74,15 @@ const PilotReg = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          setCollegeNamesList([...collegeNames,'Other']);
+          if (
+            item !== "Govt - Degree College" &&
+            item !== "Govt - Polytechnic College" &&
+            item !== "Govt - ITI College"
+          ) {
+            setCollegeNamesList([...collegeNames, "Other"]);
+          } else {
+            setCollegeNamesList(collegeNames);
+          }
         }
       })
       .catch(function (error) {
@@ -103,9 +111,9 @@ const PilotReg = () => {
       id_number: "",
       gender: "",
       college_town: "",
-      dob:"",
-      area:"",
-      disability:""
+      dob: "",
+      area: "",
+      disability: "",
     },
 
     validationSchema: Yup.object({
@@ -169,7 +177,9 @@ const PilotReg = () => {
       ),
       id_number: Yup.string().optional(),
       branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter  Branch/Group/Stream Name</span>
+        <span style={{ color: "red" }}>
+          Please Enter Branch/Group/Stream Name
+        </span>
       ),
       college_town: Yup.string().optional(),
       yearofstudy: Yup.string().required(
@@ -210,16 +220,24 @@ const PilotReg = () => {
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Enter Confirm Password</span>
       ),
-      dob: Yup.date().required(
-        <span style={{ color: "red" }}>Please Select Date of Birth</span>
-      ).min(moment().subtract(27, 'years').startOf('day').toDate(), 'Your age must be at most 27 years')
-      .max(moment().subtract(15, 'years').endOf('day').toDate(), 'Your age must be at least 15 years'),
+      dob: Yup.date()
+        .required(
+          <span style={{ color: "red" }}>Please Select Date of Birth</span>
+        )
+        .min(
+          moment().subtract(27, "years").startOf("day").toDate(),
+          "Your age must be at most 27 years"
+        )
+        .max(
+          moment().subtract(15, "years").endOf("day").toDate(),
+          "Your age must be at least 15 years"
+        ),
       disability: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Disability Status</span>
       ),
       area: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Area of Residence</span>
-      )
+      ),
     }),
 
     onSubmit: async (values) => {
@@ -245,11 +263,11 @@ const PilotReg = () => {
           branch: values.branch,
           year_of_study: values.yearofstudy,
           confirmPassword: encrypted,
-          gender:values.gender,
-      college_town: values.college_town,
-      dateofbirth:values.dob,
-      disability:values.disability,
-      area:values.area
+          gender: values.gender,
+          college_town: values.college_town,
+          dateofbirth: values.dob,
+          disability: values.disability,
+          area: values.area,
         };
         if (values.id_number !== "") {
           body["id_number"] = values.id_number;
@@ -653,7 +671,8 @@ const PilotReg = () => {
                             </option>
                           ))}
                         </select>
-                        {formik.touched.disability && formik.errors.disability ? (
+                        {formik.touched.disability &&
+                        formik.errors.disability ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.disability}
                           </small>
@@ -706,7 +725,6 @@ const PilotReg = () => {
                           disabled={areInputsDisabled}
                           name="email"
                           onChange={formik.handleChange}
-                          
                           onBlur={formik.handleBlur}
                           value={formik.values.email}
                         />
@@ -751,7 +769,7 @@ const PilotReg = () => {
                       <br />
                       <div className={`col-md-4`}>
                         <label htmlFor="district" className="form-label">
-                         Institution District
+                          Institution District
                         </label>
                         &nbsp;
                         <span style={{ color: "red", fontWeight: "bold" }}>
@@ -766,7 +784,9 @@ const PilotReg = () => {
                           onBlur={formik.handleBlur}
                           onChange={handledistrictChange}
                         >
-                          <option value={""}>Select Your Institution District</option>
+                          <option value={""}>
+                            Select Your Institution District
+                          </option>
                           {districtList["Andhra Pradesh"].map((item) => (
                             <option key={item} value={item}>
                               {item}
@@ -874,11 +894,16 @@ const PilotReg = () => {
                           options={collegeOptions}
                           placeholder=" Type here to Select Your College Name"
                           isDisabled={areInputsDisabled}
-                          value={collegeOptions.find(
-                            (option) => option.value === formik.values.college
-                          ) === undefined ? null : collegeOptions.find(
-                            (option) => option.value === formik.values.college
-                          )}
+                          value={
+                            collegeOptions.find(
+                              (option) => option.value === formik.values.college
+                            ) === undefined
+                              ? null
+                              : collegeOptions.find(
+                                  (option) =>
+                                    option.value === formik.values.college
+                                )
+                          }
                           onChange={(selectedOption) =>
                             formik.setFieldValue(
                               "college",
@@ -966,7 +991,7 @@ const PilotReg = () => {
 
                       <div className="col-md-4">
                         <label className="form-label" htmlFor="branch">
-                           Branch/Group/Stream
+                          Branch/Group/Stream
                         </label>
                         &nbsp;
                         <span style={{ color: "red", fontWeight: "bold" }}>
