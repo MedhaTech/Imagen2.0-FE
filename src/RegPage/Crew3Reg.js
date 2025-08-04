@@ -13,21 +13,21 @@ import {
   yearofstudyList,
   genderList,
   disabilityList,
-  areaList
+  areaList,
 } from "./ORGData";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import { ArrowRight } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { decryptGlobal,encryptGlobal } from "../constants/encryptDecrypt";
+import { decryptGlobal, encryptGlobal } from "../constants/encryptDecrypt";
 import Select from "react-select";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
 
 const Crew3Reg = () => {
   const navigate = useNavigate();
-    const location = useLocation();
-  
+  const location = useLocation();
+
   var pilotStudentId = sessionStorage.getItem("pilotKey");
   const mentData = location.state || {};
   // console.log(mentData,"store");
@@ -42,27 +42,27 @@ const Crew3Reg = () => {
   }, [pilotStudentId]);
 
   const [collegeNamesList, setCollegeNamesList] = useState([]);
-   const [selectedCollegeType, setSelectedCollegeType] = useState("");
+  const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
- const handleCollegeTypeChange = (event) => {
-     const selectedCollegeType = event.target.value;
-     formik.setFieldValue("collegeType", selectedCollegeType);
-     setSelectedCollegeType(selectedCollegeType);
-     formik.setFieldValue("college", "");
-     formik.setFieldValue("ocn", "");
-     AllCollegesApi(selectedCollegeType, formik.values.district);
-   };
-   const handledistrictChange = (event) =>{
-     formik.setFieldValue("district", event.target.value);
-     formik.setFieldValue("college", "");
-     formik.setFieldValue("ocn", "");
-     AllCollegesApi(formik.values.collegeType, event.target.value);
-   };
-  const AllCollegesApi = (item,district) => {
+  const handleCollegeTypeChange = (event) => {
+    const selectedCollegeType = event.target.value;
+    formik.setFieldValue("collegeType", selectedCollegeType);
+    setSelectedCollegeType(selectedCollegeType);
+    formik.setFieldValue("college", "");
+    formik.setFieldValue("ocn", "");
+    AllCollegesApi(selectedCollegeType, formik.values.district);
+  };
+  const handledistrictChange = (event) => {
+    formik.setFieldValue("district", event.target.value);
+    formik.setFieldValue("college", "");
+    formik.setFieldValue("ocn", "");
+    AllCollegesApi(formik.values.collegeType, event.target.value);
+  };
+  const AllCollegesApi = (item, district) => {
     const distParam = encryptGlobal(
       JSON.stringify({
         college_type: item,
-        district:district
+        district: district,
       })
     );
 
@@ -82,7 +82,15 @@ const Crew3Reg = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-        setCollegeNamesList([...collegeNames,'Other']);
+          if (
+            item !== "Govt - Degree College" &&
+            item !== "Govt - Polytechnic College" &&
+            item !== "Govt - ITI College"
+          ) {
+            setCollegeNamesList([...collegeNames, "Other"]);
+          } else {
+            setCollegeNamesList(collegeNames);
+          }
         }
       })
       .catch(function (error) {
@@ -101,12 +109,12 @@ const Crew3Reg = () => {
     const body = {
       college_name: mentData.college_name,
       college_type: mentData.college_type,
-      student_id :mentData.student_id,
+      student_id: mentData.student_id,
       district: mentData.district,
       email: mentData?.email,
       mobile: mentData.mobile,
     };
-// console.log(body,"body");
+    // console.log(body,"body");
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
@@ -147,9 +155,9 @@ const Crew3Reg = () => {
       id_number: "",
       gender: "",
       college_town: "",
-       dob:"",
-      area:"",
-      disability:""
+      dob: "",
+      area: "",
+      disability: "",
     },
 
     validationSchema: Yup.object({
@@ -175,10 +183,10 @@ const Crew3Reg = () => {
           "Email Must be VALID"
         )
         .max(255),
-          college_town: Yup.string().optional(),
-                  gender: Yup.string().required(
-                         <span style={{ color: "red" }}>Please Select Gender</span>
-                       ),
+      college_town: Yup.string().optional(),
+      gender: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Gender</span>
+      ),
       mobile: Yup.string()
         .required(
           <span style={{ color: "red" }}>Please Enter Mobile Number</span>
@@ -214,7 +222,9 @@ const Crew3Reg = () => {
       ),
       id_number: Yup.string().optional(),
       branch: Yup.string().required(
-        <span style={{ color: "red" }}>Please Enter  Branch/Group/Stream Name</span>
+        <span style={{ color: "red" }}>
+          Please Enter Branch/Group/Stream Name
+        </span>
       ),
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
@@ -222,26 +232,56 @@ const Crew3Reg = () => {
       // password: Yup.string().required(
       //   <span style={{ color: "red" }}>Please Select Password</span>
       // ),
-        password: Yup.string()
-            .min(8, () => <span style={{ color: "red" }}>Password must be at least 8 characters</span>)
-            .matches(/[a-z]/, () => <span style={{ color: "red" }}>Password must contain at least one lowercase letter</span>)
-            .matches(/[A-Z]/, () => <span style={{ color: "red" }}>Password must contain at least one uppercase letter</span>)
-            .matches(/\d/, () => <span style={{ color: "red" }}>Password must contain at least one number</span>)
-            .matches(/[@$!%*?&()]/, () => <span style={{ color: "red" }}>Password must contain at least one special character (@$!%*?&())</span>)
-            .required(() => <span style={{ color: "red" }}>Please Enter Password</span>),
+      password: Yup.string()
+        .min(8, () => (
+          <span style={{ color: "red" }}>
+            Password must be at least 8 characters
+          </span>
+        ))
+        .matches(/[a-z]/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one lowercase letter
+          </span>
+        ))
+        .matches(/[A-Z]/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one uppercase letter
+          </span>
+        ))
+        .matches(/\d/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one number
+          </span>
+        ))
+        .matches(/[@$!%*?&()]/, () => (
+          <span style={{ color: "red" }}>
+            Password must contain at least one special character (@$!%*?&())
+          </span>
+        ))
+        .required(() => (
+          <span style={{ color: "red" }}>Please Enter Password</span>
+        )),
       confirmPassword: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Confirm Password</span>
       ),
-       dob: Yup.date().required(
-              <span style={{ color: "red" }}>Please Select Date of Birth</span>
-            ).min(moment().subtract(27, 'years').startOf('day').toDate(), 'Your age must be at most 27 years')
-                  .max(moment().subtract(15, 'years').endOf('day').toDate(), 'Your age must be at least 15 years'),
-            disability: Yup.string().required(
-              <span style={{ color: "red" }}>Please Select Disability Status</span>
-            ),
-            area: Yup.string().required(
-              <span style={{ color: "red" }}>Please Select Area of Residence</span>
-            )
+      dob: Yup.date()
+        .required(
+          <span style={{ color: "red" }}>Please Select Date of Birth</span>
+        )
+        .min(
+          moment().subtract(27, "years").startOf("day").toDate(),
+          "Your age must be at most 27 years"
+        )
+        .max(
+          moment().subtract(15, "years").endOf("day").toDate(),
+          "Your age must be at least 15 years"
+        ),
+      disability: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Disability Status</span>
+      ),
+      area: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Area of Residence</span>
+      ),
     }),
 
     onSubmit: async (values) => {
@@ -263,11 +303,11 @@ const Crew3Reg = () => {
         year_of_study: values.yearofstudy,
         confirmPassword: encrypted,
         type: pilotStudentId,
-        gender:values.gender,
+        gender: values.gender,
         college_town: values.college_town,
-        dateofbirth:values.dob,
-      disability:values.disability,
-      area:values.area
+        dateofbirth: values.dob,
+        disability: values.disability,
+        area: values.area,
       };
       if (values.id_number !== "") {
         body["id_number"] = values.id_number;
@@ -308,11 +348,11 @@ const Crew3Reg = () => {
         });
     },
   });
-  const handleSkip=()=>{
+  const handleSkip = () => {
     apiCall();
-    
+
     navigate("/regSuccess");
-      };
+  };
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="card container m-4">
@@ -410,17 +450,22 @@ const Crew3Reg = () => {
                 </span>
               </div>
             </div>
-           <div className="row m-2 mb-3 mt-3">
-             <div className="col-md-10 ps-3">
-               <span className="mt-5 p">Register as an Institution</span>
-           
-               <span className="second_text"> 
-                 <Link className="hover-a" to={"/institution-registration"} style={{color:"blue"}}>
-                   {" "}Click Here 
-                 </Link>
-               </span>
-             </div>
-           </div>
+            <div className="row m-2 mb-3 mt-3">
+              <div className="col-md-10 ps-3">
+                <span className="mt-5 p">Register as an Institution</span>
+
+                <span className="second_text">
+                  <Link
+                    className="hover-a"
+                    to={"/institution-registration"}
+                    style={{ color: "blue" }}
+                  >
+                    {" "}
+                    Click Here
+                  </Link>
+                </span>
+              </div>
+            </div>
           </div>
           <div className="col-md-8 p-4" style={{ backgroundColor: "#EEEEEE" }}>
             <form action="signin" onSubmit={formik.handleSubmit}>
@@ -462,119 +507,117 @@ const Crew3Reg = () => {
                           </small>
                         ) : null}
                       </div>
-                       <div className={`col-md-2`}>
-                                                                    <label htmlFor="gender" className="form-label">
-                                                                      Gender
-                                                                    </label>
-                                                                    &nbsp;
-                                                                    <span style={{ color: "red", fontWeight: "bold" }}>
-                                                                      *
-                                                                    </span>
-                                                                    <select
-                                                                      id="gender"
-                                                                      className="form-select"
-                                                                      name="gender"
-                                                                      value={formik.values.gender}
-                                                                      onBlur={formik.handleBlur}
-                                                                      onChange={formik.handleChange}
-                                                                    >
-                                                                      <option value={""}>Gender</option>
-                                                                      {genderList.map((item) => (
-                                                                        <option key={item} value={item}>
-                                                                          {item}
-                                                                        </option>
-                                                                      ))}
-                                                                    </select>
-                                                                    {formik.touched.gender && formik.errors.gender ? (
-                                                                      <small className="error-cls" style={{ color: "red" }}>
-                                                                        {formik.errors.gender}
-                                                                      </small>
-                                                                    ) : null}
-                                                                  </div>
                       <div className={`col-md-2`}>
-                                              <label htmlFor="dob" className="form-label">
-                                                Date of Birth
-                                              </label>
-                                              &nbsp;
-                                              <span style={{ color: "red", fontWeight: "bold" }}>
-                                                *
-                                              </span>
-                                              <input
-                                                type="date"
-                                                className="form-control"
-                                                id="dob"
-                                                
-                                                name="dob"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.dob}
-                                              />
-                                              {formik.touched.dob && formik.errors.dob ? (
-                                                <small className="error-cls" style={{ color: "red" }}>
-                                                  {formik.errors.dob}
-                                                </small>
-                                              ) : null}
-                                            </div>
-                                            <div className={`col-md-4`}>
-                                              <label htmlFor="disability" className="form-label">
-                                                Disability Status
-                                              </label>
-                                              &nbsp;
-                                              <span style={{ color: "red", fontWeight: "bold" }}>
-                                                *
-                                              </span>
-                                              <select
-                                                id="disability"
-                                                className="form-select"
-                                                
-                                                name="disability"
-                                                value={formik.values.disability}
-                                                onBlur={formik.handleBlur}
-                                                onChange={formik.handleChange}
-                                              >
-                                                <option value={""}>Disability Status</option>
-                                                {disabilityList.map((item) => (
-                                                  <option key={item} value={item}>
-                                                    {item}
-                                                  </option>
-                                                ))}
-                                              </select>
-                                              {formik.touched.disability && formik.errors.disability ? (
-                                                <small className="error-cls" style={{ color: "red" }}>
-                                                  {formik.errors.disability}
-                                                </small>
-                                              ) : null}
-                                            </div>
-                                            <div className={`col-md-4`}>
-                                              <label htmlFor="area" className="form-label">
-                                                Area of Residence
-                                              </label>
-                                              &nbsp;
-                                              <span style={{ color: "red", fontWeight: "bold" }}>
-                                                *
-                                              </span>
-                                              <select
-                                                id="area"
-                                                className="form-select"
-                                                
-                                                name="area"
-                                                value={formik.values.area}
-                                                onBlur={formik.handleBlur}
-                                                onChange={formik.handleChange}
-                                              >
-                                                <option value={""}>Area of Residence</option>
-                                                {areaList.map((item) => (
-                                                  <option key={item} value={item}>
-                                                    {item}
-                                                  </option>
-                                                ))}
-                                              </select>
-                                              {formik.touched.area && formik.errors.area ? (
-                                                <small className="error-cls" style={{ color: "red" }}>
-                                                  {formik.errors.area}
-                                                </small>
-                                              ) : null}
-                                            </div>
+                        <label htmlFor="gender" className="form-label">
+                          Gender
+                        </label>
+                        &nbsp;
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          *
+                        </span>
+                        <select
+                          id="gender"
+                          className="form-select"
+                          name="gender"
+                          value={formik.values.gender}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
+                        >
+                          <option value={""}>Gender</option>
+                          {genderList.map((item) => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                        {formik.touched.gender && formik.errors.gender ? (
+                          <small className="error-cls" style={{ color: "red" }}>
+                            {formik.errors.gender}
+                          </small>
+                        ) : null}
+                      </div>
+                      <div className={`col-md-2`}>
+                        <label htmlFor="dob" className="form-label">
+                          Date of Birth
+                        </label>
+                        &nbsp;
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          *
+                        </span>
+                        <input
+                          type="date"
+                          className="form-control"
+                          id="dob"
+                          name="dob"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.dob}
+                        />
+                        {formik.touched.dob && formik.errors.dob ? (
+                          <small className="error-cls" style={{ color: "red" }}>
+                            {formik.errors.dob}
+                          </small>
+                        ) : null}
+                      </div>
+                      <div className={`col-md-4`}>
+                        <label htmlFor="disability" className="form-label">
+                          Disability Status
+                        </label>
+                        &nbsp;
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          *
+                        </span>
+                        <select
+                          id="disability"
+                          className="form-select"
+                          name="disability"
+                          value={formik.values.disability}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
+                        >
+                          <option value={""}>Disability Status</option>
+                          {disabilityList.map((item) => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                        {formik.touched.disability &&
+                        formik.errors.disability ? (
+                          <small className="error-cls" style={{ color: "red" }}>
+                            {formik.errors.disability}
+                          </small>
+                        ) : null}
+                      </div>
+                      <div className={`col-md-4`}>
+                        <label htmlFor="area" className="form-label">
+                          Area of Residence
+                        </label>
+                        &nbsp;
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          *
+                        </span>
+                        <select
+                          id="area"
+                          className="form-select"
+                          name="area"
+                          value={formik.values.area}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
+                        >
+                          <option value={""}>Area of Residence</option>
+                          {areaList.map((item) => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                        {formik.touched.area && formik.errors.area ? (
+                          <small className="error-cls" style={{ color: "red" }}>
+                            {formik.errors.area}
+                          </small>
+                        ) : null}
+                      </div>
                       <div className={`col-md-4`}>
                         <label htmlFor="email" className="form-label">
                           Email
@@ -632,7 +675,7 @@ const Crew3Reg = () => {
                       </div>
                       <div className={`col-md-4`}>
                         <label htmlFor="district" className="form-label">
-                        Institution District
+                          Institution District
                         </label>
                         &nbsp;
                         <span style={{ color: "red", fontWeight: "bold" }}>
@@ -646,7 +689,9 @@ const Crew3Reg = () => {
                           onBlur={formik.handleBlur}
                           onChange={handledistrictChange}
                         >
-                          <option value={""}>Select Your Institution District</option>
+                          <option value={""}>
+                            Select Your Institution District
+                          </option>
                           {districtList["Andhra Pradesh"].map((item) => (
                             <option key={item} value={item}>
                               {item}
@@ -746,19 +791,28 @@ const Crew3Reg = () => {
                             </option>
                           ))}
                         </select> */}
-                          <Select
-        classNamePrefix="react-select"
-        options={collegeOptions}
-        placeholder=" Type here to Select Your College Name"
-        value={collegeOptions.find(
-                            (option) => option.value === formik.values.college
-                          ) === undefined ? null : collegeOptions.find(
-                            (option) => option.value === formik.values.college
-                          )}
-        onChange={(selectedOption) => formik.setFieldValue("college", selectedOption?.value)}
-        onBlur={formik.handleBlur}
-      />
-
+                        <Select
+                          classNamePrefix="react-select"
+                          options={collegeOptions}
+                          placeholder=" Type here to Select Your College Name"
+                          value={
+                            collegeOptions.find(
+                              (option) => option.value === formik.values.college
+                            ) === undefined
+                              ? null
+                              : collegeOptions.find(
+                                  (option) =>
+                                    option.value === formik.values.college
+                                )
+                          }
+                          onChange={(selectedOption) =>
+                            formik.setFieldValue(
+                              "college",
+                              selectedOption?.value
+                            )
+                          }
+                          onBlur={formik.handleBlur}
+                        />
                         {formik.touched.college && formik.errors.college ? (
                           <small className="error-cls">
                             {formik.errors.college}
@@ -836,7 +890,7 @@ const Crew3Reg = () => {
 
                       <div className="col-md-4">
                         <label className="form-label" htmlFor="branch">
-                           Branch/Group/Stream
+                          Branch/Group/Stream
                         </label>
                         &nbsp;
                         <span style={{ color: "red", fontWeight: "bold" }}>
