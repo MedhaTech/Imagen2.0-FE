@@ -116,7 +116,15 @@ const StuEdit = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          setCollegeNamesList([...collegeNames, "Other"]);
+          if (
+            item !== "Govt - Degree College" &&
+            item !== "Govt - Polytechnic College" &&
+            item !== "Govt - ITI College"
+          ) {
+            setCollegeNamesList([...collegeNames, "Other"]);
+          } else {
+            setCollegeNamesList(collegeNames);
+          }
         }
       })
       .catch(function (error) {
@@ -224,18 +232,18 @@ const StuEdit = () => {
       yearofstudy: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Year of Study</span>
       ),
-       dateofbirth: Yup.date()
-             .required(
-               <span style={{ color: "red" }}>Please Select Date of Birth</span>
-             )
-             .min(
-               moment().subtract(27, "years").startOf("day").toDate(),
-               "Your age must be at most 27 years"
-             )
-             .max(
-               moment().subtract(15, "years").endOf("day").toDate(),
-               "Your age must be at least 15 years"
-             ),
+      dateofbirth: Yup.date()
+        .required(
+          <span style={{ color: "red" }}>Please Select Date of Birth</span>
+        )
+        .min(
+          moment().subtract(27, "years").startOf("day").toDate(),
+          "Your age must be at most 27 years"
+        )
+        .max(
+          moment().subtract(15, "years").endOf("day").toDate(),
+          "Your age must be at least 15 years"
+        ),
       disability: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Disability Status</span>
       ),

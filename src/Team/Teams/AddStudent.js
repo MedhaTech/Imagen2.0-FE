@@ -68,7 +68,15 @@ const Crew1student = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          setCollegeNamesList([...collegeNames, "Other"]);
+          if (
+            item !== "Govt - Degree College" &&
+            item !== "Govt - Polytechnic College" &&
+            item !== "Govt - ITI College"
+          ) {
+            setCollegeNamesList([...collegeNames, "Other"]);
+          } else {
+            setCollegeNamesList(collegeNames);
+          }
         }
       })
       .catch(function (error) {
@@ -244,10 +252,10 @@ const Crew1student = () => {
         year_of_study: values.yearofstudy,
         confirmPassword: encrypted,
         gender: values.gender,
-       
+
         college_town: values.college_town,
         type: JSON.stringify(currentUser?.data[0]?.student_id),
-         dateofbirth: values.dateofbirth,
+        dateofbirth: values.dateofbirth,
         disability: values.disability,
         area: values.area,
       };
