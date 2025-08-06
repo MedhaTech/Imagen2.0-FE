@@ -80,6 +80,8 @@ const TicketsPage = (props) => {
     // where item = student id / mentor id //
     localStorage.removeItem("dist");
     localStorage.removeItem("num");
+      localStorage.removeItem("studentId");
+  localStorage.removeItem("studentData");
     if (num == "1") {
       navigate("/Institution-view", { state: { data: item, num: num } });
 
