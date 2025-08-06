@@ -201,7 +201,7 @@ const InstEdit = () => {
               "success",
               "Institution Details Updated Successfully"
             );
-            navigate("/institution-users-list");
+            navigate("/Institution-view");
           } else {
             openNotificationWithIcon("error", "Opps! Something Wrong");
           }

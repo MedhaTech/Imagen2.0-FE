@@ -78,21 +78,37 @@ const fiterDistData = [...districtList["Telangana"]];
                 setshowspin(false);
             });
     }
-    const handleSelect = (item, num) => {
-        // where item = student id / mentor id //
-        localStorage.removeItem('dist');
-        localStorage.removeItem('num');
-        if (num == '1') {
-            navigate("/student-view",{state:{ data: item,
-                num: num}}
+    // const handleSelect = (item, num) => {
+    //     // where item = student id / mentor id //
+      
+    //     if (num == '1') {
+    //         navigate("/student-view",{state:{ data: item,
+    //             num: num}}
                
-            );
+    //         );
+    //        console.log(item,"list");
+    //         localStorage.setItem('studentId', item.user_id);
+    //         localStorage.setItem('studentData', JSON.stringify(item));
+    //     } 
            
-            localStorage.setItem('studentId', item.user_id);
-            localStorage.setItem('studentData', JSON.stringify(item));
-        } 
-           
-    };
+    // };
+   const handleSelect = (item) => {
+  localStorage.setItem("student_type", item?.type);
+  localStorage.setItem("student_id", item?.student_id);
+  localStorage.setItem("user_id", item?.user_id);
+
+  navigate("/student-view", {
+    state: {
+      data: item,
+    },
+  });
+};
+useEffect(() => {
+  localStorage.removeItem("student_type");
+  localStorage.removeItem("student_id");
+  localStorage.removeItem("user_id");
+}, []);
+
 
     const handleSelect1 = (record) => {
         if (record.type === 0) {

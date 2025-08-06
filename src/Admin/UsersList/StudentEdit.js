@@ -259,7 +259,7 @@ const StuEdit = () => {
               "success",
               "Student Details Updated Successfully"
             );
-            navigate("/students");
+            navigate("/student-view");
           } else {
             openNotificationWithIcon("error", "Opps! Something Wrong");
           }
@@ -753,7 +753,7 @@ const StuEdit = () => {
                         <button
                           className="btn btn-warning m-2"
                           type="button"
-                          onClick={() => navigate("/students")}
+                          onClick={() => navigate("/student-view")}
                         >
                           Discard
                         </button>
