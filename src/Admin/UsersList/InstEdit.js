@@ -231,7 +231,7 @@ const InstEdit = () => {
               "success",
               "Institution Details Updated Successfully"
             );
-            navigate("/institution-users-list");
+           navigate("/Institution-view");
             // handleView(studentData);
           } else {
             openNotificationWithIcon("error", "Opps! Something Wrong");
@@ -572,7 +572,7 @@ const InstEdit = () => {
                         <button
                           className="btn btn-warning m-2"
                           type="button"
-                          onClick={() => navigate("/institution-users-list")}
+                          onClick={() => navigate("/Institution-view")}
                         >
                           {/* <ArrowLeft /> */}
                           Discard

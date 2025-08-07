@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState ,useLayoutEffect} from 'react';
 // import Layout from '../../Admin/Layout';
 import { useNavigate} from 'react-router-dom';
 import { Container, Row, Card, CardBody, CardText, Col } from 'reactstrap';
@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import DoughnutChart from '../../Teacher/Dashboard/TeamsProgDD';
+import { getTeacherByID } from '../../redux/actions';
 
 // import {
 //     getStudentDashboardStatus,
@@ -36,10 +37,14 @@ const InstProfile = (props) => {
     const [data, setData] = useState('');
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
-   
+     const { teacher } = useSelector((state) => state.teacher);
     const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
     // console.log(StudentsDaTa,"111");
-  
+   useLayoutEffect(() => {
+      if (StudentsDaTa.mentor_id) {
+          dispatch(getTeacherByID(StudentsDaTa.mentor_id));
+      }
+  }, [StudentsDaTa.mentor_id]);
     var teamId = [];
     teamId.push({
         mentor_id: StudentsDaTa.mentor_id,
@@ -50,7 +55,8 @@ const InstProfile = (props) => {
     
   
     const handleViewBack = () => {
-       
+        localStorage.removeItem("studentId");
+  localStorage.removeItem("studentData");
         navigate("/institution-users-list");
        
     };
@@ -160,7 +166,7 @@ const InstProfile = (props) => {
             {/* <Container className="dynamic-form"> */}
                 <Row>
                     <div className="col-6">
-                        <h4 className="mt-2">Institution Profile - <span style={{color:"#17A2B8"}}>{StudentsDaTa?.full_name}</span></h4>
+                        <h4 className="mt-2">Institution Profile - <span style={{color:"#17A2B8"}}>{teacher?.full_name}</span></h4>
 
 
                     </div>
@@ -197,28 +203,28 @@ const InstProfile = (props) => {
         <tbody>
           <tr>
             <td className="w-50"><b>Full Name</b></td>
-            <td className="w-50">{StudentsDaTa?.full_name}</td>
+            <td className="w-50">{teacher?.full_name}</td>
           </tr>
           <tr>
             <td><b>Email Address</b></td>
-            <td> {StudentsDaTa?.username_email}</td>
+            <td> {teacher?.username_email}</td>
            
           </tr>
           <tr>
             <td><b>Mobile Number</b></td>
-            <td>{StudentsDaTa?.mobile}</td>
+            <td>{teacher?.mobile}</td>
           </tr>
           <tr>
             <td><b>District</b></td>
-            <td>{StudentsDaTa?.district}</td>
+            <td>{teacher?.district}</td>
           </tr>
           <tr>
             <td><b>College Type</b></td>
-            <td>{StudentsDaTa?.college_type}</td>
+            <td>{teacher?.college_type}</td>
           </tr>
           <tr>
                 <td><b>College Name</b></td>
-                <td>{StudentsDaTa?.college_name}</td>
+                <td>{teacher?.college_name}</td>
               </tr>
           {/* {StudentsDaTa?.college_type !== "Other" ? (
             <tr>
