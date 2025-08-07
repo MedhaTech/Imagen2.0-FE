@@ -89,14 +89,16 @@ const InstEdit = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          if (
-            item !== "Govt - Degree College" &&
-            item !== "Govt - Polytechnic College" &&
-            item !== "Govt - ITI College"
-          ) {
-            setCollegeNamesList([...collegeNames, "Other"]);
-          } else {
-            setCollegeNamesList(collegeNames);
+         if (item !== "" && district !== "") {
+            if (
+              item !== "Govt - Degree College" &&
+              item !== "Govt - Polytechnic College" &&
+              item !== "Govt - ITI College"
+            ) {
+              setCollegeNamesList([...collegeNames, "Other"]);
+            } else {
+              setCollegeNamesList(collegeNames);
+            }
           }
         }
       })
@@ -485,6 +487,17 @@ const InstEdit = () => {
                                       option.value === formik.values.college
                                   )
                             }
+                            onMenuOpen={() => {
+                                                        if (
+                                                          formik.values.collegeType === "" ||
+                                                          formik.values.district === ""
+                                                        ) {
+                                                          openNotificationWithIcon(
+                                                            "error",
+                                                            "District and College Type should be selected before selecting college name"
+                                                          );
+                                                        }
+                                                      }}
                             onChange={(selectedOption) =>
                               formik.setFieldValue(
                                 "college",
