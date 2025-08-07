@@ -170,22 +170,22 @@ const fiterDistData = [...districtList["Andhra Pradesh"]];
             });
     }
 // console.log(state,"state");
-    const handleSelect = (item, num) => {
-        // where item = student id / mentor id //
-        localStorage.removeItem('dist');
-        localStorage.removeItem('num');
-        if (num == '1') {
-            navigate("/student-view",{state:{ data: item,
-                // dist:studentDist,
-                num: num}}
-               
-            );
-           
-            localStorage.setItem('studentId', item.user_id);
-            localStorage.setItem('studentData', JSON.stringify(item));
-        } 
-           
-    };
+const handleSelect = (item) => {
+ 
+  navigate("/student-view", {
+    state: {
+      data: item,
+    },
+  });
+};
+//    useEffect(() => {
+//   localStorage.removeItem("student_type");
+//   localStorage.removeItem("student_id");
+//   localStorage.removeItem("user_id");
+// }, []);
+
+
+    
     const viewDetail = (item) => {
         props.history.push({
             pathname: '/student-view',

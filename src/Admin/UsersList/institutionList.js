@@ -136,21 +136,18 @@ const TicketsPage = (props) => {
         });
 };
 const handleSelect = (item, num) => {
-  // where item = student id / mentor id //
-  localStorage.removeItem('dist');
-  localStorage.removeItem('num');
-  if (num == '1') {
-      navigate("/Institution-view",{state:{ data: item,
-          // dist:studentDist,
-          num: num}}
-         
-      );
-     
-      localStorage.setItem('studentId', item.user_id);
-      localStorage.setItem('studentData', JSON.stringify(item));
-  } 
-     
-};
+    // where item = student id / mentor id //
+    localStorage.removeItem("dist");
+    localStorage.removeItem("num");
+      localStorage.removeItem("studentId");
+  localStorage.removeItem("studentData");
+    if (num == "1") {
+      navigate("/Institution-view", { state: { data: item, num: num } });
+
+      localStorage.setItem("studentId", item.user_id);
+      localStorage.setItem("studentData", JSON.stringify(item));
+    }
+  };
 const handleDeleteInstitution = (item) => {
   let supId;
   if(typeof(item.mentor_id) !== "string"){
