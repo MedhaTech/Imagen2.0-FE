@@ -938,7 +938,12 @@ const StuEdit = () => {
                         <button
                           className="btn btn-warning m-2"
                           type="button"
-                          onClick={() =>  navigate("/student-view")}
+                          onClick={() =>
+  navigate("/student-view", {
+    state: {  student_id: data?.student_id,
+    data:data, }
+  })
+}
                         >
                           {/* <ArrowLeft /> */}
                           Discard
