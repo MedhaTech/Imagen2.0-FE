@@ -74,14 +74,16 @@ const PilotReg = () => {
           // console.log(response, "res");
           const apiData = response.data.data || [];
           const collegeNames = apiData.map((college) => college.college_name);
-          if (
-            item !== "Govt - Degree College" &&
-            item !== "Govt - Polytechnic College" &&
-            item !== "Govt - ITI College"
-          ) {
-            setCollegeNamesList([...collegeNames, "Other"]);
-          } else {
-            setCollegeNamesList(collegeNames);
+          if (item !== "" && district !== "") {
+            if (
+              item !== "Govt - Degree College" &&
+              item !== "Govt - Polytechnic College" &&
+              item !== "Govt - ITI College"
+            ) {
+              setCollegeNamesList([...collegeNames, "Other"]);
+            } else {
+              setCollegeNamesList(collegeNames);
+            }
           }
         }
       })
@@ -439,7 +441,11 @@ const PilotReg = () => {
       setOtpSent(false);
     }
   }, [timer, otpSent]);
-
+  console.log(
+    formik.values.collegeType === "" || formik.values.district === "",
+    formik.values.collegeType,
+    formik.values.district
+  );
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="card container m-4">
@@ -894,6 +900,17 @@ const PilotReg = () => {
                           options={collegeOptions}
                           placeholder=" Type here to Select Your College Name"
                           isDisabled={areInputsDisabled}
+                          onMenuOpen={() => {
+                            if (
+                              formik.values.collegeType === "" ||
+                              formik.values.district === ""
+                            ) {
+                              openNotificationWithIcon(
+                                "error",
+                                "District and College Type should be selected before selecting college name"
+                              );
+                            }
+                          }}
                           value={
                             collegeOptions.find(
                               (option) => option.value === formik.values.college
