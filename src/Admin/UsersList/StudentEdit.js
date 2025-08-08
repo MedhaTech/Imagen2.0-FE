@@ -316,7 +316,7 @@ const StuEdit = () => {
               "error",
               err.response.data?.message !== "Bad Request"
                 ? err.response.data?.message
-                : "College Name is not allowed to be empty"
+                : "Please Select or Enter College Name"
             );
           } else {
             openNotificationWithIcon("error", "Email id is Invalid");
