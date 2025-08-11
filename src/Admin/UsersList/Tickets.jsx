@@ -103,7 +103,7 @@ const [gender,setGender]=useState("");
 const [institution,setInstitution]=useState("");
     // const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 const updateStatesList=["All States",...stateList];
  const currentUser = getCurrentUser("current_user");
 const fiterDistData = [...districtList["Andhra Pradesh"]];
@@ -603,6 +603,14 @@ const handleSelect = (item) => {
                                                 subHeaderAlign={
                                                     Alignment.Center
                                                 }
+                                                progressPending={showspin} // <-- show loader
+  progressComponent={
+    <div className="p-3 text-center">
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  }
                                             />
                                         </DataTableExtensions>
                                     </div>

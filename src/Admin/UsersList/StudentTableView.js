@@ -713,6 +713,15 @@ const TeamId = studentType === 0 ? studentId : studentType;
                       {data?.id_number ? data?.id_number : "-"}
                     </td>
                   </tr>
+                  
+                  <tr>
+                    <td>
+                      <b>Year of Study</b>
+                    </td>
+                    <td>
+                      {data?.year_of_study ? data?.year_of_study : "-"}
+                    </td>
+                  </tr>
                 </tbody>
               </Table>
             </CardBody>
