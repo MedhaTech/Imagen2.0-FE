@@ -638,7 +638,7 @@ const TeamId = studentType === 0 ? studentId : studentType;
                       <b>Email Address</b>
                     </td>
                     {/* <td><MaskedEmail email={StudentsDaTa?.username_email} /></td> */}
-                    <td>{data?.username_email}</td>
+                    <td>{data?.email}</td>
                   </tr>
                   <tr>
                     <td>

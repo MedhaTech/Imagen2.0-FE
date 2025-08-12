@@ -422,7 +422,7 @@ const handleSelect = (item) => {
                 name: 'Email',
                 center:true,
                 // selector: (row) =>  <MaskedEmail email={row?.username_email} />,
-                selector: (row) => row?.username_email,
+                selector: (row) => row?.email,
 
                 width: '12rem'
             },
