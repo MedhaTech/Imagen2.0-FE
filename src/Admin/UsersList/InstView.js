@@ -57,6 +57,7 @@ const InstProfile = (props) => {
     const handleViewBack = () => {
         localStorage.removeItem("studentId");
   localStorage.removeItem("studentData");
+   localStorage.setItem("fromBackInst", "true");
         navigate("/institution-users-list");
        
     };

@@ -119,14 +119,24 @@ const TicketsPage = (props) => {
   const [district, setDistrict] = useState("");
   let State = localStorage.getItem("state");
 
-  //   useEffect(()=>{
-  //     handleideaList();
-  //   },[]);
+  
+// useEffect(() => {
+//   const savedDistrict = JSON.parse(localStorage.getItem("districts"));
+//   if (savedDistrict) {
+//     setState(savedDistrict); 
+//     handleideaList(savedDistrict); 
+//   }
+// }, []);
 useEffect(() => {
-  const savedDistrict = JSON.parse(localStorage.getItem("district"));
-  if (savedDistrict) {
-    setState(savedDistrict); 
-    handleideaList(savedDistrict); 
+  const fromBack = localStorage.getItem("fromBack");
+
+  if (fromBack === "true") {
+    const savedDistrict = JSON.parse(localStorage.getItem("districts"));
+    if (savedDistrict) {
+      setState(savedDistrict);
+      handleideaList(savedDistrict);
+    }
+    localStorage.removeItem("fromBack");
   }
 }, []);
   const handleclickcall = async () => {
@@ -135,7 +145,7 @@ useEffect(() => {
     
     setshowspin(true);
     await handleideaList(state);
-    localStorage.setItem("district", JSON.stringify(state));
+    localStorage.setItem("districts", JSON.stringify(state));
   };
 
   async function handleideaList(state) {
@@ -169,7 +179,7 @@ useEffect(() => {
               upd["key"] = i + 1;
               return upd;
             });
-             localStorage.removeItem("district");
+            //  localStorage.removeItem("districts");
           settableData(updatedWithKey);
           setshowspin(false);
         }
