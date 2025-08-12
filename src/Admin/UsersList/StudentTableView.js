@@ -336,7 +336,7 @@ const TeamId = studentType === 0 ? studentId : studentType;
     localStorage.removeItem("student_id");
     localStorage.removeItem("user_id");
   localStorage.removeItem("studentData");
-
+ localStorage.setItem("fromBack", "true");
   navigate("/students");
 
   };
