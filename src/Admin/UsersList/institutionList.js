@@ -35,15 +35,35 @@ const TicketsPage = (props) => {
   const fiterDistData = [...districtList["Andhra Pradesh"]];
   fiterDistData.unshift("All Districts");
   const [state, setState] = useState("");
+// useEffect(() => {
+//   const savedDistrict = JSON.parse(localStorage.getItem("district"));
+//   if (savedDistrict) {
+//     setState(savedDistrict); 
+//     handleideaList(savedDistrict); 
+//   }
+// }, []);
+useEffect(() => {
+  const fromBackInst = localStorage.getItem("fromBackInst");
 
+  if (fromBackInst === "true") {
+    const savedDistrict = JSON.parse(localStorage.getItem("district"));
+    if (savedDistrict) {
+      setState(savedDistrict);
+      handleideaList(savedDistrict);
+    }
+    localStorage.removeItem("fromBackInst");
+  }
+}, []);
   const handleclickcall = async () => {
     // where we can select district and sdg //
     // where we can see list of challenges districtwise //
     setshowspin(true);
-    await handleideaList();
+    await handleideaList(state);
+     localStorage.setItem("district", JSON.stringify(state));
   };
 
-  async function handleideaList() {
+  async function handleideaList(state) {
+
     // handleideaList api //
     //where we can see all ideas in districtwise //
     settableData([]);

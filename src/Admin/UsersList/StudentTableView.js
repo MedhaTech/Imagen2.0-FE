@@ -336,7 +336,9 @@ const TeamId = studentType === 0 ? studentId : studentType;
     localStorage.removeItem("student_id");
     localStorage.removeItem("user_id");
   localStorage.removeItem("studentData");
-    navigate("/students");
+ localStorage.setItem("fromBack", "true");
+  navigate("/students");
+
   };
 
   const handleReset = () => {
@@ -638,7 +640,7 @@ const TeamId = studentType === 0 ? studentId : studentType;
                       <b>Email Address</b>
                     </td>
                     {/* <td><MaskedEmail email={StudentsDaTa?.username_email} /></td> */}
-                    <td>{data?.username_email}</td>
+                    <td>{data?.email}</td>
                   </tr>
                   <tr>
                     <td>
@@ -711,6 +713,15 @@ const TeamId = studentType === 0 ? studentId : studentType;
                     </td>
                     <td>
                       {data?.id_number ? data?.id_number : "-"}
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td>
+                      <b>Year of Study</b>
+                    </td>
+                    <td>
+                      {data?.year_of_study ? data?.year_of_study : "-"}
                     </td>
                   </tr>
                 </tbody>
