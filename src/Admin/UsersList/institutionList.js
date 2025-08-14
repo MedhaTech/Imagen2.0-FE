@@ -57,12 +57,12 @@ useEffect(() => {
   const handleclickcall = async () => {
     // where we can select district and sdg //
     // where we can see list of challenges districtwise //
-    setshowspin(true);
     await handleideaList(state);
      localStorage.setItem("district", JSON.stringify(state));
   };
 
   async function handleideaList(state) {
+    setshowspin(true);
 
     // handleideaList api //
     //where we can see all ideas in districtwise //
@@ -80,6 +80,8 @@ useEffect(() => {
       .then(function (response) {
         if (response.status === 200) {
           // console.log(response, "11");
+          setshowspin(false);
+
           const updatedWithKey =
             response.data &&
             response.data.data[0] &&
@@ -89,7 +91,6 @@ useEffect(() => {
               return upd;
             });
           settableData(updatedWithKey);
-          setshowspin(false);
         }
       })
       .catch(function (error) {
