@@ -21,7 +21,7 @@ import play from "../assets/img/playicon.png";
 import copy from "../assets/img/copyrights.png";
 import { ArrowRight } from "feather-icons-react";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
-import { districtList, collegeType } from "./ORGData.js";
+import { districtList, collegeTypeforReg } from "./ORGData.js";
 import Select from "react-select";
 
 const Register = () => {
@@ -727,7 +727,7 @@ const Register = () => {
                               onChange={handleCollegeTypeChange}
                             >
                               <option value={""}>College Type</option>
-                              {collegeType.map((item) => (
+                              {collegeTypeforReg.map((item) => (
                                 <option key={item} value={item}>
                                   {item}
                                 </option>
