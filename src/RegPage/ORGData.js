@@ -903,6 +903,16 @@ export const collegeType = [
   "Degree Colleges",
   "Other",
 ];
+export const collegeTypeforReg = [
+  "Private - Degree College",
+  "Private - Polytechnic College",
+  "Private - ITI College",
+  "Private - Junior College",
+  "Engineering Colleges",
+  "Polytechnic Colleges",
+  "Degree Colleges",
+  "Other",
+];
 export const collegeNameList = {
   "Govt Junior College": ["Other"],
   "Govt ITI College": [],
