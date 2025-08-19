@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
-import { districtList, collegeTypeforReg } from "../../RegPage/ORGData.js";
+import { districtList, collegeType } from "../../RegPage/ORGData.js";
 import { ArrowRight } from "react-feather";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import Select from "react-select";
@@ -408,7 +408,7 @@ const AddInstitution = () => {
                               onChange={handleCollegeTypeChange}
                             >
                               <option value={""}>Select College Type</option>
-                              {collegeTypeforReg.map((item) => (
+                              {collegeType.map((item) => (
                                 <option key={item} value={item}>
                                   {item}
                                 </option>
