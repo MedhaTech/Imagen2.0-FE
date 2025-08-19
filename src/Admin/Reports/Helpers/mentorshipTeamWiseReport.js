@@ -9,6 +9,7 @@ import axios from "axios";
 import { notification } from "antd";
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 import * as XLSX from "xlsx";
+import { it } from "date-fns/locale";
 
 const mentorshipReport = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const mentorshipReport = () => {
     const ws = XLSX.utils.json_to_sheet(mentorshipReportsData); // Converts the JSON data to a sheet
     const wb = XLSX.utils.book_new(); // Creates a new workbook
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1"); // Appends the sheet to the workbook
-    XLSX.writeFile(wb, `MentorDetailedReport_${formattedDate}.xlsx`); // Triggers download of the Excel file
+    XLSX.writeFile(wb, `MentorTeamWiseDetailedReport_${formattedDate}.xlsx`); // Triggers download of the Excel file
   };
 
 
@@ -46,7 +47,7 @@ const mentorshipReport = () => {
       method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/reports/mentorshipreport`,
+        `/reports/mentorshipteamWiseReport`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -58,12 +59,23 @@ const mentorshipReport = () => {
           const IdeaData = response.data.data || [];
           const newdatalist = IdeaData.map((item) => {
             return {
-              "Mentor Name": item.user.full_name,
-              "Email": item.user.username,
+              "Mentor Name": item.full_name,
+              "Email": item.email,
               "Mobile": item.mobile,
+              "CID": item.challenge_response_id,
+              "Theme": item.theme,
+              "Idea Title": item.title,
+              "Team Members": item.team_members === null ? '' : JSON.stringify(item.team_members),
               "Areas of Expertise": item.areas_of_expertise,
               "College Name": item.college_name,
-              "Team Count": item.teamCount
+              "Understanding the Market":item.MS_1 === null ? 'INCOMPLETE' : item.MS_1,
+              "Market Linkage Opportunities":item.MS_2 === null ? 'INCOMPLETE' : item.MS_2,
+              "Prototype/Idea Refinement":item.MS_3 === null ? 'INCOMPLETE' : item.MS_3,
+              "User Feedback and Iteration":item.MS_4 === null ? 'INCOMPLETE' : item.MS_4,
+              "Final Idea Submission":item.MS_5 === null ? 'INCOMPLETE' : item.MS_5,
+              "Business Plan Development":item.MS_6 === null ? 'INCOMPLETE' : item.MS_6,
+              "Pitch Readiness":item.MS_7 === null ? 'INCOMPLETE' : item.MS_7,
+              "Mentor Summary Report":item.MS_8 === null ? 'INCOMPLETE' : item.MS_8
             };
           });
 
@@ -92,9 +104,9 @@ const mentorshipReport = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Mentor Registration Report</h4>
+              <h4>Mentor Team wise Detailed Report</h4>
               <h6>
-                Registration Status - Team Count
+                Mentor Team wise Details - Idea,Team members,Milestone Status
               </h6>
             </div>
           </div>

@@ -220,6 +220,13 @@ const MentorshipList = (props) => {
       },
     });
   };
+    const handleBulkIdeasAssignToMentor = (data) => {
+    navigate("/admin-mentorship-bulk-idea-assign", {
+      state: {
+        user_id: data?.user?.user_id
+      },
+    });
+  };
   const handleResetMentorshipUser = (item) => {
     // here we can reset password as  user_id //
     // here data = student_id //
@@ -368,10 +375,19 @@ const MentorshipList = (props) => {
         name: "Actions",
         center: true,
         sortable: false,
-        width: "20rem",
+        width: "25rem",
         cell: (record) => [
           <div key={record?.id}></div>,
           <>
+          <div
+              key={record}
+              onClick={() => handleBulkIdeasAssignToMentor(record)}
+              style={{ marginRight: "8px" }}
+            >
+              <a className="badge badge-md bg-secondary">
+                <i data-feather="user-check" className="feather-user-check" />
+              </a>
+            </div>
             <div
               key={record}
               onClick={() => handleEditMentorshipUser(record)}

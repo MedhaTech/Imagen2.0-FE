@@ -137,6 +137,8 @@ import MentorScheduleCalls from "../MentorShip/Calls/MentorCalls";
 import AddMilestone from "../MentorShip/Milestone/AddInputs";
 import AddEvent from "../MentorShip/Calls/AddEvent";
 import EditEvent from "../MentorShip/Calls/EditEvent";
+import BulkIdeaAssign from "../Admin/UsersList/BulkIdeaAssign";
+import MentorshipTeamWiseReport from "../Admin/Reports/Helpers/mentorshipTeamWiseReport";
 
 export const mentorShipRoutes = [
   {
@@ -653,6 +655,22 @@ export const publicRoutes = [
     path: routes.adminmentorshipreport,
     name: "adminmentorshipreport",
     element: <AdminMentorship />,
+    protected: true,
+    route: Route,
+  },
+   {
+    id: 41,
+    path: routes.adminmentorshipBulkIdeaAssing,
+    name: "adminmentorshipBulkIdeaAssing",
+    element: <BulkIdeaAssign />,
+    protected: true,
+    route: Route,
+  },
+    {
+    id: 42,
+    path: routes.adminmentorshipTeamWisereport,
+    name: "adminmentorshipTeamWisereport",
+    element: <MentorshipTeamWiseReport />,
     protected: true,
     route: Route,
   },
