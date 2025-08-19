@@ -910,8 +910,7 @@ export const collegeTypeforReg = [
   "Private - Junior College",
   "Engineering Colleges",
   "Polytechnic Colleges",
-  "Degree Colleges",
-  "Other",
+  "Degree Colleges"
 ];
 export const collegeNameList = {
   "Govt Junior College": ["Other"],
