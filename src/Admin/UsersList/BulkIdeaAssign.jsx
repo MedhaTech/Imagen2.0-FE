@@ -91,6 +91,7 @@ const BulkIdeaAssign = () => {
             ? "Idea's Assign to Mentor Successfully"
             : response?.data?.message
         );
+        navigate("/admin-mentorship-list");
       })
       .catch(function (error) {
         openNotificationWithIcon("error", error?.response?.data?.message);

@@ -25,8 +25,8 @@ const cid = location.state?.id;
         status: "",
     },
     validationSchema: Yup.object({
-      timing: Yup.date().optional().required("Date & time is required"),
-      meet_link: Yup.string(),
+      timing: Yup.date().required("Date & time is required"),
+      meet_link: Yup.string().required("Meeting Link is required"),
     }),
     onSubmit: async (values) => {
       try {
@@ -97,7 +97,7 @@ const cid = location.state?.id;
                   <div className="create-ticket register-block">
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Label className="mb-2" htmlFor="meet_link">
-                       Link
+                       Link <span style={{ color: "red" }}>*</span>
                       </Label>
                       <Input
                         type="text"
