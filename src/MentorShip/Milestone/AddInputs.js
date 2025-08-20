@@ -78,10 +78,10 @@ const AddMilestone = () => {
       status: "",
     },
     validationSchema: Yup.object({
-      status: Yup.string().optional().oneOf(["COMPLETED", "IN PROGRESS"]),
-      // .required("Status is Required"),
-      note: Yup.string().optional(),
-      //   .required("Note is Required"),
+      status: Yup.string().optional().oneOf(["COMPLETED", "IN PROGRESS"])
+      .required("Status is Required"),
+      note: Yup.string().optional()
+        .required("Note is Required"),
       file_name: Yup.mixed(),
     }),
     // onSubmit: async (values) => {
@@ -218,7 +218,7 @@ const AddMilestone = () => {
 
             openNotificationWithIcon(
               "success",
-              "Milestone Created Successfully"
+              "Milestone Added Successfully"
             );
           } else {
             openNotificationWithIcon("error", "Oops! Something went wrong");
@@ -315,7 +315,7 @@ const AddMilestone = () => {
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Label className="mb-2" htmlFor="note">
                         Note
-                        {/* <span required>*</span> */}
+                        <span required>*</span>
                       </Label>
                      
                        <textarea
@@ -403,7 +403,7 @@ const AddMilestone = () => {
                     <Col md={6}>
                       <Label className="mb-2" htmlFor="status">
                         Status
-                        {/* <span required>*</span> */}
+                        <span required>*</span>
                       </Label>
                       <select
                         name="status"

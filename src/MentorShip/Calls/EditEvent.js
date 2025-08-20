@@ -26,7 +26,7 @@ const EditEvent = () => {
     },
     validationSchema: Yup.object({
       timing: Yup.date().required("Date & time is required"),
-      meet_link: Yup.string(),
+      meet_link: Yup.string().required("Meeting Link is required"),
       status: Yup.string().oneOf(["COMPLETED", "INCOMPLETE"]),
     }),
     onSubmit: async (values) => {
@@ -35,9 +35,9 @@ const EditEvent = () => {
           timing: values.timing,
           challenge_response_id: data.challenge_response_id,
           meet_link: values.meet_link,
-          status: values.status,
+           status: values.status === "IN PROGRESS" ? "INCOMPLETE" : values.status,
           mentorship_user_id: currentUser?.data[0]?.user_id,
-          stu_accept: "0",
+           ...(data?.status === "INCOMPLETE" && { stu_accept: "0" })
         };
 
         if (values.meet_link !== "") {
@@ -93,7 +93,9 @@ const EditEvent = () => {
           data.timing && !isNaN(Date.parse(data.timing))
             ? new Date(data.timing)
             : null,
-        status: data.status || "",
+        // status: data.status || "",
+        status: data?.status === "INCOMPLETE" ? "IN PROGRESS" : data?.status || "",
+
       });
     }
   }, [data]);
@@ -116,7 +118,7 @@ const EditEvent = () => {
                   <div className="create-ticket register-block">
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Label className="mb-2" htmlFor="meet_link">
-                        Link
+                        Link <span style={{ color: "red" }}>*</span>
                       </Label>
                       <Input
                         type="text"
