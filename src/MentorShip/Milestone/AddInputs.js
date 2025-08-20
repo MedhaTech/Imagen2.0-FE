@@ -22,7 +22,7 @@ const AddMilestone = () => {
   const MentorShiptData = location.state || {};
   const inputDICE = {
     type: "text",
-    className: "defaultInput",
+    className: "form-control",
   };
   const fileHandler = (e) => {
     // Handles file selection and reads the selected file //
@@ -311,31 +311,7 @@ const AddMilestone = () => {
               <Form onSubmit={formik.handleSubmit} isSubmitting>
                 <div className="create-ticket register-block">
                   {/* <FormGroup className="form-group" md={12}> */}
-                  <Row className="mb-3 modal-body-table search-modal-header">
-                    <Col md={6}>
-                      <Label className="mb-2" htmlFor="status">
-                        Status
-                        <span required>*</span>
-                      </Label>
-                      <select
-                        name="status"
-                        id="status"
-                        className="form-control custom-dropdown"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.status}
-                      >
-                        <option value="">Select Status</option>
-                        <option value="COMPLETED">COMPLETED</option>
-                        <option value="INCOMPLETE">IN PROGRESS</option>
-                      </select>
-                      {formik.touched.status && formik.errors.status && (
-                        <small className="error-cls" style={{ color: "red" }}>
-                          {formik.errors.status}
-                        </small>
-                      )}
-                    </Col>
-                  </Row>
+                
 
                   {MentorShiptData?.noteId === "1" && (
                     <Row className="mb-3 modal-body-table search-modal-header">
@@ -343,7 +319,7 @@ const AddMilestone = () => {
                         Note
                         <span required>*</span>
                       </Label>
-                      <Input
+                      {/* <Input
                         type="note"
                         {...inputDICE}
                         id="note"
@@ -352,7 +328,19 @@ const AddMilestone = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.note}
-                      />
+                      /> */}
+                       <textarea
+                          {...inputDICE}
+                         
+                          rows={3} 
+                          id="note"
+                        name="note"
+                        style={{ height: 'auto', resize: 'none' }}
+                        placeholder="Please enter note"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.note}
+                        />
                       {formik.touched.note && formik.errors.note && (
                         <small className="error-cls" style={{ color: "red" }}>
                           {formik.errors.note}
@@ -432,6 +420,31 @@ const AddMilestone = () => {
                       </Col>
                     </Row>
                   )}
+                    <Row className="mb-3 modal-body-table search-modal-header">
+                    <Col md={6}>
+                      <Label className="mb-2" htmlFor="status">
+                        Status
+                        <span required>*</span>
+                      </Label>
+                      <select
+                        name="status"
+                        id="status"
+                        className="form-control custom-dropdown"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.status}
+                      >
+                        <option value="">Select Status</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                        <option value="INCOMPLETE">IN PROGRESS</option>
+                      </select>
+                      {formik.touched.status && formik.errors.status && (
+                        <small className="error-cls" style={{ color: "red" }}>
+                          {formik.errors.status}
+                        </small>
+                      )}
+                    </Col>
+                  </Row>
                 </div>
 
                 <Row>

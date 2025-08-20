@@ -126,7 +126,7 @@ const[stuList,setStuList]=useState([]);
     <div className="page-wrapper">
       <div className="content">
          <div className="page-header">
-                 
+  <div className="d-flex flex-column mt-2">              
 <div
   className="d-flex align-items-center flex-wrap gap-2 mt-2"
   style={{ justifyContent: 'space-between' }}
@@ -140,7 +140,7 @@ const[stuList,setStuList]=useState([]);
     <BsMicrosoftTeams size="20px" style={{ marginRight: '5px' }} />
     CID: {studentData?.challenge_response_id}
   </button>
-   <button
+   {/* <button
     type="button"
     className="btn btn-outline-warning text-nowrap d-flex align-items-center"
     style={{ whiteSpace: 'nowrap' }}
@@ -148,16 +148,23 @@ const[stuList,setStuList]=useState([]);
   >
     <BsMicrosoftTeams size="20px" style={{ marginRight: '5px' }} />
     Team Members: {stuList.map(student => student.full_name).join(', ')}
-  </button>
+  </button> */}
+ <p className="mb-0">
+    Team Members: {stuList?.length > 0 
+      ? stuList.map(student => student.full_name).join(', ') 
+      : "No members"}
+  </p>
 
+
+   
+</div>
   <div className="flex-grow-1 text-center text-md-start mx-2">
-    <h6 className="mb-0">
+    <h6 className="mb-0 mt-2">
       You can message your teammates by submitting details here
     </h6>
   </div>
 
-   
-</div>
+</div> 
   <div className="text-end text-md-end">
     <button
       type="button"
