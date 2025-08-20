@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Row, Col,  Card, } from "reactstrap";
+import { Row, Col, Card } from "reactstrap";
 import axios from "axios";
 
 import * as Yup from "yup";
@@ -19,26 +19,27 @@ const StudentMentorship = (props) => {
   const location = useLocation();
   const studentData = location.state || {};
   const [predata, setPreData] = useState([]);
-  const[chatId,setChatId]=useState("");
-   const currentUser = getCurrentUser("current_user");
+  const [chatId, setChatId] = useState("");
+  const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
-  const TeamId = currentUser?.data[0]?.type_id === 0 ? currentUser?.data[0]?.student_id : currentUser?.data[0]?.type_id;
+  const TeamId =
+    currentUser?.data[0]?.type_id === 0
+      ? currentUser?.data[0]?.student_id
+      : currentUser?.data[0]?.type_id;
   useEffect(() => {
-     submittedApi();
+    submittedApi();
   }, []);
-   useEffect(() => {
-    if(chatId){
-
+  useEffect(() => {
+    if (chatId) {
       mentorgetApi();
     }
   }, [chatId]);
   const submittedApi = () => {
-               // This function fetches idea submission details from the API //
+    // This function fetches idea submission details from the API //
 
     const Param = encryptGlobal(
       JSON.stringify({
-        student_id: TeamId
-
+        student_id: TeamId,
       })
     );
     var configidea = {
@@ -57,8 +58,6 @@ const StudentMentorship = (props) => {
         if (response.status === 200) {
           if (response.data.data && response.data.data.length > 0) {
             setChatId(response.data.data[0].chatbox_id);
-
-
           }
         }
       })
@@ -66,7 +65,6 @@ const StudentMentorship = (props) => {
         if (error.response.status === 404) {
           //   seterror4( true);
         }
-
       });
   };
   const mentorgetApi = () => {
@@ -90,7 +88,6 @@ const StudentMentorship = (props) => {
         console.log(error);
       });
   };
- 
 
   const formik = useFormik({
     initialValues: {
@@ -98,7 +95,9 @@ const StudentMentorship = (props) => {
     },
 
     validationSchema: Yup.object({
-      description: Yup.string().required("Please Enter Message for your Mentor"),
+      description: Yup.string().required(
+        "Please Enter Message for your Mentor"
+      ),
     }),
     onSubmit: async (values, { resetForm }) => {
       const body = JSON.stringify({
@@ -110,7 +109,7 @@ const StudentMentorship = (props) => {
         url: process.env.REACT_APP_API_BASE_URL + "/chatbox_replies",
         headers: {
           "Content-Type": "application/json",
-           Authorization: `Bearer ${currentUser.data[0]?.token}`,
+          Authorization: `Bearer ${currentUser.data[0]?.token}`,
         },
 
         data: body,
@@ -122,7 +121,6 @@ const StudentMentorship = (props) => {
             openNotificationWithIcon("success", "Message sent Successfully");
             resetForm();
             mentorgetApi();
-
           }
         })
         .catch((err) => {
@@ -135,119 +133,118 @@ const StudentMentorship = (props) => {
     },
   });
 
-  
-
-
   return (
     <div className="page-wrapper">
       <div className="content">
-            <div className="page-title">
-              <h4>Mentorship</h4>
-              <br/>
-            </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-             <div className="EditPersonalDetails new-member-page" style={{ width: "70%" }}>
-          <Row>
-            <form onSubmit={formik.handleSubmit}>
-              <Card className="aside">
-                {predata?.length > 0 &&
-                  predata.map((data, i) => {
-                    return (
-                      <div
-                        key={i}
-                        style={{
-                          borderStyle: "solid",
-                          borderWidth: "thin",
-                          borderColor: "aquamarine",
-                          borderRadius: "1rem",
-                          padding: "1.5rem 1rem",
-                          margin: "1rem",
-                        }}
-                      >
-                        <Row>
-                          <Col md={12}>
-                            <div
-                              className="saved-text"
-                              style={{
-                                whiteSpace: "pre-wrap",
-                                marginTop: "1rem",
-                              }}
-                            >
-                              {data.reply_details}
-                            </div>
-
-                            <hr />
-                          </Col>
-                          <Col md={3}>
-                            <span>
-                              <FaUserCircle />{" "}
-                              {data.created_by == null
-                                ? data.replied_by
-                                : data.created_by}
-                            </span>{" "}
-                          </Col>
-
-                          <Col md={6} className="text-right">
-                            <span>
-                              <FaRegClock />{" "}
-                              {moment(data.created_at).format("LLL")}
-                            </span>
-                          </Col>
-                        </Row>
-                      </div>
-                    );
-                  })}
-                <Row className="p-2">
-                  <Col md={12}>
-                    <div>
-                      <label className="form-label">
-                        Message your Mentor <span>*</span>
-                      </label>
-                      <textarea
-                        className="text-form form-control"
-                        placeholder="Enter Message for your Mentor"
-                        id="description"
-                        name="description"
-                        rows={4}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.description}
-                      />
-                      {formik.touched.description &&
-                      formik.errors.description ? (
-                        <small className="error-cls text-danger">
-                          {formik.errors.description}
-                        </small>
-                      ) : null}
-                    </div>
-                  </Col>
-                </Row>
-              </Card>
-              <div className="mb-3">
-                <Row>
-                  <div className="col-lg-12">
-                    <div className="view-btn d-flex justify-content-between">
-                      <button
-                        type="button"
-                        onClick={() => navigate("/student-Mentorship")}
-                        className="btn btn-secondary me-2"
-                      >
-                        Discard
-                      </button>
-                      <button type="submit" className="btn btn-warning">
-                        Send
-                      </button>
-                    </div>
-                  </div>
-                </Row>
-              </div>
-            </form>
-
-            {/* </Col> */}
-          </Row>
+        <div className="page-title">
+          <h4>Chat Box</h4>
+          <br />
         </div>
-         
-       </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            className="EditPersonalDetails new-member-page"
+            style={{ width: "60%" }}
+          >
+            <Row>
+              <form onSubmit={formik.handleSubmit}>
+                <Card className="aside">
+                  {predata?.length > 0 &&
+                    predata.map((data, i) => {
+                      return data.created_by == currentUser.data[0]?.user_id ? (
+                        <div className="text-end" key={i}>
+                          <div className="m-2">
+                            {data.created_name} <FaUserCircle />
+                          </div>
+                          <div
+                            key={i}
+                            style={{
+                              display: "inline-block",
+                              width: "fit-content",
+                              borderStyle: "solid",
+                              borderWidth: "thin",
+                              borderColor: "aquamarine",
+                              borderRadius: "1rem",
+                              padding: "0.5rem 1rem",
+                              margin: "0.5rem 1rem 1rem 1rem",
+                            }}
+                          >
+                            {" "}
+                            {data.reply_details}
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <div className="m-2">
+                            <FaUserCircle /> {data.created_name}
+                          </div>{" "}
+                          <div
+                            key={i}
+                            style={{
+                              width: "fit-content",
+                              borderStyle: "solid",
+                              borderWidth: "thin",
+                              borderColor: "aquamarine",
+                              borderRadius: "1rem",
+                              padding: "0.5rem 1rem",
+                              margin: "0.5rem 1rem 1rem 1rem",
+                            }}
+                          >
+                            {" "}
+                            {data.reply_details}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  <Row className="p-2">
+                    <Col md={12}>
+                      <div>
+                        <label className="form-label">
+                          Message your Mentor <span>*</span>
+                        </label>
+                        <textarea
+                          className="text-form form-control"
+                          placeholder="Enter Message for your Mentor"
+                          id="description"
+                          name="description"
+                          rows={4}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.description}
+                        />
+                        {formik.touched.description &&
+                        formik.errors.description ? (
+                          <small className="error-cls text-danger">
+                            {formik.errors.description}
+                          </small>
+                        ) : null}
+                      </div>
+                    </Col>
+                  </Row>
+                </Card>
+                <div className="mb-3">
+                  <Row>
+                    <div className="col-lg-12">
+                      <div className="view-btn d-flex justify-content-between">
+                        <button
+                          type="button"
+                          onClick={() => navigate("/student-Mentorship")}
+                          className="btn btn-secondary me-2"
+                        >
+                          Discard
+                        </button>
+                        <button type="submit" className="btn btn-warning">
+                          Send
+                        </button>
+                      </div>
+                    </div>
+                  </Row>
+                </div>
+              </form>
+
+              {/* </Col> */}
+            </Row>
+          </div>
+        </div>
       </div>
     </div>
   );
