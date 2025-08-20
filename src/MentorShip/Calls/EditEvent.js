@@ -31,17 +31,21 @@ const EditEvent = () => {
     }),
     onSubmit: async (values) => {
       try {
+        let finalStatus =
+          values.status === "IN PROGRESS" ? "INCOMPLETE" : values.status;
         const body = {
           timing: values.timing,
           challenge_response_id: data.challenge_response_id,
           meet_link: values.meet_link,
-           status: values.status === "IN PROGRESS" ? "INCOMPLETE" : values.status,
+          status:
+            values.status === "IN PROGRESS" ? "INCOMPLETE" : values.status,
           mentorship_user_id: currentUser?.data[0]?.user_id,
-           ...(data?.status === "INCOMPLETE" && { stu_accept: "0" })
         };
-
-        if (values.meet_link !== "") {
+  if (values.meet_link !== "") {
           body["meet_link"] = values.meet_link;
+        }
+        if (finalStatus === "INCOMPLETE") {
+          body["stu_accept"]= "0";
         }
         const teamparamId = encryptGlobal(
           JSON.stringify(data?.schedule_call_id)
@@ -67,7 +71,7 @@ const EditEvent = () => {
             },
           });
 
-          openNotificationWithIcon("success", "Event Updated Successfully");
+          openNotificationWithIcon("success", "Meeting Updated Successfully");
         } else {
           openNotificationWithIcon("error", "Opps! Something Wrong");
         }
@@ -94,8 +98,8 @@ const EditEvent = () => {
             ? new Date(data.timing)
             : null,
         // status: data.status || "",
-        status: data?.status === "INCOMPLETE" ? "IN PROGRESS" : data?.status || "",
-
+        status:
+          data?.status === "INCOMPLETE" ? "IN PROGRESS" : data?.status || "",
       });
     }
   }, [data]);
@@ -106,7 +110,7 @@ const EditEvent = () => {
           <div className="add-item d-flex">
             <div className="page-title">
               <h4>Edit Schedule Calls</h4>
-              <h6>You can edit events by submitting timing here</h6>
+              <h6>You can edit meetings by submitting timing here</h6>
             </div>
           </div>
         </div>
@@ -130,7 +134,7 @@ const EditEvent = () => {
                         value={formik.values.meet_link}
                       />
                       {formik.touched.meet_link && formik.errors.meet_link && (
-                        <small className="error-cls">
+                        <small className="error-cls" style={{ color: "red" }}>
                           {formik.errors.meet_link}
                         </small>
                       )}

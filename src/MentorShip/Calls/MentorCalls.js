@@ -214,7 +214,7 @@ useEffect(() => {
           <div className="page-header">
             <div className="add-item d-flex justify-content-between align-items-center mb-3 w-100">
               <div className="page-title">
-                <h4 className="mb-0">Schedule Calls</h4>
+                <h4 className="mb-2 mb-md-0" >Schedule Calls</h4>
               </div>
               {hide && (
                 <div className="d-flex gap-2">

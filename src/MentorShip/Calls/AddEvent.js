@@ -58,7 +58,7 @@ const cid = location.state?.id;
           navigate("/schedule-calls", { state: { showTable: true ,challenge_response_id: cid,} });
           openNotificationWithIcon(
               'success',
-              'Event Created Successfully'
+              'Meeting Created Successfully'
           );
         } else {
           openNotificationWithIcon("error", "Opps! Something Wrong");
@@ -109,7 +109,7 @@ const cid = location.state?.id;
                         value={formik.values.meet_link}
                       />
                       {formik.touched.meet_link && formik.errors.meet_link && (
-                        <small className="error-cls">{formik.errors.meet_link}</small>
+                        <small className="error-cls" style={{ color: "red" }}>{formik.errors.meet_link}</small>
                       )}
                     </Row>
                     <Row className="mb-3 modal-body-table search-modal-header">
