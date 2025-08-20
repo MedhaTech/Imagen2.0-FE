@@ -225,13 +225,13 @@ const StudentMentorship = (props) => {
                   <Row>
                     <div className="col-lg-12">
                       <div className="view-btn d-flex justify-content-between">
-//                         <button
-//                           type="button"
-//                           onClick={() => navigate("/student-Mentorship")}
-//                           className="btn btn-secondary me-2"
-//                         >
-//                           Discard
-//                         </button>
+                        {/* <button
+                          type="button"
+                          onClick={() => navigate("/student-Mentorship")}
+                          className="btn btn-secondary me-2"
+                        >
+                          Discard
+                        </button> */}
                         <button type="submit" className="btn btn-warning">
                           Send
                         </button>
