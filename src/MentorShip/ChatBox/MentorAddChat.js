@@ -182,54 +182,56 @@ const[stuList,setStuList]=useState([]);
                 </div>
         <div className="EditPersonalDetails new-member-page">
           {isloader ?(
-          <Row>
+          <Row className="d-flex flex-column align-items-center">
+            <Card className="aside" style={{ width: "30rem" }}>
             <form onSubmit={formik.handleSubmit}>
-              <Card className="aside">
+              <div 
+              >
+                
                 {predata?.length > 0 &&
                   predata.map((data, i) => {
                     return (
+                      data.created_by == currentUser.data[0]?.user_id ?(
+                      
+                         <div className="text-end" key={i}>
+                        <div className="m-2">
+                              {data.created_name}{" "}<FaUserCircle />
+                              
+                            </div>
                       <div
                         key={i}
                         style={{
+                          display: "inline-block",
+                          width:"fit-content",
                           borderStyle: "solid",
                           borderWidth: "thin",
                           borderColor: "aquamarine",
                           borderRadius: "1rem",
-                          padding: "1.5rem 1rem",
-                          margin: "1rem",
+                          padding: "0.5rem 1rem",
+                          margin: "0.5rem 1rem 1rem 1rem",
                         }}
-                      >
-                        <Row>
-                          <Col md={12}>
-                            <div
-                              className="saved-text"
-                              style={{
-                                whiteSpace: "pre-wrap",
-                                marginTop: "1rem",
-                              }}
-                            >
-                              {data.reply_details}
-                            </div>
-
-                            <hr />
-                          </Col>
-                          <Col md={3}>
-                            <span>
-                              <FaUserCircle />{" "}
-                              {data.created_by == null
-                                ? data.replied_by
-                                : data.created_by}
-                            </span>{" "}
-                          </Col>
-
-                          {/* <Col md={6} className="text-right">
-                            <span>
-                              <FaRegClock />{" "}
-                              {moment(data.created_at).format("LLL")}
-                            </span>
-                          </Col> */}
-                        </Row>
+                      > {data.reply_details}</div>
                       </div>
+                      ):(
+                        <div>
+                        <div className="m-2">
+                              <FaUserCircle />{" "}
+                              {data.created_name}
+                            </div>{" "}
+                      <div
+                        key={i}
+                        style={{
+                          width:"fit-content",
+                          borderStyle: "solid",
+                          borderWidth: "thin",
+                          borderColor: "aquamarine",
+                          borderRadius: "1rem",
+                          padding: "0.5rem 1rem",
+                          margin: "0.5rem 1rem 1rem 1rem",
+                        }}
+                      > {data.reply_details}</div>
+                      </div>
+                      )
                     );
                   })}
                 <Row className="p-2">
@@ -257,7 +259,9 @@ const[stuList,setStuList]=useState([]);
                     </div>
                   </Col>
                 </Row>
-              </Card>
+              
+              </div>
+              
               <div className="mb-3">
                 <Row>
                   <div className="col-lg-12">
@@ -277,6 +281,7 @@ const[stuList,setStuList]=useState([]);
                 </Row>
               </div>
             </form>
+            </Card>
 
             {/* </Col> */}
           </Row>
