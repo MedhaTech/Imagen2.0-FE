@@ -72,6 +72,7 @@ const FileGrid = ({ resList }) => {
 
   return (
     <div className="myComponent">
+     {resList.length > 0 ? (
     <div className="row g-3" style={{ rowGap: "20px" }}>
   {resList.map((record, index) => (
     <div key={index} className="col-xl-2 col-lg-2 col-md-6 mb-3">
@@ -191,6 +192,11 @@ const FileGrid = ({ resList }) => {
     </div>
   ))}
 </div>
+ ) : (
+  <div className="text-center p-4">
+    <h6 className="text-muted">There are no records to display</h6>
+  </div>
+)}
 </div>
 
 

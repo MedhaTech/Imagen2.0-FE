@@ -474,7 +474,7 @@ const[stuList,setStuList]=useState([]);
                 </div>
               ))
             ) : (
-              <p>No assigned Ideas are available.</p>
+              <p>No Ideas are assigned.</p>
             )}
           </div>
         </div>

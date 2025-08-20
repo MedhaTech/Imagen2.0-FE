@@ -20,10 +20,18 @@ import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import Avatar from 'react-string-avatar';
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
+   const location = useLocation();
+    useEffect(() => {
+      // Auto-close sidebar when route changes
+      document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
+      document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
+      document.querySelector("html")?.classList?.remove("menu-opened");
+    }, [location.pathname]);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const currentUser = getCurrentUser("current_user");
   const presurvey = localStorage.getItem("stupresurveystatus");

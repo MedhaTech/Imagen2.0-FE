@@ -12,6 +12,7 @@ import logoutIcon from "../../assets/img/icons/log-out.svg";
 import logo from "../../assets/img/newts.png";
 import Icon from "../../assets/img/favicon.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useLocation } from "react-router-dom";
 
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 
@@ -19,6 +20,13 @@ const MentorshipHeader = () => {
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
+   const location = useLocation();
+    useEffect(() => {
+      // Auto-close sidebar when route changes
+      document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
+      document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
+      document.querySelector("html")?.classList?.remove("menu-opened");
+    }, [location.pathname]);
   const currentUser = getCurrentUser("current_user");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
@@ -266,7 +274,7 @@ const MentorshipHeader = () => {
           <div className="dropdown-menu dropdown-menu-right">
             <Link
               className="dropdown-item"
-              onClick={() => navigate("/mentorship-profile")}
+               to={"/mentorship-profile"}
             >
               My Profile
             </Link>

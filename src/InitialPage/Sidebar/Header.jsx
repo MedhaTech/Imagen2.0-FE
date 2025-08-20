@@ -14,11 +14,19 @@ import logo from "../../assets/img/newts.png";
 import Icon from "../../assets/img/favicon.png";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import axios from "axios";
+import { useLocation } from 'react-router-dom';
 
 const Header = () => {
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
+   const location = useLocation();
+      useEffect(() => {
+        // Auto-close sidebar when route changes
+        document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
+        document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
+        document.querySelector("html")?.classList?.remove("menu-opened");
+      }, [location.pathname]);
   const currentUser = getCurrentUser("current_user");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;

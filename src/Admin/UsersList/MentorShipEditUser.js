@@ -326,7 +326,17 @@ const MentorShipEditUser = () => {
                               name="area_of_expertise"
                               // rows={5}
                               placeholder="Areas of Expertise "
-                              onChange={formik.handleChange}
+                               onChange={(e) => {
+                                const inputValue = e.target.value;
+                                const lettersOnly = inputValue.replace(
+                                  /[^a-zA-Z\s]/g,
+                                  ""
+                                );
+                                formik.setFieldValue(
+                                  "area_of_expertise",
+                                  lettersOnly
+                                );
+                              }}
                               onBlur={formik.handleBlur}
                               value={formik.values.area_of_expertise}
                             />
