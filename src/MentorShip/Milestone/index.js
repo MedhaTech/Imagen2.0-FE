@@ -63,13 +63,13 @@ const Milestone = (props) => {
         width: "6rem",
       },
       {
-        name: "Name",
+        name: "Milestone",
         selector: (row) => row.name,
         width: "15rem",
       },
 
       {
-        name: "Details",
+        name: "Description",
         selector: (row) => row.description,
         width: "30rem",
       },
@@ -279,7 +279,7 @@ const Milestone = (props) => {
                             className="btn btn-outline-success text-center w-auto me-1"
                             onClick={() => handleChat(student)}
                           >
-                            <TbMessageDots size="20px" /> Message
+                            <TbMessageDots size="20px" /> Milestone Tracker
                           </button>
                         </div>
                       </div>
@@ -323,7 +323,7 @@ const Milestone = (props) => {
                 defaultSortField="id"
                 customStyles={customStyles}
                 defaultSortAsc={false}
-                pagination
+                // pagination
                 highlightOnHover
                 fixedHeader
                 subHeaderAlign={Alignment.Center}

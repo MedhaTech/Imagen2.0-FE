@@ -222,7 +222,7 @@ useEffect(() => {
                     className="btn btn-outline-primary"
                     onClick={handleAddEvent}
                   >
-                    Add Event
+                    New Meeting
                   </button>
 
                   <button
@@ -257,7 +257,7 @@ useEffect(() => {
                               onClick={() => handleChat(student)}
                             >
                               <MdEventNote size="20px" />
-                              Event
+                              Meeting
                             </button>
                           </div>
                         </div>
