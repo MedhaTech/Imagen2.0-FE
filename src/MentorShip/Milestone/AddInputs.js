@@ -189,7 +189,7 @@ const AddMilestone = () => {
         }
 
         const body = {
-          status: values.status,
+           status: values.status === "IN PROGRESS" ? "INCOMPLETE" : values.status,
           milestone_id: MentorShiptData?.milestone_id,
           challenge_response_id: MentorShiptData?.challenge_response_id,
         };
@@ -258,7 +258,7 @@ const AddMilestone = () => {
         console.error("Milestone submission error:", error);
         openNotificationWithIcon(
           "error",
-          "Something went wrong while submitting."
+          "Please Select Status"
         );
       }
     },
@@ -267,7 +267,7 @@ const AddMilestone = () => {
     if (MentorShiptData) {
       formik.setValues({
         file_name: MentorShiptData?.file || "",
-        status: MentorShiptData?.status || "",
+        status: MentorShiptData?.status === "INCOMPLETE" ? "IN PROGRESS" : MentorShiptData?.status || "",
         note: MentorShiptData?.note || "",
       });
     }
@@ -436,7 +436,7 @@ const AddMilestone = () => {
                       >
                         <option value="">Select Status</option>
                         <option value="COMPLETED">COMPLETED</option>
-                        <option value="INCOMPLETE">IN PROGRESS</option>
+                        <option value="IN PROGRESS">IN PROGRESS</option>
                       </select>
                       {formik.touched.status && formik.errors.status && (
                         <small className="error-cls" style={{ color: "red" }}>

@@ -235,7 +235,11 @@ const EadmiHeader = () => {
               onClick={() => toggleFullscreen()}
               className={isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
             >
-              <FeatherIcon icon="maximize" />
+{isFullscreen ? (
+                      <FeatherIcon icon="minimize" />
+                    ) : (
+                      <FeatherIcon icon="maximize" />
+                    )}
             </Link>
           </li>
 
