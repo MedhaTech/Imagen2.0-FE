@@ -4,26 +4,22 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import Table from "../../core/pagination/datatable";
-import { Modal } from 'react-bootstrap';
+import { Modal } from "react-bootstrap";
 ////////////////////New Code//////////////////////////
-import { getCurrentUser } from '../../helpers/Utils';
-import axios from 'axios';
-import {
-  IoHelpOutline,
-} from "react-icons/io5";
-import { CheckCircle } from 'react-feather';
-import { useEffect } from 'react';
-import { encryptGlobal } from '../../constants/encryptDecrypt';
-import { getTeamMemberStatus } from '../../Teacher/store/teams/actions';
+import { getCurrentUser } from "../../helpers/Utils";
+import axios from "axios";
+import { IoHelpOutline } from "react-icons/io5";
+import { CheckCircle } from "react-feather";
+import { useEffect } from "react";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { getTeamMemberStatus } from "../../Teacher/store/teams/actions";
 import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
-import { Row ,Col } from "reactstrap";
-
+import { Row, Col } from "reactstrap";
 
 const TeamsProgDD = ({ setIdeaCount }) => {
-
   //////////////New Code/////////////////////////
   const dispatch = useDispatch();
-  const currentUser = getCurrentUser('current_user');
+  const currentUser = getCurrentUser("current_user");
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
     (state) => state.teams
   );
@@ -32,8 +28,8 @@ const TeamsProgDD = ({ setIdeaCount }) => {
   const [ideaShow, setIdeaShow] = useState(false);
   const [teamId, setTeamId] = useState(null);
   const [showDefault, setshowDefault] = useState(true);
-  const [isStuProfile,setIsStuProfile] = useState(false);
-  const [stuProfile,setStuProfile] = useState({});
+  const [isStuProfile, setIsStuProfile] = useState(false);
+  const [stuProfile, setStuProfile] = useState({});
   useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));
@@ -45,8 +41,7 @@ const TeamsProgDD = ({ setIdeaCount }) => {
 
     const Param = encryptGlobal(
       JSON.stringify({
-        student_id: teamId
-
+        student_id: teamId,
       })
     );
     var configidea = {
@@ -73,22 +68,15 @@ const TeamsProgDD = ({ setIdeaCount }) => {
         if (error.response.status === 404) {
           setNoData(true);
         }
-
       });
   };
- const StudentProfileCall = (id) => {
+  const StudentProfileCall = (id) => {
     // This function fetches student profile from the API //
 
-    const Param = encryptGlobal(
-      JSON.stringify(
-         id
-      )
-    );
+    const Param = encryptGlobal(JSON.stringify(id));
     var configidea = {
       method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/students/${Param}`,
+      url: process.env.REACT_APP_API_BASE_URL + `/students/${Param}`,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -108,7 +96,6 @@ const TeamsProgDD = ({ setIdeaCount }) => {
         if (error.response.status === 404) {
           console.log(error);
         }
-
       });
   };
 
@@ -128,19 +115,19 @@ const TeamsProgDD = ({ setIdeaCount }) => {
   const teamNameandIDsbymentorid = (user_id) => {
     const teamApi = encryptGlobal(
       JSON.stringify({
-        user_id: user_id
+        user_id: user_id,
       })
     );
     var config = {
-      method: 'get',
+      method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
         `/mentorships/seletedteams?Data=${teamApi}`,
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${currentUser.data[0]?.token}`
-      }
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
     };
     axios(config)
       .then(function (response) {
@@ -155,37 +142,37 @@ const TeamsProgDD = ({ setIdeaCount }) => {
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'full_name',
-      width: '15rem',
-      render:(_, record)=>(
+      title: "Name",
+      dataIndex: "full_name",
+      width: "15rem",
+      render: (_, record) => (
         <span
-        style={{ cursor: 'pointer', color: 'blue' }}
-        onClick={() => {
-          StudentProfileCall(record?.student_id);
-        }}
-      >
-        {record.full_name}
-      </span>
-      )
+          style={{ cursor: "pointer", color: "blue" }}
+          onClick={() => {
+            StudentProfileCall(record?.student_id);
+          }}
+        >
+          {record.full_name}
+        </span>
+      ),
     },
     {
-      title: 'Pre Survey',
-      dataIndex: 'pre_survey_status',
-      align: 'center',
-      width: '15rem',
+      title: "Pre Survey",
+      dataIndex: "pre_survey_status",
+      align: "center",
+      width: "15rem",
       render: (_, record) =>
         record?.pre_survey_status ? (
           <CheckCircle size={20} color="#28C76F" />
         ) : (
           <IoHelpOutline size={20} color="#FF0000" />
-        )
+        ),
     },
     {
-      title: 'Lesson Progress',
-      dataIndex: 'address',
-      align: 'center',
-      width: '30rem',
+      title: "Lesson Progress",
+      dataIndex: "address",
+      align: "center",
+      width: "30rem",
       render: (_, record) => {
         let percent =
           100 -
@@ -194,77 +181,83 @@ const TeamsProgDD = ({ setIdeaCount }) => {
             record.topics_completed_count
           );
         return (
-
-          <div className="progress progress-sm progress-custom progress-animate"
+          <div
+            className="progress progress-sm progress-custom progress-animate"
             role="progressbar"
-            aria-valuenow={Math.round(percent) ? Math.round(percent) : '0'}
+            aria-valuenow={Math.round(percent) ? Math.round(percent) : "0"}
             aria-valuemin={0}
             aria-valuemax={100}
           >
             <div
               style={{ width: `${percent}%` }}
-              className={percent
-                ? percent <= 25
-                  ? "progress-bar bg-danger"
-                  : percent > 25 && percent <= 50
+              className={
+                percent
+                  ? percent <= 25
+                    ? "progress-bar bg-danger"
+                    : percent > 25 && percent <= 50
                     ? "progress-bar bg-primary"
                     : percent > 50 && percent <= 75
-                      ? "progress-bar bg-info"
-                      : "progress-bar bg-success"
-                : "progress-bar bg-danger"
-              } >
+                    ? "progress-bar bg-info"
+                    : "progress-bar bg-success"
+                  : "progress-bar bg-danger"
+              }
+            >
               <div
-                className={percent
-                  ? percent <= 25
-                    ? "progress-bar-value bg-danger"
-                    : percent > 25 && percent <= 50
+                className={
+                  percent
+                    ? percent <= 25
+                      ? "progress-bar-value bg-danger"
+                      : percent > 25 && percent <= 50
                       ? "progress-bar-value bg-primary"
                       : percent > 50 && percent <= 75
-                        ? "progress-bar-value bg-info"
-                        : "progress-bar-value bg-success"
-                  : "progress-bar-value bg-danger"} >
-                {Math.round(percent) ? Math.round(percent) : '0'}%</div>
+                      ? "progress-bar-value bg-info"
+                      : "progress-bar-value bg-success"
+                    : "progress-bar-value bg-danger"
+                }
+              >
+                {Math.round(percent) ? Math.round(percent) : "0"}%
+              </div>
             </div>
           </div>
         );
-      }
+      },
     },
     {
-      title: 'Idea Submission',
-      dataIndex: 'idea_submission',
-      align: 'center',
-      width: '20rem',
+      title: "Idea Submission",
+      dataIndex: "idea_submission",
+      align: "center",
+      width: "20rem",
       render: (_, record) =>
         record?.idea_submission ? (
           <CheckCircle size={20} color="#28C76F" />
         ) : (
           <IoHelpOutline size={20} color="#FF0000" />
-        )
+        ),
     },
     {
-      title: 'Post Survey',
-      dataIndex: 'post_survey_status',
-      align: 'center',
-      width: '10rem',
+      title: "Post Survey",
+      dataIndex: "post_survey_status",
+      align: "center",
+      width: "10rem",
       render: (_, record) =>
         record?.post_survey_status ? (
           <CheckCircle size={20} color="#28C76F" />
         ) : (
           <IoHelpOutline size={20} color="#FF0000" />
-        )
+        ),
     },
     {
-      title: 'Certificate',
-      dataIndex: 'certificate',
-      align: 'center',
-      width: '10rem',
+      title: "Certificate",
+      dataIndex: "certificate",
+      align: "center",
+      width: "10rem",
       render: (_, record) =>
         record?.certificate ? (
           <CheckCircle size={20} color="#28C76F" />
         ) : (
           <IoHelpOutline size={20} color="#FF0000" />
-        )
-    }
+        ),
+    },
   ];
 
   const customer = teamsList.map((team) => ({
@@ -273,7 +266,7 @@ const TeamsProgDD = ({ setIdeaCount }) => {
   }));
 
   const handleSelectChange = (selectedOption) => {
-    setTeamId(selectedOption ? selectedOption.value : '');
+    setTeamId(selectedOption ? selectedOption.value : "");
   };
 
   ////////Email Team Credentisl////////////
@@ -287,14 +280,13 @@ const TeamsProgDD = ({ setIdeaCount }) => {
         </div>
         <div className="card-body">
           <div className="table-top pb-3">
-
             <div className="form-sort select-bluk">
               <Select
                 classNamePrefix="react-select"
                 options={customer}
                 placeholder="Choose a Team"
                 onChange={handleSelectChange}
-                value={customer.find(option => option.value === teamId)}
+                value={customer.find((option) => option.value === teamId)}
               />
             </div>
             {/* {teamId && (
@@ -359,43 +351,49 @@ const TeamsProgDD = ({ setIdeaCount }) => {
 </Row>
 
 )} */}
-{teamId && (
-  <Row className="align-items-center mt-2 flex-wrap justify-content-between">
-    <Col xs="auto" className="d-flex align-items-center flex-wrap mt-2">
-      <span className="fw-bold text-info">IDEA STATUS :&nbsp;</span>
-      <span>
-        {noData ? (
-          <span className="text-warning">NOT STARTED</span>
-        ) : formData?.verified_status === "ACCEPTED" ? (
-          <span className="text-success">ACCEPTED</span>
-        ) : formData?.verified_status === "REJECTED" ? (
-          <span className="text-danger">REJECTED</span>
-        ) : (
-          formData?.status || <span className="text-warning">NOT STARTED</span>
-        )}
-      </span>
-    </Col>
+            {teamId && (
+              <Row className="align-items-center mt-2 flex-wrap justify-content-between">
+                <Col
+                  xs="auto"
+                  className="d-flex align-items-center flex-wrap mt-2"
+                >
+                  <span className="fw-bold text-info">IDEA STATUS :&nbsp;</span>
+                  <span>
+                    {noData ? (
+                      <span className="text-warning">NOT STARTED</span>
+                    ) : formData?.verified_status === "ACCEPTED" ? (
+                      <span className="text-success">ACCEPTED</span>
+                    ) : formData?.verified_status === "REJECTED" ? (
+                      <span className="text-danger">REJECTED</span>
+                    ) : (
+                      formData?.status || (
+                        <span className="text-warning">NOT STARTED</span>
+                      )
+                    )}
+                  </span>
+                </Col>
 
-    <Col xs="auto">
-      {!noData &&
-        (formData?.status === "SUBMITTED" || formData?.status === "DRAFT") && (
-          <button
-            className="btn btn-primary text-nowrap"
-            onClick={() => setIdeaShow(true)}
-          >
-            View Idea
-          </button>
-        )}
-    </Col>
-  </Row>
-)}
-
-
+                <Col xs="auto">
+                  {!noData &&
+                    (formData?.status === "SUBMITTED" ||
+                      formData?.status === "DRAFT") && (
+                      <button
+                        className="btn btn-primary text-nowrap"
+                        onClick={() => setIdeaShow(true)}
+                      >
+                        View Idea
+                      </button>
+                    )}
+                </Col>
+              </Row>
+            )}
           </div>
           <div className="table-responsive">
             {showDefault && (
               <div className="d-flex justify-content-center align-items-center">
-                <h4 className="text-primary">Select a Team to check YFSI Progress</h4>
+                <h4 className="text-primary">
+                  Select a Team to check YFSI Progress
+                </h4>
               </div>
             )}
             {teamsMembersStatus.length > 0 && !showDefault ? (
@@ -405,14 +403,12 @@ const TeamsProgDD = ({ setIdeaCount }) => {
                 columns={columns}
               />
             ) : teamsMembersStatusErr ? (
-              <div
-                className="d-flex justify-content-center align-items-center">
+              <div className="d-flex justify-content-center align-items-center">
                 <h4 className="text-danger">
                   There are no students in selected Team
                 </h4>
               </div>
             ) : null}
-
           </div>
           {ideaShow && (
             <IdeaSubmissionCard
@@ -422,52 +418,219 @@ const TeamsProgDD = ({ setIdeaCount }) => {
               setIdeaCount={setIdeaCount}
             />
           )}
-        {isStuProfile &&(
-          <Modal
-                show={isStuProfile}
-                size="md"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                className="assign-evaluator ChangePSWModal teacher-register-modal"
-                backdrop="static"
+          {isStuProfile && (
+            <Modal
+              show={isStuProfile}
+              size="md"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              className="assign-evaluator ChangePSWModal teacher-register-modal"
+              backdrop="static"
             >
-                <Modal.Header closeButton onHide={() =>setIsStuProfile(false)}>
-                    <Modal.Title
-                        id="contained-modal-title-vcenter"
-                        className="w-100 d-block text-center"
-                    >
-                       Student Profile
-                    </Modal.Title>
-                </Modal.Header>
+              <Modal.Header closeButton onHide={() => setIsStuProfile(false)}>
+                <Modal.Title
+                  id="contained-modal-title-vcenter"
+                  className="w-100 d-block text-center"
+                >
+                  Student Profile
+                </Modal.Title>
+              </Modal.Header>
 
-                <Modal.Body>
-                <div className="container">
-                  <div className="row">
-                    <b className="col-md-5" >Name</b> <b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.full_name}</p>
-                  <br />
-                  <b className="col-md-5"> Gender </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.gender !== null ? stuProfile.gender : '-'}</p>
-                  <br />
-                  <b className="col-md-5">Institution District </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.district !== null ? stuProfile.district : '-'}</p>
-                  <br />
-                  <b className="col-md-5">College Town </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.college_town !== null ? stuProfile.college_town : '-'}</p>
-                  <br />
-                  <b className="col-md-5">College Type </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.college_type !== null ? stuProfile.college_type : '-'}</p>
-                  <br />
-                  <b className="col-md-5">College Name </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.college_name !== null ? stuProfile.college_name : '-'}</p>
-                  <br />
-                  <b className="col-md-5">Roll Number </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.roll_number !== null ? stuProfile.roll_number : '-'}</p>
-                  <br />
-                  <b className="col-md-5">Branch/Group/Stream </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.branch !== null ? stuProfile.branch : '-'}</p>
-                  <br />
-                  <b className="col-md-5">APAAR Id </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.id_number !== null ? stuProfile.id_number : '-'}</p>
-                  <br />
-                  <b className="col-md-5">Year of study </b><b className="col-md-1">:</b> <p className="col-md-6">{stuProfile.year_of_study !== null ? stuProfile.year_of_study : '-'}</p>
+              <Modal.Body>
+                {/* <div className="container">
+                  <div className="row mb-2 align-items-center">
+                    <b className="col-md-5">Name</b>{" "}
+                    <b className="col-md-1">:</b>{" "}
+                    <p className="col-md-6">{stuProfile.full_name}</p>
+                    <br />
                   </div>
-                 
-               </div>
-                </Modal.Body>
-            </Modal>)
-        }
+                  <div className="row mb-2 align-items-center">
+                    <b className="col-md-5"> Gender </b>
+                    <b className="col-md-1">:</b>{" "}
+                    <p className="col-md-6">
+                      {stuProfile.gender !== null ? stuProfile.gender : "-"}
+                    </p>
+                    <br />
+                  </div>
+                  <div className="row mb-2 align-items-center">
+                    <b className="col-md-5">Institution District </b>
+                    <b className="col-md-1">:</b>{" "}
+                    <p className="col-md-6">
+                      {stuProfile.district !== null ? stuProfile.district : "-"}
+                    </p>
+                    <br />
+                  </div>
+                  <div className="row mb-2 align-items-center">
+                    <b className="col-md-5">College Town </b>
+                    <b className="col-md-1">:</b>{" "}
+                    <p className="col-md-6">
+                      {stuProfile.college_town !== null
+                        ? stuProfile.college_town
+                        : "-"}
+                    </p>
+                    <br />
+                  </div>
+                  <div className="row mb-2 align-items-center">
+                    <b className="col-md-5">College Type </b>
+                    <b className="col-md-1">:</b>{" "}
+                    <p className="col-md-6">
+                      {stuProfile.college_type !== null
+                        ? stuProfile.college_type
+                        : "-"}
+                    </p>
+                    <br />
+                  </div>
+                  <div className="row mb-2 align-items-center">
+                    <b className="col-md-5">College Name </b>
+                    <b className="col-md-1">:</b>{" "}
+                    <p className="col-md-6">
+                      {stuProfile.college_name !== null
+                        ? stuProfile.college_name
+                        : "-"}
+                    </p>
+                    <br />
+                  </div>
+                  <div className="row mb-2 align-items-center">
+                    <b className="col-md-5">Roll Number </b>
+                    <b className="col-md-1">:</b>{" "}
+                    <p className="col-md-6">
+                      {stuProfile.roll_number !== null
+                        ? stuProfile.roll_number
+                        : "-"}
+                    </p>
+                    <br />
+                  </div>
+                  <div className="row mb-2 align-items-center">
+                    <b className="col-md-5">Branch/Group/Stream </b>
+                    <b className="col-md-1">:</b>{" "}
+                    <p className="col-md-6">
+                      {stuProfile.branch !== null ? stuProfile.branch : "-"}
+                    </p>
+                    <br />
+                  </div>
+                  <div className="row mb-2 align-items-center">
+                    <b className="col-md-5">APAAR Id </b>
+                    <b className="col-md-1">:</b>{" "}
+                    <p className="col-md-6">
+                      {stuProfile.id_number !== null
+                        ? stuProfile.id_number
+                        : "-"}
+                    </p>
+                    <br />
+                  </div>
+                  <div className="row mb-2 align-items-center">
+                    <b className="col-md-5">Year of study </b>
+                    <b className="col-md-1">:</b>{" "}
+                    <p className="col-md-6">
+                      {stuProfile.year_of_study !== null
+                        ? stuProfile.year_of_study
+                        : "-"}
+                    </p>
+                  </div>
+                </div> */}
+                <div className="container">
+                  <div className="row mb-2 align-items-center">
+                    <div className="col-5 fw-bold">Name</div>
+                    <div className="col-1 text-center">:</div>
+                    <div className="col-6">{stuProfile.full_name}</div>
+                  </div>
+
+                  <div className="row mb-2 align-items-center">
+                    <div className="col-5 fw-bold">Gender</div>
+                    <div className="col-1 text-center">:</div>
+                    <div className="col-6">
+                      {" "}
+                      {stuProfile.gender !== null ? stuProfile.gender : "-"}
+                    </div>
+                  </div>
+
+                  <div className="row mb-2 align-items-center">
+                    <div className="col-5 fw-bold">Institution District</div>
+                    <div className="col-1 text-center">:</div>
+                    <div className="col-6">
+                      {" "}
+                      {stuProfile.district !== null ? stuProfile.district : "-"}
+                    </div>
+                  </div>
+
+                  <div className="row mb-2 align-items-center">
+                    <div className="col-5 fw-bold">College Town</div>
+                    <div className="col-1 text-center">:</div>
+                    <div className="col-6">
+                      {" "}
+                      {stuProfile.college_town !== null
+                        ? stuProfile.college_town
+                        : "-"}
+                    </div>
+                  </div>
+
+                  <div className="row mb-2 align-items-center">
+                    <div className="col-5 fw-bold">College Type</div>
+                    <div className="col-1 text-center">:</div>
+                    <div className="col-6">
+                      {" "}
+                      {stuProfile.college_type !== null
+                        ? stuProfile.college_type
+                        : "-"}
+                    </div>
+                  </div>
+
+                  <div className="row mb-2 align-items-center">
+                    <div className="col-5 fw-bold">College Name</div>
+                    <div className="col-1 text-center">:</div>
+                    <div className="col-6">
+                      {" "}
+                      {stuProfile.college_name !== null
+                        ? stuProfile.college_name
+                        : "-"}
+                    </div>
+                  </div>
+
+                  <div className="row mb-2 align-items-center">
+                    <div className="col-5 fw-bold">Roll Number</div>
+                    <div className="col-1 text-center">:</div>
+                    <div className="col-6">
+                      {" "}
+                      {stuProfile.roll_number !== null
+                        ? stuProfile.roll_number
+                        : "-"}
+                    </div>
+                  </div>
+
+                  <div className="row mb-2 align-items-center">
+                    <div className="col-5 fw-bold">Branch/Group/Stream</div>
+                    <div className="col-1 text-center">:</div>
+                    <div className="col-6">
+                      {" "}
+                      {stuProfile.branch !== null ? stuProfile.branch : "-"}
+                    </div>
+                  </div>
+
+                  <div className="row mb-2 align-items-center">
+                    <div className="col-5 fw-bold">APAAR Id</div>
+                    <div className="col-1 text-center">:</div>
+                    <div className="col-6">
+                      {" "}
+                      {stuProfile.id_number !== null
+                        ? stuProfile.id_number
+                        : "-"}
+                    </div>
+                  </div>
+
+                  <div className="row mb-2 align-items-center">
+                    <div className="col-5 fw-bold">Year of Study</div>
+                    <div className="col-1 text-center">:</div>
+                    <div className="col-6">
+                      {" "}
+                      {stuProfile.year_of_study !== null
+                        ? stuProfile.year_of_study
+                        : "-"}
+                    </div>
+                  </div>
+                </div>
+              </Modal.Body>
+            </Modal>
+          )}
         </div>
       </div>
     </div>
