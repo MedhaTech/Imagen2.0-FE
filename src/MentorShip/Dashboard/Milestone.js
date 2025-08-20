@@ -108,7 +108,7 @@ const[stuList,setStuList]=useState([]);
       .then(function (response) {
         if (response.status === 200) {
           setCompletedCall(response.data.data[0].scheduleCompleted);
-          setIncompletedCall(response.data.data[0].scheduleCompleted);
+          setIncompletedCall(response.data.data[0].scheduleIncompleted);
         }
       })
       .catch(function (error) {
