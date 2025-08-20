@@ -5,7 +5,7 @@ import axios from "axios";
 import DataTableExtensions from "react-data-table-component-extensions";
 import DataTable, { Alignment } from "react-data-table-component";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-import { getCurrentUser } from "../../helpers/Utils";
+import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import { CheckCircle } from "react-feather";
 import { IoHelpOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { TbMessageDots } from "react-icons/tb";
 import { BiLogoMicrosoftTeams } from "react-icons/bi";
 import { BsListCheck } from "react-icons/bs";
+import * as XLSX from "xlsx";
 
 const Milestone = (props) => {
   const location = useLocation();
@@ -240,31 +241,77 @@ const Milestone = (props) => {
   const handleChat = (item) => {
     setTeamId(item.challenge_response_id);
   };
+
+  ///download report
+  const [mileDownloadData, setmileDownloadData] = useState([]);
+  const handleExport = () => {
+    const newDate = new Date();
+    const formattedDate = `${newDate.getUTCDate()}/${
+      1 + newDate.getMonth()
+    }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+    const ws = XLSX.utils.json_to_sheet(mileDownloadData); // Converts the JSON data to a sheet
+    const wb = XLSX.utils.book_new(); // Creates a new workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1"); // Appends the sheet to the workbook
+    XLSX.writeFile(wb, `${teamId}_MilestoneReport_${formattedDate}.xlsx`); // Triggers download of the Excel file
+  };
+
+  useEffect(() => {
+    if (mileDownloadData.length > 0) {
+      handleExport();
+    }
+  }, [mileDownloadData]);
+
+  const fetchData = () => {
+    const param = encryptGlobal(
+      JSON.stringify({
+        challenge_response_id: teamId,
+      })
+    );
+    const config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/reports/TeamMilestoneReport?Data=${param}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          const milelist = response.data.data || [];
+          const newmilelist = milelist.map((item) => {
+            return {
+              Name: item.name,
+              Description: item.description,
+              "Note's": item.note,
+              File: item.file,
+              status: item.status === null ? "INCOMPLETE" : item.status,
+            };
+          });
+
+          setmileDownloadData(newmilelist);
+          if (response.data.data.length > 0) {
+            openNotificationWithIcon(
+              "success",
+              "Report Downloaded Successfully"
+            );
+          } else {
+            openNotificationWithIcon("error", "No Data Found");
+          }
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  //
   return (
     <div className="page-wrapper">
       <div className="content">
         <div className="page-header">
-          {/* <div className="add-item d-flex">
-            <div className="page-title">
-              <h4>Milestone</h4>
-            </div>
-          </div> */}
-          {/* <div className="add-item d-flex justify-content-between align-items-center flex-wrap flex-md-nowrap mb-3 w-100">
-            <div className="page-title">
-              <h4 className="mb-0">Milestone</h4>
-            </div>
-            {hide && (
-              <button
-                className="btn btn-outline-primary mt-2 mt-md-0"
-                onClick={() => {
-                  setTeamId(null);
-                  setHide(false);
-                }}
-              >
-                Back to Cards
-              </button>
-            )}
-          </div> */}
           <div className="row align-items-center mb-3 w-100">
   <div className="col-6">
     <h4 className="mb-0">Milestone</h4>
@@ -331,7 +378,16 @@ const Milestone = (props) => {
           </div>
         )}
         {hide && (
-          <div style={{ marginTop: "1rem" }}>
+          <>
+            <div className="text-end">
+              <button
+                onClick={fetchData}
+                type="button"
+                className="btn btn-primary"
+              >
+                Download Report
+              </button>
+            </div>
             <DataTableExtensions
               print={false}
               export={false}
@@ -349,7 +405,7 @@ const Milestone = (props) => {
                 subHeaderAlign={Alignment.Center}
               />
             </DataTableExtensions>
-          </div>
+          </>
         )}
       </div>
     </div>
