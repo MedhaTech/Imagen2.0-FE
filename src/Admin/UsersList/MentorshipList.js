@@ -384,9 +384,10 @@ const MentorshipList = (props) => {
               onClick={() => handleBulkIdeasAssignToMentor(record)}
               style={{ marginRight: "8px" }}
             >
-              <a className="badge badge-md bg-secondary">
+            {record.status === "ACTIVE" && (  <a className="badge badge-md bg-secondary">
                 <i data-feather="user-check" className="feather-user-check" />
               </a>
+              )}
             </div>
             <div
               key={record}

@@ -150,7 +150,7 @@ const[stuList,setStuList]=useState([]);
     Team Members: {stuList.map(student => student.full_name).join(', ')}
   </button> */}
  <p className="mb-0">
-    Team Members: {stuList?.length > 0 
+   <span style={{fontWeight:"bold"}}> Team Members :</span> {stuList?.length > 0 
       ? stuList.map(student => student.full_name).join(', ') 
       : "No members"}
   </p>

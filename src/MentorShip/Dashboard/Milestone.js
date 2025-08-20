@@ -403,19 +403,21 @@ const[stuList,setStuList]=useState([]);
         {discussion.theme}
       </span>
     </div>
-    <div style={{ marginBottom: "1rem" ,marginTop:"1rem"}}>
-      <span style={{ fontSize: "16px", fontWeight: "bold" }}>
-        Team Members:{" "}
-      </span>
-      <span style={{ fontSize: "14px" }}>
-        {discussion.team_members?.[0]?.split(" ").join(", ")}
-      </span>
-    </div>
+   
     <div style={{ marginBottom: "1rem" ,marginTop:"1rem"}}>
       <span style={{ fontSize: "16px", fontWeight: "bold" }}>
         Idea Description:{" "}
       </span>
       <span style={{ fontSize: "14px" }}>{discussion.idea_describe}</span>
+    </div>
+     <div style={{ marginBottom: "1rem" ,marginTop:"1rem"}}>
+      <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+        Team Members:{" "}
+      </span>
+      <span style={{ fontSize: "14px" }}>
+        {discussion.team_members?.join(", ")}
+
+      </span>
     </div>
   </div>
 

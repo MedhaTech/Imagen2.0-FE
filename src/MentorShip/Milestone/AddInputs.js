@@ -78,10 +78,10 @@ const AddMilestone = () => {
       status: "",
     },
     validationSchema: Yup.object({
-      status: Yup.string().optional().oneOf(["COMPLETED", "IN PROGRESS"]),
-      // .required("Status is Required"),
-      note: Yup.string().optional(),
-      //   .required("Note is Required"),
+      status: Yup.string().optional().oneOf(["COMPLETED", "IN PROGRESS"])
+      .required("Status is Required"),
+      note: Yup.string().optional()
+        .required("Note is Required"),
       file_name: Yup.mixed(),
     }),
     // onSubmit: async (values) => {
@@ -218,7 +218,7 @@ const AddMilestone = () => {
 
             openNotificationWithIcon(
               "success",
-              "Milestone Created Successfully"
+              "Milestone Added Successfully"
             );
           } else {
             openNotificationWithIcon("error", "Oops! Something went wrong");
@@ -306,11 +306,9 @@ const AddMilestone = () => {
         </div>
         <div className="EditPersonalDetails new-member-page">
           <Row>
-            {/* <Col className="col-xl-10 offset-xl-1 offset-md-0"> */}
             <div>
               <Form onSubmit={formik.handleSubmit} isSubmitting>
                 <div className="create-ticket register-block">
-                  {/* <FormGroup className="form-group" md={12}> */}
                 
 
                   {MentorShiptData?.noteId === "1" && (
@@ -319,16 +317,7 @@ const AddMilestone = () => {
                         Note
                         <span required>*</span>
                       </Label>
-                      {/* <Input
-                        type="note"
-                        {...inputDICE}
-                        id="note"
-                        name="note"
-                        placeholder="Please enter note"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.note}
-                      /> */}
+                     
                        <textarea
                           {...inputDICE}
                          
@@ -399,17 +388,7 @@ const AddMilestone = () => {
                                   )}
                             </button>
                           ) : null}
-                          {/* {formik.values.file_name &&
-                          formik.values.file_name.name ? (
-                            <span className="ml-2">
-                              {formik.values.file_name.name}
-                            </span>
-                          ) : (
-                            <span className="ml-2">
-                              {formik.initialValues.file_name &&
-                                formik.initialValues.file_name.name}
-                            </span>
-                          )} */}
+                         
                         </div>
                         {formik.touched.file_name &&
                           formik.errors.file_name && (

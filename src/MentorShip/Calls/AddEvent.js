@@ -25,8 +25,8 @@ const cid = location.state?.id;
         status: "",
     },
     validationSchema: Yup.object({
-      timing: Yup.date().optional().required("Date & time is required"),
-      meet_link: Yup.string(),
+      timing: Yup.date().required("Date & time is required"),
+      meet_link: Yup.string().required("Meeting Link is required"),
     }),
     onSubmit: async (values) => {
       try {
@@ -58,7 +58,7 @@ const cid = location.state?.id;
           navigate("/schedule-calls", { state: { showTable: true ,challenge_response_id: cid,} });
           openNotificationWithIcon(
               'success',
-              'Event Created Successfully'
+              'Meeting Created Successfully'
           );
         } else {
           openNotificationWithIcon("error", "Opps! Something Wrong");
@@ -85,7 +85,7 @@ const cid = location.state?.id;
           <div className="add-item d-flex">
             <div className="page-title">
               <h4>Add Schedule Calls</h4>
-              <h6>You can add new events by submitting timing here</h6>
+              <h6>You can add new meetings by submitting timing here</h6>
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@ const cid = location.state?.id;
                   <div className="create-ticket register-block">
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Label className="mb-2" htmlFor="meet_link">
-                       Link
+                       Link <span style={{ color: "red" }}>*</span>
                       </Label>
                       <Input
                         type="text"
@@ -109,7 +109,7 @@ const cid = location.state?.id;
                         value={formik.values.meet_link}
                       />
                       {formik.touched.meet_link && formik.errors.meet_link && (
-                        <small className="error-cls">{formik.errors.meet_link}</small>
+                        <small className="error-cls" style={{ color: "red" }}>{formik.errors.meet_link}</small>
                       )}
                     </Row>
                     <Row className="mb-3 modal-body-table search-modal-header">
