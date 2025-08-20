@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { TbMessageDots } from "react-icons/tb";
 import { BiLogoMicrosoftTeams } from "react-icons/bi";
+import { BsListCheck } from "react-icons/bs";
 
 const Milestone = (props) => {
   const location = useLocation();
@@ -248,13 +249,13 @@ const Milestone = (props) => {
               <h4>Milestone</h4>
             </div>
           </div> */}
-          <div className="add-item d-flex justify-content-between align-items-center mb-3 w-100">
+          {/* <div className="add-item d-flex justify-content-between align-items-center flex-wrap flex-md-nowrap mb-3 w-100">
             <div className="page-title">
               <h4 className="mb-0">Milestone</h4>
             </div>
             {hide && (
               <button
-                className="btn btn-outline-primary"
+                className="btn btn-outline-primary mt-2 mt-md-0"
                 onClick={() => {
                   setTeamId(null);
                   setHide(false);
@@ -263,7 +264,26 @@ const Milestone = (props) => {
                 Back to Cards
               </button>
             )}
-          </div>
+          </div> */}
+          <div className="row align-items-center mb-3 w-100">
+  <div className="col-6">
+    <h4 className="mb-0">Milestone</h4>
+  </div>
+  <div className="col-6 text-end">
+    {hide && (
+      <button
+        className="btn btn-outline-primary mt-2"
+        onClick={() => {
+          setTeamId(null);
+          setHide(false);
+        }}
+      >
+        Back to Cards
+      </button>
+    )}
+  </div>
+</div>
+
         </div>
         {!hide && (
           <div className="employee-grid-widget">
@@ -279,7 +299,7 @@ const Milestone = (props) => {
                             className="btn btn-outline-success text-center w-auto me-1"
                             onClick={() => handleChat(student)}
                           >
-                            <TbMessageDots size="20px" /> Milestone Tracker
+                           <BsListCheck size={20} /> Milestone Tracker
                           </button>
                         </div>
                       </div>
