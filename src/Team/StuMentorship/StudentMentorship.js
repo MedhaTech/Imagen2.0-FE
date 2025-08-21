@@ -147,7 +147,7 @@ const StudentMentorship = (props) => {
           >
             <Row>
               <form onSubmit={formik.handleSubmit}>
-                <Card className="aside">
+                <Card className="aside" style={{ backgroundColor: "aliceblue" }}>
                   {predata?.length > 0 &&
                     predata.map((data, i) => {
                       return data.created_by == currentUser.data[0]?.user_id ? (
@@ -159,6 +159,7 @@ const StudentMentorship = (props) => {
                             key={i}
                             style={{
                               display: "inline-block",
+                              wordBreak: "break-all",
                               width: "fit-content",
                               borderStyle: "solid",
                               borderWidth: "thin",
@@ -182,6 +183,7 @@ const StudentMentorship = (props) => {
                             style={{
                               width: "fit-content",
                               borderStyle: "solid",
+                              wordBreak: "break-all",
                               borderWidth: "thin",
                               borderColor: "aquamarine",
                               borderRadius: "1rem",
