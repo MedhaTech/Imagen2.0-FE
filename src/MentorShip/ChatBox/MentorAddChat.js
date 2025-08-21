@@ -183,7 +183,7 @@ const[stuList,setStuList]=useState([]);
         <div className="EditPersonalDetails new-member-page">
           {isloader ?(
           <Row className="d-flex flex-column align-items-center">
-            <Card className="aside" style={{ width: "30rem" }}>
+            <Card className="aside" style={{ width: "30rem",backgroundColor: "aliceblue" }}>
             <form onSubmit={formik.handleSubmit}>
               <div 
               >
@@ -202,6 +202,7 @@ const[stuList,setStuList]=useState([]);
                         key={i}
                         style={{
                           display: "inline-block",
+                          wordBreak: "break-all",
                           width:"fit-content",
                           borderStyle: "solid",
                           borderWidth: "thin",
@@ -223,6 +224,7 @@ const[stuList,setStuList]=useState([]);
                         style={{
                           width:"fit-content",
                           borderStyle: "solid",
+                          wordBreak: "break-all",
                           borderWidth: "thin",
                           borderColor: "aquamarine",
                           borderRadius: "1rem",
