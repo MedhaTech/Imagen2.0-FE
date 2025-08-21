@@ -335,6 +335,18 @@ const Register = () => {
     scrollbarWidth: "none", // Hides scrollbar in Firefox
     msOverflowStyle: "none", // Hides scrollbar in Internet Explorer
   };
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+  
+    useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth <= 480);
+      };
+  
+      window.addEventListener("resize", handleResize);
+  
+      // Cleanup on unmount
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -596,7 +608,7 @@ const Register = () => {
                                           inputStyle={{
                                             border: "1px solid",
                                             borderRadius: "8px",
-                                            width: "2.5rem",
+                                            width: "2rem",
                                             height: "2.5rem",
                                             fontSize: "2rem",
                                             color: "#000",
