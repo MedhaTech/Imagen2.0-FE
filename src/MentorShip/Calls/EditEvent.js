@@ -21,13 +21,14 @@ const EditEvent = () => {
   const formik = useFormik({
     initialValues: {
       timing: null,
-      meet_link: "",
-      status: "",
+      meet_link:  data.meet_link,
+      status:  data.status ,
     },
     validationSchema: Yup.object({
       timing: Yup.date().required("Date & time is required"),
       meet_link: Yup.string().required("Meeting Link is required"),
-      status: Yup.string().oneOf(["COMPLETED", "INCOMPLETE"]),
+      status: Yup.string().required("Status required"),
+      // status: Yup.string().oneOf(["COMPLETED", "INCOMPLETE"]),
     }),
     onSubmit: async (values) => {
       try {
@@ -91,6 +92,7 @@ const EditEvent = () => {
   };
   useEffect(() => {
     if (data) {
+       console.log("data.status:", data.status);
       formik.setValues({
         meet_link: data.meet_link || "",
         timing:
@@ -99,10 +101,11 @@ const EditEvent = () => {
             : null,
         // status: data.status || "",
         status:
-          data?.status === "INCOMPLETE" ? "IN PROGRESS" : data?.status || "",
+        data.status,
       });
     }
   }, [data]);
+  console.log(formik.values.status,"status");
   return (
     <div className="page-wrapper">
       <div className="content">

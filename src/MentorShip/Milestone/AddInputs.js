@@ -75,13 +75,11 @@ const AddMilestone = () => {
     initialValues: {
       note: "",
       file_name: MentorShiptData?.file || "",
-      status: "",
+      status: MentorShiptData?.status || "",
     },
     validationSchema: Yup.object({
-      status: Yup.string().optional().oneOf(["COMPLETED", "IN PROGRESS"])
-      .required("Status is Required"),
-      note: Yup.string().optional()
-        .required("Note is Required"),
+      status: Yup.string().required("Status required"),
+      note: Yup.string().optional().required("Note is Required"),
       file_name: Yup.mixed(),
     }),
     // onSubmit: async (values) => {
@@ -189,7 +187,8 @@ const AddMilestone = () => {
         }
 
         const body = {
-           status: values.status === "IN PROGRESS" ? "INCOMPLETE" : values.status,
+          status:
+            values.status === "IN PROGRESS" ? "INCOMPLETE" : values.status,
           milestone_id: MentorShiptData?.milestone_id,
           challenge_response_id: MentorShiptData?.challenge_response_id,
         };
@@ -216,10 +215,7 @@ const AddMilestone = () => {
               },
             });
 
-            openNotificationWithIcon(
-              "success",
-              "Milestone Added Successfully"
-            );
+            openNotificationWithIcon("success", "Milestone Added Successfully");
           } else {
             openNotificationWithIcon("error", "Oops! Something went wrong");
           }
@@ -256,10 +252,7 @@ const AddMilestone = () => {
         }
       } catch (error) {
         console.error("Milestone submission error:", error);
-        openNotificationWithIcon(
-          "error",
-          "Please Select Status"
-        );
+        openNotificationWithIcon("error", "Please Select Status");
       }
     },
   });
@@ -267,7 +260,7 @@ const AddMilestone = () => {
     if (MentorShiptData) {
       formik.setValues({
         file_name: MentorShiptData?.file || "",
-        status: MentorShiptData?.status === "INCOMPLETE" ? "IN PROGRESS" : MentorShiptData?.status || "",
+        status: MentorShiptData?.status || "",
         note: MentorShiptData?.note || "",
       });
     }
@@ -309,27 +302,24 @@ const AddMilestone = () => {
             <div>
               <Form onSubmit={formik.handleSubmit} isSubmitting>
                 <div className="create-ticket register-block">
-                
-
                   {MentorShiptData?.noteId === "1" && (
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Label className="mb-2" htmlFor="note">
                         Note
                         <span required>*</span>
                       </Label>
-                     
-                       <textarea
-                          {...inputDICE}
-                         
-                          rows={3} 
-                          id="note"
+
+                      <textarea
+                        {...inputDICE}
+                        rows={3}
+                        id="note"
                         name="note"
-                        style={{ height: 'auto', resize: 'none' }}
+                        style={{ height: "auto", resize: "none" }}
                         placeholder="Please enter note"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.note}
-                        />
+                      />
                       {formik.touched.note && formik.errors.note && (
                         <small className="error-cls" style={{ color: "red" }}>
                           {formik.errors.note}
@@ -388,7 +378,6 @@ const AddMilestone = () => {
                                   )}
                             </button>
                           ) : null}
-                         
                         </div>
                         {formik.touched.file_name &&
                           formik.errors.file_name && (
@@ -399,7 +388,7 @@ const AddMilestone = () => {
                       </Col>
                     </Row>
                   )}
-                    <Row className="mb-3 modal-body-table search-modal-header">
+                  <Row className="mb-3 modal-body-table search-modal-header">
                     <Col md={6}>
                       <Label className="mb-2" htmlFor="status">
                         Status
