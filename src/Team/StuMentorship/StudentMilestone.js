@@ -95,7 +95,7 @@ const StudentMilestone = (props) => {
             defaultSortField="id"
             defaultSortAsc={false}
               customStyles={customStyles}
-            pagination
+            // pagination
             highlightOnHover
             fixedHeader
             subHeaderAlign={Alignment.Center}

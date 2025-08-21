@@ -285,7 +285,7 @@ const MentorshipHeader = () => {
             <Link className="dropdown-item" to={"/mentorship-changePwd"}>
                            Change Password
                          </Link>
-            <Link className="dropdown-item" to="signin">
+            <Link className="dropdown-item" to="" onClick={handleLogout}>
               Logout
             </Link>
           </div>
