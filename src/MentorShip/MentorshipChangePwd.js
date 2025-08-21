@@ -36,13 +36,13 @@ const MentorshipChangePwd = (props) => {
 
     validationSchema: Yup.object({
       oldPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Required</span>
+        <span style={{ color: "red" }}>Please Enter Current Password</span>
       ),
       newPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Required</span>
+        <span style={{ color: "red" }}>Please Enter New Password</span>
       ),
       confirmPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Required</span>
+        <span style={{ color: "red" }}>Please Enter Confirm New Password</span>
       ),
     }),
 
@@ -322,9 +322,17 @@ openNotificationWithIcon("error", error.response.data?.message);
                                   Change Password <FontAwesomeIcon icon={faKey} />
 
                                 </button>
-                                <Link className="btn btn-cancel" to={"/mentorship-dashboard"}  style={cancelLinkStyle}>
+                                {/* <Link className="btn btn-cancel" to={"/mentorship-dashboard"}  style={cancelLinkStyle}>
                                   Cancel
-                                </Link>
+                                </Link> */}
+                                 <button
+                          className="btn btn-warning m-2"
+                          type="button"
+                          style={cancelLinkStyle}
+                          onClick={() => navigate("/mentorship-dashboard")}
+                        >
+                          Cancel
+                        </button>
                               </div>
             </div>
 

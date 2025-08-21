@@ -319,7 +319,7 @@ const MentorHeader = () => {
               </Link>
             </>
           ):null}
-            <Link className="dropdown-item" to="signin" onClick={handleLogout1}>
+            <Link className="dropdown-item" to="" onClick={handleLogout1}>
               Logout
             </Link>
           </div>

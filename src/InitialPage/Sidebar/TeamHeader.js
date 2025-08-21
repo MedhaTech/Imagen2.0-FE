@@ -454,7 +454,7 @@ const Header = () => {
              
               <Link
                 className="dropdown-item"
-                to="signin"
+                to=""
                 onClick={handleLogout1}
               >
                 Logout
@@ -488,7 +488,7 @@ const Header = () => {
            
               <Link
                 className="dropdown-item"
-                to="signin"
+                to=""
                 onClick={handleLogout1}
               >
                 Logout
