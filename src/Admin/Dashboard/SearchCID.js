@@ -6,10 +6,7 @@ import React, { useRef, useEffect, useState } from "react";
 import "../../Evaluator/Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas.scss";
 
 import { Button } from "../../stories/Button";
-import {
-  getCurrentUser,
-  openNotificationWithIcon,
-} from "../../helpers/Utils";
+import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import { Card } from "react-bootstrap";
 import Select from "react-select";
@@ -30,7 +27,7 @@ const AdminSearchCID = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-  const { multiOrgData} = location.state || {};
+  const { multiOrgData } = location.state || {};
   const [multiOrgListData, setMultiOrgListData] = useState(multiOrgData);
   const currentUser = getCurrentUser("current_user");
   const [teamResponse, setTeamResponse] = React.useState({});
@@ -98,12 +95,41 @@ const AdminSearchCID = () => {
         }
       });
   };
-  const handleAssignUnAssignApi = (item, userId) => {
-    //where we can search through diescode //
-    // we can see Registration Details & Mentor Details //
+  const handleAssignUnAssignApi = () => {
+    const param = encryptGlobal(
+      JSON.stringify({
+        challenge_response_id: multiOrgListData?.challenge_response_id,
+      })
+    );
 
+    var config = {
+      method: "put",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/mentorships/unassignteam?Data=${param}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
+
+    axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          openNotificationWithIcon("success", "Mentor UnAssigned Successfully");
+          handleSearch();
+        }
+      })
+      .catch(function (error) {
+        if (error?.response?.data?.status === 404) {
+          // setError('Entered Invalid Institution Unique Code');
+        }
+      });
+  };
+
+  const handleAssignApi = (userId) => {
     const body = JSON.stringify({
-      mentorship_user_id: item === "UnAssign" ? null : userId,
+      mentorship_user_id: userId,
     });
     const openParam = encryptGlobal(
       JSON.stringify(multiOrgListData?.challenge_response_id)
@@ -124,17 +150,7 @@ const AdminSearchCID = () => {
     axios(config)
       .then(async function (response) {
         if (response.status == 200) {
-          if(item === "UnAssign"){
-             openNotificationWithIcon(
-            "success",
-            "Mentor UnAssigned Successfully"
-          );
-          }else {
-          openNotificationWithIcon(
-            "success",
-            "Mentor Assigned Successfully"
-          );
-        }
+          openNotificationWithIcon("success", "Mentor Assigned Successfully");
           handleSearch();
         }
       })
@@ -144,6 +160,7 @@ const AdminSearchCID = () => {
         }
       });
   };
+
   const handleSearch = () => {
     const diesCode = multiOrgListData?.challenge_response_id;
     const diesCodeStr = String(diesCode);
@@ -306,7 +323,7 @@ const AdminSearchCID = () => {
                 <div className="row">
                   <div className="col-lg-6">
                     <Row>
-                      <Col  className="col-lg-8">
+                      <Col className="col-lg-8">
                         <h4 className="mb-md-4 mb-3">
                           Theme :&nbsp;
                           <span className="text-capitalize">
@@ -314,7 +331,7 @@ const AdminSearchCID = () => {
                           </span>
                         </h4>
                       </Col>
-                      <Col  className="col-lg-4">
+                      <Col className="col-lg-4">
                         <h4 className="mb-md-4 mb-3">
                           CID :&nbsp;
                           <span className="text-capitalize">
@@ -1046,62 +1063,57 @@ const AdminSearchCID = () => {
                   </div>
                 )}
                 {multiOrgListData?.evaluator_ratings?.length === 2 && (
-                <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
-                  {multiOrgListData?.mentorship_user_id !== null ? (
-                    <>
-                      <p>
-                        Status :{" "}
-                        <span style={{ color: "green", fontSize: "1rem" }}>
-                          ASSIGNED
-                        </span>
-                      </p>
-                      <p>
-                        Full Name :{" "}
-                        <span style={{ color: "blue" }}>
-                          {multiOrgListData?.mentorship_name}
-                        </span>{" "}
-                      </p>
-                      <button
-                        className="btn btn-outline-danger"
-                        style={{ width: "130px" }}
-                        onClick={() => handleAssignUnAssignApi("UnAssign")}
-                      >
-                        <FaUnlink className="me-2" />
-                        <b>UnAssign</b>
-                      </button>
-                    </>
-                  ) : (
-                    <div className={`col-md-12`}>
-                      <label htmlFor="college" className="form-label">
-                        Assign Mentor
-                      </label>
+                  <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
+                    {multiOrgListData?.mentorship_user_id !== null ? (
+                      <>
+                        <p>
+                          Status :{" "}
+                          <span style={{ color: "green", fontSize: "1rem" }}>
+                            ASSIGNED
+                          </span>
+                        </p>
+                        <p>
+                          Full Name :{" "}
+                          <span style={{ color: "blue" }}>
+                            {multiOrgListData?.mentorship_name}
+                          </span>{" "}
+                        </p>
+                        <button
+                          className="btn btn-outline-danger"
+                          style={{ width: "130px" }}
+                          onClick={() => handleAssignUnAssignApi()}
+                        >
+                          <FaUnlink className="me-2" />
+                          <b>UnAssign</b>
+                        </button>
+                      </>
+                    ) : (
+                      <div className={`col-md-12`}>
+                        <label htmlFor="college" className="form-label">
+                          Assign Mentor
+                        </label>
 
-                      {mentorshipList.length > 0 && (
-                        <Select
-                          options={mentorshipList}
-                          value={oldCollegeName}
-                          onChange={(option) => setOldCollegeName(option)}
-                          placeholder="Type here to Select Mentor User"
-                          classNamePrefix="react-select"
-                        />
-                      )}
-                      <br />
-                      <button
-                        className="btn btn-outline-success"
-                        style={{ width: "130px" }}
-                        onClick={() =>
-                          handleAssignUnAssignApi(
-                            "Assign",
-                            oldCollegeName?.value
-                          )
-                        }
-                        disabled={!oldCollegeName?.value}
-                      >
-                        <b>Assign</b>
-                      </button>
-                    </div>
-                  )}
-                </div>
+                        {mentorshipList.length > 0 && (
+                          <Select
+                            options={mentorshipList}
+                            value={oldCollegeName}
+                            onChange={(option) => setOldCollegeName(option)}
+                            placeholder="Type here to Select Mentor User"
+                            classNamePrefix="react-select"
+                          />
+                        )}
+                        <br />
+                        <button
+                          className="btn btn-outline-success"
+                          style={{ width: "130px" }}
+                          onClick={() => handleAssignApi(oldCollegeName?.value)}
+                          disabled={!oldCollegeName?.value}
+                        >
+                          <b>Assign</b>
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 )}
                 {multiOrgListData?.evaluator_ratings.length > 0 && (
                   <RatedCard details={multiOrgListData} />
