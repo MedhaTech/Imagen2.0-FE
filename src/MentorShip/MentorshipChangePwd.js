@@ -202,7 +202,14 @@ openNotificationWithIcon("error", error.response.data?.message);
             <div className="row">
               <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks" style={{ position: "relative" }}>
-                  <label className="form-label">Current Password</label>
+                  <label className="form-label">Current Password  <span required>*</span>
+                  <br/>
+                   {formik.touched.oldPassword && formik.errors.oldPassword ? (
+                  <small className="error-cls" >
+                    {formik.errors.oldPassword}
+                  </small>
+                ) : null}
+                </label>
                   <input
                     className="pass-input"
                     {...oldPassword}
@@ -211,7 +218,7 @@ openNotificationWithIcon("error", error.response.data?.message);
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.oldPassword}
-                    style={{ paddingRight: '30px' }}
+                    style={{ paddingRight: '30px'}}
                   />
                   <div
                       className={`fas toggle-password ${
@@ -229,15 +236,22 @@ openNotificationWithIcon("error", error.response.data?.message);
                       }}
                     ></div>
                 </div>
-                {formik.touched.oldPassword && formik.errors.oldPassword ? (
+                {/* {formik.touched.oldPassword && formik.errors.oldPassword ? (
                   <small className="error-cls">
                     {formik.errors.oldPassword}
                   </small>
-                ) : null}
+                ) : null} */}
               </div>
               <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks" style={{ position: "relative" }}>
-                  <label className="form-label">New Password</label>
+                  <label className="form-label">New Password  <span required>*</span>
+                   <br/>
+                   {formik.touched.newPassword && formik.errors.newPassword ? (
+                  <small className="error-cls">
+                    {formik.errors.newPassword}
+                  </small>
+                ) : null}
+                </label>
                   <input
                     className="pass-inputs"
                     {...newPassword}
@@ -265,15 +279,19 @@ openNotificationWithIcon("error", error.response.data?.message);
                   ></div>
                 </div>
                
-                {formik.touched.newPassword && formik.errors.newPassword ? (
-                  <small className="error-cls">
-                    {formik.errors.newPassword}
-                  </small>
-                ) : null}
+               
               </div>
               <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks" style={{ position: "relative" }}>
-                  <label className="form-label">Confirm New Password</label>
+                  <label className="form-label">Confirm New Password   <span required>*</span>
+                  <br/>
+                  {formik.touched.confirmPassword &&
+                formik.errors.confirmPassword ? (
+                  <small className="error-cls">
+                    {formik.errors.confirmPassword}
+                  </small>
+                ) : null}
+                </label>
                   <input
                     className="pass-inputa"
                     {...confirmPassword}
@@ -300,12 +318,7 @@ openNotificationWithIcon("error", error.response.data?.message);
                     }}
                   ></div>
                 </div>
-                {formik.touched.confirmPassword &&
-                formik.errors.confirmPassword ? (
-                  <small className="error-cls">
-                    {formik.errors.confirmPassword}
-                  </small>
-                ) : null}
+               
               </div>
               <b style={{ color: "red",textAlign:"center" }}>{error}</b>
               <b style={{ color: "#3BB143" }}>{responce}</b>
