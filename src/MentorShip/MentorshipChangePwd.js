@@ -201,7 +201,7 @@ openNotificationWithIcon("error", error.response.data?.message);
             </div>
             <div className="row">
               <div className="col-lg-4 col-sm-12">
-                <div className="input-blocks" style={{ position: "relative" }}>
+                <div className="input-blocks" >
                   <label className="form-label">Current Password  <span required>*</span>
                   <br/>
                    {formik.touched.oldPassword && formik.errors.oldPassword ? (
@@ -210,6 +210,7 @@ openNotificationWithIcon("error", error.response.data?.message);
                   </small>
                 ) : null}
                 </label>
+                  <div style={{ position: "relative" }}>
                   <input
                     className="pass-input"
                     {...oldPassword}
@@ -230,11 +231,12 @@ openNotificationWithIcon("error", error.response.data?.message);
                       style={{
                         position: 'absolute',
                         right: '10px',  
-                        top: '70%',
+                        top: '50%',
                         transform: 'translateY(-50%)',
                         cursor: 'pointer',
                       }}
                     ></div>
+                    </div>
                 </div>
                 {/* {formik.touched.oldPassword && formik.errors.oldPassword ? (
                   <small className="error-cls">
@@ -243,7 +245,7 @@ openNotificationWithIcon("error", error.response.data?.message);
                 ) : null} */}
               </div>
               <div className="col-lg-4 col-sm-12">
-                <div className="input-blocks" style={{ position: "relative" }}>
+                <div className="input-blocks" >
                   <label className="form-label">New Password  <span required>*</span>
                    <br/>
                    {formik.touched.newPassword && formik.errors.newPassword ? (
@@ -252,6 +254,7 @@ openNotificationWithIcon("error", error.response.data?.message);
                   </small>
                 ) : null}
                 </label>
+                  <div style={{ position: "relative" }}>
                   <input
                     className="pass-inputs"
                     {...newPassword}
@@ -272,17 +275,18 @@ openNotificationWithIcon("error", error.response.data?.message);
                     style={{
                       position: 'absolute',
                       right: '10px',  
-                      top: '70%',
+                      top: '50%',
                       transform: 'translateY(-50%)',
                       cursor: 'pointer',
                     }}
                   ></div>
+                  </div>
                 </div>
                
                
               </div>
               <div className="col-lg-4 col-sm-12">
-                <div className="input-blocks" style={{ position: "relative" }}>
+                <div className="input-blocks" >
                   <label className="form-label">Confirm New Password   <span required>*</span>
                   <br/>
                   {formik.touched.confirmPassword &&
@@ -292,6 +296,7 @@ openNotificationWithIcon("error", error.response.data?.message);
                   </small>
                 ) : null}
                 </label>
+                   <div style={{ position: "relative" }}>
                   <input
                     className="pass-inputa"
                     {...confirmPassword}
@@ -312,11 +317,12 @@ openNotificationWithIcon("error", error.response.data?.message);
                     style={{
                       position: 'absolute',
                       right: '10px',  
-                      top: '70%',
+                      top: '50%',
                       transform: 'translateY(-50%)',
                       cursor: 'pointer',
                     }}
                   ></div>
+                  </div>
                 </div>
                
               </div>
